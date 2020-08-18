@@ -884,6 +884,33 @@ Public Function ObtenerArchMM(Carpeta As String) As String()
         LineaError = "001-0255"
         NombreArchivo = Dir$
     Loop
+    'wmv
+    LineaError = "001-0246"
+    NombreArchivo = Dir$(Carpeta + "\*.wmv")
+    LineaError = "001-0247"
+    Do While Len(NombreArchivo)
+        'corregir el nombre del tema
+        LineaError = "001-0248"
+        NewName = QuitarCaracter(NombreArchivo, ",")
+        LineaError = "001-0249"
+        If NombreArchivo <> NewName Then
+            LineaError = "001-0250"
+            FSO.MoveFile Carpeta + NombreArchivo, Carpeta + NewName
+            LineaError = "001-0251"
+            WriteTBRLog "Se corrigio el nombre de tema " + NombreArchivo + _
+                " por " + NewName + " en la carpeta " + Carpeta, True
+            LineaError = "001-0252"
+            NombreArchivo = NewName
+        End If
+        LineaError = "001-0253"
+        ContadorArch = ContadorArch + 1
+        ReDim Preserve TMPmatriz(ContadorArch)
+        LineaError = "001-0254"
+        TMPmatriz(ContadorArch) = Carpeta + NombreArchivo + "," + NombreArchivo
+        LineaError = "001-0255"
+        NombreArchivo = Dir$
+    Loop
+    
     LineaError = "001-0256"
     ObtenerArchMM = TMPmatriz
 End Function

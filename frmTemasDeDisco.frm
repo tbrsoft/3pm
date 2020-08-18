@@ -44,7 +44,7 @@ Begin VB.Form frmTemasDeDisco
          Height          =   960
          Left            =   45
          MultiLine       =   -1  'True
-         TabIndex        =   16
+         TabIndex        =   15
          Top             =   7290
          Width           =   7080
       End
@@ -63,7 +63,7 @@ Begin VB.Form frmTemasDeDisco
          ForeColor       =   &H00FFFFFF&
          Height          =   1305
          Left            =   7200
-         TabIndex        =   9
+         TabIndex        =   8
          Top             =   7620
          Width           =   4515
          Begin VB.CommandButton Command1 
@@ -93,7 +93,7 @@ Begin VB.Form frmTemasDeDisco
             Left            =   1200
             Picture         =   "frmTemasDeDisco.frx":0CFD
             Style           =   1  'Graphical
-            TabIndex        =   12
+            TabIndex        =   11
             TabStop         =   0   'False
             Top             =   240
             Width           =   1050
@@ -105,7 +105,7 @@ Begin VB.Form frmTemasDeDisco
             Left            =   120
             Picture         =   "frmTemasDeDisco.frx":2347
             Style           =   1  'Graphical
-            TabIndex        =   11
+            TabIndex        =   10
             TabStop         =   0   'False
             Top             =   240
             Width           =   1050
@@ -125,7 +125,7 @@ Begin VB.Form frmTemasDeDisco
             Height          =   950
             Left            =   3360
             Style           =   1  'Graphical
-            TabIndex        =   10
+            TabIndex        =   9
             Top             =   240
             Width           =   1050
          End
@@ -149,7 +149,7 @@ Begin VB.Form frmTemasDeDisco
          Left            =   8010
          List            =   "frmTemasDeDisco.frx":2C9D
          Sorted          =   -1  'True
-         TabIndex        =   8
+         TabIndex        =   7
          Top             =   4905
          Visible         =   0   'False
          Width           =   2610
@@ -170,7 +170,7 @@ Begin VB.Form frmTemasDeDisco
          Height          =   7750
          IntegralHeight  =   0   'False
          Left            =   45
-         TabIndex        =   5
+         TabIndex        =   4
          Top             =   480
          Width           =   1185
       End
@@ -191,7 +191,7 @@ Begin VB.Form frmTemasDeDisco
          IntegralHeight  =   0   'False
          Left            =   1260
          Sorted          =   -1  'True
-         TabIndex        =   2
+         TabIndex        =   16
          Top             =   480
          Width           =   5865
       End
@@ -212,7 +212,7 @@ Begin VB.Form frmTemasDeDisco
          ForeColor       =   &H0000FFFF&
          Height          =   255
          Left            =   30
-         TabIndex        =   15
+         TabIndex        =   14
          Top             =   8280
          Width           =   7065
       End
@@ -231,7 +231,7 @@ Begin VB.Form frmTemasDeDisco
          EndProperty
          Height          =   285
          Left            =   7980
-         TabIndex        =   14
+         TabIndex        =   13
          Top             =   3090
          Visible         =   0   'False
          Width           =   345
@@ -253,7 +253,7 @@ Begin VB.Form frmTemasDeDisco
          ForeColor       =   &H00000080&
          Height          =   255
          Left            =   30
-         TabIndex        =   13
+         TabIndex        =   12
          Top             =   8580
          Width           =   7070
       End
@@ -273,7 +273,7 @@ Begin VB.Form frmTemasDeDisco
          ForeColor       =   &H000000FF&
          Height          =   795
          Left            =   7200
-         TabIndex        =   7
+         TabIndex        =   6
          Top             =   6840
          UseMnemonic     =   0   'False
          Visible         =   0   'False
@@ -294,7 +294,7 @@ Begin VB.Form frmTemasDeDisco
          EndProperty
          Height          =   255
          Left            =   60
-         TabIndex        =   6
+         TabIndex        =   5
          Top             =   180
          Width           =   7065
       End
@@ -314,7 +314,7 @@ Begin VB.Form frmTemasDeDisco
          ForeColor       =   &H00FFFFFF&
          Height          =   3225
          Left            =   7200
-         TabIndex        =   4
+         TabIndex        =   3
          Top             =   4200
          UseMnemonic     =   0   'False
          Width           =   4500
@@ -336,7 +336,7 @@ Begin VB.Form frmTemasDeDisco
          ForeColor       =   &H00FFFFFF&
          Height          =   495
          Left            =   7200
-         TabIndex        =   3
+         TabIndex        =   2
          Top             =   3660
          UseMnemonic     =   0   'False
          Width           =   4545
@@ -383,7 +383,7 @@ Private Sub cmdDiscoAt_KeyDown(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub Command1_Click()
-    Form_KeyDown TeclaOK, 0
+    Form_KeyUp TeclaOK, 0
 End Sub
 
 Private Sub Command2_Click()

@@ -16,12 +16,12 @@ Begin VB.Form Form3
    StartUpPosition =   2  'CenterScreen
    Begin Proyecto1.tbrPASS tbrPASS1 
       Height          =   1875
-      Left            =   1710
+      Left            =   1080
       TabIndex        =   0
-      Top             =   1140
+      Top             =   540
       Width           =   6285
-      _ExtentX        =   11086
-      _ExtentY        =   3307
+      _extentx        =   11086
+      _extenty        =   3307
    End
 End
 Attribute VB_Name = "Form3"

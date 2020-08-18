@@ -271,9 +271,9 @@ Private Sub Form_Load()
     LineaError = "000A-00904"
     lblINI.Refresh
     LineaError = "000A-00905"
-    PBar.Width = 0
+    pBar.Width = 0
     LineaError = "000A-00906"
-    PBar.Refresh
+    pBar.Refresh
     LineaError = "000A-00907"
     Dim TT As String
     Dim mtxTOP10() As String, z As Integer
@@ -300,7 +300,7 @@ Private Sub Form_Load()
             LineaError = "000A-00913"
             z = z + 1
             LineaError = "000A-00914"
-            PBar.Width = z * 10
+            pBar.Width = z * 10
             LineaError = "000A-00915"
             ThisPTS = Val(txtInLista(TT, 0, ","))
             LineaError = "000A-00916"
@@ -329,11 +329,11 @@ Private Sub Form_Load()
     C = 0 'cantidad de minimos encontrados
     Dim Ordenados() As Long 'matriz con los indices ordenados
     LineaError = "000A-00923"
-    PBar.Width = 0
-    PBar.Refresh
+    pBar.Width = 0
+    pBar.Refresh
     LineaError = "000A-00924"
     Do
-        PBar.Width = C * 10
+        pBar.Width = C * 10
         LineaError = "000A-00925"
         For mtx = 1 To UBound(mtxTOP10)
             'se compara por los puntos
@@ -360,8 +360,8 @@ Private Sub Form_Load()
     Loop
     'cargar todos y sacar la primera columna de las zetas
     LineaError = "000A-00932"
-    PBar.Width = 0
-    PBar.Refresh
+    pBar.Width = 0
+    pBar.Refresh
     LineaError = "000A-00933"
     Dim MTXsort() As String
     'cambie opentextfile por createtextfile por un error que suele dar
@@ -384,7 +384,7 @@ Private Sub Form_Load()
                 txtInLista(mtxTOP10(Ordenados(mtx)), 4, ",")
             LineaError = "000A-00938"
             TeRank.WriteLine MTXsort(mtx)
-            PBar.Width = mtx * 10
+            pBar.Width = mtx * 10
             RankWrite = RankWrite + 1
         Else
             LineaError = "000A-00937"

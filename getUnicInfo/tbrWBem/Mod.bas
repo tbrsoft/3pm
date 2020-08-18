@@ -4,6 +4,10 @@ Public Const LOCALE_SENGCOUNTRY = &H1002 '  English name of country
 Public Const LOCALE_SENGLANGUAGE = &H1001  '  English name of language
 Public Const LOCALE_SNATIVELANGNAME = &H4  '  native name of language
 Public Const LOCALE_SNATIVECTRYNAME = &H8  '  native name of country
+Public Const LOCALE_ICOUNTRY = &H5 'Country/region code, based on _
+    international phone codes, also referred to as IBM country codes. _
+    The maximum number of characters allowed for this string is si
+
 Public Declare Function GetLocaleInfo Lib "kernel32" Alias "GetLocaleInfoA" (ByVal Locale As Long, ByVal LCType As Long, ByVal lpLCData As String, ByVal cchData As Long) As Long
 
 Public Declare Sub GetMem1 Lib "msvbvm60.dll" (ByVal _
@@ -159,15 +163,15 @@ Public Function MostraDeA5(TXT As String)
     MostraDeA5 = newTXT
 End Function
 
-Private Function HEXtoLONG(N As String)
+Private Function HEXtoLONG(n As String)
     'recibe el hex en str y devuelve un numero en str
     
     Dim Letra As String
     Dim C As Long
     Dim NumeroActual As Long
     Dim ACUM ' As Double
-    For C = 1 To Len(N)
-        Letra = Mid(N, C, 1)
+    For C = 1 To Len(n)
+        Letra = Mid(n, C, 1)
         Select Case Letra
             Case "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
                 NumeroActual = Val(Letra)
@@ -185,7 +189,7 @@ Private Function HEXtoLONG(N As String)
                 NumeroActual = 15
         End Select
         Dim ToSum ' As Double
-        ToSum = NumeroActual * (15 ^ (Len(N) - C))
+        ToSum = NumeroActual * (15 ^ (Len(n) - C))
         ACUM = ACUM + ToSum
         Label10 = Label10 + "LETRA: " + Letra + "=" + CStr(ToSum) + vbCrLf
         
@@ -193,3 +197,17 @@ Private Function HEXtoLONG(N As String)
     
     HEXtoLONG = CStr(ACUM)
 End Function
+
+Public Function GetInfo(ByVal lInfo As Long) As String
+    Dim Buffer As String, Ret As String
+    Buffer = String$(256, 0)
+    Ret = GetLocaleInfo(LOCALE_USER_DEFAULT, lInfo, Buffer, Len(Buffer))
+    If Ret > 0 Then
+        GetInfo = Left$(Buffer, Ret - 1)
+    Else
+        GetInfo = ""
+    End If
+End Function
+
+
+

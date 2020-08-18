@@ -4,7 +4,7 @@ Most Recent Package=Paquete de instalación estándar 1
 
 [Package|Paquete de instalación estándar 1|Root]
 SubWizProgID=PDWizard.SetupPkgSubWiz
-BuildFolder=c:\ahora\3PMv6\inst 1-11-04 JFGonzalez
+BuildFolder=e:\AHORA\3PMv6\3PM Alvin\para Wme-Xp
 
 [Package|Paquete de instalación estándar 1|Configure DAO ISAMs]
 Applicable=No
@@ -14,27 +14,28 @@ JetWorkspace=
 ODBCDirect=
 
 [Package|Paquete de instalación estándar 1|Files Found]
-ini.exe=C:\ahora\3PMv6\ini.exe
-LEER.txt=C:\ahora\3PMv6\pub\LEER.txt
-manual.doc=C:\ahora\3PMv6\manual.doc
-repair.exe=C:\ahora\3PMv6\repair.exe
-KRANS.MAN=C:\ahora\3PMv6\KRANS.MAN
+INI.EXE=E:\AHORA\3PMv6\INI.EXE
+LEER.TXT=E:\AHORA\3PMv6\PUB\LEER.TXT
 
 [Package|Paquete de instalación estándar 1|Missing Dependency Information]
 C:\WINDOWS\system32\wbem\wbemdisp.tlb=
 C:\WINDOWS\system32\WBEMDISP.TLB=
 C:\ahora\3PMv6\repair.exe=
 C:\ahora\3PMv6\ini.exe=
+E:\AHORA\3PMv6\INI.EXE=
+E:\AHORA\3PMv6\REPAIR.EXE=
+C:\LINUX3\SYSTEM\WBEMDISP.TLB=
 
 [Package|Paquete de instalación estándar 1|Out-of-Date Dependency Information]
 C:\WINDOWS\system32\scrrun.dll=
+C:\LINUX3\SYSTEM\scrrun.dll=
 
 [Package|Paquete de instalación estándar 1|Files Added]
-c:\ahora\3pmv6\ini.exe=
-c:\ahora\3pmv6\manual.doc=
-c:\ahora\3pmv6\repair.exe=
-c:\ahora\3pmv6\pub\leer.txt=
-c:\ahora\3pmv6\krans.man=
+ini.exe=
+manual.doc=
+repair.exe=
+e:\ahora\3pmv6\pub\leer.txt=
+krans.man=
 
 [Package|Paquete de instalación estándar 1|Files Removed]
 c:\windows\system32\msvcrt.dll=
@@ -44,29 +45,34 @@ c:\windows\system32\olepro32.dll=
 c:\windows\system32\asycfilt.dll=
 c:\windows\system32\stdole2.tlb=
 c:\archivos de programa\microsoft visual studio\vb98\wizards\pdwizard\redist\comcat.dll=
+c:\linux3\system\msvbvm60.dll=
+c:\linux3\system\oleaut32.dll=
+c:\linux3\system\olepro32.dll=
+c:\linux3\system\asycfilt.dll=
+c:\linux3\system\stdole2.tlb=
 
 [Package|Paquete de instalación estándar 1|Files In Project]
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=No
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
-C:\WINDOWS\system32\msvbvm60.dll=No
-C:\WINDOWS\system32\oleaut32.dll=No
-C:\WINDOWS\system32\olepro32.dll=No
-C:\WINDOWS\system32\asycfilt.dll=No
-C:\WINDOWS\system32\stdole2.tlb=No
-C:\WINDOWS\system32\VB6ES.DLL=Yes
-C:\WINDOWS\system32\scrrun.dll=Yes
-C:\WINDOWS\system32\msvcrt.dll=No
-C:\WINDOWS\system32\scrrnes.dll=Yes
-C:\WINDOWS\system32\VB6STKIT.DLL=Yes
-C:\ahora\3PMv6\3pm.exe=Yes
-C:\WINDOWS\system32\WBEMDISP.TLB=Yes
-C:\ahora\3PMv6\ini.exe=Yes
-C:\ahora\3PMv6\manual.doc=Yes
-C:\ahora\3PMv6\repair.exe=Yes
-C:\ahora\3PMv6\pub\LEER.txt=Yes
-C:\ahora\3PMv6\krans.man=Yes
+E:\AHORA\3PMv6\3PM.EXE=Yes
+C:\LINUX3\SYSTEM\msvbvm60.dll=No
+C:\LINUX3\SYSTEM\OLEAUT32.DLL=No
+C:\LINUX3\SYSTEM\OLEPRO32.DLL=No
+C:\LINUX3\SYSTEM\ASYCFILT.DLL=No
+C:\LINUX3\SYSTEM\STDOLE2.TLB=No
+C:\LINUX3\SYSTEM\VB6ES.DLL=Yes
+C:\LINUX3\SYSTEM\scrrun.dll=Yes
+C:\LINUX3\SYSTEM\MSVCRT.DLL=Yes
+C:\LINUX3\SYSTEM\scrrnes.dll=Yes
+C:\LINUX3\SYSTEM\WBEMDISP.TLB=Yes
+C:\LINUX3\SYSTEM\VB6STKIT.DLL=Yes
+E:\AHORA\3PMv6\INI.EXE=Yes
+E:\AHORA\3PMv6\MANUAL.DOC=Yes
+E:\AHORA\3PMv6\REPAIR.EXE=Yes
+E:\AHORA\3PMv6\PUB\LEER.TXT=Yes
+C:\LINUX3\SYSTEM\krans.man=Yes
 
 [Package|Paquete de instalación estándar 1|Configure Registry Files]
 Applicable=No
@@ -96,6 +102,24 @@ C:\WINDOWS\system32\oleaut32.dll=$(WinSysPathSysFile)
 C:\WINDOWS\system32\olepro32.dll=$(WinSysPathSysFile)
 C:\WINDOWS\system32\asycfilt.dll=$(WinSysPathSysFile)
 C:\WINDOWS\system32\stdole2.tlb=$(WinSysPathSysFile)
+E:\AHORA\3PMv6\3PM.EXE=$(AppPath)
+C:\LINUX3\SYSTEM\msvbvm60.dll=$(WinSysPathSysFile)
+C:\LINUX3\SYSTEM\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\LINUX3\SYSTEM\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\LINUX3\SYSTEM\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\LINUX3\SYSTEM\STDOLE2.TLB=$(WinSysPathSysFile)
+C:\LINUX3\SYSTEM\VB6ES.DLL=$(WinSysPath)
+C:\LINUX3\SYSTEM\scrrun.dll=$(WinSysPath)
+C:\LINUX3\SYSTEM\MSVCRT.DLL=$(WinSysPathSysFile)
+C:\LINUX3\SYSTEM\scrrnes.dll=$(WinSysPath)
+C:\LINUX3\SYSTEM\WBEMDISP.TLB=$(WinSysPath)
+C:\LINUX3\SYSTEM\VB6STKIT.DLL=$(WinSysPathSysFile)
+E:\AHORA\3PMv6\INI.EXE=$(AppPath)
+E:\AHORA\3PMv6\MANUAL.DOC=$(AppPath)
+E:\AHORA\3PMv6\REPAIR.EXE=$(AppPath)
+E:\AHORA\3PMv6\PUB\LEER.TXT=$(AppPath)\pub
+E:\AHORA\3PMv6\KRANS.MAN=$(AppPath)
+C:\LINUX3\SYSTEM\krans.man=$(AppPath)
 
 [Package|Paquete de instalación estándar 1|Configure Shared Files]
 Applicable=Yes
@@ -105,11 +129,18 @@ C:\ahora\3PMv6\manual.doc=No
 C:\ahora\3PMv6\repair.exe=No
 C:\ahora\3PMv6\pub\LEER.txt=No
 C:\ahora\3PMv6\krans.man=No
+E:\AHORA\3PMv6\3PM.EXE=No
+E:\AHORA\3PMv6\INI.EXE=No
+E:\AHORA\3PMv6\MANUAL.DOC=No
+E:\AHORA\3PMv6\REPAIR.EXE=No
+E:\AHORA\3PMv6\PUB\LEER.TXT=No
+E:\AHORA\3PMv6\KRANS.MAN=No
+C:\LINUX3\SYSTEM\krans.man=No
 
 [Package|Paquete de instalación estándar 1|Distribution]
 Type=single
 Size=
-Title=3pm v6.3
+Title=3pm v6
 
 [Package|Paquete de instalación estándar 1|Files Released]
 
@@ -133,11 +164,11 @@ StartIn3=$(AppPath)
 Key3=Icon3
 
 [Package|Paquete de instalación estándar 1|Package]
-PackageFolder=c:\ahora\3PMv6\inst 1-11-04 JFGonzalez
-ProjectFolder=C:\ahora\3PMv6
+PackageFolder=e:\AHORA\3PMv6\3PM Alvin\para Wme-Xp
+ProjectFolder=E:\AHORA\3PMv6
 ServerSideCab=
-File1=c:\ahora\3PMv6\inst 1-11-04 JFGonzalez\setup.exe
-File2=c:\ahora\3PMv6\inst 1-11-04 JFGonzalez\Setup.Lst
-File3=c:\ahora\3PMv6\inst 1-11-04 JFGonzalez\3pm.CAB
+File1=e:\AHORA\3PMv6\3PM Alvin\para Wme-Xp\setup.exe
+File2=e:\AHORA\3PMv6\3PM Alvin\para Wme-Xp\Setup.Lst
+File3=e:\AHORA\3PMv6\3PM Alvin\para Wme-Xp\3pm.CAB
 Handler1=PDWizard.FolderDplySubWiz
 Handler2=PDWizard.WebPostDplySubWiz

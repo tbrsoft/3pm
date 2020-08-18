@@ -20,7 +20,7 @@ Begin VB.Form Form1
       Width           =   1605
    End
    Begin VB.TextBox Text3 
-      Height          =   555
+      Height          =   945
       Left            =   2280
       MultiLine       =   -1  'True
       ScrollBars      =   2  'Vertical
@@ -90,9 +90,9 @@ Begin VB.Form Form1
    Begin VB.CommandButton Command2 
       Caption         =   "WBem"
       Height          =   405
-      Left            =   90
+      Left            =   120
       TabIndex        =   2
-      Top             =   990
+      Top             =   1020
       Width           =   2145
    End
    Begin VB.TextBox Text1 
@@ -385,7 +385,8 @@ Private Sub Command5_Click()
         " (" + GetInfo(LOCALE_SNATIVECTRYNAME) & ")," & _
         vbCrLf & "Idioma: " & _
         GetInfo(LOCALE_SENGLANGUAGE) & " (" & _
-        GetInfo(LOCALE_SNATIVELANGNAME) + ")"
+        GetInfo(LOCALE_SNATIVELANGNAME) + ")" + vbCrLf + _
+        "Codigo TEl o IBM: " + CStr(GetInfo(LOCALE_ICOUNTRY))
 End Sub
 
 Private Sub Command6_Click()

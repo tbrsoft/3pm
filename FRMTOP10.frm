@@ -308,6 +308,8 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                 'siempre que se ejecute un credito estaremos por debajo de maximo
                 OnOffCAPS vbKeyScrollLock, True
                 
+                EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
+                
                 ShowCredits
                 
                 'si esta ejecutando pasa a la lista de reproducción

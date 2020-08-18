@@ -745,14 +745,18 @@ YaEstaIMG:
     'ver primero quien es para saber si esta habilitado licenciarse
     'si ClaveAdmin = "demo" quiere decir que lo bajo de internet y por
     'lo tanto no puede licenciar NI BOSTA!!!JAJAJAJAJA
-    ClaveAdmin = "JFG729432119q"
+    ClaveAdmin = "JACP719283001"
     
     Select Case ClaveAdmin
-        Case "grAS981aATTy6"
+        Case "xx"
             DatosLicencia = "Licencia propiedad de Miguel Angel Cozzi. " + vbCrLf + _
                 "Venado Tuerto - Santa Fe - Argentina"
                 
     End Select
+'jorge alvin JACP719283001
+'german peier BsAs GPBSAS7812003
+'luis iglesias BsAs LIBA6152896R
+'eduardo alberti UY EAJCM2987889h
 'juan francisco gonzalez COL JFG729432119q
 'Mauricio Levuy Sergio Davo MEX MLSD61846362e
 ' Jesus Andrès Mata Jimenez MEX JAMG67298187r
@@ -811,6 +815,7 @@ YaEstaIMG:
 ' Miguel Angel Santos hernandez dice que le di yo??? ms6511comp9ME
 'ES EL MISMO DE MSCOMPU GARKA!!!!!!!!!!!!!!!!
 'enrique israel mora suarez EIMS611609yyw
+'desiderio meneseres BOL Des911BOL1011
     
     'ver si hay registro
     
