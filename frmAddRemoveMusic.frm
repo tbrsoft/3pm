@@ -624,6 +624,7 @@ End Sub
 Public Sub CargarCarpetas()
     lstCarpetas.Clear 'si no se duplican todos
     lstCarpetasShow.Clear
+    On Error GoTo ErrCarp
     For A = 1 To UBound(MATRIZ_DISCOS)
         Dim ThisFolder As String, TamTapa As Double
         ThisFolder = txtInLista(MATRIZ_DISCOS(A), 0, ",")
@@ -634,6 +635,11 @@ Public Sub CargarCarpetas()
         End If
     Next
     lstCarpetasShow.Selected(0) = True
+    
+ErrCarp:
+    WriteTBRLog "LINEA: " + LineaError + vbCrLf + Err.Description + " N°: " + Str(Err.Number), True
+    Resume Next
+
 End Sub
 
 Private Sub Command2_Click()

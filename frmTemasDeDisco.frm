@@ -397,32 +397,48 @@ Private Sub Form_Activate()
     LineaError = "000-0024"
     MostrarCursor False
     'actualizar los precios
-    LineaError = "000-0025"
-    If TemasPorCredito = 1 Then
-        LineaError = "000-0026"
-        lblPrecios = "1 coin = 1 credito"
+    
+    '---------------------
+    'si es gratis no usar!
+    If CreditosCuestaTema = 0 And CreditosCuestaTemaVIDEO = 0 Then
+        lblPrecios = "Modo Gratuito"
     Else
-        LineaError = "000-0027"
-        lblPrecios = "1 coin = " + CStr(TemasPorCredito) + " creditos"
+        If TemasPorCredito = 1 Then
+            LineaError = "000-0026"
+            lblPrecios = "1 coin = " + CStr(TemasPorCredito) + " credito"
+        Else
+            LineaError = "000-0027"
+            lblPrecios = "1 coin = " + CStr(TemasPorCredito) + " creditos"
+        End If
     End If
+    '-------------------------
     LineaError = "000-0028"
     If CreditosCuestaTema = 1 Then
         LineaError = "000-0029"
-        lblPrecios = lblPrecios + " // " + "1 credito = 1 tema"
+        lblPrecios = lblPrecios + " / " + "1 credito = 1 tema"
     Else
-        LineaError = "000-0030"
-        lblPrecios = lblPrecios + " // " + CStr(CreditosCuestaTema) + " creditos = 1 tema"
+        If CreditosCuestaTema = 0 Then
+            lblPrecios = lblPrecios + " / " + " 1 tema = GRATIS!"
+        Else
+            LineaError = "000-0030"
+            lblPrecios = lblPrecios + " / " + CStr(CreditosCuestaTema) + " creditos = 1 tema"
+        End If
     End If
     'agreagr el precio de los videos!!!
     If CreditosCuestaTemaVIDEO = 1 Then
         LineaError = "000-0029"
-        lblPrecios = lblPrecios + " // " + "1 credito = 1 VIDEO"
+        lblPrecios = lblPrecios + " / " + "1 credito = 1 VIDEO"
     Else
-        LineaError = "000-0030"
-        lblPrecios = lblPrecios + " // " + CStr(CreditosCuestaTemaVIDEO) + " creditos = 1 VIDEO"
+        If CreditosCuestaTemaVIDEO = 0 Then
+            lblPrecios = lblPrecios + " / " + " 1 VIDEO = GRATIS!"
+        Else
+            LineaError = "000-0030"
+            lblPrecios = lblPrecios + " / " + CStr(CreditosCuestaTemaVIDEO) + " creditos = 1 VIDEO"
+        End If
     End If
-     
     
+    'total sería
+    '1 coin = 8 creditos /// " + "8 creditos = 1 tema /// 8 creditos = 1 VIDEO
     
     
 End Sub
@@ -541,7 +557,6 @@ End Sub
 Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
     'ver detalle mas abajo de que mierda es esto y eln el gral de este frm
     YaInicio = YaInicio + 1
-
     'puede no escuchar el coin!!!!!!
     'esto se pone mas abajo!!!!
     'If YaInicio <= 1 Then Exit Sub

@@ -16,8 +16,6 @@ Attribute VB_Exposed = False
     'Mas de una clave por tipo de licencia
     'Codigo de PC unico para dar seguridad. NO ES UNICO EL DEL WBMEME PROCID!!!!! FUCK!!!!!!
     'No importa que sea 98 o ME debe andar igual!!! con FF(98) y todo!!!
-    
-    
 
 Private FSO As New Scripting.FileSystemObject
 
@@ -70,6 +68,7 @@ Private Const LOCALE_SNATIVELANGNAME = &H4  '  native name of language
 Private Const LOCALE_SNATIVECTRYNAME = &H8  '  native name of country
 
 Private mVariacionClave As Long 'variacion de la clave. es 0 si no hay clave validada
+Private mQuickUnique As String 'uniquePC lo calculo una vez y uso este despues
 
 Public Property Get FileData() As String
     FileData = FileWithDatosClave
@@ -82,8 +81,7 @@ Private Sub Class_Initialize()
     If Right(WINfolder, 1) <> "\" Then WINfolder = WINfolder + "\"
         
     FileWithDatosClave = SYSfolder + "dciLib22.dll" 'DatosClaveIngresada.DLL
-    
-    
+        
     'Dim N As Long
     'Dim H As String
     'Dim HtL As String
@@ -136,8 +134,13 @@ Public Function IngresaClave(ClaveIngresadaConSeparadores As String) As TypeLic
     
     Dim A As TypeLic
     Dim B As Long
-    
+
     mVariacionClave = 0
+      
+    
+    'hacerlo laburar una vez para que se cargue mQuickUnique
+    Dim AA As String
+    AA = UniquePC
     
     For A = 2 To 7 'todos los tipos de licencia que dependen de claves
         '--------------
@@ -145,11 +148,9 @@ Public Function IngresaClave(ClaveIngresadaConSeparadores As String) As TypeLic
         '--------------
         
         For B = 1 To 50
-        
-        
-        
-            If ClaveIngresadaConSeparadores = CLAVE(A, B) Then
             
+            If ClaveIngresadaConSeparadores = CLAVE(A, B, mQuickUnique) Then
+                
                 mVariacionClave = B 'variacion elegida
                 
                 Select Case A
@@ -175,6 +176,8 @@ Public Function IngresaClave(ClaveIngresadaConSeparadores As String) As TypeLic
         
     Next A
 Listo:
+
+    
     mLicencia = TmpLic
     IngresaClave = TmpLic
     'escribir lo que el escribio en un archivo
@@ -191,7 +194,7 @@ Listo:
 
 End Function
 
-Public Property Get VariacionClave()
+Public Property Get VariacionClave() As Long
     VariacionClave = mVariacionClave
 End Property
 
@@ -257,7 +260,10 @@ Public Property Get UniquePC() As String
         Exit Property
     End If
     
-    UniquePC = GetCountry + "." + SimpleEncript(GetProcID) + "." + SimpleEncript(GetInfoReserved) + "." + SimpleEncript(GetBiosNumber)
+    'para no hacerlo 200 veces al inicio (comprobar claves) lo dejo grabado
+    mQuickUnique = GetCountry + "." + SimpleEncript(GetProcID) + "." + SimpleEncript(GetInfoReserved) + "." + SimpleEncript(GetBiosNumber)
+    UniquePC = mQuickUnique
+    
 End Property
 
 
@@ -337,7 +343,7 @@ Public Property Get CLAVE(nClave As TypeLic, Variacion As Long, Optional ForUniq
             OtroMas = OtroMas + 3
             LT = Mid(Uniq, A, 1)
             'si es el gion o algo raro pasar de largo
-            If Not IsNumeric(LT) Then GoTo SIG
+            If Not IsNumeric(LT) Then GoTo sig
             'a es de 1 a 15 (aprox)
             'val(LT) es de 0 a 9
             'variacion es de 1 a 50
@@ -375,7 +381,7 @@ Public Property Get CLAVE(nClave As TypeLic, Variacion As Long, Optional ForUniq
                 ResFull = Left(ResFull, 40)
                 Exit Do
             End If
-SIG:
+sig:
         Next
     Loop
     CLAVE = MostraDeA5(ResFull)
@@ -421,18 +427,38 @@ Public Property Get ExistsDataLic() As Boolean
 End Property
 
 Private Function GetBIOSDate() As String
-  Dim P As Byte, MemAddr As Long, sBios As String
-  Dim i As Integer
-  'start of bios serial number ?&HFE0C0
-  MemAddr = &HFE000
-  For i = 0 To 331
-      Call GetMem1(MemAddr + i, P)
-      'get printable characters
-      If P > 31 And P <= 128 Then
-      sBios = sBios & Chr$(P)
+    'ya no es el date sino datos varios del mother
+    
+    Dim sBios As String
+    '-------------------------------------------------------
+    ' si es XP el Get Mem se va a la bosta y se clava la maquina sin error !!!!
+    If vW.Version = Win2000 Or vW.Version = WinXp Or _
+        vW.Version = WinXP2 Or vW.Version = WinNT4 Then
+            
+            sBios = GetBiosIdXP
     End If
-  Next i
-  GetBIOSDate = sBios
+    
+    '-------------------------------------------------------
+    If vW.Version = Win31 Or vW.Version = Win95 Or vW.Version = Win95OSR2 Then
+        sBios = "Windows viejo"
+    End If
+    
+    '-------------------------------------------------------
+    ' el getmem se que anda en 98 y me (no comprobado en 95s)
+    If vW.Version = Win98 Or vW.Version = Win98SE Or vW.Version = WinME Then
+    
+        Dim P As Byte, MemAddr As Long
+        Dim i As Integer
+        'start of bios serial number ?&HFE0C0
+        MemAddr = &HFE000
+        For i = 0 To 331
+            Call GetMem1(MemAddr + i, P)
+            'get printable characters
+            If P > 31 And P <= 128 Then sBios = sBios & Chr$(P)
+        Next i
+    End If
+    
+GetBIOSDate = sBios
 End Function
 
 Private Function GetBiosNumber() As String
@@ -506,13 +532,54 @@ NoInst:
     
     'si es el 98 como no tiene el procID dejara en FF!!
     GetProcID = TMP
-    
+    Set SERV = Nothing
     Exit Function
         
 NoWBmem:
     TMP = "FF"
     GoTo NoInst
 End Function
+
+Private Function GetBiosIdXP() As String
+    If DllHabilitada = False Then
+        GetBiosIdXP = "Información no disponible"
+        Exit Function
+    End If
+    Dim TMP As String
+    On Error GoTo NoWBmem
+    Dim ObjSet As SWbemObjectSet
+    Dim SERV As SWbemServices
+    Set SERV = GetObject("WinMgmts:")
+    Set ObjSet = Nothing
+    Set ObjSet = SERV.InstancesOf("Win32_Bios")
+    If ObjSet.Count = 1 Then
+        For Each BIOS In ObjSet
+            TMP = CStr(NN(BIOS.Caption)) + "." + _
+                CStr(NN(BIOS.Description)) + "." + _
+                CStr(NN(BIOS.IdentificationCode)) + "." + _
+                CStr(NN(BIOS.Manufacturer)) + "." + _
+                CStr(NN(BIOS.Name)) + "." + _
+                CStr(NN(BIOS.ReleaseDate)) + "." + _
+                CStr(NN(BIOS.SerialNumber)) + "." + _
+                CStr(NN(BIOS.SMBIOSBIOSVersion)) + "." + _
+                CStr(NN(BIOS.SMBIOSMajorVersion)) + "." + _
+                CStr(NN(BIOS.SMBIOSMinorVersion)) + "." + _
+                CStr(NN(BIOS.Version))
+            
+        Next
+    End If
+NoInst:
+    
+    'si es el 98 como no tiene el procID dejara en FF!!
+    GetBiosIdXP = TMP
+    Set SERV = Nothing
+    Exit Function
+        
+NoWBmem:
+    TMP = "EE"
+    GoTo NoInst
+End Function
+
 
 Private Function SumaCHRtxt(TXT As String) As Long
     'sumar el valor CHR de los caracteres de un texto
@@ -544,26 +611,26 @@ Private Function LeerArch1Linea(Arch As String) As String
 End Function
 
 Private Function MostraDeA5(TXT As String)
-    Dim c As Long, Letra As String, newTXT As String
-    c = 0
-    Do While c < Len(TXT)
-        Letra = Mid(TXT, c + 1, 5)
+    Dim C As Long, Letra As String, newTXT As String
+    C = 0
+    Do While C < Len(TXT)
+        Letra = Mid(TXT, C + 1, 5)
         newTXT = newTXT + Letra
-        c = c + 5
-        If c < Len(TXT) Then newTXT = newTXT + "-"
+        C = C + 5
+        If C < Len(TXT) Then newTXT = newTXT + "-"
     Loop
     MostraDeA5 = newTXT
 End Function
 
-Private Function HEXtoLONG(N As String)
+Private Function HEXtoLONG(n As String)
     'recibe el hex en str y devuelve un numero en str
     
     Dim Letra As String
-    Dim c As Long
+    Dim C As Long
     Dim NumeroActual As Long
     Dim ACUM ' As Double
-    For c = 1 To Len(N)
-        Letra = Mid(N, c, 1)
+    For C = 1 To Len(n)
+        Letra = Mid(n, C, 1)
         Select Case Letra
             Case "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
                 NumeroActual = Val(Letra)
@@ -581,7 +648,7 @@ Private Function HEXtoLONG(N As String)
                 NumeroActual = 15
         End Select
         Dim ToSum ' As Double
-        ToSum = NumeroActual * (16 ^ (Len(N) - c))
+        ToSum = NumeroActual * (16 ^ (Len(n) - C))
         ACUM = ACUM + ToSum
         'Label10 = Label10 + "LETRA: " + Letra + "=" + CStr(ToSum) + vbCrLf
         

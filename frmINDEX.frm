@@ -33,7 +33,7 @@ Begin VB.Form frmIndex
       Height          =   1275
       Left            =   30
       TabIndex        =   37
-      Top             =   5355
+      Top             =   5340
       Width           =   11940
       _ExtentX        =   21061
       _ExtentY        =   2249
@@ -172,11 +172,11 @@ Begin VB.Form frmIndex
    Begin VB.Frame frDISCOS 
       BackColor       =   &H00000000&
       BorderStyle     =   0  'None
-      Height          =   3990
+      Height          =   4230
       Left            =   3510
       TabIndex        =   11
       Top             =   90
-      Width           =   4485
+      Width           =   4815
       Begin VB.Timer Timer1 
          Left            =   180
          Top             =   2610
@@ -436,7 +436,7 @@ Begin VB.Form frmIndex
          BackColor       =   &H00C0FFFF&
          Caption         =   "Software desarrollado por tbrSoft www.tbrsoft.com - info@tbrsoft.com"
          BeginProperty Font 
-            Name            =   "Arial Narrow"
+            Name            =   "Arial"
             Size            =   9.75
             Charset         =   0
             Weight          =   700
@@ -627,7 +627,7 @@ Begin VB.Form frmIndex
          BackColor       =   &H00000000&
          Caption         =   "Validar"
          BeginProperty Font 
-            Name            =   "Arial Narrow"
+            Name            =   "Arial"
             Size            =   8.25
             Charset         =   0
             Weight          =   400
@@ -678,7 +678,7 @@ Begin VB.Form frmIndex
          BackColor       =   &H00FFFFFF&
          Caption         =   "Nombre del artista - nombre del disco"
          BeginProperty Font 
-            Name            =   "Arial Narrow"
+            Name            =   "Arial"
             Size            =   8.25
             Charset         =   0
             Weight          =   700
@@ -709,7 +709,7 @@ Begin VB.Form frmIndex
          BackColor       =   &H0080FFFF&
          Caption         =   "Nombre del TEMA"
          BeginProperty Font 
-            Name            =   "Arial Narrow"
+            Name            =   "Arial"
             Size            =   8.25
             Charset         =   0
             Weight          =   700
@@ -731,7 +731,7 @@ Begin VB.Form frmIndex
       BackColor       =   &H00000000&
       Caption         =   "11111222223333344444"
       BeginProperty Font 
-         Name            =   "Arial Narrow"
+         Name            =   "Arial"
          Size            =   6.75
          Charset         =   0
          Weight          =   400
@@ -929,24 +929,37 @@ Private Sub Form_Activate()
     MostrarCursor False
     'actualizar los precios
     LineaError = "000-0025"
-    If TemasPorCredito = 1 Then
-        LineaError = "000-0026"
-        lblPrecios = "1 coin = " + CStr(TemasPorCredito) + " credito"
-        lblPrecios2 = "1 coin = " + CStr(TemasPorCredito) + " credito"
+    '---------------------
+    'si es gratis no usar!
+    If CreditosCuestaTema = 0 And CreditosCuestaTemaVIDEO = 0 Then
+        lblPrecios = "Modo Gratuito"
+        lblPrecios2 = "Modo Gratuito"
     Else
-        LineaError = "000-0027"
-        lblPrecios = "1 coin = " + CStr(TemasPorCredito) + " creditos"
-        lblPrecios2 = "1 coin = " + CStr(TemasPorCredito) + " creditos"
+        If TemasPorCredito = 1 Then
+            LineaError = "000-0026"
+            lblPrecios = "1 coin = " + CStr(TemasPorCredito) + " credito"
+            lblPrecios2 = "1 coin = " + CStr(TemasPorCredito) + " credito"
+        Else
+            LineaError = "000-0027"
+            lblPrecios = "1 coin = " + CStr(TemasPorCredito) + " creditos"
+            lblPrecios2 = "1 coin = " + CStr(TemasPorCredito) + " creditos"
+        End If
     End If
+    '-------------------------
     LineaError = "000-0028"
     If CreditosCuestaTema = 1 Then
         LineaError = "000-0029"
         lblPrecios = lblPrecios + vbCrLf + "1 credito = 1 tema"
         lblPrecios2 = lblPrecios2 + " / " + "1 credito = 1 tema"
     Else
-        LineaError = "000-0030"
-        lblPrecios = lblPrecios + vbCrLf + CStr(CreditosCuestaTema) + " creditos = 1 tema"
-        lblPrecios2 = lblPrecios2 + " / " + CStr(CreditosCuestaTema) + " creditos = 1 tema"
+        If CreditosCuestaTema = 0 Then
+            lblPrecios = lblPrecios + vbCrLf + "1 tema = GRATIS!"
+            lblPrecios2 = lblPrecios2 + " / " + " 1 tema = GRATIS!"
+        Else
+            LineaError = "000-0030"
+            lblPrecios = lblPrecios + vbCrLf + CStr(CreditosCuestaTema) + " creditos = 1 tema"
+            lblPrecios2 = lblPrecios2 + " / " + CStr(CreditosCuestaTema) + " creditos = 1 tema"
+        End If
     End If
     'agreagr el precio de los videos!!!
     If CreditosCuestaTemaVIDEO = 1 Then
@@ -954,9 +967,14 @@ Private Sub Form_Activate()
         lblPrecios = lblPrecios + vbCrLf + "1 credito = 1 VIDEO"
         lblPrecios2 = lblPrecios2 + " / " + "1 credito = 1 VIDEO"
     Else
-        LineaError = "000-0030"
-        lblPrecios = lblPrecios + vbCrLf + CStr(CreditosCuestaTemaVIDEO) + " creditos = 1 VIDEO"
-        lblPrecios2 = lblPrecios2 + " / " + CStr(CreditosCuestaTemaVIDEO) + " creditos = 1 VIDEO"
+        If CreditosCuestaTemaVIDEO = 0 Then
+            lblPrecios = lblPrecios + vbCrLf + "1 VIDEO = GRATIS!"
+            lblPrecios2 = lblPrecios2 + " / " + " 1 VIDEO = GRATIS!"
+        Else
+            LineaError = "000-0030"
+            lblPrecios = lblPrecios + vbCrLf + CStr(CreditosCuestaTemaVIDEO) + " creditos = 1 VIDEO"
+            lblPrecios2 = lblPrecios2 + " / " + CStr(CreditosCuestaTemaVIDEO) + " creditos = 1 VIDEO"
+        End If
     End If
     
     'total sería
@@ -990,6 +1008,9 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                 End
             End If
         Case vbKeyU
+            frmOnlyContador.Show 1
+        Case vbKeyV
+            SumarContadorCreditos -CONTADOR 'esto lo deja en cero
             frmOnlyContador.Show 1
         Case vbKeyJ 'avanzar 10 segundos
             Dim ToSec As Long
@@ -1365,6 +1386,7 @@ Mod46:
                     Else
                         PideVideo = True
                     End If
+                                      
                     'ver si puede pagar lo que pide!!!
                     'que joyita papa!!!. Parece que supieras programar
                     '--------------------------------------------------------------
@@ -2731,6 +2753,7 @@ NextFolder:
             End If
          Loop
          LineaError = "000-0540"
+         'xxxxx
          TE.Close
         'si llego aca es por que no encontro el numero sorteado al azar en la lista
         'de los mejores. Entonces elige un tema al azar

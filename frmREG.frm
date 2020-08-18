@@ -29,11 +29,11 @@ Begin VB.Form frmREG
          Strikethrough   =   0   'False
       EndProperty
       Height          =   435
-      Left            =   3840
+      Left            =   3240
       Style           =   1  'Graphical
       TabIndex        =   20
       Top             =   7590
-      Width           =   3720
+      Width           =   5580
    End
    Begin VB.CommandButton Command3 
       Caption         =   "Abrir Manual de uso. RECOMENDADO si es su primer uso"
@@ -47,9 +47,9 @@ Begin VB.Form frmREG
          Strikethrough   =   0   'False
       EndProperty
       Height          =   405
-      Left            =   2460
+      Left            =   2580
       TabIndex        =   19
-      Top             =   6480
+      Top             =   6570
       Width           =   6915
    End
    Begin VB.CheckBox Check1 
@@ -66,9 +66,9 @@ Begin VB.Form frmREG
       EndProperty
       ForeColor       =   &H00C0FFFF&
       Height          =   375
-      Left            =   1980
+      Left            =   1920
       TabIndex        =   18
-      Top             =   5520
+      Top             =   6150
       Value           =   1  'Checked
       Width           =   8655
    End
@@ -84,9 +84,9 @@ Begin VB.Form frmREG
          Strikethrough   =   0   'False
       EndProperty
       Height          =   435
-      Left            =   4770
+      Left            =   7020
       TabIndex        =   17
-      Top             =   5940
+      Top             =   7050
       Width           =   1785
    End
    Begin VB.TextBox LBL 
@@ -102,15 +102,15 @@ Begin VB.Form frmREG
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00C0FFFF&
-      Height          =   1905
-      Left            =   510
+      Height          =   1575
+      Left            =   90
       Locked          =   -1  'True
       MultiLine       =   -1  'True
       ScrollBars      =   2  'Vertical
       TabIndex        =   16
       Text            =   "frmREG.frx":0000
-      Top             =   60
-      Width           =   9255
+      Top             =   90
+      Width           =   10245
    End
    Begin VB.CommandButton Command2 
       Caption         =   "SALIR"
@@ -124,7 +124,7 @@ Begin VB.Form frmREG
          Strikethrough   =   0   'False
       EndProperty
       Height          =   435
-      Left            =   5760
+      Left            =   5160
       TabIndex        =   10
       Top             =   7050
       Width           =   1785
@@ -144,7 +144,7 @@ Begin VB.Form frmREG
       Sorted          =   -1  'True
       Style           =   2  'Dropdown List
       TabIndex        =   8
-      Top             =   5010
+      Top             =   5790
       Width           =   2805
    End
    Begin VB.TextBox txtCOD 
@@ -164,7 +164,7 @@ Begin VB.Form frmREG
       Left            =   8970
       MaxLength       =   5
       TabIndex        =   7
-      Top             =   3720
+      Top             =   4140
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -184,7 +184,7 @@ Begin VB.Form frmREG
       Left            =   7890
       MaxLength       =   5
       TabIndex        =   6
-      Top             =   3720
+      Top             =   4140
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -204,7 +204,7 @@ Begin VB.Form frmREG
       Left            =   6810
       MaxLength       =   5
       TabIndex        =   5
-      Top             =   3720
+      Top             =   4140
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -224,7 +224,7 @@ Begin VB.Form frmREG
       Left            =   5730
       MaxLength       =   5
       TabIndex        =   4
-      Top             =   3720
+      Top             =   4140
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -244,7 +244,7 @@ Begin VB.Form frmREG
       Left            =   4650
       MaxLength       =   5
       TabIndex        =   3
-      Top             =   3720
+      Top             =   4140
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -264,7 +264,7 @@ Begin VB.Form frmREG
       Left            =   3570
       MaxLength       =   5
       TabIndex        =   2
-      Top             =   3720
+      Top             =   4140
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -284,30 +284,30 @@ Begin VB.Form frmREG
       Left            =   2490
       MaxLength       =   5
       TabIndex        =   1
-      Top             =   3720
+      Top             =   4140
       Width           =   1050
    End
    Begin VB.TextBox lblGUID 
       Alignment       =   2  'Center
-      BackColor       =   &H00808080&
+      BackColor       =   &H00FFFFFF&
       BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   8.25
+         Name            =   "Verdana"
+         Size            =   9.75
          Charset         =   0
          Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00C0FFFF&
-      Height          =   345
-      Left            =   120
+      ForeColor       =   &H00000000&
+      Height          =   375
+      Left            =   30
       Locked          =   -1  'True
       TabIndex        =   11
       TabStop         =   0   'False
       Text            =   "Aqui va el codigo"
-      Top             =   2760
-      Width           =   11535
+      Top             =   3000
+      Width           =   11805
    End
    Begin VB.TextBox txtCOD 
       Alignment       =   2  'Center
@@ -326,7 +326,7 @@ Begin VB.Form frmREG
       Left            =   1410
       MaxLength       =   5
       TabIndex        =   0
-      Top             =   3720
+      Top             =   4140
       Width           =   1050
    End
    Begin VB.CommandButton Command1 
@@ -342,7 +342,7 @@ Begin VB.Form frmREG
          Strikethrough   =   0   'False
       EndProperty
       Height          =   435
-      Left            =   3840
+      Left            =   3240
       TabIndex        =   9
       Top             =   7050
       Width           =   1785
@@ -384,18 +384,18 @@ Begin VB.Form frmREG
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H0000FFFF&
-      Height          =   705
+      Height          =   855
       Index           =   3
-      Left            =   510
+      Left            =   60
       TabIndex        =   15
-      Top             =   4110
-      Width           =   10605
+      Top             =   4560
+      Width           =   11805
    End
    Begin VB.Image Image1 
       Height          =   1635
-      Left            =   10110
+      Left            =   10380
       Stretch         =   -1  'True
-      Top             =   390
+      Top             =   30
       Width           =   1500
    End
    Begin VB.Label Label1 
@@ -415,7 +415,7 @@ Begin VB.Form frmREG
       Index           =   2
       Left            =   4440
       TabIndex        =   14
-      Top             =   4800
+      Top             =   5580
       Width           =   2985
    End
    Begin VB.Label Label1 
@@ -436,16 +436,16 @@ Begin VB.Form frmREG
       Index           =   1
       Left            =   90
       TabIndex        =   13
-      Top             =   3510
+      Top             =   3930
       Width           =   11505
    End
    Begin VB.Label Label1 
       Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
-      Caption         =   $"frmREG.frx":009C
+      Caption         =   $"frmREG.frx":00B9
       BeginProperty Font 
          Name            =   "Verdana"
-         Size            =   9.75
+         Size            =   12
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -453,12 +453,12 @@ Begin VB.Form frmREG
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00C0FFFF&
-      Height          =   765
+      Height          =   1155
       Index           =   0
-      Left            =   540
+      Left            =   60
       TabIndex        =   12
-      Top             =   1980
-      Width           =   9255
+      Top             =   1710
+      Width           =   11805
    End
 End
 Attribute VB_Name = "frmREG"
@@ -539,6 +539,7 @@ Private Sub Form_Load()
     If Right(WINfolder, 1) <> "\" Then WINfolder = WINfolder + "\"
     If Right(SYSfolder, 1) <> "\" Then SYSfolder = SYSfolder + "\"
     
+    IDIOMA = LeerConfig("Idioma", "Español")
     'descomprimir el pakage de imágenes siemrpe que se inicia para evitar
     'violaciones. La version exclusiva puede ser un paquete generado especialmente
     'todas se descomprimen a system
@@ -733,7 +734,6 @@ YaEstaIMG:
     TXT = "Bienvenido a 3PM. Gracias por confiar en tbrSoft Argentina" + vbCrLf + vbCrLf + _
     "Puede utilizar esta version demo con algunas restricciones simplemente " + _
     "indicando su pais de residencia y presionando OK ahora" + vbCrLf + vbCrLf + _
-    "El costo de 3PM con licencia para un equipo es de U$S 75" + vbCrLf + _
     "3PM no incluye en ninguna de sus licencia el derecho de venta del software. Por lo que " + _
     "solo usted tendra una copia LEGAL si compra este software a " + _
     "tbrSoft Argentina." + vbCrLf + _
@@ -745,7 +745,7 @@ YaEstaIMG:
     'ver primero quien es para saber si esta habilitado licenciarse
     'si ClaveAdmin = "demo" quiere decir que lo bajo de internet y por
     'lo tanto no puede licenciar NI BOSTA!!!JAJAJAJAJA
-    ClaveAdmin = "EFS50091hgyurr"
+    ClaveAdmin = "JFG729432119q"
     
     Select Case ClaveAdmin
         Case "grAS981aATTy6"
@@ -753,7 +753,17 @@ YaEstaIMG:
                 "Venado Tuerto - Santa Fe - Argentina"
                 
     End Select
-    
+'juan francisco gonzalez COL JFG729432119q
+'Mauricio Levuy Sergio Davo MEX MLSD61846362e
+' Jesus Andrès Mata Jimenez MEX JAMG67298187r
+' Thomas Hernadez MEX THH635478111g
+'rolando torres honduras RTMH523142567z
+'david gonzalez MEX DGM652253435y
+' Jose Juan Martinez Arguello JIMM MEX JJMA81948572y
+'Giovanne Barrios MEX GB6156901836y
+'tommy corrientes TC194736251438y
+'Luis Enrique Ruiz Chaparro MEX LERC8711101yy
+'onofre inda OI71909081125y
 'efrain solarte COL EFS50091hgyurr
 'henry soto ECU HS611ecu119yh
 'Alex Herrera COL AHQ54COL52hyy

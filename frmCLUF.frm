@@ -125,10 +125,10 @@ Private Sub Form_Load()
                 "(motherboard). Po lo tanto si se reemplaza uno de estos componentes la licencia perdera valor ya que el equipo" + _
                 " no sera el mismo" + vbCrLf + "La licencia de 3PM perderá valor si fuera utilizada fuera del pais o zona" + _
                 " habilitada para el distribuidor que le haya vendido a usted su licencia. En este momento existen 4" + _
-                "distribuidores:" + vbCrLf + "  - tbrSoft. Propietario y distribuidor internacional salvo los paises en los que se" + _
+                " distribuidores:" + vbCrLf + "  - tbrSoft. Propietario y distribuidor internacional salvo los paises en los que se" + _
                 " ha cedido los derechos de venta." + vbCrLf + "  - Rockolas Digitale de Centoamérica. Autorizado a ditribuir " + _
                 "en Centroamérica (no incluye Mexico). Solo tendran validez estas licencias dento de los paises que se incluyen en la zona indicada y no tendrán validez legal fuera de esta" + vbCrLf + _
-                "  - Guricity: Distribuidor Exclusivo en Argentina, Uruguay y Chile. De igual forma estas licencias solo serán validas para estos paises" + vbCrLf + "  - Juan Martin Flores Cruz en todo el territorio Mexicano"
+                "  - Guricity: Distribuidor Exclusivo en Argentina, Uruguay y Chile. De igual forma estas licencias solo serán validas para estos paises" + vbCrLf + "  - Tomas Nuñez Gonzalez en todo el territorio Mexicano"
         Case "English"
         Case "Francois"
         Case "Italiano"

@@ -2267,7 +2267,7 @@ Begin VB.Form frmConfig
          Height          =   330
          LargeChange     =   10
          Left            =   3600
-         Max             =   1
+         Max             =   0
          Min             =   6
          TabIndex        =   76
          Top             =   1770
@@ -2348,7 +2348,7 @@ Begin VB.Form frmConfig
          Height          =   330
          LargeChange     =   10
          Left            =   3600
-         Max             =   1
+         Max             =   0
          Min             =   6
          TabIndex        =   75
          Top             =   1440
@@ -3252,12 +3252,14 @@ Private Sub ckPUB_LostFocus()
 End Sub
 
 Private Sub ckPubIMG_Click()
-    If PUBs.TotalPUBsIMG = 0 Then
-        MsgBox "No puede activar esta opción ya que no hay publicidades cargadas." + vbCrLf + _
-            "Para cargar publicidades debera incluir en la carpeta 'PUB' (en la carpeta en " + _
-            "que instalo 3PM) uno o más ficheros JPG, BMP o GIF. " + _
-            "Debera reiniciar 3PM para que este cambio surta efecto"
-        ckPubIMG = 0
+    If ckPubIMG Then
+        If PUBs.TotalPUBsIMG = 0 Then
+            MsgBox "No puede activar esta opción ya que no hay publicidades (de menos de 50KB) cargadas." + vbCrLf + _
+                "Para cargar publicidades debera incluir en la carpeta 'PUB' (en la carpeta en " + _
+                "que instalo 3PM) uno o más ficheros JPG, BMP o GIF. " + _
+                "Debera reiniciar 3PM para que este cambio surta efecto"
+            ckPubIMG = 0
+        End If
     End If
 End Sub
 
@@ -3786,6 +3788,12 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub Form_Load()
+    'caso especial Eduardo rodirguez
+    If ClaveAdmin = "ERO77701192FF" Or ClaveAdmin = "MARC777" Then
+        Command19.Visible = False
+        Command21.Visible = False
+    End If
+    
     'poner en tamaño para que se ajuste bien
     Me.Height = 9000
     Me.Width = 12000

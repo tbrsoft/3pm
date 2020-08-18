@@ -132,7 +132,7 @@ Public Function IngresaClave(ClaveIngresadaConSeparadores As String) As TypeLic
     'si despues no entra a ninguna es erronea
     TmpLic = BErronea
     
-    Dim a As TypeLic
+    Dim A As TypeLic
     Dim B As Long
 
     mVariacionClave = 0
@@ -142,18 +142,18 @@ Public Function IngresaClave(ClaveIngresadaConSeparadores As String) As TypeLic
     Dim AA As String
     AA = UniquePC
     
-    For a = 2 To 7 'todos los tipos de licencia que dependen de claves
+    For A = 2 To 7 'todos los tipos de licencia que dependen de claves
         '--------------
         'dar vueltas para que pueda pasar por las 50 variaciones de cada tipo de clave
         '--------------
         
         For B = 1 To 50
             
-            If ClaveIngresadaConSeparadores = CLAVE(a, B, mQuickUnique) Then
+            If ClaveIngresadaConSeparadores = CLAVE(A, B, mQuickUnique) Then
                 
                 mVariacionClave = B 'variacion elegida
                 
-                Select Case a
+                Select Case A
                     Case 2
                         TmpLic = CGratuita
                     Case 3
@@ -174,7 +174,7 @@ Public Function IngresaClave(ClaveIngresadaConSeparadores As String) As TypeLic
             End If
         Next B
         
-    Next a
+    Next A
 Listo:
 
     
@@ -222,11 +222,11 @@ Private Function SimpleUnEncript(TXT As String) As String
     Dim Largo As Long, LT As String, TMP As String
     Largo = Len(TXT)
     TMP = ""
-    For a = 1 To Largo
+    For A = 1 To Largo
         
-        LT = Mid(TXT, a, 1)
+        LT = Mid(TXT, A, 1)
         'solo los caracteres impares valen
-        If a / 2 <> a \ 2 Then
+        If A / 2 <> A \ 2 Then
             'y los acumulo
             TMP = TMP + LT
         End If
@@ -240,9 +240,9 @@ Private Function SimpleEncript(TXT As String) As String
     Dim Largo As Long, LT As String, TMP As String, s As Integer
     Largo = Len(TXT)
     TMP = ""
-    For a = 1 To Largo
+    For A = 1 To Largo
         'primer caracter original
-        LT = Mid(TXT, a, 1)
+        LT = Mid(TXT, A, 1)
         'y otro al azar
         Randomize Timer
         s = Int(Rnd * 9)
@@ -339,9 +339,9 @@ Public Property Get CLAVE(nClave As TypeLic, Variacion As Long, Optional ForUniq
     OtroMas = 0
     'el do y loop es simplemente para segurar 40 caracteres de clave
     Do
-        For a = 1 To Largo
+        For A = 1 To Largo
             OtroMas = OtroMas + 3
-            LT = Mid(Uniq, a, 1)
+            LT = Mid(Uniq, A, 1)
             'si es el gion o algo raro pasar de largo
             If Not IsNumeric(LT) Then GoTo sig
             'a es de 1 a 15 (aprox)
@@ -359,7 +359,7 @@ Public Property Get CLAVE(nClave As TypeLic, Variacion As Long, Optional ForUniq
             'la diferencia deb estar en nClave y Variacion
             '--------------------------
             'me aseguro ademas que sea positivo
-            PosInChars = Abs(nClave * 100 + Variacion - (OtroMas + a + Val(LT)))
+            PosInChars = Abs(nClave * 100 + Variacion - (OtroMas + A + Val(LT)))
             'desde 200+1- (120+15+9)= 57 ---------menor sumando y mayior restando
             'hasta 700+50-(3+1+0)=746
                        
@@ -555,16 +555,16 @@ Private Function GetBiosIdXP() As String
     If ObjSet.Count = 1 Then
         For Each BIOS In ObjSet
             TMP = CStr(NN(BIOS.Caption)) + "." + _
-                CStr(NN(MICRO.Description)) + "." + _
-                CStr(NN(MICRO.IdentificationCode)) + "." + _
-                CStr(NN(MICRO.Manufacturer)) + "." + _
-                CStr(NN(MICRO.Name)) + "." + _
-                CStr(NN(MICRO.ReleaseDate)) + "." + _
-                CStr(NN(MICRO.SerialNumber)) + "." + _
-                CStr(NN(MICRO.SMBIOSBIOSVersion)) + "." + _
-                CStr(NN(MICRO.SMBIOSMajorVersion)) + "." + _
-                CStr(NN(MICRO.SMBIOSMinorVersion)) + "." + _
-                CStr(NN(MICRO.Version))
+                CStr(NN(BIOS.Description)) + "." + _
+                CStr(NN(BIOS.IdentificationCode)) + "." + _
+                CStr(NN(BIOS.Manufacturer)) + "." + _
+                CStr(NN(BIOS.Name)) + "." + _
+                CStr(NN(BIOS.ReleaseDate)) + "." + _
+                CStr(NN(BIOS.SerialNumber)) + "." + _
+                CStr(NN(BIOS.SMBIOSBIOSVersion)) + "." + _
+                CStr(NN(BIOS.SMBIOSMajorVersion)) + "." + _
+                CStr(NN(BIOS.SMBIOSMinorVersion)) + "." + _
+                CStr(NN(BIOS.Version))
             
         Next
     End If

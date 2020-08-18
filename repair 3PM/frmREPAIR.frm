@@ -199,6 +199,10 @@ Private Sub Command1_Click()
     tbrDelete AP + "protect.tbr", 99, 4
     'imagenes con que se inicia
     tbrDelete AP + "imgini.tbr", 100, 4
+    'imagenes de superlkicencia
+    tbrDelete SysFolder + "\f5yaSL.nam", 89, 4
+    tbrDelete SysFolder + "\f6yaSL.nam", 89, 4
+    tbrDelete SysFolder + "\f7yaSL.nam", 89, 4
     MsgBox "Se ha terminado la reparacion"
     
 End Sub
