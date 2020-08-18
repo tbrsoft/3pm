@@ -149,12 +149,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     Select Case KeyCode
         
         Case TeclaCerrarSistema
-            SetKeyState vbKeyCapital, False
-            If ApagarAlCierre Then APAGAR_PC
-            'no puedo usar do stop porque lanza el evento ENDPLAY y esto produce un EMPEZARSIGUIENTE
-            'que se come un tema de la lista
-            frmIndex.MP3.DoClose 99
-            End
+            YaCerrar3PM
     End Select
     SecSinTecla = 0
     frmIndex.lblNoTecla = 0
@@ -168,26 +163,12 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
     
     If KeyCode = TeclaNewFicha Then
         LTE 1
-        'si ya hay 9 cargados se traga las fichas
-        If CREDITOS <= MaximoFichas Then
-            SetKeyState vbKeyScrollLock, True
-            VarCreditos CSng(TemasPorCredito)
-        Else
-            'apagar el fichero electronico
-            SetKeyState vbKeyScrollLock, False
-        End If
+        VarCreditos CSng(TemasPorCredito)
     End If
     tERR.Anotar "acon", KeyCode
     If KeyCode = TeclaNewFicha2 Then
         LTE 2
-        'si ya hay 9 cargados se traga las fichas
-        If CREDITOS <= MaximoFichas Then
-            SetKeyState vbKeyScrollLock, True
-            VarCreditos CSng(CreditosBilletes)
-        Else
-            'apagar el fichero electronico
-            SetKeyState vbKeyScrollLock, False
-        End If
+        VarCreditos CSng(CreditosBilletes)
     End If
     tERR.Anotar "acon"
     Exit Sub
@@ -213,7 +194,7 @@ Private Sub Form_Load()
     PicProtec(3).Stretch = (Protector = 1)
     PicProtec(4).Stretch = (Protector = 1)
     PicProtec(5).Stretch = (Protector = 1)
-    lblDisco.Visible = (Protector = 1)
+    lblDISCO.Visible = (Protector = 1)
     'VER POR QUE NUMERO DE FOTO IVA
     NumFotoIni = Val(ReadSimpleFile)
     If (Protector = 1) Then
@@ -266,8 +247,8 @@ Private Sub Form_Load()
     'si no hay archivos en fotos da error!!!!
     tERR.Anotar "acov", ContadorArch
     If ContadorArch = 0 Then
-        lblDisco = "!!!!!!No hay fotos para mostrar!!!!"
-        lblDisco.Visible = True
+        lblDISCO = "!!!!!!No hay fotos para mostrar!!!!"
+        lblDISCO.Visible = True
     Else
         TiempoEnProtect = 0
         Timer1.Interval = Intervalo * 1000
@@ -317,7 +298,7 @@ Private Sub Timer1_Timer()
         Dim DISCO As String
         DISCO = Left(MTXtapas(IndMtxTapaVisible), Len(MTXtapas(IndMtxTapaVisible)) - 9)
         DISCO = FSO.GetBaseName(DISCO)
-        lblDisco = DISCO
+        lblDISCO = DISCO
         PicProtec(IndPicVisible).Stretch = True
     End If
     If (Protector = 2) Then
@@ -338,8 +319,7 @@ Private Sub Timer1_Timer()
             PROP2 = PicProtec(IndPicVisible).Height / PicProtec(IndPicVisible).Width
             If PROP - PROP2 > 0.1 Then
                 tERR.Anotar "acpd.NOSEVE=", MTXtapas(IndMtxTapaVisible)
-                'WriteTBRLog "La imagen del protect no se mostro correctamente. Foto:" + _
-                    CStr(MTXtapas(IndMtxTapaVisible)), True
+                
             End If
             
         Else
@@ -348,7 +328,7 @@ Private Sub Timer1_Timer()
     End If
     
     Randomize Timer
-    B = lblDisco.Top - PicProtec(IndPicVisible).Height
+    B = lblDISCO.Top - PicProtec(IndPicVisible).Height
     If B < 150 Then B = 150 '150 es el tope del frmae
     tERR.Anotar "acpe"
     A = Int(Rnd * B)
@@ -369,11 +349,11 @@ End Sub
 
 Private Sub WriteSimpleFile(TXT As String)
     
-    If FSO.FileExists(AP + "protect.tbr") = False Then
-        Set TE = FSO.CreateTextFile(AP + "protect.tbr", False)
+    If FSO.FileExists(GPF("adpdp2323")) = False Then
+        Set TE = FSO.CreateTextFile(GPF("adpdp2323"), False)
         TE.Close
     End If
-    Set TE = FSO.OpenTextFile(AP + "protect.tbr", ForWriting, False)
+    Set TE = FSO.OpenTextFile(GPF("adpdp2323"), ForWriting, False)
     
     TE.WriteLine TXT
     
@@ -382,14 +362,14 @@ End Sub
 
 Private Function ReadSimpleFile() As String
     
-    If FSO.FileExists(AP + "protect.tbr") = False Then
-        Set TE = FSO.CreateTextFile(AP + "protect.tbr", False)
+    If FSO.FileExists(GPF("adpdp2323")) = False Then
+        Set TE = FSO.CreateTextFile(GPF("adpdp2323"), False)
         TE.Close
         ReadSimpleFile = "0"
         Exit Function
     End If
     
-    Set TE = FSO.OpenTextFile(AP + "protect.tbr", ForReading, False)
+    Set TE = FSO.OpenTextFile(GPF("adpdp2323"), ForReading, False)
     If TE.AtEndOfStream Then
         ReadSimpleFile = ""
     Else

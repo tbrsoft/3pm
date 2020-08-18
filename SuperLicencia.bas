@@ -14,7 +14,7 @@ Public Type SYSTEM_INFO
         dwReserved As Long
 End Type
 
-Public Declare Sub GetMem1 Lib "msvbvm60.dll" (ByVal MemAddress As Long, var As Byte)
+Public Declare Sub GetMem1 Lib "msvbvm60.dll" (ByVal MemAddress As Long, Var As Byte)
 
 Public Function GetGuidSL() As String
     'obtener identificador unico de equipo
@@ -43,7 +43,7 @@ Public Function GetGuidSL() As String
         'si se formatea debera pedir de vuelta
         'para que no me caguen estos numeros deberán empezar con 111.000.000
         Dim ArchUniqueAzar As String
-        ArchUniqueAzar = SYSfolder + "razaGUID.dll"
+        ArchUniqueAzar = GPF("rempres44")
         'ver si ya se genero el archivo para esta formateada
         If FSO.FileExists(ArchUniqueAzar) = False Then
             Dim A As Long
@@ -90,9 +90,9 @@ Public Function SumaCHRtxt(TXT As String) As Long
     Dim Caracter As String
     Dim TMP As Long
     
-    For j = 1 To Len(TXT)
-      Caracter = Mid(TXT, j, 1)
+    For J = 1 To Len(TXT)
+      Caracter = Mid(TXT, J, 1)
       TMP = TMP + Asc(Caracter)
-    Next j
+    Next J
     SumaCHRtxt = TMP
 End Function

@@ -284,7 +284,7 @@ Private Sub Command6_Click()
     If LenClave <> 19 Then MsgBox msg3: Exit Sub
     
     'ok todas las claves estan bien
-    Set TE = FSO.CreateTextFile(WINfolder + "sevalc.dll", True)
+    Set TE = FSO.CreateTextFile(GPF("sequeda32"), True)
         TE.WriteLine "Config:" + txtClaveConfig
         TE.WriteLine "Close:" + txtClaveCLose
         TE.WriteLine "Credit:" + txtClaveCredit
@@ -315,12 +315,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     Select Case KeyCode
         
         Case TeclaCerrarSistema
-            SetKeyState vbKeyCapital, False
-            If ApagarAlCierre Then APAGAR_PC
-            'no puedo usar do stop porque lanza el evento ENDPLAY y esto produce un EMPEZARSIGUIENTE
-            'que se come un tema de la lista
-            frmIndex.MP3.DoClose 99
-            End
+            YaCerrar3PM
     End Select
 End Sub
 
@@ -338,11 +333,11 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub Form_Load()
-    If FSO.FileExists(WINfolder + "sevalc.dll") = False Then
+    If FSO.FileExists(GPF("sequeda32")) = False Then
         MsgBox "No esta presente el archivo de claves. Reinicie 3PM"
         Exit Sub
     End If
-    Set TE = FSO.OpenTextFile(WINfolder + "sevalc.dll", ForReading, False)
+    Set TE = FSO.OpenTextFile(GPF("sequeda32"), ForReading, False)
     'config/close/credit es el orden del archivo
     txtClaveConfig = txtInLista(TE.ReadLine, 1, ":")
     txtClaveCLose = txtInLista(TE.ReadLine, 1, ":")

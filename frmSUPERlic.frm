@@ -646,22 +646,22 @@ Private Sub cmdImg_Click(Index As Integer)
     Select Case Index
         Case 1
             'imagen de inicio logo.sys
-            FSO.CopyFile ArchSel, SYSfolder + "f5yaSL.nam", True
+            FSO.CopyFile ArchSel, GPF("233_56_b"), True
             'se grtaba con otro nombre (igual pero con el SL)
             'luego al usarlo reviso, si existe el SL entonces lo uso con prioridad
-            img1.Picture = LoadPicture(SYSfolder + "f5yaSL.nam")
+            img1.Picture = LoadPicture(GPF("233_56_b"))
         Case 2
             'imagen de cerrando logow.sys
-            FSO.CopyFile ArchSel, SYSfolder + "f7yaSL.nam", True
+            FSO.CopyFile ArchSel, GPF("233_58_b"), True
             'se grtaba con otro nombre (igual pero con el SL)
             'luego al usarlo reviso, si existe el SL entonces lo uso con prioridad
-            img2.Picture = LoadPicture(SYSfolder + "f7yaSL.nam")
+            img2.Picture = LoadPicture(GPF("233_58_b"))
         Case 3
             'imagen de puede apagar logos.sys
-            FSO.CopyFile ArchSel, SYSfolder + "f6yaSL.nam", True
+            FSO.CopyFile ArchSel, GPF("233_57_b"), True
             'se grtaba con otro nombre (igual pero con el SL)
             'luego al usarlo reviso, si existe el SL entonces lo uso con prioridad
-            img3.Picture = LoadPicture(SYSfolder + "f6yaSL.nam")
+            img3.Picture = LoadPicture(GPF("233_57_b"))
     End Select
     'LISTO!!!
 End Sub
@@ -673,10 +673,10 @@ Private Sub cmdImgPresP_Click()
     If CmdLg.FileName = "" Then Exit Sub
     Dim ArchSel As String
     ArchSel = CmdLg.FileName
-    If FSO.FolderExists(WINfolder + "SL") = False Then FSO.CreateFolder (WINfolder + "SL")
-    If FSO.FileExists(WINfolder + "SL\imgBig.tbr") Then FSO.DeleteFile WINfolder + "SL\imgBig.tbr", True
+    
+    If FSO.FileExists(GPF("iisl67")) Then FSO.DeleteFile GPF("iisl67"), True
     'grabar la imagen elegida
-    FSO.CopyFile ArchSel, WINfolder + "SL\imgbig.tbr", True
+    FSO.CopyFile ArchSel, GPF("iisl67"), True
     'mostrar que se cambio
     imgPRESp.Picture = LoadPicture(ArchSel)
     'LISTO!!!
@@ -687,22 +687,22 @@ Private Sub cmdImgQ_Click(Index As Integer)
     Select Case Index
         Case 1
             'imagen de inicio logo.sys
-            ArchSel = SYSfolder + "f5yaSL.nam"
+            ArchSel = GPF("233_56_b")
             If FSO.FileExists(ArchSel) Then FSO.DeleteFile ArchSel, True
             'volver
-            img1.Picture = LoadPicture(SYSfolder + "f56.dlw")
+            img1.Picture = LoadPicture(GPF("extr233_56"))
         Case 2
             'imagen de inicio logo.sys
-            ArchSel = SYSfolder + "f7yaSL.nam"
+            ArchSel = GPF("233_58_b")
             If FSO.FileExists(ArchSel) Then FSO.DeleteFile ArchSel, True
             'volver
-            img2.Picture = LoadPicture(SYSfolder + "f58.dlw")
+            img2.Picture = LoadPicture(GPF("extr233_58"))
         Case 3
             'imagen de inicio logo.sys
-            ArchSel = SYSfolder + "f6yaSL.nam"
+            ArchSel = GPF("233_57_b")
             If FSO.FileExists(ArchSel) Then FSO.DeleteFile ArchSel, True
             'volver
-            img3.Picture = LoadPicture(SYSfolder + "f57.dlw")
+            img3.Picture = LoadPicture(GPF("extr233_57"))
     End Select
     'LISTO!!!
 End Sub
@@ -718,20 +718,20 @@ Private Sub Command2_Click()
     If CmdLg.FileName = "" Then Exit Sub
     Dim ArchSel As String
     ArchSel = CmdLg.FileName
-    If FSO.FolderExists(WINfolder + "SL") = False Then FSO.CreateFolder (WINfolder + "SL")
-    If FSO.FileExists(WINfolder + "SL\indexCHI.tbr") Then FSO.DeleteFile WINfolder + "SL\indexCHI.tbr", True
+    
+    If FSO.FileExists(GPF("61conf")) Then FSO.DeleteFile GPF("61conf"), True
     'grabar la imagen elegida
-    FSO.CopyFile ArchSel, WINfolder + "SL\indexCHI.tbr", True
+    FSO.CopyFile ArchSel, GPF("61conf"), True
     'mostrar que se cambio
     imgIndexCHI.Picture = LoadPicture(ArchSel)
     'LISTO!!!
 End Sub
 
 Private Sub Command3_Click()
-    If FSO.FolderExists(WINfolder + "SL") = False Then FSO.CreateFolder (WINfolder + "SL")
-    If FSO.FileExists(WINfolder + "SL\txtIDX.tbr") Then FSO.DeleteFile WINfolder + "SL\txtIDX.tbr", True
+    
+    If FSO.FileExists(GPF("tslpri112")) Then FSO.DeleteFile GPF("tslpri112"), True
     'grabar el texto como un nuevo archivo
-    Set TE = FSO.CreateTextFile(WINfolder + "SL\txtIDX.tbr", True)
+    Set TE = FSO.CreateTextFile(GPF("tslpri112"), True)
     'si deja en blanco jode!!!!!!
     If lblTBR = "" Then lblTBR = " "
     TE.Write lblTBR
@@ -740,10 +740,10 @@ End Sub
 
 Private Sub Command4_Click()
     'borrar eñl archivo!
-    If FSO.FileExists(WINfolder + "SL\imgbig.tbr") Then _
-        FSO.DeleteFile WINfolder + "SL\imgbig.tbr", True
+    If FSO.FileExists(GPF("iisl67")) Then _
+        FSO.DeleteFile GPF("iisl67"), True
     'mostrar el original
-    imgPRESp.Picture = LoadPicture(SYSfolder + "f52.dlw")
+    imgPRESp.Picture = LoadPicture(GPF("extr233_52"))
 End Sub
 
 Private Sub Command5_Click()
@@ -757,16 +757,16 @@ Private Sub Command5_Click()
     'XXXX
     'poner en otro archivo o ver porque sino se reemplazara
     'con el inicio que se redescomprime
-    FSO.CopyFile ArchSel, SYSfolder + "f9yaSL.nam", True
-    TapaRank.Picture = LoadPicture(SYSfolder + "f9yaSL.nam")
+    FSO.CopyFile ArchSel, GPF("233_54_b"), True
+    TapaRank.Picture = LoadPicture(GPF("233_54_b"))
     'LISTO!!!
 End Sub
 
 Private Sub Command6_Click()
-    If FSO.FolderExists(WINfolder + "SL") = False Then FSO.CreateFolder (WINfolder + "SL")
-    If FSO.FileExists(WINfolder + "SL\txtCFG.tbr") Then FSO.DeleteFile WINfolder + "SL\txtCFG.tbr", True
+    
+    If FSO.FileExists(GPF("telcnot")) Then FSO.DeleteFile GPF("telcnot"), True
     'grabar el texto como un nuevo archivo
-    Set TE = FSO.CreateTextFile(WINfolder + "SL\txtCFG.tbr", True)
+    Set TE = FSO.CreateTextFile(GPF("telcnot"), True)
     If txtCFG = "" Then txtCFG = " "
     TE.Write txtCFG
     TE.Close
@@ -774,18 +774,18 @@ End Sub
 
 Private Sub Command7_Click()
     Dim ArchSel As String
-    ArchSel = WINfolder + "SL\indexCHI.tbr"
+    ArchSel = GPF("61conf")
     If FSO.FileExists(ArchSel) Then FSO.DeleteFile ArchSel, True
     'mostrar original
-    imgIndexCHI.Picture = LoadPicture(SYSfolder + "f61.dlw")
+    imgIndexCHI.Picture = LoadPicture(GPF("extr233_61"))
     'LISTO!!!
 End Sub
 
 Private Sub Command8_Click()
     Dim ArchSel As String
-    ArchSel = SYSfolder + "f9yaSL.nam"
+    ArchSel = GPF("233_54_b")
     If FSO.FileExists(ArchSel) Then FSO.DeleteFile ArchSel, True
-    TapaRank.Picture = LoadPicture(SYSfolder + "f54.dlw")
+    TapaRank.Picture = LoadPicture(GPF("extr233_54"))
     'LISTO!!!
 End Sub
 
@@ -793,47 +793,49 @@ Private Sub Form_Load()
     AjustarFRM Me, 12000
     'imágenes de inicio
     'ver si hay cargadas exclusivas
-    If FSO.FileExists(SYSfolder + "f5yaSL.nam") Then
-        img1.Picture = LoadPicture(SYSfolder + "f5yaSL.nam")
+    If FSO.FileExists(GPF("233_56_b")) Then
+        img1.Picture = LoadPicture(GPF("233_56_b"))
     Else
-        img1.Picture = LoadPicture(SYSfolder + "f56.dlw")
+        img1.Picture = LoadPicture(GPF("extr233_56"))
     End If
     
-    If FSO.FileExists(SYSfolder + "f7yaSL.nam") Then
-        img2.Picture = LoadPicture(SYSfolder + "f7yaSL.nam")
+    If FSO.FileExists(GPF("233_58_b")) Then
+        img2.Picture = LoadPicture(GPF("233_58_b"))
     Else
-        img2.Picture = LoadPicture(SYSfolder + "f58.dlw")
+        img2.Picture = LoadPicture(GPF("extr233_58"))
     End If
     
-    If FSO.FileExists(SYSfolder + "f6yaSL.nam") Then
-        img3.Picture = LoadPicture(SYSfolder + "f6yaSL.nam")
+    If FSO.FileExists(GPF("233_57_b")) Then
+        img3.Picture = LoadPicture(GPF("233_57_b"))
     Else
-        img3.Picture = LoadPicture(SYSfolder + "f57.dlw")
+        img3.Picture = LoadPicture(GPF("extr233_57"))
     End If
     'la tapa de CD es la misma que la de rank que la del index que la del reg
-    imgIndexCHI.Picture = LoadPicture(SYSfolder + "f61.dlw")
-    TapaRank.Picture = LoadPicture(SYSfolder + "f54.dlw")
+    imgIndexCHI.Picture = LoadPicture(GPF("extr233_61"))
+    TapaRank.Picture = LoadPicture(GPF("extr233_54"))
     'si hay Sl mostrar!
-    If FSO.FileExists(WINfolder + "SL\indexCHI.tbr") Then
-        imgIndexCHI.Picture = LoadPicture(WINfolder + "SL\indexCHI.tbr")
+    If FSO.FileExists(GPF("61conf")) Then
+        imgIndexCHI.Picture = LoadPicture(GPF("61conf"))
     End If
-    If FSO.FileExists(SYSfolder + "f9yaSL.nam") Then
-        TapaRank.Picture = LoadPicture(SYSfolder + "f9yaSL.nam")
+    If FSO.FileExists(GPF("233_54_b")) Then
+        TapaRank.Picture = LoadPicture(GPF("233_54_b"))
     End If
     
     'cargar originales
-    imgPRESp.Picture = LoadPicture(SYSfolder + "f52.dlw")
+    imgPRESp.Picture = LoadPicture(GPF("extr233_52"))
     'si existen reemplazan a las originales...
-    If FSO.FileExists(WINfolder + "SL\imgbig.tbr") Then imgPRESp.Picture = LoadPicture(WINfolder + "SL\imgbig.tbr")
-    If FSO.FileExists(WINfolder + "SL\imgtbr.tbr") Then imgIniTBR.Picture = LoadPicture(WINfolder + "SL\imgtbr.tbr")
+    If FSO.FileExists(GPF("iisl67")) Then imgPRESp.Picture = LoadPicture(GPF("iisl67"))
     
-    If FSO.FileExists(WINfolder + "SL\txtcfg.tbr") Then
-        Set TE = FSO.OpenTextFile(WINfolder + "SL\txtcfg.tbr", ForReading, False)
+    'no existe el objeo imagen para esto ¿de donde sera?
+    'If FSO.FileExists(WINfolder + "SL\imgtbr.tbr") Then imgIniTBR.Picture = LoadPicture(WINfolder + "SL\imgtbr.tbr")
+    
+    If FSO.FileExists(GPF("telcnot")) Then
+        Set TE = FSO.OpenTextFile(GPF("telcnot"), ForReading, False)
         txtCFG = TE.ReadAll
         TE.Close
     End If
-    If FSO.FileExists(WINfolder + "SL\txtIDX.tbr") Then
-        Set TE = FSO.OpenTextFile(WINfolder + "SL\txtIDX.tbr", ForReading, False)
+    If FSO.FileExists(GPF("tslpri112")) Then
+        Set TE = FSO.OpenTextFile(GPF("tslpri112"), ForReading, False)
         lblTBR = TE.ReadAll
         TE.Close
     Else

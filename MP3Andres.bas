@@ -1,11 +1,14 @@
 Attribute VB_Name = "MP3Andres"
-Public Declare Function mciGetErrorString Lib "winmm.dll" Alias "mciGetErrorStringA" (ByVal dwError As Long, ByVal lpstrBuffer As String, ByVal uLength As Long) As Long
+Private Declare Function mciGetErrorString Lib "winmm.dll" Alias "mciGetErrorStringA" (ByVal dwError As Long, ByVal lpstrBuffer As String, ByVal uLength As Long) As Long
 Public CONTADOR As Long
 Public CONTADOR2 As Long
 Public EsVideo As Boolean 'saber si el tema en ejecucion es video
 
 Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
     EstoyEnModoVideoMiniSelDisco = False
+    'volver a PasarHoja a su estado original3
+    PasarHoja = LeerConfig("PasarHoja", "1")
+    
     'si el tema es una publicidad then descuenta de la lista de temas pendientes
     'ademas no va al ranking
     Dim Carp As String
@@ -15,6 +18,8 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
         'tampoco sumar al ranking!!!!
         SumaRanking = False
     End If
+    
+    If LCase(Carp) = "pubmute" Then SumaRanking = False
     
     tERR.Anotar "003-0001"
     If FSO.FileExists(tema) = False Then
@@ -48,93 +53,16 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
         Unload frmProtect
         'acomodar los controles en modo video
         'modo texto pata elegir los discos
-        With frmIndex
-            'ver si es fullscreen o no!!!!!!!
-            '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            If vidFullScreen Then
-                ' si estan inhabilitados siempre o solo para videos
-                If Salida2 Then
-                    'si esta habilitada la salida 2 no me importa nada, dejo
-                    'todo como esta en la salida 1
-                    'si lo debere habilitar para que siga cargando creditos
-                    GoTo NoLeerOtros
-                    
-                    'para salida doble!!
-                    '-------------------
-                    '.WindowState = 0 'vbNormal
-                    '.Left = 0
-                    '.Top = 0
-                    '.Width = frmIndex.Width * 2
-                    '.Height = Screen.Height
-                    '.Refresh
-                    '.picVideo.Left = frmIndex.Width / 2
-                    '.picVideo.Width = frmIndex.Width / 2 - 50
-                    '.picVideo.Top = 0
-                    '.picVideo.Height = Screen.Height
-                End If
-                    
-                If HabilitarVUMetro And Is3pmExclusivo = False Then
-                    If NoVumVID Then
-                        .picVideo(IAANext).Top = 0
-                        .picVideo(IAANext).Left = 0
-                        .picVideo(IAANext).Width = Screen.Width
-                        .picVideo(IAANext).Height = Screen.Height
-                    Else
-                        .picVideo(IAANext).Top = 0
-                        .picVideo(IAANext).Left = .VU1.AnchoBarra
-                        .picVideo(IAANext).Width = .VU1.Width - (.VU1.AnchoBarra * 2)
-                        .picVideo(IAANext).Height = Screen.Height
-                        .VU1.Height = .picVideo(IAANext).Height
-                    End If
-                Else
-                    .picVideo(IAANext).Top = 0
-                    .picVideo(IAANext).Left = 0
-                    .picVideo(IAANext).Width = Screen.Width
-                    .picVideo(IAANext).Height = Screen.Height
-                    .picVideo(IAANext).ZOrder
-                End If
-            Else
-                '--------------------------------
-                'si es salida de TV no volver!!!!
-                If Salida2 Then GoTo NoLeerOtros
-                '--------------------------------
-                EstoyEnModoVideoMiniSelDisco = True
-                'quita el fullscreen!!!!
-                '.frDISCOS.Height = .picFondo.Top
-                '.VU1.Height = .picFondo.Top
-                '!!!!!!
-                .frModoVideo.Left = Screen.Width - .frModoVideo.Width
-                .frTEMAS.Left = Screen.Width - .frTEMAS.Width
-                'en principio los discos ocupan todo
-                .frModoVideo.Height = .frDISCOS.Height - .lblModoVideo.Height
-                .frModoVideo.Visible = True
-                .lblModoVideo.Visible = True
-                .VU1.Width = Screen.Width - .frModoVideo.Width
-                'tener en cuenta si es exclusivo!!!
-                If HabilitarVUMetro And Is3pmExclusivo = False Then
-                    .frDISCOS.Width = .VU1.Width - (.VU1.AnchoBarra * 2) - 50
-                    .picVideo(IAANext).Width = .VU1.Width - (.VU1.AnchoBarra * 2)
-                    .picVideo(IAANext).Left = .VU1.AnchoBarra
-                Else
-                    .frDISCOS.Width = .VU1.Width
-                    .picVideo(IAANext).Width = .VU1.Width
-                    .picVideo(IAANext).Left = 0
-                End If
-                .picFondoDisco.Top = 0
-                .picFondoDisco.Left = 0
-                
-                .picVideo(IAANext).Top = 0
-                .picVideo(IAANext).Height = .picFondo.Top
-            End If
+        
+        'ver si esta en el modo de listas de texto !!
+        If vidFullScreen = False And Salida2 = False Then EstoyEnModoVideoMiniSelDisco = True
             
-'aqui vengo si es fullscreen y no me importa mover nada
-NoLeerOtros:
-            'si no hago esto el video no se ve (ya que esta adentro)
-            '.picFondoDisco.Height = .frDISCOS.Height
-            '.picFondoDisco.Width = .frDISCOS.Width
-            
-            tERR.Anotar "003-0026"
-        End With
+        frmIndex.UpdateVista
+         
+        frmIndex.picVideo(IAANext).Visible = True
+        frmIndex.picVideo(IAANext).ZOrder
+        frmIndex.picVideo(IAA).Visible = False
+        
         'habilitar pasar las paginas con teclas simples
         'por que en el modo texto la lista no
         'tiene paginas
@@ -143,42 +71,11 @@ NoLeerOtros:
     Else
         EsVideo = False
         'acomodar los controles en modo normal
-        With frmIndex
-            'quita el fullscreen!!!!
-            '.frDISCOS.Height = .picFondo.Top
-            .VU1.Height = .picFondo.Top
-            '!!!!!!
-            tERR.Anotar "003-0028"
-            .VU1.Width = Screen.Width
-            tERR.Anotar "003-0029"
-            If HabilitarVUMetro And Is3pmExclusivo = False Then
-                .frDISCOS.Left = .VU1.AnchoBarra + 25 ' .VU1.Width
-                tERR.Anotar "003-0030"
-                .frDISCOS.Width = .VU1.Width - (.VU1.AnchoBarra * 2) - 50
-                '.frDISCOS.Width = Screen.Width - .VU1.Width
-                'vu no se mueve         .VU1.Top = 0                '.VU1.Height = Screen.Height
-            Else
-                'si viene de un video se tiene que ensanchar
-                tERR.Anotar "003-0031"
-                .frDISCOS.Width = .VU1.Width ' Screen.Width
-                .frDISCOS.Left = 0
-            End If
-            tERR.Anotar "003-0032"
-            .picFondoDisco.Height = .frDISCOS.Height
-            .picFondoDisco.Width = .frDISCOS.Width
-            tERR.Anotar "003-0033"
-            .picFondoDisco.Top = 0
-            .picFondoDisco.Left = 0
-            tERR.Anotar "003-0034"
-            .frModoVideo.Visible = False
-            .lblModoVideo.Visible = False
-            tERR.Anotar "003-0035"
-            .frTEMAS.Visible = False
-            .lblTEMAS.Visible = False
-            'CMP cambio a multipista
-            .picVideo(IAANext).Visible = False
-            .picVideo(IAA).Visible = False
-        End With
+        frmIndex.UpdateVista
+        
+        frmIndex.picVideo(IAANext).Visible = False
+        frmIndex.picVideo(IAA).Visible = False
+        
         tERR.Anotar "003-0036"
         'volver a PasarHoja a su estado original
         PasarHoja = LeerConfig("PasarHoja", "1")
@@ -224,13 +121,13 @@ NoLeerOtros:
                 'ESCONDER LAS PUBLICIDADES EN LA SALIDA DE tv!!!!!
                 frmVIDEO.picBigImg.Visible = False
                 
-                tERR.Anotar "003-0048b"
+                tERR.Anotar "003-0048b", IAANext
                 .DoOpenVideo "child", frmVIDEO.picVideo.hwnd, 0, 0, _
                     (frmVIDEO.picVideo.Width / 15), (frmVIDEO.picVideo.Height / 15), IAANext
                 frmIndex.picVideo(IAANext).Visible = False
                 frmVIDEO.picVideo.Visible = True
             Else
-                tERR.Anotar "003-0048"
+                tERR.Anotar "003-0048", IAANext
                 .DoOpenVideo "child", frmIndex.picVideo(IAANext).hwnd, 0, 0, _
                     (frmIndex.picVideo(IAANext).Width / 15), _
                     (frmIndex.picVideo(IAANext).Height / 15), IAANext
@@ -242,48 +139,56 @@ NoLeerOtros:
             End If
         Else
             tERR.Anotar "003-0049"
-            .DoOpen IAANext
+            Dim R As Long
+            R = .DoOpen(IAANext)
+            Select Case R
+                Case 1
+                    'ya manejo esto antes!
+                Case 2
+                    MsgBox "No se ha podido abrir el fichero debido a un problema existente en Windows. " + vbCrLf + _
+                        "Revise que el reproductor multimedia de Windows este instalado y funcione correctamente." + _
+                        "Notifique a tbrSoft de esto para más detalles"
+                Case 3 'mci dio error
+                    tERR.AppendLog "guyaby"
+            End Select
         End If
+        'apenas se abre lo mido
+        tERR.Anotar "003-0049b", iAlias
+        TotalTema(IAANext) = frmIndex.MP3.LengthInSec(IAANext)
+        'UpdateHastaTema IAANext se cargo en el doopen
+        tERR.Anotar "003-0049c", TotalTema(IAANext)
+        
         tERR.Anotar "003-0050"
         .Volumen(IAANext) = 0 'sube si o si en los primeros segundos
         tERR.Anotar "003-0051"
-        .DoPlay IAANext
-    End With
-    tERR.Anotar "003-0052"
-    If HabilitarVUMetro Then
-        If Is3pmExclusivo Then
-            frmIndex.VU21.CarFantastic = False
-        Else
-            frmIndex.VU1.CarFantastic = False
+        R = .DoPlay(IAANext)
+        If R = 1 Then
+            EMPEZAR_SIGUIENTE 4 'MsgBox "falla play!"
         End If
-    End If
-    If EsVideo Then
-        On Local Error GoTo ErrorPavo
-        tERR.Anotar "003-0053"
-        'para que tome de nuevo el control del teclado
-        frmIndex.SetFocus 'JOYA JOYA!!! en mp3 da error, no usar
-    End If
-    'para que tome de nuevo el control del teclado
+            
+    End With
+    tERR.Anotar "003-0052", HabilitarVUMetro
+    
+    If HabilitarVUMetro Then frmIndex.VU.CarFantastic = False
     
     Exit Sub
 ErrEjecutarTema:
     tERR.AppendLog tERR.ErrToTXT(Err), "MP3Andres.BAS" + ".acpo"
-    'WriteTBRLog "ERROR EN EJECUTAR TEMA. " + frmIndex.MP3.FileName + vbCrLf + _
-        "Descripcion: " + Err.Description, True
-    If (frmIndex.MP3.IsPlaying(0) Or frmIndex.MP3.IsPlaying(1)) = False Then
+    If (frmIndex.MP3.IsPlaying(0) = False And frmIndex.MP3.IsPlaying(1) = False) Then
         EMPEZAR_SIGUIENTE 4
+    Else
+        Resume Next
     End If
-        
-    Exit Sub
-    
-ErrorPavo:
-    'tERR.AppendLog tERR.ErrToTXT(Err), "MpAnd.BAS.SetFocus" + ".acpr"
-    'WriteTBRLog "ERROR EN EJECUTAR VIDEO SETFOCUS. ERROR OMITIDO. Descripcion: " + vbCrLf + _
-        Err.Description + frmIndex.MP3.FileName, True
-    Resume Next
 End Sub
 
 Public Function EMPEZAR_SIGUIENTE(DesdeDonde As Long) As Long
+    
+    
+    ContEmpezSig = ContEmpezSig + 1
+    frmIndex.List1.List(17) = "EmpezarSig(" + CStr(DesdeDonde) + ")=? = " + CStr(ContEmpezSig)
+    
+    tERR.Anotar "EmpSig01", DesdeDonde
+
     'desde donde indica quien pide comenzar cancion
     '1 es desde una cancion que llego a sus ultimos segundos
     '2 desde la tecla B de cancion siguiente
@@ -294,76 +199,94 @@ Public Function EMPEZAR_SIGUIENTE(DesdeDonde As Long) As Long
     'las canciones con fade in. Esto implica revisar si algo se esta ejecutando.
     'Puede pasar tambien que se cargue una cancion a la lista en estos segundos
     'restantes que ya paso la busqueda del tema siguiente
+    '6 desde un tema al azar NUEVO!!(nov 2006)
+    '7 cuando enableNextMusic no esta o sea en el inicio de una cancion!
     
     'la funcion devuelve:
-    '1: desdedonde=2, adelanta la finalizacion
+    '1: desdedonde=2, adelanta la finalizacion (tambien para cortar gratuitos)
     '2: desdedonde=5
     '3: habia uno en la lista y se ejecuto (audio)
     '4: habia uno en la lista y se ejecuto (video)
     '5: habia uno en la lista y se ejecuto (otro)
     '6: no hay nada en la lista de espera
     
+    
+    'puede pasar que la cancion que sigue es un video, empieza ok pero al hacer el endplay
+    'la cancion anterior viene de nuevo aca y saca el esvideo !!
+    If DesdeDonde <> 5 Then
+        EstoyEnModoVideoMiniSelDisco = False
+        'volver a PasarHoja a su estado original3
+        PasarHoja = LeerConfig("PasarHoja", "1")
+        EsVideo = False 'no estamos rep video
+    End If
     '*******************************************************
     'en caso desde la "B" debo poner como tiempo de finalizacion del actual _
         para que no siga (si esperaria hasta el final para terminar normalmente)
-    If DesdeDonde = 2 Then
+    If DesdeDonde = 2 Or DesdeDonde = 6 Then
         TotalTema(IAA) = frmIndex.MP3.PositionInSec(IAA) + SegFade + 1
+        UpdateHastaTema IAA 'AQUI SIIII
         EMPEZAR_SIGUIENTE = 1
+        frmIndex.List1.List(17) = "EmpezarSig(" + CStr(DesdeDonde) + ")=1 = " + CStr(ContEmpezSig)
         Exit Function
     End If
     '*******************************************************
+    
+    If DesdeDonde = 7 Then
+        Dim TMP As Long: TMP = IAANext: IAANext = IAA: IAA = TMP
+    End If
     
     tERR.Anotar "003-0054b", DesdeDonde, IAA, TotalTema(IAA), SegFade
     
     'CMP
     'si ya hay uno ejecutandose que seria lo normal antes de que termine
     'el anterior
-    Dim J As Boolean: J = False
-    If DesdeDonde = 5 Then '5 una cancion llego a cero! ver que no sea por que se paso de largo
+    
+    'todo para depurar en rocchio
+    Dim J(5) As Boolean
+    J(0) = False
+    J(1) = False
+    J(2) = False
+    J(3) = False
+    J(5) = False
+    'el (5) es el acumulador
+    If DesdeDonde = 5 Then '5 una cancion llego a cero!
+        'ver que no sea por que se paso de largo con el ff
         'ver que el 0 y el 1 esten apagados!
-        If frmIndex.MP3.IsPlaying(0) Then J = True
-        If frmIndex.MP3.IsPlaying(1) Then J = True
+        If frmIndex.MP3.IsPlaying(0) Then J(0) = True: J(5) = True
+        frmIndex.List1.List(13) = "IsPlaying(0)=" + CStr(J(0))
+        'en algunas pcs el anterior aparentemente da falso!!!!
+        'por eso agregue esto!!!
+        If frmIndex.MP3.isPlayingClock(0) Then J(1) = True: J(5) = True
+        frmIndex.List1.List(14) = "IsPlayingClock(0)=" + CStr(J(1))
+        If frmIndex.MP3.IsPlaying(1) Then J(2) = True: J(5) = True
+        frmIndex.List1.List(15) = "IsPlaying(1)=" + CStr(J(2))
+        If frmIndex.MP3.isPlayingClock(1) Then J(3) = True: J(5) = True
+        frmIndex.List1.List(16) = "IsPlayingClock(1)=" + CStr(J(3))
     End If
-    If J Then
+    If J(5) Then 'cualquiera sea verdadero
         EMPEZAR_SIGUIENTE = 2
+        frmIndex.List1.List(17) = "EmpezarSig(" + CStr(DesdeDonde) + ")=2 = " + CStr(ContEmpezSig)
         Exit Function
     End If
     
     On Local Error GoTo ErrEmpSig
-    tERR.Anotar "003-0054", UBound(MATRIZ_LISTA)
+    tERR.Anotar "003-0054", tLST.GetLastIndex
     With frmIndex
         'generar el endplay si o si
         'si hay algun elemento en la lista ejecutarlo
-        If UBound(MATRIZ_LISTA) > 0 Then
+        If tLST.GetLastIndex > 0 Then
             tERR.Anotar "003-0055"
             .lblTemaSonando = "Cargando Proximo Tema...": .lblTemaSonando2 = "Cargando Proximo Tema..."
-            tERR.Anotar "003-0056"
             .lblTemaSonando.Refresh: .lblTemaSonando2.Refresh
             Dim TemaDeMatriz As String
             tERR.Anotar "003-0057"
-            TemaDeMatriz = txtInLista(MATRIZ_LISTA(1), 0, ",")
-            'reacomodar la matriz para quitar el primer elemento
-            Dim c As Long
+            TemaDeMatriz = tLST.GetElementListaPath(1) 'el proximo que sigue!
+            'reacomodar la matriz para quitar el primer elemento y ver si no hay mas
             tERR.Anotar "003-0058"
-            For c = 1 To UBound(MATRIZ_LISTA)
-                tERR.Anotar "003-0059"
-                If c < UBound(MATRIZ_LISTA) Then
-                    'cuando sea cualquiera menos el ultimo
-                    tERR.Anotar "003-0060"
-                    MATRIZ_LISTA(c) = MATRIZ_LISTA(c + 1)
-                Else
-                    'cuando sea el ultimo
-                    'redefinir la matriz con un indice menos
-                    tERR.Anotar "003-0061"
-                    ReDim Preserve MATRIZ_LISTA(c - 1)
-                    '.lstProximos.Clear
-                    '.lstProximos.AddItem "No hay próximo tema"
-                    tERR.Anotar "003-0062"
-                    .lstProximos = "No hay próximo tema"
-                End If
-            Next
+            If tLST.ListaKillElement = 0 Then .lstProximos = "No hay próximo tema"
+            
             tERR.Anotar "003-0063"
-            CORTAR_TEMA = False 'este tema va entero ya que lo eligio el usuario
+            CORTAR_TEMA(IAANext) = False 'este tema va entero ya que lo eligio el usuario
             tERR.Anotar "003-0064"
             '*******************************
             'ver si es audio o video o que es
@@ -373,10 +296,13 @@ Public Function EMPEZAR_SIGUIENTE(DesdeDonde As Long) As Long
             Select Case sExt
                 Case "mp3", "wma"
                     EMPEZAR_SIGUIENTE = 3
-                Case "avi", "wmv", "mpg", "dat", "mpeg"
+                    frmIndex.List1.List(17) = "EmpezarSig(" + CStr(DesdeDonde) + ")=3 = " + CStr(ContEmpezSig)
+                Case "avi", "wmv", "mpg", "dat", "mpeg", "vob"
                     EMPEZAR_SIGUIENTE = 4
+                    frmIndex.List1.List(17) = "EmpezarSig(" + CStr(DesdeDonde) + ")=4 = " + CStr(ContEmpezSig)
                 Case Else
                     EMPEZAR_SIGUIENTE = 5
+                    frmIndex.List1.List(17) = "EmpezarSig(" + CStr(DesdeDonde) + ")=5 = " + CStr(ContEmpezSig)
             End Select
             
             EjecutarTema TemaDeMatriz, True
@@ -385,6 +311,7 @@ Public Function EMPEZAR_SIGUIENTE(DesdeDonde As Long) As Long
             CargarProximosTemas
         Else 'no hay nada en la lista
             EMPEZAR_SIGUIENTE = 6
+            frmIndex.List1.List(17) = "EmpezarSig(" + CStr(DesdeDonde) + ")=6 = " + CStr(ContEmpezSig)
             .lblREP = ""
             'frmINDEX.MP3.SongName = "" 'no sirve
             tERR.Anotar "003-0066"
@@ -413,15 +340,9 @@ Public Function EMPEZAR_SIGUIENTE(DesdeDonde As Long) As Long
             
             TEMA_REPRODUCIENDO = "Sin reproduccion actual"
             tERR.Anotar "003-0075"
-            If HabilitarVUMetro Then
-                If Is3pmExclusivo Then
-                    frmIndex.VU21.CarFantastic = True
-                Else
-                    frmIndex.VU1.CarFantastic = True
-                End If
-            End If
-            tERR.Anotar "003-0076"
-            EsVideo = False 'no estamos rep video
+            
+            If HabilitarVUMetro Then frmIndex.VU.CarFantastic = True
+            
             tERR.Anotar "003-0077"
             'frmIndex.MP3.DoClose IAA
             frmIndex.Refresh
@@ -441,9 +362,9 @@ Public Sub TOP10(nameARCH As String, nameTEMA As String, nameDISCO As String)
     'On Error GoTo notop
     'ver si existe ranking.tbr
     tERR.Anotar "003-0078", nameARCH
-    If FSO.FileExists(AP + "ranking.tbr") = False Then
+    If FSO.FileExists(GPF("rd3_444")) = False Then
         tERR.Anotar "003-0079"
-        FSO.CreateTextFile AP + "ranking.tbr", True
+        FSO.CreateTextFile GPF("rd3_444"), True
     End If
     tERR.Anotar "003-0080"
     Dim TT As String
@@ -460,7 +381,7 @@ Public Sub TOP10(nameARCH As String, nameTEMA As String, nameDISCO As String)
     Encontrado = False
     'abrir el archivo y ver si ya esta el tema
     tERR.Anotar "003-0082"
-    Set TE = FSO.OpenTextFile(AP + "ranking.tbr", ForReading, False)
+    Set TE = FSO.OpenTextFile(GPF("rd3_444"), ForReading, False)
     'leerlo cargarlo en matriz y ordenar por mas escuchado
     tERR.Anotar "003-0083"
     Do While Not TE.AtEndOfStream
@@ -492,7 +413,7 @@ Public Sub TOP10(nameARCH As String, nameTEMA As String, nameDISCO As String)
                 tERR.Anotar "003-0094"
                 PTnuevo = ThisPTS
                 tERR.Anotar "003-0095"
-                TT = Str(ThisPTS) + "," + ThisArch + "," + ThisTEMA + "," + ThisDISCO
+                TT = CStr(ThisPTS) + "," + ThisArch + "," + ThisTEMA + "," + ThisDISCO
                 tERR.Anotar "003-0096"
                 DatoNuevoFull = TT
                 tERR.Anotar "003-0097"
@@ -526,7 +447,7 @@ Public Sub TOP10(nameARCH As String, nameTEMA As String, nameDISCO As String)
     tERR.Anotar "003-0108"
     Dim MTXsort() As String
     tERR.Anotar "003-0109"
-    Set TE = FSO.CreateTextFile(AP + "ranking.tbr", True)
+    Set TE = FSO.CreateTextFile(GPF("rd3_444"), True)
     Dim PTactual As Long
     Dim YaSeEscribioDatoNuevo As Boolean
     Dim VarMTX As Long 'variacion del indice de la matriz
@@ -592,10 +513,10 @@ Public Sub SumarContadorCreditos(valorSUMAR As Long)
     
     Dim TMP1 As Long, TMP2 As Long
     Dim TMP3 As Long, TMP4 As Long
-    TMP1 = GetNumberArchCredit(SYSfolder + "cc891.dll")
-    TMP2 = GetNumberArchCredit(SYSfolder + "cc892.dll")
-    TMP3 = GetNumberArchCredit(SYSfolder + "cc893.dll")
-    TMP4 = GetNumberArchCredit(SYSfolder + "cc894.dll")
+    TMP1 = GetNumberArchCredit(GPF("chdc01"))
+    TMP2 = GetNumberArchCredit(GPF("chdc02"))
+    TMP3 = GetNumberArchCredit(GPF("chdc03"))
+    TMP4 = GetNumberArchCredit(GPF("chdc04"))
     'el tmp1 esta multiplicado por 11 y el 2 por 9 (reiniciable)
     'el tmp3 esta multiplicado por 2 y el 4 por 3 (historico)
     
@@ -640,11 +561,11 @@ Public Sub SumarContadorCreditos(valorSUMAR As Long)
         NewVal2 = NewVal2 + valorSUMAR
     End If
     'escribir los dos reiniciables
-    PutNumberArchCredit SYSfolder + "cc891.dll", NewVal * 11
-    PutNumberArchCredit SYSfolder + "cc892.dll", NewVal * 9
+    PutNumberArchCredit GPF("chdc01"), NewVal * 11
+    PutNumberArchCredit GPF("chdc02"), NewVal * 9
     'escribir los dos historicos
-    PutNumberArchCredit SYSfolder + "cc893.dll", NewVal2 * 2
-    PutNumberArchCredit SYSfolder + "cc894.dll", NewVal2 * 3
+    PutNumberArchCredit GPF("chdc03"), NewVal2 * 2
+    PutNumberArchCredit GPF("chdc04"), NewVal2 * 3
        
     CONTADOR = NewVal
     CONTADOR2 = NewVal2
@@ -690,17 +611,17 @@ End Sub
 Public Function PuestoN(TemaBuscado As String) As String
     'leer ranking.tbr y buscar el tema
     tERR.Anotar "003-0159"
-    If FSO.FileExists(AP + "ranking.tbr") = False Then
+    If FSO.FileExists(GPF("rd3_444")) = False Then
         'esto no deberia pasar nunca ya que entra despues de que el tema se carga en el ranking
         tERR.Anotar "003-0160"
-        FSO.CreateTextFile AP + "ranking.tbr", True
+        FSO.CreateTextFile GPF("rd3_444"), True
         tERR.Anotar "003-0161"
         PuestoN = 1
         tERR.Anotar "003-0162"
         Exit Function
     End If
     tERR.Anotar "003-0163"
-    Set TE = FSO.OpenTextFile(AP + "ranking.tbr", ForReading, False)
+    Set TE = FSO.OpenTextFile(GPF("rd3_444"), ForReading, False)
     tERR.Anotar "003-0164"
     Dim TT As String
     Dim ThisArch As String
@@ -729,7 +650,7 @@ Public Function PuestoN(TemaBuscado As String) As String
             tERR.Anotar "003-0173"
             If UCase(ThisArch) = UCase(TemaBuscado) Then
                 tERR.Anotar "003-0174"
-                PuestoN = Trim(Str(PuestoActual))
+                PuestoN = Trim(CStr(PuestoActual))
                 Exit Function
             End If
         End If

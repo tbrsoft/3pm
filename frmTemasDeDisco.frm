@@ -440,34 +440,7 @@ Private Sub Form_Activate()
     'actualizar los precios
     '---------------------
     'si es gratis no usar!
-    If CreditosCuestaTema(0) = 0 Then
-        lblPrecios = "Musica Gratis"
-    Else
-        lblPrecios = "1 cancion = " + CStr(FormatCurrency(PrecioBase * CreditosCuestaTema(0), , , , vbFalse))
-        If CreditosCuestaTema(1) > 0 Then
-        lblPrecios = lblPrecios + " / 2 canciones = " + CStr(FormatCurrency(PrecioBase * CreditosCuestaTema(1), , , , vbFalse))
-        End If
-        
-        If CreditosCuestaTema(2) > 0 Then
-            lblPrecios = lblPrecios + " / 3 canciones = " + CStr(FormatCurrency(PrecioBase * CreditosCuestaTema(2), , , , vbFalse))
-        End If
-    End If
-    
-    'si es gratis no usar!
-    If CreditosCuestaTemaVIDEO(0) = 0 Then
-        lblPrecios = lblPrecios + " / Videos Gratis"
-    Else
-        lblPrecios = lblPrecios + " / 1 video = " + CStr(FormatCurrency(CreditosCuestaTemaVIDEO(0) * PrecioBase, , , , vbFalse))
-        
-        If CreditosCuestaTemaVIDEO(1) > 0 Then
-            lblPrecios = lblPrecios + " / 2 videos = " + CStr(FormatCurrency(CreditosCuestaTemaVIDEO(1) * PrecioBase, , , , vbFalse))
-        End If
-        
-        If CreditosCuestaTemaVIDEO(2) > 0 Then
-            lblPrecios = lblPrecios + " / 3 videos = " + CStr(FormatCurrency(PrecioBase * CreditosCuestaTemaVIDEO(2), , , , vbFalse))
-        End If
-    End If
-    
+    lblPrecios = GetPrecios(ShowCreditsMode, " / ")
 End Sub
 
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
@@ -495,29 +468,54 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     'lblCOMOSALIR = CStr(KeyCode) + "-" + CStr(RealKeyCode)
     
     Select Case RealKeyCode
+    
+        'subir o bajar volumen
+        Case TeclaBajaVolumen
+            If frmIndex.MP3.IsPlaying(IAA) Then
+                If CORTAR_TEMA(IAA) = False Then 'TEMA PAGO
+                    If VolumenIni <= 5 Then
+                        frmIndex.MP3.Volumen(IAA) = 0
+                    Else
+                        frmIndex.MP3.Volumen(IAA) = VolumenIni - 5
+                    End If
+                    VolumenIni = frmIndex.MP3.Volumen(IAA)
+                Else 'TEMA GRATUITO VARIA VOLUMEN 2
+                    If VolumenIni2 <= 5 Then
+                        frmIndex.MP3.Volumen(IAA) = 0
+                    Else
+                        frmIndex.MP3.Volumen(IAA) = VolumenIni2 - 5
+                    End If
+                    VolumenIni2 = frmIndex.MP3.Volumen(IAA)
+                End If
+            End If
+        Case TeclaSubeVolumen
+            If frmIndex.MP3.IsPlaying(IAA) Then
+                If CORTAR_TEMA(IAA) = False Then 'TEMA PAGO
+                    If VolumenIni >= 95 Then
+                        frmIndex.MP3.Volumen(IAA) = 100
+                    Else
+                        frmIndex.MP3.Volumen(IAA) = VolumenIni + 5
+                    End If
+                    VolumenIni = frmIndex.MP3.Volumen(IAA)
+                Else 'TEMA GRATUITO
+                    If VolumenIni2 >= 95 Then
+                        frmIndex.MP3.Volumen(IAA) = 100
+                    Else
+                        frmIndex.MP3.Volumen(IAA) = VolumenIni2 + 5
+                    End If
+                    VolumenIni2 = frmIndex.MP3.Volumen(IAA)
+                End If
+            End If
+    
         Case TeclaNewFicha
             If FindParam3PM("to") = "kd" Then
                 LTE 1
-                If CREDITOS <= MaximoFichas Then
-                    'apagar el fichero electronico
-                    SetKeyState vbKeyScrollLock, True
-                    VarCreditos CSng(TemasPorCredito)
-                Else
-                    'apagar el fichero electronico
-                    SetKeyState vbKeyScrollLock, False
-                End If
+                VarCreditos CSng(TemasPorCredito)
             End If
         Case TeclaNewFicha2
             If FindParam3PM("to2") = "kd" Then
                 LTE 2
-                If CREDITOS <= MaximoFichas Then
-                    'apagar el fichero electronico
-                    SetKeyState vbKeyScrollLock, True
-                    VarCreditos CSng(CreditosBilletes)
-                Else
-                    'apagar el fichero electronico
-                    SetKeyState vbKeyScrollLock, False
-                End If
+                VarCreditos CSng(CreditosBilletes)
             End If
         Case vbKeyF4
             If Shift = 4 Then
@@ -526,13 +524,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         Case TeclaShowContador
             frmOnlyContador.Show 1
         Case TeclaCerrarSistema
-            SetKeyState vbKeyCapital, False
-            MostrarCursor True
-            'no puedo usar do stop porque lanza el evento ENDPLAY y esto produce un EMPEZARSIGUIENTE
-            'que se come un tema de la lista
-            frmIndex.MP3.DoClose 99
-            If ApagarAlCierre Then APAGAR_PC
-            End
+            YaCerrar3PM
         Case TeclaESC
             TECLAS_PRES = TECLAS_PRES + "4"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
@@ -675,26 +667,12 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
         Case TeclaNewFicha
             If FindParam3PM("to") = "999999" Then
                 LTE 1
-                If CREDITOS <= MaximoFichas Then
-                    'apagar el fichero electronico
-                    SetKeyState vbKeyScrollLock, True
-                    VarCreditos CSng(TemasPorCredito)
-                Else
-                    'apagar el fichero electronico
-                    SetKeyState vbKeyScrollLock, False
-                End If
+                VarCreditos CSng(TemasPorCredito)
             End If
         Case TeclaNewFicha2
             If FindParam3PM("to2") = "999999" Then
                 LTE 2
-                If CREDITOS <= MaximoFichas Then
-                    'apagar el fichero electronico
-                    SetKeyState vbKeyScrollLock, True
-                    VarCreditos CSng(CreditosBilletes)
-                Else
-                    'apagar el fichero electronico
-                    SetKeyState vbKeyScrollLock, False
-                End If
+                VarCreditos CSng(CreditosBilletes)
             End If
         
         Case TeclaOK
@@ -740,14 +718,14 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
                                 
                 'si esta ejecutando pasa a la lista de reproducción
                 'si esta ejecutando una prueba SACARLA!!!
-                'el 99 pregunta si cualquier cosa se esta ejecutando!!
-                If (frmIndex.MP3.IsPlaying(0) Or frmIndex.MP3.IsPlaying(1)) And CORTAR_TEMA = False Then
+                
+                'si el tema ejecutandose es un gratuito debe salir elegantemente tambien
+                'If (frmIndex.MP3.IsPlaying(0) Or frmIndex.MP3.IsPlaying(1)) And CORTAR_TEMA = False Then
+                If (frmIndex.MP3.IsPlaying(0) Or frmIndex.MP3.IsPlaying(1)) Then
+                    
                     'pasar a la lista de reproducción
-                    Dim NewIndLista As Long
-                    NewIndLista = UBound(MATRIZ_LISTA)
-                    ReDim Preserve MATRIZ_LISTA(NewIndLista + 1)
-                    'se graba en Matriz_Listas como patah, nombre(sin .mp3)
-                    MATRIZ_LISTA(NewIndLista + 1) = temaElegido + "," + lstTEMAS + " / " + FSO.GetBaseName(UbicDiscoActual)
+                    tLST.ListaAdd temaElegido
+                    
                     CargarProximosTemas
                     'graba en reini.tbr los datos que correspondan por si se corta la luz
                     CargarArchReini UCase(ReINI) 'POR LAS DUDAS que no este en mayusculas
@@ -764,24 +742,14 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
                     lstTIME.Height = lstAgregados.Top - lstTIME.Top
                     SaltarEspaciosLstTemas True
                     
+                    '************ NOV 2006
+                    'si era un gratuito pasarse al que sigue
+                    If CORTAR_TEMA(IAA) Then EMPEZAR_SIGUIENTE 6
+                    '************
                     If OutTemasWhenSel Then Unload Me
-                Else
-                    'TEMA_REPRODUCIENDO y mp3.isplayin se cargan en ejecutartema
-                    
-                    ''ESTO SE HACIA ANTES PARA SALIR!!!!!!!!
-                    ''----------------------
-                    ''----------------------
-                    ''paciencia
-                    'lstTemas.Enabled = False: lstTIME.Enabled = False
-                    'lstTemas.BackColor = vbBlack: lstTIME.BackColor = vbBlack
-                    'lstTemas.ForeColor = vbYellow
-                    ''lstTemas.Font.Size = 22 esto hace que parezca mas de un lstbox
-                    'lstTemas.Clear: lstTIME.Clear
-                    'lstTemas.AddItem "CARGANDO TEMA"
-                    'lstTemas.AddItem "ESPERE..."
-                    'lstTemas.Refresh: lstTIME.Refresh
-                    ''----------------------
-                    ''----------------------
+                
+                Else ' es un tema a cortar o no hay nada en ejecucion
+                
                     'AHORA DEBE MARCARLO COMO EJECUTADO Y SALIR PARA ELIJA OTRO
                     lstAgregados = lstAgregados + lstTEMAS.List(lstTEMAS.ListIndex) + " / "
                     
@@ -794,12 +762,13 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
                     lstTEMAS.Height = lstAgregados.Top - lstTEMAS.Top
                     lstTIME.Height = lstAgregados.Top - lstTIME.Top
                     SaltarEspaciosLstTemas True
-                    CORTAR_TEMA = False 'este tema va entero ya que lo eligio el usuario
                     Me.ZOrder
+                    
+                    CORTAR_TEMA(IAANext) = False 'este tema va entero ya que lo eligio el usuario
                     EjecutarTema temaElegido, True
                     'si es un video y sale en el monitor de la PC _
                         salir para verlo!!!
-                    If Salida2 = False Then Unload Me
+                    If EsVideo And Salida2 = False Then Unload Me
                 End If
                 
                 VerSiTocaPUB
@@ -873,10 +842,16 @@ Private Sub Form_Load()
     If FSO.FileExists(ArchTapa) Then
         TapaCD.Picture = LoadPicture(ArchTapa)
     Else
-        TapaCD.Picture = LoadPicture(SYSfolder + "f61.dlw")
+        'verificar sueprlicencia XXXX
+        If FSO.FileExists(GPF("61conf")) Then
+            tERR.Anotar "acgg", NDR
+            TapaCD.Picture = LoadPicture(GPF("61conf"))
+        Else
+            TapaCD.Picture = LoadPicture(GPF("extr233_61"))
+        End If
     End If
     TapaCD.Refresh
-    lblDisco = FSO.GetBaseName(UbicDiscoActual)
+    lblDISCO = FSO.GetBaseName(UbicDiscoActual)
     Dim ArchDaTa As String
     ArchDaTa = UbicDiscoActual + "data.txt"
     If FSO.FileExists(ArchDaTa) Then
@@ -916,8 +891,10 @@ Private Sub Form_Load()
                 EXT = " (wma-Musica)"
             Case "mpeg", "mpg", "avi", "wmv"
                 EXT = " (" + LCase(EXT) + "-Video)"
+            Case "vob"
+                EXT = " (DVD)"
             Case "dat"
-                EXT = " (dat-VCD-Video)"
+                EXT = " (VCD-Video)"
         End Select
         nombreTemas = FSO.GetBaseName(nombreTemas) + EXT
         lstTEMAS.AddItem nombreTemas

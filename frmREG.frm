@@ -362,7 +362,7 @@ Begin VB.Form frmREG
          Strikethrough   =   0   'False
       EndProperty
       Height          =   435
-      Left            =   3240
+      Left            =   3270
       TabIndex        =   9
       Top             =   7050
       Width           =   1785
@@ -543,6 +543,7 @@ MiErr:
 End Sub
 
 Private Sub Command2_Click()
+    Unload Me
     End
 End Sub
 
@@ -578,14 +579,10 @@ End Sub
 Private Sub Form_Load()
     LastTeclas = "??????"
        
-    If FSO.FileExists(SYSfolder + "oddtb.jut") = False Then
+    If FSO.FileExists(GPF("origs")) = False Then
         'ESCRIBIRLO!!!
-        EscribirArch1Linea SYSfolder + "oddtb.jut", AP + "discos"
+        EscribirArch1Linea GPF("origs"), AP + "discos"
     End If
-    
-    'para que lo leo??? lo saque 31/05/06
-    'Dim tORIG As String
-    'tORIG = LeerArch1Linea(SYSfolder + "oddtb.jut")
     
     'para recuperaciones
     TeclaIZQ = Val(LeerConfig("TeclaIzquierda", "90"))
@@ -620,16 +617,16 @@ Private Sub Form_Load()
         
     Dim JuSe As New clsJuntaSepara
     'leerlo
-    JuSe.ReadFile SYSfolder + "nev.man"
+    JuSe.ReadFile GPF("pdis233")
     'extraer todo en System
     Dim A As Long
     For A = 1 To JuSe.CantArchs
-        JuSe.Extract SYSfolder, A
+        JuSe.Extract GPF("extr233"), A
     Next
     'cerrar todo
     Set JuSe = Nothing
     
-    Image1.Picture = LoadPicture(SYSfolder + "f61.dlw")
+    Image1.Picture = LoadPicture(GPF("extr233_61"))
     
     '------------------------------------------------------
     'dejar cragado el frmVideo
@@ -664,22 +661,22 @@ Private Sub Form_Load()
     'VER SI existe el archivo con los datos de las
     'imágenes de inicio y de cierre
     Dim ArchImgIni As String
-    ArchImgIni = AP + "imgini.tbr"
+    ArchImgIni = GPF("iit17222")
     'este archivo de inicio se genera la primera vez para tomas las imagenes de windows
-    'al momneot de instalar 3PM
+    'al momento de instalar 3PM
     If FSO.FileExists(ArchImgIni) Then
         GoTo YaEstaIMG
     Else
         Set TE = FSO.CreateTextFile(ArchImgIni, True)
-        If FSO.FolderExists(WINfolder + "img3PM") = False Then FSO.CreateFolder WINfolder + "img3PM"
-        If FSO.FolderExists(WINfolder + "img3PM\w") = False Then FSO.CreateFolder WINfolder + "img3pm\w"
         'ver imagen de inicio
         If FSO.FileExists("c:\logo.sys") Then
             TE.WriteLine "ImgIni=1"
             'copiar el archivo a un lugar seguro para
             'despues administrar los cambios
-            If FSO.FileExists(WINfolder + "img3pm\w\logo.sys") Then FSO.DeleteFile WINfolder + "img3pm\w\logo.sys", True
-            FSO.CopyFile "c:\logo.sys", WINfolder + "img3pm\w\logo.sys", True
+            If FSO.FileExists(GPF("ildw9m")) Then
+                FSO.DeleteFile GPF("ildw9m"), True
+            End If
+            FSO.CopyFile "c:\logo.sys", GPF("ildw9m"), True
         Else
             TE.WriteLine "ImgIni=0"
         End If
@@ -689,8 +686,8 @@ Private Sub Form_Load()
             TE.WriteLine "ImgCerrando=1"
             'copiar el archivo a un lugar seguro para
             'despues administrar los cambios
-            If FSO.FileExists(WINfolder + "img3pm\w\logow.sys") Then FSO.DeleteFile WINfolder + "img3pm\w\logow.sys", True
-            FSO.CopyFile WINfolder + "logow.sys", WINfolder + "img3pm\w\logow.sys", True
+            If FSO.FileExists(GPF("ildw9m3")) Then FSO.DeleteFile GPF("ildw9m3"), True
+            FSO.CopyFile WINfolder + "logow.sys", GPF("ildw9m3"), True
         Else
             TE.WriteLine "ImgCerrando=0"
         End If
@@ -700,8 +697,8 @@ Private Sub Form_Load()
             TE.WriteLine "ImgApagar=1"
             'copiar el archivo a un lugar seguro para
             'despues administrar los cambios
-            If FSO.FileExists(WINfolder + "img3pm\w\logos.sys") Then FSO.DeleteFile WINfolder + "img3pm\w\logos.sys", True
-            FSO.CopyFile WINfolder + "logos.sys", WINfolder + "img3pm\w\logos.sys", True
+            If FSO.FileExists(GPF("ildw9m2")) Then FSO.DeleteFile GPF("ildw9m2"), True
+            FSO.CopyFile WINfolder + "logos.sys", GPF("ildw9m2"), True
         Else
             TE.WriteLine "ImgApagar=0"
         End If
@@ -715,46 +712,44 @@ Private Sub Form_Load()
 YaEstaIMG:
     'VER si ya se pasaron las imagenes de 3pm
     'a la carpeta que corresponde
-    If FSO.FolderExists(WINfolder + "img3pm") = False Then FSO.CreateFolder (WINfolder + "img3pm")
-    If FSO.FolderExists(WINfolder + "img3pm\3") = False Then FSO.CreateFolder (WINfolder + "img3pm\3")
     
     'copiar a la carpeta primero la original....
-    If FSO.FileExists(SYSfolder + "f56.dlw") Then
+    If FSO.FileExists(GPF("extr233_56")) Then
         'siempre copiarlo si esta
-        If FSO.FileExists(WINfolder + "img3pm\3\logo.sys") Then FSO.DeleteFile WINfolder + "img3pm\3\logo.sys", True
-        FSO.CopyFile SYSfolder + "f56.dlw", WINfolder + "img3pm\3\logo.sys", True
+        If FSO.FileExists(GPF("ild3pm")) Then FSO.DeleteFile GPF("ild3pm"), True
+        FSO.CopyFile GPF("extr233_56"), GPF("ild3pm"), True
     End If
     'que sera reemplazada si existe la de SL.....
-    If FSO.FileExists(SYSfolder + "f5yaSL.nam") Then
+    If FSO.FileExists(GPF("233_56_b")) Then
         'siempre copiarlo si esta
-        If FSO.FileExists(WINfolder + "img3pm\3\logo.sys") Then FSO.DeleteFile WINfolder + "img3pm\3\logo.sys", True
-        FSO.CopyFile SYSfolder + "f5yaSL.nam", WINfolder + "img3pm\3\logo.sys", True
-    End If
-    
-    'copiar a la carpeta primero la original....
-    If FSO.FileExists(SYSfolder + "f58.dlw") Then
-        'siempre copiarlo si esta
-        If FSO.FileExists(WINfolder + "img3pm\3\logow.sys") Then FSO.DeleteFile WINfolder + "img3pm\3\logow.sys", True
-        FSO.CopyFile SYSfolder + "f58.dlw", WINfolder + "img3pm\3\logow.sys", True
-    End If
-    'que sera reemplazada si existe la de SL.....
-    If FSO.FileExists(SYSfolder + "f7yaSL.nam") Then
-        'siempre copiarlo si esta
-        If FSO.FileExists(WINfolder + "img3pm\3\logow.sys") Then FSO.DeleteFile WINfolder + "img3pm\3\logow.sys", True
-        FSO.CopyFile SYSfolder + "f7yaSL.nam", WINfolder + "img3pm\3\logow.sys", True
+        If FSO.FileExists(GPF("ild3pm")) Then FSO.DeleteFile GPF("ild3pm"), True
+        FSO.CopyFile GPF("233_56_b"), GPF("ild3pm"), True
     End If
     
     'copiar a la carpeta primero la original....
-    If FSO.FileExists(SYSfolder + "f57.dlw") Then
+    If FSO.FileExists(GPF("extr233_58")) Then
         'siempre copiarlo si esta
-        If FSO.FileExists(WINfolder + "img3pm\3\logos.sys") Then FSO.DeleteFile WINfolder + "img3pm\3\logos.sys", True
-        FSO.CopyFile SYSfolder + "f57.dlw", WINfolder + "img3pm\3\logos.sys", True
+        If FSO.FileExists(GPF("ild3pm3")) Then FSO.DeleteFile GPF("ild3pm3"), True
+        FSO.CopyFile GPF("extr233_58"), GPF("ild3pm3"), True
     End If
     'que sera reemplazada si existe la de SL.....
-    If FSO.FileExists(SYSfolder + "f6yaSL.nam") Then
+    If FSO.FileExists(GPF("233_58_b")) Then
         'siempre copiarlo si esta
-        If FSO.FileExists(WINfolder + "img3pm\3\logos.sys") Then FSO.DeleteFile WINfolder + "img3pm\3\logos.sys", True
-        FSO.CopyFile SYSfolder + "f6yaSL.nam", WINfolder + "img3pm\3\logos.sys", True
+        If FSO.FileExists(GPF("ild3pm3")) Then FSO.DeleteFile GPF("ild3pm3"), True
+        FSO.CopyFile GPF("233_58_b"), GPF("ild3pm3"), True
+    End If
+    
+    'copiar a la carpeta primero la original....
+    If FSO.FileExists(GPF("extr233_57")) Then
+        'siempre copiarlo si esta
+        If FSO.FileExists(GPF("ild3pm2")) Then FSO.DeleteFile GPF("ild3pm2"), True
+        FSO.CopyFile GPF("extr233_57"), GPF("ild3pm2"), True
+    End If
+    'que sera reemplazada si existe la de SL.....
+    If FSO.FileExists(GPF("233_57_b")) Then
+        'siempre copiarlo si esta
+        If FSO.FileExists(GPF("ild3pm2")) Then FSO.DeleteFile GPF("ild3pm2"), True
+        FSO.CopyFile GPF("233_57_b"), GPF("ild3pm2"), True
     End If
     
     cmbCountry.AddItem "Argentina"
@@ -939,8 +934,8 @@ YaEstaIMG:
     End If
     
     If K.LICENCIA = HSuperLicencia Then
-        If FSO.FileExists(WINfolder + "SL\indexchi.tbr") Then
-            Image1.Picture = LoadPicture(WINfolder + "SL\indexchi.tbr")
+        If FSO.FileExists(GPF("61conf")) Then
+            Image1.Picture = LoadPicture(GPF("61conf"))
         End If
         If ClaveAdmin = "demo" Then
             'o ha crakeado o todavia no ha instalado la actualizacion
@@ -971,8 +966,6 @@ YaEstaIMG:
     Exit Sub
 noPuede:
     tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acpp"
-    'WriteTBRLog "Error al ocultar el formulario de registro. La " + _
-        "clave es correcta" + Err.Description + " (" + CStr(Err.Number) + "). Se continua...", True
     
     Resume Next
     

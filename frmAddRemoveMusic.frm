@@ -673,7 +673,7 @@ Private Sub cmdKillArch_Click()
     On Error GoTo MiErr
     
     tERR.Anotar "acjy"
-    If lstTemas.SelCount = 0 Then
+    If lstTEMAS.SelCount = 0 Then
         Select Case IDIOMA
             Case "Español"
                 MsgBox "No hay archivos seleccionados"
@@ -695,10 +695,10 @@ Private Sub cmdKillArch_Click()
     If MsgBox(MSG, vbQuestion + vbYesNo) = vbYes Then
         On Error GoTo NOBORRA
         Dim TotSel As Long, FileSel As String
-        TotSel = lstTemas.SelCount
-        For AA = 0 To lstTemas.ListCount - 1
+        TotSel = lstTEMAS.SelCount
+        For AA = 0 To lstTEMAS.ListCount - 1
             
-            If lstTemas.Selected(AA) Then
+            If lstTEMAS.Selected(AA) Then
                 'en la matriz empieza en 1 y lst empieza en 0
                 FileSel = txtInLista(MTXfiles(AA + 1), 0, "#")
                 FSO.DeleteFile FileSel, True
@@ -751,7 +751,7 @@ Private Sub cmdKillTapa_Click()
     FSO.DeleteFile lstCarpetas + "\tapa.jpg", True
     tERR.Anotar "ackc", lstCarpetas
     'refrescar la imagen
-    TapaCD.Picture = LoadPicture(SYSfolder + "f61.dlw")
+    TapaCD.Picture = LoadPicture(GPF("extr233_61"))
     cmdKillTapa.Enabled = False
     
     Exit Sub
@@ -907,7 +907,7 @@ Private Sub Command12_Click()
             TMPs = TMPs + lstOrigenes.List(A)
         End If
     Next A
-    EscribirArch1Linea SYSfolder + "oddtb.jut", TMPs
+    EscribirArch1Linea GPF("origs"), TMPs
     MsgBox "Los cambios se han grabado satisfactoriamente"
 End Sub
 
@@ -991,7 +991,7 @@ Private Sub Command15_Click()
     TE121.WriteLine "Cantidad Reproducciones: CANCION"
         'grabar en un txt las canciones
         Dim TE120 As TextStream
-        Set TE120 = FSO.OpenTextFile(AP + "ranking.tbr", ForReading, True)
+        Set TE120 = FSO.OpenTextFile(GPF("rd3_444"), ForReading, True)
             Do While Not TE120.AtEndOfStream
                 TE121.WriteLine TE120.ReadLine
             Loop
@@ -1031,7 +1031,7 @@ Private Sub Command4_Click()
     TamTapa = FileLen(CmdLg.FileName)
     TamTapa = Round(TamTapa / 1024, 2) 'son KB
     tERR.Anotar "ackl", TamTapa
-    If TamTapa > 20 Then
+    If TamTapa > TamanoTapaPermitido Then
         Select Case IDIOMA
             Case "Español"
                 MSG = "tbrSoft recomienda imagenes no mayores a 8 KB, esta " + _
@@ -1213,8 +1213,8 @@ Private Sub Command7_Click()
             If TamTapa > 200 Then
                 MasDe300Kb = MasDe300Kb + FSO.GetBaseName(ThisFolder) + vbCrLf
                 TapasMuyGrandes = TapasMuyGrandes + 1
-            Else
-                If TamTapa > 30 Then
+            Else 'AQUI YA ESTA EN K_BYTES !!!!
+                If TamTapa > TamanoTapaPermitido Then
                     MasDe20Kb = MasDe20Kb + FSO.GetBaseName(ThisFolder) + vbCrLf
                     TapasGrandes = TapasGrandes + 1
                 End If
@@ -1228,7 +1228,7 @@ Private Sub Command7_Click()
     Select Case IDIOMA
         Case "Español"
             MSG = "Hay " + CStr(TapasGrandes) + _
-                " tapas de mas de 20 Kb. Estas son:" + vbCrLf + MasDe20Kb
+                " tapas de mas de " + CStr(TamanoTapaPermitido) + " Kb. Estas son:" + vbCrLf + MasDe20Kb
         Case "English"
         Case "Francois"
         Case "Italiano"
@@ -1337,12 +1337,7 @@ End Sub
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     Select Case KeyCode
         Case TeclaCerrarSistema
-            SetKeyState vbKeyCapital, False
-            If ApagarAlCierre Then APAGAR_PC
-            'no puedo usar do stop porque lanza el evento ENDPLAY y esto produce un EMPEZARSIGUIENTE
-            'que se come un tema de la lista
-            frmIndex.MP3.DoClose 99
-            End
+            YaCerrar3PM
     End Select
 End Sub
 
@@ -1351,26 +1346,12 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
     tERR.Anotar "ackw", KeyCode, Shift
     If KeyCode = TeclaNewFicha Then
         LTE 1
-        'si ya hay 9 cargados se traga las fichas
-        If CREDITOS <= MaximoFichas Then
-            SetKeyState vbKeyScrollLock, True
-            VarCreditos CSng(TemasPorCredito)
-        Else
-            'apagar el fichero electronico
-            SetKeyState vbKeyScrollLock, False
-        End If
+        VarCreditos CSng(TemasPorCredito)
     End If
     
     If KeyCode = TeclaNewFicha2 Then
         LTE 2
-        'si ya hay 9 cargados se traga las fichas
-        If CREDITOS <= MaximoFichas Then
-            SetKeyState vbKeyScrollLock, True
-            VarCreditos CSng(CreditosBilletes)
-        Else
-            'apagar el fichero electronico
-            SetKeyState vbKeyScrollLock, False
-        End If
+        VarCreditos CSng(CreditosBilletes)
     End If
     
     Exit Sub
@@ -1386,7 +1367,7 @@ Private Sub Form_Load()
     
     'mostrar los origenes
     Dim Origenes As String
-    Origenes = LeerArch1Linea(SYSfolder + "oddtb.jut")
+    Origenes = LeerArch1Linea(GPF("origs"))
     Dim PartOrigenes() As String
     PartOrigenes = Split(Origenes, "*")
     
@@ -1422,45 +1403,45 @@ End Sub
 Private Sub lstCarpetas_Click()
     On Error GoTo MiErr
     
-    lstTemas.Clear
+    lstTEMAS.Clear
     'mostrar los temas de esta carpeta solo si hay una sola carpeta elegida
     tERR.Anotar "acla", lstCarpetas.SelCount
     If lstCarpetas.SelCount > 1 Then
         Select Case IDIOMA
             Case "Español"
-                lstTemas.AddItem "No hay vista disponible"
-                lstTemas.AddItem "Multiples carpetas seleccionadas"
+                lstTEMAS.AddItem "No hay vista disponible"
+                lstTEMAS.AddItem "Multiples carpetas seleccionadas"
             Case "English"
             Case "Francois"
             Case "Italiano"
         End Select
         
-        lstTemas.Enabled = False
+        lstTEMAS.Enabled = False
         
     Else
-        lstTemas.Enabled = True
+        lstTEMAS.Enabled = True
         ReDim Preserve MTXfiles(0)
         MTXfiles = ObtenerArchMM(lstCarpetas)
         tERR.Anotar "aclb", UBound(MTXfiles)
         If UBound(MTXfiles) = 0 Then
             Select Case IDIOMA
                 Case "Español"
-                    lstTemas.AddItem "No hay temas multimedia en esta carpeta"
+                    lstTEMAS.AddItem "No hay temas multimedia en esta carpeta"
                 Case "English"
                 Case "Francois"
                 Case "Italiano"
             End Select
             
-            lstTemas.Enabled = False
+            lstTEMAS.Enabled = False
         Else
             For A = 1 To UBound(MTXfiles)
                 tERR.Anotar "aclc", A, UBound(MTXfiles)
-                lstTemas.AddItem txtInLista(MTXfiles(A), 1, "#")
-                lstTemas.Enabled = True
+                lstTEMAS.AddItem txtInLista(MTXfiles(A), 1, "#")
+                lstTEMAS.Enabled = True
             Next
         End If
     End If
-    cmdKillArch.Enabled = lstTemas.Enabled
+    cmdKillArch.Enabled = lstTEMAS.Enabled
     'mostrar la tapa si la tiene
     Dim TapaArch As String
     TapaArch = lstCarpetas + "\tapa.jpg"
@@ -1475,7 +1456,7 @@ Private Sub lstCarpetas_Click()
         lblKB = CStr(TamTapa) + " KB"
     Else
         tERR.Anotar "aclf"
-        TapaCD.Picture = LoadPicture(SYSfolder + "f61.dlw")
+        TapaCD.Picture = LoadPicture(GPF("extr233_61"))
         cmdKillTapa.Enabled = False
         lblKB = "8 KB"
     End If
@@ -1501,7 +1482,7 @@ Private Sub lstCarpetas_Click()
     End If
     'ver el ranking y analizar las estadísticas del disco
     'leer los discos y ver uno por uno (de mayor a menor) que temas se escucharon
-    If FSO.FileExists(AP + "ranking.tbr") = False Then
+    If FSO.FileExists(GPF("rd3_444")) = False Then
         Select Case IDIOMA
             Case "Español"
                 lstEstadisticas.AddItem "No hay informacion"
@@ -1512,7 +1493,7 @@ Private Sub lstCarpetas_Click()
         
         Exit Sub
     End If
-    Set TE = FSO.OpenTextFile(AP + "ranking.tbr", ForReading, False)
+    Set TE = FSO.OpenTextFile(GPF("rd3_444"), ForReading, False)
     lstEstadisticas.Clear
     Dim ThisLine As String, ThisDISCO As String, ThisTEMA As String, CantLisen As Long
     Dim TotLisen As Long, nPuesto As Long
@@ -1566,7 +1547,7 @@ End Sub
 Public Function ContarLisen(Carpeta As String) As Long
     On Error GoTo MiErr
     
-    Set TE = FSO.OpenTextFile(AP + "ranking.tbr", ForReading, False)
+    Set TE = FSO.OpenTextFile(GPF("rd3_444"), ForReading, False)
     Dim ThisLine As String, ThisDISCO As String, ThisTEMA As String, CantLisen As Long
     Dim TotLisen As Long, nPuesto As Long
     TotLisen = 0: nPuesto = 0
@@ -1599,7 +1580,7 @@ Public Function STRceros(n As Variant, Cifras As Integer) As String
     'complaeta con ceroas adelante
     ' si n es mas lasgo que cifras devuelve el valor n sin ningun cero adelante
     Dim STRn As String
-    STRn = Trim(Str(n))
+    STRn = Trim(CStr(n))
     Dim DIF As Integer
     DIF = Cifras - Len(STRn)
     If DIF > 0 Then

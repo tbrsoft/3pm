@@ -1,5 +1,7 @@
 Attribute VB_Name = "modValidar"
-'el codigo que se pide esta grabado en SYSFOLDER+"\CodPed.cfg"
+
+'el codigo que se pide esta grabado en BasePath + "cpd.dor"
+
 Private txtClaves As String
 
 Public Sub CrearNuevoCodigoValidar()
@@ -9,7 +11,7 @@ Public Sub CrearNuevoCodigoValidar()
     Dim A As Long
     Randomize Timer
     A = Int(Rnd * 1000000) '1 millon
-    EscribirArch1Linea SYSfolder + "codped.cfg", CStr(A)
+    EscribirArch1Linea GPF("clavevalid"), CStr(A)
 End Sub
 
 
@@ -19,7 +21,7 @@ Public Function CodigoParaClaveActual() As String
     
     'PARA QUE NO CAMBIE ESTA EN UNA ARCHIVO
     Dim Cod As String
-    Cod = LeerArch1Linea(SYSfolder + "codped.cfg")
+    Cod = LeerArch1Linea(GPF("clavevalid"))
     
     CodigoParaClaveActual = Cod
     
@@ -85,21 +87,21 @@ End Function
 Public Sub RegistroDiario()
     'registra cada inicio de 3PM y el numero que indica el contador
     Dim TE As TextStream
-    Set TE = FSO.OpenTextFile(SYSfolder + "daily.cfg", ForAppending, True)
+    Set TE = FSO.OpenTextFile(GPF("rdcday"), ForAppending, True)
         SumarContadorCreditos 0 'me aseguro que se carge la variable contador
         TE.WriteLine CStr(Date) + " - " + CStr(time) + " Contador R en: " + CStr(CONTADOR) + " Contador H en: " + CStr(CONTADOR2)
     TE.Close
-    If FileLen(SYSfolder + "daily.cfg") > 50000 Then
+    If FileLen(GPF("rdcday")) > 50000 Then
         'si es muy grande achicarlo.
         Dim TE431 As String
-        Set TE = FSO.OpenTextFile(SYSfolder + "daily.cfg", ForReading, True)
+        Set TE = FSO.OpenTextFile(GPF("rdcday"), ForReading, True)
             TE431 = TE.ReadAll
         TE.Close
         'le saco al mitad
         Dim MIT As Long
         MIT = Len(TE431) / 2
         TE431 = Right(TE431, MIT)
-        Set TE = FSO.CreateTextFile(SYSfolder + "daily.cfg", True)
+        Set TE = FSO.CreateTextFile(GPF("rdcday"), True)
             TE.WriteLine TE431
         TE.Close
     End If

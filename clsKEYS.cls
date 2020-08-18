@@ -24,7 +24,7 @@ Private Declare Function GetLocaleInfo Lib "kernel32" Alias _
     ByVal lpLCData As String, ByVal cchData As Long) As Long
 
 Private Declare Sub GetMem1 Lib "msvbvm60.dll" (ByVal _
-   MemAddress As Long, var As Byte)
+   MemAddress As Long, Var As Byte)
 
 Private Declare Sub GetSystemInfo Lib "kernel32" (lpSystemInfo As SYSTEM_INFO)
 
@@ -73,7 +73,7 @@ Public Property Get FileData() As String
 End Property
 
 Private Sub Class_Initialize()
-    FileWithDatosClave = SYSfolder + "dciLib22.dll" 'DatosClaveIngresada.DLL
+    FileWithDatosClave = GPF("cd3pm") 'DatosClaveIngresada.DLL
 End Sub
 
 Public Property Let ClaveDLL(NewClave As String)
@@ -178,7 +178,7 @@ Listo:
         
         'hacer una copia de seguridad cada vez que haya cambios
         'xxxx ver desde que punto restaurarlo
-        FSO.CopyFile FileWithDatosClave, SYSfolder + "c2LK.dll"
+        FSO.CopyFile FileWithDatosClave, GPF("cccd3pm")
     End If
 
 End Function
@@ -191,8 +191,8 @@ Public Function LeerClaveIngresadaAntes() As String
 INI6:
     If FSO.FileExists(FileWithDatosClave) = False Then
         'ver si hay una copia de seguridad
-        If FSO.FileExists(SYSfolder + "c2LK.dll") Then
-            FSO.CopyFile SYSfolder + "c2LK.dll", FileWithDatosClave, True
+        If FSO.FileExists(GPF("cccd3pm")) Then
+            FSO.CopyFile GPF("cccd3pm"), FileWithDatosClave, True
             GoTo INI6
         End If
         LeerClaveIngresadaAntes = ""
@@ -580,10 +580,10 @@ Private Function SumaCHRtxt(TXT As String) As Long
     Dim Caracter As String
     Dim TMP As Long
     
-    For j = 1 To Len(TXT)
-      Caracter = Mid(TXT, j, 1)
+    For J = 1 To Len(TXT)
+      Caracter = Mid(TXT, J, 1)
       TMP = TMP + Asc(Caracter)
-    Next j
+    Next J
     SumaCHRtxt = TMP
 End Function
 

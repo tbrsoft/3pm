@@ -35,9 +35,10 @@ Begin VB.Form frmINI
       Width           =   9015
    End
    Begin VB.Label VVV 
-      BackStyle       =   0  'Transparent
+      AutoSize        =   -1  'True
+      BackColor       =   &H00000000&
       BeginProperty Font 
-         Name            =   "Courier New"
+         Name            =   "Arial Black"
          Size            =   15.75
          Charset         =   0
          Weight          =   700
@@ -46,11 +47,11 @@ Begin VB.Form frmINI
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H0000FFFF&
-      Height          =   405
-      Left            =   1560
+      Height          =   450
+      Left            =   1380
       TabIndex        =   3
-      Top             =   30
-      Width           =   4875
+      Top             =   6420
+      Width           =   120
    End
    Begin VB.Label lblTipoLIC 
       Alignment       =   2  'Center
@@ -76,7 +77,7 @@ Begin VB.Form frmINI
    Begin VB.Label pBar 
       BackColor       =   &H00C0FFFF&
       Height          =   90
-      Left            =   1350
+      Left            =   1380
       TabIndex        =   1
       Top             =   7140
       Width           =   435
@@ -120,22 +121,22 @@ Private Sub Form_Load()
     tERR.Anotar "acmy"
     MostrarCursor False
     
-    VVV = "3PM v " + Trim(Str(App.Major)) + "." + Trim(Str(App.Minor)) + "." + Trim(Str(App.Revision))
+    VVV = "3PM v " + Trim(CStr(App.Major)) + "." + Trim(CStr(App.Minor)) + "." + Trim(CStr(App.Revision))
     '--------
     'cargar los previstos
 
     tERR.Anotar "acmz", K.LICENCIA
     If K.LICENCIA = HSuperLicencia Then
-        If FSO.FileExists(WINfolder + "SL\imgbig.tbr") Then
-            Image1.Picture = LoadPicture(WINfolder + "SL\imgbig.tbr")
-            frmVIDEO.picBigImg = LoadPicture(WINfolder + "SL\imgbig.tbr")
+        If FSO.FileExists(GPF("iisl67")) Then
+            Image1.Picture = LoadPicture(GPF("iisl67"))
+            frmVIDEO.picBigImg = LoadPicture(GPF("iisl67"))
         Else
-            Image1.Picture = LoadPicture(SYSfolder + "f52.dlw")
-            frmVIDEO.picBigImg = LoadPicture(SYSfolder + "f52.dlw")
+            Image1.Picture = LoadPicture(GPF("extr233_52"))
+            frmVIDEO.picBigImg = LoadPicture(GPF("extr233_52"))
         End If
     Else
-        Image1.Picture = LoadPicture(SYSfolder + "f52.dlw")
-        frmVIDEO.picBigImg = LoadPicture(SYSfolder + "f52.dlw")
+        Image1.Picture = LoadPicture(GPF("extr233_52"))
+        frmVIDEO.picBigImg = LoadPicture(GPF("extr233_52"))
     End If
     frmVIDEO.picBigImg.Top = frmVIDEO.Height / 2 - frmVIDEO.picBigImg.Height / 2
     frmVIDEO.picBigImg.Left = frmVIDEO.Width / 2 - frmVIDEO.picBigImg.Width / 2
@@ -155,7 +156,7 @@ Private Sub Form_Load()
     lblTipoLIC.Refresh
     tERR.Anotar "acna"
     AjustarFRM Me, 12000
-    'leer el archivo de configuracion SYSfolder + "3pmcfg.tbr"
+    'leer el archivo de configuracion GPF("config")
     CargarIMGinicio = LeerConfig("CargarImagenInicio", "1")
     AutoReDibuj = LeerConfig("AutoReDraw", "1")
     TeclaDER = Val(LeerConfig("TeclaDerecha", "88"))
@@ -165,6 +166,7 @@ Private Sub Form_Load()
     TeclaOK = Val(LeerConfig("TeclaOK", "13"))
     TeclaESC = Val(LeerConfig("TeclaESC", "27"))
     TeclaNewFicha = Val(LeerConfig("TeclaNuevaFicha", "81"))
+    TeclaNewFicha2 = Val(LeerConfig("TeclaNuevaFicha2", "83"))
     TeclaConfig = Val(LeerConfig("TeclaConfig", "67"))
     TeclaCerrarSistema = Val(LeerConfig("TeclaCerrarSistema", "87"))
     tERR.Anotar "acnb"
@@ -175,7 +177,27 @@ Private Sub Form_Load()
     TeclaSubeVolumen = Val(LeerConfig("TeclaSubeVolumen", "69")) 'E
     TeclaNextMusic = Val(LeerConfig("TeclaNextMusic", "66")) 'B
     
+    TeclaDERx2 = Val(LeerConfig("TeclaDerechax2", "2"))
+    TeclaIZQx2 = Val(LeerConfig("TeclaIzquierdax2", "1"))
+    TeclaPagAdx2 = Val(LeerConfig("TeclaPagAdx2", "3"))
+    TeclaPagAtx2 = Val(LeerConfig("TeclaPagAtx2", "4"))
+    TeclaOKx2 = Val(LeerConfig("TeclaOKx2", "5"))
+    TeclaESCx2 = Val(LeerConfig("TeclaESCx2", "7"))
+    TeclaNewFichax2 = Val(LeerConfig("TeclaNuevaFichax2", "22"))
+    TeclaNewFicha2x2 = Val(LeerConfig("TeclaNuevaFicha2x2", "23"))
+    TeclaConfigx2 = Val(LeerConfig("TeclaConfigx2", "8"))
+    TeclaCerrarSistemax2 = Val(LeerConfig("TeclaCerrarSistemax2", "9"))
+    tERR.Anotar "acnbx2"
+    TeclaShowContadorx2 = Val(LeerConfig("TeclaShowContadorx2", "10")) 'U
+    TeclaPutCeroContadorx2 = Val(LeerConfig("TeclaPutCeroContadorx2", "11")) 'V
+    TeclaFFx2 = Val(LeerConfig("TeclaFFx2", "74")) 'J
+    TeclaBajaVolumenx2 = Val(LeerConfig("TeclaBajaVolumenx2", "13")) 'D
+    TeclaSubeVolumenx2 = Val(LeerConfig("TeclaSubeVolumenx2", "14")) 'E
+    TeclaNextMusicx2 = Val(LeerConfig("TeclaNextMusicx2", "15")) 'B
+    
+    ShowCreditsMode = Val(LeerConfig("ShowCreditsMode", "0"))
     ApagarAlCierre = LeerConfig("ApagarAlCierre", "0")
+    
     'puede ser 46 o 5 por ahora
     IsMod46Teclas = CLng(LeerConfig("IsMod46Teclas", "46"))
     
@@ -224,15 +246,31 @@ Private Sub Form_Load()
     TemasPorCredito = LeerConfig("TemasPorCredito", "1")
     CreditosBilletes = LeerConfig("CreditosBilletes", "10")
     PrecioBase = CSng(LeerConfig("PrecioBase", "0,50"))
+    
+    'ver si hay que mostrar el touch
+    MostrarTouch = LeerConfig("MostrarTouch", "0")
+    
     CreditosCuestaTema(0) = LeerConfig("CreditosCuestaTema", "1")
     CreditosCuestaTema(1) = LeerConfig("CreditosCuestaTema2", "2")
     CreditosCuestaTema(2) = LeerConfig("CreditosCuestaTema3", "3")
-    'inicializar los precios
-    PrecNowAudio = CreditosCuestaTema(0)
+    
     CreditosCuestaTemaVIDEO(0) = LeerConfig("CreditosCuestaTemaVIDEO", "2")
     CreditosCuestaTemaVIDEO(1) = LeerConfig("CreditosCuestaTemaVIDEO2", "3")
     CreditosCuestaTemaVIDEO(2) = LeerConfig("CreditosCuestaTemaVIDEO3", "4")
-    PrecNowVideo = CreditosCuestaTemaVIDEO(0)
+    
+    'ver cuantos creditos hay
+    CREDITOS = 0
+    
+    If FSO.FileExists(GPF("creditosactuales")) Then
+        VarCreditos CSng(LeerArch1Linea(GPF("creditosactuales"))), False, False, False
+    Else
+        VarCreditos 0, False, False, False
+    End If
+    tERR.Anotar "acfb", CREDITOS
+    
+    'inicializar los precios (se hace en el vacreditos)
+    'en este caso no se suma ni al contador ni a la validacion
+    
     textoUsuario = LeerConfig("TextoUsuario", "Cargue los datos de su empresa aqui")
     tERR.Anotar "acnf"
     'publicidad
@@ -250,15 +288,15 @@ Private Sub Form_Load()
     
     'cargar variables de claves
     'archivo de claves
-    If FSO.FileExists(WINfolder + "sevalc.dll") = False Then
-        Set TE = FSO.CreateTextFile(WINfolder + "sevalc.dll", True)
+    If FSO.FileExists(GPF("sequeda32")) = False Then
+        Set TE = FSO.CreateTextFile(GPF("sequeda32"), True)
         TE.WriteLine "Config:12345612345612345612"
         TE.WriteLine "Close:45612345612345612345"
         TE.WriteLine "Credit:1234441234441234561"
         TE.Close
     End If
     tERR.Anotar "acnh"
-    Set TE = FSO.OpenTextFile(WINfolder + "sevalc.dll", ForReading, False)
+    Set TE = FSO.OpenTextFile(GPF("sequeda32"), ForReading, False)
     'config/close/credit es el orden del archivo
     ClaveConfig = txtInLista(TE.ReadLine, 1, ":")
     ClaveClose = txtInLista(TE.ReadLine, 1, ":")
@@ -282,17 +320,17 @@ Private Sub Form_Load()
      End If
      tERR.Anotar "acni3", HabilitarVUMetro, NoVumVID
     'siempre copiarlo, si es el SL con prioridad
-    If FSO.FileExists(SYSfolder + "f9yaSL.nam") Then
+    If FSO.FileExists(GPF("233_54_b")) Then
         'aqui hay un error de acceso denegado si es de solo lectura!!!!!
         'se corrige así.
         tERR.Anotar "acni4"
-        FSO.CopyFile SYSfolder + "f9yaSL.nam", AP + "discos\01- Los mas escuchados\tapa.jpg", True
+        FSO.CopyFile GPF("233_54_b"), AP + "discos\01- Los mas escuchados\tapa.jpg", True
     Else
-        If FSO.FileExists(SYSfolder + "f54.dlw") Then
+        If FSO.FileExists(GPF("extr233_54")) Then
             tERR.Anotar "acni5"
             'aqui hay un error de acceso denegado si es de solo lectura!!!!!
             'se corrige así.
-            FSO.CopyFile SYSfolder + "f54.dlw", AP + "discos\01- Los mas escuchados\tapa.jpg", True
+            FSO.CopyFile GPF("extr233_54"), AP + "discos\01- Los mas escuchados\tapa.jpg", True
         Else
             tERR.Anotar "acni6"
             MsgBox "No se encuentra el archivo de imagen del Ranking!. La instalacion de 3PM no es corecta!"
@@ -301,7 +339,7 @@ Private Sub Form_Load()
     End If
     
     tERR.Anotar "acnj"
-    If FSO.FileExists(SYSfolder + "f61.dlw") = False Then
+    If FSO.FileExists(GPF("extr233_61")) = False Then
         MsgBox "No se encuentra el archivo de imagen de las portadas predeterminadas!. La instalacion de 3PM no es corecta!"
         End
     End If
@@ -317,9 +355,9 @@ Private Sub Form_Load()
     
     tERR.Anotar "000A-00901"
     'ver si existe ranking.tbr
-    If FSO.FileExists(AP + "ranking.tbr") = False Then
+    If FSO.FileExists(GPF("rd3_444")) = False Then
         tERR.Anotar "000A-00902"
-        FSO.CreateTextFile AP + "ranking.tbr", True
+        FSO.CreateTextFile GPF("rd3_444"), True
         tERR.Anotar "000A-00903"
         'si me quedo da error
         GoTo FinOrden
@@ -330,9 +368,9 @@ Private Sub Form_Load()
     tERR.Anotar "000A-00904"
     lblINI.Refresh
     tERR.Anotar "000A-00905"
-    pBar.Width = 0
+    PBar.Width = 0
     tERR.Anotar "000A-00906"
-    pBar.Refresh
+    PBar.Refresh
     tERR.Anotar "000A-00907"
     Dim TT As String
     Dim mtxTOP10() As String, z As Integer
@@ -344,7 +382,7 @@ Private Sub Form_Load()
     Encontrado = False
     'abrir el archivo y CARGARLO A UNA MATRIZ
     tERR.Anotar "acnl"
-    Set TE = FSO.OpenTextFile(AP + "ranking.tbr", ForReading, False)
+    Set TE = FSO.OpenTextFile(GPF("rd3_444"), ForReading, False)
     'leerlo cargarlo en matriz y ordenar por mas escuchado
     
     'sin esto los archivos vacios se clavan
@@ -358,8 +396,8 @@ Private Sub Form_Load()
         If TT <> "" Then
             tERR.Anotar "acno", z
             z = z + 1
-            pBar.Width = z * 10
-            If pBar.Width > lblPROCES.Width Then pBar.Width = 100
+            PBar.Width = (z * 10) Mod (lblPROCES.Width / 2)
+            'If PBar.Width > lblPROCES.Width Then PBar.Width = 100
             ThisPTS = Val(txtInLista(TT, 0, ","))
             ThisArch = txtInLista(TT, 1, ",")
             ThisTEMA = txtInLista(TT, 2, ",")
@@ -382,11 +420,11 @@ Private Sub Form_Load()
     c = 0 'cantidad de minimos encontrados
     Dim Ordenados() As Long 'matriz con los indices ordenados
     
-    pBar.Width = 0
-    pBar.Refresh
+    PBar.Width = 0
+    PBar.Refresh
     
     Do
-        pBar.Width = c * 10
+        PBar.Width = c * 10
         
         For mtx = 1 To UBound(mtxTOP10)
             tERR.Anotar "acnp", c, mtx, mtxTOP10(mtx)
@@ -408,12 +446,12 @@ Private Sub Form_Load()
         MaxPT = 0
     Loop
     'cargar todos y sacar la primera columna de las zetas
-    pBar.Width = 0
-    pBar.Refresh
+    PBar.Width = 0
+    PBar.Refresh
     Dim MTXsort() As String
     'cambie opentextfile por createtextfile por un error que suele dar
     Dim TeRank As TextStream
-    Set TeRank = FSO.CreateTextFile(AP + "ranking.tbr", True)
+    Set TeRank = FSO.CreateTextFile(GPF("rd3_444"), True)
     'si no hay nada para escribir el Close da error?!?!?!?!?
     Dim RankWrite As Long
     RankWrite = 0
@@ -430,11 +468,9 @@ Private Sub Form_Load()
                 txtInLista(mtxTOP10(Ordenados(mtx)), 4, ",")
         
             TeRank.WriteLine MTXsort(mtx)
-            pBar.Width = mtx * 10
+            PBar.Width = mtx * 10
             RankWrite = RankWrite + 1
         Else
-            'WriteTBRLog "limpiado del Rank: " + _
-            '    txtInLista(mtxTOP10(Ordenados(mtx)), 2, ","), False
             Limpiaron = Limpiaron + 1
         End If
     Next

@@ -321,7 +321,8 @@ Option Explicit
 
 Private Sub Command1_Click()
     Dim te7 As TextStream, J As Long
-    Set te7 = FSO.OpenTextFile(SYSfolder + "teclaesp.fas", ForWriting, True)
+    'lista de reemplazos
+    Set te7 = FSO.OpenTextFile(GPF("rempmon45"), ForWriting, True)
         te7.WriteLine "TO Q"
         For J = 1 To 20
             te7.WriteLine lstVals(0).List(J - 1)
@@ -370,8 +371,8 @@ Private Sub Form_Load()
     'ver si ya existe y mostrarlo como esta
     Dim TMP As String, SP() As String
     Dim TE8 As TextStream
-    If FSO.FileExists(SYSfolder + "teclaesp.fas") Then
-        Set TE8 = FSO.OpenTextFile(SYSfolder + "teclaesp.fas", ForReading, False)
+    If FSO.FileExists(GPF("rempmon45")) Then
+        Set TE8 = FSO.OpenTextFile(GPF("rempmon45"), ForReading, False)
             TMP = TE8.ReadLine 'solo dice "to Q"
             For J = 1 To 20
                 TMP = TE8.ReadLine

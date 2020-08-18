@@ -270,6 +270,7 @@ Public Property Get AnchoBarra() As Long
 End Property
 
 Private Sub UserControl_Initialize()
+    tERR.Anotar "VU1001"
     'esto se inicia solo cuando se carga el control en ejecucuion
     'inicializar los dispositivos
     m_CarFantastic = False
@@ -356,7 +357,6 @@ End Property
 Property Get Borde() As Long
     Borde = m_Borde
 End Property
-
 
 Property Get inHabilitado() As Boolean
     'solo lectura
@@ -533,7 +533,10 @@ End Sub
 
 Private Sub Visualize()
     Static Wave As WaveHdr
+    'aparentemente aqui se define cual es la variable (matriz) que se a cargar con los datos
     Wave.lpData = VarPtr(InData(0))
+    'el buffer podria ser mucho mas chico ya que yo solo uso el
+    'InData(1) y el de InData(2)
     Wave.dwBufferLength = 512 'This is now 512 so there's still 256 samples per channel
     Wave.dwFlags = 0
     Do

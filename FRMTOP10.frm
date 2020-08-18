@@ -244,26 +244,12 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         Case TeclaNewFicha
             If FindParam3PM("to") = "kd" Then
                 LTE 1
-                If CREDITOS <= MaximoFichas Then
-                    'apagar el fichero electronico
-                    SetKeyState vbKeyScrollLock, True
-                    VarCreditos CSng(TemasPorCredito)
-                Else
-                    'apagar el fichero electronico
-                    SetKeyState vbKeyScrollLock, False
-                End If
+                VarCreditos CSng(TemasPorCredito)
             End If
         Case TeclaNewFicha2
             If FindParam3PM("to2") = "kd" Then
                 LTE 2
-                If CREDITOS <= MaximoFichas Then
-                    'apagar el fichero electronico
-                    SetKeyState vbKeyScrollLock, True
-                    VarCreditos CSng(CreditosBilletes)
-                Else
-                    'apagar el fichero electronico
-                    SetKeyState vbKeyScrollLock, False
-                End If
+                VarCreditos CSng(CreditosBilletes)
             End If
         Case TeclaConfig
             frmConfig.Show 1
@@ -324,13 +310,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         
                 
         Case TeclaCerrarSistema
-            SetKeyState vbKeyCapital, False
-            'no puedo usar do stop porque lanza el evento ENDPLAY y esto produce un EMPEZARSIGUIENTE
-            'que se come un tema de la lista
-            frmIndex.MP3.DoClose 99
-            MostrarCursor True
-            If ApagarAlCierre Then APAGAR_PC
-            End
+            YaCerrar3PM
         Case TeclaPagAd
             TECLAS_PRES = TECLAS_PRES + "5"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
@@ -403,26 +383,12 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             If FindParam3PM("to") = "999999" Then
                 LTE 1
                 'si ya hay 9 cargados se traga las fichas
-                If CREDITOS <= MaximoFichas Then
-                    'apagar el fichero electronico
-                    SetKeyState vbKeyScrollLock, True
-                    VarCreditos CSng(TemasPorCredito)
-                Else
-                    'apagar el fichero electronico
-                    SetKeyState vbKeyScrollLock, False
-                End If
+                VarCreditos CSng(TemasPorCredito)
             End If
         Case TeclaNewFicha2
             If FindParam3PM("to2") = "999999" Then
                 LTE 2
-                If CREDITOS <= MaximoFichas Then
-                    'apagar el fichero electronico
-                    SetKeyState vbKeyScrollLock, True
-                    VarCreditos CSng(CreditosBilletes)
-                Else
-                    'apagar el fichero electronico
-                    SetKeyState vbKeyScrollLock, False
-                End If
+                VarCreditos CSng(CreditosBilletes)
             End If
         
         Case TeclaOK
@@ -461,19 +427,15 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
                 End If
                                 
                 'si esta ejecutando pasa a la lista de reproducción
-                If (frmIndex.MP3.IsPlaying(0) Or frmIndex.MP3.IsPlaying(1)) And CORTAR_TEMA = False Then
+                If (frmIndex.MP3.IsPlaying(0) Or frmIndex.MP3.IsPlaying(1)) And CORTAR_TEMA(IAA) = False Then
                     'pasar a la lista de reproducción
-                    Dim NewIndLista As Long
-                    NewIndLista = UBound(MATRIZ_LISTA)
-                    ReDim Preserve MATRIZ_LISTA(NewIndLista + 1)
-                    'se graba en Matriz_Listas como patah, nombre(sin .mp3)
-                    MATRIZ_LISTA(NewIndLista + 1) = temaElegido + "," + MTXtemas(PuestoElegido + 1) + " / " + MTXdiscos(PuestoElegido + 1)
+                    tLST.ListaAdd temaElegido
                     CargarProximosTemas
                     'graba en reini.tbr los datos que correspondan por si se corta la luz
                     CargarArchReini UCase(ReINI) 'POR LAS DUDAS que no este en mayusculas
                 Else
                     'ocultar el rank y mostrar lblWAIT
-                    lblWAIT = "CARGANDO TEMA" + vbCrLf + "ESPERE..."
+                    lblWait = "CARGANDO TEMA" + vbCrLf + "ESPERE..."
                     Dim cRank As Integer
                     cRank = 0
                     Do While cRank < MaxTop
@@ -481,10 +443,10 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
                         'lblPuestos(cRank).Refresh
                         cRank = cRank + 1
                     Loop
-                    lblWAIT.Visible = True
-                    lblWAIT.Refresh
+                    lblWait.Visible = True
+                    lblWait.Refresh
                     'TEMA_REPRODUCIENDO y mp3.isplayin se cargan en ejecutartema
-                    CORTAR_TEMA = False 'este tema va entero ya que lo eligio el usuario
+                    CORTAR_TEMA(IAANext) = False 'este tema va entero ya que lo eligio el usuario
                     EjecutarTema temaElegido, True
                 End If
                 
@@ -502,11 +464,11 @@ End Sub
 
 Private Sub Form_Load()
     YaInicio = 0
-    Image1.Picture = LoadPicture(SYSfolder + "f61.dlw")
+    Image1.Picture = LoadPicture(GPF("extr233_61"))
     'si es SL cambiar
     If K.LICENCIA = HSuperLicencia Then
-        If FSO.FileExists(WINfolder + "SL\indexchi.tbr") Then
-            Image1.Picture = LoadPicture(WINfolder + "SL\indexchi.tbr")
+        If FSO.FileExists(GPF("61conf")) Then
+            Image1.Picture = LoadPicture(GPF("61conf"))
         End If
     End If
     If MostrarTouch = False Then
@@ -555,10 +517,10 @@ Private Sub Form_Load()
     
     'leer ranking.tbr y cargar los temas que haya
     
-    If FSO.FileExists(AP + "ranking.tbr") = False Then
-        FSO.CreateTextFile AP + "ranking.tbr", True
+    If FSO.FileExists(GPF("rd3_444")) = False Then
+        FSO.CreateTextFile GPF("rd3_444"), True
     End If
-    Set TE = FSO.OpenTextFile(AP + "ranking.tbr", ForReading, False)
+    Set TE = FSO.OpenTextFile(GPF("rd3_444"), ForReading, False)
     Dim TT As String
     Dim ThisArch As String
     Dim ThisTEMA As String
@@ -578,8 +540,8 @@ Private Sub Form_Load()
         'si elarchivo no existe no se debe cargar
         If FSO.FileExists(ThisArch) Then
             lblPuestos(c).UseMnemonic = False
-            lblPuestos(c) = " " + Trim(Str(c + 1)) + "º " + _
-            QuitarNumeroDeTema(ThisTEMA) + " / " + ThisDISCO + " [" + Trim(Str(ThisPTS)) + " pts]"
+            lblPuestos(c) = " " + Trim(CStr(c + 1)) + "º " + _
+            QuitarNumeroDeTema(ThisTEMA) + " / " + ThisDISCO + " [" + Trim(CStr(ThisPTS)) + " pts]"
             lblPuestos(c).Refresh
             
             c = c + 1

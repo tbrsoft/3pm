@@ -118,7 +118,7 @@ Private Sub Command26_Click() 'IMPORTAR
             "configuracion actual? ", vbQuestion + vbYesNo) = _
             vbNo Then Exit Sub
     End If
-    FSO.CopyFile F, SYSfolder + "3pmcfg.tbr", True
+    FSO.CopyFile F, GPF("config"), True
     MsgBox "El archivo se importo correctamente. 3PM se cerrará"
     Unload Me
     frmConfig.SendW

@@ -1137,12 +1137,7 @@ End Sub
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     Select Case KeyCode
         Case TeclaCerrarSistema
-            SetKeyState vbKeyCapital, False
-            If ApagarAlCierre Then APAGAR_PC
-            'no puedo usar do stop porque lanza el evento ENDPLAY y esto produce un EMPEZARSIGUIENTE
-            'que se come un tema de la lista
-            frmIndex.MP3.DoClose 99
-            End
+            YaCerrar3PM
     End Select
 End Sub
 
@@ -1151,26 +1146,12 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
     tERR.Anotar "acjh", KeyCode, Shift
     If KeyCode = TeclaNewFicha Then
         LTE 1
-        'si ya hay 9 cargados se traga las fichas
-        If CREDITOS <= MaximoFichas Then
-            SetKeyState vbKeyScrollLock, True
-            VarCreditos CSng(TemasPorCredito)
-        Else
-            'apagar el fichero electronico
-            SetKeyState vbKeyScrollLock, False
-        End If
+        VarCreditos CSng(TemasPorCredito)
     End If
     
     If KeyCode = TeclaNewFicha2 Then
         LTE 2
-        'si ya hay 9 cargados se traga las fichas
-        If CREDITOS <= MaximoFichas Then
-            SetKeyState vbKeyScrollLock, True
-            VarCreditos CSng(CreditosBilletes)
-        Else
-            'apagar el fichero electronico
-            SetKeyState vbKeyScrollLock, False
-        End If
+        VarCreditos CSng(CreditosBilletes)
     End If
     
     Exit Sub
@@ -1184,7 +1165,7 @@ Private Sub Form_Load()
     
     Dim MtxTmpOrigenes() As String
     Dim Origenes As String
-    Origenes = LeerArch1Linea(SYSfolder + "oddtb.jut")
+    Origenes = LeerArch1Linea(GPF("origs"))
     
     Dim PartOrigenes() As String
     PartOrigenes = Split(Origenes, "*")

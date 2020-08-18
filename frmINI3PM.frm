@@ -629,7 +629,7 @@ Private Sub Command1_Click()
     On Error GoTo MiErr
     'leer el archivo de configuracion para guardar los datos
     tERR.Anotar "acnv"
-    Set TE = FSO.OpenTextFile(AP + "imgini.tbr")
+    Set TE = FSO.OpenTextFile(GPF("iit17222"))
     Dim Ls() As String, c As Long
     c = 1
     Do While Not TE.AtEndOfStream
@@ -647,7 +647,7 @@ Private Sub Command1_Click()
         'ver si la imagen estaba
         If txtInLista(Ls(1), 1, "=") = "1" Then
             'volver a cargarla
-            FSO.CopyFile WINfolder + "img3pm\w\logo.sys", "c:\logo.sys", True
+            FSO.CopyFile GPF("ildw9m"), "c:\logo.sys", True
         Else
             'como no estaba se queda sin imagen
         End If
@@ -658,7 +658,7 @@ Private Sub Command1_Click()
         Ls(4) = "LoadImgIni=3"
         If FSO.FileExists("c:\logo.sys") Then FSO.DeleteFile "c:\logo.sys", True
         'volver a cargarla
-        FSO.CopyFile WINfolder + "img3pm\3\logo.sys", "c:\logo.sys", True
+        FSO.CopyFile GPF("ild3pm"), "c:\logo.sys", True
     End If
     
     If OpCerrandoWIN Then
@@ -667,7 +667,7 @@ Private Sub Command1_Click()
         'ver si la imagen estaba
         If txtInLista(Ls(2), 1, "=") = "1" Then
             'volver a cargarla
-            FSO.CopyFile WINfolder + "img3pm\w\logow.sys", WINfolder + "logow.sys", True
+            FSO.CopyFile GPF("ildw9m3"), WINfolder + "logow.sys", True
         Else
             'como no estaba se queda sin imagen
         End If
@@ -677,7 +677,7 @@ Private Sub Command1_Click()
         Ls(5) = "LoadImgCerrando=3"
         If FSO.FileExists(WINfolder + "logow.sys") Then FSO.DeleteFile WINfolder + "logow.sys", True
         'volver a cargarla
-        FSO.CopyFile WINfolder + "img3pm\3\logow.sys", WINfolder + "logow.sys", True
+        FSO.CopyFile GPF("ild3pm3"), WINfolder + "logow.sys", True
     End If
     
     If OpApagarWIN Then
@@ -687,7 +687,7 @@ Private Sub Command1_Click()
         'ver si la imagen estaba
         If txtInLista(Ls(3), 1, "=") = "1" Then
             'volver a cargarla
-            FSO.CopyFile WINfolder + "img3pm\w\logos.sys", WINfolder + "logos.sys", True
+            FSO.CopyFile GPF("ildw9m2"), WINfolder + "logos.sys", True
         Else
             'como no estaba se queda sin imagen
         End If
@@ -697,12 +697,12 @@ Private Sub Command1_Click()
         Ls(6) = "LoadImgApagar=3"
         If FSO.FileExists(WINfolder + "logos.sys") Then FSO.DeleteFile WINfolder + "logos.sys", True
         'volver a cargarla
-        FSO.CopyFile WINfolder + "img3pm\3\logos.sys", WINfolder + "logos.sys", True
+        FSO.CopyFile GPF("ild3pm2"), WINfolder + "logos.sys", True
     End If
         
     'volver a escribir el archivo de inicio con los nuevos datos
-    FSO.DeleteFile (AP + "imgini.tbr")
-    Set TE = FSO.CreateTextFile(AP + "imgini.tbr", True)
+    FSO.DeleteFile (GPF("iit17222"))
+    Set TE = FSO.CreateTextFile(GPF("iit17222"), True)
     TE.WriteLine Ls(1)
     TE.WriteLine Ls(2)
     TE.WriteLine Ls(3)
@@ -762,12 +762,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     Select Case KeyCode
         
         Case TeclaCerrarSistema
-            SetKeyState vbKeyCapital, False
-            If ApagarAlCierre Then APAGAR_PC
-            'no puedo usar do stop porque lanza el evento ENDPLAY y esto produce un EMPEZARSIGUIENTE
-            'que se come un tema de la lista
-            frmIndex.MP3.DoClose 99
-            End
+            YaCerrar3PM
     End Select
 End Sub
 
@@ -791,25 +786,25 @@ Private Sub Form_Load()
     AjustarFRM Me, 12000
     
     'cargar las imágenes de 3pm
-    If FSO.FileExists(WINfolder + "img3pm\3\logo.sys") Then imgIni3PM.Picture = LoadPicture(WINfolder + "img3pm\3\logo.sys")
-    If FSO.FileExists(WINfolder + "img3pm\3\logow.sys") Then imgCerrando3PM.Picture = LoadPicture(WINfolder + "img3pm\3\logow.sys")
-    If FSO.FileExists(WINfolder + "img3pm\3\logos.sys") Then imgApagar3PM.Picture = LoadPicture(WINfolder + "img3pm\3\logos.sys")
+    If FSO.FileExists(GPF("ild3pm")) Then imgIni3PM.Picture = LoadPicture(GPF("ild3pm"))
+    If FSO.FileExists(GPF("ild3pm3")) Then imgCerrando3PM.Picture = LoadPicture(GPF("ild3pm3"))
+    If FSO.FileExists(GPF("ild3pm2")) Then imgApagar3PM.Picture = LoadPicture(GPF("ild3pm2"))
     
     'cargar las imágenes de windows
-    If FSO.FileExists(WINfolder + "img3pm\w\logo.sys") Then
-        imgIniWin.Picture = LoadPicture(WINfolder + "img3pm\w\logo.sys")
+    If FSO.FileExists(GPF("ildw9m")) Then
+        imgIniWin.Picture = LoadPicture(GPF("ildw9m"))
     Else
         lblNoImgIni.Visible = True
     End If
     
-    If FSO.FileExists(WINfolder + "img3pm\w\logow.sys") Then
-        imgCerrandoWIN.Picture = LoadPicture(WINfolder + "img3pm\w\logow.sys")
+    If FSO.FileExists(GPF("ildw9m3")) Then
+        imgCerrandoWIN.Picture = LoadPicture(GPF("ildw9m3"))
     Else
         lblNoImgCerrando.Visible = True
     End If
     tERR.Anotar "acof"
-    If FSO.FileExists(WINfolder + "img3pm\w\logos.sys") Then
-        imgApagarWIN.Picture = LoadPicture(WINfolder + "img3pm\w\logos.sys")
+    If FSO.FileExists(GPF("ildw9m2")) Then
+        imgApagarWIN.Picture = LoadPicture(GPF("ildw9m2"))
     Else
         lblNoImgApagar.Visible = True
     End If
@@ -817,7 +812,7 @@ Private Sub Form_Load()
     'leer el archivo de configuracion para saber
     'cual imagen se esta usando
     
-    Set TE = FSO.OpenTextFile(AP + "imgini.tbr")
+    Set TE = FSO.OpenTextFile(GPF("iit17222"))
     Dim Ls() As String, c As Long
     c = 1
     Do While Not TE.AtEndOfStream
@@ -871,7 +866,7 @@ Private Sub Form_Load()
     
     Exit Sub
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acnt"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acnt2"
     Resume Next
 End Sub
 

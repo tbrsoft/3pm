@@ -628,7 +628,7 @@ Public Function ShowFolder() As String
   path = String$(MAX_PATH, 0)
   If SHGetPathFromIDList(ByVal pidl, ByVal path) Then
      pos = InStr(path, Chr$(0))
-     InitDir = Left(path, pos - 1)
+     InitDir = left(path, pos - 1)
   End If
   Call CoTaskMemFree(pidl)
 End Function
@@ -678,9 +678,9 @@ Public Sub ShowOpen()
   RetValue = GetOpenFileName(OFN)
   If RetValue > 0 Then
      iDelim = InStr(OFN.lpstrFileTitle, vbNullChar)
-     If iDelim Then mFileTitle = Left$(OFN.lpstrFileTitle, iDelim - 1)
+     If iDelim Then mFileTitle = left$(OFN.lpstrFileTitle, iDelim - 1)
      iDelim = InStr(OFN.lpstrFile, vbNullChar)
-     If iDelim Then mFileName = Left$(OFN.lpstrFile, iDelim - 1)
+     If iDelim Then mFileName = left$(OFN.lpstrFile, iDelim - 1)
   Else
      If mCancelError Then Err.Raise 0
   End If
@@ -691,9 +691,9 @@ Public Sub ShowSave()
   RetValue = GetSaveFileName(OFN)
   If RetValue > 0 Then
      iDelim = InStr(OFN.lpstrFileTitle, vbNullChar)
-     If iDelim Then mFileTitle = Left$(OFN.lpstrFileTitle, iDelim - 1)
+     If iDelim Then mFileTitle = left$(OFN.lpstrFileTitle, iDelim - 1)
      iDelim = InStr(OFN.lpstrFile, vbNullChar)
-     If iDelim Then mFileName = Left$(OFN.lpstrFile, iDelim - 1)
+     If iDelim Then mFileName = left$(OFN.lpstrFile, iDelim - 1)
   Else
      If mCancelError Then Err.Raise 0
   End If
@@ -885,7 +885,7 @@ Public Sub ShowPrinter()
        CopyMemory DM, ByVal lpDevMode, Len(DM)
        RetValue = GlobalUnlock(PD.hDevMode)
        GlobalFree PD.hDevMode
-       NewPrinterName = UCase$(Left(DM.dmDeviceName, InStr(DM.dmDeviceName, vbNullChar) - 1))
+       NewPrinterName = UCase$(left(DM.dmDeviceName, InStr(DM.dmDeviceName, vbNullChar) - 1))
        If Printer.DeviceName <> NewPrinterName Then
           For Each objPrinter In Printers
               If UCase$(objPrinter.DeviceName) = NewPrinterName Then

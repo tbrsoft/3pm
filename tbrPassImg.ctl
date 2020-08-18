@@ -82,7 +82,7 @@ Public Property Get IntervalBetwenIMGs() As Long
 End Property
 
 Private Sub UserControl_Initialize()
-    
+    tERR.Anotar "PASI001"
     mTotalImagenes = 0
     IMG.Stretch = True
     mUltimaReproducida = 0 'de entrada va al 1

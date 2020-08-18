@@ -19,6 +19,224 @@ Public Sub AbrirArchivo(Arch As String, FrmSolicita As Form)
     ShellExecute FrmSolicita.hwnd, vbNullString, Arch, vbNullString, vbNullString, vbMaximizedFocus
 End Sub
 
+Public Function GPF(TXT As String) As String 'GetPathFile
+    Dim TMP As String
+    Select Case LCase(TXT)
+        Case "origs": TMP = "pindo.nga" 'lista de origenes de discos 'EX: sf+ "oddtb.jut"
+        Case "creditosactuales": TMP = "kund.era" 'Creditos actuales para usar 'EX: AP + "creditos.tbr"
+        Case "config": TMP = "marad.ona" 'sf + "3pmcfg.tbr"
+        Case "clavevalid": TMP = "cpd.dor" 'Archivo con la clave de validacion sf +"codped.cfg"
+        Case "radliv": TMP = "atak.e77" 'Codigos contados para validacion sf + "radilav.cfg"
+        Case "chdc01": TMP = "chd.c01" 'contadores de creditos
+        Case "chdc02": TMP = "chd.c02" ' sf + "cc891.dll" hasta 894
+        Case "chdc03": TMP = "chd.c03" '
+        Case "chdc04": TMP = "chd.c04" '
+        Case "config2": TMP = "eber.lud" 'copia de seguridad de la config sf + "autoSave3PM.cfg"
+        Case "cd3pm": TMP = "cd3.pm" 'Clave sf + "dciLib22.dll"
+        Case "cccd3pm": TMP = "cccd3.pm" 'Copia clave sf + "c2LK.dll"
+        Case "rdcday": TMP = "rdc.day" 'registro diario del contador sf + "daily.cfg"
+        Case "pdis233": TMP = "pdis.233" 'paquete de imagenes sf + "nev.man"
+        Case "extr233": TMP = "" 'sf sola para extraer el paquete de imagenes
+            Case "extr233_61": TMP = "f61.dlw" 'En Frm Reg una chiquita tipo la chica = index = tapa f61.dlw en tbrPassImg en frmTop10-RANK
+            Case "extr233_52": TMP = "f52.dlw" 'En frmIni: una grande: f52.dlw
+            Case "extr233_53": TMP = "f53.dlw" 'En frmIndex se necesita El fondo grande: f53.dlw
+            Case "extr233_55": TMP = "f55.dlw" 'En frmIndex se necesita El fondo chico de abajo: f55.dlw (para exclusivo el mismo!!!)
+            Case "extr233_56": TMP = "f56.dlw" 'logo.sys
+            Case "extr233_57": TMP = "f57.dlw" 'logos.sys
+            Case "extr233_58": TMP = "f58.dlw" 'logow.sys
+            Case "extr233_54": TMP = "f54.dlw" 'top10
+    
+        Case "233_56_b": TMP = "233.56b" '56 modificado por SL sf + "f5yaSL.nam"
+        Case "233_58_b": TMP = "233.58b" '58 modificado por SL sf + "f7yaSL.nam"
+        Case "233_57_b": TMP = "233.57b" '57 modif sf + "f6yaSL.nam"
+        Case "233_54_b": TMP = "233.54b" '54 modif sf + "f9yaSL.nam"
+        Case "rempres44": TMP = "rempres.44" 'reemplazo del reserved cuando no hay sf + "razaGUID.dll"
+        Case "rempmon45": TMP = "rempmon.45" 'reemplazo para señales de monedero sf + "teclaesp.fas"
+        
+        Case "61conf": TMP = "61con.f" 'la 61 config en SL 'Wf + "SL\indexCHI.tbr"
+        Case "telcnot": TMP = "telc.not" 'texto en config No Tbr Wf + "SL\txtCFG.tbr"
+        Case "ildw9m": TMP = "ildw9m.811" 'imagen logo.sys del win98/me wf + "img3pm\w\logo.sys"
+        Case "ildw9m2": TMP = "ildw9m.812" 'imagen logos.sys del win98/me Wf+ "img3pm\w\logos.sys"
+        Case "ildw9m3": TMP = "ildw9m.813" 'imagen logow.sys del win98/me Wf+ "img3pm\w\logow.sys"
+        
+        Case "ild3pm": TMP = "ild3pm.811" 'imagen logo.sys del 3pm wf + "img3pm\3\logo.sys"
+        Case "ild3pm2": TMP = "ild3pm.812" 'imagen logos.sys del 3pm Wf+ "img3pm\3\logos.sys"
+        Case "ild3pm3": TMP = "ild3pm.813" 'imagen logow.sys del 3pm Wf+ "img3pm\3\logow.sys"
+        
+        Case "sequeda32": TMP = "sequed.a32" 'Claves de uso desde afuera de la fonola
+        Case "iisl67": TMP = "iis.l67" 'imagen del inicio de la SL Wf+ "SL\imgbig.tbr"
+        Case "tslpri112": TMP = "tslpri.112" 'txtSL principal Wf + "SL\txtIDX.tbr"
+        Case "rd3_444": TMP = "rd3.444" 'AP + "ranking.tbr"
+        Case "iit17222": TMP = "iit17.222" 'info sobre las imagenes de inicio de win
+        Case "adpdp2323": TMP = "adpdp2.323" 'algo del protector
+        Case "casc1001": TMP = "casc1.001" 'canciones a seguir cantando
+        
+        Case Else: MsgBox "NO SE ENCUENTRA EL ARCHIVO:" + TXT
+    End Select
+    
+    GPF = GetBasePath + TMP
+    
+End Function
+
+Public Sub BuscarArchivosUbicVieja()
+
+    Dim BasePath As String
+    BasePath = GetBasePath
+
+    Dim ArchAnt As String, ArchNew As String
+    Dim SF As String: SF = SYSfolder: Dim WF As String: WF = WINfolder
+    
+    'lista de origenes de discos
+    ArchAnt = SF + "oddtb.jut": ArchNew = BasePath + "pindo.nga"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    
+    'creditos actuales
+    ArchAnt = AP + "creditos.tbr": ArchNew = BasePath + "kund.era"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    
+    'config
+    ArchAnt = SF + "3pmcfg.tbr": ArchNew = BasePath + "marad.ona"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    
+    'clave de validacion
+    ArchAnt = SF + "codped.cfg": ArchNew = BasePath + "cpd.dor"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    
+    'Codigos contados para validacion
+    ArchAnt = SF + "radilav.cfg": ArchNew = BasePath + "atak.e77"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    
+    'contadores de creditos sf + "cc891.dll" hasta 894
+    ArchAnt = SF + "cc891.dll": ArchNew = BasePath + "chd.c01"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    ArchAnt = SF + "cc892.dll": ArchNew = BasePath + "chd.c02"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    ArchAnt = SF + "cc893.dll": ArchNew = BasePath + "chd.c03"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    ArchAnt = SF + "cc894.dll": ArchNew = BasePath + "chd.c04"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    
+    'copia de seguridad de la config
+    ArchAnt = SF + "autoSave3PM.cfg": ArchNew = BasePath + "eber.lud"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    
+    'Clave XXXX dejarla del lado freezado ???
+    ArchAnt = SF + "dciLib22.dll": ArchNew = BasePath + "cd3.pm"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    
+    'Copia clave
+    ArchAnt = SF + "c2LK.dll": ArchNew = BasePath + "cccd3.pm"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    
+    'registro diario del contador
+    ArchAnt = SF + "daily.cfg": ArchNew = BasePath + "rdc.day"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    
+    'paquete de imagenes
+    ArchAnt = SF + "nev.man": ArchNew = BasePath + "pdis.233"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    
+    '56 modificado por SL
+    ArchAnt = SF + "f5yaSL.nam": ArchNew = BasePath + "233.56b"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    
+    '58 modificado por SL
+    ArchAnt = SF + "f7yaSL.nam": ArchNew = BasePath + "233.58b"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    
+    'modif 57 (233)
+    ArchAnt = SF + "f6yaSL.nam": ArchNew = BasePath + "233.57b"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    
+    'modif 54
+    ArchAnt = SF + "f9yaSL.nam": ArchNew = BasePath + "233.54b"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    
+    ''reemplazo del reserved cuando no hay
+    ArchAnt = SF + "razaGUID.dll": ArchNew = BasePath + "rempres.44"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    
+    'reemplazo para señales de monedero
+    ArchAnt = SF + "teclaesp.fas": ArchNew = BasePath + "rempmon.45"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    
+    'la 61 config en SL 'Wf + "SL\indexCHI.tbr"
+    ArchAnt = WF + "SL\indexCHI.tbr": ArchNew = BasePath + "61con.f"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    
+    'texto en config no Tbrsoft
+    ArchAnt = WF + "SL\txtCFG.tbr": ArchNew = BasePath + "telc.not"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    
+    'imagen logo.sys del win98/me
+    ArchAnt = WF + "img3pm\w\logo.sys": ArchNew = BasePath + "ildw9m.811"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    
+    'imagen logos.sys del win98/me Wf + "img3pm\w\logos.sys"
+    ArchAnt = WF + "img3pm\w\logos.sys": ArchNew = BasePath + "ildw9m.812"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    
+    'imagen logow.sys del win98/me Wf + "img3pm\w\logow.sys"
+    ArchAnt = WF + "img3pm\w\logow.sys": ArchNew = BasePath + "ildw9m.813"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    
+    'imagen logo.sys del win98/me
+    ArchAnt = WF + "img3pm\3\logo.sys": ArchNew = BasePath + "ild3pm.811"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    
+    'imagen logos.sys del win98/me Wf + "img3pm\w\logos.sys"
+    ArchAnt = WF + "img3pm\3\logos.sys": ArchNew = BasePath + "ild3pm.812"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    
+    'imagen logow.sys del win98/me Wf + "img3pm\w\logow.sys"
+    ArchAnt = WF + "img3pm\3\logow.sys": ArchNew = BasePath + "ild3pm.813"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    
+    'Claves de uso desde afuera de la fonola Wf + "sevalc.dll"
+    ArchAnt = WF + "sevalc.dll": ArchNew = BasePath + "sequed.a32"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    
+    'imagen del inicio de la SL Wf + "SL\imgbig.tbr"
+    ArchAnt = WF + "SL\imgbig.tbr": ArchNew = BasePath + "iis.l67"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    
+    'txtSL principal Wf + "SL\txtIDX.tbr"
+    ArchAnt = WF + "SL\txtIDX.tbr": ArchNew = BasePath + "tslpri.112"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    
+    'ranking de 3pm
+    ArchAnt = AP + "ranking.tbr": ArchNew = BasePath + "rd3.444"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    
+    'info sobre las imagenes de inicio de win
+    ArchAnt = AP + "imgini.tbr": ArchNew = BasePath + "iit17.222"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    
+    'algo del protecto de pantalla de tbr
+    ArchAnt = AP + "protect.tbr": ArchNew = BasePath + "adpdp2.323"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+    
+    'canciones a seguir cantando
+    ArchAnt = AP + "reini.tbr": ArchNew = BasePath + "casc1.001"
+    If FSO.FileExists(ArchAnt) Then FSO.MoveFile ArchAnt, ArchNew
+End Sub
+
+Private Function GetBasePath() As String
+    
+    Dim BasePath As String                   'carpeta de cada archivo usado por 3pm
+    
+    If FSO.FileExists(AP + "sf\bp3.bas") Then
+        BasePath = LeerArch1Linea(AP + "sf\bp3.bas")
+    Else
+        BasePath = AP + "sf\"
+    End If
+    
+    If FSO.FolderExists(BasePath) = False Then FSO.CreateFolder BasePath
+    
+    GetBasePath = BasePath
+    
+End Function
+
 Public Sub ExportarCFG(Optional DestArch As String = "")
     
     Dim F As String
@@ -42,7 +260,7 @@ Public Sub ExportarCFG(Optional DestArch As String = "")
     End If
     
     
-    FSO.CopyFile SYSfolder + "3pmcfg.tbr", F, True
+    FSO.CopyFile GPF("config"), F, True
     'solo mostrar el mensaje si lo habia abierto el usuario
     If DestArch = "" Then MsgBox "El archivo se exporto correctamente"
 
@@ -53,22 +271,39 @@ Public Sub MostrarCursor(Mostrar As Boolean)
     'si estoy en el IDE NOLO HAGO!
     'necesito el mouse para depurar!
     If LCase(AP) = "d:\dev\3pm\" Then Exit Sub
-    If LCase(AP) = "d:\dev\3pm kundera 68200\" Then Exit Sub
-
+    If LCase(AP) = "d:\dev\3pmkun~1\" Then Exit Sub
+    If LCase(AP) = "d:\dev\3pmkun~2\" Then Exit Sub
+    If LCase(AP) = "d:\dev\3pm kundera 68300\" Then Exit Sub
+    If LCase(AP) = "d:\dev\3pm kundera 69000\" Then Exit Sub
+    If LCase(AP) = "d:\dev\3pm kundera 69000\dlllistarep\" Then Exit Sub
+    If LCase(AP) = "c:\windows\system32\" Then Exit Sub
+    
     tERR.Anotar "001-0002"
-    Dim A As Long
+    Dim A As Long, CONT As Long 'para que no de muchas vueltas !!!
     If Mostrar Then
-        A = 0
+        A = 0: CONT = 0
         Do While A < 1
+            CONT = CONT + 1
             tERR.Anotar "001-0003"
             A = ShowCursor(1) 'suma uno
+            ' a clifton se le clavo muchas veces subiendo _
+                y subiendo (parece que no llegaba!!!)
+            If CONT > 1 Then
+                tERR.AppendLog "NoShowCur!"
+                Exit Sub
+            End If
         Loop
     Else
         tERR.Anotar "001-0004"
-        A = 1
+        A = 1: CONT = 0
         Do While A >= 0
             tERR.Anotar "001-0005"
             A = ShowCursor(0) 'suma uno
+            
+            If CONT > 1 Then
+                tERR.AppendLog "NoShowCur!2"
+                Exit Sub
+            End If
         Loop
     End If
 End Sub
@@ -165,9 +400,9 @@ Function ObtenerDir(ruta As String) As String()
     Dim NewName As String 'nuevo nombre si hay que corregir puntos metidos en el nombre de la carpeta
     Dim MaxPBAR As Long
     tERR.Anotar "001-0030"
-    MaxPBAR = frmINI.pBar.Width
+    MaxPBAR = frmINI.PBar.Width
     tERR.Anotar "001-0031"
-    frmINI.pBar.Width = 0
+    frmINI.PBar.Width = 0
     tERR.Anotar "001-0032"
     frmINI.lblPROCES.Clear
     frmINI.lblPROCES.AddItem "Iniciando busqueda", 0
@@ -209,7 +444,7 @@ Function ObtenerDir(ruta As String) As String()
             tERR.Anotar "001-0046"
             ContadorArch = ContadorArch + 1
             
-            frmINI.lblINI = "Contando Discos: " + Trim(Str(ContadorArch))
+            frmINI.lblINI = "Contando Discos: " + Trim(CStr(ContadorArch))
             tERR.Anotar "001-0047"
             frmINI.lblINI.Refresh
             tERR.Anotar "001-0048"
@@ -220,7 +455,7 @@ Function ObtenerDir(ruta As String) As String()
                 ReDim Preserve Resultado(ContadorArch + ALLOC_CHUNK) As String
             End If
             tERR.Anotar "001-0050"
-            frmINI.pBar.Width = frmINI.pBar.Width + 100
+            frmINI.PBar.Width = frmINI.PBar.Width + 100
             'si me hacerco al max de pbar lo hago inalcanzable
             tERR.Anotar "001-0051"
             frmINI.lblPROCES.AddItem NombreDir, 0
@@ -266,7 +501,7 @@ NextCarp:
     Loop
 solo12: 'solo los 12 primeros
     tERR.Anotar "001-0067"
-    frmINI.pBar.Width = MaxPBAR
+    frmINI.PBar.Width = MaxPBAR
     tERR.Anotar "001-0068"
     
     ' proporciona el array resultante
@@ -316,7 +551,7 @@ solo12: 'solo los 12 primeros
     
 EntreAlPedo:
     tERR.Anotar "001-0087"
-    frmINI.pBar.Width = 0
+    frmINI.PBar.Width = 0
     tERR.Anotar "001-0089[" + CStr(LBound(Resultado)) + ":" + CStr(UBound(Resultado)) + "]"
     'si es 0:0 (me pasa en varios)!
     'en ese caso sale del for directamente!
@@ -358,7 +593,7 @@ Public Sub MostrarDiscosMTX()
 EntreAlPedo:
     Dim MaxPBAR As Long
     tERR.Anotar "001-0030"
-    MaxPBAR = frmINI.pBar.Width
+    MaxPBAR = frmINI.PBar.Width
     
     Dim AY As Long
     Dim nTAPAcd As Integer
@@ -381,13 +616,13 @@ EntreAlPedo:
             'arranca con 5 ya cargados
             
             tERR.Anotar "001-0105"
-            frmINI.lblINI = "Ordenando Discos: " + Trim(Str(AY))
+            frmINI.lblINI = "Ordenando Discos: " + Trim(CStr(AY))
             tERR.Anotar "001-0106"
             frmINI.lblINI.Refresh
             tERR.Anotar "001-0107"
-            frmINI.pBar.Width = frmINI.pBar.Width + 100
+            frmINI.PBar.Width = frmINI.PBar.Width + 100
             tERR.Anotar "001-0108"
-            frmINI.pBar.Refresh
+            frmINI.PBar.Refresh
             tERR.Anotar "001-0109"
             'si paso una pàgina....
             If nTAPAcd > ((TapasMostradasH * TapasMostradasV) - 1) Then
@@ -405,7 +640,7 @@ EntreAlPedo:
                 tERR.Anotar "001-0115", ArchTapa
                 'XXXX
                 'VERIFICAR EL ERROR 481 DE IMAGEN NO VALIDA!!!!
-                If FileLen(ArchTapa) > 50000 Then
+                If FileLen(ArchTapa) > TamanoTapaPermitido * 1024 Then
                     tERR.Anotar "acgf3", ArchTapa, CStr(FileLen(ArchTapa))
                     GoTo TAPADEF
                 End If
@@ -414,10 +649,10 @@ EntreAlPedo:
 TAPADEF:
                 tERR.Anotar "001-0116"
                 'ver si hay SuperLicencia!!!
-                If FSO.FileExists(WINfolder + "SL\indexCHI.tbr") Then
-                    frmIndex.TapaCD(nTAPAcd).Picture = LoadPicture(WINfolder + "SL\indexCHI.tbr")
+                If FSO.FileExists(GPF("61conf")) Then
+                    frmIndex.TapaCD(nTAPAcd).Picture = LoadPicture(GPF("61conf"))
                 Else
-                    frmIndex.TapaCD(nTAPAcd).Picture = LoadPicture(SYSfolder + "f61.dlw")
+                    frmIndex.TapaCD(nTAPAcd).Picture = LoadPicture(GPF("extr233_61"))
                 End If
             End If
             tERR.Anotar "001-0117"
@@ -448,7 +683,7 @@ solo12:
     tERR.Anotar "001-0119"
     frmINI.lblINI.Refresh
     tERR.Anotar "001-0120"
-    frmINI.pBar.Width = MaxPBAR
+    frmINI.PBar.Width = MaxPBAR
     
 End Sub
 
@@ -485,7 +720,7 @@ End Function
 ' carga un archivo de texto en un control TextBox
 
 Sub cargarArchivoEnTextBox(NombreArchivo As String, TXT As TextBox)
-    tERR.Anotar "001-0130"
+    tERR.Anotar "001-0130", NombreArchivo
     Dim numlib As Integer, isOpen As Boolean
     Dim lineatexto As String, Texto As String
     tERR.Anotar "001-0131"
@@ -794,18 +1029,17 @@ End Function
 Public Function LeerArch1Linea(Arch As String) As String
     On Error GoTo MiErr
     
-    tERR.Anotar "001-0205", Arch
     If FSO.FileExists(Arch) = False Then
-        tERR.Anotar "001-0206"
+        tERR.Anotar "001-0206", Arch
         LeerArch1Linea = "No existe archivo"
-        tERR.Anotar "001-0207"
         Exit Function
     End If
-    tERR.Anotar "001-0208"
+    tERR.Anotar "001-0208", Arch
     Set TE = FSO.OpenTextFile(Arch, ForReading, False)
-    tERR.Anotar "001-0209"
-    LeerArch1Linea = TE.ReadLine
-    tERR.Anotar "001-0210", LeerArch1Linea
+        Dim Tmp66 As String
+        Tmp66 = TE.ReadLine
+        LeerArch1Linea = Tmp66
+        tERR.Anotar "001-0210", Tmp66
     TE.Close
     
     Exit Function
@@ -934,9 +1168,7 @@ Public Function ObtenerArchMM(Carpeta As String) As String()
         If NombreArchivo <> NewName Then
             tERR.Anotar "001-0230"
             FSO.MoveFile Carpeta + NombreArchivo, Carpeta + NewName
-            tERR.Anotar "001-0231"
-            'WriteTBRLog "Se corrigio el nombre de tema " + NombreArchivo + _
-                " por " + NewName + " en la carpeta " + Carpeta, True
+            
             tERR.Anotar "001-0232"
             NombreArchivo = NewName
         End If
@@ -961,9 +1193,6 @@ Public Function ObtenerArchMM(Carpeta As String) As String()
         If NombreArchivo <> NewName Then
             tERR.Anotar "001-0240"
             FSO.MoveFile Carpeta + NombreArchivo, Carpeta + NewName
-            tERR.Anotar "001-0241"
-            'WriteTBRLog "Se corrigio el nombre de tema " + NombreArchivo + _
-                " por " + NewName + " en la carpeta " + Carpeta, True
             tERR.Anotar "001-0242"
             NombreArchivo = NewName
         End If
@@ -989,9 +1218,31 @@ Public Function ObtenerArchMM(Carpeta As String) As String()
             tERR.Anotar "001-0250"
             FSO.MoveFile Carpeta + NombreArchivo, Carpeta + NewName
             tERR.Anotar "001-0251"
-            'WriteTBRLog "Se corrigio el nombre de tema " + NombreArchivo + _
-                " por " + NewName + " en la carpeta " + Carpeta, True
-            tERR.Anotar "001-0252"
+        
+            NombreArchivo = NewName
+        End If
+        tERR.Anotar "001-0253"
+        ContadorArch = ContadorArch + 1
+        ReDim Preserve TMPmatriz(ContadorArch)
+        tERR.Anotar "001-0254"
+        TMPmatriz(ContadorArch) = Carpeta + NombreArchivo + "#" + NombreArchivo
+        tERR.Anotar "001-0255"
+        NombreArchivo = Dir$
+    Loop
+    
+    'VOB
+    tERR.Anotar "001-0246"
+    NombreArchivo = Dir$(Carpeta + "\*.vob")
+    tERR.Anotar "001-0247"
+    Do While Len(NombreArchivo)
+        'corregir el nombre del tema
+        tERR.Anotar "001-0248"
+        NewName = QuitarCaracter(NombreArchivo, ",")
+        tERR.Anotar "001-0249"
+        If NombreArchivo <> NewName Then
+            tERR.Anotar "001-0250"
+            FSO.MoveFile Carpeta + NombreArchivo, Carpeta + NewName
+            tERR.Anotar "001-0251"
             NombreArchivo = NewName
         End If
         tERR.Anotar "001-0253"
@@ -1016,9 +1267,6 @@ Public Function ObtenerArchMM(Carpeta As String) As String()
             tERR.Anotar "001-0250"
             FSO.MoveFile Carpeta + NombreArchivo, Carpeta + NewName
             tERR.Anotar "001-0251"
-            'WriteTBRLog "Se corrigio el nombre de tema " + NombreArchivo + _
-                " por " + NewName + " en la carpeta " + Carpeta, True
-            tERR.Anotar "001-0252"
             NombreArchivo = NewName
         End If
         tERR.Anotar "001-0253"
@@ -1043,9 +1291,6 @@ Public Function ObtenerArchMM(Carpeta As String) As String()
             tERR.Anotar "001-0250"
             FSO.MoveFile Carpeta + NombreArchivo, Carpeta + NewName
             tERR.Anotar "001-0251"
-            'WriteTBRLog "Se corrigio el nombre de tema " + NombreArchivo + _
-                " por " + NewName + " en la carpeta " + Carpeta, True
-            tERR.Anotar "001-0252"
             NombreArchivo = NewName
         End If
         tERR.Anotar "001-0253"
