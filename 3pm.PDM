@@ -888,7 +888,7 @@ Handler2=PDWizard.WebPostDplySubWiz
 
 [Package|3pm 3.4|Root]
 SubWizProgID=PDWizard.SetupPkgSubWiz
-BuildFolder=D:\ahora\3pm\demo3pm
+BuildFolder=d:\ahora\3pm\iii
 
 [Package|3pm 3.4|Configure DAO ISAMs]
 Applicable=No
@@ -898,12 +898,15 @@ JetWorkspace=
 ODBCDirect=
 
 [Package|3pm 3.4|Files Found]
+config.tbr=D:\ahora\3pm\config.tbr
+logo.sys=D:\ahora\3pm\imgINI\3pm\logo.sys
 
 [Package|3pm 3.4|Files Released]
 inicio.grp=
 
 [Package|3pm 3.4|Missing Dependency Information]
 D:\ahora\3pm\ini.exe=
+E:\ahora\3pm\ini.exe=
 
 [Package|3pm 3.4|Out-of-Date Dependency Information]
 C:\WINDOWS\SYSTEM\scrrun.dll=
@@ -915,16 +918,19 @@ d:\ahora\3pm\tapa.jpg=
 d:\ahora\3pm\top10.jpg=
 d:\ahora\3pm\imgini\3pm\logow.sys=
 d:\ahora\3pm\imgini\3pm\logos.sys=
-d:\ahora\3pm\imgini\3pm\logo.sys=
+logo.sys=
 d:\ahora\3pm\ini.exe=
 
 [Package|3pm 3.4|Files Removed]
 c:\windows\system\msvcrt.dll=
 d:\ahora\3pm\imgini\inicio.grp=
 d:\ahora\3pm\config.tbr=
+e:\ahora\3pm\config.tbr=
+c:\logo.sys=
+c:\windows\logos.sys=
+c:\windows\logow.sys=
 
 [Package|3pm 3.4|Files In Project]
-D:\ahora\3pm\3pm.exe=Yes
 C:\WINDOWS\SYSTEM\MSVBVM60.DLL=Yes
 C:\WINDOWS\SYSTEM\OLEAUT32.DLL=Yes
 C:\WINDOWS\SYSTEM\OLEPRO32.DLL=Yes
@@ -939,14 +945,15 @@ C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
 C:\WINDOWS\SYSTEM\VB6STKIT.DLL=Yes
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+D:\ahora\3pm\3pm.exe=Yes
 D:\ahora\3pm\config.tbr=No
-D:\ahora\3pm\Manual.doc=Yes
+D:\ahora\3pm\manual.doc=Yes
 D:\ahora\3pm\tapa.jpg=Yes
 D:\ahora\3pm\top10.jpg=Yes
-D:\ahora\3pm\imgINI\3pm\logow.sys=Yes
-D:\ahora\3pm\imgINI\3pm\logos.sys=Yes
-D:\ahora\3pm\imgINI\3pm\logo.sys=Yes
 D:\ahora\3pm\ini.exe=Yes
+D:\ahora\3pm\imgINI\3pm\logow.sys=Yes
+D:\ahora\3pm\imgINI\3pm\LOGOS.SYS=Yes
+D:\ahora\3pm\imgINI\3pm\logo.sys=Yes
 
 [Package|3pm 3.4|Configure Registry Files]
 Applicable=No
@@ -978,6 +985,14 @@ D:\ahora\3pm\imgINI\3pm\logos.sys=$(AppPath)
 D:\ahora\3pm\imgINI\3pm\logo.sys=$(AppPath)
 D:\ahora\3pm\imgINI\INICIO.GRP=$(WinPath)
 D:\ahora\3pm\ini.exe=$(AppPath)
+E:\ahora\3pm\3pm.exe=$(AppPath)
+E:\ahora\3pm\manual.doc=$(AppPath)
+E:\ahora\3pm\tapa.jpg=$(AppPath)
+E:\ahora\3pm\top10.jpg=$(AppPath)
+C:\WINDOWS\logow.sys=$(WinSysPathSysFile)
+C:\WINDOWS\logos.sys=$(WinSysPathSysFile)
+E:\ahora\3pm\logo.sys=$(AppPath)
+E:\ahora\3pm\ini.exe=$(AppPath)
 
 [Package|3pm 3.4|Configure Shared Files]
 Applicable=Yes
@@ -990,6 +1005,12 @@ D:\ahora\3pm\imgINI\3pm\logow.sys=No
 D:\ahora\3pm\imgINI\3pm\logos.sys=No
 D:\ahora\3pm\imgINI\3pm\logo.sys=No
 D:\ahora\3pm\ini.exe=No
+E:\ahora\3pm\3pm.exe=No
+E:\ahora\3pm\manual.doc=No
+E:\ahora\3pm\tapa.jpg=No
+E:\ahora\3pm\top10.jpg=No
+E:\ahora\3pm\logo.sys=No
+E:\ahora\3pm\ini.exe=No
 
 [Package|3pm 3.4|Distribution]
 Type=single
@@ -1008,11 +1029,11 @@ StartIn1=$(AppPath)
 Key1=Icon1
 
 [Package|3pm 3.4|Package]
-PackageFolder=D:\ahora\3pm\demo3pm
+PackageFolder=d:\ahora\3pm\iii
 ProjectFolder=D:\ahora\3pm
 ServerSideCab=
-File1=D:\ahora\3pm\demo3pm\setup.exe
-File2=D:\ahora\3pm\demo3pm\Setup.Lst
-File3=D:\ahora\3pm\demo3pm\3pm.CAB
+File1=d:\ahora\3pm\iii\setup.exe
+File2=d:\ahora\3pm\iii\Setup.Lst
+File3=d:\ahora\3pm\iii\3pm.CAB
 Handler1=PDWizard.FolderDplySubWiz
 Handler2=PDWizard.WebPostDplySubWiz

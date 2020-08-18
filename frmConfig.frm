@@ -10,6 +10,7 @@ Begin VB.Form frmConfig
    Icon            =   "frmConfig.frx":0000
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
+   LockControls    =   -1  'True
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   9000
@@ -17,6 +18,26 @@ Begin VB.Form frmConfig
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    WindowState     =   2  'Maximized
+   Begin VB.CommandButton Command5 
+      BackColor       =   &H00FFC0C0&
+      Caption         =   "SUPERLICENCIA"
+      Enabled         =   0   'False
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   735
+      Left            =   7230
+      Style           =   1  'Graphical
+      TabIndex        =   94
+      Top             =   8130
+      Width           =   1800
+   End
    Begin VB.TextBox TxtUSUARIO 
       BeginProperty Font 
          Name            =   "Verdana"
@@ -111,11 +132,11 @@ Begin VB.Form frmConfig
          Strikethrough   =   0   'False
       EndProperty
       Height          =   350
-      Left            =   6060
+      Left            =   4860
       Style           =   1  'Graphical
       TabIndex        =   40
-      Top             =   8160
-      Width           =   2900
+      Top             =   8130
+      Width           =   2350
    End
    Begin VB.CommandButton Command6 
       BackColor       =   &H00FFC0C0&
@@ -130,11 +151,11 @@ Begin VB.Form frmConfig
          Strikethrough   =   0   'False
       EndProperty
       Height          =   350
-      Left            =   3090
+      Left            =   2490
       Style           =   1  'Graphical
       TabIndex        =   39
-      Top             =   8550
-      Width           =   2900
+      Top             =   8520
+      Width           =   2350
    End
    Begin VB.CommandButton Command7 
       BackColor       =   &H00FFC0C0&
@@ -149,11 +170,11 @@ Begin VB.Form frmConfig
          Strikethrough   =   0   'False
       EndProperty
       Height          =   350
-      Left            =   3090
+      Left            =   2490
       Style           =   1  'Graphical
       TabIndex        =   38
-      Top             =   8160
-      Width           =   2900
+      Top             =   8130
+      Width           =   2350
    End
    Begin VB.Frame Frame2 
       BackColor       =   &H00000000&
@@ -738,11 +759,11 @@ Begin VB.Form frmConfig
          Strikethrough   =   0   'False
       EndProperty
       Height          =   350
-      Left            =   6060
+      Left            =   4860
       Style           =   1  'Graphical
       TabIndex        =   43
-      Top             =   8550
-      Width           =   2900
+      Top             =   8520
+      Width           =   2350
    End
    Begin VB.TextBox txtDuracionProtect 
       Alignment       =   2  'Center
@@ -1108,12 +1129,12 @@ Begin VB.Form frmConfig
       Left            =   120
       Style           =   1  'Graphical
       TabIndex        =   37
-      Top             =   8550
-      Width           =   2900
+      Top             =   8520
+      Width           =   2350
    End
    Begin VB.CommandButton Command1 
       BackColor       =   &H00FFC0C0&
-      Caption         =   "Grabar configuracion"
+      Caption         =   "Grabar"
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
@@ -1127,8 +1148,8 @@ Begin VB.Form frmConfig
       Left            =   120
       Style           =   1  'Graphical
       TabIndex        =   36
-      Top             =   8160
-      Width           =   2900
+      Top             =   8130
+      Width           =   2350
    End
    Begin VB.Frame Frame3 
       BackColor       =   &H00000000&
@@ -1144,7 +1165,7 @@ Begin VB.Form frmConfig
       EndProperty
       ForeColor       =   &H00FFFFFF&
       Height          =   1335
-      Left            =   3810
+      Left            =   3870
       TabIndex        =   62
       Top             =   4260
       Width           =   3945
@@ -1164,8 +1185,8 @@ Begin VB.Form frmConfig
          Height          =   435
          Left            =   60
          TabIndex        =   26
-         Top             =   270
-         Width           =   3855
+         Top             =   330
+         Width           =   3705
       End
       Begin VB.OptionButton OpReiniNULL 
          BackColor       =   &H00000000&
@@ -2179,10 +2200,19 @@ Private Sub Command4_LostFocus()
     Command4.BackColor = &HFFC0C0
 End Sub
 
+Private Sub Command5_Click()
+    If TypeVersion = "SUPELICENCIA" Then
+        frmSUPERlic.Show 1
+    Else
+        frmIniSuperLIC.Show 1
+    End If
+End Sub
+
 Private Sub Command5_GotFocus()
     TeclaConfOK = "{ENTER}"
     Command5.BackColor = vbYellow
-    HLP "Agregar desde CD o desde otro disco mas discos a 3PM. Requiere el uso del teclado "
+    HLP "Convierta a 3PM en su propio software. Cambie los logos y coloque información como si el " + _
+    "software fuera de su propiedad"
 End Sub
 
 Private Sub Command5_LostFocus()
@@ -2282,11 +2312,26 @@ End Sub
 Private Sub Form_Load()
     MostrarCursor True
     AjustarFRM Me, 12000
-    lblTBRcfg = "Desarrollado por tbrSoft" + vbCrLf + "www.tbrsoft.com" + vbCrLf + _
-        "----------------" + vbCrLf + "Contáctenos a info@tbrsoft.com" + vbCrLf + _
-        "avazquez@cpcipc.org" + vbCrLf + "----------------" + vbCrLf + "Hecho en Argentina"
+    If TypeVersion = "SUPERLICENCIA" Then
+        If FSO.FileExists(WINfolder + "\SL\txtCFG.tbr") Then
+            Set TE = FSO.OpenTextFile(WINfolder + "\SL\txtCFG.tbr", ForReading, False)
+            Dim NewT As String
+            NewT = TE.ReadAll
+            lblTBRcfg = NewT
+            TE.Close
+        Else
+            lblTBRcfg = "Desarrollado por tbrSoft" + vbCrLf + "www.tbrsoft.com" + vbCrLf + _
+                "----------------" + vbCrLf + "Contáctenos a info@tbrsoft.com" + vbCrLf + _
+                "avazquez@cpcipc.org" + vbCrLf + "----------------" + vbCrLf + "Hecho en Argentina"
+        End If
+    Else
+
+        lblTBRcfg = "Desarrollado por tbrSoft" + vbCrLf + "www.tbrsoft.com" + vbCrLf + _
+            "----------------" + vbCrLf + "Contáctenos a info@tbrsoft.com" + vbCrLf + _
+            "avazquez@cpcipc.org" + vbCrLf + "----------------" + vbCrLf + "Hecho en Argentina"
+    End If
     lblContador = STRceros(CONTADOR, 11)
-    ClaveAdmin = "grAS981aATTy6"
+    ClaveAdmin = "RMLVF00012yqq"
     If TypeVersion = "DEMO" Then
         TxtUSUARIO = "No puede modificar esta opcion si es una version demo"
         TxtUSUARIO.Locked = True

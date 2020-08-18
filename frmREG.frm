@@ -15,6 +15,26 @@ Begin VB.Form frmREG
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    WindowState     =   2  'Maximized
+   Begin VB.CommandButton Command5 
+      BackColor       =   &H0080C0FF&
+      Cancel          =   -1  'True
+      Caption         =   "COMPRAR AHORA!"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   435
+      Left            =   3840
+      Style           =   1  'Graphical
+      TabIndex        =   28
+      Top             =   7470
+      Width           =   3720
+   End
    Begin VB.CommandButton Command3 
       Caption         =   "Abrir Manual de uso. RECOMENDADO si es su primer uso"
       BeginProperty Font 
@@ -29,7 +49,7 @@ Begin VB.Form frmREG
       Height          =   405
       Left            =   2460
       TabIndex        =   26
-      Top             =   6660
+      Top             =   6360
       Width           =   6915
    End
    Begin VB.Frame frFull 
@@ -177,7 +197,6 @@ Begin VB.Form frmREG
       Width           =   8655
    End
    Begin VB.CommandButton Command4 
-      Cancel          =   -1  'True
       Caption         =   "Ver CLUF"
       BeginProperty Font 
          Name            =   "Verdana"
@@ -231,7 +250,7 @@ Begin VB.Form frmREG
       Height          =   435
       Left            =   5760
       TabIndex        =   10
-      Top             =   7380
+      Top             =   6930
       Width           =   1785
    End
    Begin VB.ComboBox cmbCountry 
@@ -449,7 +468,7 @@ Begin VB.Form frmREG
       Height          =   435
       Left            =   3840
       TabIndex        =   9
-      Top             =   7380
+      Top             =   6930
       Width           =   1785
    End
    Begin VB.Label Label1 
@@ -469,7 +488,7 @@ Begin VB.Form frmREG
       Index           =   3
       Left            =   1830
       TabIndex        =   22
-      Top             =   4050
+      Top             =   3960
       Width           =   9285
    End
    Begin VB.Image Image1 
@@ -524,7 +543,7 @@ Begin VB.Form frmREG
    Begin VB.Label Label1 
       Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
-      Caption         =   "Codigo a enviar a tbrSoft. Cambia cada vez pero representa un codigo unico"
+      Caption         =   "Codigo a enviar a tbrSoft. CAMBIA CADA VEZ PERO REPRESENTA UN CÓDIGO ÚNICO"
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
@@ -540,7 +559,7 @@ Begin VB.Form frmREG
       Left            =   1860
       TabIndex        =   12
       Top             =   2430
-      Width           =   7725
+      Width           =   8355
    End
 End
 Attribute VB_Name = "frmREG"
@@ -579,21 +598,21 @@ Private Sub Command1_Click()
     CodigoUnido = txtCOD(0) + txtCOD(1) + txtCOD(2) + txtCOD(3) + txtCOD(4) + txtCOD(5) + txtCOD(6) + txtCOD(7)
 
     'hay un codigo personal (mas corto) que habilita la funcion de creado de contraseñas
-    If CodigoUnido = "26453653" Then
-        frFull.Visible = True
-        'poner el codigo terminado en las casillas
-        Dim CF As String
-       CF = GenerarCodigo(lblGUID, False)
-        txtCOD(0) = Mid(CF, 1, 5)
-        txtCOD(1) = Mid(CF, 6, 5)
-        txtCOD(2) = Mid(CF, 11, 5)
-        txtCOD(3) = Mid(CF, 16, 5)
-        txtCOD(4) = Mid(CF, 21, 5)
-        txtCOD(5) = Mid(CF, 26, 5)
-        txtCOD(6) = Mid(CF, 31, 5)
-        txtCOD(7) = Mid(CF, 36, 5)
-        Exit Sub
-    End If
+    'If CodigoUnido = "26453653" Then
+   '     frFull.Visible = True
+  '      'poner el codigo terminado en las casillas
+ '       Dim CF As String
+'        CF = GenerarCodigo(lblGUID, False)'
+   '     txtCOD(0) = Mid(CF, 1, 5)
+  '      txtCOD(1) = Mid(CF, 6, 5)
+ '       txtCOD(2) = Mid(CF, 11, 5)
+ '       txtCOD(3) = Mid(CF, 16, 5)
+'        txtCOD(4) = Mid(CF, 21, 5)
+'        txtCOD(5) = Mid(CF, 26, 5)
+'        txtCOD(6) = Mid(CF, 31, 5)
+'        txtCOD(7) = Mid(CF, 36, 5)
+'        Exit Sub
+'    End If
     If cmbCountry = "(SELECCIONE PAIS)" Then MsgBox "Debe cargar el pais de residencia": Exit Sub
     
     If CodigoUnido = "" Then
@@ -739,9 +758,14 @@ Private Sub Command4_Click()
     frmCLUF.Show 1
 End Sub
 
+Private Sub Command5_Click()
+    frmCompraYA.Show 1
+End Sub
+
 Private Sub Form_Load()
     AP = App.path
     If Right(AP, 1) <> "\" Then AP = AP + "\"
+    AjustarFRM Me, 12000
     'se graba en win y system
     SYSfolder = FSO.GetSpecialFolder(SystemFolder)
     WINfolder = FSO.GetSpecialFolder(WindowsFolder)
@@ -765,6 +789,7 @@ Private Sub Form_Load()
             TE.WriteLine "ImgIni=1"
             'copiar el archivo a un lugar seguro para
             'despues administrar los cambios
+            If FSO.FileExists(WINfolder + "\img3pm\w\logo.sys") Then FSO.DeleteFile WINfolder + "\img3pm\w\logo.sys", True
             FSO.CopyFile "c:\logo.sys", WINfolder + "\img3pm\w\logo.sys", True
         Else
             TE.WriteLine "ImgIni=0"
@@ -775,6 +800,7 @@ Private Sub Form_Load()
             TE.WriteLine "ImgCerrando=1"
             'copiar el archivo a un lugar seguro para
             'despues administrar los cambios
+            If FSO.FileExists(WINfolder + "\img3pm\w\logow.sys") Then FSO.DeleteFile WINfolder + "\img3pm\w\logow.sys", True
             FSO.CopyFile WINfolder + "\logow.sys", WINfolder + "\img3pm\w\logow.sys", True
         Else
             TE.WriteLine "ImgCerrando=0"
@@ -785,6 +811,7 @@ Private Sub Form_Load()
             TE.WriteLine "ImgApagar=1"
             'copiar el archivo a un lugar seguro para
             'despues administrar los cambios
+            If FSO.FileExists(WINfolder + "\img3pm\w\logos.sys") Then FSO.DeleteFile WINfolder + "\img3pm\w\logos.sys", True
             FSO.CopyFile WINfolder + "\logos.sys", WINfolder + "\img3pm\w\logos.sys", True
         Else
             TE.WriteLine "ImgApagar=0"
@@ -803,19 +830,21 @@ YaEstaIMG:
     If FSO.FolderExists(WINfolder + "\img3pm\3") = False Then FSO.CreateFolder (WINfolder + "\img3pm\3")
     If FSO.FileExists(AP + "logo.sys") Then
         'siempre copiarlo si esta
+        If FSO.FileExists(WINfolder + "\img3pm\3\logo.sys") Then FSO.DeleteFile WINfolder + "\img3pm\3\logo.sys", True
         FSO.CopyFile AP + "logo.sys", WINfolder + "\img3pm\3\logo.sys", True
         'If FSO.FileExists(WINfolder + "\img3pm\3\logo.sys") = False Then FSO.CopyFile AP + "logo.sys", WINfolder + "\img3pm\3\logo.sys", True
     End If
     If FSO.FileExists(AP + "logow.sys") Then
         'siempre copiarlo si esta
+        If FSO.FileExists(WINfolder + "\img3pm\3\logow.sys") Then FSO.DeleteFile WINfolder + "\img3pm\3\logow.sys", True
         FSO.CopyFile AP + "logow.sys", WINfolder + "\img3pm\3\logow.sys", True
     End If
     If FSO.FileExists(AP + "logos.sys") Then
         'siempre copiarlo si esta
+        If FSO.FileExists(WINfolder + "\img3pm\3\logos.sys") Then FSO.DeleteFile WINfolder + "\img3pm\3\logos.sys", True
         FSO.CopyFile AP + "logos.sys", WINfolder + "\img3pm\3\logos.sys", True
     End If
     
-    AjustarFRM Me, 12000
     'SACAR los 0 y las O por la confusion (igual con las l (eles))
 STRconCodigos = "87dfsdfw897564fghererh56424dfg23d4fge89r7e89rgWER7W9E8F7SD54s5d6f4sd56fw4e4w" + _
     "YUGykjgKHJBViuhyiuHHJKbkLjb567876543242324768768768jhjkhUYIULU6654654564A23E" + _
@@ -908,13 +937,7 @@ STRconCodigos = STRconCodigos + "zsmkxjkLsiLc95uu8489fndefjL349845789f89w89" + _
     TXT = "Bienvenido a 3PM. Gracias por confiar en tbrSoft Argentina" + vbCrLf + vbCrLf + _
     "Puede utilizar esta version demo con algunas restricciones simplemente " + _
     "indicando su pais de residencia y presionando OK ahora" + vbCrLf + vbCrLf + _
-    "El costo de 3PM con licencia para un equipo es de U$S 75, cada licencia " + _
-    "adicional solicitada cuesta U$S 40. Puede optar por licencias multiples " + _
-    "de la siguinte forma: " + vbCrLf + _
-    "5 licencias - U$S 200. (entre 5 y 9 licencias U$S 40 cada una)" + vbCrLf + _
-    "10 licencias - U$S 350. (entre 10 y 19 licencias U$S 35 cada una)" + vbCrLf + _
-    "20 licencias - U$S 600. (mas de 20 licencias U$S 30 cada una)" + vbCrLf + _
-    "" + vbCrLf + _
+    "El costo de 3PM con licencia para un equipo es de U$S 75" + vbCrLf + _
     "3PM no incluye en ninguna de sus licencia el derecho de venta del software. Por lo que " + _
     "solo usted tendra una copia LEGAL si compra este software a " + _
     "tbrSoft Argentina." + vbCrLf + _

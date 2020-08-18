@@ -23,6 +23,25 @@ Begin VB.Form FRMTOP10
       TabIndex        =   0
       Top             =   -45
       Width           =   11775
+      Begin VB.Label Label1 
+         BackColor       =   &H0000FFFF&
+         Caption         =   "Estos son los más escuchados. La mejor música elegida por ustedes"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   195
+         Left            =   90
+         TabIndex        =   4
+         Top             =   150
+         Width           =   9915
+      End
       Begin VB.Label lblNoEjecuta 
          Alignment       =   2  'Center
          BackColor       =   &H0000FFFF&
@@ -39,7 +58,7 @@ Begin VB.Form FRMTOP10
          ForeColor       =   &H000000FF&
          Height          =   1515
          Left            =   9420
-         TabIndex        =   5
+         TabIndex        =   3
          Top             =   7410
          UseMnemonic     =   0   'False
          Visible         =   0   'False
@@ -60,7 +79,7 @@ Begin VB.Form FRMTOP10
          EndProperty
          Height          =   915
          Left            =   3870
-         TabIndex        =   4
+         TabIndex        =   2
          Top             =   3645
          Visible         =   0   'False
          Width           =   3930
@@ -87,52 +106,10 @@ Begin VB.Form FRMTOP10
          ForeColor       =   &H0080FFFF&
          Height          =   345
          Index           =   0
-         Left            =   90
-         TabIndex        =   3
-         Top             =   180
-         Width           =   9930
-      End
-      Begin VB.Label Label1 
-         Alignment       =   2  'Center
-         BackStyle       =   0  'Transparent
-         Caption         =   "Top 3PM"
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   21.75
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00C0C0FF&
-         Height          =   960
-         Index           =   0
-         Left            =   10125
-         TabIndex        =   2
-         Top             =   1980
-         Width           =   1605
-      End
-      Begin VB.Label Label1 
-         Alignment       =   2  'Center
-         BackStyle       =   0  'Transparent
-         Caption         =   "Lo mejor..."
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   14.25
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H0000FFFF&
-         Height          =   735
-         Index           =   1
-         Left            =   10125
+         Left            =   60
          TabIndex        =   1
-         Top             =   3000
-         Width           =   1575
+         Top             =   390
+         Width           =   9930
       End
    End
 End
@@ -293,7 +270,7 @@ Private Sub Form_Load()
     ColorSel = vbRed
     ForeColorTop = vbYellow
     PuestoElegido = 0
-    MaxTop = 31
+    MaxTop = 30
     
     'mostrar todos los lbls
     Dim c As Integer
@@ -317,6 +294,8 @@ Private Sub Form_Load()
         Else
             lblPuestos(c).Top = lblPuestos(c - 1).Top + lblPuestos(c - 1).Height
         End If
+        lblPuestos(c).Width = lblPuestos(c - 1).Width
+        If c = 5 Then lblPuestos(c).Width = 11650
         lblPuestos(c).Visible = True
         lblPuestos(c).Refresh
     Loop

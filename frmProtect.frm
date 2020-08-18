@@ -111,7 +111,7 @@ Begin VB.Form frmProtect
       Begin VB.Label lblTIT 
          Alignment       =   2  'Center
          BackStyle       =   0  'Transparent
-         Caption         =   "3PM esta protegiendo la pantalla. Presione cualquier tecla para continuar"
+         Caption         =   "Se esta protegiendo la pantalla. Presione cualquier tecla para continuar"
          BeginProperty Font 
             Name            =   "Verdana"
             Size            =   9.75
@@ -123,7 +123,7 @@ Begin VB.Form frmProtect
          EndProperty
          ForeColor       =   &H00C0FFFF&
          Height          =   2265
-         Left            =   10260
+         Left            =   10290
          TabIndex        =   1
          Top             =   210
          Width           =   1545
@@ -156,9 +156,9 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                 'grabar cant de creditos
                 EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
                 If CREDITOS >= 10 Then
-                    frmINDEX.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+                    frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
                 Else
-                    frmINDEX.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+                    frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
                 End If
             Else
                 'apagar el fichero electronico
@@ -169,11 +169,11 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             If ApagarAlCierre Then APAGAR_PC
             'no puedo usar do stop porque lanza el evento ENDPLAY y esto produce un EMPEZARSIGUIENTE
             'que se come un tema de la lista
-            frmINDEX.MP3.DoClose
+            frmIndex.MP3.DoClose
             End
     End Select
     SecSinTecla = 0
-    frmINDEX.lblNoTecla = 0
+    frmIndex.lblNoTecla = 0
     Unload Me
 End Sub
 
@@ -192,7 +192,7 @@ Private Sub Form_Load()
     PicProtec(3).Stretch = ProtectOriginal
     PicProtec(4).Stretch = ProtectOriginal
     PicProtec(5).Stretch = ProtectOriginal
-    lblDisco.Visible = ProtectOriginal
+    lblDISCO.Visible = ProtectOriginal
     'VER POR QUE NUMERO DE FOTO IVA
     NumFotoIni = Val(ReadSimpleFile)
     If ProtectOriginal Then
@@ -270,7 +270,7 @@ Private Sub Timer1_Timer()
         Dim DISCO As String
         DISCO = Left(MTXtapas(IndMtxTapaVisible), Len(MTXtapas(IndMtxTapaVisible)) - 9)
         DISCO = FSO.GetBaseName(DISCO)
-        lblDisco = DISCO
+        lblDISCO = DISCO
         PicProtec(IndPicVisible).Stretch = True
     Else
         'si es muy grande
@@ -298,7 +298,7 @@ Private Sub Timer1_Timer()
     End If
     
     Randomize Timer
-    b = lblDisco.Top - PicProtec(IndPicVisible).Height
+    b = lblDISCO.Top - PicProtec(IndPicVisible).Height
     If b < 150 Then b = 150 '150 es el tope del frmae
         
     a = Int(Rnd * b)

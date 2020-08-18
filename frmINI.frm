@@ -14,13 +14,22 @@ Begin VB.Form frmINI
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    WindowState     =   2  'Maximized
+   Begin VB.Image Image2 
+      BorderStyle     =   1  'Fixed Single
+      Height          =   1095
+      Left            =   3900
+      Picture         =   "frmINI.frx":0442
+      Stretch         =   -1  'True
+      Top             =   7860
+      Width           =   3570
+   End
    Begin VB.Label pBar 
       BackColor       =   &H0000FFFF&
       Height          =   240
-      Left            =   0
-      TabIndex        =   4
-      Top             =   7155
-      Width           =   11985
+      Left            =   30
+      TabIndex        =   3
+      Top             =   6870
+      Width           =   11895
    End
    Begin VB.Label VVV 
       Alignment       =   1  'Right Justify
@@ -38,18 +47,10 @@ Begin VB.Form frmINI
       EndProperty
       ForeColor       =   &H0000FFFF&
       Height          =   420
-      Left            =   930
+      Left            =   990
       TabIndex        =   0
-      Top             =   930
+      Top             =   1020
       Width           =   2460
-   End
-   Begin VB.Label Label1 
-      BackColor       =   &H00000080&
-      Height          =   1005
-      Left            =   0
-      TabIndex        =   3
-      Top             =   8415
-      Width           =   12120
    End
    Begin VB.Label lblINI 
       BackColor       =   &H00000080&
@@ -57,27 +58,19 @@ Begin VB.Form frmINI
       Caption         =   "Contando Discos: 00"
       BeginProperty Font 
          Name            =   "Verdana"
-         Size            =   26.25
+         Size            =   9
          Charset         =   0
-         Weight          =   400
+         Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00C0FFFF&
-      Height          =   825
-      Left            =   0
+      Height          =   285
+      Left            =   30
       TabIndex        =   2
-      Top             =   7470
+      Top             =   7170
       Width           =   11910
-   End
-   Begin VB.Image Image3 
-      Height          =   1800
-      Left            =   8955
-      Picture         =   "frmINI.frx":0442
-      Stretch         =   -1  'True
-      Top             =   180
-      Width           =   1650
    End
    Begin VB.Label lblProces 
       Alignment       =   2  'Center
@@ -86,7 +79,7 @@ Begin VB.Form frmINI
       Caption         =   "Buscando discos"
       BeginProperty Font 
          Name            =   "Verdana"
-         Size            =   15.75
+         Size            =   9.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -94,26 +87,27 @@ Begin VB.Form frmINI
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H0000FFFF&
-      Height          =   525
-      Left            =   0
+      Height          =   315
+      Left            =   30
       TabIndex        =   1
-      Top             =   6480
+      Top             =   6540
       UseMnemonic     =   0   'False
-      Width           =   12000
+      Width           =   11850
    End
    Begin VB.Image TapaCD 
       Height          =   4215
-      Left            =   7650
+      Left            =   7560
       Stretch         =   -1  'True
-      Top             =   2160
+      Top             =   1170
       Width           =   4305
    End
    Begin VB.Image Image1 
+      BorderStyle     =   1  'Fixed Single
       Height          =   6300
-      Left            =   -120
-      Picture         =   "frmINI.frx":1346
+      Left            =   -30
+      Picture         =   "frmINI.frx":1EB0
       Stretch         =   -1  'True
-      Top             =   -120
+      Top             =   -30
       Width           =   7500
    End
 End
@@ -125,6 +119,12 @@ Attribute VB_Exposed = False
 
 Private Sub Form_Load()
     VVV = "v " + Trim(Str(App.Major)) + "." + Trim(Str(App.Minor)) + "." + Trim(Str(App.Revision))
+    '--------
+    If TypeVersion = "SUPERLICENCIA" Then
+        If FSO.FileExists(WINfolder + "\SL\imgbig.tbr") Then Image1.Picture = LoadPicture(WINfolder + "\SL\imgbig.tbr")
+        If FSO.FileExists(WINfolder + "\SL\imgtbr.tbr") Then Image2.Picture = LoadPicture(WINfolder + "\SL\imgtbr.tbr")
+    End If
+    '--------
     AjustarFRM Me, 12000
     'leer el archivo de configuracion ap+"config.tbr"
     CargarIMGinicio = LeerConfig("CargarImagenInicio", "1")

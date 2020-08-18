@@ -771,6 +771,3 @@ Private Sub Form_Load()
     InfoDisco lblInfoDisco
 End Sub
 
-Private Sub lblBAR2_Click()
-
-End Sub

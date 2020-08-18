@@ -1,4 +1,6 @@
 Attribute VB_Name = "Globales"
+Public SUPERLICENCIA As Boolean 'permite cargar textos e imágenes personalizados
+
 Public textoUsuario As String
 
 Public CreditosCuestaTema As Long
@@ -33,7 +35,7 @@ End Type
 
 
 Public TypeVersion As String
-'puede ser DEMO o FULL
+'puede ser DEMO o FULL o SUPERLICENCIA
 
 Public ClaveIngresada As String
 
