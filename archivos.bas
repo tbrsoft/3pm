@@ -235,11 +235,11 @@ EntreAlPedo:
                 ArchTapa = UbicDiscoActual + "\tapa.jpg"
                 'arranca con 5 ya cargados
                 If nTAPAcd > 0 Then
-                    Load frmINDEX.L(nTAPAcd)
-                    frmINDEX.L(nTAPAcd).Top = frmINDEX.L(nTAPAcd - 1).Top + frmINDEX.L(nTAPAcd - 1).Height
-                    frmINDEX.L(nTAPAcd).Visible = True
+                    Load frmIndex.L(nTAPAcd)
+                    frmIndex.L(nTAPAcd).Top = frmIndex.L(nTAPAcd - 1).Top + frmIndex.L(nTAPAcd - 1).Height
+                    frmIndex.L(nTAPAcd).Visible = True
                 End If
-                frmINDEX.L(nTAPAcd) = NameCarp
+                frmIndex.L(nTAPAcd) = NameCarp
                 frmINI.lblProces = NameCarp
                 frmINI.lblProces.Refresh
                 'INICIO RAPIDO fastini
@@ -252,15 +252,15 @@ EntreAlPedo:
                 frmINI.PBar.Refresh
                 
                 If nTAPAcd > ((TapasMostradasH * TapasMostradasV) - 1) Then
-                    Load frmINDEX.TapaCD(nTAPAcd)
-                    frmINDEX.TapaCD(nTAPAcd).Left = frmINDEX.TapaCD(nTAPAcd - ((TapasMostradasH * TapasMostradasV))).Left
-                    frmINDEX.TapaCD(nTAPAcd).Top = frmINDEX.TapaCD(nTAPAcd - ((TapasMostradasH * TapasMostradasV))).Top
+                    Load frmIndex.TapaCD(nTAPAcd)
+                    frmIndex.TapaCD(nTAPAcd).Left = frmIndex.TapaCD(nTAPAcd - ((TapasMostradasH * TapasMostradasV))).Left
+                    frmIndex.TapaCD(nTAPAcd).Top = frmIndex.TapaCD(nTAPAcd - ((TapasMostradasH * TapasMostradasV))).Top
                 End If
             
                 If FSO.FileExists(ArchTapa) Then
-                    frmINDEX.TapaCD(nTAPAcd).Picture = LoadPicture(ArchTapa)
+                    frmIndex.TapaCD(nTAPAcd).Picture = LoadPicture(ArchTapa)
                 Else
-                    frmINDEX.TapaCD(nTAPAcd).Picture = LoadPicture(AP + "tapa.jpg")
+                    frmIndex.TapaCD(nTAPAcd).Picture = LoadPicture(AP + "tapa.jpg")
                 End If
                 nTAPAcd = nTAPAcd + 1
             End If

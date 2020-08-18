@@ -29,7 +29,7 @@ Begin VB.Form frmINI
       Caption         =   "v 8.8.88"
       BeginProperty Font 
          Name            =   "Verdana"
-         Size            =   12
+         Size            =   8.25
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -38,9 +38,9 @@ Begin VB.Form frmINI
       EndProperty
       ForeColor       =   &H0000FFFF&
       Height          =   420
-      Left            =   2835
+      Left            =   930
       TabIndex        =   0
-      Top             =   3420
+      Top             =   930
       Width           =   2460
    End
    Begin VB.Label Label1 
@@ -110,10 +110,10 @@ Begin VB.Form frmINI
    End
    Begin VB.Image Image1 
       Height          =   6300
-      Left            =   135
+      Left            =   -120
       Picture         =   "frmINI.frx":1346
       Stretch         =   -1  'True
-      Top             =   90
+      Top             =   -120
       Width           =   7500
    End
 End
@@ -150,12 +150,6 @@ Private Sub Form_Load()
     HabilitarVUMetro = LeerConfig("HabilitarVUMetro", "1")
     TapasMostradasH = Val(LeerConfig("DiscosH", "4"))
     TapasMostradasV = Val(LeerConfig("DiscosV", "3"))
-    verTiempoRestante = LeerConfig("VerTiempoRestante", "1")
-    verTemasEnLista = LeerConfig("verTemasEnLista", "1")
-    verCreditos = LeerConfig("verCreditos", "1")
-    verTOTdiscos = LeerConfig("verTotDiscos", "1")
-    verPuesto = LeerConfig("verPuesto", "1")
-    verLista = LeerConfig("verLista", "1")
     PasarHoja = LeerConfig("Pasarhoja", "1")
     DistorcionarTapas = LeerConfig("DistorcionarTapas", "0")
     ProtectOriginal = LeerConfig("ProtectOriginal", "1")
@@ -165,8 +159,18 @@ Private Sub Form_Load()
     DuracionProtect = LeerConfig("DuracionProtect", "180")
     RankToPeople = LeerConfig("RankToPeople", "1")
     TemasPorCredito = LeerConfig("TemasPorCredito", "1")
+    CreditosCuestaTema = LeerConfig("CreditosCuestaTema", "1")
+    textoUsuario = LeerConfig("TextoUsuario", "Cargue los datos de su empresa aqui")
     
     'cargar variables de claves
+    'archivo de claves
+    If FSO.FileExists(WINfolder + "\sevalc.dll") = False Then
+        Set TE = FSO.CreateTextFile(WINfolder + "\sevalc.dll", True)
+        TE.WriteLine "Config:12345612345612345612"
+        TE.WriteLine "Close:45612345612345612345"
+        TE.WriteLine "Credit:1234441234441234561"
+        TE.Close
+    End If
     Set TE = FSO.OpenTextFile(WINfolder + "\sevalc.dll", ForReading, False)
     'config/close/credit es el orden del archivo
     ClaveConfig = txtInLista(TE.ReadLine, 1, ":")
@@ -188,30 +192,24 @@ Private Sub Form_Load()
     If FSO.FolderExists(AP + "discos\01- Los mas escuchados") = False Then
         FSO.CreateFolder AP + "discos\01- Los mas escuchados"
      End If
-    If FSO.FileExists(AP + "discos\01- Los mas escuchados\tapa.jpg") = False Then
+    'siempre copiarlo
+    'If FSO.FileExists(AP + "discos\01- Los mas escuchados\tapa.jpg") = False Then
         If FSO.FileExists(AP + "top10.jpg") Then
             FSO.CopyFile AP + "top10.jpg", AP + "discos\01- Los mas escuchados\tapa.jpg", True
         Else
             MsgBox "No se encuentra el archivo de imagen del Ranking!. No se puede continuar"
             End
         End If
-        If FSO.FileExists(AP + "tapa.jpg") = False Then
-            MsgBox "No se encuentra el archivo de imagen del Ranking!. No se puede continuar"
-            End
-        End If
+    'End If
+    If FSO.FileExists(AP + "tapa.jpg") = False Then
+        MsgBox "No se encuentra el archivo de imagen del Ranking!. No se puede continuar"
+        End
     End If
     'carpeta del protector
     If FSO.FolderExists(AP + "fotos") = False Then
         FSO.CreateFolder AP + "fotos"
     End If
-    'archivo de claves
-    If FSO.FileExists(WINfolder + "\sevalc.dll") = False Then
-        Set TE = FSO.CreateTextFile(WINfolder + "\sevalc.dll", True)
-        TE.WriteLine "Config:12345612345612345612"
-        TE.WriteLine "Close:45612345612345612345"
-        TE.WriteLine "Credit:1234441234441234561"
-        TE.Close
-    End If
+    
     TECLAS_PRES = "11111222223333344444" 'arranca con 20 pulsaciones
     
     
@@ -320,10 +318,10 @@ FinOrden:
     'valor de todas las fichas cargadas
     'si este es cero esta en los primeros usos entonces mostrar el CLUF
     SumarContadorCreditos 0
-    frmINDEX.Show 1
+    frmIndex.Show 1
     Exit Sub
 notop:
-    WriteTBRLog Err.Description, True
+    WriteTBRLog "frmINI - Ranking ordenar. " + vbCrLf + Err.Description, True
     Resume Next
 End Sub
 

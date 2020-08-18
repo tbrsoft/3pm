@@ -6,12 +6,12 @@ Begin VB.Form frmCLUF
    ClientHeight    =   5025
    ClientLeft      =   45
    ClientTop       =   285
-   ClientWidth     =   4890
+   ClientWidth     =   5865
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   5025
-   ScaleWidth      =   4890
+   ScaleWidth      =   5865
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    Begin VB.CommandButton Command1 
@@ -30,7 +30,7 @@ Begin VB.Form frmCLUF
       Left            =   1530
       TabIndex        =   1
       Top             =   4470
-      Width           =   1500
+      Width           =   2700
    End
    Begin VB.TextBox Text1 
       BackColor       =   &H00FFFFFF&
@@ -50,7 +50,7 @@ Begin VB.Form frmCLUF
       ScrollBars      =   2  'Vertical
       TabIndex        =   0
       Top             =   180
-      Width           =   4485
+      Width           =   5415
    End
 End
 Attribute VB_Name = "frmCLUF"
@@ -73,14 +73,21 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                 'grabar cant de creditos
                 EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
                 If CREDITOS >= 10 Then
-                    frmINDEX.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+                    frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
                 Else
-                    frmINDEX.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+                    frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
                 End If
             Else
                 'apagar el fichero electronico
                 OnOffCAPS vbKeyScrollLock, False
             End If
+        Case TeclaCerrarSistema
+            OnOffCAPS vbKeyCapital, False
+            If ApagarAlCierre Then APAGAR_PC
+            'no puedo usar do stop porque lanza el evento ENDPLAY y esto produce un EMPEZARSIGUIENTE
+            'que se come un tema de la lista
+            frmIndex.MP3.DoClose
+            End
     End Select
 End Sub
 

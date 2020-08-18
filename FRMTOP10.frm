@@ -28,8 +28,8 @@ Begin VB.Form FRMTOP10
          BackColor       =   &H0000FFFF&
          Caption         =   "INGRESE FICHA PARA EJECUTAR MUSICA"
          BeginProperty Font 
-            Name            =   "Arial Narrow"
-            Size            =   18
+            Name            =   "Verdana"
+            Size            =   12.75
             Charset         =   0
             Weight          =   700
             Underline       =   0   'False
@@ -37,13 +37,13 @@ Begin VB.Form FRMTOP10
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H000000FF&
-         Height          =   1935
-         Left            =   9450
+         Height          =   1515
+         Left            =   9420
          TabIndex        =   5
-         Top             =   6960
+         Top             =   7410
          UseMnemonic     =   0   'False
          Visible         =   0   'False
-         Width           =   2265
+         Width           =   2295
       End
       Begin VB.Label lblWAIT 
          Alignment       =   2  'Center
@@ -170,9 +170,9 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                 'grabar cant de creditos
                 EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
                 If CREDITOS >= 10 Then
-                    frmINDEX.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+                    frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
                 Else
-                    frmINDEX.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+                    frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
                 End If
                 
                 Unload Me
@@ -183,7 +183,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         Case TeclaIZQ
             TECLAS_PRES = TECLAS_PRES + "1"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
-            frmINDEX.lblTECLAS = TECLAS_PRES
+            frmIndex.lblTECLAS = TECLAS_PRES
             'ver que sea un puesto valido
             'se define como válido se tiene untexto de más de 5 caracteres
             pANT = PuestoElegido
@@ -199,7 +199,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         Case TeclaDER
             TECLAS_PRES = TECLAS_PRES + "2"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
-            frmINDEX.lblTECLAS = TECLAS_PRES
+            frmIndex.lblTECLAS = TECLAS_PRES
             'ver que sea un puesto valido
             'se define como válido se tiene untexto de más de 5 caracteres
             pANT = PuestoElegido
@@ -215,25 +215,25 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         Case TeclaESC
             TECLAS_PRES = TECLAS_PRES + "4"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
-            frmINDEX.lblTECLAS = TECLAS_PRES
+            frmIndex.lblTECLAS = TECLAS_PRES
             
             Unload Me
         Case TeclaOK
             TECLAS_PRES = TECLAS_PRES + "3"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
-            frmINDEX.lblTECLAS = TECLAS_PRES
+            frmIndex.lblTECLAS = TECLAS_PRES
             'ver si esta habilitado
-            If CREDITOS > 0 Then
-                CREDITOS = CREDITOS - 1
+            If CREDITOS >= CreditosCuestaTema Then
+                CREDITOS = CREDITOS - CreditosCuestaTema
                 'siempre que se ejecute un credito estaremos por debajo de maximo
                 OnOffCAPS vbKeyScrollLock, True
-                If CREDITOS < 10 Then frmINDEX.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
-                If CREDITOS >= 10 Then frmINDEX.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+                If CREDITOS < 10 Then frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+                If CREDITOS >= 10 Then frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
                 Dim temaElegido As String
                 temaElegido = MTXtop(PuestoElegido + 1)
                 
                 'si esta ejecutando pasa a la lista de reproducción
-                If frmINDEX.MP3.IsPlaying Then
+                If frmIndex.MP3.IsPlaying Then
                     'pasar a la lista de reproducción
                     Dim NewIndLista As Long
                     NewIndLista = UBound(MATRIZ_LISTA)
@@ -270,22 +270,22 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             OnOffCAPS vbKeyCapital, False
             'no puedo usar do stop porque lanza el evento ENDPLAY y esto produce un EMPEZARSIGUIENTE
             'que se come un tema de la lista
-            frmINDEX.MP3.DoClose
+            frmIndex.MP3.DoClose
             MostrarCursor True
             If ApagarAlCierre Then APAGAR_PC
             End
         Case TeclaPagAd
             TECLAS_PRES = TECLAS_PRES + "5"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
-            frmINDEX.lblTECLAS = TECLAS_PRES
+            frmIndex.lblTECLAS = TECLAS_PRES
         Case TeclaPagAt
             TECLAS_PRES = TECLAS_PRES + "6"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
-            frmINDEX.lblTECLAS = TECLAS_PRES
+            frmIndex.lblTECLAS = TECLAS_PRES
     End Select
     VerClaves TECLAS_PRES
     SecSinTecla = 0
-    frmINDEX.lblNoTecla = 0
+    frmIndex.lblNoTecla = 0
 End Sub
 
 Private Sub Form_Load()

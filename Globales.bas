@@ -1,4 +1,7 @@
 Attribute VB_Name = "Globales"
+Public textoUsuario As String
+
+Public CreditosCuestaTema As Long
 Public TemasPorCredito As Long
 
 Public TE As TextStream
@@ -41,13 +44,6 @@ Public RotulosArriba As Boolean
 Public CargarDuracionTemas As Boolean
 Public DistorcionarTapas As Boolean
 Public PasarHoja As Boolean 'habilitar pasar hoja con boton de desplazamiento simple
-
-Public verTiempoRestante As Boolean
-Public verTemasEnLista As Boolean
-Public verCreditos As Boolean
-Public verTOTdiscos As Boolean
-Public verPuesto As Boolean
-Public verLista As Boolean
 
 Public HabilitarVUMetro As Boolean
 
@@ -152,17 +148,22 @@ Public Sub CargarProximosTemas()
     'cargar lblProximoTema
     Dim strProximos As String, TotTemas As Integer
     If UBound(MATRIZ_LISTA) = 0 Then
-        frmINDEX.lblProximoTema = "No hay próximo tema"
+        frmIndex.lblProximoTema = "No hay próximo tema"
     Else
         For c = 1 To UBound(MATRIZ_LISTA)
             'el indice 0 no existe ni existira por eso el C+1
             strProximos = strProximos + QuitarNumeroDeTema(txtInLista(MATRIZ_LISTA(c), 1, ","))
-            strProximos = strProximos + vbCrLf
+            If c = UBound(MATRIZ_LISTA) Then
+                strProximos = strProximos + " ////"
+            Else
+                strProximos = strProximos + " => " 'vbCrLf
+            End If
         Next
-        frmINDEX.lblProximoTema = "TEMAS PENDIENTES:" + vbCrLf + strProximos
+        'frmIndex.lblProximoTema = "TEMAS PENDIENTES:" + vbCrLf + strProximos
+        frmIndex.lblProximoTema = "TEMAS PENDIENTES => " + strProximos
     End If
     TotTemas = UBound(MATRIZ_LISTA)
-    frmINDEX.lblTemasEnLista = "Pendientes: " + Trim(Str(TotTemas))
+    frmIndex.lblTemasEnLista = "Pendientes: " + Trim(Str(TotTemas))
 End Sub
 
 Public Sub OnOffCAPS(vKey As KeyCodeConstants, PRENDER As Boolean)
@@ -331,7 +332,7 @@ Public Sub VerClaves(CLAVE As String)
             'no puedo usar do stop porque lanza el evento ENDPLAY y esto produce un EMPEZARSIGUIENTE
             'que se come un tema de la lista
             MostrarCursor True
-            frmINDEX.MP3.DoClose
+            frmIndex.MP3.DoClose
             End
         Case ClaveConfig
             CLAVE = "11111222223333344444" 'anular para que no se siga cargando
@@ -347,9 +348,9 @@ Public Sub VerClaves(CLAVE As String)
         'no suma contador de creditos
         EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
         If CREDITOS >= 10 Then
-            frmINDEX.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+            frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
         Else
-            frmINDEX.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+            frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
         End If
         CLAVE = "11111222223333344444" 'anular para que no se siga cargando
     End If
@@ -388,16 +389,18 @@ Public Function LeerConfig(Conf As String, ValDefault As String) As String
     LeerConfig = "NO EXISTE"
     
     Dim TXT As String, CFG As String, RST As String
-    Set TE = FSO.OpenTextFile(AP + "config.tbr", ForReading, False)
-    Do While Not TE.AtEndOfStream
-        TXT = TE.ReadLine
-        CFG = Trim(txtInLista(TXT, 0, "=")) 'la configuracion
-        If UCase(CFG) = UCase(Conf) Then
-            RST = Trim(txtInLista(TXT, 1, "=")) 'el valor
-            LeerConfig = RST
-            Exit Do
-        End If
-    Loop
+    If FSO.FileExists(AP + "config.tbr") Then
+        Set TE = FSO.OpenTextFile(AP + "config.tbr", ForReading, False)
+        Do While Not TE.AtEndOfStream
+            TXT = TE.ReadLine
+            CFG = Trim(txtInLista(TXT, 0, "=")) 'la configuracion
+            If UCase(CFG) = UCase(Conf) Then
+                RST = Trim(txtInLista(TXT, 1, "=")) 'el valor
+                LeerConfig = RST
+                Exit Do
+            End If
+        Loop
+    End If
     If LeerConfig = "NO EXISTE" Then
         'cargar el valor por defecto
         LeerConfig = ValDefault
@@ -451,11 +454,15 @@ Public Function QuitarNumeroDeTema(TemaFull As String) As String
 End Function
 Public Sub InfoDisco(LBL As Label)
     Dim TotDisco, TotFree1, TotFree2, Serial As String, VolName As String
-    TotDisco = Round(FSO.Drives("C:\").TotalSize / 1024 / 1024, 2)
-    TotFree1 = Round(FSO.Drives("C:\").AvailableSpace / 1024 / 1024, 2)
-    TotFree2 = Round(FSO.Drives("C:\").FreeSpace / 1024 / 1024, 2)
-    Serial = FSO.Drives("C:\").SerialNumber
-    VolName = FSO.Drives("C:\").VolumeName
+    'ver en que disco esta instalado
+    Dim DiscoInst3PM As String
+    DiscoInst3PM = Left(AP, 1)
+    DiscoInst3PM = DiscoInst3PM + ":\"
+    TotDisco = Round(FSO.Drives(DiscoInst3PM).TotalSize / 1024 / 1024, 2)
+    TotFree1 = Round(FSO.Drives(DiscoInst3PM).AvailableSpace / 1024 / 1024, 2)
+    TotFree2 = Round(FSO.Drives(DiscoInst3PM).FreeSpace / 1024 / 1024, 2)
+    Serial = FSO.Drives(DiscoInst3PM).SerialNumber
+    VolName = FSO.Drives(DiscoInst3PM).VolumeName
     
     Dim PorcLibre As Double
     PorcLibre = Round(TotFree1 / TotDisco * 100, 2)

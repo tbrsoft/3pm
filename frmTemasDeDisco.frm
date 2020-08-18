@@ -40,11 +40,11 @@ Begin VB.Form frmTemasDeDisco
          ForeColor       =   &H00C0E0FF&
          Height          =   4740
          ItemData        =   "frmTemasDeDisco.frx":0000
-         Left            =   5430
+         Left            =   180
          List            =   "frmTemasDeDisco.frx":0013
          Sorted          =   -1  'True
          TabIndex        =   7
-         Top             =   4260
+         Top             =   3960
          Visible         =   0   'False
          Width           =   6345
       End
@@ -200,7 +200,7 @@ Private Sub Form_Activate()
         TapaCD.Picture = LoadPicture(AP + "tapa.jpg")
     End If
     TapaCD.Refresh
-    lblDisco = FSO.GetBaseName(UbicDiscoActual)
+    lblDISCO = FSO.GetBaseName(UbicDiscoActual)
     Dim ArchDaTa As String
     ArchDaTa = UbicDiscoActual + "data.txt"
     If FSO.FileExists(ArchDaTa) Then
@@ -242,7 +242,7 @@ Private Sub Form_Activate()
         Do While c <= UBound(MATRIZ_TEMAS)
             pathTema = lstEXT.List(c - 1)
             'mostrar duracion
-            DuracionTema = frmINDEX.MP3.QuickLargoDeTema(pathTema)
+            DuracionTema = frmIndex.MP3.QuickLargoDeTema(pathTema)
             If DuracionTema = "N/S" Then
                 NoCargoDuracion = NoCargoDuracion + 1
                 If NoCargoDuracion > 3 Then
@@ -271,7 +271,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             MostrarCursor True
             'no puedo usar do stop porque lanza el evento ENDPLAY y esto produce un EMPEZARSIGUIENTE
             'que se come un tema de la lista
-            frmINDEX.MP3.DoClose
+            frmIndex.MP3.DoClose
             If ApagarAlCierre Then APAGAR_PC
             End
         Case TeclaNewFicha
@@ -281,11 +281,10 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                 CREDITOS = CREDITOS + TemasPorCredito
                 SumarContadorCreditos TemasPorCredito
                 If CREDITOS >= 10 Then
-                    frmINDEX.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+                    frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
                 Else
-                    frmINDEX.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+                    frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
                 End If
-                Unload Me
             Else
                 'apagar el fichero electronico
                 OnOffCAPS vbKeyScrollLock, False
@@ -293,27 +292,27 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         Case TeclaESC
             TECLAS_PRES = TECLAS_PRES + "4"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
-            frmINDEX.lblTECLAS = TECLAS_PRES
+            frmIndex.lblTECLAS = TECLAS_PRES
             Unload Me
         Case TeclaOK
             'ver si esta habilitado
             TECLAS_PRES = TECLAS_PRES + "3"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
-            frmINDEX.lblTECLAS = TECLAS_PRES
-            If CREDITOS > 0 Then
-                CREDITOS = CREDITOS - 1
+            frmIndex.lblTECLAS = TECLAS_PRES
+            If CREDITOS >= CreditosCuestaTema Then
+                CREDITOS = CREDITOS - CreditosCuestaTema
                 'siempre que se ejecute un credito estaremos por debajo de maximo
                 OnOffCAPS vbKeyScrollLock, True
                 'grabar cant de creditos
                 EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
-                If CREDITOS < 10 Then frmINDEX.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
-                If CREDITOS >= 10 Then frmINDEX.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+                If CREDITOS < 10 Then frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+                If CREDITOS >= 10 Then frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
                 Dim temaElegido As String
                 'lstext es una lista oculta  con datos completos
                 temaElegido = lstEXT.List(lstTEMAS.ListIndex) ' UbicDiscoActual + "\" + lstTemas + "." + EXTs(lstTemas.ListIndex)
                 
                 'si esta ejecutando pasa a la lista de reproducción
-                If frmINDEX.MP3.IsPlaying Then
+                If frmIndex.MP3.IsPlaying Then
                     'pasar a la lista de reproducción
                     Dim NewIndLista As Long
                     NewIndLista = UBound(MATRIZ_LISTA)
@@ -347,7 +346,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         Case TeclaDER
             TECLAS_PRES = TECLAS_PRES + "2"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
-            frmINDEX.lblTECLAS = TECLAS_PRES
+            frmIndex.lblTECLAS = TECLAS_PRES
             If lstTEMAS.ListIndex < lstTEMAS.ListCount - 1 Then
                 lstTEMAS.ListIndex = lstTEMAS.ListIndex + 1
             Else
@@ -356,7 +355,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         Case TeclaIZQ
             TECLAS_PRES = TECLAS_PRES + "1"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
-            frmINDEX.lblTECLAS = TECLAS_PRES
+            frmIndex.lblTECLAS = TECLAS_PRES
             If lstTEMAS.ListIndex > 0 Then
                 lstTEMAS.ListIndex = lstTEMAS.ListIndex - 1
             Else
@@ -365,15 +364,15 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         Case TeclaPagAd
             TECLAS_PRES = TECLAS_PRES + "5"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
-            frmINDEX.lblTECLAS = TECLAS_PRES
+            frmIndex.lblTECLAS = TECLAS_PRES
         Case TeclaPagAt
             TECLAS_PRES = TECLAS_PRES + "6"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
-            frmINDEX.lblTECLAS = TECLAS_PRES
+            frmIndex.lblTECLAS = TECLAS_PRES
     End Select
     VerClaves TECLAS_PRES
     SecSinTecla = 0
-    frmINDEX.lblNoTecla = 0
+    frmIndex.lblNoTecla = 0
 End Sub
 
 Private Sub Form_Load()

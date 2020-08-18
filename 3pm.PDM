@@ -888,7 +888,7 @@ Handler2=PDWizard.WebPostDplySubWiz
 
 [Package|3pm 3.4|Root]
 SubWizProgID=PDWizard.SetupPkgSubWiz
-BuildFolder=D:\ahora\3pm\iabril
+BuildFolder=D:\ahora\3pm\demo3pm
 
 [Package|3pm 3.4|Configure DAO ISAMs]
 Applicable=No
@@ -921,6 +921,7 @@ d:\ahora\3pm\ini.exe=
 [Package|3pm 3.4|Files Removed]
 c:\windows\system\msvcrt.dll=
 d:\ahora\3pm\imgini\inicio.grp=
+d:\ahora\3pm\config.tbr=
 
 [Package|3pm 3.4|Files In Project]
 D:\ahora\3pm\3pm.exe=Yes
@@ -938,7 +939,7 @@ C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
 C:\WINDOWS\SYSTEM\VB6STKIT.DLL=Yes
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
-D:\ahora\3pm\config.tbr=Yes
+D:\ahora\3pm\config.tbr=No
 D:\ahora\3pm\Manual.doc=Yes
 D:\ahora\3pm\tapa.jpg=Yes
 D:\ahora\3pm\top10.jpg=Yes
@@ -993,7 +994,7 @@ D:\ahora\3pm\ini.exe=No
 [Package|3pm 3.4|Distribution]
 Type=single
 Size=720 KB
-Title=3pm Demo Publico
+Title=3pm
 
 [Package|3pm 3.4|IconGroups]
 Group0=3pm
@@ -1007,11 +1008,11 @@ StartIn1=$(AppPath)
 Key1=Icon1
 
 [Package|3pm 3.4|Package]
-PackageFolder=D:\ahora\3pm\iabril
+PackageFolder=D:\ahora\3pm\demo3pm
 ProjectFolder=D:\ahora\3pm
 ServerSideCab=
-File1=D:\ahora\3pm\iabril\setup.exe
-File2=D:\ahora\3pm\iabril\Setup.Lst
-File3=D:\ahora\3pm\iabril\3pm.CAB
+File1=D:\ahora\3pm\demo3pm\setup.exe
+File2=D:\ahora\3pm\demo3pm\Setup.Lst
+File3=D:\ahora\3pm\demo3pm\3pm.CAB
 Handler1=PDWizard.FolderDplySubWiz
 Handler2=PDWizard.WebPostDplySubWiz

@@ -1,6 +1,6 @@
 VERSION 5.00
 Begin VB.Form frmREG 
-   BackColor       =   &H00404040&
+   BackColor       =   &H00000000&
    BorderStyle     =   4  'Fixed ToolWindow
    Caption         =   "Registro de 3PM"
    ClientHeight    =   8175
@@ -37,9 +37,9 @@ Begin VB.Form frmREG
       BorderStyle     =   0  'None
       Caption         =   "Frame1"
       Height          =   3135
-      Left            =   0
+      Left            =   30
       TabIndex        =   15
-      Top             =   -60
+      Top             =   60
       Visible         =   0   'False
       Width           =   6915
       Begin VB.TextBox txtEmpezarEnCaracter 
@@ -157,7 +157,7 @@ Begin VB.Form frmREG
       End
    End
    Begin VB.CheckBox Check1 
-      BackColor       =   &H00404040&
+      BackColor       =   &H00000000&
       Caption         =   "He leido y estoy de acuerdo con el Contrato de Licencia de Usuario Final"
       BeginProperty Font 
          Name            =   "Verdana"
@@ -208,7 +208,7 @@ Begin VB.Form frmREG
       EndProperty
       ForeColor       =   &H00C0FFFF&
       Height          =   2295
-      Left            =   1080
+      Left            =   1020
       Locked          =   -1  'True
       MultiLine       =   -1  'True
       ScrollBars      =   2  'Vertical
@@ -249,7 +249,7 @@ Begin VB.Form frmREG
       Sorted          =   -1  'True
       Style           =   2  'Dropdown List
       TabIndex        =   8
-      Top             =   4680
+      Top             =   4890
       Width           =   2805
    End
    Begin VB.TextBox txtCOD 
@@ -266,10 +266,10 @@ Begin VB.Form frmREG
       ForeColor       =   &H00800000&
       Height          =   360
       Index           =   7
-      Left            =   9060
+      Left            =   9000
       MaxLength       =   5
       TabIndex        =   7
-      Top             =   3630
+      Top             =   3570
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -286,10 +286,10 @@ Begin VB.Form frmREG
       ForeColor       =   &H00800000&
       Height          =   360
       Index           =   6
-      Left            =   7980
+      Left            =   7920
       MaxLength       =   5
       TabIndex        =   6
-      Top             =   3630
+      Top             =   3570
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -306,10 +306,10 @@ Begin VB.Form frmREG
       ForeColor       =   &H00800000&
       Height          =   360
       Index           =   5
-      Left            =   6900
+      Left            =   6840
       MaxLength       =   5
       TabIndex        =   5
-      Top             =   3630
+      Top             =   3570
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -326,10 +326,10 @@ Begin VB.Form frmREG
       ForeColor       =   &H00800000&
       Height          =   360
       Index           =   4
-      Left            =   5820
+      Left            =   5760
       MaxLength       =   5
       TabIndex        =   4
-      Top             =   3630
+      Top             =   3570
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -346,10 +346,10 @@ Begin VB.Form frmREG
       ForeColor       =   &H00800000&
       Height          =   360
       Index           =   3
-      Left            =   4740
+      Left            =   4680
       MaxLength       =   5
       TabIndex        =   3
-      Top             =   3630
+      Top             =   3570
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -366,10 +366,10 @@ Begin VB.Form frmREG
       ForeColor       =   &H00800000&
       Height          =   360
       Index           =   2
-      Left            =   3660
+      Left            =   3600
       MaxLength       =   5
       TabIndex        =   2
-      Top             =   3630
+      Top             =   3570
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -386,10 +386,10 @@ Begin VB.Form frmREG
       ForeColor       =   &H00800000&
       Height          =   360
       Index           =   1
-      Left            =   2580
+      Left            =   2520
       MaxLength       =   5
       TabIndex        =   1
-      Top             =   3630
+      Top             =   3570
       Width           =   1050
    End
    Begin VB.TextBox lblGUID 
@@ -406,12 +406,12 @@ Begin VB.Form frmREG
       EndProperty
       ForeColor       =   &H00C0FFFF&
       Height          =   375
-      Left            =   210
+      Left            =   150
       Locked          =   -1  'True
       TabIndex        =   11
       TabStop         =   0   'False
       Text            =   "Aqui va el codigo"
-      Top             =   2850
+      Top             =   2700
       Width           =   11535
    End
    Begin VB.TextBox txtCOD 
@@ -428,10 +428,10 @@ Begin VB.Form frmREG
       ForeColor       =   &H00800000&
       Height          =   360
       Index           =   0
-      Left            =   1500
+      Left            =   1440
       MaxLength       =   5
       TabIndex        =   0
-      Top             =   3630
+      Top             =   3570
       Width           =   1050
    End
    Begin VB.CommandButton Command1 
@@ -467,9 +467,9 @@ Begin VB.Form frmREG
       ForeColor       =   &H00C0FFFF&
       Height          =   255
       Index           =   3
-      Left            =   990
+      Left            =   1830
       TabIndex        =   22
-      Top             =   4170
+      Top             =   4050
       Width           =   9285
    End
    Begin VB.Image Image1 
@@ -497,7 +497,7 @@ Begin VB.Form frmREG
       Index           =   2
       Left            =   4440
       TabIndex        =   14
-      Top             =   4470
+      Top             =   4680
       Width           =   2985
    End
    Begin VB.Label Label1 
@@ -516,14 +516,15 @@ Begin VB.Form frmREG
       ForeColor       =   &H00C0FFFF&
       Height          =   255
       Index           =   1
-      Left            =   240
+      Left            =   180
       TabIndex        =   13
-      Top             =   3390
+      Top             =   3330
       Width           =   11505
    End
    Begin VB.Label Label1 
+      Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
-      Caption         =   "Codigo a enviar a tbrSoft (recuerde enviar tambien el nombre del pais en que reside)"
+      Caption         =   "Codigo a enviar a tbrSoft. Cambia cada vez pero representa un codigo unico"
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
@@ -536,10 +537,10 @@ Begin VB.Form frmREG
       ForeColor       =   &H00C0FFFF&
       Height          =   255
       Index           =   0
-      Left            =   240
+      Left            =   1860
       TabIndex        =   12
-      Top             =   2580
-      Width           =   9135
+      Top             =   2430
+      Width           =   7725
    End
 End
 Attribute VB_Name = "frmREG"
@@ -755,7 +756,6 @@ Private Sub Form_Load()
     ArchImgIni = AP + "imgini.tbr"
     If FSO.FileExists(ArchImgIni) Then
         GoTo YaEstaIMG
-        MsgBox "Ya esta imgini.tbr"
     Else
         Set TE = FSO.CreateTextFile(ArchImgIni, True)
         If FSO.FolderExists(WINfolder + "\img3PM") = False Then FSO.CreateFolder WINfolder + "\img3PM"
@@ -802,15 +802,18 @@ YaEstaIMG:
     If FSO.FolderExists(WINfolder + "\img3pm") = False Then FSO.CreateFolder (WINfolder + "\img3pm")
     If FSO.FolderExists(WINfolder + "\img3pm\3") = False Then FSO.CreateFolder (WINfolder + "\img3pm\3")
     If FSO.FileExists(AP + "logo.sys") Then
-        If FSO.FileExists(WINfolder + "\img3pm\3\logo.sys") = False Then FSO.CopyFile AP + "logo.sys", WINfolder + "\img3pm\3\logo.sys", True
+        'siempre copiarlo si esta
+        FSO.CopyFile AP + "logo.sys", WINfolder + "\img3pm\3\logo.sys", True
+        'If FSO.FileExists(WINfolder + "\img3pm\3\logo.sys") = False Then FSO.CopyFile AP + "logo.sys", WINfolder + "\img3pm\3\logo.sys", True
     End If
     If FSO.FileExists(AP + "logow.sys") Then
-        If FSO.FileExists(WINfolder + "\img3pm\3\logow.sys") = False Then FSO.CopyFile AP + "logow.sys", WINfolder + "\img3pm\3\logow.sys", True
+        'siempre copiarlo si esta
+        FSO.CopyFile AP + "logow.sys", WINfolder + "\img3pm\3\logow.sys", True
     End If
     If FSO.FileExists(AP + "logos.sys") Then
-        If FSO.FileExists(WINfolder + "\img3pm\3\logos.sys") = False Then FSO.CopyFile AP + "logos.sys", WINfolder + "\img3pm\3\logos.sys", True
+        'siempre copiarlo si esta
+        FSO.CopyFile AP + "logos.sys", WINfolder + "\img3pm\3\logos.sys", True
     End If
-    
     
     AjustarFRM Me, 12000
     'SACAR los 0 y las O por la confusion (igual con las l (eles))

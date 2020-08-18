@@ -8,6 +8,7 @@ Begin VB.Form frmAddMusic
    ClientTop       =   285
    ClientWidth     =   11910
    LinkTopic       =   "Form1"
+   LockControls    =   -1  'True
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   7875
@@ -15,37 +16,10 @@ Begin VB.Form frmAddMusic
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    WindowState     =   2  'Maximized
-   Begin VB.PictureBox PBar2 
-      BackColor       =   &H000080FF&
-      BorderStyle     =   0  'None
-      Height          =   165
-      Left            =   5670
-      ScaleHeight     =   165
-      ScaleWidth      =   15
-      TabIndex        =   18
-      Top             =   6780
-      Width           =   15
-   End
-   Begin VB.CommandButton Command4 
-      BackColor       =   &H00C0E0FF&
-      Caption         =   "Agregar estas carpetas a 3PM"
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   405
-      Left            =   6780
-      Style           =   1  'Graphical
-      TabIndex        =   14
-      Top             =   5760
-      Width           =   4050
-   End
-   Begin VB.ListBox lstCarConMM 
+   Begin VB.CommandButton Command6 
+      BackColor       =   &H00FFC0C0&
+      Caption         =   "CD Audio"
+      Enabled         =   0   'False
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
@@ -55,33 +29,81 @@ Begin VB.Form frmAddMusic
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   3210
-      Left            =   5640
-      Style           =   1  'Checkbox
+      Height          =   350
+      Left            =   50
+      Style           =   1  'Graphical
+      TabIndex        =   21
+      Top             =   660
+      Width           =   1250
+   End
+   Begin VB.PictureBox PBar2 
+      BackColor       =   &H000080FF&
+      BorderStyle     =   0  'None
+      Height          =   165
+      Left            =   8010
+      ScaleHeight     =   165
+      ScaleWidth      =   15
+      TabIndex        =   14
+      Top             =   4290
+      Width           =   15
+   End
+   Begin VB.CommandButton Command4 
+      BackColor       =   &H00C0E0FF&
+      Caption         =   "Agregar estos discos a mi fonola"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   585
+      Left            =   7980
+      Style           =   1  'Graphical
       TabIndex        =   11
-      Top             =   690
-      Width           =   6165
+      Top             =   3630
+      Width           =   3870
+   End
+   Begin VB.ListBox lstCarConMM 
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   5010
+      Left            =   150
+      Style           =   1  'Checkbox
+      TabIndex        =   9
+      Top             =   2280
+      Width           =   7725
    End
    Begin VB.PictureBox PBar 
       BackColor       =   &H000080FF&
       BorderStyle     =   0  'None
       Height          =   165
-      Left            =   5640
+      Left            =   150
       ScaleHeight     =   165
       ScaleWidth      =   15
-      TabIndex        =   9
-      Top             =   4110
+      TabIndex        =   7
+      Top             =   7320
       Width           =   15
    End
    Begin VB.PictureBox P 
-      BackColor       =   &H00FFFFFF&
+      BackColor       =   &H00E0E0E0&
       Height          =   195
-      Left            =   5640
+      Left            =   150
       ScaleHeight     =   135
-      ScaleWidth      =   6165
-      TabIndex        =   8
-      Top             =   3960
-      Width           =   6225
+      ScaleWidth      =   7665
+      TabIndex        =   6
+      Top             =   7320
+      Visible         =   0   'False
+      Width           =   7725
    End
    Begin VB.CommandButton Command3 
       BackColor       =   &H00C0E0FF&
@@ -96,31 +118,11 @@ Begin VB.Form frmAddMusic
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   660
+      Left            =   8880
       Style           =   1  'Graphical
-      TabIndex        =   6
-      Top             =   6810
-      Width           =   3780
-   End
-   Begin VB.CommandButton Command2 
-      BackColor       =   &H00FFC0C0&
-      Caption         =   "Agregar Origen"
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   495
-      Left            =   120
-      Style           =   1  'Graphical
-      TabIndex        =   2
-      Top             =   2880
-      Visible         =   0   'False
-      Width           =   1500
+      TabIndex        =   4
+      Top             =   7320
+      Width           =   2100
    End
    Begin VB.CommandButton Command1 
       BackColor       =   &H00FFC0C0&
@@ -134,16 +136,16 @@ Begin VB.Form frmAddMusic
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   375
-      Left            =   90
+      Height          =   350
+      Left            =   50
       Style           =   1  'Graphical
       TabIndex        =   1
-      Top             =   1650
-      Width           =   1500
+      Top             =   1335
+      Width           =   1250
    End
    Begin VB.CommandButton Command5 
       BackColor       =   &H00FFC0C0&
-      Caption         =   "CD"
+      Caption         =   "CD Mp3"
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
@@ -153,22 +155,64 @@ Begin VB.Form frmAddMusic
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   375
-      Left            =   60
+      Height          =   350
+      Left            =   50
       Style           =   1  'Graphical
       TabIndex        =   0
-      Top             =   630
-      Width           =   1500
+      Top             =   990
+      Width           =   1250
    End
    Begin VB.PictureBox P2 
       BackColor       =   &H00FFFFFF&
       Height          =   195
-      Left            =   5640
+      Left            =   7980
       ScaleHeight     =   135
-      ScaleWidth      =   6075
-      TabIndex        =   19
-      Top             =   6780
-      Width           =   6135
+      ScaleWidth      =   3825
+      TabIndex        =   15
+      Top             =   4260
+      Visible         =   0   'False
+      Width           =   3885
+   End
+   Begin VB.Label lblWait 
+      Alignment       =   2  'Center
+      BackColor       =   &H000000FF&
+      Caption         =   "Analizando disco.  Espere..."
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   12
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H0000FFFF&
+      Height          =   435
+      Left            =   660
+      TabIndex        =   12
+      Top             =   1830
+      Visible         =   0   'False
+      Width           =   7215
+   End
+   Begin VB.Label Label1 
+      BackStyle       =   0  'Transparent
+      Caption         =   "Desde aqui podra trandsformar un CD de audio en ficheros mp3."
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FFFFFF&
+      Height          =   285
+      Index           =   7
+      Left            =   1395
+      TabIndex        =   22
+      Top             =   690
+      Width           =   7635
    End
    Begin VB.Label lblInfoDisco 
       Alignment       =   2  'Center
@@ -177,7 +221,7 @@ Begin VB.Form frmAddMusic
       Caption         =   "Informacion del disco"
       BeginProperty Font 
          Name            =   "Verdana"
-         Size            =   9.75
+         Size            =   8.25
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -185,11 +229,11 @@ Begin VB.Form frmAddMusic
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00C0FFFF&
-      Height          =   1365
-      Left            =   180
-      TabIndex        =   24
-      Top             =   5400
-      Width           =   5145
+      Height          =   1005
+      Left            =   7980
+      TabIndex        =   20
+      Top             =   6210
+      Width           =   3855
    End
    Begin VB.Label Label1 
       Alignment       =   2  'Center
@@ -205,11 +249,11 @@ Begin VB.Form frmAddMusic
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H0000FFFF&
-      Height          =   645
+      Height          =   555
       Index           =   6
-      Left            =   6030
-      TabIndex        =   23
-      Top             =   5640
+      Left            =   8010
+      TabIndex        =   19
+      Top             =   1800
       Width           =   525
    End
    Begin VB.Label Label1 
@@ -228,9 +272,9 @@ Begin VB.Form frmAddMusic
       ForeColor       =   &H0000FFFF&
       Height          =   645
       Index           =   5
-      Left            =   5610
-      TabIndex        =   22
-      Top             =   0
+      Left            =   90
+      TabIndex        =   18
+      Top             =   1800
       Width           =   525
    End
    Begin VB.Label Label1 
@@ -250,37 +294,35 @@ Begin VB.Form frmAddMusic
       Height          =   495
       Index           =   4
       Left            =   60
-      TabIndex        =   21
+      TabIndex        =   17
       Top             =   30
       Width           =   525
    End
    Begin VB.Label lblBAR2 
-      Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
       Caption         =   "Sin Tareas"
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00C0E0FF&
-      Height          =   825
-      Left            =   5730
-      TabIndex        =   20
-      Top             =   7020
-      Width           =   5985
+      Height          =   1605
+      Left            =   8010
+      TabIndex        =   16
+      Top             =   4530
+      Width           =   3630
    End
    Begin VB.Label Label2 
-      Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
       Caption         =   $"frmAddMusic.frx":0000
       BeginProperty Font 
          Name            =   "Verdana"
-         Size            =   9
+         Size            =   8.25
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -288,109 +330,38 @@ Begin VB.Form frmAddMusic
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00C0FFFF&
-      Height          =   765
+      Height          =   1725
       Index           =   1
-      Left            =   5490
-      TabIndex        =   17
-      Top             =   4950
-      Width           =   6345
-   End
-   Begin VB.Label lblWait 
-      Alignment       =   2  'Center
-      BackColor       =   &H000000FF&
-      Caption         =   "Analizando disco.  Espere..."
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   21.75
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00C0FFFF&
-      Height          =   1155
-      Left            =   180
-      TabIndex        =   16
-      Top             =   3630
-      Visible         =   0   'False
-      Width           =   5145
-   End
-   Begin VB.Label Label2 
-      Alignment       =   2  'Center
-      BackStyle       =   0  'Transparent
-      Caption         =   "Las carpetas elegidas se cargaran en el origen de datos original de 3PM"
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   9
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00C0FFFF&
-      Height          =   525
-      Index           =   0
-      Left            =   6480
-      TabIndex        =   15
-      Top             =   6180
-      Width           =   4725
-   End
-   Begin VB.Label lblTOT 
-      Alignment       =   2  'Center
-      BackStyle       =   0  'Transparent
-      Caption         =   "Total de carpetas"
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   9
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00C0FFFF&
-      Height          =   315
-      Left            =   6210
+      Left            =   8550
       TabIndex        =   13
-      Top             =   30
-      Width           =   5535
+      Top             =   1830
+      Width           =   3285
    End
    Begin VB.Label lblBAR 
-      Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
       Caption         =   "Sin Tareas"
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00C0E0FF&
-      Height          =   615
-      Left            =   5610
-      TabIndex        =   12
-      Top             =   4200
-      Width           =   5985
-   End
-   Begin VB.Line Line2 
-      BorderColor     =   &H00C0C0C0&
-      X1              =   5490
-      X2              =   5490
-      Y1              =   120
-      Y2              =   7080
+      Height          =   285
+      Left            =   150
+      TabIndex        =   10
+      Top             =   7530
+      Width           =   7815
    End
    Begin VB.Label Ltit 
-      Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
       Caption         =   "Carpetas encontradas con multimedia: 0"
       BeginProperty Font 
          Name            =   "Verdana"
-         Size            =   9
+         Size            =   12
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -399,18 +370,17 @@ Begin VB.Form frmAddMusic
       EndProperty
       ForeColor       =   &H00C0FFFF&
       Height          =   315
-      Left            =   5730
-      TabIndex        =   10
-      Top             =   420
-      Width           =   5985
+      Left            =   690
+      TabIndex        =   8
+      Top             =   1950
+      Width           =   7455
    End
    Begin VB.Label Label1 
-      Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
-      Caption         =   "Especificar ubicacion de los nuevos discos a agregar"
+      Caption         =   "Especificar ubicacion de los nuevos discos"
       BeginProperty Font 
          Name            =   "Verdana"
-         Size            =   8.25
+         Size            =   12
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -418,24 +388,24 @@ Begin VB.Form frmAddMusic
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00C0FFFF&
-      Height          =   405
+      Height          =   285
       Index           =   3
-      Left            =   600
-      TabIndex        =   7
-      Top             =   90
-      Width           =   4035
+      Left            =   690
+      TabIndex        =   5
+      Top             =   150
+      Width           =   5685
    End
    Begin VB.Line Line1 
       BorderColor     =   &H00808080&
       Visible         =   0   'False
-      X1              =   150
-      X2              =   5280
-      Y1              =   2730
-      Y2              =   2730
+      X1              =   60
+      X2              =   11000
+      Y1              =   1770
+      Y2              =   1770
    End
    Begin VB.Label Label1 
       BackStyle       =   0  'Transparent
-      Caption         =   "Dejar como permanente un nuevo origen de datos multimedia"
+      Caption         =   "Explore usted por nuevos discos. Ususe para discos duros o unidades de red."
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
@@ -446,37 +416,16 @@ Begin VB.Form frmAddMusic
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   705
-      Index           =   2
-      Left            =   1830
-      TabIndex        =   5
-      Top             =   2850
-      Visible         =   0   'False
-      Width           =   3405
-   End
-   Begin VB.Label Label1 
-      BackStyle       =   0  'Transparent
-      Caption         =   "Explorar para buscar los nuevos temas. Usese para buscar desde red u otros discos"
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00FFFFFF&
-      Height          =   795
+      Height          =   285
       Index           =   1
-      Left            =   1830
-      TabIndex        =   4
-      Top             =   1650
-      Width           =   3405
+      Left            =   1395
+      TabIndex        =   3
+      Top             =   1380
+      Width           =   9195
    End
    Begin VB.Label Label1 
       BackStyle       =   0  'Transparent
-      Caption         =   "Tomar los nuevos temas desde un CD. 3PM busca automaticamente en todas las carpetas del CD insertado."
+      Caption         =   "3PM busca automaticamente en todas las carpetas del CD insertado."
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
@@ -487,12 +436,12 @@ Begin VB.Form frmAddMusic
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   915
+      Height          =   285
       Index           =   0
-      Left            =   1860
-      TabIndex        =   3
-      Top             =   600
-      Width           =   3405
+      Left            =   1380
+      TabIndex        =   2
+      Top             =   1050
+      Width           =   10125
    End
 End
 Attribute VB_Name = "frmAddMusic"
@@ -517,11 +466,13 @@ Private Sub Command1_Click()
         lblWait.Refresh
         'buscar carpetas de multimedia
         CarpsConMM = FindCarpsConMM(CarpetaDesdeCargar)
-        lblTOT = "Carpetas encontradas el la ubicacion elegida: " + CStr(UBound(CarpsConMM))
-        lblTOT.Refresh
         'ver cuales tienen multimedia
         BuscarCarpetasMM
     End If
+End Sub
+
+Private Sub Command2_Click()
+
 End Sub
 
 Private Sub Command3_Click()
@@ -638,10 +589,11 @@ Private Sub Command4_Click()
             
         End If
     Next
+    InfoDisco lblInfoDisco
     MsgBox "Los archivos se copiaron correctamente"
     Exit Sub
 LogERROR:
-    WriteTBRLog "Error al cargar archivos MM. n° " + CStr(Err.Description) + " Descr: " + Err.Description, True
+    WriteTBRLog "Error al cargar archivos MM. n° " + CStr(Err.Number) + " Descr: " + Err.Description, True
     Resume Next
 End Sub
 
@@ -796,14 +748,21 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                 'grabar cant de creditos
                 EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
                 If CREDITOS >= 10 Then
-                    frmINDEX.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+                    frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
                 Else
-                    frmINDEX.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+                    frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
                 End If
             Else
                 'apagar el fichero electronico
                 OnOffCAPS vbKeyScrollLock, False
             End If
+        Case TeclaCerrarSistema
+            OnOffCAPS vbKeyCapital, False
+            If ApagarAlCierre Then APAGAR_PC
+            'no puedo usar do stop porque lanza el evento ENDPLAY y esto produce un EMPEZARSIGUIENTE
+            'que se come un tema de la lista
+            frmIndex.MP3.DoClose
+            End
     End Select
 End Sub
 
@@ -812,3 +771,6 @@ Private Sub Form_Load()
     InfoDisco lblInfoDisco
 End Sub
 
+Private Sub lblBAR2_Click()
+
+End Sub

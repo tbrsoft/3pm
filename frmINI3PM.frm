@@ -757,14 +757,21 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                 'grabar cant de creditos
                 EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
                 If CREDITOS >= 10 Then
-                    frmINDEX.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+                    frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
                 Else
-                    frmINDEX.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+                    frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
                 End If
             Else
                 'apagar el fichero electronico
                 OnOffCAPS vbKeyScrollLock, False
             End If
+        Case TeclaCerrarSistema
+            OnOffCAPS vbKeyCapital, False
+            If ApagarAlCierre Then APAGAR_PC
+            'no puedo usar do stop porque lanza el evento ENDPLAY y esto produce un EMPEZARSIGUIENTE
+            'que se come un tema de la lista
+            frmIndex.MP3.DoClose
+            End
     End Select
 End Sub
 

@@ -301,6 +301,13 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                 'apagar el fichero electronico
                 OnOffCAPS vbKeyScrollLock, False
             End If
+        Case TeclaCerrarSistema
+            OnOffCAPS vbKeyCapital, False
+            If ApagarAlCierre Then APAGAR_PC
+            'no puedo usar do stop porque lanza el evento ENDPLAY y esto produce un EMPEZARSIGUIENTE
+            'que se come un tema de la lista
+            frmINDEX.MP3.DoClose
+            End
     End Select
 End Sub
 
