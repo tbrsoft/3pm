@@ -18,25 +18,6 @@ Begin VB.Form frmIndex
    ShowInTaskbar   =   0   'False
    StartUpPosition =   3  'Windows Default
    WindowState     =   2  'Maximized
-   Begin VB.TextBox txtS3 
-      Alignment       =   1  'Right Justify
-      BackColor       =   &H0000C0C0&
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   14.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   525
-      Left            =   2820
-      TabIndex        =   45
-      Top             =   4590
-      Visible         =   0   'False
-      Width           =   2265
-   End
    Begin VB.PictureBox pVU2 
       BackColor       =   &H00808080&
       BorderStyle     =   0  'None
@@ -217,10 +198,10 @@ Begin VB.Form frmIndex
       Height          =   3660
       IntegralHeight  =   0   'False
       ItemData        =   "frmINDEX.frx":0442
-      Left            =   1350
+      Left            =   2130
       List            =   "frmINDEX.frx":047C
       TabIndex        =   35
-      Top             =   1440
+      Top             =   960
       Visible         =   0   'False
       Width           =   3735
    End
@@ -240,9 +221,9 @@ Begin VB.Form frmIndex
       BackColor       =   &H00000000&
       BorderStyle     =   0  'None
       Height          =   4950
-      Left            =   3510
+      Left            =   4110
       TabIndex        =   10
-      Top             =   90
+      Top             =   120
       Width           =   5295
       Begin VB.Timer Timer1 
          Left            =   150
@@ -289,7 +270,7 @@ Begin VB.Form frmIndex
          Begin VB.Image TapaCD 
             Height          =   2505
             Index           =   0
-            Left            =   675
+            Left            =   660
             Stretch         =   -1  'True
             Top             =   270
             Visible         =   0   'False
@@ -297,11 +278,11 @@ Begin VB.Form frmIndex
          End
          Begin VB.Shape lblSel 
             BorderColor     =   &H0000FFFF&
-            BorderWidth     =   6
+            BorderWidth     =   5
             Height          =   555
             Left            =   405
             Shape           =   4  'Rounded Rectangle
-            Top             =   1935
+            Top             =   1920
             Width           =   435
          End
       End
@@ -919,6 +900,7 @@ Dim IenPlenaCancion(3) As Long 'cada uno de los hilos de ejecucion
 
 Dim S3 As New tbrSKS3.clsTbrSKS3
 
+
 Public Function PonerFoco()
     TF.PonerFoco
 End Function
@@ -1137,12 +1119,14 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             If FindParam3PM("to") = "kd" Then
                 LTE 1
                 VarCreditos CSng(TemasPorCredito)
+                
             End If
         Case TeclaNewFicha2
             'si TeclaOk2=KeyDown entonces no lo hace aca
             If FindParam3PM("to2") = "kd" Then
                 LTE 2
                 VarCreditos CSng(CreditosBilletes)
+            
             End If
         Case vbKeyF1
             frmERRORES.Show 1
@@ -1699,8 +1683,8 @@ Mod46:
                     SelTema 0
                     ModoVideoSelTema = True
                 Else
-                    If lblDisco(nDiscoSEL) = "01- Los mas escuchados" Then GoTo TOP10Show
-                    tERR.Anotar "acdm", lblDisco(nDiscoSEL), nDiscoSEL, nDiscoGral
+                    If lblDISCO(nDiscoSEL) = "01- Los mas escuchados" Then GoTo TOP10Show
+                    tERR.Anotar "acdm", lblDISCO(nDiscoSEL), nDiscoSEL, nDiscoGral
                     frmTemasDeDisco.Show 1
                 End If
             End If
@@ -1774,7 +1758,9 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
         'si TeclaOk=KeyDown entonces no lo hace aca
         If FindParam3PM("to") = "999999" Then
             LTE 1
+            'si ya hay 9 cargados se traga las fichas
             VarCreditos CSng(TemasPorCredito)
+            
         End If
     End If
     
@@ -1783,6 +1769,7 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
         If FindParam3PM("to2") = "999999" Then
             LTE 2
             VarCreditos CSng(CreditosBilletes)
+            
         End If
     End If
     
@@ -1799,10 +1786,6 @@ Private Sub Form_Load()
     tERR.Anotar "sVU01"
     'dejo todo definido en el vumetro
     
-    '*************************
-    S3.HwndMsg = txtS3.hwnd
-    S3.Prender
-    '*************************
     
     Set VU = New tbrSoftVumetro.tbrDrawVUM
     
@@ -1943,26 +1926,26 @@ Private Sub Form_Load()
     If MostrarRotulos Then
         TapaCD(0).Width = AnchoTapaDisco
         TapaCD(0).Height = AltoTapaDisco * 0.79 '80%disco, 20% lbldisco
-        lblDisco(0).Height = AltoTapaDisco * 0.19 '80%disco, 20% lbldisco
-        lblDisco(0).Width = AnchoTapaDisco
+        lblDISCO(0).Height = AltoTapaDisco * 0.19 '80%disco, 20% lbldisco
+        lblDISCO(0).Width = AnchoTapaDisco
     Else
         TapaCD(0).Width = AnchoTapaDisco
         TapaCD(0).Height = AltoTapaDisco
-        lblDisco(0).Visible = False
+        lblDISCO(0).Visible = False
     End If
     'centrar!!
     Dim IniCentrarH As Long
     IniCentrarH = EspacioEntreDiscosH
     Dim IniCentrarV As Long
     IniCentrarV = EspacioEntreDiscosV
-    lblDisco(0).Left = IniCentrarH
+    lblDISCO(0).Left = IniCentrarH
     TapaCD(0).Left = IniCentrarH
     'ver si los rotulos van arriba o abajo
     tERR.Anotar "acex", RotulosArriba
     If RotulosArriba Then
-        lblDisco(0).Top = IniCentrarV
+        lblDISCO(0).Top = IniCentrarV
         If MostrarRotulos Then
-            TapaCD(0).Top = lblDisco(0).Top + lblDisco(0).Height + 50
+            TapaCD(0).Top = lblDISCO(0).Top + lblDISCO(0).Height + 50
         Else
             TapaCD(0).Top = IniCentrarV
         End If
@@ -1970,7 +1953,7 @@ Private Sub Form_Load()
         tERR.Anotar "000-0269"
         TapaCD(0).Top = IniCentrarV
         tERR.Anotar "000-0271"
-        lblDisco(0).Top = TapaCD(0).Top + TapaCD(0).Height + 50
+        lblDISCO(0).Top = TapaCD(0).Top + TapaCD(0).Height + 50
     End If
     Dim CantDiscos As Long
     CantDiscos = TapasMostradasH * TapasMostradasV
@@ -1981,50 +1964,50 @@ Private Sub Form_Load()
         tERR.Anotar "acez", c
         c = c + 1
         Load TapaCD(c)
-        Load lblDisco(c)
+        Load lblDISCO(c)
         'ya toman el tamaño del original
         
         If c / TapasMostradasH = c \ TapasMostradasH Then
             'es una tapa al principio de linea
             If RotulosArriba Then
-                lblDisco(c).Left = IniCentrarH
-                lblDisco(c).Top = TapaCD(c - TapasMostradasH).Top + TapaCD(c - TapasMostradasH).Height + EspacioEntreDiscosV
+                lblDISCO(c).Left = IniCentrarH
+                lblDISCO(c).Top = TapaCD(c - TapasMostradasH).Top + TapaCD(c - TapasMostradasH).Height + EspacioEntreDiscosV
                 TapaCD(c).Left = IniCentrarH
                 If MostrarRotulos Then
-                    TapaCD(c).Top = lblDisco(c).Top + lblDisco(c).Height + 50
+                    TapaCD(c).Top = lblDISCO(c).Top + lblDISCO(c).Height + 50
                 Else
                     TapaCD(c).Top = TapaCD(c - TapasMostradasH).Top + TapaCD(c - TapasMostradasH).Height + 50
                 End If
                 TapaCD(c).Visible = True
-                If MostrarRotulos Then lblDisco(c).Visible = True
+                If MostrarRotulos Then lblDISCO(c).Visible = True
             Else
                 TapaCD(c).Left = IniCentrarH
                 If MostrarRotulos Then
-                    TapaCD(c).Top = lblDisco(c - TapasMostradasH).Top + lblDisco(c - TapasMostradasH).Height + EspacioEntreDiscosV
+                    TapaCD(c).Top = lblDISCO(c - TapasMostradasH).Top + lblDISCO(c - TapasMostradasH).Height + EspacioEntreDiscosV
                 Else
                     TapaCD(c).Top = TapaCD(c - TapasMostradasH).Top + TapaCD(c - TapasMostradasH).Height + EspacioEntreDiscosV
                 End If
-                lblDisco(c).Left = IniCentrarH
-                lblDisco(c).Top = TapaCD(c).Top + TapaCD(c).Height + 50
+                lblDISCO(c).Left = IniCentrarH
+                lblDISCO(c).Top = TapaCD(c).Top + TapaCD(c).Height + 50
                 TapaCD(c).Visible = True
-                If MostrarRotulos Then lblDisco(c).Visible = True
+                If MostrarRotulos Then lblDISCO(c).Visible = True
             End If
         Else
             'una tapa comun que se acomoda a la derecha de la anterior
             If RotulosArriba Then
-                lblDisco(c).Left = lblDisco(c - 1).Left + AnchoTapaDisco + EspacioEntreDiscosH
-                lblDisco(c).Top = lblDisco(c - 1).Top
-                TapaCD(c).Left = lblDisco(c).Left
+                lblDISCO(c).Left = lblDISCO(c - 1).Left + AnchoTapaDisco + EspacioEntreDiscosH
+                lblDISCO(c).Top = lblDISCO(c - 1).Top
+                TapaCD(c).Left = lblDISCO(c).Left
                 TapaCD(c).Top = TapaCD(c - 1).Top
                 TapaCD(c).Visible = True
             Else
                 TapaCD(c).Left = TapaCD(c - 1).Left + AnchoTapaDisco + EspacioEntreDiscosH
                 TapaCD(c).Top = TapaCD(c - 1).Top
-                lblDisco(c).Left = TapaCD(c).Left
-                lblDisco(c).Top = lblDisco(c - 1).Top
+                lblDISCO(c).Left = TapaCD(c).Left
+                lblDISCO(c).Top = lblDISCO(c - 1).Top
                 TapaCD(c).Visible = True
             End If
-            If MostrarRotulos Then lblDisco(c).Visible = True
+            If MostrarRotulos Then lblDISCO(c).Visible = True
         End If
         
     Loop
@@ -2210,10 +2193,10 @@ Public Sub SelDisco(nDisco As Long)
     
     lblSel.Visible = False
     tERR.Anotar "acfp", nDisco, nDiscoSEL, nDiscoGral
-    lblDisco(nDisco).ForeColor = vbBlack
+    lblDISCO(nDisco).ForeColor = vbBlack
     'lblDISCO(nDisco).Font.Bold = True
-    lblDisco(nDisco).Font.Underline = True
-    lblDisco(nDisco).BackColor = vbYellow
+    lblDISCO(nDisco).Font.Underline = True
+    lblDISCO(nDisco).BackColor = vbYellow
     nDiscoSEL = nDisco
     lblSel.Top = TapaCD(nDiscoSEL).Top - lblSel.BorderWidth * 10
     lblSel.Left = TapaCD(nDiscoSEL).Left - lblSel.BorderWidth * 10
@@ -2221,7 +2204,7 @@ Public Sub SelDisco(nDisco As Long)
     lblSel.Width = TapaCD(nDiscoSEL).Width + lblSel.BorderWidth * 20
     lblSel.Visible = True
     lblSel.ZOrder
-    lblDisco(nDisco).ZOrder
+    lblDISCO(nDisco).ZOrder
     
     'seleccionar de la lista de solo video
     tERR.Anotar "acfq", nDisco, nDiscoSEL, nDiscoGral
@@ -2246,10 +2229,10 @@ End Sub
 Public Sub UnSelDisco(nDisco As Long)
     On Error GoTo MiErr
     tERR.Anotar "acfs", nDisco, nDiscoSEL, nDiscoGral, LastDiscoSel
-    lblDisco(nDisco).ForeColor = vbWhite
+    lblDISCO(nDisco).ForeColor = vbWhite
     'lblDISCO(nDisco).Font.Bold = False
-    lblDisco(nDisco).Font.Underline = False
-    lblDisco(nDisco).BackColor = vbBlack
+    lblDISCO(nDisco).Font.Underline = False
+    lblDISCO(nDisco).BackColor = vbBlack
     'seleccionar de la lista de solo video
     tERR.Anotar "acft", LastDiscoSel, CargarIMGinicio, EsVideo
     L(LastDiscoSel).ForeColor = vbBlack
@@ -2320,7 +2303,7 @@ Public Function CargarDiscos(numDiscoIniciar As Long, SelPrimero As Boolean, DeQ
                 If NDI >= (TapasMostradasH * TapasMostradasV) Then
                     TapaCD(NDI - c).Visible = False
                     'no se cargan lbldisco, usan solo del 0 al 5
-                    lblDisco(c - 1).Visible = False
+                    lblDISCO(c - 1).Visible = False
                 End If
                 c = c + 1
             Loop
@@ -2352,7 +2335,7 @@ Public Function CargarDiscos(numDiscoIniciar As Long, SelPrimero As Boolean, DeQ
                     DiscoPag1Borrar = (TapasMostradasH * TapasMostradasV) - c
                     TapaCD(DiscoPag1Borrar).Visible = False
                 End If
-                lblDisco(c - 1).Visible = False
+                lblDISCO(c - 1).Visible = False
                 c = c + 1
             Loop
             'Me.Refresh
@@ -2362,7 +2345,7 @@ Public Function CargarDiscos(numDiscoIniciar As Long, SelPrimero As Boolean, DeQ
         tERR.Anotar "acgb", NDR, TapasMostradasH, TapasMostradasV
         Do While NDR < ((TapasMostradasH * TapasMostradasV))
             TapaCD(NDR).Visible = False
-            lblDisco(NDR).Visible = False
+            lblDISCO(NDR).Visible = False
             NDR = NDR + 1
         Loop
         Dim ArchTapa As String
@@ -2410,8 +2393,8 @@ TAPADEF:
             End If
             'poner nombre al disco
             'antes en la 6.3 era NDI+1 !!
-            lblDisco(NDR) = txtInLista(MATRIZ_DISCOS(NDI), 1, ",")
-            If MostrarRotulos Then lblDisco(NDR).Visible = True
+            lblDISCO(NDR) = txtInLista(MATRIZ_DISCOS(NDI), 1, ",")
+            If MostrarRotulos Then lblDISCO(NDR).Visible = True
         End If
         tERR.Anotar "acgh", NDI, NDR
         NDI = NDI + 1
@@ -2581,7 +2564,7 @@ MiErr:
 End Sub
 
 Private Sub MP3_EndPlay(iAlias As Long)
-    IenPlenaCancion(iAlias) = 0
+    
     List1.List(iAlias) = ".. PLAY" + CStr(iAlias) + ":END"
     
     On Error GoTo MiErr
@@ -2688,9 +2671,6 @@ Private Sub MP3_Played(SecondsPlayed As Long, iAlias As Long)
 
     'los primeros X segundos van en FadeIn sea el momento que sea
     If SecondsPlayed <= SegFade Then
-        '**********************************************
-        IenPlenaCancion(iAlias) = 1 'indica que esta empezando
-        '**********************************************
         YaEsoySaliendoGrat_Cortar(iAlias) = False
         
         List1.List(6) = "ININ:" + CStr(iAlias)
@@ -2712,23 +2692,17 @@ Private Sub MP3_Played(SecondsPlayed As Long, iAlias As Long)
     tERR.Anotar "acgv3", IAA, IAANext
     'como el timer pasa mas de una vez por segundo solo hacer el cambio una vez
     If SecondsPlayed = (SegFade + 1) Then
-        '**********************************************
-        IenPlenaCancion(iAlias) = 2 'en plena cancion
-        '**********************************************
         'verifico ? iaa debe ser iAlias actual
         If iAlias <> IAA Then
             Dim TMP As Long: TMP = IAANext: IAANext = IAA: IAA = TMP
         End If
-        EnableFF = False: EnableNextMusic = False
+        EnableFF = False:        EnableNextMusic = False
         GoTo SIGUE55
     End If
     
     'dejo listo para que empieze otro solo despues de termino bien terminado el
     'anterior! Esto es cuando el nuevo paso un rato!
     If SecondsPlayed = (SegFade + 3) Then
-        '**********************************************
-        IenPlenaCancion(iAlias) = 2 'pleno
-        '**********************************************
         LastRetEmpezarSig = -99 'solo como bandera para que termine solo _
             una vez esta cancion
     End If
@@ -2741,9 +2715,7 @@ Private Sub MP3_Played(SecondsPlayed As Long, iAlias As Long)
     
     If F <= SegFade Then
         ShowPaso "--", iAlias, SecondsPlayed
-        '**********************************************
-        IenPlenaCancion(iAlias) = 3 'terminando cancion
-        '**********************************************
+    
         EnableFF = False:        EnableNextMusic = False
         'ir abriendo el que sigue!!!
         'PUEDE ENTRAR MAS DE UNA VEZ ACA YA QUE EL TIMER ES MAS DE UNA VEZ POR SEGUNDO
@@ -3323,40 +3295,5 @@ Public Sub UpdateVista()
         picVideo(0).Visible = False
         picVideo(1).Visible = False
     End If
-    
-End Sub
-
-Private Sub txtS3_Change()
-    If txtS3 = "" Then Exit Sub
-    
-    Dim P As String
-    P = txtS3
-    
-    Dim SP() As String
-    SP = Split(P, ":")
-    
-    If SP(0) = "sD" Then
-        Select Case CLng(SP(1))
-            Case TeclaIZQx2: SendKeys Chr(TeclaIZQ)
-            Case TeclaDERx2: SendKeys Chr(TeclaDER)
-            Case TeclaPagAdx2: SendKeys Chr(TeclaPagAd)
-            Case TeclaPagAtx2: SendKeys Chr(TeclaPagAt)
-            Case TeclaOKx2: SendKeys Chr(TeclaOK)
-            Case TeclaESCx2: SendKeys Chr(TeclaESC)
-            Case TeclaConfigx2: SendKeys Chr(TeclaConfig)
-            Case TeclaCerrarSistemax2: SendKeys Chr(TeclaCerrarSistema)
-            Case TeclaShowContadorx2: SendKeys Chr(TeclaShowContador)
-            Case TeclaPutCeroContadorx2: SendKeys Chr(TeclaPutCeroContador)
-            Case TeclaFFx2: SendKeys Chr(TeclaFF)
-            Case TeclaBajaVolumenx2: SendKeys Chr(TeclaBajaVolumen)
-            Case TeclaSubeVolumenx2: SendKeys Chr(TeclaSubeVolumen)
-            Case TeclaNextMusicx2: SendKeys Chr(TeclaNextMusic)
-            Case TeclaNewFichax2: Form_KeyUp TeclaNewFicha, 0  'especial directo
-            Case TeclaNewFicha2x2: Form_KeyUp TeclaNewFicha2, 0
-        End Select
-    End If
-    
-    'vaciarlos !!!
-    txtS3 = ""
     
 End Sub

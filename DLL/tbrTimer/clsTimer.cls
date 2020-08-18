@@ -40,14 +40,11 @@ Public Sub TimerEvent()
 End Sub
 
 Public Property Let Enabled(n_Enabled As Boolean)
-    If m_Enabled <> n_Enabled Then
-        m_Enabled = n_Enabled
-        
-        If m_Enabled Then
-            Call StartTimer
-        Else
-            Call StopTimer
-        End If
+    m_Enabled = n_Enabled
+    If m_Enabled Then
+        Call StartTimer
+    Else
+        Call StopTimer
     End If
 End Property
 
@@ -60,6 +57,8 @@ Public Property Let Interval(n_Interval As Long)
     'lo puse yop para que no empieze si es cero!!!
     If m_Interval > 0 Then
         If m_Enabled Then Call StartTimer
+    Else
+        StopTimer 'agregado por mi
     End If
 End Property
 
@@ -68,9 +67,11 @@ Public Property Get Interval() As Long
 End Property
 
 Private Sub StartTimer()
-    Call StopTimer
-    m_hTimer = modTimer.AddObject(Me, m_Interval)
-    m_Added = True
+    If m_Interval > 0 Then
+        Call StopTimer
+        m_hTimer = modTimer.AddObject(Me, m_Interval)
+        m_Added = True
+    End If
 End Sub
 
 Private Sub StopTimer()

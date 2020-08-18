@@ -1147,11 +1147,13 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
     If KeyCode = TeclaNewFicha Then
         LTE 1
         VarCreditos CSng(TemasPorCredito)
+        
     End If
     
     If KeyCode = TeclaNewFicha2 Then
         LTE 2
         VarCreditos CSng(CreditosBilletes)
+        
     End If
     
     Exit Sub

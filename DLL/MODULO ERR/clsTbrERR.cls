@@ -118,6 +118,18 @@ Public Sub AppendLog(ByVal txtAdicional As String, _
     
 End Sub
 
+Public Sub AppendSinHist(txt As String)
+    Dim TE As TextStream
+    Set TE = FSO.OpenTextFile(mFileLog, ForAppending, True)
+        TE.WriteLine CStr(Timer) + ":" + txt
+            'si esta dentro de 3PM o mprock lo muestro!!
+            If LCase(mFileLog) = "d:\dev\3pm\reg3pm.log" Then
+                F1.Inicializar mLogAcumulado, txtAdicional + vbCrLf + txtAdicional2
+            End If
+    TE.Close
+    Set TE = Nothing
+End Sub
+
 Public Property Let FileLog(NewFile As String)
     mFileLog = NewFile
 End Property

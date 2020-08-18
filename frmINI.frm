@@ -27,11 +27,11 @@ Begin VB.Form frmINI
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H0000FF00&
-      Height          =   1590
+      Height          =   1350
       IntegralHeight  =   0   'False
-      Left            =   1320
+      Left            =   1500
       TabIndex        =   4
-      Top             =   7320
+      Top             =   7500
       Width           =   9015
    End
    Begin VB.Label VVV 
@@ -48,9 +48,9 @@ Begin VB.Form frmINI
       EndProperty
       ForeColor       =   &H0000FFFF&
       Height          =   450
-      Left            =   1380
+      Left            =   2850
       TabIndex        =   3
-      Top             =   6420
+      Top             =   6660
       Width           =   120
    End
    Begin VB.Label lblTipoLIC 
@@ -69,17 +69,17 @@ Begin VB.Form frmINI
       EndProperty
       ForeColor       =   &H00FFFFFF&
       Height          =   285
-      Left            =   6930
+      Left            =   1530
       TabIndex        =   2
-      Top             =   150
+      Top             =   90
       Width           =   3270
    End
    Begin VB.Label pBar 
       BackColor       =   &H00C0FFFF&
       Height          =   90
-      Left            =   1380
+      Left            =   1560
       TabIndex        =   1
-      Top             =   7140
+      Top             =   7410
       Width           =   435
    End
    Begin VB.Label lblINI 
@@ -97,16 +97,16 @@ Begin VB.Form frmINI
       EndProperty
       ForeColor       =   &H00C0FFFF&
       Height          =   225
-      Left            =   1350
+      Left            =   1530
       TabIndex        =   0
-      Top             =   6930
+      Top             =   7200
       Width           =   8970
    End
    Begin VB.Image Image1 
       Height          =   6825
-      Left            =   1320
+      Left            =   1500
       Stretch         =   -1  'True
-      Top             =   90
+      Top             =   330
       Width           =   9000
    End
 End
@@ -176,28 +176,8 @@ Private Sub Form_Load()
     TeclaBajaVolumen = Val(LeerConfig("TeclaBajaVolumen", "68")) 'D
     TeclaSubeVolumen = Val(LeerConfig("TeclaSubeVolumen", "69")) 'E
     TeclaNextMusic = Val(LeerConfig("TeclaNextMusic", "66")) 'B
-    
-    TeclaDERx2 = Val(LeerConfig("TeclaDerechax2", "2"))
-    TeclaIZQx2 = Val(LeerConfig("TeclaIzquierdax2", "1"))
-    TeclaPagAdx2 = Val(LeerConfig("TeclaPagAdx2", "3"))
-    TeclaPagAtx2 = Val(LeerConfig("TeclaPagAtx2", "4"))
-    TeclaOKx2 = Val(LeerConfig("TeclaOKx2", "5"))
-    TeclaESCx2 = Val(LeerConfig("TeclaESCx2", "7"))
-    TeclaNewFichax2 = Val(LeerConfig("TeclaNuevaFichax2", "22"))
-    TeclaNewFicha2x2 = Val(LeerConfig("TeclaNuevaFicha2x2", "23"))
-    TeclaConfigx2 = Val(LeerConfig("TeclaConfigx2", "8"))
-    TeclaCerrarSistemax2 = Val(LeerConfig("TeclaCerrarSistemax2", "9"))
-    tERR.Anotar "acnbx2"
-    TeclaShowContadorx2 = Val(LeerConfig("TeclaShowContadorx2", "10")) 'U
-    TeclaPutCeroContadorx2 = Val(LeerConfig("TeclaPutCeroContadorx2", "11")) 'V
-    TeclaFFx2 = Val(LeerConfig("TeclaFFx2", "74")) 'J
-    TeclaBajaVolumenx2 = Val(LeerConfig("TeclaBajaVolumenx2", "13")) 'D
-    TeclaSubeVolumenx2 = Val(LeerConfig("TeclaSubeVolumenx2", "14")) 'E
-    TeclaNextMusicx2 = Val(LeerConfig("TeclaNextMusicx2", "15")) 'B
-    
     ShowCreditsMode = Val(LeerConfig("ShowCreditsMode", "0"))
     ApagarAlCierre = LeerConfig("ApagarAlCierre", "0")
-    
     'puede ser 46 o 5 por ahora
     IsMod46Teclas = CLng(LeerConfig("IsMod46Teclas", "46"))
     

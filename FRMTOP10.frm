@@ -245,11 +245,13 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             If FindParam3PM("to") = "kd" Then
                 LTE 1
                 VarCreditos CSng(TemasPorCredito)
+                
             End If
         Case TeclaNewFicha2
             If FindParam3PM("to2") = "kd" Then
                 LTE 2
                 VarCreditos CSng(CreditosBilletes)
+                
             End If
         Case TeclaConfig
             frmConfig.Show 1
@@ -384,11 +386,13 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
                 LTE 1
                 'si ya hay 9 cargados se traga las fichas
                 VarCreditos CSng(TemasPorCredito)
+                
             End If
         Case TeclaNewFicha2
             If FindParam3PM("to2") = "999999" Then
                 LTE 2
                 VarCreditos CSng(CreditosBilletes)
+                
             End If
         
         Case TeclaOK
@@ -474,7 +478,7 @@ Private Sub Form_Load()
     If MostrarTouch = False Then
         Frame2.Visible = False        'frame del touch
     Else
-        Command1.DEfault = True
+        Command1.Default = True
     End If
     ColorUnSel = 1
     ColorSel = vbRed

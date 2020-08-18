@@ -112,7 +112,7 @@ Public Function Unir(Optional EsErrorQueExista As Boolean = False) As Long
         End If
     End If
         
-    'y si ponemos una FAT???? (SIN NIVELKES DE CARPETAS POR AHORA!!)
+    'y si ponemos una FAT???? (SIN NIVELES DE CARPETAS POR AHORA!!)
     'con eso despues no debería leer de a 100 u otra cantidad buscando
     'donde empiezan y donde terminan los archivos internos
     'además sería mucho mas facil extraer la lista de archivos que contiene!!!

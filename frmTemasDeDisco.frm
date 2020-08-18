@@ -511,11 +511,13 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             If FindParam3PM("to") = "kd" Then
                 LTE 1
                 VarCreditos CSng(TemasPorCredito)
+                
             End If
         Case TeclaNewFicha2
             If FindParam3PM("to2") = "kd" Then
                 LTE 2
                 VarCreditos CSng(CreditosBilletes)
+                
             End If
         Case vbKeyF4
             If Shift = 4 Then
@@ -668,11 +670,13 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             If FindParam3PM("to") = "999999" Then
                 LTE 1
                 VarCreditos CSng(TemasPorCredito)
+                
             End If
         Case TeclaNewFicha2
             If FindParam3PM("to2") = "999999" Then
                 LTE 2
                 VarCreditos CSng(CreditosBilletes)
+                
             End If
         
         Case TeclaOK

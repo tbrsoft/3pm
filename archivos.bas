@@ -5,7 +5,6 @@ Option Compare Text
 Public Declare Function ShowCursor Lib "user32" (ByVal bShow As Long) As Long
 Public Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteA" (ByVal hwnd As Long, ByVal lpOperation As String, ByVal lpFile As String, ByVal lpParameters As String, ByVal lpDirectory As String, ByVal nShowCmd As Long) As Long
 
-
 ' API declaración (utilizada por la rutina EsperarPorProceso)
 Private Declare Function EsperarUnicoObjeto Lib "kernel32" _
     (ByVal hHandle As Long, ByVal dwMilisegundos As Long) As Long
@@ -32,8 +31,13 @@ Public Function GPF(TXT As String) As String 'GetPathFile
         Case "chdc03": TMP = "chd.c03" '
         Case "chdc04": TMP = "chd.c04" '
         Case "config2": TMP = "eber.lud" 'copia de seguridad de la config sf + "autoSave3PM.cfg"
+        
         Case "cd3pm": TMP = "cd3.pm" 'Clave sf + "dciLib22.dll"
         Case "cccd3pm": TMP = "cccd3.pm" 'Copia clave sf + "c2LK.dll"
+        Case "cd4pm": TMP = "cd4.pm" 'Archivo de licencia 3pm 7.0 (GENERADO)
+        Case "cd5pm": TMP = "cd5.pm" 'Archivo RECIBIDO de licencia 3pm 7.0
+        Case "cd6pm": TMP = "cd6.pm" 'Archivo RECIBIDO de licencia 3pm 7.0 (Copia SEG)
+        
         Case "rdcday": TMP = "rdc.day" 'registro diario del contador sf + "daily.cfg"
         Case "pdis233": TMP = "pdis.233" 'paquete de imagenes sf + "nev.man"
         Case "extr233": TMP = "" 'sf sola para extraer el paquete de imagenes
@@ -45,7 +49,7 @@ Public Function GPF(TXT As String) As String 'GetPathFile
             Case "extr233_57": TMP = "f57.dlw" 'logos.sys
             Case "extr233_58": TMP = "f58.dlw" 'logow.sys
             Case "extr233_54": TMP = "f54.dlw" 'top10
-    
+            Case "extr233_62": TMP = "f62.dlw" 'frmREG (ahora distinto a la tapa)
         Case "233_56_b": TMP = "233.56b" '56 modificado por SL sf + "f5yaSL.nam"
         Case "233_58_b": TMP = "233.58b" '58 modificado por SL sf + "f7yaSL.nam"
         Case "233_57_b": TMP = "233.57b" '57 modif sf + "f6yaSL.nam"
@@ -276,6 +280,8 @@ Public Sub MostrarCursor(Mostrar As Boolean)
     If LCase(AP) = "d:\dev\3pm kundera 68300\" Then Exit Sub
     If LCase(AP) = "d:\dev\3pm kundera 69000\" Then Exit Sub
     If LCase(AP) = "d:\dev\3pm kundera 69000\dlllistarep\" Then Exit Sub
+    If LCase(AP) = "d:\dev\3pm kundera 70000\dlllistarep\" Then Exit Sub
+    If LCase(AP) = "d:\dev\3pmkun~3\" Then Exit Sub
     If LCase(AP) = "c:\windows\system32\" Then Exit Sub
     
     tERR.Anotar "001-0002"
@@ -332,8 +338,6 @@ Function ObtAtribDescrip(nombrearch As String) As String
     tERR.Anotar "001-0013"
     ObtAtribDescrip = Mid$(Resultado, 2)
 End Function
-
-
 
 Function ObtenerArchivos(path As String, EXT As String) As String()
         ' proporciona un array de cadenas que almacenan todos los nombres de archivo que

@@ -213,6 +213,9 @@ Dim ADR As String 'aparentemente carpeta actual
 
 Public strPath As String
 
+Public IsConected As Boolean
+Public SEP As String 'separador de carpetas!
+
 'lo hago publico para que se pueda agregar detalle a esta barra de progreso desde los progrmas que lo uan
 Public Sub LOG(TXT As String, ShapeWidth As Single)
     txtLOG = txtLOG + CStr(Time) + "->" + TXT + vbCrLf
@@ -246,7 +249,8 @@ Public Function Connect(ADRESS As String, ID As String, PSW As String, PORT As I
         Service = INTERNET_FLAG_EXISTING_CONNECT
     End If
     LOG "Intenta Abrir sesion", 0.6
-    SESSION = InternetOpen("SiteName", INTERNET_OPEN_TYPE_DIRECT, "", "", INTERNET_FLAG_NO_CACHE_WRITE)
+    SESSION = InternetOpen("SiteName", INTERNET_OPEN_TYPE_DIRECT, "", "", _
+        INTERNET_FLAG_NO_CACHE_WRITE)
     
     If SESSION <> 0 Then
         LOG "Sesion OK=" + CStr(SESSION), 0.9
@@ -267,9 +271,11 @@ Public Function Connect(ADRESS As String, ID As String, PSW As String, PORT As I
             FtpGetCurrentDirectory SERVER, ADR, Len(ADR)
     
             ADR = Left(ADR, InStr(1, ADR, Chr(0)) - 1)
-            ADR = ADR & IIf((Right(ADR, 1) = "\"), "*.*", "\*.*")
+            ADR = ADR & IIf((Right(ADR, 1) = SEP), "*.*", SEP + "*.*")
             LOG "CONECTADO OK ADR=" + ADR, 0.1
-            KLIC = "\"
+            KLIC = SEP
+            'estoy seguro que esta ok
+            IsConected = True
         End If
     Else
         Connect = 1 'falla sesion
@@ -378,7 +384,7 @@ Public Function UpLoad(ListaFiles() As String, LocalePath As String) As Long
     'listafiles no debe tener el path completo en sus elementos!!
     'localepath tiene la carpeta que los contiene con la barra al final
     'el destino es la carpeta actual!
-        
+    
     If Right(LocalePath, 1) <> "\" Then LocalePath = LocalePath + "\"
     
     'LEER INFO DE LO QUE SE VA A SUBIR
@@ -493,7 +499,7 @@ Public Function Download(Destino As String, Optional Solo1Archivo As String = ""
     'por ahora solo la lista desde lstFiles que tiene el lstBytes
     'destino tiene la carpeta que los contiene con la barra al final
     
-    'si Solo1Archivo es <>"" es que no me intyeresa los check y si solo un archivo
+    'si Solo1Archivo es <> "" es que no me intyeresa los check y si solo un archivo
     'en particular!
             
     If Right(Destino, 1) <> "\" Then Destino = Destino + "\"
@@ -514,7 +520,7 @@ Public Function Download(Destino As String, Optional Solo1Archivo As String = ""
     
     If lstFILES.SelCount = 0 Then
         Download = 2
-        MsgBox "No hay archivos elegdos para descargar!"
+        'MsgBox "No hay archivos elegdos para descargar!"
         Exit Function
     End If
     
@@ -649,7 +655,7 @@ Public Function BorrarCarpetaWEB(sCarpeta As String)
 End Function
 
 Public Function BorrarFileWEB(sFile As String)
-    
+    'el nombre del archivo en la carpeta que estamos ubicados
     LOG "Borrando archivo " + sFile, 0.4
     
     If SESSION = 0 Or SERVER = 0 Then
@@ -712,6 +718,8 @@ Public Sub DisConnect()
     SERVER = 0: SESSION = 0
     LOG "DESCONECTADO", 1
     
+    IsConected = False
+    
     lstFOLDERS.Clear
     lstBytes.Clear
     lstFILES.Clear
@@ -747,16 +755,16 @@ Private Sub lstFOLDERS_DblClick()
     If lstFOLDERS = "." Or lstFOLDERS = ".." Then
         'buscar la barra anterior para volvber una carpeta atras
         Dim Lastbarra As Long
-        Lastbarra = InStrRev(KLIC, "\")
+        Lastbarra = InStrRev(KLIC, SEP)
         'si la ultima es el primer caracrter es que estaba en el primer nivel de capetas
         If Lastbarra = 1 Then
-            KLIC = "\"
+            KLIC = SEP
         Else
-            Lastbarra = InStrRev(KLIC, "\", Lastbarra - 1)
+            Lastbarra = InStrRev(KLIC, SEP, Lastbarra - 1)
             KLIC = Mid(KLIC, 1, Lastbarra)
         End If
     Else
-        KLIC = KLIC + lstFOLDERS + "\"
+        KLIC = KLIC + lstFOLDERS + SEP
     End If
     UbicarseEnFolder KLIC
     List
@@ -764,10 +772,13 @@ Private Sub lstFOLDERS_DblClick()
 End Sub
 
 Private Sub UserControl_Initialize()
+    SEP = "/" 'valor predeterminado
     LOG "Iniciado", 0
+    IsConected = False
 End Sub
 
 Public Function UbicarseEnFolder(sFolder As String) As Long
+    
     
     LOG "Cambiando a carpeta " + sFolder, 0.2
     
@@ -777,7 +788,7 @@ Public Function UbicarseEnFolder(sFolder As String) As Long
         Exit Function
     End If
     
-    If Right(sFolder, 1) <> "\" Then sFolder = sFolder + "\"
+    If Right(sFolder, 1) <> SEP Then sFolder = sFolder + SEP
     
     KLIC = sFolder
     ADR = KLIC + "*.*"
@@ -790,23 +801,34 @@ Public Function UbicarseEnFolder(sFolder As String) As Long
 '    End If
     FtpSetCurrentDirectory SESSION, ADR
     
+    'ver si esta NUEVO FEB 2007!
+    'Dim t2 As String
+    't2 = GetFolderWEBName
+    'MsgBox t2 + " " + ADR
+        
     LOG "Ubicarse OK", 1
     UbicarseEnFolder = 0
     lblFULLPATH = KLIC
+'    Else
+'        UbicarseEnFolder = 2 'no es lo mismo!
+'        Exit Function
+'    End If
+    
 End Function
 
 Public Function GetFolderWEBName() As String
     LOG "Verfificando FOLDER...", 0.3
     'ver en que carpeta estoy
-    ADR = Space(260)
-    FtpGetCurrentDirectory SERVER, ADR, Len(ADR)
+    Dim TmpADR As String
+    TmpADR = Space(260)
+    FtpGetCurrentDirectory SERVER, TmpADR, Len(TmpADR)
 
-    ADR = Left(ADR, InStr(1, ADR, Chr(0)) - 1)
-    ADR = ADR & IIf((Right(ADR, 1) = "\"), "*.*", "\*.*")
+    TmpADR = Left(TmpADR, InStr(1, TmpADR, Chr(0)) - 1)
+    TmpADR = TmpADR & IIf((Right(TmpADR, 1) = SEP), "*.*", SEP + "*.*")
 
     'ver si esta ok
-    GetFolderWEBName = ADR
-    LOG "Verfificando OK= " + ADR, 0.3
+    GetFolderWEBName = TmpADR
+    LOG "Verfificando OK= " + TmpADR, 0.3
 End Function
 
 Private Sub UserControl_Resize()

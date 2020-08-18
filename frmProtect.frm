@@ -164,11 +164,13 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
     If KeyCode = TeclaNewFicha Then
         LTE 1
         VarCreditos CSng(TemasPorCredito)
+    
     End If
     tERR.Anotar "acon", KeyCode
     If KeyCode = TeclaNewFicha2 Then
         LTE 2
         VarCreditos CSng(CreditosBilletes)
+        
     End If
     tERR.Anotar "acon"
     Exit Sub

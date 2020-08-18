@@ -148,23 +148,6 @@ Public TeclaBajaVolumen As Integer
 Public TeclaSubeVolumen As Integer
 Public TeclaNextMusic As Integer
 
-Public TeclaDERx2 As Integer 'integer es keycode en eventos del teclado
-Public TeclaIZQx2 As Integer
-Public TeclaPagAdx2 As Integer
-Public TeclaPagAtx2 As Integer
-Public TeclaOKx2 As Integer
-Public TeclaESCx2 As Integer
-Public TeclaNewFichax2 As Integer
-Public TeclaNewFicha2x2 As Integer
-Public TeclaConfigx2 As Integer 'tecla para entrar a la pantalla de configuracion
-Public TeclaCerrarSistemax2 As Integer
-'agregadas en la ver 6.5
-Public TeclaShowContadorx2 As Integer
-Public TeclaPutCeroContadorx2 As Integer
-Public TeclaFFx2 As Integer
-Public TeclaBajaVolumenx2 As Integer
-Public TeclaSubeVolumenx2 As Integer
-Public TeclaNextMusicx2 As Integer
 
 Public MaximoFichas As Integer
 Public ApagarAlCierre As Boolean
@@ -310,8 +293,11 @@ Public Sub Main()
     
     ReDim Preserve MATRIZ_DISCOS(0)
     
+    'al abrir el clsKeys se genera el archivo de datos de la PC
+    'SE GRABA COMO ap/SF/CD4.PM
     Set K = New clsKEYS
-    K.ClaveDLL = "ashjdklahsJKLHASL65456456456"
+    'en el mismo inicializate tambien se trata de cargar una licencia si hubiera.
+    
     
     frmREG.Show 1
     
@@ -797,6 +783,7 @@ Public Sub AjustarFRM(FRM As Form, HechoParaTwipsHoriz)
     For Each ctr In FRM.Controls
         'algunos controles no tienen algunas propiedades
         On Local Error Resume Next
+        tAs = ctr.Name
         ctr.Height = ctr.Height * Multiplicador
         ctr.Width = ctr.Width * Multiplicador
         ctr.Top = ctr.Top * Multiplicador
@@ -939,7 +926,6 @@ Public Function QuitarNumeroDeTema(TemaFull As String) As String
     If NumersoAlInicio > 0 Then
         TMPtema = Trim(Right(TemaFull, Len(TemaFull) - 3))
         'ver si quedo con esto
-        Dim A As Long
         For A = 1 To 4
             If Mid(TMPtema, A, 1) = "-" _
                 Or Mid(TMPtema, A, 1) = "_" _
@@ -1084,7 +1070,6 @@ Public Function FindIndexOfLst(SplitSpace1 As String, CMB As ComboBox) As Long
     End If
     Dim Largo As Long
     Largo = Len(SplitSpace1)
-    Dim A As Long
     For A = 0 To CMB.ListCount - 1
         If Left(CMB.List(A), Largo) = SplitSpace1 Then
             FindIndexOfLst = A
@@ -1099,7 +1084,7 @@ Public Sub SumarMatriz(MatrizAcumuladora() As String, MatrizAgregada() As String
 
     Dim YaEmpezo As Boolean
     YaEmpezo = False
-    Dim J As Long, A As Long
+    Dim J As Long
     For A = 1 To UBound(MatrizAgregada)
         'si es la primera suma me quedaria el indice cero al pedo!!!
         If UBound(MatrizAcumuladora) = 0 And YaEmpezo = False Then
@@ -1229,9 +1214,7 @@ Private Sub EsperarFinTE(i As Long)  'esperar tecla especial hasta terminar
     Do
         DoEvents: DoEvents
         If (Timer - TimeLastCoin(i)) > (TimeMaxSeparacion(i) / 1000) Then Exit Do
-        'MOCAAAAASO cuando pasa la media noche timer es menor que TimeLastCoin(i)
-        'por lo tanto se queda esperando !!!!
-        If Timer <= TimeLastCoin(i) Then Exit Do '!!!!
+        If Timer <= TimeLastCoin(i) Then Exit Do 'NUNCA DESPUES DE LA MEDIANOCHE !!!
     Loop
     
     TerminoLTE i
@@ -1477,3 +1460,98 @@ Public Sub YaCerrar3PM()
 
 
 End Sub
+
+
+'roberto cpaz   RCP888
+'diego antonio sanchez corr DASC717771090
+'Edgar Giovanni Valdez Hernandez GUAT HGVHG34771000
+'rio ceballos rioceballos88
+'Clifton Forde PANAMA CFP7118820192
+'Melina Gieco StaFe MGSF711905621
+'Caludia Sala BsAs MRCSR81172660
+'Andres Giamello AGBA718829540/AG31
+'Alejandro Maltez NICARAGUA AMN5102991732
+'Abraham Grenberg Valle Verde SA GUAT AGVVSA8177109
+'humberto segundo cruces CHI HSCC719288012
+'juan miguel RepDominic JMRD611885094
+'Pablo Duvos UY PDUY210098881
+'FRANCISCO JAVIER GONZALEZ LAZCANO CHILE FJGLC71625551
+'Oscar Figeuroa Martinez Salvador OEFMES810001
+'Hector Amigo BsAs HABSAS8281901
+'Jesus Alexander SALV JAS7166290011
+'william Obando y Francisco Vielman Flores GUAT WOFVFGU918812
+'Damian Ostuni BsAs DOBA811726300
+'carlos salas JJY CSJJYAR719922
+'daniel omar herrera robles chile DOHRCH6199201
+'paulo garcia CHILE PGC5220119851
+'Jorge Horta CHILE JOCH102881276
+'Alejandro Carmona Oliveros Chile ACOCH3217729
+'edison ariel caceres chile EACCH81032772
+'Daniel Martinez Chicago DMCE183745510
+'Wilmer Fidel Marquez Silva WFMSPR2981109
+'julio papetti TUCUMAN JPT1077594731
+'jorge albin JACP719283001 jorge albin FEDERICODANIEL
+'jorge albin RCP888
+'Dardo maidana DARDOMAIDANA
+'german peier BsAs GPBSAS7812003
+'luis iglesias BsAs LIBA6152896R
+'eduardo alberti UY EAJCM2987889h
+'juan francisco gonzalez COL JFG729432119q
+'Mauricio Levuy Sergio Davo MEX MLSD61846362e
+'Jesus Andrès Mata Jimenez MEX JAMG67298187r
+'Thomas Hernadez MEX THH635478111g
+'rolando torres honduras RTMH523142567z
+'david gonzalez MEX DGM652253435y
+'Jose Juan Martinez Arguello JIMM MEX JJMA81948572y
+'Giovanne Barrios MEX GB6156901836y
+'tommy corrientes TC194736251438y
+'Luis Enrique Ruiz Chaparro MEX LERC8711101yy
+'onofre inda OI71909081125y
+'efrain solarte COL EFS50091hgyurr
+'henry soto ECU HS611ecu119yh
+'Alex Herrera COL AHQ54COL52hyy
+'VICTOR HUGO DE LA ROSA (de JMFC) vhdlr5001787y"
+'Tomas Nuñez Gonzalez    sncMEX098181y
+'Mig    uel Angel Santos Hernandez MEX MASH81090011y
+'JUAN MARTIN FLORES CRUZ MEX JMFCm6511yyyq
+'Mauro Villaroel     MV541CHQ9090Y
+'Chirstian Beltra    cb9811191ujY
+'Miguel Angel Cozzi  grAS981aATTy6
+'Marcos Sepulveda    bsaHH0981AWqQ
+'Rigoberto Matamoros - Oscar Otero Cartagena (El Salvador)   fRF4247L000wZ
+'Jose Luis Dorado    33Ccq0151AxqF
+'Ramon Daniel Cruz   RMLVF00012yqq
+'Miguel Angel Cozzi  grAS981aATTy6
+'Ivan Vera   LOpaFE1701666
+'Carlos Alberto Montaña Alvarado Caa9107g8s811
+'Gabriel Pablo de Rosa   AFD076qwnn100
+'Santiago Vignolo    LIQ3661SV0909
+'Humberto Breton BR7ME2jGtt981
+'Juan Carlos Monsegu MONS7111yHu66
+'Jorge Andres Gonzales Torres    JAGT61098Saa6
+'Hugo Kollman    KOLL717109888
+'Eduardo Rodriguez   ERO77701192FF / MARC777
+'Victor Rocha    VR541SLP11MEX
+'Roberto Hurtado RHUR28177MEXy
+'Alberto Devit   AlDe1098MXca5
+'German Becley   GerBKL00198AA
+'Abelardo Garcia Morales ABG011boCO1ky
+'Judith Rodriguez    ROD0906mx143u
+'Guillermo Milian    gMIL991Mex199
+'Jesus Andres Mata Jimenez MG611mex0909a
+'Juan Serano JaS0106uuw103
+'Sergio Sosa Mendoza SeSo711922yh6
+' Leandro Visciarelli CBA7111levi09
+'Eduardo Rodriguez Uruguay ERO77701192FF
+'Favio Martinez Gomez COL fa61MG52COL91
+'Oscar Armenta Soberanis OAS81090Mx880
+'(RIGMAT)Francisco Somoza  FrHN0102099yi
+'Ernesto isidro vazquez MEX eiv767611iJAA
+'Cesar Gordillo GERSA de CV MEX cg5510978AByR
+'Rene escrich SALV REES91210909u
+'Allan orante Martinez MEX AOM519090hnYa
+'guille2p españa G2Pk9111900ES
+' Miguel Angel Santos hernandez dice que le di yo??? ms6511comp9ME
+'ES EL MISMO DE MSCOMPU GARKA!!!!!!!!!!!!!!!!
+'enrique israel mora suarez EIMS611609yyw
+'desiderio meneseres BOL Des911BOL1011
