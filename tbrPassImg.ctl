@@ -34,7 +34,6 @@ Begin VB.UserControl tbrPassImg
    Begin VB.Image IMG 
       Height          =   2250
       Left            =   120
-      Picture         =   "tbrPassImg.ctx":0000
       Stretch         =   -1  'True
       Top             =   90
       Width           =   2250

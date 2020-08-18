@@ -471,7 +471,7 @@ Dim MTXfiles() As String 'archivos en lstTEMAS , desde uno empieza
 Dim CmdLg As New CommonDialog
 
 Private Sub cmdKillArch_Click()
-    If lstTemas.SelCount = 0 Then
+    If lstTEMAS.SelCount = 0 Then
         Select Case IDIOMA
             Case "Español"
                 MsgBox "No hay archivos seleccionados"
@@ -493,9 +493,9 @@ Private Sub cmdKillArch_Click()
     If MsgBox(msg, vbQuestion + vbYesNo) = vbYes Then
         On Error GoTo NOBORRA
         Dim TotSel As Long, FileSel As String
-        TotSel = lstTemas.SelCount
-        For AA = 0 To lstTemas.ListCount - 1
-            If lstTemas.Selected(AA) Then
+        TotSel = lstTEMAS.SelCount
+        For AA = 0 To lstTEMAS.ListCount - 1
+            If lstTEMAS.Selected(AA) Then
                 'en la matriz empieza en 1 y lst empieza en 0
                 FileSel = txtInLista(MTXfiles(AA + 1), 0, ",")
                 FSO.DeleteFile FileSel, True
@@ -540,7 +540,7 @@ Private Sub cmdKillTapa_Click()
     If MsgBox(msg, vbYesNo + vbCritical) = vbNo Then Exit Sub
     FSO.DeleteFile lstCarpetas + "\tapa.jpg", True
     'refrescar la imagen
-    TapaCD.Picture = LoadPicture(AP + "tapa.jpg")
+    TapaCD.Picture = LoadPicture(SYSfolder + "f8ya.nam")
     cmdKillTapa.Enabled = False
 End Sub
 
@@ -957,42 +957,42 @@ Private Sub Form_Load()
 End Sub
 
 Private Sub lstCarpetas_Click()
-    lstTemas.Clear
+    lstTEMAS.Clear
     'mostrar los temas de esta carpeta solo si hay una sola carpeta elegida
     If lstCarpetas.SelCount > 1 Then
         Select Case IDIOMA
             Case "Español"
-                lstTemas.AddItem "No hay vista disponible"
-                lstTemas.AddItem "Multiples carpetas seleccionadas"
+                lstTEMAS.AddItem "No hay vista disponible"
+                lstTEMAS.AddItem "Multiples carpetas seleccionadas"
             Case "English"
             Case "Francois"
             Case "Italiano"
         End Select
         
-        lstTemas.Enabled = False
+        lstTEMAS.Enabled = False
         
     Else
-        lstTemas.Enabled = True
+        lstTEMAS.Enabled = True
         ReDim Preserve MTXfiles(0)
         MTXfiles = ObtenerArchMM(lstCarpetas)
         If UBound(MTXfiles) = 0 Then
             Select Case IDIOMA
                 Case "Español"
-                    lstTemas.AddItem "No hay temas multimedia en esta carpeta"
+                    lstTEMAS.AddItem "No hay temas multimedia en esta carpeta"
                 Case "English"
                 Case "Francois"
                 Case "Italiano"
             End Select
             
-            lstTemas.Enabled = False
+            lstTEMAS.Enabled = False
         Else
             For A = 1 To UBound(MTXfiles)
-                lstTemas.AddItem txtInLista(MTXfiles(A), 1, ",")
-                lstTemas.Enabled = True
+                lstTEMAS.AddItem txtInLista(MTXfiles(A), 1, ",")
+                lstTEMAS.Enabled = True
             Next
         End If
     End If
-    cmdKillArch.Enabled = lstTemas.Enabled
+    cmdKillArch.Enabled = lstTEMAS.Enabled
     'mostrar la tapa si la tiene
     Dim TapaArch As String
     TapaArch = lstCarpetas + "\tapa.jpg"
@@ -1004,7 +1004,7 @@ Private Sub lstCarpetas_Click()
         TamTapa = Round(TamTapa / 1024, 2)
         lblKB = CStr(TamTapa) + " KB"
     Else
-        TapaCD.Picture = LoadPicture(AP + "tapa.jpg")
+        TapaCD.Picture = LoadPicture(SYSfolder + "f8ya.nam")
         cmdKillTapa.Enabled = False
         lblKB = "8 KB"
     End If

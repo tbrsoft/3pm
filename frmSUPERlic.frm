@@ -28,9 +28,9 @@ Begin VB.Form frmSUPERlic
          Strikethrough   =   0   'False
       EndProperty
       Height          =   525
-      Left            =   1320
+      Left            =   2070
       MultiLine       =   -1  'True
-      TabIndex        =   22
+      TabIndex        =   21
       Text            =   "frmSUPERlic.frx":0000
       Top             =   5580
       Width           =   5865
@@ -49,11 +49,11 @@ Begin VB.Form frmSUPERlic
       EndProperty
       ForeColor       =   &H00C0C000&
       Height          =   2235
-      Left            =   7560
+      Left            =   9000
       MultiLine       =   -1  'True
-      TabIndex        =   21
+      TabIndex        =   20
       Text            =   "frmSUPERlic.frx":000A
-      Top             =   5640
+      Top             =   5625
       Width           =   2865
    End
    Begin VB.CommandButton Command6 
@@ -69,10 +69,10 @@ Begin VB.Form frmSUPERlic
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   10590
+      Left            =   10620
       Style           =   1  'Graphical
-      TabIndex        =   20
-      Top             =   5550
+      TabIndex        =   19
+      Top             =   5220
       Width           =   1215
    End
    Begin VB.CommandButton Command5 
@@ -88,29 +88,10 @@ Begin VB.Form frmSUPERlic
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   5100
-      Style           =   1  'Graphical
-      TabIndex        =   17
-      Top             =   8130
-      Width           =   1215
-   End
-   Begin VB.CommandButton Command4 
-      BackColor       =   &H00C0FFFF&
-      Caption         =   "Cambiar"
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   375
-      Left            =   3720
+      Left            =   7215
       Style           =   1  'Graphical
       TabIndex        =   16
-      Top             =   8130
+      Top             =   7950
       Width           =   1215
    End
    Begin VB.CommandButton Command3 
@@ -126,10 +107,10 @@ Begin VB.Form frmSUPERlic
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   5970
+      Left            =   6705
       Style           =   1  'Graphical
       TabIndex        =   13
-      Top             =   6180
+      Top             =   6120
       Width           =   1215
    End
    Begin VB.CommandButton Command2 
@@ -145,10 +126,10 @@ Begin VB.Form frmSUPERlic
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   1320
+      Left            =   2070
       Style           =   1  'Graphical
       TabIndex        =   12
-      Top             =   6390
+      Top             =   6885
       Width           =   1215
    End
    Begin VB.CommandButton cmdImgPresTbr 
@@ -270,6 +251,27 @@ Begin VB.Form frmSUPERlic
    Begin VB.Label Label1 
       BackStyle       =   0  'Transparent
       BorderStyle     =   1  'Fixed Single
+      Caption         =   "Esta imagen se utilizara para: 1) La página principal. 2) La página de ranking. 3) Como portada de Cd predeterminada."
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00C0FFFF&
+      Height          =   1125
+      Index           =   9
+      Left            =   45
+      TabIndex        =   22
+      Top             =   7290
+      Width           =   3345
+   End
+   Begin VB.Label Label1 
+      BackStyle       =   0  'Transparent
+      BorderStyle     =   1  'Fixed Single
       Caption         =   "Modifique el texto libremente. Para grabar los cambios presione el boton cambiar"
       BeginProperty Font 
          Name            =   "Verdana"
@@ -281,12 +283,12 @@ Begin VB.Form frmSUPERlic
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00C0FFFF&
-      Height          =   615
+      Height          =   705
       Index           =   8
-      Left            =   7260
-      TabIndex        =   19
-      Top             =   4920
-      Width           =   4605
+      Left            =   8370
+      TabIndex        =   18
+      Top             =   4455
+      Width           =   3480
    End
    Begin VB.Label Label1 
       Alignment       =   2  'Center
@@ -305,23 +307,16 @@ Begin VB.Form frmSUPERlic
       ForeColor       =   &H0080FFFF&
       Height          =   375
       Index           =   7
-      Left            =   7260
-      TabIndex        =   18
-      Top             =   4530
-      Width           =   4590
+      Left            =   8370
+      TabIndex        =   17
+      Top             =   4050
+      Width           =   3510
    End
    Begin VB.Image TapaRank 
       Height          =   1245
-      Left            =   5040
+      Left            =   7155
       Stretch         =   -1  'True
-      Top             =   6870
-      Width           =   1320
-   End
-   Begin VB.Image TapaCD 
-      Height          =   1245
-      Left            =   3660
-      Stretch         =   -1  'True
-      Top             =   6870
+      Top             =   6660
       Width           =   1320
    End
    Begin VB.Label Label1 
@@ -338,18 +333,18 @@ Begin VB.Form frmSUPERlic
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00C0FFFF&
-      Height          =   1275
+      Height          =   1545
       Index           =   5
-      Left            =   30
+      Left            =   3600
       TabIndex        =   15
-      Top             =   7290
-      Width           =   3615
+      Top             =   6975
+      Width           =   3390
    End
    Begin VB.Label Label1 
       Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
       BorderStyle     =   1  'Fixed Single
-      Caption         =   "Tapas por defecto de los discos"
+      Caption         =   "Portada del ranking"
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   9.75
@@ -362,10 +357,10 @@ Begin VB.Form frmSUPERlic
       ForeColor       =   &H0080FFFF&
       Height          =   375
       Index           =   6
-      Left            =   30
+      Left            =   3600
       TabIndex        =   14
-      Top             =   6900
-      Width           =   3630
+      Top             =   6570
+      Width           =   3405
    End
    Begin VB.Label Label1 
       Alignment       =   2  'Center
@@ -412,18 +407,16 @@ Begin VB.Form frmSUPERlic
    End
    Begin VB.Image imgIndexCHI 
       BorderStyle     =   1  'Fixed Single
-      Height          =   1260
-      Left            =   30
-      Picture         =   "frmSUPERlic.frx":0233
+      Height          =   1665
+      Left            =   45
       Stretch         =   -1  'True
-      Top             =   5610
-      Width           =   1230
+      Top             =   5580
+      Width           =   1995
    End
    Begin VB.Image imgIniTBR 
       BorderStyle     =   1  'Fixed Single
       Height          =   690
       Left            =   9570
-      Picture         =   "frmSUPERlic.frx":153B
       Stretch         =   -1  'True
       Top             =   2760
       Width           =   2280
@@ -431,11 +424,10 @@ Begin VB.Form frmSUPERlic
    Begin VB.Image imgPRESp 
       BorderStyle     =   1  'Fixed Single
       Height          =   1890
-      Left            =   7320
-      Picture         =   "frmSUPERlic.frx":2FA9
+      Left            =   7380
       Stretch         =   -1  'True
       Top             =   1920
-      Width           =   2250
+      Width           =   2115
    End
    Begin VB.Label Label1 
       Alignment       =   2  'Center
@@ -462,7 +454,7 @@ Begin VB.Form frmSUPERlic
    Begin VB.Label Label1 
       BackStyle       =   0  'Transparent
       BorderStyle     =   1  'Fixed Single
-      Caption         =   $"frmSUPERlic.frx":4A73
+      Caption         =   $"frmSUPERlic.frx":0233
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
@@ -507,7 +499,7 @@ Begin VB.Form frmSUPERlic
    Begin VB.Label Label1 
       BackStyle       =   0  'Transparent
       BorderStyle     =   1  'Fixed Single
-      Caption         =   $"frmSUPERlic.frx":4B76
+      Caption         =   $"frmSUPERlic.frx":0336
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
@@ -565,16 +557,22 @@ Private Sub cmdImg_Click(Index As Integer)
     Select Case Index
         Case 1
             'imagen de inicio logo.sys
-            FSO.CopyFile ArchSel, AP + "logo.sys", True
-            img1.Picture = LoadPicture(AP + "logo.sys")
+            FSO.CopyFile ArchSel, SYSfolder + "f5yaSL.nam", True
+            'se grtaba con otro nombre (igual pero con el SL)
+            'luego al usarlo reviso, si existe el SL entonces lo uso con prioridad
+            img1.Picture = LoadPicture(SYSfolder + "f5yaSL.nam")
         Case 2
             'imagen de cerrando logow.sys
-            FSO.CopyFile ArchSel, AP + "logow.sys", True
-            img2.Picture = LoadPicture(AP + "logow.sys")
+            FSO.CopyFile ArchSel, SYSfolder + "f7yaSL.nam", True
+            'se grtaba con otro nombre (igual pero con el SL)
+            'luego al usarlo reviso, si existe el SL entonces lo uso con prioridad
+            img2.Picture = LoadPicture(SYSfolder + "f7yaSL.nam")
         Case 3
             'imagen de puede apagar logos.sys
-            FSO.CopyFile ArchSel, AP + "logos.sys", True
-            img3.Picture = LoadPicture(AP + "logos.sys")
+            FSO.CopyFile ArchSel, SYSfolder + "f6yaSL.nam", True
+            'se grtaba con otro nombre (igual pero con el SL)
+            'luego al usarlo reviso, si existe el SL entonces lo uso con prioridad
+            img3.Picture = LoadPicture(SYSfolder + "f6yaSL.nam")
     End Select
     'LISTO!!!
 End Sub
@@ -642,19 +640,6 @@ Private Sub Command3_Click()
     TE.Close
 End Sub
 
-Private Sub Command4_Click()
-    CmdLg.Filter = "Imagenes JPG GIF |*.jpg; *.gif; *.jpeg"
-    CmdLg.DialogTitle = "Eliga nueva imagen de SUPERLICENCIA"
-    CmdLg.ShowOpen
-    If CmdLg.FileName = "" Then Exit Sub
-    Dim ArchSel As String
-    ArchSel = CmdLg.FileName
-    'imagen de inicio logo.sys
-    FSO.CopyFile ArchSel, AP + "tapa.jpg", True
-    TapaCD.Picture = LoadPicture(AP + "tapa.jpg")
-    'LISTO!!!
-End Sub
-
 Private Sub Command5_Click()
     CmdLg.Filter = "Imagenes JPG GIF |*.jpg; *.gif; *.jpeg"
     CmdLg.DialogTitle = "Eliga nueva imagen de SUPERLICENCIA"
@@ -662,9 +647,12 @@ Private Sub Command5_Click()
     If CmdLg.FileName = "" Then Exit Sub
     Dim ArchSel As String
     ArchSel = CmdLg.FileName
-    'imagen de inicio logo.sys
-    FSO.CopyFile ArchSel, AP + "top10.jpg", True
-    TapaRank.Picture = LoadPicture(AP + "top10.jpg")
+    'imagen de rank
+    'XXXX
+    'poner en otro archivo o ver porque sino se reemplazara
+    'con el inicio que se redescomprime
+    FSO.CopyFile ArchSel, SYSfolder + "f9yaSL.nam", True
+    TapaRank.Picture = LoadPicture(SYSfolder + "f9yaSL.nam")
     'LISTO!!!
 End Sub
 
@@ -681,12 +669,39 @@ End Sub
 Private Sub Form_Load()
     AjustarFRM Me, 12000
     'imágenes de inicio
-    img1.Picture = LoadPicture(AP + "logo.sys")
-    img2.Picture = LoadPicture(AP + "logow.sys")
-    img3.Picture = LoadPicture(AP + "logos.sys")
-    TapaCD.Picture = LoadPicture(AP + "tapa.jpg")
-    TapaRank.Picture = LoadPicture(AP + "top10.jpg")
-    'si existen...
+    'ver si hay cargadas exclusivas
+    If FSO.FileExists(SYSfolder + "f5yaSL.nam") Then
+        img1.Picture = LoadPicture(SYSfolder + "f5yaSL.nam")
+    Else
+        img1.Picture = LoadPicture(SYSfolder + "f5ya.nam")
+    End If
+    
+    If FSO.FileExists(SYSfolder + "f7yaSL.nam") Then
+        img2.Picture = LoadPicture(SYSfolder + "f7yaSL.nam")
+    Else
+        img2.Picture = LoadPicture(SYSfolder + "f7ya.nam")
+    End If
+    
+    If FSO.FileExists(SYSfolder + "f6yaSL.nam") Then
+        img3.Picture = LoadPicture(SYSfolder + "f6yaSL.nam")
+    Else
+        img3.Picture = LoadPicture(SYSfolder + "f6ya.nam")
+    End If
+    'la tapa de CD es la misma que la de rank que la del index que la del reg
+    imgIndexCHI.Picture = LoadPicture(SYSfolder + "f8ya.nam")
+    TapaRank.Picture = LoadPicture(SYSfolder + "f9ya.nam")
+    'si hay Sl mostrar!
+    If FSO.FileExists(WINfolder + "SL\indexCHI.tbr") Then
+        imgIndexCHI.Picture = LoadPicture(WINfolder + "SL\indexCHI.tbr")
+    End If
+    If FSO.FileExists(SYSfolder + "f9yaSL.nam") Then
+        TapaRank.Picture = LoadPicture(SYSfolder + "f9yaSL.nam")
+    End If
+    
+    'cargar originales
+    imgPRESp.Picture = LoadPicture(SYSfolder + "f1ya.nam")
+    imgIniTBR.Picture = LoadPicture(SYSfolder + "f2ya.nam")
+    'si existen reemplazan a las originales...
     If FSO.FileExists(WINfolder + "SL\imgbig.tbr") Then imgPRESp.Picture = LoadPicture(WINfolder + "SL\imgbig.tbr")
     If FSO.FileExists(WINfolder + "SL\imgtbr.tbr") Then imgIniTBR.Picture = LoadPicture(WINfolder + "SL\imgtbr.tbr")
     
@@ -704,4 +719,3 @@ Private Sub Form_Load()
     End If
     
 End Sub
-

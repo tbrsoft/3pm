@@ -11,7 +11,6 @@ Begin VB.Form frmIndex
    Icon            =   "frmINDEX.frx":0000
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
-   LockControls    =   -1  'True
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   9000
@@ -26,13 +25,13 @@ Begin VB.Form frmIndex
       ScaleHeight     =   255
       ScaleWidth      =   4380
       TabIndex        =   36
-      Top             =   4185
+      Top             =   4590
       Visible         =   0   'False
       Width           =   4440
    End
    Begin tbr3pm.VUMeter2 VU21 
       Height          =   1275
-      Left            =   45
+      Left            =   30
       TabIndex        =   37
       Top             =   5355
       Width           =   11940
@@ -51,7 +50,6 @@ Begin VB.Form frmIndex
          BorderStyle     =   1  'Fixed Single
          Height          =   840
          Left            =   5940
-         Picture         =   "frmINDEX.frx":0442
          Stretch         =   -1  'True
          Top             =   45
          Width           =   1125
@@ -60,7 +58,6 @@ Begin VB.Form frmIndex
          BorderStyle     =   1  'Fixed Single
          Height          =   840
          Left            =   7110
-         Picture         =   "frmINDEX.frx":31F1
          Stretch         =   -1  'True
          Top             =   45
          Width           =   1170
@@ -175,11 +172,11 @@ Begin VB.Form frmIndex
    Begin VB.Frame frDISCOS 
       BackColor       =   &H00000000&
       BorderStyle     =   0  'None
-      Height          =   4035
+      Height          =   3990
       Left            =   3510
       TabIndex        =   11
       Top             =   90
-      Width           =   4440
+      Width           =   4485
       Begin VB.Timer Timer1 
          Left            =   180
          Top             =   2610
@@ -204,7 +201,6 @@ Begin VB.Form frmIndex
          BackColor       =   &H00004080&
          Height          =   3735
          Left            =   45
-         Picture         =   "frmINDEX.frx":4016
          ScaleHeight     =   3675
          ScaleWidth      =   4245
          TabIndex        =   0
@@ -266,7 +262,6 @@ Begin VB.Form frmIndex
       AutoSize        =   -1  'True
       Height          =   4620
       Left            =   0
-      Picture         =   "frmINDEX.frx":8B09
       ScaleHeight     =   4560
       ScaleWidth      =   15360
       TabIndex        =   13
@@ -323,10 +318,10 @@ Begin VB.Form frmIndex
          Width           =   2200
          Begin VB.CommandButton cmdPagAd 
             BackColor       =   &H00C0C0C0&
-            DownPicture     =   "frmINDEX.frx":B035
+            DownPicture     =   "frmINDEX.frx":0442
             Height          =   710
             Left            =   1140
-            Picture         =   "frmINDEX.frx":BFF6
+            Picture         =   "frmINDEX.frx":1403
             Style           =   1  'Graphical
             TabIndex        =   19
             TabStop         =   0   'False
@@ -335,10 +330,10 @@ Begin VB.Form frmIndex
          End
          Begin VB.CommandButton cmdDiscoAd 
             BackColor       =   &H00C0C0C0&
-            DownPicture     =   "frmINDEX.frx":CA03
+            DownPicture     =   "frmINDEX.frx":1E10
             Height          =   710
             Left            =   1110
-            Picture         =   "frmINDEX.frx":D700
+            Picture         =   "frmINDEX.frx":2B0D
             Style           =   1  'Graphical
             TabIndex        =   18
             TabStop         =   0   'False
@@ -347,10 +342,10 @@ Begin VB.Form frmIndex
          End
          Begin VB.CommandButton cmdDiscoAt 
             BackColor       =   &H00C0C0C0&
-            DownPicture     =   "frmINDEX.frx":DFD8
+            DownPicture     =   "frmINDEX.frx":33E5
             Height          =   710
             Left            =   90
-            Picture         =   "frmINDEX.frx":ED4A
+            Picture         =   "frmINDEX.frx":4157
             Style           =   1  'Graphical
             TabIndex        =   17
             TabStop         =   0   'False
@@ -359,10 +354,10 @@ Begin VB.Form frmIndex
          End
          Begin VB.CommandButton cmdPagAt 
             BackColor       =   &H00C0C0C0&
-            DownPicture     =   "frmINDEX.frx":F68D
+            DownPicture     =   "frmINDEX.frx":4A9A
             Height          =   710
             Left            =   90
-            Picture         =   "frmINDEX.frx":106EC
+            Picture         =   "frmINDEX.frx":5AF9
             Style           =   1  'Graphical
             TabIndex        =   16
             TabStop         =   0   'False
@@ -1612,6 +1607,16 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub Form_Load()
+    
+    'imagenes no cargadas
+    picFondoDisco.Picture = LoadPicture(SYSfolder + "f3ya.nam")
+    picFondo.Picture = LoadPicture(SYSfolder + "f4ya.nam")
+    tbrPassImg1.Picture SYSfolder + "f8ya.nam"
+    TapaEjecutando.Picture = LoadPicture(SYSfolder + "f8ya.nam")
+    'la imagen chiquita del exclusivo es la misma!!
+    Image1.Picture = LoadPicture(SYSfolder + "f8ya.nam")
+    VU21.Picture SYSfolder + "f4ya.nam"
+    
     If Is3pmExclusivo Then
         'poner el picfondo.top a la altura del VU21 ya que todo esta basado en ese top!!!
         VU21.Top = Me.Height - VU21.Height
@@ -1636,6 +1641,8 @@ Private Sub Form_Load()
         LineaError = "000-0203"
         If FSO.FileExists(WINfolder + "SL\indexchi.tbr") Then
             tbrPassImg1.Picture WINfolder + "SL\indexchi.tbr"
+            'la imagen chiquita del exclusivo es la misma!!
+            Image1.Picture = LoadPicture(WINfolder + "SL\indexchi.tbr")
         End If
     End If
     '--------
@@ -1807,84 +1814,84 @@ Private Sub Form_Load()
     CantDiscos = TapasMostradasH * TapasMostradasV
     'cargar la cantidad de tapas correspondientes
     LineaError = "000-0274"
-    c = 0
+    C = 0
     LineaError = "000-0275"
-    Do While c < CantDiscos - 1 'si la primera hoja incompleta se carga completa!!
+    Do While C < CantDiscos - 1 'si la primera hoja incompleta se carga completa!!
         LineaError = "000-0276"
-        c = c + 1
+        C = C + 1
         LineaError = "000-0277"
-        Load TapaCD(c)
+        Load TapaCD(C)
         LineaError = "000-0278"
-        Load lblDisco(c)
+        Load lblDisco(C)
         'ya toman el tamaño del original
         LineaError = "000-0279"
-        If c / TapasMostradasH = c \ TapasMostradasH Then
+        If C / TapasMostradasH = C \ TapasMostradasH Then
             'es una tapa al principio de linea
             LineaError = "000-0280"
             If RotulosArriba Then
                 LineaError = "000-0281"
-                lblDisco(c).Left = IniCentrarH
+                lblDisco(C).Left = IniCentrarH
                 LineaError = "000-0282"
-                lblDisco(c).Top = TapaCD(c - TapasMostradasH).Top + TapaCD(c - TapasMostradasH).Height + EspacioEntreDiscosV
+                lblDisco(C).Top = TapaCD(C - TapasMostradasH).Top + TapaCD(C - TapasMostradasH).Height + EspacioEntreDiscosV
                 LineaError = "000-0283"
-                TapaCD(c).Left = IniCentrarH
+                TapaCD(C).Left = IniCentrarH
                 If MostrarRotulos Then
                     LineaError = "000-0284"
-                    TapaCD(c).Top = lblDisco(c).Top + lblDisco(c).Height + 50
+                    TapaCD(C).Top = lblDisco(C).Top + lblDisco(C).Height + 50
                 Else
                     LineaError = "000-0285"
-                    TapaCD(c).Top = TapaCD(c - TapasMostradasH).Top + TapaCD(c - TapasMostradasH).Height + 50
+                    TapaCD(C).Top = TapaCD(C - TapasMostradasH).Top + TapaCD(C - TapasMostradasH).Height + 50
                 End If
                 LineaError = "000-0286"
-                TapaCD(c).Visible = True
+                TapaCD(C).Visible = True
                 LineaError = "000-0287"
-                If MostrarRotulos Then lblDisco(c).Visible = True
+                If MostrarRotulos Then lblDisco(C).Visible = True
             Else
                 LineaError = "000-0288"
-                TapaCD(c).Left = IniCentrarH
+                TapaCD(C).Left = IniCentrarH
                 If MostrarRotulos Then
                     LineaError = "000-0289"
-                    TapaCD(c).Top = lblDisco(c - TapasMostradasH).Top + lblDisco(c - TapasMostradasH).Height + EspacioEntreDiscosV
+                    TapaCD(C).Top = lblDisco(C - TapasMostradasH).Top + lblDisco(C - TapasMostradasH).Height + EspacioEntreDiscosV
                 Else
                     LineaError = "000-0290"
-                    TapaCD(c).Top = TapaCD(c - TapasMostradasH).Top + TapaCD(c - TapasMostradasH).Height + EspacioEntreDiscosV
+                    TapaCD(C).Top = TapaCD(C - TapasMostradasH).Top + TapaCD(C - TapasMostradasH).Height + EspacioEntreDiscosV
                 End If
                 LineaError = "000-0291"
-                lblDisco(c).Left = IniCentrarH
+                lblDisco(C).Left = IniCentrarH
                 LineaError = "000-0292"
-                lblDisco(c).Top = TapaCD(c).Top + TapaCD(c).Height + 50
+                lblDisco(C).Top = TapaCD(C).Top + TapaCD(C).Height + 50
                 LineaError = "000-0293"
-                TapaCD(c).Visible = True
+                TapaCD(C).Visible = True
                 LineaError = "000-0294"
-                If MostrarRotulos Then lblDisco(c).Visible = True
+                If MostrarRotulos Then lblDisco(C).Visible = True
             End If
         Else
             'una tapa comun que se acomoda a la derecha de la anterior
             If RotulosArriba Then
                 LineaError = "000-0295"
-                lblDisco(c).Left = lblDisco(c - 1).Left + AnchoTapaDisco + EspacioEntreDiscosH
+                lblDisco(C).Left = lblDisco(C - 1).Left + AnchoTapaDisco + EspacioEntreDiscosH
                 LineaError = "000-0296"
-                lblDisco(c).Top = lblDisco(c - 1).Top
+                lblDisco(C).Top = lblDisco(C - 1).Top
                 LineaError = "000-0297"
-                TapaCD(c).Left = lblDisco(c).Left
+                TapaCD(C).Left = lblDisco(C).Left
                 LineaError = "000-0298"
-                TapaCD(c).Top = TapaCD(c - 1).Top
+                TapaCD(C).Top = TapaCD(C - 1).Top
                 LineaError = "000-0299"
-                TapaCD(c).Visible = True
+                TapaCD(C).Visible = True
             Else
                 LineaError = "000-0300"
-                TapaCD(c).Left = TapaCD(c - 1).Left + AnchoTapaDisco + EspacioEntreDiscosH
+                TapaCD(C).Left = TapaCD(C - 1).Left + AnchoTapaDisco + EspacioEntreDiscosH
                 LineaError = "000-0301"
-                TapaCD(c).Top = TapaCD(c - 1).Top
+                TapaCD(C).Top = TapaCD(C - 1).Top
                 LineaError = "000-0302"
-                lblDisco(c).Left = TapaCD(c).Left
+                lblDisco(C).Left = TapaCD(C).Left
                 LineaError = "000-0303"
-                lblDisco(c).Top = lblDisco(c - 1).Top
+                lblDisco(C).Top = lblDisco(C - 1).Top
                 LineaError = "000-0304"
-                TapaCD(c).Visible = True
+                TapaCD(C).Visible = True
             End If
             LineaError = "000-0305"
-            If MostrarRotulos Then lblDisco(c).Visible = True
+            If MostrarRotulos Then lblDisco(C).Visible = True
         End If
         
     Loop
@@ -2183,40 +2190,40 @@ Public Function CargarDiscos(numDiscoIniciar As Long, SelPrimero As Boolean, DeQ
     
     'no hacer esto al pedo si ya estan cargadas
     Dim NDI As Long '=numdiscoiniciar de la pagina
-    Dim c As Integer
-    c = 1
+    Dim C As Integer
+    C = 1
     LineaError = "000-0389"
     NDI = numDiscoIniciar
     LineaError = "000-0390"
     If CargarIMGinicio Then
         If SelPrimero Then
             'si voy para adelante ocultar los que ya pase
-            c = 1
+            C = 1
             LineaError = "000-0391"
-            Do While c <= (TapasMostradasH * TapasMostradasV)
+            Do While C <= (TapasMostradasH * TapasMostradasV)
                 LineaError = "000-0392"
                 'si no es la primera hoja!!
                 If NDI >= (TapasMostradasH * TapasMostradasV) Then
                     LineaError = "000-0393"
-                    TapaCD(NDI - c).Visible = False
+                    TapaCD(NDI - C).Visible = False
                     'no se cargan lbldisco, usan solo del 0 al 5
                     LineaError = "000-0394"
-                    lblDisco(c - 1).Visible = False
+                    lblDisco(C - 1).Visible = False
                 End If
-                c = c + 1
+                C = C + 1
             Loop
             LineaError = "000-0395"
             Me.Refresh
         Else
             'sino ocultar los de adelante
-            c = 1
+            C = 1
             LineaError = "000-0396"
-            Do While c <= (TapasMostradasH * TapasMostradasV)
+            Do While C <= (TapasMostradasH * TapasMostradasV)
                 LineaError = "000-0397"
-                If NDI + ((TapasMostradasH * TapasMostradasV) - 1) + c < UBound(MATRIZ_DISCOS) Then TapaCD(NDI + ((TapasMostradasH * TapasMostradasV) - 1) + c).Visible = False
+                If NDI + ((TapasMostradasH * TapasMostradasV) - 1) + C < UBound(MATRIZ_DISCOS) Then TapaCD(NDI + ((TapasMostradasH * TapasMostradasV) - 1) + C).Visible = False
                 LineaError = "000-0398"
-                lblDisco(c - 1).Visible = False
-                c = c + 1
+                lblDisco(C - 1).Visible = False
+                C = C + 1
             Loop
             'Me.Refresh
         End If
@@ -2262,7 +2269,7 @@ Public Function CargarDiscos(numDiscoIniciar As Long, SelPrimero As Boolean, DeQ
                     TapaCD(NDR).Picture = LoadPicture(ArchTapa)
                 Else
                     LineaError = "000-0414"
-                    TapaCD(NDR).Picture = LoadPicture(AP + "tapa.jpg")
+                    TapaCD(NDR).Picture = LoadPicture(SYSfolder + "f8ya.nam")
                 End If
                 LineaError = "000-0415"
                 TapaCD(NDR).Visible = True
@@ -2375,7 +2382,7 @@ Private Sub MP3_BeginPlay()
     If FSO.FileExists(Tapa) Then
         TapaEjecutando.Picture = LoadPicture(Tapa)
     Else
-        TapaEjecutando.Picture = LoadPicture(AP + "\tapa.jpg")
+        TapaEjecutando.Picture = LoadPicture(SYSfolder + "f8ya.nam")
     End If
     LineaError = "000-0428"
     TotalTema = MP3.LengthInSec
@@ -2402,7 +2409,7 @@ End Sub
 
 Private Sub MP3_EndPlay()
     EstoyEnModoVideoMiniSelDisco = False
-    frmIndex.TapaEjecutando.Picture = LoadPicture(AP + "tapa.jpg")
+    frmIndex.TapaEjecutando.Picture = LoadPicture(SYSfolder + "f8ya.nam")
     'volver a PasarHoja a su estado original3
     LineaError = "000-0435"
     PasarHoja = LeerConfig("PasarHoja", "1")

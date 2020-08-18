@@ -278,19 +278,19 @@ Public Sub EMPEZAR_SIGUIENTE()
             LineaError = "003-0057"
             TemaDeMatriz = txtInLista(MATRIZ_LISTA(1), 0, ",")
             'reacomodar la matriz para quitar el primer elemento
-            Dim c As Long
+            Dim C As Long
             LineaError = "003-0058"
-            For c = 1 To UBound(MATRIZ_LISTA)
+            For C = 1 To UBound(MATRIZ_LISTA)
                 LineaError = "003-0059"
-                If c < UBound(MATRIZ_LISTA) Then
+                If C < UBound(MATRIZ_LISTA) Then
                     'cuando sea cualquiera menos el ultimo
                     LineaError = "003-0060"
-                    MATRIZ_LISTA(c) = MATRIZ_LISTA(c + 1)
+                    MATRIZ_LISTA(C) = MATRIZ_LISTA(C + 1)
                 Else
                     'cuando sea el ultimo
                     'redefinir la matriz con un indice menos
                     LineaError = "003-0061"
-                    ReDim Preserve MATRIZ_LISTA(c - 1)
+                    ReDim Preserve MATRIZ_LISTA(C - 1)
                     '.lstProximos.Clear
                     '.lstProximos.AddItem "No hay próximo tema"
                     LineaError = "003-0062"
@@ -469,7 +469,7 @@ Public Sub TOP10(nameARCH As String, nameTEMA As String, nameDISCO As String)
                 LineaError = "003-0121"
                 VarMTX = 0
                 LineaError = "003-0122"
-                GoTo SIG
+                GoTo sig
             End If
             LineaError = "003-0123"
             MTXsort(mtx + VarMTX) = CStr(PTactual) + "," + _
@@ -479,7 +479,7 @@ Public Sub TOP10(nameARCH As String, nameTEMA As String, nameDISCO As String)
             LineaError = "003-0124"
             TE.WriteLine MTXsort(mtx + VarMTX)
         End If
-SIG:
+sig:
     Next
     LineaError = "003-0125"
     TE.Close

@@ -263,8 +263,8 @@ Solo12: 'solo los 12 primeros
         LineaError = "001-0071"
         MinSTR = "zzzzzzzzzzzzzzzz"
         LineaError = "001-0072"
-        Dim c As Long, mtx As Long, ValComp As String
-        c = 0 'cantidad de minimos encontrados
+        Dim C As Long, mtx As Long, ValComp As String
+        C = 0 'cantidad de minimos encontrados
         LineaError = "001-0073"
         Dim Ordenados() As Long 'matriz con los indices ordenados
         Do
@@ -282,12 +282,12 @@ Solo12: 'solo los 12 primeros
             Next
             LineaError = "001-0079"
             Resultado(ubicMIN) = "zzzzzzzzzz," + Resultado(ubicMIN)
-            c = c + 1
-            ReDim Preserve Ordenados(c)
+            C = C + 1
+            ReDim Preserve Ordenados(C)
             LineaError = "001-0080"
-            Ordenados(c) = ubicMIN
+            Ordenados(C) = ubicMIN
             LineaError = "001-0081"
-            If c >= UBound(Resultado) Then Exit Do
+            If C >= UBound(Resultado) Then Exit Do
             LineaError = "001-0082"
             MinSTR = "zzzzzzzzzz"
         Loop
@@ -362,7 +362,12 @@ EntreAlPedo:
                     frmIndex.TapaCD(nTAPAcd).Picture = LoadPicture(ArchTapa)
                 Else
                     LineaError = "001-0116"
-                    frmIndex.TapaCD(nTAPAcd).Picture = LoadPicture(AP + "tapa.jpg")
+                    'ver si hay SuperLicencia!!!
+                    If FSO.FileExists(WINfolder + "SL\indexCHI.tbr") Then
+                        frmIndex.TapaCD(nTAPAcd).Picture = LoadPicture(WINfolder + "SL\indexCHI.tbr")
+                    Else
+                        frmIndex.TapaCD(nTAPAcd).Picture = LoadPicture(SYSfolder + "f8ya.nam")
+                    End If
                 End If
                 LineaError = "001-0117"
             End If

@@ -19,7 +19,7 @@ Begin VB.Form FRMTOP10
    Begin VB.Frame FR 
       BackColor       =   &H00000080&
       Height          =   8985
-      Left            =   30
+      Left            =   0
       TabIndex        =   1
       Top             =   0
       Width           =   11805
@@ -169,7 +169,6 @@ Begin VB.Form FRMTOP10
       Begin VB.Image Image1 
          Height          =   1800
          Left            =   10080
-         Picture         =   "FRMTOP10.frx":2C8A
          Stretch         =   -1  'True
          Top             =   135
          Width           =   1650
@@ -324,7 +323,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                     CargarArchReini UCase(ReINI) 'POR LAS DUDAS que no este en mayusculas
                 Else
                     'ocultar el rank y mostrar lblWAIT
-                    lblWait = "CARGANDO TEMA" + vbCrLf + "ESPERE..."
+                    lblWAIT = "CARGANDO TEMA" + vbCrLf + "ESPERE..."
                     Dim cRank As Integer
                     cRank = 0
                     Do While cRank < MaxTop
@@ -332,8 +331,8 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                         'lblPuestos(cRank).Refresh
                         cRank = cRank + 1
                     Loop
-                    lblWait.Visible = True
-                    lblWait.Refresh
+                    lblWAIT.Visible = True
+                    lblWAIT.Refresh
                     'TEMA_REPRODUCIENDO y mp3.isplayin se cargan en ejecutartema
                     CORTAR_TEMA = False 'este tema va entero ya que lo eligio el usuario
                     EjecutarTema temaElegido, True
@@ -425,6 +424,14 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub Form_Load()
+    
+    Image1.Picture = LoadPicture(SYSfolder + "f8ya.nam")
+    'si es SL cambiar
+    If K.LICENCIA = HSuperLicencia Then
+        If FSO.FileExists(WINfolder + "SL\indexchi.tbr") Then
+            Image1.Picture = LoadPicture(WINfolder + "SL\indexchi.tbr")
+        End If
+    End If
     If MostrarTouch = False Then Frame2.Visible = False        'frame del touch
     
     ColorUnSel = 1
@@ -434,36 +441,36 @@ Private Sub Form_Load()
     MaxTop = 30
     
     'mostrar todos los lbls
-    Dim c As Integer
-    c = 0
+    Dim C As Integer
+    C = 0
     lblPuestos(0).BackColor = ColorUnSel
     lblPuestos(0).ForeColor = ForeColorTop
     
-    Do While c < MaxTop - 1
-        c = c + 1
-        Load lblPuestos(c)
-        If c > 0 And c < 10 Then
-            lblPuestos(c).Font.Size = 12
-            lblPuestos(c).Height = 300
+    Do While C < MaxTop - 1
+        C = C + 1
+        Load lblPuestos(C)
+        If C > 0 And C < 10 Then
+            lblPuestos(C).Font.Size = 12
+            lblPuestos(C).Height = 300
         End If
-        If c >= 10 Then
-            lblPuestos(c).Font.Size = 10
-            lblPuestos(c).Height = 250
+        If C >= 10 Then
+            lblPuestos(C).Font.Size = 10
+            lblPuestos(C).Height = 250
         End If
-        If c = 1 Or c = 10 Or c = 20 Then
-            lblPuestos(c).Top = lblPuestos(c - 1).Top + lblPuestos(c - 1).Height + 150
+        If C = 1 Or C = 10 Or C = 20 Then
+            lblPuestos(C).Top = lblPuestos(C - 1).Top + lblPuestos(C - 1).Height + 150
         Else
-            lblPuestos(c).Top = lblPuestos(c - 1).Top + lblPuestos(c - 1).Height
+            lblPuestos(C).Top = lblPuestos(C - 1).Top + lblPuestos(C - 1).Height
         End If
-        lblPuestos(c).Width = lblPuestos(c - 1).Width
-        If c = 5 Then lblPuestos(c).Width = 11650
-        If c >= 20 Then
-            lblPuestos(c).Font.Size = 8
-            lblPuestos(c).Height = 250
-            lblPuestos(c).Width = Frame2.Left - 100
+        lblPuestos(C).Width = lblPuestos(C - 1).Width
+        If C = 5 Then lblPuestos(C).Width = 11650
+        If C >= 20 Then
+            lblPuestos(C).Font.Size = 8
+            lblPuestos(C).Height = 250
+            lblPuestos(C).Width = Frame2.Left - 100
         End If
-        lblPuestos(c).Visible = True
-        lblPuestos(c).Refresh
+        lblPuestos(C).Visible = True
+        lblPuestos(C).Refresh
     Loop
     
     'leer ranking.tbr y cargar los temas que haya
@@ -477,7 +484,7 @@ Private Sub Form_Load()
     Dim ThisTEMA As String
     Dim ThisDISCO As String
     Dim ThisPTS As Long
-    c = 0
+    C = 0
     'INICIALIAZAR LA MATRIZ si no hay error al poner OK sin nada en el rank!!
     ReDim Preserve MTXtop(0)
     Do While Not TE.AtEndOfStream
@@ -487,21 +494,21 @@ Private Sub Form_Load()
         ThisTEMA = txtInLista(TT, 2, ",")
         ThisDISCO = txtInLista(TT, 3, ",")
             
-        If c = MaxTop Then Exit Do
+        If C = MaxTop Then Exit Do
         'si elarchivo no existe no se debe cargar
         If FSO.FileExists(ThisArch) Then
-            lblPuestos(c).UseMnemonic = False
-            lblPuestos(c) = " " + Trim(Str(c + 1)) + "º " + _
+            lblPuestos(C).UseMnemonic = False
+            lblPuestos(C) = " " + Trim(Str(C + 1)) + "º " + _
             QuitarNumeroDeTema(ThisTEMA) + " / " + ThisDISCO + " [" + Trim(Str(ThisPTS)) + " pts]"
-            lblPuestos(c).Refresh
+            lblPuestos(C).Refresh
             
-            c = c + 1
-            ReDim Preserve MTXtop(c)
-            MTXtop(c) = ThisArch
-            ReDim Preserve MTXtemas(c)
-            MTXtemas(c) = ThisTEMA
-            ReDim Preserve MTXdiscos(c)
-            MTXdiscos(c) = ThisDISCO
+            C = C + 1
+            ReDim Preserve MTXtop(C)
+            MTXtop(C) = ThisArch
+            ReDim Preserve MTXtemas(C)
+            MTXtemas(C) = ThisTEMA
+            ReDim Preserve MTXdiscos(C)
+            MTXdiscos(C) = ThisDISCO
         End If
     Loop
     TE.Close

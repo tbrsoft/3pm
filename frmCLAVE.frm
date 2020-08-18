@@ -3,13 +3,12 @@ Begin VB.Form frmCLAVE
    BackColor       =   &H00000000&
    BorderStyle     =   0  'None
    Caption         =   "Form1"
-   ClientHeight    =   4125
+   ClientHeight    =   2250
    ClientLeft      =   0
    ClientTop       =   0
    ClientWidth     =   4455
    LinkTopic       =   "Form1"
-   LockControls    =   -1  'True
-   ScaleHeight     =   4125
+   ScaleHeight     =   2250
    ScaleWidth      =   4455
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
@@ -52,17 +51,10 @@ Begin VB.Form frmCLAVE
    Begin VB.Shape Shape1 
       BorderColor     =   &H00FFFFFF&
       BorderWidth     =   3
-      Height          =   3855
+      Height          =   1965
       Left            =   150
       Top             =   120
       Width           =   4215
-   End
-   Begin VB.Image Image1 
-      Height          =   1635
-      Left            =   1380
-      Picture         =   "frmCLAVE.frx":0000
-      Top             =   2130
-      Width           =   1500
    End
    Begin VB.Label Label1 
       Alignment       =   2  'Center

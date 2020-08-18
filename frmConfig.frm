@@ -10,6 +10,7 @@ Begin VB.Form frmConfig
    Icon            =   "frmConfig.frx":0000
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
+   LockControls    =   -1  'True
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   13365
@@ -51,7 +52,7 @@ Begin VB.Form frmConfig
          ForeColor       =   &H00FFFFFF&
          Height          =   2040
          Left            =   3555
-         TabIndex        =   148
+         TabIndex        =   149
          Top             =   180
          Width           =   3480
          Begin VB.OptionButton opModo5Teclas 
@@ -69,7 +70,7 @@ Begin VB.Form frmConfig
             ForeColor       =   &H00FFFFFF&
             Height          =   210
             Left            =   90
-            TabIndex        =   150
+            TabIndex        =   151
             Top             =   900
             Width           =   3270
          End
@@ -88,7 +89,7 @@ Begin VB.Form frmConfig
             ForeColor       =   &H00FFFFFF&
             Height          =   210
             Left            =   90
-            TabIndex        =   149
+            TabIndex        =   150
             Top             =   225
             Width           =   3315
          End
@@ -108,7 +109,7 @@ Begin VB.Form frmConfig
             Height          =   780
             Index           =   32
             Left            =   405
-            TabIndex        =   152
+            TabIndex        =   153
             Top             =   1125
             Width           =   2925
          End
@@ -128,7 +129,7 @@ Begin VB.Form frmConfig
             Height          =   420
             Index           =   31
             Left            =   360
-            TabIndex        =   151
+            TabIndex        =   152
             Top             =   450
             Width           =   2925
          End
@@ -512,7 +513,7 @@ Begin VB.Form frmConfig
          Height          =   465
          Index           =   33
          Left            =   135
-         TabIndex        =   153
+         TabIndex        =   154
          Top             =   3375
          Width           =   6885
       End
@@ -888,7 +889,7 @@ Begin VB.Form frmConfig
       Height          =   435
       Left            =   7590
       Style           =   1  'Graphical
-      TabIndex        =   147
+      TabIndex        =   148
       Top             =   8490
       Width           =   2100
    End
@@ -906,11 +907,30 @@ Begin VB.Form frmConfig
       EndProperty
       ForeColor       =   &H00FFFFFF&
       Height          =   4125
-      Left            =   8325
+      Left            =   9690
       TabIndex        =   47
       Top             =   9180
       Visible         =   0   'False
       Width           =   6105
+      Begin VB.CheckBox chkBloquearMusicaElegida 
+         BackColor       =   &H00000000&
+         Caption         =   "Evitar selección multiple de un mismo tema en un disco"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   330
+         Left            =   180
+         TabIndex        =   144
+         Top             =   2460
+         Width           =   5775
+      End
       Begin VB.CheckBox chkSalida2 
          BackColor       =   &H00000000&
          Caption         =   "REPRODUCIR VIDEOS EN TV *"
@@ -926,7 +946,7 @@ Begin VB.Form frmConfig
          ForeColor       =   &H00FFFFFF&
          Height          =   330
          Left            =   180
-         TabIndex        =   144
+         TabIndex        =   145
          Top             =   1935
          Width           =   5385
       End
@@ -1038,32 +1058,32 @@ Begin VB.Form frmConfig
             Strikethrough   =   0   'False
          EndProperty
          Height          =   315
-         Left            =   2490
+         Left            =   4140
          TabIndex        =   55
          TabStop         =   0   'False
          Text            =   "0"
-         Top             =   2865
+         Top             =   2895
          Width           =   600
       End
       Begin VB.VScrollBar vsDiscosV 
          Height          =   330
          LargeChange     =   10
-         Left            =   3090
+         Left            =   4740
          Max             =   1
          Min             =   6
          TabIndex        =   54
-         Top             =   2880
+         Top             =   2910
          Value           =   1
          Width           =   330
       End
       Begin VB.VScrollBar vsDiscosH 
          Height          =   330
          LargeChange     =   10
-         Left            =   3090
+         Left            =   2340
          Max             =   1
          Min             =   6
          TabIndex        =   53
-         Top             =   2550
+         Top             =   2910
          Value           =   1
          Width           =   330
       End
@@ -1080,11 +1100,11 @@ Begin VB.Form frmConfig
             Strikethrough   =   0   'False
          EndProperty
          Height          =   315
-         Left            =   2490
+         Left            =   1740
          TabIndex        =   52
          TabStop         =   0   'False
          Text            =   "0"
-         Top             =   2550
+         Top             =   2910
          Width           =   600
       End
       Begin VB.CheckBox chkDistorcionarTapas 
@@ -1199,9 +1219,9 @@ Begin VB.Form frmConfig
          ForeColor       =   &H00FFFFFF&
          Height          =   285
          Index           =   15
-         Left            =   420
+         Left            =   2070
          TabIndex        =   58
-         Top             =   2880
+         Top             =   2910
          Width           =   1995
       End
       Begin VB.Label Label1 
@@ -1220,9 +1240,9 @@ Begin VB.Form frmConfig
          ForeColor       =   &H00FFFFFF&
          Height          =   285
          Index           =   16
-         Left            =   300
+         Left            =   -450
          TabIndex        =   57
-         Top             =   2580
+         Top             =   2940
          Width           =   2145
       End
    End
@@ -1981,7 +2001,7 @@ Begin VB.Form frmConfig
          Left            =   2070
          List            =   "frmConfig.frx":04B1
          Style           =   2  'Dropdown List
-         TabIndex        =   145
+         TabIndex        =   146
          Top             =   2790
          Visible         =   0   'False
          Width           =   2205
@@ -2155,7 +2175,7 @@ Begin VB.Form frmConfig
          Height          =   285
          Index           =   27
          Left            =   900
-         TabIndex        =   146
+         TabIndex        =   147
          Top             =   2880
          Visible         =   0   'False
          Width           =   1065
@@ -2982,6 +3002,19 @@ Private Sub chkAutoReDraw_LostFocus()
     chkAutoReDraw.ForeColor = vbWhite
 End Sub
 
+Private Sub chkBloquearMusicaElegida_GotFocus()
+    TeclaConfOK = "{ }"
+    TeclaConfESC = "{ }"
+    chkBloquearMusicaElegida.ForeColor = vbYellow
+    HLP "Si ña activa cuando ingrese a algún disco y seleccione algun tema " + _
+        "este quedará bloqueado hasta que vuelva a abrir el disco. Esto" + _
+        " evita la seleccion multiple de un mismo tema varias veces continuadas"
+End Sub
+
+Private Sub chkBloquearMusicaElegida_LostFocus()
+    chkBloquearMusicaElegida.ForeColor = vbWhite
+End Sub
+
 Private Sub chkCargarDuracionTemas_GotFocus()
     TeclaConfOK = "{ }"
     TeclaConfESC = "{ }"
@@ -3277,6 +3310,7 @@ Private Sub Command1_Click() 'GRABAR BUTTON
     FullConfig = FullConfig + "VidfullScreen=" + CStr(chkVidFullScreen) + vbCrLf
     FullConfig = FullConfig + "Salida2=" + CStr(chkSalida2) + vbCrLf
     FullConfig = FullConfig + "NoVumVid=" + CStr(chkNoVumVID) + vbCrLf
+    FullConfig = FullConfig + "BloquearMusicaElegida=" + CStr(chkBloquearMusicaElegida) + vbCrLf
     'Valores de ReIni LISTA=solo lista NADA=arranca de cero
     If OpReiniFull Then
         FullConfig = FullConfig + "ReINI=LISTA" + vbCrLf
@@ -3371,7 +3405,7 @@ Private Sub Command1_Click() 'GRABAR BUTTON
     vidFullScreen = LeerConfig("VidFullScreen", "1")
     Salida2 = LeerConfig("Salida2", "0")
     NoVumVID = LeerConfig("NoVumVid", "0")
-
+    BloquearMusicaElegida = LeerConfig("BloquearMusicaElegida", "1")
     If K.LICENCIA = aSinCargar Then
         frmIndex.lblDEMO = "Este espacio sera suyo cuando adquiera la version full de 3PM"
     Else
@@ -3800,6 +3834,7 @@ Private Sub Form_Load()
     
     'leer el archivo de configuracion SYSfolder + "3pmcfg.tbr"
     CargarIMGinicio = LeerConfig("CargarImagenInicio", "1")
+    BloquearMusicaElegida = LeerConfig("BloquearMusicaElegida", "1")
     AutoReDibuj = LeerConfig("AutoReDraw", "1")
     TeclaDER = Val(LeerConfig("TeclaDerecha", "88"))
     TeclaIZQ = Val(LeerConfig("TeclaIzquierda", "90"))
@@ -3912,6 +3947,7 @@ Private Sub Form_Load()
     chkVidFullScreen = -vidFullScreen
     chkSalida2 = -Salida2
     chkNoVumVID = -NoVumVID
+    chkBloquearMusicaElegida = -BloquearMusicaElegida
     vsDiscosH = TapasMostradasH
     vsDiscosV = TapasMostradasV
     TeclaConfOK = "{UP}"
@@ -3923,7 +3959,6 @@ Private Sub Form_Load()
     If Protector = 2 Then chkProtectorCustom = True
     
     chkCargarDuracionTemas = -CargarDuracionTemas
-    
     chkMostrarRotulos = -MostrarRotulos
     chkRotulosArriba = -RotulosArriba
     VSTemasXCredito = TemasPorCredito

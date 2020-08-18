@@ -627,10 +627,10 @@ Private Sub Command4_Click()
             End If
             LineaError = "0005-2551"
             TMPfiles = ObtenerArchMM(Ubic) 'deveuelve pathfull , solonombre
-            c = 1
-            Do While c <= TotMM 'se supone que es el total de esta carpeta
-                PathArch = txtInLista(TMPfiles(c), 0, ",")
-                SoloArch = txtInLista(TMPfiles(c), 1, ",")
+            C = 1
+            Do While C <= TotMM 'se supone que es el total de esta carpeta
+                PathArch = txtInLista(TMPfiles(C), 0, ",")
+                SoloArch = txtInLista(TMPfiles(C), 1, ",")
                 
                 Select Case IDIOMA
                     Case "Español"
@@ -654,7 +654,7 @@ Private Sub Command4_Click()
                 End If
                 LineaError = "0005-2554"
                 FSO.CopyFile PathArch, NewCarp + SoloArch, True
-                c = c + 1
+                C = C + 1
             Loop
             LineaError = "0005-2555"
             Select Case IDIOMA
@@ -896,12 +896,12 @@ End Function
 
 Sub ShowDriveList()
     On Local Error Resume Next
-    Dim fs, d, dc, s, n
+    Dim fs, D, dc, s, n
     Set fs = CreateObject("Scripting.FileSystemObject")
     Set dc = fs.Drives
-    For Each d In dc
-        s = s & d.DriveLetter & " - "
-        Select Case d.DriveType
+    For Each D In dc
+        s = s & D.DriveLetter & " - "
+        Select Case D.DriveType
             Case 0: T = "Desconocido"
             Case 1: T = "Separable"
             Case 2: T = "Fijo"
@@ -909,10 +909,10 @@ Sub ShowDriveList()
             Case 4: T = "CD-ROM"
             Case 5: T = "Disco RAM"
         End Select
-        If d.DriveType = 3 Then
-            n = d.ShareName
+        If D.DriveType = 3 Then
+            n = D.ShareName
         Else
-            n = d.VolumeName
+            n = D.VolumeName
         End If
         s = s & n & "Tipo: " & T & vbCrLf
     Next

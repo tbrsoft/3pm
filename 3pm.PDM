@@ -1,12 +1,10 @@
-ÿû€dô€:ÙQç*ÞP†›m<å[==aG ­¹C ,(Â‰v#I^{\›z‚çîm¬JÍ§üôêšx‘„&
-
 [Root]
 Most Recent Package=Paquete de instalación estándar 1
 
 
 [Package|Paquete de instalación estándar 1|Root]
 SubWizProgID=PDWizard.SetupPkgSubWiz
-BuildFolder=D:\ahora\3PMv6\i excl
+BuildFolder=D:\ahora\3PMv6\i efrain solarte col
 
 [Package|Paquete de instalación estándar 1|Configure DAO ISAMs]
 Applicable=No
@@ -16,15 +14,13 @@ JetWorkspace=
 ODBCDirect=
 
 [Package|Paquete de instalación estándar 1|Files Found]
-ini.exe=D:\ahora\3PMv6\ini.exe
-LEER.txt=D:\ahora\3PMv6\pub\LEER.txt
 
 [Package|Paquete de instalación estándar 1|Files Released]
+top10.jpg=
+tapa.jpg=
 
 [Package|Paquete de instalación estándar 1|Missing Dependency Information]
-C:\LINUX\SYSTEM\WBEM\WBEMDISP.TLB=
-E:\ahora\3PM v5 MEZCLA\ini.exe=
-E:\ahora\3PM v5 MEZCLA\repair.exe=
+C:\LINUX\SYSTEM\WBEMDISP.TLB=
 D:\ahora\3PMv6\ini.exe=
 D:\ahora\3PMv6\repair.exe=
 
@@ -32,18 +28,22 @@ D:\ahora\3PMv6\repair.exe=
 C:\LINUX\SYSTEM\SCRRUN.DLL=
 
 [Package|Paquete de instalación estándar 1|Files Added]
-ini.exe=
-repair.exe=
-tapa.jpg=
-top10.jpg=
-leer.txt=
-logo.sys=
-logos.sys=
-logow.sys=
-manual.doc=
+d:\ahora\3pmv6\ini.exe=
+d:\ahora\3pmv6\manual.doc=
+d:\ahora\3pmv6\logo.sys=
+d:\ahora\3pmv6\logos.sys=
+d:\ahora\3pmv6\logow.sys=
+d:\ahora\3pmv6\repair.exe=
+d:\ahora\3pmv6\pub\leer.txt=
+c:\linux\system\krans.man=
 
 [Package|Paquete de instalación estándar 1|Files Removed]
 c:\linux\system\msvcrt.dll=
+d:\ahora\3pmv6\logo.sys=
+d:\ahora\3pmv6\logos.sys=
+d:\ahora\3pmv6\logow.sys=
+d:\ahora\3pmv6\tapa.jpg=
+d:\ahora\3pmv6\top10.jpg=
 c:\linux\system\msvbvm60.dll=
 c:\linux\system\oleaut32.dll=
 c:\linux\system\olepro32.dll=
@@ -52,7 +52,8 @@ c:\linux\system\stdole2.tlb=
 c:\archivos de programa\microsoft visual studio\vb98\wizards\pdwizard\redist\comcat.dll=
 
 [Package|Paquete de instalación estándar 1|Files In Project]
-C:\LINUX\SYSTEM\MSVBVM60.DLL=No
+D:\ahora\3PMv6\3pm.exe=Yes
+C:\LINUX\SYSTEM\MSVBVM60.dll=No
 C:\LINUX\SYSTEM\OLEAUT32.DLL=No
 C:\LINUX\SYSTEM\OLEPRO32.DLL=No
 C:\LINUX\SYSTEM\asycfilt.dll=No
@@ -62,21 +63,19 @@ C:\LINUX\SYSTEM\VB6ES.DLL=Yes
 C:\LINUX\SYSTEM\SCRRUN.DLL=Yes
 C:\LINUX\SYSTEM\MSVCRT.DLL=No
 C:\LINUX\SYSTEM\SCRRNES.DLL=Yes
-C:\LINUX\SYSTEM\WBEM\WBEMDISP.TLB=Yes
+C:\LINUX\SYSTEM\WBEMDISP.TLB=Yes
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
 C:\LINUX\SYSTEM\VB6STKIT.DLL=Yes
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
-D:\ahora\3PMv6\3pm.exe=Yes
 D:\ahora\3PMv6\ini.exe=Yes
-D:\ahora\3PMv6\repair.exe=Yes
-D:\ahora\3PMv6\tapa.jpg=Yes
-D:\ahora\3PMv6\top10.jpg=Yes
-D:\ahora\3PMv6\pub\LEER.txt=Yes
-D:\ahora\3PMv6\logo.sys=Yes
-D:\ahora\3PMv6\LOGOS.SYS=Yes
-D:\ahora\3PMv6\logow.sys=Yes
 D:\ahora\3PMv6\manual.doc=Yes
+D:\ahora\3PMv6\logo.sys=No
+D:\ahora\3PMv6\LOGOS.SYS=No
+D:\ahora\3PMv6\logow.sys=No
+D:\ahora\3PMv6\repair.exe=Yes
+D:\ahora\3PMv6\pub\LEER.txt=Yes
+C:\LINUX\SYSTEM\krans.man=Yes
 
 [Package|Paquete de instalación estándar 1|Configure Registry Files]
 Applicable=No
@@ -85,60 +84,49 @@ Applicable=No
 Applicable=No
 
 [Package|Paquete de instalación estándar 1|Install Locations]
-E:\ahora\3PM v5 MEZCLA\3pm.exe=$(AppPath)
+D:\ahora\3PMv6\3pm.exe=$(AppPath)
 C:\LINUX\SYSTEM\VB6ES.DLL=$(WinSysPath)
 C:\LINUX\SYSTEM\SCRRUN.DLL=$(WinSysPath)
 C:\LINUX\SYSTEM\SCRRNES.DLL=$(WinSysPath)
-C:\LINUX\SYSTEM\WBEM\WBEMDISP.TLB=$(WinSysPath)
+C:\LINUX\SYSTEM\WBEMDISP.TLB=$(WinSysPath)
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
 C:\LINUX\SYSTEM\VB6STKIT.DLL=$(WinSysPathSysFile)
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
-E:\ahora\3PM v5 MEZCLA\ini.exe=$(AppPath)
-E:\ahora\3PM v5 MEZCLA\repair.exe=$(AppPath)
-E:\ahora\3PM v5 MEZCLA\tapa.jpg=$(AppPath)
-E:\ahora\3PM v5 MEZCLA\top10.jpg=$(AppPath)
-E:\ahora\3PM v5 MEZCLA\pub\LEER.txt=$(AppPath)\pub
-E:\ahora\3PM v5 MEZCLA\logo.sys=$(AppPath)
-E:\ahora\3PM v5 MEZCLA\LOGOS.SYS=$(AppPath)
-E:\ahora\3PM v5 MEZCLA\logow.sys=$(AppPath)
-E:\ahora\3PM v5 MEZCLA\manual.doc=$(AppPath)
-D:\ahora\3PMv6\3pm.exe=$(AppPath)
 D:\ahora\3PMv6\ini.exe=$(AppPath)
+D:\ahora\3PMv6\manual.doc=$(AppPath)
+D:\ahora\3PMv6\logo.sys=$(AppPath)
+D:\ahora\3PMv6\LOGOS.SYS=$(AppPath)
+D:\ahora\3PMv6\logow.sys=$(AppPath)
 D:\ahora\3PMv6\repair.exe=$(AppPath)
 D:\ahora\3PMv6\tapa.jpg=$(AppPath)
 D:\ahora\3PMv6\top10.jpg=$(AppPath)
 D:\ahora\3PMv6\pub\LEER.txt=$(AppPath)\pub
-D:\ahora\3PMv6\logo.sys=$(AppPath)
-D:\ahora\3PMv6\LOGOS.SYS=$(WinSysPathSysFile)
-D:\ahora\3PMv6\logow.sys=$(WinSysPathSysFile)
-D:\ahora\3PMv6\manual.doc=$(AppPath)
+C:\LINUX\SYSTEM\krans.man=$(WinSysPath)
+C:\LINUX\SYSTEM\MSVBVM60.dll=$(WinSysPathSysFile)
+C:\LINUX\SYSTEM\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\LINUX\SYSTEM\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\LINUX\SYSTEM\asycfilt.dll=$(WinSysPathSysFile)
+C:\LINUX\SYSTEM\STDOLE2.TLB=$(WinSysPathSysFile)
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
 
 [Package|Paquete de instalación estándar 1|Configure Shared Files]
 Applicable=Yes
-E:\ahora\3PM v5 MEZCLA\3pm.exe=No
-E:\ahora\3PM v5 MEZCLA\ini.exe=No
-E:\ahora\3PM v5 MEZCLA\repair.exe=No
-E:\ahora\3PM v5 MEZCLA\tapa.jpg=No
-E:\ahora\3PM v5 MEZCLA\top10.jpg=No
-E:\ahora\3PM v5 MEZCLA\pub\LEER.txt=No
-E:\ahora\3PM v5 MEZCLA\logo.sys=No
-E:\ahora\3PM v5 MEZCLA\LOGOS.SYS=No
-E:\ahora\3PM v5 MEZCLA\logow.sys=No
-E:\ahora\3PM v5 MEZCLA\manual.doc=No
 D:\ahora\3PMv6\3pm.exe=No
 D:\ahora\3PMv6\ini.exe=No
+D:\ahora\3PMv6\manual.doc=No
+D:\ahora\3PMv6\logo.sys=No
+D:\ahora\3PMv6\LOGOS.SYS=No
+D:\ahora\3PMv6\logow.sys=No
 D:\ahora\3PMv6\repair.exe=No
 D:\ahora\3PMv6\tapa.jpg=No
 D:\ahora\3PMv6\top10.jpg=No
 D:\ahora\3PMv6\pub\LEER.txt=No
-D:\ahora\3PMv6\logo.sys=No
-D:\ahora\3PMv6\manual.doc=No
 
 [Package|Paquete de instalación estándar 1|Distribution]
 Type=single
 Size=
-Title=3pm
+Title=3pm v6
 
 [Package|Paquete de instalación estándar 1|IconGroups]
 Group0=3pm
@@ -152,11 +140,11 @@ StartIn1=$(AppPath)
 Key1=Icon1
 
 [Package|Paquete de instalación estándar 1|Package]
-PackageFolder=D:\ahora\3PMv6\i excl
+PackageFolder=D:\ahora\3PMv6\i efrain solarte col
 ProjectFolder=D:\ahora\3PMv6
 ServerSideCab=
-File1=D:\ahora\3PMv6\i excl\setup.exe
-File2=D:\ahora\3PMv6\i excl\Setup.Lst
-File3=D:\ahora\3PMv6\i excl\3pm.CAB
+File1=D:\ahora\3PMv6\i efrain solarte col\setup.exe
+File2=D:\ahora\3PMv6\i efrain solarte col\Setup.Lst
+File3=D:\ahora\3PMv6\i efrain solarte col\3pm.CAB
 Handler1=PDWizard.FolderDplySubWiz
 Handler2=PDWizard.WebPostDplySubWiz

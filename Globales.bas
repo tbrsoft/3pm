@@ -1,4 +1,5 @@
 Attribute VB_Name = "Globales"
+Public vW As New clsWindowsVERSION
 Public EstoyEnModoVideoMiniSelDisco As Boolean
 Public IsMod46Teclas As Long 'no es boolean porque puede haber mas modos
     'valores:
@@ -76,6 +77,7 @@ Public nDiscoGral As Long ' del 0 a total_discos
 
 'para la configuracion de 3PM
 Public CargarIMGinicio As Boolean
+Public BloquearMusicaElegida As Boolean
 Public AutoReDibuj As Boolean
 Public TeclaDER As Integer 'integer es keycode en eventos del teclado
 Public TeclaIZQ As Integer
@@ -133,17 +135,17 @@ Public Function txtInLista(lista As String, Orden As Long, Separador As String) 
     'si pongo 99999 en orden saco el ultimo
     Dim lAct As String, lOrden As Integer
     Dim palabra(40) As String
-    Dim c As Integer
-    c = 1: lOrden = 0
-    Do While c <= Len(lista)
-        lAct = Mid(lista, c, 1)
+    Dim C As Integer
+    C = 1: lOrden = 0
+    Do While C <= Len(lista)
+        lAct = Mid(lista, C, 1)
         If lAct = Separador Then
             lOrden = lOrden + 1
         Else
             palabra(lOrden) = palabra(lOrden) + lAct
             If lOrden > Orden Then Exit Do
         End If
-        c = c + 1
+        C = C + 1
     Loop
     'si oreden solicitado>ultimo oreden de la lista...
     If Orden > lOrden Then
@@ -176,15 +178,15 @@ Public Sub CargarProximosTemas()
         'volver a contar
         PUBs.PubsEnLista = 0
         'el indice 0 no existe ni existira por eso el C=1
-        For c = 1 To UBound(MATRIZ_LISTA)
+        For C = 1 To UBound(MATRIZ_LISTA)
             'no cargar las publicidades
-            strProximos = QuitarNumeroDeTema(txtInLista(MATRIZ_LISTA(c), 1, ","))
+            strProximos = QuitarNumeroDeTema(txtInLista(MATRIZ_LISTA(C), 1, ","))
             'frmIndex.lstProximos.AddItem CStr(c) + "- " + strProximos
             If strProximos = "Publicidad" Then
                 'contador de publicidades en lista
                 PUBs.PubsEnLista = PUBs.PubsEnLista + 1
             Else
-                frmIndex.lstProximos = frmIndex.lstProximos + CStr(c - PUBs.PubsEnLista) + "- " + strProximos + vbCrLf
+                frmIndex.lstProximos = frmIndex.lstProximos + CStr(C - PUBs.PubsEnLista) + "- " + strProximos + vbCrLf
             End If
         Next
         'primero se escribe la lista y despues la primera linea
@@ -659,14 +661,19 @@ Public Sub VerSiTocaPUB()
 End Sub
 
 Public Sub Main()
+    
+    Dim V As vWindows
+    'esta es la primera y lo calcula, despues solo lo lee de la _
+        propiedad version
+    'queda como global el vW
+    V = vW.GetVersion
+    
+    AP = App.path
+    If Right(AP, 1) <> "\" Then AP = AP + "\"
+
     K.ClaveDLL = "ashjdklahsJKLHASL65456456456"
     frmREG.Show 1
-    Select Case IDIOMA
-        Case "Español"
-        Case "English"
-        Case "Francois"
-        Case "Italiano"
-    End Select
+    
 End Sub
 Public Sub ShowCredits()
     If CREDITOS >= 10 Then

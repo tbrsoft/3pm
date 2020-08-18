@@ -38,7 +38,6 @@ Begin VB.Form frmINI
       BorderStyle     =   1  'Fixed Single
       Height          =   1095
       Left            =   3900
-      Picture         =   "frmINI.frx":0442
       Stretch         =   -1  'True
       Top             =   7605
       Width           =   3570
@@ -103,7 +102,6 @@ Begin VB.Form frmINI
    Begin VB.Image Image1 
       Height          =   4455
       Left            =   1710
-      Picture         =   "frmINI.frx":1EB0
       Stretch         =   -1  'True
       Top             =   1215
       Width           =   3750
@@ -119,10 +117,12 @@ Private Sub Form_Load()
     On Local Error GoTo NoINI
     'VVV = "v " + Trim(Str(App.Major)) + "." + Trim(Str(App.Minor)) + "." + Trim(Str(App.Revision))
     '--------
+    'cargar los previstos
+    Image1.Picture = LoadPicture(SYSfolder + "f1ya.nam")
+    Image2.Picture = LoadPicture(SYSfolder + "f2ya.nam")
     If K.LICENCIA = HSuperLicencia Then
         If FSO.FileExists(WINfolder + "SL\imgbig.tbr") Then Image1.Picture = LoadPicture(WINfolder + "SL\imgbig.tbr")
         If FSO.FileExists(WINfolder + "SL\imgtbr.tbr") Then Image2.Picture = LoadPicture(WINfolder + "SL\imgtbr.tbr")
-                
     End If
     '--------
     Select Case K.LICENCIA
@@ -166,6 +166,7 @@ Private Sub Form_Load()
     vidFullScreen = LeerConfig("VidFullScreen", "1")
     Salida2 = LeerConfig("Salida2", "0")
     NoVumVID = LeerConfig("NoVumVid", "0")
+    BloquearMusicaElegida = LeerConfig("BloquearMusicaElegida", "1")
     TapasMostradasH = Val(LeerConfig("DiscosH", "3"))
     TapasMostradasV = Val(LeerConfig("DiscosV", "2"))
     PasarHoja = LeerConfig("Pasarhoja", "1")
@@ -227,18 +228,22 @@ Private Sub Form_Load()
     If FSO.FolderExists(AP + "discos\01- Los mas escuchados") = False Then
         FSO.CreateFolder AP + "discos\01- Los mas escuchados"
      End If
-    'siempre copiarlo
-    'If FSO.FileExists(AP + "discos\01- Los mas escuchados\tapa.jpg") = False Then
-        If FSO.FileExists(AP + "top10.jpg") Then
+    'siempre copiarlo, si es el SL con prioridad
+    If FSO.FileExists(SYSfolder + "f9yaSL.nam") Then
+        'aqui hay un error de acceso denegado si es de solo lectura!!!!!
+        'se corrige así.
+        FSO.CopyFile SYSfolder + "f9yaSL.nam", AP + "discos\01- Los mas escuchados\tapa.jpg", True
+    Else
+        If FSO.FileExists(SYSfolder + "f9ya.nam") Then
             'aqui hay un error de acceso denegado si es de solo lectura!!!!!
             'se corrige así.
-            FSO.CopyFile AP + "top10.jpg", AP + "discos\01- Los mas escuchados\tapa.jpg", True
+            FSO.CopyFile SYSfolder + "f9ya.nam", AP + "discos\01- Los mas escuchados\tapa.jpg", True
         Else
             MsgBox "No se encuentra el archivo de imagen del Ranking!. La instalacion de 3PM no es corecta!"
             End
         End If
-    'End If
-    If FSO.FileExists(AP + "tapa.jpg") = False Then
+    End If
+    If FSO.FileExists(SYSfolder + "f8ya.nam") = False Then
         MsgBox "No se encuentra el archivo de imagen de las portadas predeterminadas!. La instalacion de 3PM no es corecta!"
         End
     End If
@@ -320,15 +325,15 @@ Private Sub Form_Load()
     Dim MaxPT As Long 'comparacoin de cadenas. Empiezo con el máximo
     Dim ubicMAX As Long 'indice en la matriz del menor encontrado cada vuelta
     MaxPT = 0
-    Dim c As Long, mtx As Long, ValComp As Long
-    c = 0 'cantidad de minimos encontrados
+    Dim C As Long, mtx As Long, ValComp As Long
+    C = 0 'cantidad de minimos encontrados
     Dim Ordenados() As Long 'matriz con los indices ordenados
     LineaError = "000A-00923"
     PBar.Width = 0
     PBar.Refresh
     LineaError = "000A-00924"
     Do
-        PBar.Width = c * 10
+        PBar.Width = C * 10
         LineaError = "000A-00925"
         For mtx = 1 To UBound(mtxTOP10)
             'se compara por los puntos
@@ -345,12 +350,12 @@ Private Sub Form_Load()
         LineaError = "000A-00929"
         'al mayor lo quito para que no salga de nuevo
         mtxTOP10(ubicMAX) = "0," + mtxTOP10(ubicMAX)
-        c = c + 1
+        C = C + 1
         LineaError = "000A-00930"
-        ReDim Preserve Ordenados(c)
-        Ordenados(c) = ubicMAX
+        ReDim Preserve Ordenados(C)
+        Ordenados(C) = ubicMAX
         LineaError = "000A-00931"
-        If c >= UBound(mtxTOP10) Then Exit Do
+        If C >= UBound(mtxTOP10) Then Exit Do
         MaxPT = 0
     Loop
     'cargar todos y sacar la primera columna de las zetas
@@ -360,7 +365,8 @@ Private Sub Form_Load()
     LineaError = "000A-00933"
     Dim MTXsort() As String
     'cambie opentextfile por createtextfile por un error que suele dar
-    Set TE = FSO.CreateTextFile(AP + "ranking.tbr", True)
+    Dim TeRank As TextStream
+    Set TeRank = FSO.CreateTextFile(AP + "ranking.tbr", True)
     'si no hay nada para escribir el Close da error?!?!?!?!?
     Dim RankWrite As Long
     RankWrite = 0
@@ -377,21 +383,23 @@ Private Sub Form_Load()
                 txtInLista(mtxTOP10(Ordenados(mtx)), 3, ",") + "," + _
                 txtInLista(mtxTOP10(Ordenados(mtx)), 4, ",")
             LineaError = "000A-00938"
-            TE.WriteLine MTXsort(mtx)
+            TeRank.WriteLine MTXsort(mtx)
             PBar.Width = mtx * 10
             RankWrite = RankWrite + 1
         Else
             LineaError = "000A-00937"
-            WriteTBRLog "limpiado del Rank: " + txtInLista(mtxTOP10(Ordenados(mtx)), 2, ","), False
+            WriteTBRLog "limpiado del Rank: " + _
+                txtInLista(mtxTOP10(Ordenados(mtx)), 2, ","), False
             Limpiaron = Limpiaron + 1
         End If
     Next
     LineaError = "000A-00939"
     'si no hay nada para escribir el Close da error?!?!?!?!?
-    If RankWrite = 0 Then TE.WriteLine ""
+    If RankWrite = 0 Then TeRank.WriteLine ""
     LineaError = "000A-00981"
-    TE.Close
+    TeRank.Close
     LineaError = "000A-00940"
+    Set TeRank = Nothing
     If Limpiaron > 0 Then WriteTBRLog "Se limpiaron " + CStr(Limpiaron) + " temas", True
     '==================================================================
 FinOrden:

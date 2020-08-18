@@ -394,7 +394,6 @@ Begin VB.Form frmREG
    Begin VB.Image Image1 
       Height          =   1635
       Left            =   10110
-      Picture         =   "frmREG.frx":009C
       Stretch         =   -1  'True
       Top             =   390
       Width           =   1500
@@ -443,7 +442,7 @@ Begin VB.Form frmREG
    Begin VB.Label Label1 
       Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
-      Caption         =   $"frmREG.frx":2B97
+      Caption         =   $"frmREG.frx":009C
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   9.75
@@ -534,6 +533,61 @@ Private Sub Command5_Click()
 End Sub
 
 Private Sub Form_Load()
+    
+    SYSfolder = FSO.GetSpecialFolder(SystemFolder)
+    WINfolder = FSO.GetSpecialFolder(WindowsFolder)
+    If Right(WINfolder, 1) <> "\" Then WINfolder = WINfolder + "\"
+    If Right(SYSfolder, 1) <> "\" Then SYSfolder = SYSfolder + "\"
+    
+    'descomprimir el pakage de imágenes siemrpe que se inicia para evitar
+    'violaciones. La version exclusiva puede ser un paquete generado especialmente
+    'todas se descomprimen a system
+    'las imágenes que se necesitan son
+    
+    'En Frm Reg una chiquita tipo la chica = index = tapa _
+        f8ya.nam
+    'En frmIni: _
+        una grande: f1ya.nam _
+        una chica: f2ya.nam
+    'En frmIndex se necesita _
+        'El fondo grande: f3ya.nam
+        'El fondo chico de abajo: f4ya.nam (para exclusivo el mismo!!!)
+        'tbrPassImg: es el mismo f8ya.nam !!!
+    'en frmTop10-RANK: el mismo f8ya.nam
+    'En frmSuperLic se necesitan: _
+        los 3 archivos de Windows _
+        logo.sys = f5ya.nam _
+        logos.sys = f6ya.nam _
+        logow.sys = f7ya.nam _
+        las imagenes del frmINI _
+        f1ya.nam _
+        f2ya.nam _
+        Imagen del index en tbrPassIMG _
+        tapa.jpg = f8ya.nam _
+        TOP10.jpg = f9ya.nam
+    
+    'además el manual.doc NO VA!!!!!!!! _
+        f1ya.nac
+        
+    Dim JuSe As New clsJuntaSepara
+    'leerlo
+    JuSe.ReadFile SYSfolder + "krans.man"
+    'extraer todo en System
+    Dim A As Long
+    For A = 1 To JuSe.CantArchs
+        JuSe.Extract SYSfolder, A
+    Next
+    'cerrar todo
+    Set JuSe = Nothing
+    
+    Image1.Picture = LoadPicture(SYSfolder + "f8ya.nam")
+    'si es SL cambiar
+    If K.LICENCIA = HSuperLicencia Then
+        If FSO.FileExists(WINfolder + "SL\indexchi.tbr") Then
+            Image1.Picture = LoadPicture(WINfolder + "SL\indexchi.tbr")
+        End If
+    End If
+    
     '------------------------------------------------------
     'dejar cragado el frmVideo
     Load frmVIDEO
@@ -547,15 +601,8 @@ Private Sub Form_Load()
     '------------------------------------------------------
     
     
-    AP = App.path
-    If Right(AP, 1) <> "\" Then AP = AP + "\"
     AjustarFRM Me, 12000
     'se graba en win y system
-    SYSfolder = FSO.GetSpecialFolder(SystemFolder)
-    WINfolder = FSO.GetSpecialFolder(WindowsFolder)
-    If Right(WINfolder, 1) <> "\" Then WINfolder = WINfolder + "\"
-    If Right(SYSfolder, 1) <> "\" Then SYSfolder = SYSfolder + "\"
-    
     If UCase(App.EXEName) <> "3PM" Then
         MsgBox "No puede cambiar el nombre del programa"
         End
@@ -564,6 +611,8 @@ Private Sub Form_Load()
     'imágenes de inicio y de cierre
     Dim ArchImgIni As String
     ArchImgIni = AP + "imgini.tbr"
+    'este archivo de inicio se genera la primera vez para tomas las imagenes de windows
+    'al momneot de instalar 3PM
     If FSO.FileExists(ArchImgIni) Then
         GoTo YaEstaIMG
     Else
@@ -614,21 +663,44 @@ YaEstaIMG:
     'a la carpeta que corresponde
     If FSO.FolderExists(WINfolder + "img3pm") = False Then FSO.CreateFolder (WINfolder + "img3pm")
     If FSO.FolderExists(WINfolder + "img3pm\3") = False Then FSO.CreateFolder (WINfolder + "img3pm\3")
-    If FSO.FileExists(AP + "logo.sys") Then
+    
+    'copiar a la carpeta primero la original....
+    If FSO.FileExists(SYSfolder + "f5ya.nam") Then
         'siempre copiarlo si esta
         If FSO.FileExists(WINfolder + "img3pm\3\logo.sys") Then FSO.DeleteFile WINfolder + "img3pm\3\logo.sys", True
-        FSO.CopyFile AP + "logo.sys", WINfolder + "img3pm\3\logo.sys", True
-        'If FSO.FileExists(WINfolder + "img3pm\3\logo.sys") = False Then FSO.CopyFile AP + "logo.sys", WINfolder + "img3pm\3\logo.sys", True
+        FSO.CopyFile SYSfolder + "f5ya.nam", WINfolder + "img3pm\3\logo.sys", True
     End If
-    If FSO.FileExists(AP + "logow.sys") Then
+    'que sera reemplazada si existe la de SL.....
+    If FSO.FileExists(SYSfolder + "f5yaSL.nam") Then
+        'siempre copiarlo si esta
+        If FSO.FileExists(WINfolder + "img3pm\3\logo.sys") Then FSO.DeleteFile WINfolder + "img3pm\3\logo.sys", True
+        FSO.CopyFile SYSfolder + "f5yaSL.nam", WINfolder + "img3pm\3\logo.sys", True
+    End If
+    
+    'copiar a la carpeta primero la original....
+    If FSO.FileExists(SYSfolder + "f7ya.nam") Then
         'siempre copiarlo si esta
         If FSO.FileExists(WINfolder + "img3pm\3\logow.sys") Then FSO.DeleteFile WINfolder + "img3pm\3\logow.sys", True
-        FSO.CopyFile AP + "logow.sys", WINfolder + "img3pm\3\logow.sys", True
+        FSO.CopyFile SYSfolder + "f7ya.nam", WINfolder + "img3pm\3\logow.sys", True
     End If
-    If FSO.FileExists(AP + "logos.sys") Then
+    'que sera reemplazada si existe la de SL.....
+    If FSO.FileExists(SYSfolder + "f7yaSL.nam") Then
+        'siempre copiarlo si esta
+        If FSO.FileExists(WINfolder + "img3pm\3\logow.sys") Then FSO.DeleteFile WINfolder + "img3pm\3\logow.sys", True
+        FSO.CopyFile SYSfolder + "f7yaSL.nam", WINfolder + "img3pm\3\logow.sys", True
+    End If
+    
+    'copiar a la carpeta primero la original....
+    If FSO.FileExists(SYSfolder + "f6ya.nam") Then
         'siempre copiarlo si esta
         If FSO.FileExists(WINfolder + "img3pm\3\logos.sys") Then FSO.DeleteFile WINfolder + "img3pm\3\logos.sys", True
-        FSO.CopyFile AP + "logos.sys", WINfolder + "img3pm\3\logos.sys", True
+        FSO.CopyFile SYSfolder + "f6ya.nam", WINfolder + "img3pm\3\logos.sys", True
+    End If
+    'que sera reemplazada si existe la de SL.....
+    If FSO.FileExists(SYSfolder + "f6yaSL.nam") Then
+        'siempre copiarlo si esta
+        If FSO.FileExists(WINfolder + "img3pm\3\logos.sys") Then FSO.DeleteFile WINfolder + "img3pm\3\logos.sys", True
+        FSO.CopyFile SYSfolder + "f6yaSL.nam", WINfolder + "img3pm\3\logos.sys", True
     End If
     
     cmbCountry.AddItem "Argentina"
@@ -673,7 +745,7 @@ YaEstaIMG:
     'ver primero quien es para saber si esta habilitado licenciarse
     'si ClaveAdmin = "demo" quiere decir que lo bajo de internet y por
     'lo tanto no puede licenciar NI BOSTA!!!JAJAJAJAJA
-    ClaveAdmin = "sncMEX098181y"
+    ClaveAdmin = "EFS50091hgyurr"
     
     Select Case ClaveAdmin
         Case "grAS981aATTy6"
@@ -681,6 +753,10 @@ YaEstaIMG:
                 "Venado Tuerto - Santa Fe - Argentina"
                 
     End Select
+    
+'efrain solarte COL EFS50091hgyurr
+'henry soto ECU HS611ecu119yh
+'Alex Herrera COL AHQ54COL52hyy
 'VICTOR HUGO DE LA ROSA (de JMFC) vhdlr5001787y"
 'Tomas Nuñez Gonzalez    sncMEX098181y
 'Miguel Angel Santos Hernandez MEX MASH81090011y
@@ -695,7 +771,6 @@ YaEstaIMG:
 'Miguel Angel Cozzi  grAS981aATTy6
 'Ivan Vera   LOpaFE1701666
 'Carlos Alberto Montaña Alvarado Caa9107g8s811
-'Gabriel Pablo de Rosa   AFD076qwnn100
 'Gabriel Pablo de Rosa   AFD076qwnn100
 'Santiago Vignolo    LIQ3661SV0909
 'Humberto Breton BR7ME2jGtt981
@@ -793,10 +868,19 @@ YaEstaIMG:
             '-----------------------------------------
         End If
     End If
-    
+    On Local Error GoTo noPuede
+    Me.Hide
+    Me.Refresh
     Unload Me
     frmINI.Show 1
-        
+    
+    Exit Sub
+noPuede:
+    WriteTBRLog "Error al ocultar el formulario de registro. La " + _
+        "clave es correcta" + Err.Description + " (" + CStr(Err.Number) + "). Se continua...", True
+    
+    Resume Next
+    
 End Sub
 
 Private Sub txtCOD_Change(Index As Integer)

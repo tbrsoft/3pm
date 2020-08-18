@@ -8,6 +8,7 @@ Begin VB.Form Form1
    ClientTop       =   345
    ClientWidth     =   11880
    LinkTopic       =   "Form1"
+   LockControls    =   -1  'True
    ScaleHeight     =   10590
    ScaleWidth      =   11880
    StartUpPosition =   2  'CenterScreen
@@ -701,6 +702,10 @@ Private Sub lstClaves_Click()
     txtVariacion = Partes(1)
     txtClaveEntregada = Trim(Partes(2))
         
+End Sub
+
+Private Sub lstYaEntregadas_DblClick()
+    txtToCopy = lstYaEntregadas
 End Sub
 
 Private Sub opSoloCLI_Click()
