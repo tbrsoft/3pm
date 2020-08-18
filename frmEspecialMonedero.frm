@@ -238,10 +238,10 @@ Begin VB.Form frmEspecialMonedero
       ForeColor       =   &H00E0E0E0&
       Height          =   1545
       Index           =   3
-      Left            =   7620
+      Left            =   8160
       TabIndex        =   5
-      Top             =   1110
-      Width           =   2655
+      Top             =   1080
+      Width           =   2235
    End
    Begin VB.Label Label1 
       BackStyle       =   0  'Transparent
@@ -386,7 +386,7 @@ Private Sub Form_Load()
     With frmConfig
         lstVals(0).Enabled = (.chkCS.Value = 1)
         lstVals(1).Enabled = (.chkCS.Value = 1)
-        Command3.Enabled = (.chkCS.Value = 1)
+        command3.Enabled = (.chkCS.Value = 1)
         Command4.Enabled = (.chkCS.Value = 1)
         Command5.Enabled = (.chkCS.Value = 1)
         Command6.Enabled = (.chkCS.Value = 1)

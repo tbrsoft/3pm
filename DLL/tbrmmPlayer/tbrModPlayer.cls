@@ -353,7 +353,7 @@ Otro277:
             If Puto277 = False Then
                 Puto277 = True
                 Dim WA As String
-                WA = "c:\Musica.mpx"
+                WA = App.Path + "\Musica.mpx" 'antes era "C:\" y no se si existe !!!
                 If FSO.FileExists(WA) Then FSO.DeleteFile WA, True
                 FSO.CopyFile m_FileName(iAlias), WA, True
                 m_FileName(iAlias) = WA
@@ -1343,7 +1343,10 @@ Private Sub Reloj_Timer(Index As Integer)
     'no dividir por cero!
     If lFPS = 0 Then lFPS = 1
     mSecActual(CLng(Index)) = CurrPos / lFPS
+    
+    If mFramePerMiliSecond(Index) = 0 Then mFramePerMiliSecond(Index) = 1
     mMiliSecActual(CLng(Index)) = CurrPos / mFramePerMiliSecond(Index)
+    
     Terr.Anotar "002-0001b", CurrPos, mSecActual(Index)
     
     Dim Termino As Boolean

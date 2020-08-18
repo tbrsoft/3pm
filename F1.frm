@@ -71,8 +71,6 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'PASARAL8 todo el formulario !!
-
 Dim fso As New Scripting.FileSystemObject
 Dim AP As String
 Dim SF As String
@@ -226,7 +224,7 @@ FRE:
     Resume Next
 End Function
 
-Private Sub ucdate()
+Private Sub ucdateF1()
     FolderToRes
     PlayInfo
     porc 0, ""
@@ -283,14 +281,14 @@ Private Sub CleanAllStats()
 End Sub
 
 Private Sub Form_Activate()
-    ucdate
+    ucdateF1
 End Sub
 
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     Select Case KeyCode
         Case TeclaDER
             CleanAllStats
-            ucdate
+            ucdateF1
         Case Else
             Unload Me
     End Select

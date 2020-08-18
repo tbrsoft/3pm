@@ -157,7 +157,7 @@ Begin VB.Form frmConfigCart
       Begin VB.VScrollBar vsCreditForTestMusic 
          Height          =   330
          LargeChange     =   10
-         Left            =   9960
+         Left            =   9990
          Max             =   0
          Min             =   50
          TabIndex        =   20
@@ -400,7 +400,7 @@ Begin VB.Form frmConfigCart
          EndProperty
          ForeColor       =   &H00FFFFFF&
          Height          =   255
-         Left            =   420
+         Left            =   450
          TabIndex        =   17
          Top             =   630
          Width           =   6795

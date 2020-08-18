@@ -128,8 +128,9 @@ Public Function TrataEjecutarTema(TEMA As String, Optional ToVIP As Boolean = Fa
     'ya que se puede pasar solo algnos segundos de cada canción
     'agosto 08 se agregaron limitaciones de creditos y de lista de canciones para reproducir muestras
     'si esta programado sin musica que no haga nada
-    If NOMUSIC Then 'no es fonola
-        If ShowDemoMusic Then 'pasa las canciones como demo 20 segundos
+    
+    If NOMUSIC Or OnlyOneDemo Then 'no es fonola
+        If ShowDemoMusic Or OnlyOneDemo Then 'pasa las canciones como demo 20 segundos
             If CREDITOS < CreditForTestMusic Then GoTo FIN443 'si se configuro exigir creditos para pasar muestras (igual son gratis)
             If MaxListaTestMusic > 0 Then 'si es cero permite todo
                 If tLST.GetLastIndex >= MaxListaTestMusic Then
@@ -146,7 +147,7 @@ Public Function TrataEjecutarTema(TEMA As String, Optional ToVIP As Boolean = Fa
             'esto es una muestra!! YA LO SUMO EN EJ DE TOUCH
             'MuestrasPlayed = MuestrasPlayed + 1
             'si llego hasta aqui cumple los requisitos para pasar esta musica de muestra
-            GoTo Parte444 'este goto va directo a reproducir o poer en la lista sin cobrar nada
+            GoTo Parte444 'este goto va directo a reproducir o poner en la lista sin cobrar nada
         Else
             GoTo FIN443
         End If
@@ -240,7 +241,11 @@ Parte444:
             If ToVIP Then
                 tLST.ListaAdd TEMA, "VIP", 1
             Else
-                tLST.ListaAdd TEMA
+                If OnlyOneDemo Then
+                    tLST.ListaAdd TEMA, "TEST"
+                Else
+                    tLST.ListaAdd TEMA
+                End If
             End If
             
             tERR.Anotar "accz", TEMA, tLST.GetLastIndex
@@ -264,7 +269,11 @@ Parte444:
             If ToVIP Then
                 sTag = "VIP"
             Else
-                sTag = ""
+                If OnlyOneDemo Then
+                    sTag = "TEST"
+                Else
+                    sTag = ""
+                End If
             End If
             'no hay canciones en lista, va directo
             'cuando es la primera de todas las reproducciones tarda mas y algunos idiotas
@@ -302,7 +311,7 @@ Public Sub EjecutarTema(TEMA As String, ByRef SumaRanking As Boolean, Optional s
     'le agregue sTag en set08 para saber si era un vip ya que athuel quiere prender luces en los vip
     
     On Local Error GoTo ErrEjecutarTema
-
+    tERR.Anotar "003-0003-b"
     EstoyEnModoVideoMiniSelDisco = False
     'volver a PasarHoja a su estado original3
     PasarHoja = LeerConfig("PasarHoja", "1")
@@ -313,6 +322,8 @@ Public Sub EjecutarTema(TEMA As String, ByRef SumaRanking As Boolean, Optional s
     'ademas no va al ranking
     Dim Carp As String
     Carp = txtInLista(TEMA, 99998, "\")
+    tERR.Anotar "003-0003-c", Carp
+    
     If LCase(Carp) = "pub" Then
         PUBs.PubsEnLista = PUBs.PubsEnLista - 1
         'tampoco sumar al ranking!!!!
@@ -325,16 +336,16 @@ Public Sub EjecutarTema(TEMA As String, ByRef SumaRanking As Boolean, Optional s
     
     '*****************************************
     'VER SI EXISTE EL ARCHIVO
-    If FSO.FileExists(TEMA) = False Then
+    If fso.FileExists(TEMA) = False Then
         tERR.Anotar "003-0002"
-        frmIndex.lblRepNau.Caption = "Sin reproducción"
+        frmIndex.lblRepNau.Caption = TR.Trad("Sin reproducción%99%")
         frmIndex.RollSONG.ReplaceIndex 0, TR.Trad("No se encontro" + vbCrLf + _
             "la seleccion%98%Seleccion se refiere a musica, video o " + _
             "karaoke que se quiso reproducir%99%")
         tERR.Anotar "003-0003"
         EMPEZAR_SIGUIENTE 4
     End If
-    
+    tERR.Anotar "003-0003-e"
     '*****************************************
     'VER SI ESTA VALIDADO
     If RavI >= 4 Then 'revisar validacion!
@@ -342,8 +353,8 @@ Public Sub EjecutarTema(TEMA As String, ByRef SumaRanking As Boolean, Optional s
     End If
     
     'ver si es solo expendedor de musica
-    If NOMUSIC Then 'no es fonola
-        If ShowDemoMusic Then 'pasa las canciones como demo 20 segundos
+    If NOMUSIC Or sTag = "TEST" Then 'no es fonola
+        If ShowDemoMusic Or sTag = "TEST" Then 'pasa las canciones como demo 20 segundos
             If CREDITOS < CreditForTestMusic Then Exit Sub 'si se configuro exigir creditos para pasar muestras (igual son gratis)
             If MaxListaTestMusic > 0 Then 'si es cero permite todo
                 If tLST.GetLastIndex >= MaxListaTestMusic Then Exit Sub 'hay mas canciones en lista que las permitidas
@@ -360,15 +371,16 @@ Public Sub EjecutarTema(TEMA As String, ByRef SumaRanking As Boolean, Optional s
     
     '*****************************************
     'ACTUALIZAR VISTA DE TEXTOS INFERIORES
-    
+    tERR.Anotar "003-0003-f"
     Dim p1 As String
     p1 = GetPuestoN(1)
     tERR.Anotar "003-0003b"
     
-    If FSO.FileExists(PL) Then
+    If fso.FileExists(PL) Then
+        tERR.Anotar "003-0003-g", p1
         TR.SetVars _
-            FSO.GetBaseName(p1), _
-            FSO.GetFolder(FSO.GetParentFolderName(p1)).Name
+            fso.GetBaseName(p1), _
+            fso.GetFolder(fso.GetParentFolderName(p1)).Name
             
         frmIndex.RollSONG.ReplaceIndex 2, TR.Trad("el mas escuchado" + vbCrLf + _
                                       "%01%" + vbCrLf + _
@@ -376,7 +388,8 @@ Public Sub EjecutarTema(TEMA As String, ByRef SumaRanking As Boolean, Optional s
                                       "%02%%98%La variable 1 es la cancion " + _
                                       "y la 2 el disco%99%")
     Else 'si el rank no se inicio no exitse!!!!!!!!
-        frmIndex.RollSONG.ReplaceIndex 2, TR.Trad("disfrute" + vbCrLf + "su música%99%")
+        tERR.Anotar "003-0003-h"
+        frmIndex.RollSONG.ReplaceIndex 2, TR.Trad("disfrute%97%su música%99%")
     End If
     
     tERR.Anotar "003-0004"
@@ -393,10 +406,10 @@ Public Sub EjecutarTema(TEMA As String, ByRef SumaRanking As Boolean, Optional s
     tERR.Anotar "003-0005", TEMA
     TEMA_REPRODUCIENDO = TEMA
     Dim nombreTEMA As String, nombreDISCO As String
-    nombreTEMA = FSO.GetBaseName(TEMA)
-    nombreDISCO = FSO.GetBaseName(FSO.GetParentFolderName(TEMA))
+    nombreTEMA = fso.GetBaseName(TEMA)
+    nombreDISCO = fso.GetBaseName(fso.GetParentFolderName(TEMA))
     
-    frmIndex.lblRepNau.Caption = "Reproduciendo: " + QuitarNumeroDeTema(nombreTEMA)
+    frmIndex.lblRepNau.Caption = TR.Trad("Reproduciendo: %99%") + QuitarNumeroDeTema(nombreTEMA)
     TR.SetVars _
         QuitarNumeroDeTema(nombreTEMA), _
         nombreDISCO, _
@@ -411,8 +424,8 @@ Public Sub EjecutarTema(TEMA As String, ByRef SumaRanking As Boolean, Optional s
     'UBICAR LOS CONTROLES SEGUN CORRESPONDA
     
     tERR.Anotar "003-0009"
-    If UCase(FSO.GetExtensionName(TEMA)) <> "MP3" And _
-        UCase(FSO.GetExtensionName(TEMA)) <> "WMA" Then '''And UCase(FSO.GetExtensionName(tema)) <> "MP4" Then
+    If UCase(fso.GetExtensionName(TEMA)) <> "MP3" And _
+        UCase(fso.GetExtensionName(TEMA)) <> "WMA" Then '''And UCase(FSO.GetExtensionName(tema)) <> "MP4" Then
         
         EsVideo = True
         tERR.Anotar "003-0010", vidFullScreen, Salida2, HabilitarVUMetro
@@ -424,7 +437,7 @@ Public Sub EjecutarTema(TEMA As String, ByRef SumaRanking As Boolean, Optional s
         'ver si esta en el modo de listas de texto !!
         EstoyEnModoVideoMiniSelDisco = (vidFullScreen = False And Salida2 = False)
          
-        If Left(LCase(FSO.GetExtensionName(TEMA)), 2) = "mn" Then
+        If Left(LCase(fso.GetExtensionName(TEMA)), 2) = "mn" Then
             EsKar = True
             'el pick kar se pone visible en el wait ok
             frmIndex.picVideo(IAANext).Visible = False
@@ -505,7 +518,7 @@ Public Sub EjecutarTema(TEMA As String, ByRef SumaRanking As Boolean, Optional s
         If EsVideo Then
             If Salida2 Then
                 'ver si es karaoke o video comun
-                If Left(LCase(FSO.GetExtensionName(TEMA)), 2) = "mn" Then
+                If Left(LCase(fso.GetExtensionName(TEMA)), 2) = "mn" Then
                     EsKar = True
                     
                     frmIndex.WaitOk TEMA
@@ -527,7 +540,7 @@ Public Sub EjecutarTema(TEMA As String, ByRef SumaRanking As Boolean, Optional s
                 End If
             Else 'va por el monitor
                 'ver si es karaoke o video comun
-                If Left(LCase(FSO.GetExtensionName(TEMA)), 2) = "mn" Then
+                If Left(LCase(fso.GetExtensionName(TEMA)), 2) = "mn" Then
                     EsKar = True
                     frmIndex.UpdateVista 'esta por empezar un karaoke en el monitor
     
@@ -594,10 +607,9 @@ Public Sub EjecutarTema(TEMA As String, ByRef SumaRanking As Boolean, Optional s
         '*****************************************
         'DARLE AL PLAY viendo desde y hasta donde
         
-        tERR.Anotar "003-0049b", iAlias, NOMUSIC, ShowDemoMusic
+        tERR.Anotar "003-0049b", iAlias, NOMUSIC, ShowDemoMusic, OnlyOneDemo
         
         '****************************************
-        'PASARAL8
         'debo revisar si hay ringtones
         'antes preguntaba "If NOMUSIC And ShowDemoMusic Then"
         'pero esto no vefificaba "VentaExtras" que es realmente la habilitacion de ringtones !!
@@ -607,31 +619,30 @@ Public Sub EjecutarTema(TEMA As String, ByRef SumaRanking As Boolean, Optional s
         Dim SzeFil As Long
         SzeFil = FileLen(TEMA) 'cancion actual
         
-        
         'PUEDE HABER RINGTONES (venta extras) si no imposible, no se considera asi !
         If VentaExtras And SzeFil < CLng(1572864) Then ' <<1.5 * (1024 * 1024)>> 1,5 MB es mi base
-            'PASARAL8 antes consideraba 1.5 mb por un lado y 50 segundos por otro, ahora unifique
+             'antes consideraba 1.5 mb por un lado y 50 segundos por otro, ahora unifique
             
-                'lo considero ringtone
-                TotalTema(IAANext) = .LengthInSec(IAANext)
-                .HastaTema(IAANext) = .LengthInSec(IAANext)
-                CORTAR_TEMA(IAANext) = True 'PASARAL8
-                varSecPlay = 0
+            'lo considero ringtone
+            TotalTema(IAANext) = .LengthInSec(IAANext)
+            .HastaTema(IAANext) = .LengthInSec(IAANext)
+            CORTAR_TEMA(IAANext) = True
+            varSecPlay = 0
                 
         Else 'NO HAY RINGTONES
-            If NOMUSIC And ShowDemoMusic Then
+            If sTag = "TEST" Or (NOMUSIC And ShowDemoMusic) Then
                 'lo considero MUSICA DE MUESTRA
                 .SeekTo 30000, IAANext
-                TotalTema(IAANext) = 50
-                .HastaTema(IAANext) = 50
-                CORTAR_TEMA(IAANext) = False 'PASARAL8, cortar signifoca que usa el porcentaje de la musica gratis
+                TotalTema(IAANext) = 60
+                .HastaTema(IAANext) = 60
+                CORTAR_TEMA(IAANext) = False
                 varSecPlay = 30
             Else
                 'NECESITO saber si eso gratuito lanzado por el timer !! mp3.esgratis SOLO es true en canciones gratis
                 'si no ponia esto la canciones  gratis salian a volumen normal
                 If frmIndex.MP3.EsGratis(IAANext) = False Then
                     'lo consiedero musica normal
-                    CORTAR_TEMA(IAANext) = False 'PASARAL8
+                    CORTAR_TEMA(IAANext) = False
                 End If
                 'estos van afuera por que la musca gratis tambien los necesita
                 TotalTema(IAANext) = .LengthInSec(IAANext)
@@ -639,26 +650,6 @@ Public Sub EjecutarTema(TEMA As String, ByRef SumaRanking As Boolean, Optional s
                 varSecPlay = 0
             End If
         End If
-                
-'        'lo considero MUSICA DE MUESTRA
-'        .SeekTo 30000, IAANext
-'        TotalTema(IAANext) = 50
-'        .HastaTema(IAANext) = 50
-'        CORTAR_TEMA(IAANext) = True 'PASARAL8
-'        varSecPlay = 30
-'
-'        'lo consiedero musica normal
-'        TotalTema(IAANext) = .LengthInSec(IAANext)
-'        .HastaTema(IAANext) = .LengthInSec(IAANext)
-'        CORTAR_TEMA(IAANext) = False 'PASARAL8
-'        varSecPlay = 0
-'
-'        'lo considero ringtone
-'        TotalTema(IAANext) = .LengthInSec(IAANext)
-'        .HastaTema(IAANext) = .LengthInSec(IAANext)
-'        CORTAR_TEMA(IAANext) = False 'PASARAL8
-'        varSecPlay = 0
-        
         
         'UpdateHastaTema IAANext se cargo en el doopen
         tERR.Anotar "003-0049c", .HastaTema(IAANext)
@@ -809,11 +800,10 @@ Public Function EMPEZAR_SIGUIENTE(DesdeDonde As Long) As Long
             
             
             Dim sTag As String
-            If tLST.GetTag(1) = "VIP" Then
-                sTag = "VIP"
-            Else
-                sTag = ""
-            End If
+            
+            sTag = ""
+            If tLST.GetTag(1) = "VIP" Then sTag = "VIP"
+            If tLST.GetTag(1) = "TEST" Then sTag = "TEST"
             
             tERR.Anotar "003-0058", TemaDeMatriz, sTag
             
@@ -821,15 +811,15 @@ Public Function EMPEZAR_SIGUIENTE(DesdeDonde As Long) As Long
             
             If tLST.ListaKillElement = 0 Then
                 '.lblNexts.Caption = "Sin canciones en lista"
-                .lblNexts.Caption = "Ingrese una moneda" + vbCrLf + "y disfrute su" + vbCrLf + "música preferida"
+                
+                .lblNexts.Caption = TR.Trad("Ingrese una moneda%97%y disfrute su%97%música preferida%99%")
                 .lblNexts.Alignment = 2 'centrado
-                .RollSONG.ReplaceIndex 1, TR.Trad("No hay " + vbCrLf + _
-                    "mas selecciones%99%")
+                .RollSONG.ReplaceIndex 1, TR.Trad("No hay%97%mas selecciones%99%")
             Else
                 Dim strLIST As String
                 Dim HY As Long, HZ As Long
                 HY = tLST.GetLastIndex
-                strLIST = "Próximas selecciones: " + CStr(HY) + vbCrLf
+                strLIST = TR.Trad("Próximas selecciones: %99%") + CStr(HY) + vbCrLf
                 If HY > 10 Then HY = 10
                 For HZ = 1 To HY
                     strLIST = strLIST + QuitarNumeroDeTema(tLST.GetElementListaFileName(HZ)) + vbCrLf
@@ -839,7 +829,7 @@ Public Function EMPEZAR_SIGUIENTE(DesdeDonde As Long) As Long
             End If
             
             tERR.Anotar "003-0063"
-            'PASARAL8 es una negrada por que los ringtones o las canciones de prueba en lista
+            'es una negrada por que los ringtones o las canciones de prueba en lista
             'despues se corrigen !!!
             frmIndex.MP3.EsGratis(IAANext) = False
             CORTAR_TEMA(IAANext) = False 'este tema va entero ya que lo eligio el usuario
@@ -882,14 +872,13 @@ Public Function EMPEZAR_SIGUIENTE(DesdeDonde As Long) As Long
             LedEvent "ActionLedNoPlaying"
             LedEvent "ActionLedNoPlayVip" '            SetKeyState vbKeyCapital, False
             tERR.Anotar "003-0069"
-            .lblRepNau.Caption = "Sin reproducción"
+            .lblRepNau.Caption = TR.Trad("Sin reproducción%99%")
             .RollSONG.ReplaceIndex 0, TR.Trad("Sin reproduccion actual%99%")
             
             tERR.Anotar "003-0071"
-            .lblNexts.Caption = "Ingrese una moneda" + vbCrLf + "y disfrute su" + vbCrLf + "música preferida"
+            .lblNexts.Caption = TR.Trad("Ingrese una moneda%97%y disfrute su%97%música preferida%99%")
             .lblNexts.Alignment = 2 'centrado
-            .RollSONG.ReplaceIndex 1, TR.Trad("No hay" + vbCrLf + _
-                "mas selecciones%99%")
+            .RollSONG.ReplaceIndex 1, TR.Trad("No hay%97%mas selecciones%99%")
             
             TEMA_REPRODUCIENDO = TR.Trad("Sin reproduccion actual%99%")
             tERR.Anotar "003-0075", HabilitarVUMetro
@@ -916,9 +905,9 @@ Public Sub TOP10(nameARCH As String, nameTEMA As String, nameDISCO As String)
     'On Error GoTo notop
     'ver si existe ranking.tbr
     tERR.Anotar "003-0078", nameARCH
-    If FSO.FileExists(GPF("rd3_444")) = False Then
+    If fso.FileExists(GPF("rd3_444")) = False Then
         tERR.Anotar "003-0079"
-        FSO.CreateTextFile GPF("rd3_444"), True
+        fso.CreateTextFile GPF("rd3_444"), True
     End If
     tERR.Anotar "003-0080"
     Dim tt As String
@@ -935,7 +924,7 @@ Public Sub TOP10(nameARCH As String, nameTEMA As String, nameDISCO As String)
     Encontrado = False
     'abrir el archivo y ver si ya esta el tema
     tERR.Anotar "003-0082"
-    Set TE = FSO.OpenTextFile(GPF("rd3_444"), ForReading, False)
+    Set TE = fso.OpenTextFile(GPF("rd3_444"), ForReading, False)
     'leerlo cargarlo en matriz y ordenar por mas escuchado
     tERR.Anotar "003-0083"
     Do While Not TE.AtEndOfStream
@@ -998,7 +987,7 @@ Public Sub TOP10(nameARCH As String, nameTEMA As String, nameDISCO As String)
     tERR.Anotar "003-0108"
     Dim MTXsort() As String
     tERR.Anotar "003-0109"
-    Set TE = FSO.CreateTextFile(GPF("rd3_444"), True)
+    Set TE = fso.CreateTextFile(GPF("rd3_444"), True)
     Dim PTactual As Long
     Dim YaSeEscribioDatoNuevo As Boolean
     Dim VarMTX As Long 'variacion del indice de la matriz
@@ -1205,16 +1194,16 @@ Private Function GetNumberArchCredit(Arch As String) As Long
     Dim TE8 As TextStream
     tERR.Anotar "003-0126"
     Dim CONTw As Long
-    If FSO.FileExists(Arch) Then
+    If fso.FileExists(Arch) Then
         tERR.Anotar "003-0129"
-        Set TE8 = FSO.OpenTextFile(Arch, ForReading, False)
+        Set TE8 = fso.OpenTextFile(Arch, ForReading, False)
         tERR.Anotar "003-0130"
         CONTw = Val(TE8.ReadLine)
         tERR.Anotar "003-0131"
         TE8.Close
     Else
         tERR.Anotar "003-0132"
-        Set TE8 = FSO.CreateTextFile(Arch, True)
+        Set TE8 = fso.CreateTextFile(Arch, True)
         tERR.Anotar "003-0133"
         TE8.WriteLine "0"
         tERR.Anotar "003-0134"
@@ -1230,7 +1219,7 @@ End Function
 Private Sub PutNumberArchCredit(Arch As String, Valor As Long)
     Dim TE9 As TextStream
     tERR.Anotar "003-0152"
-    Set TE9 = FSO.CreateTextFile(Arch, True)
+    Set TE9 = fso.CreateTextFile(Arch, True)
     tERR.Anotar "003-0153"
     TE9.WriteLine CStr(Valor)
     tERR.Anotar "003-0154"
@@ -1243,9 +1232,9 @@ Public Function GetPuestoN(nOrden As Long) As String
     Dim tmpTema As String
     tmpTema = ""
     tERR.Anotar "003-0159b", nOrden
-    If FSO.FileExists(GPF("rd3_444")) Then
+    If fso.FileExists(GPF("rd3_444")) Then
         Dim TE661 As TextStream
-        Set TE661 = FSO.OpenTextFile(GPF("rd3_444"), ForReading, False)
+        Set TE661 = fso.OpenTextFile(GPF("rd3_444"), ForReading, False)
             If TE661.AtEndOfStream Then GoTo fin661
             tmpTema = TE661.ReadLine
             tmpTema = txtInLista(tmpTema, 1, ",")
@@ -1265,10 +1254,10 @@ End Function
 Public Function PuestoN(TemaBuscado As String) As String
     'leer ranking.tbr y buscar el tema
     tERR.Anotar "003-0159"
-    If FSO.FileExists(GPF("rd3_444")) = False Then
+    If fso.FileExists(GPF("rd3_444")) = False Then
         'esto no deberia pasar nunca ya que entra despues de que el tema se carga en el ranking
         tERR.Anotar "003-0160"
-        FSO.CreateTextFile GPF("rd3_444"), True
+        fso.CreateTextFile GPF("rd3_444"), True
         tERR.Anotar "003-0161"
         PuestoN = 1
         tERR.Anotar "003-0162"
@@ -1276,7 +1265,7 @@ Public Function PuestoN(TemaBuscado As String) As String
     End If
     
     tERR.Anotar "003-0163"
-    Set TE = FSO.OpenTextFile(GPF("rd3_444"), ForReading, False)
+    Set TE = fso.OpenTextFile(GPF("rd3_444"), ForReading, False)
     tERR.Anotar "003-0164"
     Dim tt As String
     Dim ThisArch As String

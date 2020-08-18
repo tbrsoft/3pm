@@ -247,7 +247,7 @@ Private Sub Command2_Click()
     
     Set nTE = fso.CreateTextFile(AP + "REG_DESCR_FALLA.W15", True)
         nTE.WriteLine "DESCRIPCION FALLA:"
-        nTE.WriteLine Text3.Text
+        nTE.WriteLine Text3.tExt
         nTE.WriteLine "CAMINO"
         nTE.WriteLine tERR.LogAcumulado
     nTE.Close
@@ -272,7 +272,7 @@ Private Sub Command3_Click()
     Dim nTE As TextStream
     
     Set nTE = fso.CreateTextFile(AP + "REG_DESCR_ERR.W15", True)
-        nTE.Write Text4.Text
+        nTE.Write Text4.tExt
     nTE.Close
     
     Set nTE = Nothing

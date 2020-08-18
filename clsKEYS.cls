@@ -178,11 +178,11 @@ Public Function sabseee(ParaQue As String) As TypeLic
     Dim tmpLLIC As TypeLic
     
     Select Case LCase(ParaQue)
-        Case dcr("1Vx0YVGhEoIisHPLAZMHXw=="):                              tmpLLIC = mLicencia
-        Case LCase(dcr("MCuVh38359iRH+GBaAkXedz8Pl38peUqZHKs0a0SpMe+QLrW9mKdnA==")):     tmpLLIC = mLicencia3PMVtaMusica
-        Case LCase(dcr("yTSbeYe2oWp2ydIUpGyes+DYNN6qU8l9pMMGAAqH+wBg8bBgTQ+/hw==")): tmpLLIC = mLicencia3PMOrigMusicaFTP
+        Case dcr("1Vx0YVGhEoIisHPLAZMHXw=="):                                         tmpLLIC = mLicencia
+        Case LCase(dcr("MCuVh38359iRH+GBaAkXedz8Pl38peUqZHKs0a0SpMe+QLrW9mKdnA==")):  tmpLLIC = mLicencia3PMVtaMusica
+        Case LCase(dcr("yTSbeYe2oWp2ydIUpGyes+DYNN6qU8l9pMMGAAqH+wBg8bBgTQ+/hw==")):  tmpLLIC = mLicencia3PMOrigMusicaFTP
         Case LCase(dcr("VZPmSDtgWIj2UthiVZfN1LsFHe7IZv/K/ue9/JPXBYNJosAztaasKg==")):  tmpLLIC = mLicencia3PMConfigOnline
-        Case LCase(dcr("OqgcJfckN8975IVShi0xrqPphoO7CJfy1bRk3zQnHno=")):         tmpLLIC = mLicenciaCD001Kar
+        Case LCase(dcr("OqgcJfckN8975IVShi0xrqPphoO7CJfy1bRk3zQnHno=")):              tmpLLIC = mLicenciaCD001Kar
     End Select
     
     'reviso a ver si esta
@@ -199,11 +199,11 @@ Public Function sabseee(ParaQue As String) As TypeLic
     
     'veo y cargo el resultado
     Select Case LCase(ParaQue)
-        Case dcr("1Vx0YVGhEoIisHPLAZMHXw=="):                              sabseee = mLicencia
-        Case LCase(dcr("MCuVh38359iRH+GBaAkXedz8Pl38peUqZHKs0a0SpMe+QLrW9mKdnA==")):     sabseee = mLicencia3PMVtaMusica
-        Case LCase(dcr("yTSbeYe2oWp2ydIUpGyes+DYNN6qU8l9pMMGAAqH+wBg8bBgTQ+/hw==")): sabseee = mLicencia3PMOrigMusicaFTP
-        Case LCase(dcr("VZPmSDtgWIj2UthiVZfN1LsFHe7IZv/K/ue9/JPXBYNJosAztaasKg==")):  sabseee = mLicencia3PMConfigOnline
-        Case LCase(dcr("OqgcJfckN8975IVShi0xrqPphoO7CJfy1bRk3zQnHno=")):         sabseee = mLicenciaCD001Kar
+        Case dcr("1Vx0YVGhEoIisHPLAZMHXw=="):                                          sabseee = mLicencia
+        Case LCase(dcr("MCuVh38359iRH+GBaAkXedz8Pl38peUqZHKs0a0SpMe+QLrW9mKdnA==")):   sabseee = mLicencia3PMVtaMusica
+        Case LCase(dcr("yTSbeYe2oWp2ydIUpGyes+DYNN6qU8l9pMMGAAqH+wBg8bBgTQ+/hw==")):   sabseee = mLicencia3PMOrigMusicaFTP
+        Case LCase(dcr("VZPmSDtgWIj2UthiVZfN1LsFHe7IZv/K/ue9/JPXBYNJosAztaasKg==")):   sabseee = mLicencia3PMConfigOnline
+        Case LCase(dcr("OqgcJfckN8975IVShi0xrqPphoO7CJfy1bRk3zQnHno=")):               sabseee = mLicenciaCD001Kar
     End Select
     
 End Function
@@ -371,19 +371,21 @@ Public Sub IngresaClave(ParaQue As String, RegFallo As Boolean)
             '15 completas para victor grande de arias
             '********************************************************************************
             Case 102996647, 101296007, 119202121, 97670972, 102271795, 102872252
-                If Year(Date) > 2008 And Month(Date) < 6 Then
+                'maldita sea !!!! se habia bloqueado y ya habia pagado !!!
+                'If Year(Date) > 2008 And Month(Date) < 6 Then
                     mLicencia = Supsabseee
                     mLicenciaCD001Kar = Supsabseee
                     mLicencia3PMVtaMusica = Supsabseee
-                End If
+                'End If
             
             '15 completas para victor grande de arias
             Case 98369777, 99625825, 98225533, 101871311, 99924147, 99354684, 103290080
-                If Year(Date) > 2008 And Month(Date) < 8 Then
+                'maldita sea !!!! se habia bloqueado y ya habia pagado !!!
+                'If Year(Date) > 2008 And Month(Date) < 8 Then
                     mLicencia = Supsabseee
                     mLicenciaCD001Kar = Supsabseee
                     mLicencia3PMVtaMusica = Supsabseee
-                End If
+                'End If
             
             '15 completas para victor grande de arias
             Case 100677430, 98804175, 100154459
@@ -392,6 +394,19 @@ Public Sub IngresaClave(ParaQue As String, RegFallo As Boolean)
                 mLicencia3PMVtaMusica = Supsabseee
             '********************************************************************************
                 
+            Case 104329645, 103389501, 107510805 'martino, solo mpRock-(genesis-MP6) [14 abr 2009]
+                mLicencia = ParaOtraPC
+            
+            Case 90213537 'PRUEBA EXPENDEDOR
+                mLicencia = Supsabseee
+                mLicenciaCD001Kar = Supsabseee
+                mLicencia3PMVtaMusica = Supsabseee
+            
+            Case 105929791 'gustavo lopez rosario, full chiche
+                mLicencia = Supsabseee
+                mLicenciaCD001Kar = Supsabseee
+                mLicencia3PMVtaMusica = Supsabseee
+            
             Case Else
                 'las que no estan especificadas tienen al menos superlicencia _
                     de 3PM si no especifica lo contrario

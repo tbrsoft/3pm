@@ -205,6 +205,9 @@ Public SumValidar As Long 'cantidad de creditos cada vez que se toque teclaSumVa
 Public VendoMusica As Boolean
 Public NOMUSIC As Boolean
 Public ShowDemoMusic As Boolean
+'negrada solo para martino, el boton 19 fuerza la muestra de musica
+Public OnlyOneDemo As Boolean
+
 Public SaveCart As Boolean
 Public TengoBluetooth As Boolean
 Public TengoUSB As Boolean 'siempre hay pero puede o estar expuesto al public
@@ -627,7 +630,10 @@ Public Sub Main()
     'extraer todo en System
     Dim A As Long
     tERR.Anotar "acnc11"
+    Dim EachFile As String
     For A = 1 To JuSe.CantArchs
+        EachFile = JuSe.GetListFiles(A, False)
+        tERR.Anotar "acnc11", CStr(A) + "/" + CStr(JuSe.CantArchs), EachFile
         JuSe.Extract GPF("extr233"), A
     Next
     'cerrar todo
@@ -842,10 +848,9 @@ Public Sub CargarProximosTemas()
     Dim strProximos As String ', TotTemas As Integer
     
     If tLST.GetLastIndex = 0 Then
-        frmIndex.lblNexts.Caption = "Ingrese una moneda" + vbCrLf + "y disfrute su" + vbCrLf + "música preferida"
+        frmIndex.lblNexts.Caption = TR.Trad("Ingrese una moneda%97%y disfrute su%97%música preferida%99%")
         frmIndex.lblNexts.Alignment = 2 'centrado
-        frmIndex.RollSONG.ReplaceIndex 1, TR.Trad("No hay" + vbCrLf + _
-            "mas selecciones%98%No quedan canciones o videos para reproducir%99%")
+        frmIndex.RollSONG.ReplaceIndex 1, TR.Trad("No hay%97%mas selecciones%98%No quedan canciones o videos para reproducir%99%")
     Else
         
         'volver a contar'
@@ -856,7 +861,7 @@ Public Sub CargarProximosTemas()
         Dim strLIST As String
         Dim HY As Long, HZ As Long
         HY = tLST.GetLastIndex
-        strLIST = "Próximas selecciones: " + CStr(HY) + vbCrLf
+        strLIST = TR.Trad("Próximas selecciones: %99%") + CStr(HY) + vbCrLf
         If HY > 10 Then HY = 10
         For HZ = 1 To HY
             strLIST = strLIST + QuitarNumeroDeTema(tLST.GetElementListaFileName(HZ)) + vbCrLf
@@ -1152,11 +1157,7 @@ Public Sub VarCreditos(VarCre As Single, Optional SumaCont As Boolean = True, _
             Dim F As String
             '
             'recuerde valida su equipo
-            F = TR.Trad(dcr("ETAhtnC15tnESvs+YXjlyltqZ+l+IFLkU8aIs8eqb6M1gdSxrAWJWg==") + _
-                "%98%Existe un sistema de validacion en que el " + _
-                "dueño del local donde esta la fonola debe llamar al" + _
-                "dueño y pedir una clave. Se usa para que no le roben " + _
-                "los equipos al dueño%99%")
+            F = dcr("ETAhtnC15tnESvs+YXjlyltqZ+l+IFLkU8aIs8eqb6M1gdSxrAWJWg==")
                 
             frmIndex.RollCRED.ReplaceIndex 0, F
             frmIndex.RollCRED.ReplaceIndex 1, F
@@ -1932,9 +1933,11 @@ Private Sub EsperarFinTE(I As Long)  'esperar tecla especial hasta terminar
     Do
         DoEvents: DoEvents
         If (Timer - TimeLastCoin(I)) > (TimeMaxSeparacion(I) / 1000) Then Exit Do
+        
         'MOCAAAAASO cuando pasa la media noche timer es menor que TimeLastCoin(i)
         'por lo tanto se queda esperando !!!!
         If Timer <= TimeLastCoin(I) Then Exit Do 'NUNCA DESPUES DE LA MEDIANOCHE !!!
+        
     Loop
     
     TerminoLTE I
@@ -1957,6 +1960,7 @@ Private Sub TerminoLTE(I As Long)
                 If ValoresATransformar1(J) > 0 Then
                     
                     'poner los creditos que faltaron
+                    'agregado 11/06/2009. Si es negativo !? me fije en la funcion varcreditos y no se registraia algo muy pulenta
                     VarCreditos CSng(TemasPorCredito * (ValoresATransformar1(J) - J))
                     
                     'MsgBox "faltaron:" + CStr(ValoresATransformar1(J) - J) + _
@@ -2293,8 +2297,10 @@ End Function
 Public Sub goNextRitmo()
     Dim nxR As String
     nxR = GetStrigNextRitmo
+    tERR.Anotar "acdo-3", nxR
     If nxR <> "" Then
         SelPagina nxR
+        tERR.Anotar "acdo-4"
     End If
 End Sub
 
@@ -2307,36 +2313,41 @@ Public Function GetStrigNextRitmo() As String
     'empiezo en ese y doy la vuelta al inicio si hace falta
     'buscar el primer numero de disco que cumpla con la condicion solicitada
     AA = nDiscoGral
-    
+    tERR.Anotar "acdo-5", AA
     Dim VueltasCompletas As Long
     VueltasCompletas = 0
     
     Dim RitmoActual As String
     RitmoActual = UCase(fso.GetBaseName(fso.GetParentFolderName(txtInLista(MATRIZ_DISCOS(AA), 0, ","))))
+    tERR.Anotar "acdo-6", RitmoActual
     Dim lastRitmoVisto As String
     Do
         lastRitmoVisto = UCase(fso.GetBaseName(fso.GetParentFolderName(txtInLista(MATRIZ_DISCOS(AA), 0, ","))))
-        
+        tERR.Anotar "acdo-7", lastRitmoVisto, RitmoActual, MATRIZ_DISCOS(AA)
         'ver si ya pase a otro
         If lastRitmoVisto <> RitmoActual Then
             'ya llegue a otro ritmo
             GetStrigNextRitmo = lastRitmoVisto
+            tERR.Anotar "acdo-8"
             Exit Function
         End If
 
         'pasar al disco que sigue y si termina ir al inicio
         AA = AA + 1
+        tERR.Anotar "acdo-9", CStr(AA) + "/" + CStr(UBound(MATRIZ_DISCOS))
         If AA > UBound(MATRIZ_DISCOS) Then
-            AA = 1 'empieza desde el pricipio de unevo para ver si es necesario
+            AA = 1 'empieza desde el pricipio de nuevo para ver si es necesario
             
             VueltasCompletas = VueltasCompletas + 1
-            If VueltasCompletas = 2 Then GoTo NoEncuentro 'si dio dos vueltas no lo encontro!
+            If VueltasCompletas = 2 Then
+                tERR.AppendLog "acba22:" + CStr(AA) + ":" + RitmoActual + ":" + lastRitmoVisto + ":" + CStr(UBound(MATRIZ_DISCOS))
+                GetStrigNextRitmo = ""
+                Exit Function
+            End If
         End If
     Loop
     
-NoEncuentro:
-    tERR.AppendLog "acba22:" + CStr(AA), RitmoSel
-    GetStrigNextRitmo = ""
+    Exit Function
 
 End Function
 
@@ -3217,7 +3228,7 @@ Public Function dcr(sT As String) As String
     Dim d2 As String
     Dim hh As Long
     hh = 10 * 10 * 10
-    d2 = D.DecryptString(eMC_Blowfish, sT, "cuh" + CStr(hh) + "v", True)
+    d2 = D.DecryptString(eMC_Blowfish, sT, "cuh" + CStr(hh) + "v", True) 'cuh1000v
     dcr = d2
 End Function
 

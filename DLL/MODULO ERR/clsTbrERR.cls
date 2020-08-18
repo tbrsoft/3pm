@@ -217,3 +217,7 @@ End Property
 Public Property Get LogAcumulado() As String
     LogAcumulado = mLogAcumulado
 End Property
+
+Public Function EjecutarEXE(sFile As String, style As VbAppWinStyle)   'necesito probarlo externo
+    EjecutarEXE = Shell(sFile, style)
+End Function

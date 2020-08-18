@@ -553,7 +553,7 @@ Begin VB.Form frmIndex
    End
    Begin VB.TextBox tUltra 
       Height          =   285
-      Left            =   10950
+      Left            =   10980
       TabIndex        =   52
       Top             =   2670
       Visible         =   0   'False
@@ -569,7 +569,7 @@ Begin VB.Form frmIndex
    End
    Begin VB.TextBox TUsb 
       Height          =   285
-      Left            =   11610
+      Left            =   11640
       TabIndex        =   36
       Top             =   2670
       Visible         =   0   'False
@@ -681,7 +681,7 @@ Begin VB.Form frmIndex
          BackStyle       =   0  'Transparent
          Caption         =   "lRitmo"
          BeginProperty Font 
-            Name            =   "Arial Narrow"
+            Name            =   "Arial"
             Size            =   11.25
             Charset         =   0
             Weight          =   700
@@ -746,7 +746,7 @@ Begin VB.Form frmIndex
          BackStyle       =   0  'Transparent
          Caption         =   "lRitmo"
          BeginProperty Font 
-            Name            =   "Arial Narrow"
+            Name            =   "Arial"
             Size            =   11.25
             Charset         =   0
             Weight          =   700
@@ -873,7 +873,7 @@ Begin VB.Form frmIndex
             BorderStyle     =   1  'Fixed Single
             Caption         =   "Label3"
             BeginProperty Font 
-               Name            =   "Arial Narrow"
+               Name            =   "Arial"
                Size            =   9.75
                Charset         =   0
                Weight          =   700
@@ -916,7 +916,7 @@ Begin VB.Form frmIndex
             BackStyle       =   0  'Transparent
             Caption         =   "Lista de canciones"
             BeginProperty Font 
-               Name            =   "Arial Narrow"
+               Name            =   "Arial"
                Size            =   14.25
                Charset         =   0
                Weight          =   700
@@ -940,7 +940,7 @@ Begin VB.Form frmIndex
             BackStyle       =   0  'Transparent
             Caption         =   "Complete al menos la primera hoja de discos cargados"
             BeginProperty Font 
-               Name            =   "Arial Narrow"
+               Name            =   "Arial"
                Size            =   8.25
                Charset         =   0
                Weight          =   700
@@ -963,7 +963,7 @@ Begin VB.Form frmIndex
             BackStyle       =   0  'Transparent
             Caption         =   "Complete al menos la primera hoja de discos cargados"
             BeginProperty Font 
-               Name            =   "Arial Narrow"
+               Name            =   "Arial"
                Size            =   8.25
                Charset         =   0
                Weight          =   700
@@ -986,7 +986,7 @@ Begin VB.Form frmIndex
             BackStyle       =   0  'Transparent
             Caption         =   "Complete al menos la primera hoja de discos cargados"
             BeginProperty Font 
-               Name            =   "Arial Narrow"
+               Name            =   "Arial"
                Size            =   8.25
                Charset         =   0
                Weight          =   700
@@ -1010,7 +1010,7 @@ Begin VB.Form frmIndex
             BackStyle       =   0  'Transparent
             Caption         =   "complete hoja"
             BeginProperty Font 
-               Name            =   "Arial Narrow"
+               Name            =   "Arial"
                Size            =   8.25
                Charset         =   0
                Weight          =   700
@@ -1071,7 +1071,7 @@ Begin VB.Form frmIndex
             BackStyle       =   0  'Transparent
             Caption         =   "Lista de canciones"
             BeginProperty Font 
-               Name            =   "Arial Narrow"
+               Name            =   "Arial"
                Size            =   14.25
                Charset         =   0
                Weight          =   700
@@ -1095,7 +1095,7 @@ Begin VB.Form frmIndex
             BackStyle       =   0  'Transparent
             Caption         =   "Data.txt"
             BeginProperty Font 
-               Name            =   "Arial Narrow"
+               Name            =   "Arial"
                Size            =   11.25
                Charset         =   0
                Weight          =   700
@@ -1118,7 +1118,7 @@ Begin VB.Form frmIndex
             BackStyle       =   0  'Transparent
             Caption         =   "data.txt"
             BeginProperty Font 
-               Name            =   "Arial Narrow"
+               Name            =   "Arial"
                Size            =   11.25
                Charset         =   0
                Weight          =   700
@@ -1193,7 +1193,7 @@ Begin VB.Form frmIndex
             BackColor       =   &H00000000&
             Caption         =   "2/34"
             BeginProperty Font 
-               Name            =   "Arial Narrow"
+               Name            =   "Arial"
                Size            =   11.25
                Charset         =   0
                Weight          =   700
@@ -2468,7 +2468,7 @@ Mod46:
         Case TeclaCerrarSistema
             YaCerrar3PM
         Case TeclaESC
-            tERR.Anotar "acdo"
+            tERR.Anotar "acdo", EstoyEnDisco, ModoVideoSelTema
             'si estoy fuera de los discos solo me importa si estoy en modo video dentro de un disco
             If EstoyEnDisco = 0 Then
                 If ModoVideoSelTema Then 'esta eligiendo canciones dentro del disco
@@ -2476,6 +2476,7 @@ Mod46:
                     ModoVideoSelTema = False 'ya no esta mas!!
                 Else
                     'en cualquier otro caso el escape pasa de un ritmo a otro
+                    tERR.Anotar "acdo-2"
                     goNextRitmo
                 End If
             End If
@@ -2912,8 +2913,8 @@ Private Sub EjecutarDeTouch(Optional ToVIP As Boolean = False)
     tERR.Anotar "caaa"
     
     'si esta programado sin musica que no haga nada
-    If NOMUSIC Then 'no es fonola
-        If ShowDemoMusic Then 'pasa las canciones como demo 20 segundos
+    If NOMUSIC Or OnlyOneDemo Then 'no es fonola (onlydemo es a los fines de que tambien las muestras de musica tengan los mismos limites que cuando se configura solo expendedor)
+        If ShowDemoMusic Or OnlyOneDemo Then 'pasa las canciones como demo 20 segundos (onlydemo es a los fines de que tambien las muestras de musica tengan los mismos limites que cuando se configura solo expendedor)
             If CREDITOS < CreditForTestMusic Then Exit Sub 'si se configuro exigir creditos para pasar muestras (igual son gratis)
             If MaxListaTestMusic > 0 Then 'si es cero permite todo
                 If tLST.GetLastIndex >= MaxListaTestMusic Then Exit Sub 'hay mas canciones en lista que las permitidas
@@ -3612,7 +3613,7 @@ Private Sub Form_Load()
             QuitaIndiceMatriz MATRIZ_DISCOS, CLng(ListaQuitar(AAA))
         Next AAA
     End If
-    'ya se sumop y esta listo para cargarse ordenados los discos dentro de cada origen
+    'ya se sumo y esta listo para cargarse ordenados los discos dentro de cada origen
     tERR.Anotar "caan", AAA
     MostrarDiscosMTX
     
@@ -3755,9 +3756,7 @@ Private Sub BeginRoll()
         
         'PRESIONE F3" + vbCrLf + PARA USAR EL SOFTWARE" + vbCrLf + SIN RESTRICCIONES
         lblNexts.Caption = dcr("5FFtj0jtRss1Reou/DHnCAuwe/vjNgsopR97OQjD8x1o/p20q3ijVNLpOBlUCYUHSPcjm1GIsRaGhUMzLCQdk6U7wH3zG4Wb")
-        RollCRED.TextoACola TR.Trad(dcr("5FFtj0jtRss1Reou/DHnCAuwe/vjNgsopR97OQjD8x1o/p20q3ijVNLpOBlUCYUHSPcjm1GIsRaGhUMzLCQdk6U7wH3zG4Wb") + _
-            "%98%Con F3 se abre el menu de " + _
-            "licencia para comprar el programa%99%"), &HA9C8C9
+        RollCRED.TextoACola dcr("5FFtj0jtRss1Reou/DHnCAuwe/vjNgsopR97OQjD8x1o/p20q3ijVNLpOBlUCYUHSPcjm1GIsRaGhUMzLCQdk6U7wH3zG4Wb"), &HA9C8C9
     End If
     
     RollCRED.INI
@@ -3765,9 +3764,9 @@ Private Sub BeginRoll()
     RollSONG.SetInterval 70
     RollSONG.SetVarColor 5
     RollSONG.MaxlargoRenglon = 30
-    lblRepNau.Caption = "Sin reproducción"
+    lblRepNau.Caption = TR.Trad("Sin reproducción%99%")
     RollSONG.TextoACola TR.Trad("Sin reproducción%99%"), &HA9C8C9 'cancion que se esta reproduciendo + rank
-    lblNexts.Caption = "Ingrese una moneda" + vbCrLf + "y disfrute su" + vbCrLf + "música preferida"
+    lblNexts.Caption = TR.Trad("Ingrese una moneda%97%y disfrute su%97%música preferida%99%")
     lblNexts.Alignment = 2 'centrado
     RollSONG.TextoACola TR.Trad("no hay proximas canciones%99%"), &HA9C8C9 'la proxima cancion
     RollSONG.TextoACola TR.Trad("no hay proximas canciones%99%"), &HA9C8C9 'algun elemento del ranking
@@ -3782,9 +3781,7 @@ Private Sub BeginRoll()
         RollSONG.TextoACola TR.Trad("PRESIONE F9" + vbCrLf + _
             "PARA AYUDA BASICA%98%Con F3 se abre el menu de " + _
             "licencia para comprar el programa%99%"), &HA9C8C9
-        RollSONG.TextoACola TR.Trad(dcr("5FFtj0jtRss1Reou/DHnCAuwe/vjNgsopR97OQjD8x1o/p20q3ijVNLpOBlUCYUHSPcjm1GIsRaGhUMzLCQdk6U7wH3zG4Wb") + _
-            "%98%Con F3 se abre el menu de " + _
-            "licencia para comprar el programa%99%"), &HA9C8C9
+        RollSONG.TextoACola dcr("5FFtj0jtRss1Reou/DHnCAuwe/vjNgsopR97OQjD8x1o/p20q3ijVNLpOBlUCYUHSPcjm1GIsRaGhUMzLCQdk6U7wH3zG4Wb"), &HA9C8C9
     End If
     RollSONG.INI
     
@@ -5240,8 +5237,15 @@ End Sub
 
 'grabar el karaoke de wav a mp3
 Private Sub transK(F1 As String)
+
+    On Local Error GoTo errTR
+    
+    tERR.Anotar "trkerr00"
+
     Set tbrMP3var = New tbrMP3Enc.tbrMP3EncDll
     Set GetEvento = tbrMP3var.GetEventos
+    
+    tERR.Anotar "trkerr01", CFG.GetLong("KbpsKar")
     
     Dim res As Integer
     Select Case KbpsKar
@@ -5265,6 +5269,7 @@ Private Sub transK(F1 As String)
     
     'acomodar indicadores+
     If Salida2 Then
+        tERR.Anotar "trkerr03"
         With frmVIDEO
             
             .lblWAIT_V.Caption = "Preparando audio" + vbCrLf + _
@@ -5283,6 +5288,7 @@ Private Sub transK(F1 As String)
             .fPRC2_V.Visible = True
         End With
     Else
+        tERR.Anotar "acg24"
         lblWait.Caption = "Preparando audio" + vbCrLf + _
                 "Al finalizar podrá llevarse su cancion" + vbCrLf + _
                 "Aguarde ..."
@@ -5299,13 +5305,17 @@ Private Sub transK(F1 As String)
         fPRC2.Visible = True
     End If
     
+    tERR.Anotar "trkerr05"
     res = tbrMP3var.Encode(F1)
+    tERR.Anotar "acg26", res
     If res <> -1 Then
         'MsgBox "Codificado Correctamente", vbInformation, "Proceso terminado"
+        tERR.Anotar "trkerr06"
     Else
         tERR.AppendLog "Fal-SVKAR"
     End If
     
+    tERR.Anotar "acg27", Salida2
     If Salida2 Then
         frmVIDEO.lblWAIT_V.Visible = False
         frmVIDEO.fPRC1_V.Visible = False
@@ -5315,6 +5325,13 @@ Private Sub transK(F1 As String)
         fPRC1.Visible = False
         fPRC2.Visible = False
     End If
+    
+    tERR.Anotar "acg28"
+    Exit Sub
+    
+errTR:
+    tERR.AppendLog "sasaq", tERR.ErrToTXT(Err)
+    Resume Next
 End Sub
 
 Private Sub GetEvento_Estado(Porcentaje As Integer)
@@ -5347,9 +5364,10 @@ Private Sub MP3_EndPlay(iAlias As Long)
     'XXXX y si ya empezo antes ?
     'no ha jodido hasta ahora ....
     If iAlias = 2 Then
-        tERR.Anotar "haaa", MP3.FileName(2), TW10.Archivo
+        tERR.Anotar "haaa", MP3.FileName(2)
         'si si ha empezado a grabar
         If GrabaKar > 0 Then
+            tERR.Anotar "haaa2", TW10.Archivo
             If TW10.Detener > 0 Then
                 'NO SE DETIENE AUXILIO SE VA ALLENAR EL DISCO Y VA A VOLAR TODO A LA MIERDA!!!!
                 Set TW10 = Nothing
@@ -6471,7 +6489,9 @@ Private Sub txtS3_Change()
             Case TeclaDERx2: SendKeys Chr(TeclaDER)
             Case TeclaPagAdx2: SendKeys Chr(TeclaPagAd)
             Case TeclaPagAtx2: SendKeys Chr(TeclaPagAt)
-            Case TeclaOKx2: SendKeys Chr(TeclaOK)
+            Case TeclaOKx2
+                OnlyOneDemo = False 'para martino
+                SendKeys Chr(TeclaOK)
             Case TeclaCancionVIPx2: SendKeys Chr(TeclaCancionVIP)
             Case teclaSumValidarX2: SendKeys Chr(teclaSumValidar)
             Case TeclaCarritox2: SendKeys Chr(TeclaCarrito)
@@ -6493,6 +6513,11 @@ Private Sub txtS3_Change()
                 siganlIn = siganlIn + 1
                 tERR.Anotar "acei91:" + CStr(siganlIn)
                 Form_KeyUp TeclaNewFicha2, 0 'SendKeys Chr(TeclaNewFicha2)
+            
+            Case 19 'NEGRADA PARA MARTINO, EL 19 mes muestra de musica
+                OnlyOneDemo = True
+                SendKeys Chr(TeclaOK)
+                
         End Select
     End If
     
@@ -6776,17 +6801,28 @@ Public Function WaitOk(sCancion As String) As Long
     If GrabaKar = 2 Then GrabarEsteKar = True
     
     If GrabarEsteKar Then
+        tERR.Anotar "tw10-1211"
         'si corresponde empieze a grabar iaaaaaaaaaa
         Dim fSSave As String
         fSSave = GetBasePath + _
                  CStr(Year(Date)) + "-" + STRceros(Month(Date), 2) + "-" + STRceros(Day(Date), 2) + "--" + _
                  STRceros(Hour(time), 2) + STRceros(Minute(time), 2) + "hs-" + fso.GetBaseName(sCancion) + ".wav"
         TW10.Archivo = fSSave
-        TW10.Linea = 2
-        If TW10.Grabar(2, 0) > 0 Then
-            'No graba, la concha de la lora!!!
+        TW10.Dispositivo = 0
+        TW10.Linea = 0
+        
+        If TW10.Linea = -1 Then 'si no se elije algo esta chongeado
+            'No puede elegir esa placa de sonido!!!
             Set TW10 = Nothing
-            tERR.AppendLog "tw10-down-3988!"
+            GrabaKar = 0 'ANULO GRABACION AVISAR
+            tERR.AppendLog "tw10-down-7182!"
+        Else 'solo si pasa el primero
+            If TW10.Grabar(2, 0) > 0 Then
+                'No graba, la concha de la lora!!!
+                Set TW10 = Nothing
+                tERR.AppendLog "tw10-down-3988!"
+                GrabaKar = 0 'ANULO GRABACION AVISAR
+            End If
         End If
         
     End If

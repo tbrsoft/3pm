@@ -226,10 +226,9 @@ Private Sub Form_Load()
         Else
             s3.ToTimer2 True
             tERR.AppendSinHist CStr(Wueltas) + "_2100_H_" + CStr(NP)
+            'para que la licencia sea valida va a buscar la lista de placas validas para este software
             K.IngresaClave dcr("q44KmdDBQ+IB8dTOX8F+VA=="), False
-            'no entiendo por que esta ? (set/08)
-            'imagino que si el tipo configuro interfase yo no reviso licencia.
-            'Ahora que lo de la interfase es mentira veo si tiene de disco
+            
         End If
         
     End If
@@ -269,9 +268,9 @@ Private Sub Form_Load()
     tERR.Anotar "acmz5", Screen.Height, Image1.Height, Image1.Top, Frame1.Left
     Frame1.Top = Image1.Top + Image1.Height + 300
     Frame1.Height = Screen.Height - Image1.Height - 1600
-    pBAR.Left = lblINI.Left
+    PBar.Left = lblINI.Left
     tERR.Anotar "acmz6"
-    XxBoton1.Left = pBAR.Left - 15
+    XxBoton1.Left = PBar.Left - 15
     XxBoton1.Width = lblINI.Width
     tERR.Anotar "acmz7"
     frmVIDEO.picBigImg.Top = frmVIDEO.Height / 2 - frmVIDEO.picBigImg.Height / 2
@@ -282,7 +281,7 @@ Private Sub Form_Load()
     tERR.Anotar "000A-00903"
     lblINI.Caption = TR.Trad("Inicializando 3PM...%98%Al arranque del sistema%99%")
     lblINI.Refresh
-    pBAR.Width = 0
+    PBar.Width = 0
     
     tERR.Anotar "acna"
     
@@ -314,7 +313,7 @@ Private Sub Form_Load()
     TeclaNextMusic = Val(LeerConfig("TeclaNextMusic", "66")) 'B
     lblINI.Caption = TR.Trad("Inicializando 3PM...%99%") + "01"
     lblINI.Refresh
-    pBAR.Width = lblINI.Width * 0.15
+    PBar.Width = lblINI.Width * 0.15
     '////////////////////////////////////////////////////////
     TeclaDERx2 = Val(LeerConfig("TeclaDerechax2", "2"))
     TeclaIZQx2 = Val(LeerConfig("TeclaIzquierdax2", "1"))
@@ -344,7 +343,7 @@ Private Sub Form_Load()
     
     lblINI.Caption = TR.Trad("Inicializando 3PM...%99%") + "02"
     lblINI.Refresh
-    pBAR.Width = lblINI.Width * 0.45
+    PBar.Width = lblINI.Width * 0.45
     
     MaximoFichas = Val(LeerConfig("MaximoFichas", "40"))
     EsperaMinutos = Val(LeerConfig("EsperaMinutos", "900"))
@@ -393,7 +392,7 @@ Private Sub Form_Load()
     
     lblINI.Caption = TR.Trad("Inicializando 3PM...%99%") + "03"
     lblINI.Refresh
-    pBAR.Width = lblINI.Width * 0.67
+    PBar.Width = lblINI.Width * 0.67
     
     CargarDuracionTemas = LeerConfig("CargarDuracionTemas", "0")
     MostrarRotulos = LeerConfig("MostrarRotulos", "1")
@@ -446,6 +445,11 @@ Private Sub Form_Load()
     If GrabaKar > 0 Then
         Set TW10 = New tbrWRII.tbrWR2
         TW10.SetFileLog AP + "logWII.log"
+        tERR.AppendSinHist "tbrWII:"
+        TW10.Dispositivo = 0 'elegir solo para que pueda hacer el log ok
+        'registro para ver que placas tiene
+        TW10.LogDispositivos
+        TW10.LogLineas
     End If
     
     'apagar todos e ir viendo que hacer
@@ -466,7 +470,7 @@ Private Sub Form_Load()
     
     lblINI.Caption = TR.Trad("Inicializando 3PM...%99%") + "04"
     lblINI.Refresh
-    pBAR.Width = lblINI.Width * 0.78
+    PBar.Width = lblINI.Width * 0.78
     
     tERR.Anotar "acnf"
     'publicidad
@@ -499,7 +503,7 @@ Private Sub Form_Load()
     
     lblINI.Caption = TR.Trad("Inicializando 3PM...%99%") + "05"
     lblINI.Refresh
-    pBAR.Width = lblINI.Width * 0.84
+    PBar.Width = lblINI.Width * 0.84
     
     tERR.Anotar "acni"
     'ver si ya estaba cargado
@@ -541,7 +545,7 @@ Private Sub Form_Load()
     my_MEM.SetMomento "0096"
     lblINI.Caption = TR.Trad("Inicializando 3PM...%99%") + "06"
     lblINI.Refresh
-    pBAR.Width = lblINI.Width * 0.95
+    PBar.Width = lblINI.Width * 0.95
     
     'ordenar el ranking
     srtRNK
@@ -577,25 +581,27 @@ Private Sub Form_Load()
         PartOrigenes = Split(Origenes, "*")
     End If
     my_MEM.SetMomento "0099"
+    Dim ResumenIniDiscos As String
+    ResumenIniDiscos = ""
     For H = 0 To UBound(PartOrigenes)
         tERR.Anotar "acfc3", PartOrigenes(H)
         
         'ver los discos del origene elegido
         lblINI.Caption = TR.Trad("ESPERE. Buscando...%99%") + PartOrigenes(H)
         lblINI.Refresh
-        pBAR.Width = (lblINI.Width * H / 100) Mod lblINI.Width
+        PBar.Width = (lblINI.Width * H / 100) Mod lblINI.Width
         
         MtxTmpOrigenes() = ObtenerDir(PartOrigenes(H))
-        
+        ResumenIniDiscos = ResumenIniDiscos + PartOrigenes(H) + ": " + CStr(UBound(MtxTmpOrigenes)) + vbCrLf
         'ver los discos del origene elegido
         lblINI.Caption = TR.Trad("Ordenando...%99%") + PartOrigenes(H)
         lblINI.Refresh
-        pBAR.Width = (lblINI.Width * H / 100) Mod lblINI.Width
+        PBar.Width = (lblINI.Width * H / 100) Mod lblINI.Width
         
         'acumular a la matriz general
         SumarMatriz MATRIZ_DISCOS, MtxTmpOrigenes
     Next H
-    
+    tERR.AppendSinHist "HINIDSC:" + vbCrLf + ResumenIniDiscos
     '*******************************************************************
     my_MEM.SetMomento "0100"
     '*******************************************************************
@@ -669,7 +675,7 @@ Private Sub Form_Load()
         
         lblINI.Caption = TR.Trad("Buscando...%99%") + ArchTapa
         lblINI.Refresh
-        pBAR.Width = (lblINI.Width * H / 100) Mod lblINI.Width
+        PBar.Width = (lblINI.Width * H / 100) Mod lblINI.Width
         
         'solo la cargo si existe y ademas tiene el tamaño que tiene que tener
         If fso.FileExists(ArchTapa) Then
@@ -683,7 +689,7 @@ Private Sub Form_Load()
         End If
     Next H
     my_MEM.SetMomento "0104"
-    pBAR.Visible = False
+    PBar.Visible = False
     XxBoton1.Visible = False
     
     my_MEM.SetMomento "0084"

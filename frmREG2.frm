@@ -440,17 +440,12 @@ Private Sub XxBoton2_Click()
     'leer algun archivo de licecnia
     Dim CM As New CommonDialog
     
-    'Cargar licencia de 3PM v7 ...%98%llama a ubicar un archivo que recibimos de tbrSoft como licencia%99%
-    tSTR = dcr("X771qQfMtLK0kqDOBPRbexvPCFWd2q2Vb9ur6GuOAanSyuoDFtGGBEgakRa1PRFO/09tRh6tIRfyLcK1lkskOMK9NC0nZVxhLjZENwdUiXBXcELOXXMCL40IFpphmRO8v86T603JjO+4fO71uB7lvBgSzqf61mFh")
-    CM.DialogTitle = TR.Trad(tSTR)
+    'Cargar licencia de 3PM v7 ...
+    tSTR = dcr("c3Bw2mfLayocTYOm4pbjjEea0fne6co8JH97k8xj+e6XUfsdCf0biA38iJ95g4d+")
+    CM.DialogTitle = tSTR
     
-    '3PM v7
-    tSTR = dcr("Il9kLcFcJYpXVKnZ7DkosRKFjA/4tSFD")
-    TR.SetVars tSTR
-    
-    'Licencia de %01% %98%Licencia para 3PM dice%99%
-    tSTR = dcr("+Qq1LhURRnM3hY15MGdd4Y4oSDmoD4aw1TdXlLwjZ4lqovFtoXyyCBBIZnET4CGK2tEy2HLzO5rw6mSjG++LQw==")
-    CM.Filter = TR.Trad(tSTR) + "(*.*)|*.*"
+    'Licencia de 3PM v7
+    CM.Filter = dcr("sJuE0dWMmhSb7A9XwmkXSRC9+jLN/o0+AucAxpf3viE=") + "(*.*)|*.*"
     CM.ShowOpen
     
     Dim F As String
@@ -467,16 +462,14 @@ Private Sub XxBoton2_Click()
     K.IngresaClave dcr("1Vx0YVGhEoIisHPLAZMHXw=="), True 'para que lea lo que acabo de insertar
     
     If K.sabseee(dcr("1Vx0YVGhEoIisHPLAZMHXw==")) = LicenciaVencida Then
-        'La licencia es valida pero esta vencida, debe solicitar actualización a tbrsoft (info@tbrsoft.com)%99%
-        tSTR = dcr("68jXVFtjiQoEI7RAdVT+3VE5F90lx7RW2wi3tR7AsSzrHVnWfP1b1UwiKGHLY4vPcpQtgKvMbs5kFWKqdt1On9fGOt+kUbVWOKljEI2qV8BrOiwGqfHoMkwfvbBNMz5ZziEtefIR8I+A1oIAnFV6qbGMQ04ZnGq+")
-        MsgBox TR.Trad(tSTR)
+        'La licencia es valida pero esta vencida, debe solicitar actualización a tbrsoft (info@tbrsoft.com)
+        MsgBox dcr("Z2osmNjKl63bFTWavaa4Ogv7KDrjIRygFqba6tbGMjCr1S51EmvYqAucwSiflyqHf273384tQaL2lgdIeZbvhDQlitckwe/lswE6AYefOL0Klb9xB9SJDCwkTwRnX9pEqNfTfx05La6pGKjGNNFW3g==")
         Exit Sub
     End If
     
     If K.sabseee(dcr("q44KmdDBQ+IB8dTOX8F+VA==")) = BErronea Then
-        'La licencia no es correcta%99%
-        tSTR = dcr("8UH2YcWC2ym1h2ZkO8HtNge1wheVg6MpckRc/GtRhNZTHRjKRjVgrD3qWKyhkEQd")
-        MsgBox TR.Trad(tSTR)
+        'La licencia no es correcta
+        MsgBox dcr("F7mIU1B2+aN6WS5VGH0O0kEQdjUKLasXkKAjoyHXYmQO2MuvHeSixw==")
         Exit Sub
     End If
     
@@ -486,49 +479,45 @@ Private Sub XxBoton2_Click()
         'Consulte a tbrSoft informando los cambios de hardware si los hubo.
         'Puede enviar el arhivo reg3PM.log que esta en la carpeta de 3PM para recibir una pronta respuesta%99%
         tSTR = dcr("0C0d4AcUabUKptJC1TQhkexCsocfahhfbaQTRdy9yU5uMatnxakbAP0CE1Ct1n2+GU4ClWA2VOq0MclzAbVmCllKur7z3tVOd3t+eqFOMCyd8EBLv31w9VZITjIbcrZX46NWT4CUc6qN/O6UpYnMI68JLqYg+B7pO8Nho7DgddIv2zEAEGKfvvEDqBWFxNXdsxo+c2dFc0gm2SpAKE0NLGSsA1aDljLnXA3P/Fde/WozvPuOg55J4zpSaE5TVel3Q3kcffywQmXw9//vEol7YW4Z8rIoYXFJOjDpiMHrteJFMuDEbl4OpQmzm0SUA+f7Kv8jNNWcm9GhKIgr8cVFM/nvZUp9wBnCDUxG6rmtmi71eTY5RL+/2EKVLTxPxC8fyyMdk/AJPT52yWKiTQDuETGzILZggLoagiT9z+Q297dKiY6R8A+gE4ZBoYJwgc+dbdVjQo0N9nItTn7Yn0ATzQ==")
-        MsgBox TR.Trad(tSTR)
+        MsgBox tSTR
         Exit Sub
     End If
     
     If K.sabseee(dcr("q44KmdDBQ+IB8dTOX8F+VA==")) = CGratuita Then
         'El archivo es una licencia gratuita%99%
         tSTR = dcr("SilvSmiUyJAHkszjvdo8ZoVojF0yASverX6C1iu+1E4LEp+bIo6rgIAdbTjcw5yKtF1QwFbChpU=")
-        MsgBox TR.Trad(tSTR)
+        MsgBox tSTR
     End If
         
     If K.sabseee(dcr("1Vx0YVGhEoIisHPLAZMHXw==")) = DMinima Then
         'El archivo es una licencia minima%99%
         tSTR = dcr("ScAMW/vjNnMlGklUCrX71qcnTZ8My8+E7vuO43xUr0ppvCNCRRirXtEoS7sYNQJa9XI/OWrEKNg=")
-        MsgBox TR.Trad(tSTR)
+        MsgBox tSTR
     End If
     
     If K.sabseee(dcr("1Vx0YVGhEoIisHPLAZMHXw==")) = EComun Then
-        'El archivo es una licencia simple%99%
-        tSTR = dcr("I3k4sctYSRIX82P1adQMfI1nrhI07FwYk5RuQeG7UBVdKpw54XPShhqNgNuPEbWZeTDW0AGX3q8=")
-        MsgBox TR.Trad(tSTR)
+        'El archivo es una licencia simple
+        MsgBox dcr("N2LoA4ffuFsCAZwqJAU8kkrc6flqTAnTSzxB/92JypOxLu5RxHH7rEmqpdk5c540")
     End If
     
     If K.sabseee(dcr("q44KmdDBQ+IB8dTOX8F+VA==")) = FPremium Then
         'El archivo es una licencia premium%99%
         tSTR = dcr("DeVxGdX8ADYFjdibvXI9s++enRlG+cHAgj7UxeI96xfoAoJemDD5dGL7Y5EV1uNV3X4jsnEsyvo=")
-        MsgBox TR.Trad(tSTR)
+        MsgBox tSTR
     End If
     
     If K.sabseee(dcr("q44KmdDBQ+IB8dTOX8F+VA==")) = GFull Then
-        'El archivo es una licencia full%99%
-        tSTR = dcr("jzCpywRsl5e4mWYCg6gNw74qRtycvkSReSba1vaEAmSHALvJdUQfk9aQnzQHJUsn")
-        MsgBox TR.Trad(tSTR)
+        'El archivo es una licencia full
+        MsgBox dcr("jOG0byK7hBLqiii+xUDlC6AFEm9deuveZZEvd4TpsP4aFkXEWZudZOv38gug2r4h")
     End If
     
     If K.sabseee(dcr("1Vx0YVGhEoIisHPLAZMHXw==")) = Supsabseee Then
-        'El archivo es una SuperLicencia%99%
-        tSTR = dcr("tE3NbbxkLb7+Kzr2DVksOzqP7fNnM2JCbWggk16jgcjbXcM0mG7JUKZyuz72Bhxh")
-        MsgBox TR.Trad(tSTR)
+        'El archivo es una SuperLicencia
+        MsgBox dcr("HEadsdpypfdzGht8+ZzCB5Bw62EU/rhuFYigl6LUVy+pSWOwtbZ9ZPGPPVRUsNx6")
     End If
     
-    '3PM se cerrará ahora. Al iniciarlo nuevamente se usará su archivo de licencia%99%
-    tSTR = dcr("/5TaW9FvEUxc9Gvha7I9fV9r3sSlIlCeUxCAgF/t/5c5jrV+h5XgoVM5NhB+0Cc7ZDoq9jPxZbfct50cukLUa+jPnIDCqPTCIExV4O30AnjDPXqjgVZGcsrCmixBKyFm")
-    MsgBox TR.Trad(tSTR)
+    '3PM se cerrará ahora. Al iniciarlo nuevamente se usará su archivo de licencia
+    MsgBox dcr("n2A5NoSLR7NWfc3eas//L7FI1Yv3bMD9oGGWjqxs9jobUAeZQM5D5UoG+xDd5H0tLV1Vs9sxX8JyWXC0hd/8DhWKwJHZUWBfB2CPik1dB0kcwqhMvibBBUL/kBmojBEg")
     
     Unload Me
     YaCerrar3PM True
@@ -546,7 +535,7 @@ End Sub
 
 'eliminar licencia no sirve, ayuda a los hackers
 'Private Sub XxBoton5_Click()
-'    If MsgBox(TR.Trad("¿Desea borrar los datos de su licencia actual para " + _
+'    If MsgBox(TR.T r a d("¿Desea borrar los datos de su licencia actual para " + _
 '        "volver a cargarlos?" + vbCrLf + _
 '        "Usese solo para cuando obtenga una nueva clave para cargar%99%"), vbCritical + vbYesNo, "NUEVA LICENCIA") = vbNo Then Exit Sub
 '
@@ -558,9 +547,9 @@ End Sub
 '    If fso.FileExists(GPF("cd8pm")) Then fso.DeleteFile GPF("cd8pm"), True
 '
 '    If fso.FileExists(GPF("cd7pm")) Or fso.FileExists(GPF("cd8pm")) Then
-'        MsgBox TR.Trad("No se ha podido borrar el archivo de licencia%99%")
+'        MsgBox TR.Tr a d("No se ha podido borrar el archivo de licencia%99%")
 '    Else
-'        MsgBox TR.Trad("La información de licencia se ha borrado correctamente. " + _
+'        MsgBox TR.Tr a d("La información de licencia se ha borrado correctamente. " + _
 '            "El sistema se cerrará para que cargue nuevamente su clave%99%")
 '    End If
 '

@@ -246,9 +246,7 @@ sig:
     
     MyLog TR.Trad("Proceso Terminado%99%")
     TR.SetVars Reparados
-    MsgBox TR.Trad("Proceso Terminado" + _
-        vbCrLf + _
-        "Se corrigieron %01% imágenes%99%")
+    MsgBox TR.Trad("Proceso Terminado%97%Se corrigieron %01% imágenes%99%")
     Exit Sub
     
 MiErr:

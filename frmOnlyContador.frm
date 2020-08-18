@@ -32,7 +32,7 @@ Begin VB.Form frmOnlyContador
       Index           =   1
       Left            =   360
       TabIndex        =   7
-      Top             =   4380
+      Top             =   4440
       Width           =   4845
    End
    Begin VB.Label lblContador3 
@@ -202,11 +202,10 @@ Private Sub Form_Load()
     Traducir 'Agregado por el complemento traductor
     lblContador.Caption = STRceros(CONTADOR, 11) 'reini
     lblContador2.Caption = STRceros(CONTADOR2, 11) 'hist
-    lblPESOS = "$ " + CStr(Round(CONTADOR * PrecioBase / TemasPorCredito, 2))
-    lblContador3 = STRceros(ValidarCada - CreditosValidar, 11)
+    lblPESOS.Caption = "$ " + CStr(Round(CONTADOR * PrecioBase / TemasPorCredito, 2))
+    lblContador3.Caption = STRceros(ValidarCada - CreditosValidar, 11)
     
     Label1(1).Caption = "Tecla izquierda SALIR" + vbCrLf + "Tecla derecha Ver estadisticas"
-    
 End Sub
 '-------Agregado por el complemento traductor------------
 Private Sub Traducir()

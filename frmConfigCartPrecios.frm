@@ -831,7 +831,7 @@ End Sub
 
 Private Sub fBoton2_Click()
     If vsCantFileCarrito.Value = 0 Then
-        MsgBox "No puede especificar el precio para cero selecciones!"
+        MsgBox "No puede especificar el precio para cero  !"
         Exit Sub
     End If
     

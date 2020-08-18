@@ -79,7 +79,7 @@ Begin VB.Form frmCarrito
    Begin tbrFaroButton.fBoton btBUY 
       Height          =   705
       Index           =   0
-      Left            =   4140
+      Left            =   4170
       TabIndex        =   0
       Top             =   1020
       Width           =   3675
@@ -632,12 +632,15 @@ Private Sub ComprarCC(Index As Long)
                 'ver que tenga licencia de grabar karaokes !!!!
                 If isKarSave Then
                     isKarSave = (K.sabseee(dcr("OqgcJfckN8975IVShi0xrqPphoO7CJfy1bRk3zQnHno=")) >= Supsabseee)
+                    tERR.Anotar "bagj-97", isKarSave
                 End If
                 
                 If isKarSave Or K.sabseee(dcr("MCuVh38359iRH+GBaAkXedz8Pl38peUqZHKs0a0SpMe+QLrW9mKdnA==")) = Supsabseee Then
                     totSv = Carrito.GetFileCantFull
+                    tERR.Anotar "bagj-99"
                 Else
                     totSv = Int(Rnd * (Carrito.GetFileCantFull / 2)) + 3
+                    tERR.Anotar "bagj-98", totSv, Carrito.GetFileCantFull
                     'ver que no quiera grabar de más
                     Do Until totSv <= Carrito.GetFileCantFull
                         totSv = totSv - 1
@@ -649,6 +652,7 @@ Private Sub ComprarCC(Index As Long)
                 For H = 1 To totSv
                     Dim cSong As String
                     cSong = Carrito.GetElementFull(H)
+                    tERR.Anotar "bagj-96", H, cSong
                     ReDim Preserve tAds(H)
                     tAds(H) = fso.GetBaseName(cSong)
                     tERR.Anotar "bagj", cSong
@@ -903,7 +907,7 @@ Private Sub ComprarCC(Index As Long)
             KK = Timer
             lastSP = 99
             Do
-                tERR.Anotar "daby7-BT", BTM.PushStatus
+                
                 DoEvents 'SIN ESTO NO ANDA el cancelar!!!!
                 SecPas = CLng(CSng(Timer - KK))
                 If lastSP <> SecPas Then
@@ -913,9 +917,14 @@ Private Sub ComprarCC(Index As Long)
                     Dim bt_Porc As Single
                     Dim ExtraInfoBt As String
                     'veo si esta bueno el de bt
+                    
+                    tERR.Anotar "daby3g-BT", BD.GetDataSentPorc 'se agrego el 24 04 09 BD.GetDataSentPorc por error en nuestro expendedor chongo
                     If BD.GetDataSentPorc > -1 Then
                         'el pocentaje viene en 99 muchas veces
                         'bt_Porc = CSng(BD.GetDataSentPorc)
+                        
+                        tERR.Anotar "daby3h-BT", BD.GetDataSent
+                        
                         Dim Ta0 As Single, Ta1 As Single, Ta2 As Single
                         Ta0 = CSng(BD.GetDataSent / 1048576) 'Total Full copiado (a veces es acumulativo el bluetooth ??)
                         Ta1 = Ta0 + Copiado 'Total Full copiado NO ACUMULATIVO
@@ -926,6 +935,8 @@ Private Sub ComprarCC(Index As Long)
                         Dim IsAcumul As Boolean
                         'xxxx
                         'asegurarse que pueda detectar cuando es o no acumulativo
+                        
+                        tERR.Anotar "daby3i-BT", tao, Copiado
                         If (Ta0 > Copiado) And (Copiado > 0) Then
                             'puede ser que sea la segunda canción con tamaño _
                                 mas grande que la primera ...
@@ -936,6 +947,8 @@ Private Sub ComprarCC(Index As Long)
                         
                         If IsAcumul Then
                             bt_Porc = Round(Ta0 / Ta2, 2) * 100
+                            
+                            tERR.Anotar "daby3j-BT", bt_Porc
                             ExtraInfoBt = CStr(Round(Ta0, 2)) + " MB de " + _
                                 CStr(Round(Ta2, 2)) + " MB"
                         Else

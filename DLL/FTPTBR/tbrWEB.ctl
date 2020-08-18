@@ -283,6 +283,7 @@ Public Function Connect(ADRESS As String, ID As String, PSW As String, PORT As I
     Else
         Connect = 1 'falla sesion
         LOG "Fallo conexion, cerrando", 0
+        TERR.AppendLog "apog21"
         InternetCloseHandle SESSION
         Exit Function
     End If
@@ -303,6 +304,7 @@ Public Function List(Optional sFILTER As String = "*.*") As Long
     If SESSION = 0 Or SERVER = 0 Then
         LOG "Lista falla por no conexion", 0
         List = 1 'no esta conectado
+        TERR.AppendLog "agip17"
         Exit Function
     End If
     
@@ -877,6 +879,7 @@ End Sub
 
 Public Function SetPathLog(NewUbic As String)
     TERR.FileLog = NewUbic
+    TERR.AppendSinHist "INI-FTP: " + CStr(Now) + " / " + CStr(App.Major) + "." + CStr(App.Minor) + "." + CStr(App.Revision) + vbCrLf + vbCrLf
 End Function
 
 Public Function UbicarseEnFolder(sFolder As String) As Long

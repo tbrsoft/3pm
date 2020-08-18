@@ -9,8 +9,14 @@
 #define IsExternal ""
 ;ponerle "external" para que lo deje por separado. Para usarlo poner el flag {#IsExternal}
 #define IncluyeFrameWork false
-#define IncluyeMusicaLibre true
-#define IncluyeKaraokes true
+#define IncluyeMusicaLibre false
+#define IncluyeKaraokes false
+
+; para hacer actualziadores livianos
+#define IncluirGiladas true
+
+; para directamente darle imagenes predeterminadas sobre el skin modificandolo
+#Define IncluirImgPers true
 
 [Setup]
 AppName={#MyAppName}
@@ -23,18 +29,22 @@ DefaultDirName={pf}\{#MyAppName}
 ;DisableDirPage=yes
 DefaultGroupName=tbrSoft
 AllowNoIcons=no
-#if IncluyeFrameWork
-  #if IncluyeMusicaLibre
-    OutputBaseFilename=Instalar3PM7-ConMusica-FW
+#if IncluirGiladas
+  #if IncluyeFrameWork
+    #if IncluyeMusicaLibre
+      OutputBaseFilename=Instalar3PM7-ConMusica-FW
+    #else
+      OutputBaseFilename=Instalar3PM7-FW
+    #endif
   #else
-    OutputBaseFilename=Instalar3PM7-FW
+    #if IncluyeMusicaLibre
+      OutputBaseFilename=Instalar3PM7-ConMusica
+    #else
+      OutputBaseFilename=Instalar3PM7
+    #endif
   #endif
 #else
-  #if IncluyeMusicaLibre
-    OutputBaseFilename=Instalar3PM7-ConMusica
-  #else
-    OutputBaseFilename=Instalar3PM7
-  #endif
+  OutputBaseFilename=Actualizar3PM7
 #endif
 SetupIconFile=..\3pm.ico
 Compression=lzma
@@ -75,27 +85,46 @@ Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\olepro32.dll"; DestDir: "{
 Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\oleaut32.dll"; DestDir: "{sys}"; Flags: restartreplace uninsneveruninstall regserver; minversion: 5.0,5.0; onlybelowversion: 5.2,5.2
 Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\msvbvm60.dll"; DestDir: "{sys}"; Flags: restartreplace uninsneveruninstall regserver
 
-Source: "..\pub\LEER.txt"; DestDir: "{app}\PUB"; Flags: ignoreversion
-Source: "..\pubMute\LEER.txt"; DestDir: "{app}\PUBMUTE"; Flags: ignoreversion
-Source: "..\skin\3pmBaseSkin.SKIN"; DestDir: "{app}\skin"; Flags: ignoreversion
-Source: "..\skin\crystal front.SKIN"; DestDir: "{app}\skin"; Flags: ignoreversion
-Source: "..\skin\wood shell.SKIN"; DestDir: "{app}\skin"; Flags: ignoreversion
-Source: "..\skin\blare_skin.SKIN"; DestDir: "{app}\skin"; Flags: ignoreversion
-Source: "..\Update-Music.txt"; DestDir: "{app}"; Flags: ignoreversion
+; cosas no necesarias en actuialzaciones basicas
 
-Source: ..\license.rtf; DestDir: {app}; Flags: ignoreversion
+#if IncluirImgPers
+; inicio 3pm iis.l67
+  Source: "..\fondosClis\mosse\multi13 500.jpg"; DestDir: "{app}\sf"; DestName: "iis.l67"; Flags: ignoreversion
+;fondo portadas
+;  Source: "..\fondosClis\mose\multi13 200.jpg"; DestDir: "{app}\sf"; DestName: "iis.chu"; Flags: ignoreversion
+;tapa y rank
+  Source: "..\fondosClis\mosse\multi13 200.jpg"; DestDir: "{app}\sf"; DestName: "tddp.322"; Flags: ignoreversion
+  Source: "..\fondosClis\mosse\multi13 200.jpg"; DestDir: "{app}\sf"; DestName: "tddp.323"; Flags: ignoreversion
+#endif
 
-;SOLO PACHAAAAA botones chiquitos
-Source: "..\skin\tbrSoft_Skin_new2.SKIN"; DestDir: "{app}\skin"; Flags: ignoreversion
+#if IncluirGiladas
+  Source: "..\pub\LEER.txt"; DestDir: "{app}\PUB"; Flags: ignoreversion
+  Source: "..\pubMute\LEER.txt"; DestDir: "{app}\PUBMUTE"; Flags: ignoreversion
+  Source: "..\skin\3pmBaseSkin.SKIN"; DestDir: "{app}\skin"; Flags: ignoreversion
+  Source: "..\skin\crystal front.SKIN"; DestDir: "{app}\skin"; Flags: ignoreversion
+  Source: "..\skin\wood shell.SKIN"; DestDir: "{app}\skin"; Flags: ignoreversion
+  Source: "..\skin\blare_skin.SKIN"; DestDir: "{app}\skin"; Flags: ignoreversion
+  Source: "..\Update-Music.txt"; DestDir: "{app}"; Flags: ignoreversion
 
-Source: "..\externos\SKS-DLL3\prec.dll"; DestDir: "{sys}"; Flags: ignoreversion
-;Source: "..\CREARSKIN.txt"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Nev.man"; DestDir: "{sys}"; Flags: restartreplace uninsneveruninstall sharedfile
-Source: "..\manual.doc"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\repair.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\ini.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\externos\SKS-DLL3\Test_Teclado_TBR.exe"; DestDir: "{app}"; Flags: ignoreversion
+  Source: ..\license.rtf; DestDir: {app}; Flags: ignoreversion
 
+  ;SOLO PACHAAAAA botones chiquitos
+  Source: "..\skin\tbrSoft_Skin_new2.SKIN"; DestDir: "{app}\skin"; Flags: ignoreversion
+
+  Source: "..\externos\SKS-DLL3\prec.dll"; DestDir: "{sys}"; Flags: ignoreversion
+  ;Source: "..\CREARSKIN.txt"; DestDir: "{app}"; Flags: ignoreversion
+  Source: "..\Nev.man"; DestDir: "{sys}"; Flags: restartreplace uninsneveruninstall sharedfile
+  Source: "..\manual.doc"; DestDir: "{app}"; Flags: ignoreversion
+  Source: "..\repair.exe"; DestDir: "{app}"; Flags: ignoreversion
+  Source: "..\ini.exe"; DestDir: "{app}"; Flags: ignoreversion
+  Source: "..\externos\SKS-DLL3\Test_Teclado_TBR.exe"; DestDir: "{app}"; Flags: ignoreversion
+  
+  ;IDIOMAS
+  Source: "..\sf\espanol.idm"; DestDir: "{app}\sf"; Flags: ignoreversion
+  Source: "..\sf\english.idm"; DestDir: "{app}\sf"; Flags: ignoreversion
+  ;Source: "..\sf\cordobes.idm"; DestDir: "{app}\sf"; Flags: ignoreversion
+  Source: "..\bsc.dat"; DestDir: "{app}"; Flags: ignoreversion
+#endif
 ;*********************************************************************************************
 ;*********************************************************************************************
 ;MUSICA LIBRE AGREGADA
@@ -144,6 +173,7 @@ Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\tbrBtActivex.dll"; D
 Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\tbrInstalledPrograms.dll"; DestDir: "{sys}"; Flags: restartreplace sharedfile regserver
 Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\tbrUsbKeyboard.dll"; DestDir: "{sys}"; Flags: restartreplace sharedfile regserver
 Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\tbrWaveRecod.dll"; DestDir: "{sys}"; Flags: restartreplace sharedfile regserver
+Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\tbrMP3Enc.dll"; DestDir: "{sys}"; Flags: restartreplace sharedfile regserver
 
 Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\lame_enc.dll"; DestDir: "{sys}"; Flags: ignoreversion
 Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\MEncoder.dll"; DestDir: "{sys}"; Flags: ignoreversion
@@ -173,13 +203,6 @@ Source: "..\3PM.EXE"; DestDir: "{app}"; Flags: ignoreversion
 #if IncluyeFrameWork
   Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\dotnetfx.exe"; DestDir: {tmp}; Flags: ignoreversion {#IsExternal} ; Check: NeedsFramework
 #endif
-
-
-;IDIOMAS
-Source: "..\sf\espanol.idm"; DestDir: "{app}\sf"; Flags: ignoreversion
-Source: "..\sf\english.idm"; DestDir: "{app}\sf"; Flags: ignoreversion
-;Source: "..\sf\cordobes.idm"; DestDir: "{app}\sf"; Flags: ignoreversion
-Source: "..\bsc.dat"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\{#MyAppName}\3PM"; Filename: "{app}\{#MyAppExeName}"

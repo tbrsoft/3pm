@@ -828,7 +828,7 @@ Private Sub Command4_Click()
     Next
     
     MsgBox TR.Trad("Los archivos se copiaron correctamente%99%") + vbCrLf + _
-        TR.Trad("El contenido agregado estará disponible la próxima vez que inicie 3PM%99")
+        TR.Trad("El contenido agregado estará disponible la próxima vez que inicie 3PM%99%")
     
     
     Exit Sub
@@ -1074,7 +1074,7 @@ Private Sub Form_Activate()
     tERR.Anotar "acjg"
     Label1(3) = TR.Trad("Especificar ubicación de los nuevos discos%99%")
     Command6.Caption = TR.Trad("CD Audio%99%")
-    Command5.Caption = TR.Trad("CD/DVD%99%")
+    command5.Caption = TR.Trad("CD/DVD%99%")
     Command1.Caption = TR.Trad("Explorar%99%")
     Label1(7) = TR.Trad("Desde aquí podrá trandsformar un CD de audio en " + _
         "ficheros mp3.%99%")
@@ -1167,7 +1167,7 @@ Private Sub Traducir()
     Command4.Caption = TR.Trad("Agregar estos discos a mi fonola%99%")
     Command3.Caption = TR.Trad("SALIR%99%")
     Command1.Caption = TR.Trad("Explorar%99%")
-    Command5.Caption = TR.Trad("CD/DVD%99%")
+    command5.Caption = TR.Trad("CD/DVD%99%")
     lblP.Caption = TR.Trad("% libre%99%")
     Label2(0).Caption = TR.Trad("Indique a que origen de discos se copiará la " + _
         "música. Revise el espacio disponible en el disco a usar. NO SIGA " + _

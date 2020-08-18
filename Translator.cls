@@ -100,7 +100,8 @@ Attribute Trad.VB_MemberFlags = "200"
     
     Dim aux As String
     aux = vDictionary.Item(RealText)
-    If aux = "" Then aux = RealText
+    If aux = "" Then aux = RealText 'si no esta entonces uso el del idioma original
+    
     'meter los valores de las variables donde van si es que existen
     'se supone que si existe "%01%" es por que existe v1, caso contrario puede dar errro
     aux = Replace(aux, "%01%", v(1))
