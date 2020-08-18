@@ -8,6 +8,7 @@ Begin VB.Form frmCLAVE
    ClientTop       =   0
    ClientWidth     =   4455
    LinkTopic       =   "Form1"
+   LockControls    =   -1  'True
    ScaleHeight     =   4125
    ScaleWidth      =   4455
    ShowInTaskbar   =   0   'False
@@ -25,9 +26,9 @@ Begin VB.Form frmCLAVE
          Strikethrough   =   0   'False
       EndProperty
       Height          =   495
-      Left            =   1170
+      Left            =   1140
       TabIndex        =   2
-      Top             =   1170
+      Top             =   1350
       Width           =   2145
    End
    Begin VB.TextBox txtPSW 
@@ -42,10 +43,10 @@ Begin VB.Form frmCLAVE
       EndProperty
       Height          =   405
       IMEMode         =   3  'DISABLE
-      Left            =   1140
-      PasswordChar    =   "+"
+      Left            =   1110
+      PasswordChar    =   "*"
       TabIndex        =   0
-      Top             =   600
+      Top             =   780
       Width           =   2115
    End
    Begin VB.Shape Shape1 
@@ -66,7 +67,7 @@ Begin VB.Form frmCLAVE
    Begin VB.Label Label1 
       Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
-      Caption         =   "Ingrese su contraseña"
+      Caption         =   "Ingrese su clave de administrador"
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   9.75
@@ -77,10 +78,10 @@ Begin VB.Form frmCLAVE
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   315
-      Left            =   870
+      Height          =   465
+      Left            =   720
       TabIndex        =   1
-      Top             =   300
+      Top             =   270
       Width           =   3045
    End
 End

@@ -1,6 +1,6 @@
 ImgIni=0
 ImgCerrando=1
 ImgApagar=0
-LoadImgIni=w
-LoadImgCerrando=w
-LoadImgApagar=w
+LoadImgIni=3
+LoadImgCerrando=3
+LoadImgApagar=3

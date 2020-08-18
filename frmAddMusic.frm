@@ -8,6 +8,7 @@ Begin VB.Form frmAddMusic
    ClientTop       =   285
    ClientWidth     =   11910
    LinkTopic       =   "Form1"
+   LockControls    =   -1  'True
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   7875
@@ -689,7 +690,7 @@ Public Function FindCarpsConMM(Carp As String) As String()
     Do
         AgregadosEnVuelta = 0
         If LastIni = 1 And LastFin = 0 Then
-            'es una carpeta sin subcarpetas}
+            'es una carpeta sin subcarpetas
             MsgBox "3PM no ha encontrado subcarpetas en la " + _
             "ubicacion elegida. Pruebe buscar en un nivel " + _
             "superior del arbol de directorios"
@@ -729,9 +730,7 @@ NextMM:
 End Function
 
 ' Devuelve un array de wcadenas que incluye todos los subdirectorios
-' contenidos en una ruta que coincide con los atributos de búsqueda
-' opcionalmente, devuelve la ruta completa.
-
+' contenidos en una ruta
 Function GetFolders(ruta As String) As String()
         Dim Resultado() As String
         Dim NombreDir As String, CONTADOR As Long

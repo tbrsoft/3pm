@@ -126,45 +126,52 @@ Attribute VB_Exposed = False
 Private Sub Form_Load()
     VVV = "v " + Trim(Str(App.Major)) + "." + Trim(Str(App.Minor)) + "." + Trim(Str(App.Revision))
     AjustarFRM Me, 12000
-    
     'leer el archivo de configuracion ap+"config.tbr"
-    CargarIMGinicio = LeerConfig("CargarImagenInicio")
-    AutoReDibuj = LeerConfig("AutoReDraw")
-    TeclaDER = Val(LeerConfig("TeclaDerecha"))
-    TeclaIZQ = Val(LeerConfig("TeclaIzquierda"))
-    TeclaPagAd = Val(LeerConfig("TeclaPagAd"))
-    TeclaPagAt = Val(LeerConfig("TeclaPagAt"))
-    TeclaOK = Val(LeerConfig("TeclaOK"))
-    TeclaESC = Val(LeerConfig("TeclaESC"))
-    TeclaNewFicha = Val(LeerConfig("TeclaNuevaFicha"))
-    TeclaConfig = Val(LeerConfig("TeclaConfig"))
-    TeclaCerrarSistema = Val(LeerConfig("TeclaCerrarSistema"))
-    ApagarAlCierre = LeerConfig("ApagarAlCierre")
-    MaximoFichas = Val(LeerConfig("MaximoFichas"))
-    EsperaMinutos = Val(LeerConfig("EsperaMinutos"))
+    CargarIMGinicio = LeerConfig("CargarImagenInicio", "1")
+    AutoReDibuj = LeerConfig("AutoReDraw", "1")
+    TeclaDER = Val(LeerConfig("TeclaDerecha", "88"))
+    TeclaIZQ = Val(LeerConfig("TeclaIzquierda", "90"))
+    TeclaPagAd = Val(LeerConfig("TeclaPagAd", "77"))
+    TeclaPagAt = Val(LeerConfig("TeclaPagAt", "78"))
+    TeclaOK = Val(LeerConfig("TeclaOK", "13"))
+    TeclaESC = Val(LeerConfig("TeclaESC", "27"))
+    TeclaNewFicha = Val(LeerConfig("TeclaNuevaFicha", "81"))
+    TeclaConfig = Val(LeerConfig("TeclaConfig", "67"))
+    TeclaCerrarSistema = Val(LeerConfig("TeclaCerrarSistema", "87"))
+    ApagarAlCierre = LeerConfig("ApagarAlCierre", "0")
+    MaximoFichas = Val(LeerConfig("MaximoFichas", "40"))
+    EsperaMinutos = Val(LeerConfig("EsperaMinutos", "900"))
     'Valores de ReIni FULL=tema ejecutando y lista LISTA=solo lista NADA=arranca de cero
-    ReINI = LeerConfig("ReINI")
-    VolumenIni = CLng(LeerConfig("Volumen"))
-    EsperaTecla = Val(LeerConfig("EsperaTecla"))
-    PorcentajeTEMA = Val(LeerConfig("PorcentajeTema"))
-    FASTini = LeerConfig("FastIni")
-    HabilitarVUMetro = LeerConfig("HabilitarVUMetro")
-    TapasMostradasH = Val(LeerConfig("DiscosH"))
-    TapasMostradasV = Val(LeerConfig("DiscosV"))
-    verTiempoRestante = LeerConfig("VerTiempoRestante")
-    verTemasEnLista = LeerConfig("verTemasEnLista")
-    verCreditos = LeerConfig("verCreditos")
-    verTOTdiscos = LeerConfig("verTotDiscos")
-    verPuesto = LeerConfig("verPuesto")
-    verLista = LeerConfig("verLista")
-    PasarHoja = LeerConfig("Pasarhoja")
-    DistorcionarTapas = LeerConfig("DistorcionarTapas")
-    ProtectOriginal = LeerConfig("ProtectOriginal")
-    CargarDuracionTemas = LeerConfig("CargarDuracionTemas")
-    MostrarRotulos = LeerConfig("MostrarRotulos")
-    RotulosArriba = LeerConfig("RotulosArriba")
-    DuracionProtect = LeerConfig("DuracionProtect")
-    RankToPeople = LeerConfig("RankToPeople")
+    ReINI = LeerConfig("ReINI", "LISTA")
+    VolumenIni = CLng(LeerConfig("Volumen", "50"))
+    EsperaTecla = Val(LeerConfig("EsperaTecla", "900"))
+    PorcentajeTEMA = Val(LeerConfig("PorcentajeTema", "60"))
+    FASTini = LeerConfig("FastIni", "1")
+    HabilitarVUMetro = LeerConfig("HabilitarVUMetro", "1")
+    TapasMostradasH = Val(LeerConfig("DiscosH", "4"))
+    TapasMostradasV = Val(LeerConfig("DiscosV", "3"))
+    verTiempoRestante = LeerConfig("VerTiempoRestante", "1")
+    verTemasEnLista = LeerConfig("verTemasEnLista", "1")
+    verCreditos = LeerConfig("verCreditos", "1")
+    verTOTdiscos = LeerConfig("verTotDiscos", "1")
+    verPuesto = LeerConfig("verPuesto", "1")
+    verLista = LeerConfig("verLista", "1")
+    PasarHoja = LeerConfig("Pasarhoja", "1")
+    DistorcionarTapas = LeerConfig("DistorcionarTapas", "0")
+    ProtectOriginal = LeerConfig("ProtectOriginal", "1")
+    CargarDuracionTemas = LeerConfig("CargarDuracionTemas", "0")
+    MostrarRotulos = LeerConfig("MostrarRotulos", "1")
+    RotulosArriba = LeerConfig("RotulosArriba", "0")
+    DuracionProtect = LeerConfig("DuracionProtect", "180")
+    RankToPeople = LeerConfig("RankToPeople", "1")
+    
+    'cargar variables de claves
+    Set TE = FSO.OpenTextFile(WINfolder + "\sevalc.dll", ForReading, False)
+    'config/close/credit es el orden del archivo
+    ClaveConfig = txtInLista(TE.ReadLine, 1, ":")
+    ClaveClose = txtInLista(TE.ReadLine, 1, ":")
+    ClaveCredit = txtInLista(TE.ReadLine, 1, ":")
+    TE.Close
     
     Me.Show
     Me.Refresh
@@ -187,7 +194,14 @@ Private Sub Form_Load()
     If FSO.FolderExists(AP + "fotos") = False Then
         FSO.CreateFolder AP + "fotos"
     End If
-    
+    'archivo de claves
+    If FSO.FileExists(WINfolder + "\sevalc.dll") = False Then
+        Set TE = FSO.CreateTextFile(WINfolder + "\sevalc.dll", True)
+        TE.WriteLine "Config:12345612345612345612"
+        TE.WriteLine "Close:45612345612345612345"
+        TE.WriteLine "Credit:1234441234441234561"
+        TE.Close
+    End If
     TECLAS_PRES = "11111222223333344444" 'arranca con 20 pulsaciones
     
     
@@ -212,7 +226,7 @@ Private Sub Form_Load()
     Dim Encontrado As Boolean
     Encontrado = False
     'abrir el archivo y CARGARLO A UNA MATRIZ
-    Dim TE As TextStream
+    
     Set TE = FSO.OpenTextFile(AP + "ranking.tbr", ForReading, False)
     'leerlo cargarlo en matriz y ordenar por mas escuchado
     

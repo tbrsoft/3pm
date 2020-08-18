@@ -34,13 +34,17 @@ AppExe=3pm.exe
 AppToUninstall=3pm.exe
 
 [Setup1 Files]
-File1=@top10.jpg,$(AppPath),,,11/10/02 12:13:46 PM,7264,0.0.0.0
-File2=@tapa.jpg,$(AppPath),,,11/16/02 2:54:16 PM,8332,0.0.0.0
-File3=@manual.doc,$(AppPath),,,2/7/03 10:43:02 AM,181760,0.0.0.0
-File4=@config.tbr,$(AppPath),,,2/7/03 12:31:04 PM,608,0.0.0.0
-File5=@scrrnes.dll,$(WinSysPath),,$(Shared),7/27/01 3:42:56 AM,24626,5.6.0.6626
-File6=@scrrun.dll,$(WinSysPath),$(DLLSelfRegister),$(Shared),6/26/01 6:06:58 PM,147512,5.6.0.6626
-File7=@3pm.exe,$(AppPath),,,2/9/03 12:08:52 AM,438272,3.4.0.219
+File1=@ini.exe,$(AppPath),,,3/14/03 4:03:06 PM,28672,1.0.0.0
+File2=@logo.sys,$(AppPath),,,2/19/03 11:32:40 AM,129078,0.0.0.0
+File3=@logos.sys,$(AppPath),,,2/19/03 11:34:40 AM,129078,0.0.0.0
+File4=@logow.sys,$(AppPath),,,2/19/03 11:33:32 AM,129078,0.0.0.0
+File5=@top10.jpg,$(AppPath),,,11/10/02 12:13:46 PM,7264,0.0.0.0
+File6=@tapa.jpg,$(AppPath),,,11/16/02 2:54:16 PM,8332,0.0.0.0
+File7=@manual.doc,$(AppPath),,,3/21/03 10:28:50 AM,200704,0.0.0.0
+File8=@config.tbr,$(AppPath),,,3/21/03 10:59:46 AM,608,0.0.0.0
+File9=@scrrnes.dll,$(WinSysPath),,$(Shared),7/27/01 3:42:56 AM,24626,5.6.0.6626
+File10=@scrrun.dll,$(WinSysPath),$(DLLSelfRegister),$(Shared),6/26/01 6:06:58 PM,147512,5.6.0.6626
+File11=@3pm.exe,$(AppPath),,,3/21/03 12:39:46 PM,438272,3.4.0.622
 
 ; Puede eliminar las siguientes líneas para obtener espacio adicional 
 ; con el fin de personalizar este archivo en un disco de instalación completa.

@@ -473,7 +473,7 @@ Begin VB.Form frmINDEX
       Alignment       =   2  'Center
       BackColor       =   &H00400000&
       BorderStyle     =   1  'Fixed Single
-      Caption         =   "Demo 3PM. Solicite la version definitiva a tbrsoft@hotmail.com ó a avazquez@cpcipc.org"
+      Caption         =   "Solicite la version definitiva a info@tbrsoft.com / avazquez@cpcipc.org"
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
@@ -517,7 +517,7 @@ Begin VB.Form frmINDEX
    Begin VB.Label lblTBR 
       Alignment       =   2  'Center
       BackColor       =   &H00C0FFFF&
-      Caption         =   "Desarrollado por tbrSoft (ARG) - Mail: tbrsoft@hotmail.com / avazquez@cpcipc.org - TE: 54-3543-437620"
+      Caption         =   "Desarrollado por tbrSoft (ARG) - Mail: info@tbrsoft.com - avazquez@cpcipc.org"
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
@@ -789,7 +789,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                     SelTema 0
                     ModoVideoSelTema = True
                 Else
-                    If lblDisco(nDiscoSEL) = "01- Los mas escuchados" Then GoTo TOP10Show
+                    If lblDISCO(nDiscoSEL) = "01- Los mas escuchados" Then GoTo TOP10Show
                     frmTemasDeDisco.Show 1
                 End If
             End If
@@ -827,7 +827,7 @@ End Sub
 
 Private Sub Form_Load()
     lblDEMO.Visible = (TypeVersion = "DEMO")
-    lblDEMO = "Demo 3PM. Solicite la version definitiva a 3pm@tbrsoft.com / info@tbrsoft.com"
+    lblDEMO = "Solicite la version definitiva a info@tbrsoft.com / avazquez@cpcipc.org"
     AjustarFRM Me, 12000
     VU1.Visible = HabilitarVUMetro
     'cargar la cantidad de tapas que corresponda
@@ -837,7 +837,7 @@ Private Sub Form_Load()
     'si no se ve el vumetro debo desplazar los controles
     frDISCOS.Top = 0
     frDISCOS.Left = 0
-    lblTBR = "Desarrollado por tbrSoft (ARG) - Mail: 3pm@tbrsoft.com / info@tbrsoft.com - TE: 54-3543-437620"
+    lblTBR = "Desarrollado por tbrSoft (ARG) - Mail: info@tbrsoft.com - avazquez@cpcipc.org"
     If HabilitarVUMetro = False Then
         frDISCOS.Width = VU1.Left + VU1.Width
         lblTemaSonando.Width = lblTemaSonando.Width + VU1.Width
@@ -940,29 +940,29 @@ Private Sub Form_Load()
     If MostrarRotulos Then
         TapaCD(0).Width = AnchoTapaDisco
         TapaCD(0).Height = AltoTapaDisco * 0.79 '80%disco, 20% lbldisco
-        lblDisco(0).Height = AltoTapaDisco * 0.19 '80%disco, 20% lbldisco
-        lblDisco(0).Width = AnchoTapaDisco
+        lblDISCO(0).Height = AltoTapaDisco * 0.19 '80%disco, 20% lbldisco
+        lblDISCO(0).Width = AnchoTapaDisco
     Else
         TapaCD(0).Width = AnchoTapaDisco
         TapaCD(0).Height = AltoTapaDisco
-        lblDisco(0).Visible = False
+        lblDISCO(0).Visible = False
     End If
     
     'ver si los rotulos van arriba o abajo
     If RotulosArriba Then
-        lblDisco(0).Left = 50
-        lblDisco(0).Top = 50
+        lblDISCO(0).Left = 50
+        lblDISCO(0).Top = 50
         TapaCD(0).Left = 50
         If MostrarRotulos Then
-            TapaCD(0).Top = lblDisco(0).Top + lblDisco(0).Height + 50
+            TapaCD(0).Top = lblDISCO(0).Top + lblDISCO(0).Height + 50
         Else
             TapaCD(0).Top = 50
         End If
     Else
         TapaCD(0).Left = 50
         TapaCD(0).Top = 50
-        lblDisco(0).Left = 50
-        lblDisco(0).Top = TapaCD(0).Top + TapaCD(0).Height + 50
+        lblDISCO(0).Left = 50
+        lblDISCO(0).Top = TapaCD(0).Top + TapaCD(0).Height + 50
     End If
     
     Dim CantDiscos As Long
@@ -972,49 +972,49 @@ Private Sub Form_Load()
     Do While c < CantDiscos - 1 'si la primera hoja incompleta se carga completa!!
         c = c + 1
         Load TapaCD(c)
-        Load lblDisco(c)
+        Load lblDISCO(c)
         'ya toman el tamaño del original
         If c / TapasMostradasH = c \ TapasMostradasH Then
             'es una tapa al principio de linea
             If RotulosArriba Then
-                lblDisco(c).Left = 50
-                lblDisco(c).Top = TapaCD(c - TapasMostradasH).Top + TapaCD(c - TapasMostradasH).Height + EspacioEntreDiscosV
+                lblDISCO(c).Left = 50
+                lblDISCO(c).Top = TapaCD(c - TapasMostradasH).Top + TapaCD(c - TapasMostradasH).Height + EspacioEntreDiscosV
                 TapaCD(c).Left = 50
                 If MostrarRotulos Then
-                    TapaCD(c).Top = lblDisco(c).Top + lblDisco(c).Height + 50
+                    TapaCD(c).Top = lblDISCO(c).Top + lblDISCO(c).Height + 50
                 Else
                     TapaCD(c).Top = TapaCD(c - TapasMostradasH).Top + TapaCD(c - TapasMostradasH).Height + 50
                 End If
                 TapaCD(c).Visible = True
-                If MostrarRotulos Then lblDisco(c).Visible = True
+                If MostrarRotulos Then lblDISCO(c).Visible = True
             Else
                 TapaCD(c).Left = 50
                 If MostrarRotulos Then
-                    TapaCD(c).Top = lblDisco(c - TapasMostradasH).Top + lblDisco(c - TapasMostradasH).Height + EspacioEntreDiscosV
+                    TapaCD(c).Top = lblDISCO(c - TapasMostradasH).Top + lblDISCO(c - TapasMostradasH).Height + EspacioEntreDiscosV
                 Else
                     TapaCD(c).Top = TapaCD(c - TapasMostradasH).Top + TapaCD(c - TapasMostradasH).Height + EspacioEntreDiscosV
                 End If
-                lblDisco(c).Left = 50
-                lblDisco(c).Top = TapaCD(c).Top + TapaCD(c).Height + 50
+                lblDISCO(c).Left = 50
+                lblDISCO(c).Top = TapaCD(c).Top + TapaCD(c).Height + 50
                 TapaCD(c).Visible = True
-                If MostrarRotulos Then lblDisco(c).Visible = True
+                If MostrarRotulos Then lblDISCO(c).Visible = True
             End If
         Else
             'una tapa comun que se acomoda a la derecha de la anterior
             If RotulosArriba Then
-                lblDisco(c).Left = lblDisco(c - 1).Left + AnchoTapaDisco + EspacioEntreDiscosH
-                lblDisco(c).Top = lblDisco(c - 1).Top
-                TapaCD(c).Left = lblDisco(c).Left
+                lblDISCO(c).Left = lblDISCO(c - 1).Left + AnchoTapaDisco + EspacioEntreDiscosH
+                lblDISCO(c).Top = lblDISCO(c - 1).Top
+                TapaCD(c).Left = lblDISCO(c).Left
                 TapaCD(c).Top = TapaCD(c - 1).Top
                 TapaCD(c).Visible = True
             Else
                 TapaCD(c).Left = TapaCD(c - 1).Left + AnchoTapaDisco + EspacioEntreDiscosH
                 TapaCD(c).Top = TapaCD(c - 1).Top
-                lblDisco(c).Left = TapaCD(c).Left
-                lblDisco(c).Top = lblDisco(c - 1).Top
+                lblDISCO(c).Left = TapaCD(c).Left
+                lblDISCO(c).Top = lblDISCO(c - 1).Top
                 TapaCD(c).Visible = True
             End If
-            If MostrarRotulos Then lblDisco(c).Visible = True
+            If MostrarRotulos Then lblDISCO(c).Visible = True
         End If
     Loop
     
@@ -1063,7 +1063,7 @@ Private Sub Form_Load()
     
     Select Case ReINI
         Case "LISTA" 'solo la lista despues del tema actual
-            Dim TE As TextStream
+            
             If FSO.FileExists(AP + "reini.tbr") Then
                 Set TE = FSO.OpenTextFile(AP + "reini.tbr", ForReading, False)
                 Dim TT As String 'cada tema
@@ -1092,10 +1092,10 @@ End Sub
 
 Public Sub SelDisco(nDisco As Long)
     lblSel.Visible = False
-    lblDisco(nDisco).ForeColor = vbBlack
+    lblDISCO(nDisco).ForeColor = vbBlack
     'lblDISCO(nDisco).Font.Bold = True
-    lblDisco(nDisco).Font.Underline = True
-    lblDisco(nDisco).BackColor = vbYellow
+    lblDISCO(nDisco).Font.Underline = True
+    lblDISCO(nDisco).BackColor = vbYellow
     nDiscoSEL = nDisco
     
     lblSel.Top = TapaCD(nDiscoSEL).Top - lblSel.BorderWidth * 10
@@ -1104,7 +1104,7 @@ Public Sub SelDisco(nDisco As Long)
     lblSel.Width = TapaCD(nDiscoSEL).Width + lblSel.BorderWidth * 20
     lblSel.Visible = True
     lblSel.ZOrder
-    lblDisco(nDisco).ZOrder
+    lblDISCO(nDisco).ZOrder
     
     'seleccionar de la lista de solo video
     L(nDiscoGral).ForeColor = vbWhite
@@ -1115,10 +1115,10 @@ Public Sub SelDisco(nDisco As Long)
 End Sub
 
 Public Sub UnSelDisco(nDisco As Long)
-    lblDisco(nDisco).ForeColor = vbWhite
+    lblDISCO(nDisco).ForeColor = vbWhite
     'lblDISCO(nDisco).Font.Bold = False
-    lblDisco(nDisco).Font.Underline = False
-    lblDisco(nDisco).BackColor = vbBlack
+    lblDISCO(nDisco).Font.Underline = False
+    lblDISCO(nDisco).BackColor = vbBlack
     'seleccionar de la lista de solo video
     L(LastDiscoSel).ForeColor = vbBlack
     L(LastDiscoSel).BackColor = vbWhite
@@ -1155,7 +1155,7 @@ Public Function CargarDiscos(numDiscoIniciar As Long, SelPrimero As Boolean) As 
                 If NDI >= (TapasMostradasH * TapasMostradasV) Then
                     TapaCD(NDI - c).Visible = False
                     'no se cargan lbldisco, usan solo del 0 al 5
-                    lblDisco(c - 1).Visible = False
+                    lblDISCO(c - 1).Visible = False
                 End If
                 c = c + 1
             Loop
@@ -1165,7 +1165,7 @@ Public Function CargarDiscos(numDiscoIniciar As Long, SelPrimero As Boolean) As 
             c = 1
             Do While c <= (TapasMostradasH * TapasMostradasV)
                 If NDI + ((TapasMostradasH * TapasMostradasV) - 1) + c < UBound(MATRIZ_DISCOS) Then TapaCD(NDI + ((TapasMostradasH * TapasMostradasV) - 1) + c).Visible = False
-                lblDisco(c - 1).Visible = False
+                lblDISCO(c - 1).Visible = False
                 c = c + 1
             Loop
             'Me.Refresh
@@ -1173,7 +1173,7 @@ Public Function CargarDiscos(numDiscoIniciar As Long, SelPrimero As Boolean) As 
     Else
         Do While NDR < ((TapasMostradasH * TapasMostradasV))
             TapaCD(NDR).Visible = False
-            lblDisco(NDR).Visible = False
+            lblDISCO(NDR).Visible = False
             NDR = NDR + 1
         Loop
         Dim ArchTapa As String
@@ -1201,8 +1201,8 @@ Public Function CargarDiscos(numDiscoIniciar As Long, SelPrimero As Boolean) As 
                 TapaCD(NDR).Visible = True
             End If
             'poner nombre al disco
-            lblDisco(NDR) = txtInLista(MATRIZ_DISCOS(NDI + 1), 1, ",")
-            If MostrarRotulos Then lblDisco(NDR).Visible = True
+            lblDISCO(NDR) = txtInLista(MATRIZ_DISCOS(NDI + 1), 1, ",")
+            If MostrarRotulos Then lblDISCO(NDR).Visible = True
         End If
         NDI = NDI + 1
         NDR = NDR + 1
@@ -1239,7 +1239,7 @@ End Sub
 
 Private Sub MP3_EndPlay()
     'volver a PasarHoja a su estado original
-    PasarHoja = LeerConfig("PasarHoja")
+    PasarHoja = LeerConfig("PasarHoja", "1")
     If HabilitarVUMetro Then
         frDISCOS.Width = VU1.Left
         VU1.Top = 0
@@ -1310,7 +1310,7 @@ Private Sub Timer1_Timer()
             'me voy al azar ya que no hay para elegirdel rank
             GoTo AZAR
         End If
-        Dim TE As TextStream
+        
         Set TE = FSO.OpenTextFile(AP + "ranking.tbr", ForReading, False)
         Dim TT As String
         'antes de entra ver si el archivo no tiene nada
@@ -1408,7 +1408,7 @@ Public Function TemasEnRank(MasDeXVotos) As Long
         TemasEnRankMasDeUnVoto = 0
         Exit Function
     End If
-    Dim TE As TextStream
+    
     Set TE = FSO.OpenTextFile(AP + "ranking.tbr", ForReading, False)
     Dim TT As String
     'antes de entra ver si el archivo no tiene nada

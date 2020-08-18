@@ -888,7 +888,7 @@ Handler2=PDWizard.WebPostDplySubWiz
 
 [Package|3pm 3.4|Root]
 SubWizProgID=PDWizard.SetupPkgSubWiz
-BuildFolder=D:\ahora\3pm\i new
+BuildFolder=D:\ahora\3pm\i march 2003
 
 [Package|3pm 3.4|Configure DAO ISAMs]
 Applicable=No
@@ -900,8 +900,10 @@ ODBCDirect=
 [Package|3pm 3.4|Files Found]
 
 [Package|3pm 3.4|Files Released]
+inicio.grp=
 
 [Package|3pm 3.4|Missing Dependency Information]
+D:\ahora\3pm\ini.exe=
 
 [Package|3pm 3.4|Out-of-Date Dependency Information]
 C:\WINDOWS\SYSTEM\scrrun.dll=
@@ -914,10 +916,11 @@ d:\ahora\3pm\top10.jpg=
 d:\ahora\3pm\imgini\3pm\logow.sys=
 d:\ahora\3pm\imgini\3pm\logos.sys=
 d:\ahora\3pm\imgini\3pm\logo.sys=
-D:\ahora\3pm\imgINI\INICIO.GRP=
+d:\ahora\3pm\ini.exe=
 
 [Package|3pm 3.4|Files Removed]
 c:\windows\system\msvcrt.dll=
+d:\ahora\3pm\imgini\inicio.grp=
 
 [Package|3pm 3.4|Files In Project]
 D:\ahora\3pm\3pm.exe=Yes
@@ -942,7 +945,7 @@ D:\ahora\3pm\top10.jpg=Yes
 D:\ahora\3pm\imgINI\3pm\logow.sys=Yes
 D:\ahora\3pm\imgINI\3pm\logos.sys=Yes
 D:\ahora\3pm\imgINI\3pm\logo.sys=Yes
-D:\ahora\3pm\imgINI\INICIO.GRP=Yes
+D:\ahora\3pm\ini.exe=Yes
 
 [Package|3pm 3.4|Configure Registry Files]
 Applicable=No
@@ -973,6 +976,7 @@ D:\ahora\3pm\imgINI\3pm\logow.sys=$(AppPath)
 D:\ahora\3pm\imgINI\3pm\logos.sys=$(AppPath)
 D:\ahora\3pm\imgINI\3pm\logo.sys=$(AppPath)
 D:\ahora\3pm\imgINI\INICIO.GRP=$(WinPath)
+D:\ahora\3pm\ini.exe=$(AppPath)
 
 [Package|3pm 3.4|Configure Shared Files]
 Applicable=Yes
@@ -984,21 +988,12 @@ D:\ahora\3pm\top10.jpg=No
 D:\ahora\3pm\imgINI\3pm\logow.sys=No
 D:\ahora\3pm\imgINI\3pm\logos.sys=No
 D:\ahora\3pm\imgINI\3pm\logo.sys=No
+D:\ahora\3pm\ini.exe=No
 
 [Package|3pm 3.4|Distribution]
 Type=single
 Size=720 KB
 Title=3pm Demo Publico
-
-[Package|3pm 3.4|Package]
-PackageFolder=D:\ahora\3pm\i new
-ProjectFolder=D:\ahora\3pm
-ServerSideCab=
-File1=D:\ahora\3pm\i new\setup.exe
-File2=D:\ahora\3pm\i new\Setup.Lst
-File3=D:\ahora\3pm\i new\3pm.CAB
-Handler1=PDWizard.FolderDplySubWiz
-Handler2=PDWizard.WebPostDplySubWiz
 
 [Package|3pm 3.4|IconGroups]
 Group0=3pm
@@ -1010,3 +1005,13 @@ Icon1=3pm.exe
 Title1=3pm
 StartIn1=$(AppPath)
 Key1=Icon1
+
+[Package|3pm 3.4|Package]
+PackageFolder=D:\ahora\3pm\i march 2003
+ProjectFolder=D:\ahora\3pm
+ServerSideCab=
+File1=D:\ahora\3pm\i march 2003\setup.exe
+File2=D:\ahora\3pm\i march 2003\Setup.Lst
+File3=D:\ahora\3pm\i march 2003\3pm.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz

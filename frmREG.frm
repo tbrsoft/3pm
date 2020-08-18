@@ -8,7 +8,6 @@ Begin VB.Form frmREG
    ClientTop       =   285
    ClientWidth     =   11910
    LinkTopic       =   "Form1"
-   LockControls    =   -1  'True
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   8175
@@ -17,21 +16,21 @@ Begin VB.Form frmREG
    StartUpPosition =   2  'CenterScreen
    WindowState     =   2  'Maximized
    Begin VB.CommandButton Command3 
-      Caption         =   "..."
+      Caption         =   "Abrir Manual de uso. RECOMENDADO si es su primer uso"
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   400
+         Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   315
-      Left            =   10560
+      Height          =   405
+      Left            =   2430
       TabIndex        =   27
-      Top             =   7080
-      Width           =   525
+      Top             =   6480
+      Width           =   6915
    End
    Begin VB.Frame frFull 
       BackColor       =   &H00404040&
@@ -154,7 +153,7 @@ Begin VB.Form frmREG
       Height          =   375
       Left            =   1950
       TabIndex        =   25
-      Top             =   6000
+      Top             =   5340
       Value           =   1  'Checked
       Width           =   8655
    End
@@ -173,7 +172,7 @@ Begin VB.Form frmREG
       Height          =   435
       Left            =   4770
       TabIndex        =   24
-      Top             =   6390
+      Top             =   5730
       Width           =   1785
    End
    Begin VB.TextBox LBL 
@@ -189,7 +188,7 @@ Begin VB.Form frmREG
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00C0FFFF&
-      Height          =   3105
+      Height          =   2295
       Left            =   1080
       Locked          =   -1  'True
       MultiLine       =   -1  'True
@@ -231,7 +230,7 @@ Begin VB.Form frmREG
       Sorted          =   -1  'True
       Style           =   2  'Dropdown List
       TabIndex        =   8
-      Top             =   5340
+      Top             =   4680
       Width           =   2805
    End
    Begin VB.TextBox txtCOD 
@@ -251,7 +250,7 @@ Begin VB.Form frmREG
       Left            =   9060
       MaxLength       =   5
       TabIndex        =   7
-      Top             =   4290
+      Top             =   3630
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -271,7 +270,7 @@ Begin VB.Form frmREG
       Left            =   7980
       MaxLength       =   5
       TabIndex        =   6
-      Top             =   4290
+      Top             =   3630
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -291,7 +290,7 @@ Begin VB.Form frmREG
       Left            =   6900
       MaxLength       =   5
       TabIndex        =   5
-      Top             =   4290
+      Top             =   3630
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -311,7 +310,7 @@ Begin VB.Form frmREG
       Left            =   5820
       MaxLength       =   5
       TabIndex        =   4
-      Top             =   4290
+      Top             =   3630
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -331,7 +330,7 @@ Begin VB.Form frmREG
       Left            =   4740
       MaxLength       =   5
       TabIndex        =   3
-      Top             =   4290
+      Top             =   3630
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -351,7 +350,7 @@ Begin VB.Form frmREG
       Left            =   3660
       MaxLength       =   5
       TabIndex        =   2
-      Top             =   4290
+      Top             =   3630
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -371,7 +370,7 @@ Begin VB.Form frmREG
       Left            =   2580
       MaxLength       =   5
       TabIndex        =   1
-      Top             =   4290
+      Top             =   3630
       Width           =   1050
    End
    Begin VB.TextBox lblGUID 
@@ -393,7 +392,7 @@ Begin VB.Form frmREG
       TabIndex        =   11
       TabStop         =   0   'False
       Text            =   "Aqui va el codigo"
-      Top             =   3510
+      Top             =   2850
       Width           =   11535
    End
    Begin VB.TextBox txtCOD 
@@ -413,7 +412,7 @@ Begin VB.Form frmREG
       Left            =   1500
       MaxLength       =   5
       TabIndex        =   0
-      Top             =   4290
+      Top             =   3630
       Width           =   1050
    End
    Begin VB.CommandButton Command1 
@@ -434,27 +433,6 @@ Begin VB.Form frmREG
       Top             =   7380
       Width           =   1785
    End
-   Begin VB.Label Label1 
-      Alignment       =   2  'Center
-      BackStyle       =   0  'Transparent
-      Caption         =   "Abrir Manual de uso. Recomendado si es su primer uso"
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00FFC0C0&
-      Height          =   645
-      Index           =   4
-      Left            =   10050
-      TabIndex        =   28
-      Top             =   7440
-      Width           =   1695
-   End
    Begin VB.Label lblLIC 
       BackStyle       =   0  'Transparent
       Caption         =   "Licencia perteneciente a"
@@ -469,10 +447,10 @@ Begin VB.Form frmREG
       EndProperty
       ForeColor       =   &H00C0FFFF&
       Height          =   345
-      Left            =   90
+      Left            =   3780
       TabIndex        =   26
       Top             =   7830
-      Width           =   9615
+      Width           =   7155
    End
    Begin VB.Label Label1 
       BackStyle       =   0  'Transparent
@@ -491,15 +469,15 @@ Begin VB.Form frmREG
       Index           =   3
       Left            =   990
       TabIndex        =   22
-      Top             =   4830
+      Top             =   4170
       Width           =   9285
    End
    Begin VB.Image Image1 
       Height          =   1635
-      Left            =   10140
+      Left            =   10110
       Picture         =   "frmREG.frx":0006
       Stretch         =   -1  'True
-      Top             =   990
+      Top             =   390
       Width           =   1500
    End
    Begin VB.Label Label1 
@@ -519,7 +497,7 @@ Begin VB.Form frmREG
       Index           =   2
       Left            =   4440
       TabIndex        =   14
-      Top             =   5130
+      Top             =   4470
       Width           =   2985
    End
    Begin VB.Label Label1 
@@ -540,7 +518,7 @@ Begin VB.Form frmREG
       Index           =   1
       Left            =   240
       TabIndex        =   13
-      Top             =   4050
+      Top             =   3390
       Width           =   11505
    End
    Begin VB.Label Label1 
@@ -560,7 +538,7 @@ Begin VB.Form frmREG
       Index           =   0
       Left            =   240
       TabIndex        =   12
-      Top             =   3240
+      Top             =   2580
       Width           =   9135
    End
 End
@@ -576,7 +554,7 @@ Dim CodigoGeneradoPorINFO As Boolean
 Dim STRconCodigos As String 'variable fundamental que contiene todos los codigos
 
 Dim A1 As String, A2 As String, A3 As String, A4 As String, A5 As String, A6 As String
-Dim TE As TextStream
+
 Dim GGG As String
 
 Dim ArchREG As String 'archivo con los datos del registro
@@ -777,17 +755,18 @@ Private Sub Form_Load()
     ArchImgIni = AP + "imgini.tbr"
     If FSO.FileExists(ArchImgIni) Then
         GoTo YaEstaIMG
+        MsgBox "Ya esta imgini.tbr"
     Else
-        Dim TE As TextStream
+        
         Set TE = FSO.CreateTextFile(ArchImgIni, True)
         'ver imagen de inicio
         If FSO.FileExists("c:\logo.sys") Then
             TE.WriteLine "ImgIni=1"
             'copiar el archivo a un lugar seguro para
             'despues administrar los cambios
-            If FSO.FolderExists(AP + "i") = False Then FSO.CreateFolder AP + "i"
-            If FSO.FolderExists(AP + "i\w") = False Then FSO.CreateFolder AP + "i\w"
-            FSO.CopyFile "c:\logo.sys", AP + "i\w\logo.sys", True
+            If FSO.FolderExists(WINfolder + "\img3PM") = False Then FSO.CreateFolder WINfolder + "\img3PM"
+            If FSO.FolderExists(WINfolder + "\img3PM\w") = False Then FSO.CreateFolder WINfolder + "\img3pm\w"
+            FSO.CopyFile "c:\logo.sys", WINfolder + "\img3pm\w\logo.sys", True
         Else
             TE.WriteLine "ImgIni=0"
         End If
@@ -797,9 +776,9 @@ Private Sub Form_Load()
             TE.WriteLine "ImgCerrando=1"
             'copiar el archivo a un lugar seguro para
             'despues administrar los cambios
-            If FSO.FolderExists(AP + "i") = False Then FSO.CreateFolder AP + "i"
-            If FSO.FolderExists(AP + "i\w") = False Then FSO.CreateFolder AP + "i\w"
-            FSO.CopyFile WINfolder + "\logow.sys", AP + "i\w\logow.sys", True
+            If FSO.FolderExists(WINfolder + "\img3pm") = False Then FSO.CreateFolder WINfolder + "\img3pm"
+            If FSO.FolderExists(WINfolder + "\img3pm\w") = False Then FSO.CreateFolder WINfolder + "\img3pm\w"
+            FSO.CopyFile WINfolder + "\logow.sys", WINfolder + "\img3pm\w\logow.sys", True
         Else
             TE.WriteLine "ImgCerrando=0"
         End If
@@ -809,9 +788,9 @@ Private Sub Form_Load()
             TE.WriteLine "ImgApagar=1"
             'copiar el archivo a un lugar seguro para
             'despues administrar los cambios
-            If FSO.FolderExists(AP + "i") = False Then FSO.CreateFolder AP + "i"
-            If FSO.FolderExists(AP + "i\w") = False Then FSO.CreateFolder AP + "i\w"
-            FSO.CopyFile WINfolder + "\logos.sys", AP + "i\w\logos.sys", True
+            If FSO.FolderExists(WINfolder + "\img3pm") = False Then FSO.CreateFolder WINfolder + "\img3pm"
+            If FSO.FolderExists(WINfolder + "\img3pm\w") = False Then FSO.CreateFolder WINfolder + "\img3pm\w"
+            FSO.CopyFile WINfolder + "\logos.sys", WINfolder + "\img3pm\w\logos.sys", True
         Else
             TE.WriteLine "ImgApagar=0"
         End If
@@ -825,12 +804,17 @@ Private Sub Form_Load()
 YaEstaIMG:
     'VER si ya se pasaron las imagenes de 3pm
     'a la carpeta que corresponde
-    If FSO.FolderExists(AP + "i") = False Then FSO.CreateFolder (AP + "i")
-    If FSO.FolderExists(AP + "i\3") = False Then FSO.CreateFolder (AP + "i\3")
-    If FSO.FileExists(AP + "logo.sys") Then FSO.MoveFile AP + "logo.sys", AP + "i\3\logo.sys"
-    If FSO.FileExists(AP + "logow.sys") Then FSO.MoveFile AP + "logow.sys", AP + "i\3\logow.sys"
-    If FSO.FileExists(AP + "logos.sys") Then FSO.MoveFile AP + "logos.sys", AP + "i\3\logos.sys"
-    
+    If FSO.FolderExists(WINfolder + "\img3pm") = False Then FSO.CreateFolder (WINfolder + "\img3pm")
+    If FSO.FolderExists(WINfolder + "\img3pm\3") = False Then FSO.CreateFolder (WINfolder + "\img3pm\3")
+    If FSO.FileExists(AP + "logo.sys") Then
+        If FSO.FileExists(WINfolder + "\img3pm\3\logo.sys") = False Then FSO.CopyFile AP + "logo.sys", WINfolder + "\img3pm\3\logo.sys", True
+    End If
+    If FSO.FileExists(AP + "logow.sys") Then
+        If FSO.FileExists(WINfolder + "\img3pm\3\logow.sys") = False Then FSO.CopyFile AP + "logow.sys", WINfolder + "\img3pm\3\logow.sys", True
+    End If
+    If FSO.FileExists(AP + "logos.sys") Then
+        If FSO.FileExists(WINfolder + "\img3pm\3\logos.sys") = False Then FSO.CopyFile AP + "logos.sys", WINfolder + "\img3pm\3\logos.sys", True
+    End If
     
     LicenciadoA = "DEMO PUBLICO"
     lblLIC = "Licencia perteneciente a " + LicenciadoA
@@ -938,17 +922,8 @@ STRconCodigos = STRconCodigos + "zsmkxjkLsiLc95uu8489fndefjL349845789f89w89" + _
     "solo usted tendra una copia LEGAL si compra este software a " + _
     "tbrSoft Argentina." + vbCrLf + _
     "Para adquirir la version definitiva deberá solicitarlo a tbrSoft " + _
-    "via email a tbrsoft@hotmail.com o a avazquez@cpcipc.org " + vbCrLf + _
-    "indicando:" + vbCrLf + _
-    "Codigo de este equipo" + vbCrLf + _
-    "Pais de residencia" + vbCrLf + _
-    "Empresa utilizada para la transeferencia de dinero" + vbCrLf + _
-    "Codigo (u otros datos segun empresa) de la transeferencia " + vbCrLf + vbCrLf + _
-    "Una vez recibida transferencia, tbrSoft respondera su email" + _
-    " con una contraseña que solo sera valida para el equipo desde el que " + _
-    "fue solicitado. " + vbCrLf + _
-    "tbrSoft enviara todas las contraseñas solicitadas hasta" + _
-    " llegar al numero de licencias que usted compro"
+    "via email a info@tbrsoft.com o a avazquez@cpcipc.org"
+    
     LBL = TXT
     'mostrar si esta el archivo guid al azar
     If FSO.FileExists(ArchGUID) = False Then

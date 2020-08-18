@@ -470,7 +470,7 @@ Public Sub LogErrorMCI(CodeErrMCI)
 End Sub
 
 Public Sub WriteLog(TXT As String, PonerFecha As Boolean)
-    Dim TE As TextStream
+    
     If FSO.FileExists(AP + "log.txt") = False Then
         Set TE = FSO.CreateTextFile(AP + "log.txt", False)
         TE.Close

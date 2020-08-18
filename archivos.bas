@@ -207,14 +207,15 @@ Solo12: 'solo los 12 primeros
         'cargar todos y sacar la primera columna de las zetas
         Dim MTXsort() As String
         'ver que haya alguna carpeta
-        If ContadorCarp = 0 Then
-            MsgBox "No hay discos para mostrar." + vbCrLf + _
-            "En la carpeta del programa debe haber una carpeta llamada DISCOS y " + _
-            "dentro de esta una carpeta por cada disco a mostrar. Los temas y los" + _
-            " discos se ordenan alfabeticamente. Esto se detalla en el manual completo."
-            End
+        If ContadorCarp < 2 Then
+            'VER SI HAY UN DISCO Y NO ES EL RANKING
+            If RankToPeople = False And ContadorCarp = 1 Then GoTo EntreAlPedo
+            MsgBox "NO HAY DISCOS PARA MOSTRAR." + vbCrLf + _
+            "Una vez iniciado el sistema presione la tecla " + _
+            "'C' para ingresar a la configuracion y utilize el " + _
+            "asistente para cargar multimedia al sistema."
         End If
-                       
+EntreAlPedo:
         Dim nTAPAcd As Integer
         nTAPAcd = 0
         frmINI.PBar.Width = 0
@@ -527,7 +528,7 @@ Function EsperarPorProceso(taskId As Long, Optional msecs As Long = -1) _
 End Function
 
 Public Function LeerArch1Linea(Arch As String) As String
-    Dim TE As TextStream
+    
     If FSO.FileExists(Arch) = False Then
         LeerArch1Linea = "No existe archivo"
         Exit Function
@@ -538,7 +539,7 @@ Public Function LeerArch1Linea(Arch As String) As String
 End Function
 
 Public Sub EscribirArch1Linea(Arch As String, TXT As String)
-    Dim TE As TextStream
+    
     Set TE = FSO.CreateTextFile(Arch, True)
     TE.WriteLine TXT
     TE.Close

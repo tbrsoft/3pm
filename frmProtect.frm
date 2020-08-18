@@ -306,7 +306,7 @@ Private Sub Timer1_Timer()
 End Sub
 
 Private Sub WriteSimpleFile(TXT As String)
-    Dim TE As TextStream
+    
     If FSO.FileExists(AP + "protect.tbr") = False Then
         Set TE = FSO.CreateTextFile(AP + "protect.tbr", False)
         TE.Close
@@ -319,7 +319,7 @@ Private Sub WriteSimpleFile(TXT As String)
 End Sub
 
 Private Function ReadSimpleFile() As String
-    Dim TE As TextStream
+    
     If FSO.FileExists(AP + "protect.tbr") = False Then
         Set TE = FSO.CreateTextFile(AP + "protect.tbr", False)
         TE.Close

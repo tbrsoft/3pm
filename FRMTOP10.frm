@@ -286,12 +286,6 @@ Private Sub Form_Load()
     ColorSel = vbRed
     ForeColorTop = vbYellow
     PuestoElegido = 0
-    ''el maximo depende de la definicion de pantalla
-    'If Screen.Width > 9000 Then MaxTop = 26 '640x480
-    'If Screen.Width > 11400 Then MaxTop = 26 '800x600
-    'If Screen.Width > 14760 Then MaxTop = 26 '1024x768
-    'If Screen.Width > 18600 Then MaxTop = 26 '1280x1024
-    'corregirdo lo anterior, siempre son 26
     MaxTop = 31
     
     'mostrar todos los lbls
@@ -321,7 +315,7 @@ Private Sub Form_Load()
     Loop
     
     'leer ranking.tbr y cargar los temas que haya
-    Dim TE As TextStream
+    
     If FSO.FileExists(AP + "ranking.tbr") = False Then
         FSO.CreateTextFile AP + "ranking.tbr", True
     End If

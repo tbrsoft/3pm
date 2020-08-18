@@ -1,4 +1,10 @@
 Attribute VB_Name = "Globales"
+Public TE As TextStream
+'claves para entrar a config, dar creditos y cerrar el sistema
+Public ClaveConfig As String
+Public ClaveCredit As String
+Public ClaveClose As String
+
 Public SYSfolder As String
 Public WINfolder As String
 
@@ -265,7 +271,7 @@ End Function
 
 
 Public Sub CargarArchReini(ModoReini As String)
-    Dim TE As TextStream
+    
     Set TE = FSO.CreateTextFile(AP + "reini.tbr", True)
     Select Case ModoReini
         Case "FULL" 'tema actual + lista posterior
@@ -315,7 +321,7 @@ End Sub
 
 Public Sub VerClaves(CLAVE As String)
     Select Case CLAVE
-        Case "14411314114444443222"
+        Case ClaveClose
             CLAVE = "11111222223333344444" 'anular para que no se siga cargando
             'cerrar 3pm
             OnOffCAPS vbKeyCapital, False
@@ -325,67 +331,26 @@ Public Sub VerClaves(CLAVE As String)
             MostrarCursor True
             frmINDEX.MP3.DoClose
             End
-        Case "44413212121214443441"
-            'cargar 1 credito
-            CREDITOS = CREDITOS + 1
-            'no suma contador de creditos
-            'SumarContadorCreditos 1
-            'grabar cant de creditos
-            EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
-            If CREDITOS >= 10 Then
-                frmINDEX.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
-            Else
-                frmINDEX.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
-            End If
-            CLAVE = "11111222223333344444" 'anular para que no se siga cargando
-        Case "44413212121214443442"
-            'cargar 2 creditos
-            CREDITOS = CREDITOS + 2
-            'no suma contador de creditos
-            'SumarContadorCreditos 1
-            
-            'grabar cant de creditos
-            EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
-            If CREDITOS >= 10 Then
-                frmINDEX.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
-            Else
-                frmINDEX.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
-            End If
-            CLAVE = "11111222223333344444" 'anular para que no se siga cargando
-        Case "44413212121214443443"
-            'cargar 3 creditos
-            CREDITOS = CREDITOS + 3
-            'no suma contador de creditos
-            'SumarContadorCreditos 1
-            
-            'grabar cant de creditos
-            EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
-            If CREDITOS >= 10 Then
-                frmINDEX.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
-            Else
-                frmINDEX.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
-            End If
-            CLAVE = "11111222223333344444" 'anular para que no se siga cargando
-        Case "44413212121214443444"
-            'cargar 4 creditos
-            CREDITOS = CREDITOS + 4
-            'no suma contador de creditos
-            'SumarContadorCreditos 1
-            
-            'grabar cant de creditos
-            EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
-            If CREDITOS >= 10 Then
-                frmINDEX.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
-            Else
-                frmINDEX.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
-            End If
-            CLAVE = "11111222223333344444" 'anular para que no se siga cargando
-        Case "31121212444411112344"
+        Case ClaveConfig
             CLAVE = "11111222223333344444" 'anular para que no se siga cargando
             'entrar en configuracion
             frmConfig.Show 1
     End Select
-    
+    If Left(CLAVE, 19) = ClaveCredit Then
+        'cargar creditos
+        'ver cuantos son
+        Dim NewCredit As Integer
+        NewCredit = Val(Right(CLAVE, 1))
+        CREDITOS = CREDITOS + NewCredit
+        'no suma contador de creditos
+        EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
+        If CREDITOS >= 10 Then
+            frmINDEX.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+        Else
+            frmINDEX.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+        End If
+        CLAVE = "11111222223333344444" 'anular para que no se siga cargando
+    End If
 End Sub
 
 Public Sub AjustarFRM(FRM As Form, HechoParaTwipsHoriz)
@@ -413,10 +378,13 @@ Public Sub AjustarFRM(FRM As Form, HechoParaTwipsHoriz)
 
 End Sub
 
-Public Function LeerConfig(Conf As String) As String
+Public Function LeerConfig(Conf As String, ValDefault As String) As String
+    ''usar desde el registro
+    'LeerConfig = GetSetting("3PM", "Config", Conf, ValDefault)
+    
     'leer el archivo de configuracion y devolver valor
     LeerConfig = "NO EXISTE"
-    Dim TE As TextStream
+    
     Dim TXT As String, CFG As String, RST As String
     Set TE = FSO.OpenTextFile(AP + "config.tbr", ForReading, False)
     Do While Not TE.AtEndOfStream
@@ -428,11 +396,15 @@ Public Function LeerConfig(Conf As String) As String
             Exit Do
         End If
     Loop
-    If LeerConfig = "NO EXISTE" Then MsgBox "No se pudo cargar un valor de configuracion"
+    If LeerConfig = "NO EXISTE" Then
+        'cargar el valor por defecto
+        LeerConfig = ValDefault
+    End If
+        
 End Function
 
 Public Sub WriteTBRLog(TXT As String, PonerFecha As Boolean)
-    Dim TE As TextStream
+
     If FSO.FileExists(AP + "TBRlog.txt") = False Then
         Set TE = FSO.CreateTextFile(AP + "TBRlog.txt", False)
         TE.Close

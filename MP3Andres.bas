@@ -60,7 +60,7 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
             .lblTEMAS.Visible = False
         End With
         'volver a PasarHoja a su estado original
-        PasarHoja = LeerConfig("PasarHoja")
+        PasarHoja = LeerConfig("PasarHoja", "1")
     End If
     'Valores de ReIni FULL=tema ejecutando y lista LISTA=solo lista NADA=arranca de cero
     'si corresponde graba en reini.tbr la lista de temas por sis se corta la luz
@@ -165,7 +165,7 @@ Public Sub TOP10(nameARCH As String, nameTEMA As String, nameDISCO As String)
     Dim ArchivoNuevo As String
     Encontrado = False
     'abrir el archivo y ver si ya esta el tema
-    Dim TE As TextStream
+    
     Set TE = FSO.OpenTextFile(AP + "ranking.tbr", ForReading, False)
     'leerlo cargarlo en matriz y ordenar por mas escuchado
     Do While Not TE.AtEndOfStream
@@ -243,7 +243,7 @@ End Sub
 
 Public Sub SumarContadorCreditos(valorSUMAR As Integer)
     Dim ARCHcont As String
-    Dim TE As TextStream
+    
     
     'ver el valor en win
     ARCHcont = WINfolder + "\nnr.dll"
@@ -305,7 +305,7 @@ End Sub
 
 Public Function PuestoN(TemaBuscado As String) As String
     'leer ranking.tbr y buscar el tema
-    Dim TE As TextStream
+    
     If FSO.FileExists(AP + "ranking.tbr") = False Then
         'esto no deberia pasar nunca ya que entra despues de que el tema se carga en el ranking
         FSO.CreateTextFile AP + "ranking.tbr", True

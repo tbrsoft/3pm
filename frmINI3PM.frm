@@ -30,11 +30,11 @@ Begin VB.Form frmINI3PM
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   780
+      Left            =   2070
       Style           =   1  'Graphical
       TabIndex        =   28
-      Top             =   5940
-      Width           =   2085
+      Top             =   5550
+      Width           =   2350
    End
    Begin VB.CommandButton Command2 
       BackColor       =   &H00FFC0C0&
@@ -49,11 +49,11 @@ Begin VB.Form frmINI3PM
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   2880
+      Left            =   2070
       Style           =   1  'Graphical
       TabIndex        =   27
-      Top             =   5940
-      Width           =   2085
+      Top             =   6000
+      Width           =   2350
    End
    Begin VB.Frame Frame4 
       BackColor       =   &H00400000&
@@ -624,10 +624,12 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Dim MostrarMensajeWarning As Boolean
+
 Private Sub Command1_Click()
     'leer el archivo de configuracion para guardar
     'los datos
-    Dim TE As TextStream
+    
     Set TE = FSO.OpenTextFile(AP + "imgini.tbr")
     Dim Ls() As String, c As Long
     c = 1
@@ -643,7 +645,7 @@ Private Sub Command1_Click()
         'ver si la imagen estaba
         If txtInLista(Ls(1), 1, "=") = "1" Then
             'volver a cargarla
-            FSO.CopyFile AP + "i\w\logo.sys", "c:\logo.sys", True
+            FSO.CopyFile WINfolder + "\img3pm\w\logo.sys", "c:\logo.sys", True
         Else
             'como no estaba se queda sin imagen
         End If
@@ -653,7 +655,7 @@ Private Sub Command1_Click()
         Ls(4) = "LoadImgIni=3"
         If FSO.FileExists("c:\logo.sys") Then FSO.DeleteFile "c:\logo.sys", True
         'volver a cargarla
-        FSO.CopyFile AP + "i\3\logo.sys", "c:\logo.sys", True
+        FSO.CopyFile WINfolder + "\img3pm\3\logo.sys", "c:\logo.sys", True
     End If
     
     If OpCerrandoWIN Then
@@ -662,7 +664,7 @@ Private Sub Command1_Click()
         'ver si la imagen estaba
         If txtInLista(Ls(2), 1, "=") = "1" Then
             'volver a cargarla
-            FSO.CopyFile AP + "i\w\logow.sys", WINfolder + "\logow.sys", True
+            FSO.CopyFile WINfolder + "\img3pm\w\logow.sys", WINfolder + "\logow.sys", True
         Else
             'como no estaba se queda sin imagen
         End If
@@ -672,7 +674,7 @@ Private Sub Command1_Click()
         Ls(5) = "LoadImgCerrando=3"
         If FSO.FileExists(WINfolder + "\logow.sys") Then FSO.DeleteFile WINfolder + "\logow.sys", True
         'volver a cargarla
-        FSO.CopyFile AP + "i\3\logow.sys", WINfolder + "\logow.sys", True
+        FSO.CopyFile WINfolder + "\img3pm\3\logow.sys", WINfolder + "\logow.sys", True
     End If
     
     If OpApagarWIN Then
@@ -681,7 +683,7 @@ Private Sub Command1_Click()
         'ver si la imagen estaba
         If txtInLista(Ls(3), 1, "=") = "1" Then
             'volver a cargarla
-            FSO.CopyFile AP + "i\w\logos.sys", WINfolder + "\logos.sys", True
+            FSO.CopyFile WINfolder + "\img3pm\w\logos.sys", WINfolder + "\logos.sys", True
         Else
             'como no estaba se queda sin imagen
         End If
@@ -691,7 +693,7 @@ Private Sub Command1_Click()
         Ls(6) = "LoadImgApagar=3"
         If FSO.FileExists(WINfolder + "\logos.sys") Then FSO.DeleteFile WINfolder + "\logos.sys", True
         'volver a cargarla
-        FSO.CopyFile AP + "i\3\logos.sys", WINfolder + "\logos.sys", True
+        FSO.CopyFile WINfolder + "\img3pm\3\logos.sys", WINfolder + "\logos.sys", True
     End If
         
     'volver a escribir el archivo de inicio con los nuevos datos
@@ -713,7 +715,6 @@ Private Sub Command1_Click()
     Dim TodoSystem() As String
     Dim ActualShell As String, UbicShell As Long
     c = 1
-    
     Do While Not TE.AtEndOfStream
         ReDim Preserve TodoSystem(c)
         TodoSystem(c) = TE.ReadLine
@@ -738,46 +739,6 @@ Private Sub Command1_Click()
     If FSO.FileExists(WINfolder + "\system.ini") Then FSO.MoveFile WINfolder + "\system.ini", WINfolder + "\OLDsystem.ini"
     FSO.MoveFile AP + "system.ini", WINfolder + "\system.ini"
     
-    
-    'leer el progman.ini y ver
-    'copiarlo para no echar moco
-    If FSO.FileExists(AP + "progman.ini") Then FSO.DeleteFile AP + "progman.ini", True
-    FSO.CopyFile WINfolder + "\progman.ini", AP + "progman.ini", True
-    Set TE = FSO.OpenTextFile(AP + "progman.ini")
-    Dim TodoProgman() As String
-    Dim UbicGrupo1 As Long
-    c = 1
-    UbicGrupo1 = -1
-    Do While Not TE.AtEndOfStream
-        ReDim Preserve TodoProgman(c)
-        TodoProgman(c) = TE.ReadLine
-        If LCase(TodoProgman(c)) = "[groups]" Then
-            UbicGrupo1 = c + 1
-            'no salir para que se copie todo
-        End If
-        c = c + 1
-    Loop
-    If UbicGrupo1 = -1 Then
-        'no esta [Groups]
-        ReDim Preserve TodoProgman(c)
-        TodoProgman(c) = "[Groups]"
-        UbicGrupo1 = c + 1
-    End If
-    TE.Close
-    ReDim Preserve TodoProgman(UbicGrupo1)
-    If Option6 Then TodoProgman(UbicGrupo1) = ""
-    If Option2 Then TodoProgman(UbicGrupo1) = "Group1=" + WINfolder + "\INICIO.GRP"
-    'volver a escribir el archivo
-    If FSO.FileExists(AP + "progman.ini") Then FSO.DeleteFile AP + "progman.ini", True
-    Set TE = FSO.CreateTextFile(AP + "progman.ini", True)
-    For a = 1 To UBound(TodoProgman)
-        TE.WriteLine TodoProgman(a)
-    Next
-    TE.Close
-    If FSO.FileExists(WINfolder + "\OLDprogman.ini") Then FSO.DeleteFile WINfolder + "\OLDprogman.ini", True
-    If FSO.FileExists(WINfolder + "\progman.ini") Then FSO.MoveFile WINfolder + "\progman.ini", WINfolder + "\OLDprogman.ini"
-    FSO.MoveFile AP + "progman.ini", WINfolder + "\progman.ini"
-    
     Unload Me
 End Sub
 
@@ -786,35 +747,36 @@ Private Sub Command2_Click()
 End Sub
 
 Private Sub Form_Load()
+    MostrarMensajeWarning = False
     AjustarFRM Me, 12000
     
     'cargar las imágenes de 3pm
-    If FSO.FileExists(AP + "i\3\logo.sys") Then imgIni3PM.Picture = LoadPicture(AP + "i\3\logo.sys")
-    If FSO.FileExists(AP + "i\3\logow.sys") Then imgCerrando3PM.Picture = LoadPicture(AP + "i\3\logow.sys")
-    If FSO.FileExists(AP + "i\3\logos.sys") Then imgApagar3PM.Picture = LoadPicture(AP + "i\3\logos.sys")
+    If FSO.FileExists(WINfolder + "\img3pm\3\logo.sys") Then imgIni3PM.Picture = LoadPicture(WINfolder + "\img3pm\3\logo.sys")
+    If FSO.FileExists(WINfolder + "\img3pm\3\logow.sys") Then imgCerrando3PM.Picture = LoadPicture(WINfolder + "\img3pm\3\logow.sys")
+    If FSO.FileExists(WINfolder + "\img3pm\3\logos.sys") Then imgApagar3PM.Picture = LoadPicture(WINfolder + "\img3pm\3\logos.sys")
     
     'cargar las imágenes de windows
-    If FSO.FileExists(AP + "i\w\logo.sys") Then
-        imgIniWin.Picture = LoadPicture(AP + "i\w\logo.sys")
+    If FSO.FileExists(WINfolder + "\img3pm\w\logo.sys") Then
+        imgIniWin.Picture = LoadPicture(WINfolder + "\img3pm\w\logo.sys")
     Else
         lblNoImgIni.Visible = True
     End If
     
-    If FSO.FileExists(AP + "i\w\logow.sys") Then
-        imgCerrandoWIN.Picture = LoadPicture(AP + "i\w\logow.sys")
+    If FSO.FileExists(WINfolder + "\img3pm\w\logow.sys") Then
+        imgCerrandoWIN.Picture = LoadPicture(WINfolder + "\img3pm\w\logow.sys")
     Else
         lblNoImgCerrando.Visible = True
     End If
     
-    If FSO.FileExists(AP + "i\w\logos.sys") Then
-        imgApagarWIN.Picture = LoadPicture(AP + "i\w\logos.sys")
+    If FSO.FileExists(WINfolder + "\img3pm\w\logos.sys") Then
+        imgApagarWIN.Picture = LoadPicture(WINfolder + "\img3pm\w\logos.sys")
     Else
         lblNoImgApagar.Visible = True
     End If
     
     'leer el archivo de configuracion para saber
     'cual imagen se esta usando
-    Dim TE As TextStream
+    
     Set TE = FSO.OpenTextFile(AP + "imgini.tbr")
     Dim Ls() As String, c As Long
     c = 1
@@ -861,5 +823,13 @@ Private Sub Form_Load()
     If UCase(ActualShell) = "EXPLORER.EXE" Then Option6 = True
     If UCase(ActualShell) = "PROGMAN.EXE" Then Option2 = True
     
-    
+    MostrarMensajeWarning = True
+End Sub
+
+Private Sub Option2_Click()
+    If MostrarMensajeWarning Then
+        MsgBox "¡¡¡Solo active esta opción sobre " + _
+        "Windows 98. Puede no ser compatible " + _
+        "con otros sistemas operativos!!!"
+    End If
 End Sub
