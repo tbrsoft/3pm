@@ -260,24 +260,24 @@ Attribute VB_Exposed = False
 '
 ' ©Guillermo 'guille' Som, 1999
 '------------------------------------------------------------------------------
-Option Explicit
-Option Compare Text
+'Option Explicit
+'Option Compare Text
 
-Private CambiandoPos As Boolean
-Private dPos As Double
+'Private CambiandoPos As Boolean
+'Private dPos As Double
 
-Private sLista As String
-Private sEstadoActual() As String
-Private sUnidad As String
+'Private sLista As String
+'Private sEstadoActual() As String
+'Private sUnidad As String
 
-Private m_Tocando As Boolean
-Private m_TocandoLista As Boolean
-Private m_queFichero As Long
+'Private m_Tocando As Boolean
+'Private m_TocandoLista As Boolean
+'Private m_queFichero As Long
 
-' Clase para manejar el fichero a tocar
-Private m_csPlay As cPlayWMP
+'' Clase para manejar el fichero a tocar
+'Private m_csPlay As cPlayWMP
 
-Private m_CD As cComDlg
+'Private m_CD As cComDlg
 
 Private Sub cmdExaminar_Click(Index As Integer)
     On Local Error Resume Next
@@ -291,7 +291,7 @@ Private Sub cmdExaminar_Click(Index As Integer)
         If Err = 0 Then
             Text1 = .FileName
             If InStr(.FileName, ".m3u") = 0 Then
-                m_csPlay.FileName = .FileName
+                m_csplay.FileName = .FileName
             Else
                 sLista = .FileName
                 ' abrir la lista
@@ -310,13 +310,13 @@ Private Sub cmdFade_Click()
     If Invertir Then
         cmdFade.Caption = "&Fade"
         DoEvents
-        m_csPlay.HacerFade 4, 1, 0
+        m_csplay.HacerFade 4, 1, 0
     Else
         cmdFade.Caption = "&Restaurar"
         DoEvents
-        m_csPlay.HacerFade 3, 1, -5000
+        m_csplay.HacerFade 3, 1, -5000
     End If
-    HScrollVol.Value = m_csPlay.Volumen
+    HScrollVol.Value = m_csplay.Volumen
     Invertir = Not Invertir
 End Sub
 
@@ -327,10 +327,10 @@ Private Sub cmdFic_Click(Index As Integer)
         m_TocandoLista = True
         TocarLista
     Case 1  ' Pausa
-        If m_csPlay.EstadoActual = ecsPaused Then
-            m_csPlay.Tocar
+        If m_csplay.EstadoActual = ecsPaused Then
+            m_csplay.Tocar
         Else
-            m_csPlay.Pausa
+            m_csplay.Pausa
         End If
     Case 2  ' Parar
         m_TocandoLista = False
@@ -344,24 +344,24 @@ Private Sub cmdFic1_Click(Index As Integer)
     
     Select Case Index
     Case 0
-        m_csPlay.Tocar Text1
+        m_csplay.Tocar Text1
         
         ' El valor de cada paso del HScrollPos
-        dPos = m_csPlay.Duration / HScrollPos.Max
+        dPos = m_csplay.Duration / HScrollPos.Max
         HScrollPos.Value = 0
-        HScrollVol.Value = m_csPlay.Volumen
+        HScrollVol.Value = m_csplay.Volumen
         
         m_Tocando = True
     Case 1
         ' Pausa
-        If m_csPlay.EstadoActual = ecsPaused Then
-            m_csPlay.Tocar
+        If m_csplay.EstadoActual = ecsPaused Then
+            m_csplay.Tocar
         Else
-            m_csPlay.Pausa
+            m_csplay.Pausa
         End If
     Case 2
         ' Parar
-        m_csPlay.Parar
+        m_csplay.Parar
         m_Tocando = False
     End Select
     '
@@ -452,10 +452,10 @@ Private Sub Form_Load()
     
     ' Crear los objetos
     Set m_CD = New cComDlg
-    Set m_csPlay = New cPlayWMP
+    Set m_csplay = New cPlayWMP
     
     ' Asignar el volumen a 0 (normal), ya que en el IE5 se asigna a -600
-    m_csPlay.Volumen = 0
+    m_csplay.Volumen = 0
     
     ' Llenar la lista de ficheros
     ' (también se admiten ficheros de texto con los ficheros a tocar)
@@ -480,7 +480,7 @@ Private Sub Form_Load()
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
-    Set m_csPlay = Nothing
+    Set m_csplay = Nothing
     
     Set m_CD = Nothing
     
@@ -492,7 +492,7 @@ Private Sub HScrollPos_Change()
     
     If CambiandoPos = False Then
         CambiandoPos = True
-        m_csPlay.CurrentPosition = HScrollPos.Value * dPos
+        m_csplay.CurrentPosition = HScrollPos.Value * dPos
         CambiandoPos = False
     End If
     
@@ -501,7 +501,7 @@ End Sub
 
 Private Sub HScrollVol_Change()
     'On Error Resume Next
-    m_csPlay.Volumen = HScrollVol.Value
+    m_csplay.Volumen = HScrollVol.Value
     'Err = 0
 End Sub
 
@@ -558,7 +558,7 @@ Private Sub Timer1_Timer()
     
     On Local Error Resume Next
     
-    With m_csPlay
+    With m_csplay
         ' Si se está tocando el fichero...
         If m_Tocando Then
             ' mostrar el tiempo restante
@@ -611,29 +611,29 @@ Private Sub TocarLista()
             
             ' Comprobar si es un link y hay que modificar la unidad (14/Dic/99)
             If InStr(sFic, ".lnk") Then
-                sFic = m_csPlay.Lnk2Path(sFic)
+                sFic = m_csplay.Lnk2Path(sFic)
                 If Left$(sFic, 2) <> sUnidad Then
                     sFic = sUnidad & Mid$(sFic, 3)
                 End If
             End If
             
-            m_csPlay.FileName = sFic
+            m_csplay.FileName = sFic
             
             ' Sólo si es un fichero "aceptable"
-            If m_csPlay.TiempoTotal > 0 Then
+            If m_csplay.TiempoTotal > 0 Then
                 m_Tocando = True
                 '
-                m_csPlay.Tocar sFic
+                m_csplay.Tocar sFic
                 Text1 = sFic
                 
                 ' El valor de cada paso del HScrollPos
-                dPos = m_csPlay.Duration / HScrollPos.Max
+                dPos = m_csplay.Duration / HScrollPos.Max
                 HScrollPos.Value = 0
                 
-                HScrollVol.Value = m_csPlay.Volumen
+                HScrollVol.Value = m_csplay.Volumen
                 '
                 ' Esperar a que termine de tocar
-                With m_csPlay
+                With m_csplay
                     Do While .Terminado = False
                         If m_TocandoLista = False Then
                             .Parar
