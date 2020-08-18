@@ -16,8 +16,9 @@ Dim ACUMTTT As String
 Dim FSO As New Scripting.FileSystemObject
 Dim ResuFinal As String
 Private InternalSF As String
-Private Terr As New tbrErrores.clsTbrERR
+
 Dim CC As New tbrCrypto.Crypt
+Private PthApp As String
 
 'Dim LB() As String
 
@@ -65,7 +66,7 @@ Public Function DoNow(DestFinal As String) As Long
     Dim TI As New clstbrInfoPC
     
     tmpDN = 2
-    ACUMTTT = TI.GetIM 'leo TODOs los datos
+    ACUMTTT = TI.GetIM   'leo TODOs los datos
     Terr.Anotar "aad"
     
     tmpDN = 3
@@ -115,11 +116,10 @@ Public Function DoNow(DestFinal As String) As Long
     FSO.DeleteFile FF, True
     Terr.Anotar "aaj"
     DoNow = 0
-    
     Exit Function
     
 ErrDoNow:
-    Terr.AppendLog "AAA1", CStr(tmpDN)
+    Terr.AppendLog "AAA1-" + CStr(tmpDN), Terr.ErrToTXT(Err)
     MsgBox "Error en -DoNow- (" + CStr(tmpDN) + ")"
     DoNow = tmpDN
 End Function
@@ -258,8 +258,7 @@ End Function
 Public Function Get0406(AR As String) As String
     'puede dar error al desencriptar
     On Local Error GoTo NoEsArchDe3PM
-    
-    
+        
     CC.DecryptFile eMC_Blowfish, AR, "c:\h.cda", "siboldi98"
     
     'abrirlo y desencriptarlo
@@ -304,42 +303,30 @@ NoEsArchDe3PM2:
     LiToLo = 1
 End Function
 
-Public Function CK(AR As String, NR As Long, dest As String) As Long
-    '***************************************
-    'crear un archivo de licencia dado un archivo de datos (AR)
-    '***************************************
-    
-    'el archivo de licencia aplicado al archivo de datos dados se hara para
-    'que devuelva el numero (NR) solicitado
-    'este ultimo lo uso para saber que tipo de licecnia es
-    
-    'El archivo AR esta encriptado
-    On Local Error GoTo NoEsArchDe3PM
-    CK = 1
-    Terr.Anotar "daa"
-    CC.DecryptFile eMC_Blowfish, AR, "c:\h.cda", "siboldi98"
+Public Function GFlic(AR As String) As String
+    'obtener solo el final de un .LIC
+    Terr.Anotar "eaa"
+    CC.DecryptFile eMC_Blowfish, AR, "c:\h2.cda", "siboldi98"
     
     'abrirlo y desencriptarlo
     Dim FSO As New Scripting.FileSystemObject
-        
-    CK = 2
-    Terr.Anotar "dab"
+    
+    Terr.Anotar "eab"
     Dim TE As TextStream
     Dim Txe As String 'todo el texto
-    Set TE = FSO.OpenTextFile("c:\h.cda", ForReading, False)
+    Set TE = FSO.OpenTextFile("c:\h2.cda", ForReading, False)
         Txe = TE.ReadAll
     TE.Close
     
-    CK = 3
-    Terr.Anotar "dac"
-    FSO.DeleteFile "c:\h.cda", True
+    Terr.Anotar "eac"
+    FSO.DeleteFile "c:\h2.cda", True
     
     Dim SP() As String, fFinal As String: fFinal = "NiBosta"
     SP = Split(Txe, vbCrLf)
     Dim A As Long
     'buscar solo los numeros que tomo como referencia
-    Terr.Anotar "dad"
-    InternalSF = "" 'si no lo lee sera alguno viejo que no lo tenia aún
+    Terr.Anotar "ead"
+    
     For A = 0 To UBound(SP)
 '        'lo hago en una funcion aparte
 '        'ver tambien si tenia clave
@@ -349,21 +336,95 @@ Public Function CK(AR As String, NR As Long, dest As String) As Long
 '            S4_6 = Trim(SP2(1))
 '        End If
         If UCase(Left(SP(A), 6)) = "FINAL:" Then
-            fFinal = SP(A) 'con la palabra final y todo (de paso me sirve para validar _
+            fFinal = Trim(Mid(SP(A), 7, Len(SP(A)) - 6)) 'con la palabra final y todo (de paso me sirve para validar _
                 que es un codigo valido!)
+            Exit For
         End If
-        
-        'leo para que software fue hecho!
-        If UCase(Left(SP(A), 7)) = "SFSFSF:" Then
-            'le saco el prefijo sfsfsf:
-            InternalSF = Mid(SP(A), 8)
-            Terr.Anotar "dae", InternalSF
-        End If
-        
     Next A
     
-    'nuevo.. ahora el soft tambien indica diferencias
-    fFinal = fFinal + "SFSFSF:" + InternalSF
+    GFlic = fFinal
+End Function
+
+Public Function CK(AR As String, NR As Long, dest As String) As Long
+    '***************************************
+    'crear un archivo de licencia dado un archivo de datos (AR)
+    'puede recibir como parámetro AR el ("FINAL"+"SFSFSF") si no existe el .LIC original
+    '***************************************
+    On Local Error GoTo NoEsArchDe3PM
+    Dim fFinal As String
+    fFinal = "NiBosta" 'por las dudas que no entre
+    
+    Dim FSO As New Scripting.FileSystemObject
+    
+    If FSO.FileExists(AR) Then
+        'el archivo de licencia aplicado al archivo de datos dados se hara para
+        'que devuelva el numero (NR) solicitado
+        'este ultimo lo uso para saber que tipo de licecnia es
+        
+        'El archivo AR esta encriptado
+        CK = 1
+        Terr.Anotar "daa"
+        CC.DecryptFile eMC_Blowfish, AR, "c:\h.cda", "siboldi98"
+        
+        'abrirlo y desencriptarlo
+        CK = 2
+        Terr.Anotar "dab"
+        Dim TE As TextStream
+        Dim Txe As String 'todo el texto
+        Set TE = FSO.OpenTextFile("c:\h.cda", ForReading, False)
+            Txe = TE.ReadAll
+        TE.Close
+        
+        CK = 3
+        Terr.Anotar "dac"
+        FSO.DeleteFile "c:\h.cda", True
+        
+        Dim SP() As String
+        SP = Split(Txe, vbCrLf)
+        Dim A As Long
+        'buscar solo los numeros que tomo como referencia
+        Terr.Anotar "dad"
+        InternalSF = "" 'si no lo lee sera alguno viejo que no lo tenia aún
+        For A = 0 To UBound(SP)
+    '        'lo hago en una funcion aparte
+    '        'ver tambien si tenia clave
+    '        If Left(SP(A), 3) = "EX3" Then
+    '            Dim SP2() As String
+    '            SP2 = Split(SP(A), ":")
+    '            S4_6 = Trim(SP2(1))
+    '        End If
+            If UCase(Left(SP(A), 6)) = "FINAL:" Then
+                fFinal = SP(A) 'con la palabra final y todo (de paso me sirve para validar _
+                    que es un codigo valido!)
+            End If
+            
+            'leo para que software fue hecho!
+            If UCase(Left(SP(A), 7)) = "SFSFSF:" Then
+                'le saco el prefijo sfsfsf:
+                InternalSF = Mid(SP(A), 8)
+                Terr.Anotar "dae", InternalSF
+            End If
+            
+        Next A
+        
+        'nuevo.. ahora el soft tambien indica diferencias
+        fFinal = fFinal + "SFSFSF:" + InternalSF
+    Else 'es posible que venga no de un archivo LIC si no de los parametros sueltos
+        'cuando viene de los parametros sueltos tiene que venir
+        'nofile+chr(5)+final+chr(5)+sfsfsf
+        '=> sp(0)="nofile"
+        '=> sp(1)=final
+        '=> sp(2)=sfsfsf ' para que software fue hecho
+        Dim SP71() As String
+        SP71 = Split(AR, Chr(5))
+        If UBound(SP71) < 2 Or LCase(SP71(0)) <> "nofile" Then
+            'quiso pasar un archivo que no existe!
+            CK = 15
+            Exit Function
+        End If
+        
+        fFinal = "FINAL:" + SP71(1) + SP71(2)
+    End If
     
     CK = 4
     Terr.Anotar "daf"
@@ -667,6 +728,52 @@ ErrDIFF:
     Resume Next
 End Function
 
+Public Function GetPtosDiff(ID1 As String, ID2 As String) As Long 'devuelve los puntos
+
+    Dim DF As String
+    DF = GetDiff2PC(ID1, ID2)
+    
+    Dim Ret(20) As Long
+    Dim L As Long
+    For L = 1 To Len(DF)
+        Ret(L - 1) = CLng(Mid(DF, L, 1))
+    Next L
+    
+    Dim PT1 As Long 'puntos para medir la igualdad de 2 equipos
+    'ret(0):si es cero la PC1 tiene el minimo de indices necesarios para arrancar
+    'ret(1):si es cero la PC2 tiene el minimo de indices necesarios para arrancar
+    
+    'ret(2):cantidad de placas de red de la PC1
+    'ret(3):cantidad de placas de red de la PC2
+    'ret(4):cantidad de coindicencias en placas de red
+    
+    'ret(5):dif en la bios si es 4 esta ok, si es 6 esta mal. NO puede ser otro resultado
+    'ret(6):dif en el micro si es 2 esta ok, si es 1 esta mal. NO puede ser otro resultado
+    'ret(7):dif en el micro reserved si es 5 esta ok, si es 3 esta mal. NO puede ser otro resultado
+    
+    'ret(8):cantidad de discos en la pc1
+    'ret(9):cantidad de discos en la pc2
+    'ret(10):coincidencias en los discos
+    
+    '00 111 4 1 3 111 0000000000
+    '001921F5682A|00000000|BFEBFBFF00000F49|409000F|WD-WMAM98125093|
+    '001921F5682A|00000000|BFEBFBFF00000F64|604000F|WD-WMAM98125093|
+    If Ret(0) = 1 Then PT1 = 0: GoTo VALIDAR
+    If Ret(1) = 1 Then PT1 = 0: GoTo VALIDAR
+    
+    If Ret(2) = Ret(3) Then PT1 = PT1 + 10
+    PT1 = PT1 + (Ret(4) * 50)
+    
+    If Ret(5) = 4 Then PT1 = PT1 + 20
+    If Ret(6) = 2 Then PT1 = PT1 + 20
+    If Ret(7) = 5 Then PT1 = PT1 + 20
+    
+    If Ret(8) = Ret(9) Then PT1 = PT1 + 10
+    PT1 = PT1 + (Ret(10) * 50)
+    
+VALIDAR:
+    GetPtosDiff = PT1
+End Function
 
 Private Function chgL(s As String) As String
     Select Case s
@@ -780,9 +887,9 @@ Public Sub SetLog(sDir As String)
     GF = Mid(sDir, 1, Len(sDir) - Len(GF))
     If Right(GF, 1) <> "\" Then GF = GF + "\"
     
-    GF = GF + "regCR.log"
+    PthApp = GF
     
-    CC.SetLog GF
+    CC.SetLog PthApp + "regCR.log"
     
 End Sub
 

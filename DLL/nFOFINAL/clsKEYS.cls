@@ -68,7 +68,7 @@ Private Const LOCALE_SNATIVECTRYNAME = &H8  '  native name of country
 Private VW As New clsWindowsVERSION
 
 Public Sub LeerTodo()
-
+    Terr.Anotar "uaa"
     'PR.ShowProgreso "Reserved", 25
     '---------------------------------------------------------
     'RESERVED
@@ -82,6 +82,7 @@ Public Sub LeerTodo()
     Dim GUIDtmp As String 'no es guid, es un valor unico para cada PC
     'este reserved es un numero entre 50.000.000 y 140.000.000
     RSV = CStr(INFO.dwReserved)
+    Terr.Anotar "uab", RSV
     If Len(RSV) < 3 Then
         'no es compatible en esta PC
         'meter un valor fijo
@@ -90,6 +91,7 @@ Public Sub LeerTodo()
         'pasar a hex para que no sea igual a antes
         RSV = Hex(CLng(RSV))
     End If
+    Terr.Anotar "uac", RSV
     mPROCInfoReserved = RSV
     
     'PR.ShowProgreso "Windows", 30
@@ -97,6 +99,7 @@ Public Sub LeerTodo()
     'Windows Version
     '---------------------------------------------------------
     mWinVersion = VW.GetVersionString
+    Terr.Anotar "uad", mWinVersion
     
     'pr.ShowProgreso "Bios98", 35
     '---------------------------------------------------------
@@ -110,6 +113,7 @@ Public Sub LeerTodo()
         Dim i As Integer
         'start of bios serial number ?&HFE0C0
         MemAddr = &HFE000
+        Terr.Anotar "uae"
         For i = 0 To 331
             Call GetMem1(MemAddr + i, P)
             'get printable characters
@@ -117,6 +121,7 @@ Public Sub LeerTodo()
         Next i
         mBiosDate = sBios
     Else
+        Terr.Anotar "uaf"
         mBiosDate = "noX11"
     End If
     'pr.ShowProgreso "Bios WMI", 40
@@ -129,7 +134,7 @@ Public Sub LeerTodo()
         VW.Version = WinXP2 Or VW.Version = WinNT4 Then
     
         On Error GoTo NoWBmem
-        
+        Terr.Anotar "uag"
         Dim ObjSet As SWbemObjectSet
         Dim SERV As SWbemServices
         Set SERV = GetObject("WinMgmts:")
@@ -202,7 +207,7 @@ NoWBmem2:
     mPROCCCspeed = "noX11"
     mPROCDeviceId = "noX11"
     mPROCFamily = "noX11"
-    
+    Terr.Anotar "uah"
 SIG02:
     'pr.ShowProgreso "Pais", 80
     '---------------------------------------------------------
@@ -212,6 +217,7 @@ SIG02:
     TMP = GetInfo(LOCALE_SENGCOUNTRY) ' + "(" + GetInfo(LOCALE_SNATIVECTRYNAME) & ")"
     
     mCountry = TMP
+    Terr.Anotar "uai", mCountry
 End Sub
 
 Private Function LeerArch1Linea(Arch As String) As String

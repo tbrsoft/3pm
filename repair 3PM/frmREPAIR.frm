@@ -223,7 +223,7 @@ Attribute VB_Exposed = False
 Dim AP As String
 Dim WinFolder As String
 Dim SysFolder As String
-Dim FSO As New Scripting.FileSystemObject
+Dim Fso As New Scripting.FileSystemObject
 
 Private Sub Command1_Click(Index As Integer)
     'borrar todos los archivos que no se instalaron y _
@@ -236,9 +236,9 @@ Private Sub Command1_Click(Index As Integer)
         'ORIGINAL: SYSfolder + "dciLib22.dll"
         'COPIA EN: SysFolder "c2LK.dll"
         'lo de la licencia va mas alla de cualuier opción
-        If FSO.FileExists(SysFolder + "c2LK.dll") Then
+        If Fso.FileExists(SysFolder + "c2LK.dll") Then
             txtDO = txtDO + vbCrLf + "RECUPERADA LICENCIA!!"
-            FSO.CopyFile SysFolder + "c2LK.dll", SysFolder + "dciLib22.dll", True
+            Fso.CopyFile SysFolder + "c2LK.dll", SysFolder + "dciLib22.dll", True
         End If
         '-------------------------------------
         'CONFIGURACION:
@@ -246,8 +246,8 @@ Private Sub Command1_Click(Index As Integer)
         'COPIA: SYSfolder + "autoSave3PM.cfg"
         tbrDelete SysFolder + "3pmcfg.tbr", 10
         If Index = 0 Then
-            If FSO.FileExists(SysFolder + "autoSave3PM.cfg") Then
-                FSO.CopyFile SysFolder + "autoSave3PM.cfg", SysFolder + "3pmcfg.tbr", True
+            If Fso.FileExists(SysFolder + "autoSave3PM.cfg") Then
+                Fso.CopyFile SysFolder + "autoSave3PM.cfg", SysFolder + "3pmcfg.tbr", True
                 txtDO = txtDO + vbCrLf + "RECUPERADA CONFGURACION!!"
             End If
         End If
@@ -337,7 +337,7 @@ FIN:
     Loop
     
     
-    Shell App.Path + "\3pm.exe"
+    Shell App.path + "\3pm.exe"
     Unload Me
     End
 End Sub
@@ -352,18 +352,18 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub Form_Load()
-    AP = App.Path
+    AP = App.path
     If Right(AP, 1) <> "\" Then AP = AP + "\"
-    SysFolder = FSO.GetSpecialFolder(SystemFolder)
-    WinFolder = FSO.GetSpecialFolder(WindowsFolder)
+    SysFolder = Fso.GetSpecialFolder(SystemFolder)
+    WinFolder = Fso.GetSpecialFolder(WindowsFolder)
     If Right(SysFolder, 1) <> "\" Then SysFolder = SysFolder + "\"
     If Right(WinFolder, 1) <> "\" Then WinFolder = WinFolder + "\"
     txtDO = "Acciones realizadas:"
 End Sub
 
 Public Function tbrDelete(Arch As String, PorcPasado As Long) As Boolean
-    If FSO.FileExists(Arch) Then
-        FSO.DeleteFile Arch, True
+    If Fso.FileExists(Arch) Then
+        Fso.DeleteFile Arch, True
         tbrDelete = True
     Else
         tbrDelete = False

@@ -27,7 +27,7 @@ Private Declare Function GetVersionEx& Lib "kernel32" Alias _
 
 Private Const VER_PLATFORM_WIN32_NT = 2
 Private Const VER_PLATFORM_WIN32_WINDOWS = 1
-Private Const VER_PLATFORM_WIN32s = 0
+Private Const VER_PLATFORM_WIN32S = 0
 Const PLANES = 14
 Const BITSPIXEL = 12
 
@@ -66,7 +66,7 @@ Public Function GetVersion() As vWindows
      
         Select Case osvi.dwPlatformId
         
-            Case VER_PLATFORM_WIN32s:
+            Case VER_PLATFORM_WIN32S:
                 ToNoCalculateAgain = Win31
                 mVersionString = "Windows 3.1"
                 

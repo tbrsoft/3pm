@@ -104,14 +104,14 @@ Public Function ObtenerDatosPlaca(IndicePlaca As Long)
         m_AdapterAddress = ""
         m_AdapterAddress2 = ""
         If .dwPhysAddrLen > 0 Then
-            Dim j As Integer
-            For j = 0 To .dwPhysAddrLen - 1
+            Dim J As Integer
+            For J = 0 To .dwPhysAddrLen - 1
                 'ver si es uno o dos CHR, relleno con ceros todo lo que falte para 2 lugares
-                m_AdapterAddress = m_AdapterAddress + String(2 - Len(CStr(Hex(.bPhysAddr(j)))), "0") + CStr(Hex(.bPhysAddr(j)))
-                m_AdapterAddress2 = m_AdapterAddress2 + String(2 - Len(CStr(Hex(.bPhysAddr(j)))), "0") + CStr(Hex(.bPhysAddr(j)))
+                m_AdapterAddress = m_AdapterAddress + String(2 - Len(CStr(Hex(.bPhysAddr(J)))), "0") + CStr(Hex(.bPhysAddr(J)))
+                m_AdapterAddress2 = m_AdapterAddress2 + String(2 - Len(CStr(Hex(.bPhysAddr(J)))), "0") + CStr(Hex(.bPhysAddr(J)))
                 'poner el puto guion
-                If j < .dwPhysAddrLen - 1 Then m_AdapterAddress = m_AdapterAddress + "-"
-            Next j
+                If J < .dwPhysAddrLen - 1 Then m_AdapterAddress = m_AdapterAddress + "-"
+            Next J
         Else
             m_AdapterAddress = "NO"
         End If

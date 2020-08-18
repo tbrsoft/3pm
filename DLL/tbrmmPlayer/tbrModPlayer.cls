@@ -445,6 +445,7 @@ Public Function DoOpenVideo(Style As String, HWind As Long, _
                         "HIST:" + vbCrLf + _
                         Terr.LogAcumulado)
         DoOpenVideo = 2
+        Exit Function 'agregado 15/4/08 ??? antes no salia!!
     End If
     Terr.Anotar "002-0076", X1, X2, Y1, Y2
     
@@ -605,11 +606,11 @@ Public Function DoClose(iAlias As Long) As String
     On Error GoTo ERmp3
     Terr.Anotar "002-0099", iAlias
     If iAlias = 99 Then 'cierra todos
-        'If Terr.ModoGrabaTodo Then Terr.StopGrabaTodo
-        Terr.StopGrabaTodo
+        If Terr.ModoGrabaTodo Then Terr.StopGrabaTodo
         
         Dim F11 As Long
         For F11 = 0 To 3
+            Terr.Anotar "002-0099za", F11
             dwReturn = mciSendString("stop " + Alias(F11), 0&, 0&, 0&)
             RELOJ(F11).Interval = 0
         Next F11
@@ -942,44 +943,57 @@ ERmp3:
 End Sub
 
 Public Function QuickLargoDeTema(TemaQuick As String) As String
+    
     On Local Error GoTo ErrFunc
-    Terr.Anotar "002-0192"
+    Terr.Anotar "002-0192", dwReturn
     
-    QuickLargoDeTema = "N/S"
+    QuickLargoDeTema = "-:-"
     
+'***************************************
+'Ya estaba sacado parece que se usaba para karaokes
+'***************************************
 '    Increible negrada esta y asi lo estan usando algunos
 '    FileName(2) = TemaQuick
 '    DoOpen 2
 '    MiniInicVarMci 2
-    
-    If dwReturn = 264 Then 'no hay memoria sufuciente!!!
-        LogErrorMCI dwReturn
-        RaiseEvent mmError("****ERRmmPlayer****" + vbCrLf + _
-                        "NoMEM" + vbCrLf + _
-                        "HIST:" + vbCrLf + _
-                        Terr.LogAcumulado)
-        'En este caso queda tildado y no puede volver a mostrar hasta que se
-        'cierre el MCI original (el que reproduce)
-        Exit Function
-    End If
-    
-    '------------ver el largo--------------
-    Dim Sec As Long, Mins As Long
-    Sec = mTotalFrames(2) / mFramePerSecond(2)
-    Terr.Anotar "002-0210", Sec
-    If Sec < 60 Then
-        QuickLargoDeTema = "00:" & Format(Sec, "00")
-    Else
-        Mins = Int(Sec / 60)
-        Sec = Sec - (Mins * 60)
-        QuickLargoDeTema = Format(Mins, "00") & ":" & Format(Sec, "00")
-        Terr.Anotar "002-0213", Mins, Sec
-    End If
-    
-    MiniCerrar 2
-    
-    Exit Function
-    
+
+'***************************************
+'sacado el 29/02/2008 no se para que mierda es
+'***************************************
+'    If dwReturn = 264 Then 'no hay memoria sufuciente!!!
+'        LogErrorMCI dwReturn
+'        RaiseEvent mmError("****ERRmmPlayer****" + vbCrLf + _
+'                        "NoMEM" + vbCrLf + _
+'                        "HIST:" + vbCrLf + _
+'                        Terr.LogAcumulado)
+'        'En este caso queda tildado y no puede volver a mostrar hasta que se
+'        'cierre el MCI original (el que reproduce)
+'        Exit Function
+'    End If
+'***************************************
+
+'***************************************
+'sacado el 29/02/2008 no se para que mierda es
+'parece que se usaba en karaokes
+
+'***************************************
+'    '------------ver el largo--------------
+'    Dim Sec As Long, Mins As Long
+'    Sec = mTotalFrames(2) / mFramePerSecond(2)
+'    Terr.Anotar "002-0210", Sec
+'    If Sec < 60 Then
+'        QuickLargoDeTema = "00:" & Format(Sec, "00")
+'    Else
+'        Mins = Int(Sec / 60)
+'        Sec = Sec - (Mins * 60)
+'        QuickLargoDeTema = Format(Mins, "00") & ":" & Format(Sec, "00")
+'        Terr.Anotar "002-0213", Mins, Sec
+'    End If
+'
+'    MiniCerrar 2
+'
+'    Exit Function
+'
 ErrFunc:
     RaiseEvent mmError("****ERRmmPlayer****" + vbCrLf + _
                         Terr.ErrToTXT(Err) + vbCrLf + _
@@ -1192,7 +1206,6 @@ Public Sub SetDriversVideo()
     End If
     
 End Sub
-
 
 Public Sub DefinePathLogs(P1 As String, P2 As String)
     Terr.FileLog = P1

@@ -21,16 +21,45 @@ Private TextStreamGrabaTodo As TextStream
 Private mADN As String 'cadena que puede imprimirse opcionalmente con todos los append
 'se usa por ejemplo para saber la version del soft usada y saber si el error es por version vieja
 
+Private Declare Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal HWND As Long, ByVal wMsg As Long, ByVal wParam As Long, lParam As Any) As Long
+Private Const WM_SETTEXT = &HC
+Private mHwndMsg As Long 'opcionalmente manda a otro lado todo lo que pasa
+'para ir viendolo
+
 Private ContadorRegTodo As Long 'contador de lineas cuando registra todo
 'al llegar 50 se borra
+
+Private lastLog As String
+
+Public Function GetLastLog() As String
+    GetLastLog = lastLog
+End Function
 
 Public Function Set_ADN(newADN As String) As String
     mADN = newADN
 End Function
 
+'sme es para anuunciar al exterior, writeevent es para acumular privado
+Private Function SME(T As String)  'sendMessage Event
+    SME = SendMessage(mHwndMsg, WM_SETTEXT, 0, ByVal T)
+    'los mensajes van por tipo separados por |!
+    '0|
+    '1|inquiereFinish
+    '2|ConnectionServiceStatus + texto del status
+    '3|se mando el archivo ok
+    '4|se mando el archivo MAL
+    '5|llego un dispositivo + nombre + address
+End Function
+
+Public Sub Set_Hwn(n As Long)
+    mHwndMsg = n
+End Sub
+
 Public Sub Anotar(NuevoTexto As String, Optional ByVal Var1, Optional ByVal Var2, Optional ByVal Var3, Optional ByVal Var4)
     
     On Local Error GoTo AlgunaVarMal
+    
+    lastLog = NuevoTexto
     
     If Not IsMissing(Var1) Then
         NuevoTexto = NuevoTexto + "." + CStr(Var1)
@@ -45,7 +74,13 @@ Public Sub Anotar(NuevoTexto As String, Optional ByVal Var1, Optional ByVal Var2
         End If
     End If
     
+    'al hwnd se manda sin el timer
+    If mHwndMsg > 0 Then SME NuevoTexto
+    'ahora agrego el timer
+    NuevoTexto = CStr(Timer) + " " + NuevoTexto
+    
     mLogAcumulado = mLogAcumulado + vbCrLf + NuevoTexto
+    
     If Len(mLogAcumulado) > mLargoAcumula Then
         mLogAcumulado = Right(mLogAcumulado, mLargoAcumula)
     End If
@@ -167,6 +202,8 @@ Private Sub Class_Initialize()
     mLargoAcumula = 130
     mMODOGRABATODO = False
     ContadorRegTodo = 0
+    
+    mHwndMsg = 0
 End Sub
 
 Public Property Let ModoGrabaTodo(Graba As Boolean)

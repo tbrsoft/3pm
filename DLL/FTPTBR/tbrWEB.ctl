@@ -216,8 +216,11 @@ Public strPath As String
 Public IsConected As Boolean
 Public SEP As String 'separador de carpetas!
 
+Private Declare Function GetLastError Lib "kernel32" () As Long
+
 'lo hago publico para que se pueda agregar detalle a esta barra de progreso desde los progrmas que lo uan
 Public Sub LOG(TXT As String, ShapeWidth As Single)
+    TERR.Anotar TXT
     txtLOG = txtLOG + CStr(Time) + "->" + TXT + vbCrLf
     'mostrar lo ultimo
     txtLOG.SelStart = Len(txtLOG) - 1
@@ -355,6 +358,10 @@ Public Function GetIndexMaxFiles() As Long
     GetIndexMaxFiles = lstFILES.ListCount
 End Function
 
+Public Function GetIndexMaxFolders() As Long
+    GetIndexMaxFolders = lstFOLDERS.ListCount
+End Function
+
 Public Function ExisteFolder(sFolder As String) As Boolean
     'busca si existe la carpeta especificada en el directorio actual
     Dim A As Long
@@ -379,8 +386,56 @@ Public Function ExisteFile(sFile As String) As Boolean
     Next A
 End Function
 
+Public Function UploadDirect(sPathFile As String) As Long
+    'en vez de subir midiendo bytes y demas
+    'lo mando de una, si es un archivo grande puede _
+    parecer clavado el equipo ya que no tengo control de los bytes subidos
+    
+    If Dir(sPathFile) = "" Or sPathFile = "" Then
+        UploadDirect = 1
+        Exit Function
+    End If
+    
+    Dim SoloFile As String, SP() As String
+    SP = Split(sPathFile, "\")
+    SoloFile = SP(UBound(SP)) 'Mid(sPathFile, InStrRev(sPathFile, "\"), Len(pathfile) - InStrRev(sPathFile, "\"))
+    TERR.Anotar "aaai", SoloFile
+    Dim bRET As Boolean
+    bRET = FtpPutFile(SERVER, sPathFile, SoloFile, FTP_TRANSFER_TYPE_BINARY, 0)
+    If bRET = False Then
+        Dim LastDLLEr As Long
+        LastDLLEr = CLng(Err.LastDllError)
+        TERR.Anotar "aaaf", ErrApi(LastDLLEr, _
+            "FtpPutFile" + vbCrLf + _
+            sPathFile + vbCrLf + _
+            SoloFile)
+        
+        UploadDirect = 2
+        Exit Function
+    Else
+        UploadDirect = 0
+    End If
+    
+End Function
+
+Public Function ErrApi(dError As Long, szCallFunction As String) As String
+    Dim dwIntError As Long, dwLength As Long
+    Dim strBuffer As String
+    If dError = ERROR_INTERNET_EXTENDED_ERROR Then
+        InternetGetLastResponseInfo dwIntError, vbNullString, dwLength
+        strBuffer = String(dwLength + 1, 0)
+        InternetGetLastResponseInfo dwIntError, strBuffer, dwLength
+
+        ErrApi = CStr(dError) + vbCrLf + szCallFunction + vbCrLf + "IntER:" + dwIntError + vbCrLf + "strBUFF" + strBuffer
+        
+    Else 'no se que pasa aca pero por las dudas
+        ErrApi = CStr(dError) + vbCrLf + szCallFunction
+    End If
+End Function
 
 Public Function UpLoad(ListaFiles() As String, LocalePath As String) As Long
+    
+    On Local Error GoTo ERRUP
     
     'listafiles no debe tener el path completo en sus elementos!!
     'localepath tiene la carpeta que los contiene con la barra al final
@@ -435,18 +490,34 @@ Public Function UpLoad(ListaFiles() As String, LocalePath As String) As Long
     p = 0
     
     For i = 0 To UBound(ListaFiles)
-        
+
         Fs = FileLen(LocalePath + ListaFiles(i)) 'tamaño del archivo actual
         
         Ode = LocalePath + ListaFiles(i)
         Kam = KLIC + ListaFiles(i)
-        
+        TERR.Anotar "aaah"
         'escribe el archivo antes de subirle el contenido
         hFile = FtpOpenFile(SERVER, Kam, GENERIC_WRITE, FTP_TRANSFER_TYPE_BINARY, 0)
+        TERR.Anotar "aaah2", hFile
+        'hFile = 0 'generar el error aproposito para probar si funciona uploaddirect (sacar el renglon de arriba al habilitar este por que sino abre un handle que debe ser cerrado
         If hFile = 0 Then
+            Dim LastDLLEr As Long
+            LastDLLEr = CLng(Err.LastDllError)
+            TERR.Anotar "aaaa", ErrApi(LastDLLEr, "fnUpLoad")
             LOG "DETENIDO, no se puede crear el archivo en el servidor" + vbCrLf + Ode + vbCrLf + Kam, 0
-            UpLoad = 2
-            Exit Function
+            TERR.Anotar "aaac", Ode
+            'tratar de la otra forma
+            Dim RES2 As Long
+            RES2 = UploadDirect(Ode)
+            TERR.Anotar "aaac2", RES2
+            If RES2 <> 0 Then
+                UpLoad = 1000 + RES2 'para que sepa que intento el direct
+                TERR.AppendLog "aaag:" + CStr(RES2), "Se conecta al FTP pero no puede colocar archivos"
+                Exit Function
+            Else
+                'salio ok ir al que sigue
+                GoTo SigFILE
+            End If
         End If
         SentBytes = 0
         nFileLen = 0
@@ -489,10 +560,22 @@ Public Function UpLoad(ListaFiles() As String, LocalePath As String) As Long
         Close
         p = t / 1000
         InternetCloseHandle hFile
+SigFILE:
     Next i
     UpLoad = 0
-    LOG "TRANSFERENCIA COMPLETA", 1
     
+    LOG "TRANSFERENCIA COMPLETA", 1
+    TERR.AppendLog "aaaj"
+    Exit Function
+    
+ERRUP:
+    If TERR.GetLastLog = "aaah2" Then 'si viene de aca no se que pasa
+        TERR.AppendLog "aaah3", CStr(Err.LastDllError)
+        Resume Next
+        Exit Function
+    End If
+    UpLoad = 5
+    TERR.AppendLog "aaab", TERR.ErrToTXT(Err)
 End Function
 
 Public Function Download(Destino As String, Optional Solo1Archivo As String = "")
@@ -500,7 +583,7 @@ Public Function Download(Destino As String, Optional Solo1Archivo As String = ""
     'por ahora solo la lista desde lstFiles que tiene el lstBytes
     'destino tiene la carpeta que los contiene con la barra al final
     
-    'si Solo1Archivo es <> "" es que no me intyeresa los check y si solo un archivo
+    'si Solo1Archivo es <> "" es que no me interesa los check y si solo un archivo
     'en particular!
             
     If Right(Destino, 1) <> "\" Then Destino = Destino + "\"
@@ -529,7 +612,9 @@ Public Function Download(Destino As String, Optional Solo1Archivo As String = ""
     
     For i = 0 To lstFILES.ListCount - 1
         If lstFILES.Selected(i) Then
+            'que cosa mas fea ....
             If Solo1Archivo <> "" And lstFILES.List(i) <> Solo1Archivo Then GoTo SIG2
+            
             LenFileBytes = CLng(lstBytes.List(i))
             TotBytes = TotBytes + LenFileBytes
             LOG "Leyendo Info download " + CStr(i + 1) + "/" + CStr(lstFILES.ListCount), (i + 1) / lstFILES.ListCount
@@ -589,7 +674,15 @@ SIG2:
 '                    lbSPEED.Refresh
 '                End If
 '            End If
-            LOG "Bajando " + lstFILES.List(i), sAllBytes / TotBytes
+            
+            
+            'Manuel--------------------
+            If sAllBytes = 0 Or TotBytes = 0 Then
+                LOG "Bajando " + lstFILES.List(i), 1
+            Else
+                LOG "Bajando " + lstFILES.List(i), sAllBytes / TotBytes
+            End If
+            '-------------------------
         Loop Until RET <> sReadBuffer
         FF = FreeFile
         Open Kam For Binary As #FF
@@ -773,10 +866,18 @@ Private Sub lstFOLDERS_DblClick()
 End Sub
 
 Private Sub UserControl_Initialize()
+
+    TERR.FileLog = App.Path + "\rFtpTbr.log"
+    TERR.LargoAcumula = 630
+
     SEP = "/" 'valor predeterminado
     LOG "Iniciado", 0
     IsConected = False
 End Sub
+
+Public Function SetPathLog(NewUbic As String)
+    TERR.FileLog = NewUbic
+End Function
 
 Public Function UbicarseEnFolder(sFolder As String) As Long
     
@@ -835,3 +936,19 @@ Private Sub UserControl_Resize()
     lblINFO.Width = UserControl.Width - lblINFO.Left - 50
     txtLOG.Width = lblINFO.Width
 End Sub
+
+Public Function GetListFile(i As Long) As String
+    If i >= lstFILES.ListCount Or i = 0 Then
+        GetListFile = ""
+    Else
+        GetListFile = lstFILES.List(CLng(i - 1))
+    End If
+End Function
+
+Public Function GetListFolder(i As Long) As String
+    If i > lstFOLDERS.ListCount Or i = 0 Then
+        GetListFolder = ""
+    Else
+        GetListFolder = lstFOLDERS.List(CLng(i - 1))
+    End If
+End Function

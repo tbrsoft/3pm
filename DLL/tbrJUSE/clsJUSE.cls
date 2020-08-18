@@ -63,6 +63,11 @@ Public Function AddFile(Arch As String) As Long
         AddFile = 2 'no existe el archivo a incluir
         Exit Function
     Else
+        If fsoJS.FileExists(Arch) = False Then
+            AddFile = 3
+            Exit Function
+        End If
+        
         Dim NewInd As Long
         NewInd = UBound(mArchivosFT) + 1
         ReDim Preserve mArchivosFN(NewInd)

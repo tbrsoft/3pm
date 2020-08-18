@@ -19,12 +19,17 @@ Dim TipoPlaca() As String
 Dim NombrePlaca() As String
 Dim nTipoPlaca() As Long
 
+
 Private Sub Class_Initialize()
+       
+    On Local Error GoTo ErrFI
+    
+    Terr.Anotar "taa"
     Dim PLACA As New ClsPlacaRED
     'cargar los valores de cantidad de placas y los datos de estas sin traducir
     Dim Ret As Long
     Ret = PLACA.Inicializar
-    
+    Terr.Anotar "tab", Ret
     ReDim MACs(0)
     
     If Ret = -1 Then
@@ -41,29 +46,37 @@ Private Sub Class_Initialize()
     Dim ConMac As Long, A As Long
     ConMac = 0
     MACs(0) = "" 'si es <>"" hubo un error
+    Terr.Anotar "tac", PLACA.CantidadPlacasRed
     For A = 1 To PLACA.CantidadPlacasRed
+        Terr.Anotar "tad", A, PLACA.AdapterAddress
         PLACA.ObtenerDatosPlaca A
         'ver solo placas que tengan MAC
         If Len(PLACA.AdapterAddress) > 2 Then 'puede ser "NO"(=2)
             ConMac = ConMac + 1
             ReDim Preserve MACs(ConMac)
             MACs(ConMac) = PLACA.AdapterAddress2
-            
+            Terr.Anotar "tae", MACs(ConMac)
             ReDim Preserve DescrPlaca(ConMac)
             DescrPlaca(ConMac) = PLACA.InterfaceDescription
-            
+            Terr.Anotar "taF", DescrPlaca(ConMac)
             ReDim Preserve TipoPlaca(ConMac)
             TipoPlaca(ConMac) = PLACA.InterfaceTypeString
-            
+            Terr.Anotar "tag", TipoPlaca(ConMac)
             ReDim Preserve nTipoPlaca(ConMac)
             nTipoPlaca(ConMac) = PLACA.InterfaceType
-            
+            Terr.Anotar "tah", nTipoPlaca(ConMac)
             ReDim Preserve NombrePlaca(ConMac)
             NombrePlaca(ConMac) = PLACA.NamePlaca
-            
+            Terr.Anotar "tai", NombrePlaca(ConMac)
         End If
     Next
 
+    Terr.Anotar "taj"
+    
+    Exit Sub
+    
+ErrFI:
+    Terr.AppendLog "ErrFi_INI", Terr.ErrToTXT(Err)
 End Sub
 
 Public Property Get CantidadMac()

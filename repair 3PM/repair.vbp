@@ -1,20 +1,23 @@
 Type=Exe
-Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\WINDOWS\system32\STDOLE2.TLB#OLE Automation
+Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\WINDOWS\system32\stdole2.tlb#OLE Automation
 Reference=*\G{420B2830-E718-11CF-893D-00A0C9054228}#1.0#0#C:\WINDOWS\system32\scrrun.dll#Microsoft Scripting Runtime
+Reference=*\G{9B264605-0C18-46D1-AB96-808F8B4CE790}#1.0#0#C:\WINDOWS\system32\tbrjuse.dll#tbrSoft Junta-Separa
 Form=frmREPAIR.frm
 Form=F1.frm
+Class=CommonDialog; CommonDialog.cls
 IconForm="frmREPAIR"
 Startup="F1"
 HelpFile=""
 Title="repair"
 ExeName32="repair.exe"
+Path32="..\.."
 Command32=""
 Name="Proyecto1"
 HelpContextID="0"
 CompatibleMode="0"
 MajorVer=1
 MinorVer=0
-RevisionVer=236
+RevisionVer=254
 AutoIncrementVer=1
 ServerSupportFiles=0
 VersionCompanyName="tbrSoft"
@@ -33,6 +36,7 @@ Unattended=0
 Retained=0
 ThreadPerObject=0
 MaxNumberOfThreads=1
+DebugStartupOption=0
 
 [MS Transaction Server]
 AutoRefresh=1

@@ -54,15 +54,15 @@ Public Function ListaAdd(ArchToAdd As String, Optional sTAG As String = "", _
         ListaAdd = 1
         Exit Function
     End If
-    
-    'para uso en diferentes lugares
-    Dim NewInd As Long
-    NewInd = UBound(ListaFalta) + 1
 
     'si pide un orden especial y esta fuera del rango va al ultimo co mo un comun
     If (nOrden > 0) And (nOrden > UBound(ListaFalta)) Then nOrden = -1
 
-    If nOrden = -1 Then
+    'para uso en diferentes lugares
+    Dim NewInd As Long
+    NewInd = UBound(ListaFalta) + 1
+
+    If nOrden = -1 Then 'lo paso al ultimo
         ReDim Preserve ListaFalta(NewInd): ListaFalta(NewInd) = ArchToAdd
         ReDim Preserve ListaTag(NewInd): ListaTag(NewInd) = sTAG
     End If
@@ -74,10 +74,10 @@ Public Function ListaAdd(ArchToAdd As String, Optional sTAG As String = "", _
         ReDim Preserve ListaTag(NewInd)
         
         Dim A As Long
-        For A = NewInd - 1 To nOrden
+        For A = NewInd - 1 To nOrden Step -1
             'paso a todos uno mas atras
-            ListaFalta(A) = ListaFalta(A + 1)
-            ListaTag(A) = ListaTag(A + 1)
+            ListaFalta(A + 1) = ListaFalta(A)
+            ListaTag(A + 1) = ListaTag(A)
         Next A
         
         ListaFalta(nOrden) = ArchToAdd
@@ -258,6 +258,7 @@ Public Function GetElementListaLastFolder(Index As Long)
     
     Dim TMP() As String
     TMP = Split(ListaFalta(Index), "\")
+    '''
     GetElementListaLastFolder = TMP(UBound(TMP) - 1)
 End Function
 

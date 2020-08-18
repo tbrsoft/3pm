@@ -291,11 +291,17 @@ Private Sub ImprimirTxt(Texto As String, Empieza As Long, Largo As Long)
     'sombreado de la letra! (mas de 30 no sirve!)
     P.CurrentX = ((P.Width / 2) - (P.TextWidth(Texto) / 2)) + Sombra
     P.CurrentY = (P.Height / 4) + Sombra
-    P.ForeColor = (ColorNormal + ColorSeleccionado) / 2
+    
+    Dim FCOL As Long
+    FCOL = (ColorNormal + ColorSeleccionado) / 2
+    If FCOL < 0 Then FCOL = vbRed
+    
+    P.ForeColor = FCOL
     P.Print Texto;
     
     P.CurrentX = (P.Width / 2) - (P.TextWidth(Texto) / 2)
     P.CurrentY = P.Height / 4
+    If ColorNormal < 0 Then ColorNormal = vbWhite
     P.ForeColor = ColorNormal
     P.Print Texto;
 
