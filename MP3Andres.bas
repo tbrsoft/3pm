@@ -242,11 +242,6 @@ notop:
 End Sub
 
 Public Sub SumarContadorCreditos(valorSUMAR As Integer)
-    'se graba en win y system
-    Dim SYSfolder As String
-    Dim WINfolder As String
-    SYSfolder = FSO.GetSpecialFolder(SystemFolder)
-    WINfolder = FSO.GetSpecialFolder(WindowsFolder)
     Dim ARCHcont As String
     Dim TE As TextStream
     

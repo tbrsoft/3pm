@@ -8,7 +8,6 @@ Begin VB.Form frmAddRemoveMusic
    ClientTop       =   285
    ClientWidth     =   11880
    LinkTopic       =   "Form1"
-   LockControls    =   -1  'True
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   7800
@@ -20,7 +19,7 @@ Begin VB.Form frmAddRemoveMusic
       BackColor       =   &H00FFFFC0&
       Caption         =   "Ver estadisticas de tema"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
          Weight          =   700
@@ -33,13 +32,14 @@ Begin VB.Form frmAddRemoveMusic
       Style           =   1  'Graphical
       TabIndex        =   8
       Top             =   5760
+      Visible         =   0   'False
       Width           =   2925
    End
    Begin VB.CommandButton Command2 
       BackColor       =   &H00C0FFFF&
       Caption         =   "Ver estadisticas del disco elegido"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
          Weight          =   700
@@ -48,17 +48,18 @@ Begin VB.Form frmAddRemoveMusic
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   6180
+      Left            =   150
       Style           =   1  'Graphical
       TabIndex        =   7
-      Top             =   7290
-      Width           =   2925
+      Top             =   7140
+      Visible         =   0   'False
+      Width           =   3825
    End
    Begin VB.CommandButton Command3 
       BackColor       =   &H00FFC0C0&
       Caption         =   "SALIR"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
          Weight          =   700
@@ -67,7 +68,7 @@ Begin VB.Form frmAddRemoveMusic
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   10350
+      Left            =   10500
       Style           =   1  'Graphical
       TabIndex        =   5
       Top             =   2670
@@ -77,7 +78,7 @@ Begin VB.Form frmAddRemoveMusic
       BackColor       =   &H00FFFFC0&
       Caption         =   "Eliminar archivos elegidos"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
          Weight          =   700
@@ -96,7 +97,7 @@ Begin VB.Form frmAddRemoveMusic
       BackColor       =   &H00C0FFFF&
       Caption         =   "Eliminar carpetas elegidas"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
          Weight          =   700
@@ -105,16 +106,16 @@ Begin VB.Form frmAddRemoveMusic
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   6180
+      Left            =   150
       Style           =   1  'Graphical
       TabIndex        =   3
-      Top             =   6900
+      Top             =   6750
       Width           =   2925
    End
    Begin VB.ListBox lstTEMAS 
       BackColor       =   &H00FFFFC0&
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   9
          Charset         =   0
          Weight          =   700
@@ -122,17 +123,17 @@ Begin VB.Form frmAddRemoveMusic
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   5010
+      Height          =   4890
       Left            =   6570
       MultiSelect     =   2  'Extended
       TabIndex        =   1
       Top             =   360
-      Width           =   3495
+      Width           =   3855
    End
    Begin VB.ListBox lstCarpetas 
       BackColor       =   &H00C0FFFF&
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   9
          Charset         =   0
          Weight          =   700
@@ -140,7 +141,7 @@ Begin VB.Form frmAddRemoveMusic
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   7260
+      Height          =   6360
       Left            =   120
       MultiSelect     =   2  'Extended
       Sorted          =   -1  'True
@@ -148,11 +149,32 @@ Begin VB.Form frmAddRemoveMusic
       Top             =   360
       Width           =   6015
    End
+   Begin VB.Label lblInfoDisco 
+      Alignment       =   2  'Center
+      BackColor       =   &H000040C0&
+      BorderStyle     =   1  'Fixed Single
+      Caption         =   "Informacion del disco"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00C0FFFF&
+      Height          =   1365
+      Left            =   7050
+      TabIndex        =   9
+      Top             =   6360
+      Width           =   4785
+   End
    Begin VB.Label Label1 
       BackStyle       =   0  'Transparent
       Caption         =   "Temas ciorrespondientes al disco elegido"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
          Weight          =   700
@@ -171,7 +193,7 @@ Begin VB.Form frmAddRemoveMusic
       BackStyle       =   0  'Transparent
       Caption         =   "Seleccione la carpeta o los archivos que desee eliminar"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   9.75
          Charset         =   0
          Weight          =   700
@@ -210,13 +232,14 @@ Private Sub cmdKillArch_Click()
                 'en la matriz empieza en 1 y lst empieza en 0
                 FileSel = txtInLista(MTXfiles(AA + 1), 0, ",")
                 FSO.DeleteFile FileSel, True
-                WriteTBRLog "Se borro la carpeta " + FileSel, True
+                WriteTBRLog "Se borro el archivo " + FileSel, True
             End If
         Next
         'actualizar todo
         Call lstCarpetas_Click
         MsgBox "Los archivos se eliminaron correctamente"
     End If
+    InfoDisco lblInfoDisco
     Exit Sub
 NOBORRA:
     MsgBox "No se ha podido borrar uno mas temas, compruebe " + _
@@ -274,6 +297,7 @@ Private Sub Form_Load()
     AjustarFRM Me, 12000
     'mostrar la lista de carpetas cargadas en 3PM
     CargarCarpetas
+    InfoDisco lblInfoDisco
 End Sub
 
 Private Sub lstCarpetas_Click()

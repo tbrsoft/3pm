@@ -76,7 +76,7 @@ Begin VB.Form FRMTOP10
       Begin VB.Label lblPuestos 
          BackColor       =   &H00000000&
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   14.25
             Charset         =   0
             Weight          =   700
@@ -97,7 +97,7 @@ Begin VB.Form FRMTOP10
          BackStyle       =   0  'Transparent
          Caption         =   "Top 3PM"
          BeginProperty Font 
-            Name            =   "Times New Roman"
+            Name            =   "Verdana"
             Size            =   21.75
             Charset         =   0
             Weight          =   700
@@ -118,7 +118,7 @@ Begin VB.Form FRMTOP10
          BackStyle       =   0  'Transparent
          Caption         =   "Lo mejor..."
          BeginProperty Font 
-            Name            =   "Times New Roman"
+            Name            =   "Verdana"
             Size            =   14.25
             Charset         =   0
             Weight          =   700
@@ -127,11 +127,11 @@ Begin VB.Form FRMTOP10
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H0000FFFF&
-         Height          =   345
+         Height          =   735
          Index           =   1
          Left            =   10125
          TabIndex        =   1
-         Top             =   2880
+         Top             =   3000
          Width           =   1575
       End
    End

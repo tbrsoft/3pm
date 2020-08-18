@@ -28,8 +28,8 @@ Begin VB.Form frmINI
       BackStyle       =   0  'Transparent
       Caption         =   "v 8.8.88"
       BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   14.25
+         Name            =   "Verdana"
+         Size            =   12
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -56,8 +56,8 @@ Begin VB.Form frmINI
       BackStyle       =   0  'Transparent
       Caption         =   "Contando Discos: 00"
       BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   36
+         Name            =   "Verdana"
+         Size            =   26.25
          Charset         =   0
          Weight          =   400
          Underline       =   0   'False
@@ -85,8 +85,8 @@ Begin VB.Form frmINI
       BorderStyle     =   1  'Fixed Single
       Caption         =   "Buscando discos"
       BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   18
+         Name            =   "Verdana"
+         Size            =   15.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -125,8 +125,6 @@ Attribute VB_Exposed = False
 
 Private Sub Form_Load()
     VVV = "v " + Trim(Str(App.Major)) + "." + Trim(Str(App.Minor)) + "." + Trim(Str(App.Revision))
-    AP = App.path
-    If Right(AP, 1) <> "\" Then AP = AP + "\"
     AjustarFRM Me, 12000
     
     'leer el archivo de configuracion ap+"config.tbr"

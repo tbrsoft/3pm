@@ -22,13 +22,13 @@ Begin VB.Form frmTemasDeDisco
       Height          =   8985
       Left            =   150
       TabIndex        =   0
-      Top             =   -30
+      Top             =   0
       Width           =   11805
       Begin VB.ListBox lstEXT 
          BackColor       =   &H00404080&
          Enabled         =   0   'False
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
             Weight          =   700
@@ -37,13 +37,13 @@ Begin VB.Form frmTemasDeDisco
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00C0E0FF&
-         Height          =   4890
+         Height          =   4740
          ItemData        =   "frmTemasDeDisco.frx":0000
-         Left            =   5400
+         Left            =   2340
          List            =   "frmTemasDeDisco.frx":0013
          Sorted          =   -1  'True
          TabIndex        =   7
-         Top             =   3840
+         Top             =   3450
          Visible         =   0   'False
          Width           =   6345
       End
@@ -51,8 +51,8 @@ Begin VB.Form frmTemasDeDisco
          BackColor       =   &H00404080&
          Enabled         =   0   'False
          BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   11.25
+            Name            =   "Verdana"
+            Size            =   9.75
             Charset         =   0
             Weight          =   700
             Underline       =   0   'False
@@ -60,7 +60,7 @@ Begin VB.Form frmTemasDeDisco
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00C0E0FF&
-         Height          =   8430
+         Height          =   8220
          Left            =   45
          TabIndex        =   4
          Top             =   480
@@ -70,8 +70,8 @@ Begin VB.Form frmTemasDeDisco
          BackColor       =   &H00404080&
          Enabled         =   0   'False
          BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   11.25
+            Name            =   "Verdana"
+            Size            =   9.75
             Charset         =   0
             Weight          =   700
             Underline       =   0   'False
@@ -79,7 +79,7 @@ Begin VB.Form frmTemasDeDisco
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00C0E0FF&
-         Height          =   8430
+         Height          =   8220
          Left            =   780
          Sorted          =   -1  'True
          TabIndex        =   1
@@ -91,8 +91,8 @@ Begin VB.Form frmTemasDeDisco
          BackColor       =   &H0000FFFF&
          Caption         =   "INGRESE FICHA PARA EJECUTAR MUSICA"
          BeginProperty Font 
-            Name            =   "Arial Narrow"
-            Size            =   18
+            Name            =   "Verdana"
+            Size            =   14.25
             Charset         =   0
             Weight          =   700
             Underline       =   0   'False
@@ -100,7 +100,7 @@ Begin VB.Form frmTemasDeDisco
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H000000FF&
-         Height          =   885
+         Height          =   795
          Left            =   7200
          TabIndex        =   6
          Top             =   8010
@@ -113,7 +113,7 @@ Begin VB.Form frmTemasDeDisco
          BackColor       =   &H0000FFFF&
          Caption         =   "TEMAS EN ESTE DISCO"
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   9.75
             Charset         =   0
             Weight          =   700
@@ -132,8 +132,8 @@ Begin VB.Form frmTemasDeDisco
          BackColor       =   &H000040C0&
          Caption         =   "No hay datos adicionales del disco"
          BeginProperty Font 
-            Name            =   "Arial Narrow"
-            Size            =   12
+            Name            =   "Verdana"
+            Size            =   9.75
             Charset         =   0
             Weight          =   700
             Underline       =   0   'False
@@ -154,7 +154,7 @@ Begin VB.Form frmTemasDeDisco
          BackStyle       =   0  'Transparent
          Caption         =   "Titulo"
          BeginProperty Font 
-            Name            =   "Trebuchet MS"
+            Name            =   "Verdana"
             Size            =   9
             Charset         =   0
             Weight          =   700
@@ -166,7 +166,7 @@ Begin VB.Form frmTemasDeDisco
          Height          =   795
          Left            =   7200
          TabIndex        =   2
-         Top             =   3645
+         Top             =   3660
          UseMnemonic     =   0   'False
          Width           =   4545
       End

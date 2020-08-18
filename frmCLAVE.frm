@@ -16,7 +16,7 @@ Begin VB.Form frmCLAVE
       Caption         =   "OK"
       Default         =   -1  'True
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   9.75
          Charset         =   0
          Weight          =   700
@@ -64,10 +64,11 @@ Begin VB.Form frmCLAVE
       Width           =   1500
    End
    Begin VB.Label Label1 
+      Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
       Caption         =   "Ingrese su contraseña"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   9.75
          Charset         =   0
          Weight          =   700
@@ -77,10 +78,10 @@ Begin VB.Form frmCLAVE
       EndProperty
       ForeColor       =   &H00FFFFFF&
       Height          =   315
-      Left            =   1170
+      Left            =   870
       TabIndex        =   1
       Top             =   300
-      Width           =   2205
+      Width           =   3045
    End
 End
 Attribute VB_Name = "frmCLAVE"

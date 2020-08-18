@@ -888,7 +888,7 @@ Handler2=PDWizard.WebPostDplySubWiz
 
 [Package|3pm 3.4|Root]
 SubWizProgID=PDWizard.SetupPkgSubWiz
-BuildFolder=D:\ahora\3pm\i publico
+BuildFolder=D:\ahora\3pm\i new
 
 [Package|3pm 3.4|Configure DAO ISAMs]
 Applicable=No
@@ -911,6 +911,10 @@ d:\ahora\3pm\config.tbr=
 d:\ahora\3pm\manual.doc=
 d:\ahora\3pm\tapa.jpg=
 d:\ahora\3pm\top10.jpg=
+d:\ahora\3pm\imgini\3pm\logow.sys=
+d:\ahora\3pm\imgini\3pm\logos.sys=
+d:\ahora\3pm\imgini\3pm\logo.sys=
+D:\ahora\3pm\imgINI\INICIO.GRP=
 
 [Package|3pm 3.4|Files Removed]
 c:\windows\system\msvcrt.dll=
@@ -935,6 +939,10 @@ D:\ahora\3pm\config.tbr=Yes
 D:\ahora\3pm\Manual.doc=Yes
 D:\ahora\3pm\tapa.jpg=Yes
 D:\ahora\3pm\top10.jpg=Yes
+D:\ahora\3pm\imgINI\3pm\logow.sys=Yes
+D:\ahora\3pm\imgINI\3pm\logos.sys=Yes
+D:\ahora\3pm\imgINI\3pm\logo.sys=Yes
+D:\ahora\3pm\imgINI\INICIO.GRP=Yes
 
 [Package|3pm 3.4|Configure Registry Files]
 Applicable=No
@@ -961,6 +969,10 @@ D:\ahora\3pm\config.tbr=$(AppPath)
 D:\ahora\3pm\Manual.doc=$(AppPath)
 D:\ahora\3pm\tapa.jpg=$(AppPath)
 D:\ahora\3pm\top10.jpg=$(AppPath)
+D:\ahora\3pm\imgINI\3pm\logow.sys=$(AppPath)
+D:\ahora\3pm\imgINI\3pm\logos.sys=$(AppPath)
+D:\ahora\3pm\imgINI\3pm\logo.sys=$(AppPath)
+D:\ahora\3pm\imgINI\INICIO.GRP=$(WinPath)
 
 [Package|3pm 3.4|Configure Shared Files]
 Applicable=Yes
@@ -969,11 +981,24 @@ D:\ahora\3pm\config.tbr=No
 D:\ahora\3pm\Manual.doc=No
 D:\ahora\3pm\tapa.jpg=No
 D:\ahora\3pm\top10.jpg=No
+D:\ahora\3pm\imgINI\3pm\logow.sys=No
+D:\ahora\3pm\imgINI\3pm\logos.sys=No
+D:\ahora\3pm\imgINI\3pm\logo.sys=No
 
 [Package|3pm 3.4|Distribution]
 Type=single
 Size=720 KB
 Title=3pm Demo Publico
+
+[Package|3pm 3.4|Package]
+PackageFolder=D:\ahora\3pm\i new
+ProjectFolder=D:\ahora\3pm
+ServerSideCab=
+File1=D:\ahora\3pm\i new\setup.exe
+File2=D:\ahora\3pm\i new\Setup.Lst
+File3=D:\ahora\3pm\i new\3pm.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz
 
 [Package|3pm 3.4|IconGroups]
 Group0=3pm
@@ -985,13 +1010,3 @@ Icon1=3pm.exe
 Title1=3pm
 StartIn1=$(AppPath)
 Key1=Icon1
-
-[Package|3pm 3.4|Package]
-PackageFolder=D:\ahora\3pm\i publico
-ProjectFolder=D:\ahora\3pm
-ServerSideCab=
-File1=D:\ahora\3pm\i publico\setup.exe
-File2=D:\ahora\3pm\i publico\Setup.Lst
-File3=D:\ahora\3pm\i publico\3pm.CAB
-Handler1=PDWizard.FolderDplySubWiz
-Handler2=PDWizard.WebPostDplySubWiz

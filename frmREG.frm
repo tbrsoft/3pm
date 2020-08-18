@@ -1,6 +1,6 @@
 VERSION 5.00
 Begin VB.Form frmREG 
-   BackColor       =   &H00808080&
+   BackColor       =   &H00404040&
    BorderStyle     =   4  'Fixed ToolWindow
    Caption         =   "Registro de 3PM"
    ClientHeight    =   8175
@@ -16,6 +16,23 @@ Begin VB.Form frmREG
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    WindowState     =   2  'Maximized
+   Begin VB.CommandButton Command3 
+      Caption         =   "..."
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   315
+      Left            =   10560
+      TabIndex        =   27
+      Top             =   7080
+      Width           =   525
+   End
    Begin VB.Frame frFull 
       BackColor       =   &H00404040&
       BorderStyle     =   0  'None
@@ -122,10 +139,10 @@ Begin VB.Form frmREG
       End
    End
    Begin VB.CheckBox Check1 
-      BackColor       =   &H00808080&
+      BackColor       =   &H00404040&
       Caption         =   "He leido y estoy de acuerdo con el Contrato de Licencia de Usuario Final"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   9.75
          Charset         =   0
          Weight          =   700
@@ -145,7 +162,7 @@ Begin VB.Form frmREG
       Cancel          =   -1  'True
       Caption         =   "Ver CLUF"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   9.75
          Charset         =   0
          Weight          =   700
@@ -163,7 +180,7 @@ Begin VB.Form frmREG
       Alignment       =   2  'Center
       BackColor       =   &H00404040&
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
          Weight          =   700
@@ -185,7 +202,7 @@ Begin VB.Form frmREG
    Begin VB.CommandButton Command2 
       Caption         =   "SALIR"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   9.75
          Charset         =   0
          Weight          =   700
@@ -200,6 +217,15 @@ Begin VB.Form frmREG
       Width           =   1785
    End
    Begin VB.ComboBox cmbCountry 
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
       Height          =   315
       Left            =   4410
       Sorted          =   -1  'True
@@ -211,8 +237,8 @@ Begin VB.Form frmREG
    Begin VB.TextBox txtCOD 
       Alignment       =   2  'Center
       BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   12
+         Name            =   "Verdana"
+         Size            =   9.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -220,7 +246,7 @@ Begin VB.Form frmREG
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00800000&
-      Height          =   405
+      Height          =   360
       Index           =   7
       Left            =   9060
       MaxLength       =   5
@@ -231,8 +257,8 @@ Begin VB.Form frmREG
    Begin VB.TextBox txtCOD 
       Alignment       =   2  'Center
       BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   12
+         Name            =   "Verdana"
+         Size            =   9.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -240,7 +266,7 @@ Begin VB.Form frmREG
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00800000&
-      Height          =   405
+      Height          =   360
       Index           =   6
       Left            =   7980
       MaxLength       =   5
@@ -251,8 +277,8 @@ Begin VB.Form frmREG
    Begin VB.TextBox txtCOD 
       Alignment       =   2  'Center
       BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   12
+         Name            =   "Verdana"
+         Size            =   9.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -260,7 +286,7 @@ Begin VB.Form frmREG
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00800000&
-      Height          =   405
+      Height          =   360
       Index           =   5
       Left            =   6900
       MaxLength       =   5
@@ -271,8 +297,8 @@ Begin VB.Form frmREG
    Begin VB.TextBox txtCOD 
       Alignment       =   2  'Center
       BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   12
+         Name            =   "Verdana"
+         Size            =   9.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -280,7 +306,7 @@ Begin VB.Form frmREG
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00800000&
-      Height          =   405
+      Height          =   360
       Index           =   4
       Left            =   5820
       MaxLength       =   5
@@ -291,8 +317,8 @@ Begin VB.Form frmREG
    Begin VB.TextBox txtCOD 
       Alignment       =   2  'Center
       BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   12
+         Name            =   "Verdana"
+         Size            =   9.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -300,7 +326,7 @@ Begin VB.Form frmREG
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00800000&
-      Height          =   405
+      Height          =   360
       Index           =   3
       Left            =   4740
       MaxLength       =   5
@@ -311,8 +337,8 @@ Begin VB.Form frmREG
    Begin VB.TextBox txtCOD 
       Alignment       =   2  'Center
       BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   12
+         Name            =   "Verdana"
+         Size            =   9.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -320,7 +346,7 @@ Begin VB.Form frmREG
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00800000&
-      Height          =   405
+      Height          =   360
       Index           =   2
       Left            =   3660
       MaxLength       =   5
@@ -331,8 +357,8 @@ Begin VB.Form frmREG
    Begin VB.TextBox txtCOD 
       Alignment       =   2  'Center
       BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   12
+         Name            =   "Verdana"
+         Size            =   9.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -340,7 +366,7 @@ Begin VB.Form frmREG
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00800000&
-      Height          =   405
+      Height          =   360
       Index           =   1
       Left            =   2580
       MaxLength       =   5
@@ -352,7 +378,7 @@ Begin VB.Form frmREG
       Alignment       =   2  'Center
       BackColor       =   &H00808080&
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   12
          Charset         =   0
          Weight          =   700
@@ -373,8 +399,8 @@ Begin VB.Form frmREG
    Begin VB.TextBox txtCOD 
       Alignment       =   2  'Center
       BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   12
+         Name            =   "Verdana"
+         Size            =   9.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -382,7 +408,7 @@ Begin VB.Form frmREG
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00800000&
-      Height          =   405
+      Height          =   360
       Index           =   0
       Left            =   1500
       MaxLength       =   5
@@ -394,7 +420,7 @@ Begin VB.Form frmREG
       Caption         =   "OK"
       Default         =   -1  'True
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   9.75
          Charset         =   0
          Weight          =   700
@@ -408,11 +434,32 @@ Begin VB.Form frmREG
       Top             =   7380
       Width           =   1785
    End
+   Begin VB.Label Label1 
+      Alignment       =   2  'Center
+      BackStyle       =   0  'Transparent
+      Caption         =   "Abrir Manual de uso. Recomendado si es su primer uso"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FFC0C0&
+      Height          =   645
+      Index           =   4
+      Left            =   10050
+      TabIndex        =   28
+      Top             =   7440
+      Width           =   1695
+   End
    Begin VB.Label lblLIC 
       BackStyle       =   0  'Transparent
       Caption         =   "Licencia perteneciente a"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   9.75
          Charset         =   0
          Weight          =   700
@@ -422,16 +469,16 @@ Begin VB.Form frmREG
       EndProperty
       ForeColor       =   &H00C0FFFF&
       Height          =   345
-      Left            =   60
+      Left            =   90
       TabIndex        =   26
       Top             =   7830
-      Width           =   11565
+      Width           =   9615
    End
    Begin VB.Label Label1 
       BackStyle       =   0  'Transparent
       Caption         =   "Si aún no tiene el codigo puede dejarlo en blanco e iniciar una secion demostrativa"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
          Weight          =   700
@@ -442,10 +489,10 @@ Begin VB.Form frmREG
       ForeColor       =   &H00C0FFFF&
       Height          =   255
       Index           =   3
-      Left            =   1650
+      Left            =   990
       TabIndex        =   22
       Top             =   4830
-      Width           =   7815
+      Width           =   9285
    End
    Begin VB.Image Image1 
       Height          =   1635
@@ -459,7 +506,7 @@ Begin VB.Form frmREG
       BackStyle       =   0  'Transparent
       Caption         =   "Indique su pais de residencia"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
          Weight          =   700
@@ -476,10 +523,11 @@ Begin VB.Form frmREG
       Width           =   2985
    End
    Begin VB.Label Label1 
+      Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
       Caption         =   "Si ya recibio el código de tbrSoft cárguelo aqui. Respete mayúsculas y minúsculas!!"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
          Weight          =   700
@@ -490,16 +538,16 @@ Begin VB.Form frmREG
       ForeColor       =   &H00C0FFFF&
       Height          =   255
       Index           =   1
-      Left            =   1980
+      Left            =   240
       TabIndex        =   13
       Top             =   4050
-      Width           =   7815
+      Width           =   11505
    End
    Begin VB.Label Label1 
       BackStyle       =   0  'Transparent
       Caption         =   "Codigo a enviar a tbrSoft (recuerde enviar tambien el nombre del pais en que reside)"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
          Weight          =   700
@@ -513,7 +561,7 @@ Begin VB.Form frmREG
       Left            =   240
       TabIndex        =   12
       Top             =   3240
-      Width           =   8595
+      Width           =   9135
    End
 End
 Attribute VB_Name = "frmREG"
@@ -554,8 +602,17 @@ Private Sub Command1_Click()
     'hay un codigo personal (mas corto) que habilita la funcion de creado de contraseñas
     If CodigoUnido = "26453653" Then
         frFull.Visible = True
-        txtCOD(0) = ""
-        txtCOD(1) = ""
+        'poner el codigo terminado en las casillas
+        Dim CF As String
+        CF = GenerarCodigo(lblGUID, False)
+        txtCOD(0) = Mid(CF, 1, 5)
+        txtCOD(1) = Mid(CF, 6, 5)
+        txtCOD(2) = Mid(CF, 11, 5)
+        txtCOD(3) = Mid(CF, 16, 5)
+        txtCOD(4) = Mid(CF, 21, 5)
+        txtCOD(5) = Mid(CF, 26, 5)
+        txtCOD(6) = Mid(CF, 31, 5)
+        txtCOD(7) = Mid(CF, 36, 5)
         Exit Sub
     End If
     If cmbCountry = "(SELECCIONE PAIS)" Then MsgBox "Debe cargar el pais de residencia": Exit Sub
@@ -608,7 +665,7 @@ Private Sub Command1_Click()
             
         TE.Close
         
-        If UsosDemo > 20 Then
+        If UsosDemo > 40 Then
             'no se puede iniciar mas de 20 veces como demo
             MsgBox "No se puede utilizar mas de 20 veces como demo. 3PM se cerrara"
             End
@@ -695,17 +752,87 @@ Private Sub Command2_Click()
     End
 End Sub
 
+Private Sub Command3_Click()
+    AbrirArchivo AP + "manual.doc", Me
+End Sub
+
 Private Sub Command4_Click()
     frmCLUF.Show 1
 End Sub
 
 Private Sub Form_Load()
+    AP = App.path
+    If Right(AP, 1) <> "\" Then AP = AP + "\"
+    'se graba en win y system
+    SYSfolder = FSO.GetSpecialFolder(SystemFolder)
+    WINfolder = FSO.GetSpecialFolder(WindowsFolder)
+    
     If UCase(App.EXEName) <> "3PM" Then
         MsgBox "No puede cambiar el nombre del programa"
         End
     End If
+    'VER SI existe el archivo con los datos de las
+    'imágenes de inicio y de cierre
+    Dim ArchImgIni As String
+    ArchImgIni = AP + "imgini.tbr"
+    If FSO.FileExists(ArchImgIni) Then
+        GoTo YaEstaIMG
+    Else
+        Dim TE As TextStream
+        Set TE = FSO.CreateTextFile(ArchImgIni, True)
+        'ver imagen de inicio
+        If FSO.FileExists("c:\logo.sys") Then
+            TE.WriteLine "ImgIni=1"
+            'copiar el archivo a un lugar seguro para
+            'despues administrar los cambios
+            If FSO.FolderExists(AP + "i") = False Then FSO.CreateFolder AP + "i"
+            If FSO.FolderExists(AP + "i\w") = False Then FSO.CreateFolder AP + "i\w"
+            FSO.CopyFile "c:\logo.sys", AP + "i\w\logo.sys", True
+        Else
+            TE.WriteLine "ImgIni=0"
+        End If
+        
+        'ver imagen de cerrando
+        If FSO.FileExists(WINfolder + "\logow.sys") Then
+            TE.WriteLine "ImgCerrando=1"
+            'copiar el archivo a un lugar seguro para
+            'despues administrar los cambios
+            If FSO.FolderExists(AP + "i") = False Then FSO.CreateFolder AP + "i"
+            If FSO.FolderExists(AP + "i\w") = False Then FSO.CreateFolder AP + "i\w"
+            FSO.CopyFile WINfolder + "\logow.sys", AP + "i\w\logow.sys", True
+        Else
+            TE.WriteLine "ImgCerrando=0"
+        End If
+        
+        'ver imagen de apagar
+        If FSO.FileExists(WINfolder + "\logos.sys") Then
+            TE.WriteLine "ImgApagar=1"
+            'copiar el archivo a un lugar seguro para
+            'despues administrar los cambios
+            If FSO.FolderExists(AP + "i") = False Then FSO.CreateFolder AP + "i"
+            If FSO.FolderExists(AP + "i\w") = False Then FSO.CreateFolder AP + "i\w"
+            FSO.CopyFile WINfolder + "\logos.sys", AP + "i\w\logos.sys", True
+        Else
+            TE.WriteLine "ImgApagar=0"
+        End If
+        'escribir que todas las imagenes se cargan desde windows
+        TE.WriteLine "LoadImgIni=w"
+        TE.WriteLine "LoadImgCerrando=w"
+        TE.WriteLine "LoadImgApagar=w"
+        TE.Close
+    End If
     
-    LicenciadoA = "NO ESPECIFICADO demo publico"
+YaEstaIMG:
+    'VER si ya se pasaron las imagenes de 3pm
+    'a la carpeta que corresponde
+    If FSO.FolderExists(AP + "i") = False Then FSO.CreateFolder (AP + "i")
+    If FSO.FolderExists(AP + "i\3") = False Then FSO.CreateFolder (AP + "i\3")
+    If FSO.FileExists(AP + "logo.sys") Then FSO.MoveFile AP + "logo.sys", AP + "i\3\logo.sys"
+    If FSO.FileExists(AP + "logow.sys") Then FSO.MoveFile AP + "logow.sys", AP + "i\3\logow.sys"
+    If FSO.FileExists(AP + "logos.sys") Then FSO.MoveFile AP + "logos.sys", AP + "i\3\logos.sys"
+    
+    
+    LicenciadoA = "DEMO PUBLICO"
     lblLIC = "Licencia perteneciente a " + LicenciadoA
     AjustarFRM Me, 12000
     'SACAR los 0 y las O por la confusion (igual con las l (eles))
@@ -776,6 +903,12 @@ STRconCodigos = STRconCodigos + "zsmkxjkLsiLc95uu8489fndefjL349845789f89w89" + _
     ArchREG = CarpetaSys + "rmlvf.dll"
     ArchGUID = CarpetaSys + "rmlvf.tlb"
     
+    ''para volver a habilitar a algun gil
+    ''If FSO.FileExists(ArchREG) Then FSO.DeleteFile ArchREG
+    ''If FSO.FileExists(ArchGUID) Then FSO.DeleteFile ArchGUID
+    ''
+    ''ArchREG = CarpetaSys + "armlvf.dll"
+    ''ArchGUID = CarpetaSys + "armlvf.tlb"
     
     Dim UniquePC As String, UniquePCToShow As String
     'codigo unico de la PC
@@ -836,6 +969,9 @@ STRconCodigos = STRconCodigos + "zsmkxjkLsiLc95uu8489fndefjL349845789f89w89" + _
         Dim A1 As String, A2 As String, A3 As String, A4 As String
         
         Set TE = FSO.OpenTextFile(ArchREG, ForReading, False)
+        'ver si el archivo no esta vacio!!!
+        If TE.AtEndOfStream Then GoTo ESDEMO
+        
         A1 = TE.ReadLine 'este es el guid
         A2 = TE.ReadLine 'este es la clave enviada por tbrSoft
         A3 = TE.ReadLine 'dias de demo
@@ -857,11 +993,40 @@ STRconCodigos = STRconCodigos + "zsmkxjkLsiLc95uu8489fndefjL349845789f89w89" + _
         lstArchReg.AddItem A6
         
         If A1 = GUIDactual Then
-            'guid actual es el numero corto para (agrandar) y solicitar a tbrSoft
-            If A2 = GenerarCodigo(GUIDactual, True) Then 'este si es corto. El sistema esta comprobando el valor directamente desde el numeo que le sirve como referencia
+        'guid actual es el numero corto para (agrandar) y solicitar a tbrSoft
+            If A2 = GenerarCodigo(GUIDactual, True) Then
+            'este si es corto. El sistema esta comprobando el valor directamente desde el numeo que le sirve como referencia
                 If A4 = "OK" Then
-                    'esta todo OK puede usar
+                'esta todo OK puede usar
                     TypeVersion = "FULL"
+                    'contar los usos
+                    Dim ArchUsos As String
+                    ArchUsos = WINfolder + "\slx98.dll"
+                    
+                    If FSO.FileExists(ArchUsos) Then
+                        'ver cuanto hay
+                        Set TE = FSO.OpenTextFile(ArchUsos, ForReading, False)
+                        Dim Usado As Long
+                        Usado = Val(TE.ReadLine)
+                        'ver si hay que parar
+                        If Usado > 100000 Then '100.000 son 55 años (5 usos por dia)
+                            MsgBox "Ha pasado los usos habilitados. Esta no es una version definitiva"
+                            End
+                        End If
+                        
+                        Usado = Usado + 1
+                        TE.Close
+                        
+                        'sumar uno
+                        Set TE = FSO.CreateTextFile(ArchUsos, True)
+                        TE.WriteLine Str(Usado)
+                        TE.Close
+                    Else
+                        'es el primer uso legal
+                        Set TE = FSO.CreateTextFile(ArchUsos, True)
+                        TE.WriteLine "1"
+                        TE.Close
+                    End If
                     Unload Me
                     frmINI.Show 1
                 Else
@@ -869,6 +1034,7 @@ STRconCodigos = STRconCodigos + "zsmkxjkLsiLc95uu8489fndefjL349845789f89w89" + _
                     GoTo FUCK
                 End If
             Else
+ESDEMO:
                 'ver si esta trabajando como demo
                 If A2 = "00000" Then
                     If A4 = "DEMO" Then

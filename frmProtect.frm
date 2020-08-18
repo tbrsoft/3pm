@@ -113,8 +113,8 @@ Begin VB.Form frmProtect
          BackStyle       =   0  'Transparent
          Caption         =   "3PM esta protegiendo la pantalla. Presione cualquier tecla para continuar"
          BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   12
+            Name            =   "Verdana"
+            Size            =   9.75
             Charset         =   0
             Weight          =   700
             Underline       =   0   'False
@@ -125,7 +125,7 @@ Begin VB.Form frmProtect
          Height          =   2265
          Left            =   10260
          TabIndex        =   1
-         Top             =   180
+         Top             =   210
          Width           =   1545
       End
    End

@@ -1,4 +1,7 @@
 Attribute VB_Name = "Globales"
+Public SYSfolder As String
+Public WINfolder As String
+
 Public RankToPeople As Boolean 'expone o no el reank a los usuarios
 Public LicenciadoA As String 'aquien corresponde esta licencia
 
@@ -312,16 +315,17 @@ End Sub
 
 Public Sub VerClaves(CLAVE As String)
     Select Case CLAVE
-        Case "44213424443334434433"
+        Case "14411314114444443222"
+            CLAVE = "11111222223333344444" 'anular para que no se siga cargando
             'cerrar 3pm
             OnOffCAPS vbKeyCapital, False
             If ApagarAlCierre Then APAGAR_PC
             'no puedo usar do stop porque lanza el evento ENDPLAY y esto produce un EMPEZARSIGUIENTE
             'que se come un tema de la lista
+            MostrarCursor True
             frmINDEX.MP3.DoClose
             End
-        
-        Case "44224433441114433441"
+        Case "44413212121214443441"
             'cargar 1 credito
             CREDITOS = CREDITOS + 1
             'no suma contador de creditos
@@ -333,7 +337,8 @@ Public Sub VerClaves(CLAVE As String)
             Else
                 frmINDEX.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
             End If
-        Case "44224433441114433442"
+            CLAVE = "11111222223333344444" 'anular para que no se siga cargando
+        Case "44413212121214443442"
             'cargar 2 creditos
             CREDITOS = CREDITOS + 2
             'no suma contador de creditos
@@ -346,7 +351,8 @@ Public Sub VerClaves(CLAVE As String)
             Else
                 frmINDEX.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
             End If
-        Case "44224433441114433443"
+            CLAVE = "11111222223333344444" 'anular para que no se siga cargando
+        Case "44413212121214443443"
             'cargar 3 creditos
             CREDITOS = CREDITOS + 3
             'no suma contador de creditos
@@ -359,7 +365,8 @@ Public Sub VerClaves(CLAVE As String)
             Else
                 frmINDEX.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
             End If
-        Case "44224433441114433444"
+            CLAVE = "11111222223333344444" 'anular para que no se siga cargando
+        Case "44413212121214443444"
             'cargar 4 creditos
             CREDITOS = CREDITOS + 4
             'no suma contador de creditos
@@ -372,12 +379,13 @@ Public Sub VerClaves(CLAVE As String)
             Else
                 frmINDEX.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
             End If
-
-        Case "44113122341144444412"
+            CLAVE = "11111222223333344444" 'anular para que no se siga cargando
+        Case "31121212444411112344"
+            CLAVE = "11111222223333344444" 'anular para que no se siga cargando
             'entrar en configuracion
             frmConfig.Show 1
     End Select
-    CLAVE = "11111222223333344444" 'anular para que no se siga cargando
+    
 End Sub
 
 Public Sub AjustarFRM(FRM As Form, HechoParaTwipsHoriz)
@@ -467,3 +475,20 @@ Public Function QuitarNumeroDeTema(TemaFull As String) As String
     End If
     QuitarNumeroDeTema = TMPtema
 End Function
+Public Sub InfoDisco(LBL As Label)
+    Dim TotDisco, TotFree1, TotFree2, Serial As String, VolName As String
+    TotDisco = Round(FSO.Drives("C:\").TotalSize / 1024 / 1024, 2)
+    TotFree1 = Round(FSO.Drives("C:\").AvailableSpace / 1024 / 1024, 2)
+    TotFree2 = Round(FSO.Drives("C:\").FreeSpace / 1024 / 1024, 2)
+    Serial = FSO.Drives("C:\").SerialNumber
+    VolName = FSO.Drives("C:\").VolumeName
+    
+    Dim PorcLibre As Double
+    PorcLibre = Round(TotFree1 / TotDisco * 100, 2)
+    
+    LBL = "Informacion del disco (" + VolName + ")" + vbCrLf + _
+    "Total disco: " + CStr(TotDisco) + " MB" + vbCrLf + _
+    "Total Disponible: " + CStr(TotFree1) + " MB" + vbCrLf + _
+    "Porcentaje libre: " + CStr(PorcLibre) + "%"
+End Sub
+

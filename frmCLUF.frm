@@ -17,6 +17,15 @@ Begin VB.Form frmCLUF
    Begin VB.CommandButton Command1 
       Caption         =   "OK"
       Default         =   -1  'True
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
       Height          =   465
       Left            =   1530
       TabIndex        =   1
@@ -26,10 +35,10 @@ Begin VB.Form frmCLUF
    Begin VB.TextBox Text1 
       BackColor       =   &H00FFFFFF&
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   9.75
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False

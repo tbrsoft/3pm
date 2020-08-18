@@ -380,10 +380,6 @@ Public Function Length()
     End If
 End Function
 
-Public Function About()
-    frmCtlAbout.Show vbModal, Me
-End Function
-
 Public Function SeekTo(Second)
     If IsPlaying = True Then
         dwReturn = mciSendString("play MP3Play from " & Second, 0, 0, 0)

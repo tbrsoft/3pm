@@ -18,14 +18,53 @@ Begin VB.Form frmConfig
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    WindowState     =   2  'Maximized
+   Begin VB.CommandButton Command8 
+      BackColor       =   &H00FFC0C0&
+      Caption         =   "Mantenimiento"
+      Enabled         =   0   'False
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   375
+      Left            =   9720
+      Style           =   1  'Graphical
+      TabIndex        =   92
+      Top             =   8430
+      Width           =   2085
+   End
+   Begin VB.CommandButton Command6 
+      BackColor       =   &H00FFC0C0&
+      Caption         =   "Incio 3PM"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   375
+      Left            =   9720
+      Style           =   1  'Graphical
+      TabIndex        =   91
+      Top             =   8010
+      Width           =   2085
+   End
    Begin VB.CommandButton Command7 
       BackColor       =   &H00FFC0C0&
       Caption         =   "Abrir MANUAL"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -34,14 +73,14 @@ Begin VB.Form frmConfig
       Left            =   9720
       Style           =   1  'Graphical
       TabIndex        =   44
-      Top             =   8550
+      Top             =   7590
       Width           =   2085
    End
    Begin VB.Frame Frame2 
       BackColor       =   &H00000000&
       Caption         =   "Teclado"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   9.75
          Charset         =   0
          Weight          =   700
@@ -58,10 +97,10 @@ Begin VB.Form frmConfig
       Begin VB.TextBox txtPagAd 
          Alignment       =   2  'Center
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -76,10 +115,10 @@ Begin VB.Form frmConfig
       Begin VB.TextBox txtPagAt 
          Alignment       =   2  'Center
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -95,10 +134,10 @@ Begin VB.Form frmConfig
          Alignment       =   2  'Center
          Enabled         =   0   'False
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -113,10 +152,10 @@ Begin VB.Form frmConfig
          Alignment       =   2  'Center
          Enabled         =   0   'False
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -131,7 +170,7 @@ Begin VB.Form frmConfig
          BackColor       =   &H00000000&
          Caption         =   "Apagar la PC al cerrar el sistema"
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
             Weight          =   400
@@ -150,10 +189,10 @@ Begin VB.Form frmConfig
          Alignment       =   2  'Center
          Enabled         =   0   'False
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -168,10 +207,10 @@ Begin VB.Form frmConfig
          Alignment       =   2  'Center
          Enabled         =   0   'False
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -186,10 +225,10 @@ Begin VB.Form frmConfig
          Alignment       =   2  'Center
          Enabled         =   0   'False
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -204,10 +243,10 @@ Begin VB.Form frmConfig
          Alignment       =   2  'Center
          Enabled         =   0   'False
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -222,10 +261,10 @@ Begin VB.Form frmConfig
          Alignment       =   2  'Center
          Enabled         =   0   'False
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -240,10 +279,10 @@ Begin VB.Form frmConfig
          Alignment       =   2  'Center
          Enabled         =   0   'False
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -258,10 +297,10 @@ Begin VB.Form frmConfig
          Alignment       =   2  'Center
          Enabled         =   0   'False
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -275,10 +314,10 @@ Begin VB.Form frmConfig
       Begin VB.TextBox txtCLOSE 
          Alignment       =   2  'Center
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -293,10 +332,10 @@ Begin VB.Form frmConfig
       Begin VB.TextBox txtCONF 
          Alignment       =   2  'Center
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -311,10 +350,10 @@ Begin VB.Form frmConfig
       Begin VB.TextBox txtNewF 
          Alignment       =   2  'Center
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -329,10 +368,10 @@ Begin VB.Form frmConfig
       Begin VB.TextBox txtESC 
          Alignment       =   2  'Center
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -347,10 +386,10 @@ Begin VB.Form frmConfig
       Begin VB.TextBox txtOK 
          Alignment       =   2  'Center
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -365,10 +404,10 @@ Begin VB.Form frmConfig
       Begin VB.TextBox txtIZQ 
          Alignment       =   2  'Center
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -383,10 +422,10 @@ Begin VB.Form frmConfig
       Begin VB.TextBox txtDER 
          Alignment       =   2  'Center
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -403,10 +442,10 @@ Begin VB.Form frmConfig
          BackStyle       =   0  'Transparent
          Caption         =   "Tecla Página Adelante"
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -424,10 +463,10 @@ Begin VB.Form frmConfig
          BackStyle       =   0  'Transparent
          Caption         =   "Tecla Página Atras"
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -445,10 +484,10 @@ Begin VB.Form frmConfig
          BackStyle       =   0  'Transparent
          Caption         =   "Tecla Cerrar Sistema"
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -466,10 +505,10 @@ Begin VB.Form frmConfig
          BackStyle       =   0  'Transparent
          Caption         =   "Tecla Configurar"
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -487,10 +526,10 @@ Begin VB.Form frmConfig
          BackStyle       =   0  'Transparent
          Caption         =   "Tecla Nueva ficha"
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -508,10 +547,10 @@ Begin VB.Form frmConfig
          BackStyle       =   0  'Transparent
          Caption         =   "Tecla SALIR"
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -529,10 +568,10 @@ Begin VB.Form frmConfig
          BackStyle       =   0  'Transparent
          Caption         =   "Tecla OK"
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -550,10 +589,10 @@ Begin VB.Form frmConfig
          BackStyle       =   0  'Transparent
          Caption         =   "Tecla izquierda"
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -571,10 +610,10 @@ Begin VB.Form frmConfig
          BackStyle       =   0  'Transparent
          Caption         =   "Tecla derecha"
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -592,10 +631,10 @@ Begin VB.Form frmConfig
       BackColor       =   &H00000000&
       Caption         =   "Exponer el Ranking al publico"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -611,10 +650,10 @@ Begin VB.Form frmConfig
       BackColor       =   &H00FFC0C0&
       Caption         =   "Agregar multimedia de 3PM"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -630,10 +669,10 @@ Begin VB.Form frmConfig
       BackColor       =   &H00FFC0C0&
       Caption         =   "Quitar multimedia de 3PM"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -649,10 +688,10 @@ Begin VB.Form frmConfig
       Alignment       =   2  'Center
       Enabled         =   0   'False
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -681,10 +720,10 @@ Begin VB.Form frmConfig
       BackColor       =   &H00000000&
       Caption         =   "Poner los rotulos arriba de las tapas de los discos"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -700,10 +739,10 @@ Begin VB.Form frmConfig
       BackColor       =   &H00000000&
       Caption         =   "Mostrar los rotulos de los discos"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -719,10 +758,10 @@ Begin VB.Form frmConfig
       BackColor       =   &H00000000&
       Caption         =   "Cargar la duracion de los temas (demora extra)"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -738,10 +777,10 @@ Begin VB.Form frmConfig
       BackColor       =   &H00000000&
       Caption         =   "Usar Protector de pantalla original (tapas de los discos)"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -757,10 +796,10 @@ Begin VB.Form frmConfig
       BackColor       =   &H00000000&
       Caption         =   "Distorcionar tapas de los discos para ocupar 100% pantalla"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -776,10 +815,10 @@ Begin VB.Form frmConfig
       BackColor       =   &H00FFC0C0&
       Caption         =   "Poner en 0 contador"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -795,10 +834,10 @@ Begin VB.Form frmConfig
       BackColor       =   &H00000000&
       Caption         =   "Pasar páginas con botones de desplazamiento simple."
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -808,13 +847,13 @@ Begin VB.Form frmConfig
       Left            =   270
       TabIndex        =   23
       Top             =   8430
-      Width           =   3495
+      Width           =   3225
    End
    Begin VB.Frame Frame4 
       BackColor       =   &H00000000&
       Caption         =   "Mostrar Indicadores de..."
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   9.75
          Charset         =   0
          Weight          =   700
@@ -832,10 +871,10 @@ Begin VB.Form frmConfig
          BackColor       =   &H00000000&
          Caption         =   "Lista de temas pendientes"
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -851,10 +890,10 @@ Begin VB.Form frmConfig
          BackColor       =   &H00000000&
          Caption         =   "Puesto Rankig tema"
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -870,10 +909,10 @@ Begin VB.Form frmConfig
          BackColor       =   &H00000000&
          Caption         =   "Temas Pendientes"
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -889,10 +928,10 @@ Begin VB.Form frmConfig
          BackColor       =   &H00000000&
          Caption         =   "Tiempo faltante"
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -908,10 +947,10 @@ Begin VB.Form frmConfig
          BackColor       =   &H00000000&
          Caption         =   "Total de discos"
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -927,10 +966,10 @@ Begin VB.Form frmConfig
          BackColor       =   &H00000000&
          Caption         =   "Créditos"
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -947,10 +986,10 @@ Begin VB.Form frmConfig
       Alignment       =   2  'Center
       Enabled         =   0   'False
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -989,10 +1028,10 @@ Begin VB.Form frmConfig
       Alignment       =   2  'Center
       Enabled         =   0   'False
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -1009,10 +1048,10 @@ Begin VB.Form frmConfig
       BackColor       =   &H00000000&
       Caption         =   "Habilitar VUMetro"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -1028,10 +1067,10 @@ Begin VB.Form frmConfig
       BackColor       =   &H00000000&
       Caption         =   "Inicio rápido (no mostrar imágenes en la presentación)"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -1047,10 +1086,10 @@ Begin VB.Form frmConfig
       BackColor       =   &H00000000&
       Caption         =   "AutoRedibujado de pantalla"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -1066,10 +1105,10 @@ Begin VB.Form frmConfig
       Alignment       =   2  'Center
       Enabled         =   0   'False
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -1098,10 +1137,10 @@ Begin VB.Form frmConfig
       Alignment       =   2  'Center
       Enabled         =   0   'False
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -1130,10 +1169,10 @@ Begin VB.Form frmConfig
       BackColor       =   &H00FFC0C0&
       Caption         =   "Salir sin grabar"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -1142,17 +1181,17 @@ Begin VB.Form frmConfig
       Left            =   9720
       Style           =   1  'Graphical
       TabIndex        =   43
-      Top             =   8130
+      Top             =   7170
       Width           =   2085
    End
    Begin VB.CommandButton Command1 
       BackColor       =   &H00FFC0C0&
       Caption         =   "Grabar configuracion"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -1161,14 +1200,14 @@ Begin VB.Form frmConfig
       Left            =   9720
       Style           =   1  'Graphical
       TabIndex        =   41
-      Top             =   7710
+      Top             =   6750
       Width           =   2085
    End
    Begin VB.Frame Frame3 
       BackColor       =   &H00000000&
       Caption         =   "Cortes de luz"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   9.75
          Charset         =   0
          Weight          =   700
@@ -1186,10 +1225,10 @@ Begin VB.Form frmConfig
          BackColor       =   &H00000000&
          Caption         =   "Se ejecutan todos los temas pendientes en la lista de ejecución"
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -1205,10 +1244,10 @@ Begin VB.Form frmConfig
          BackColor       =   &H00000000&
          Caption         =   "Comienza de cero borrando la lista de ejecución."
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -1238,10 +1277,10 @@ Begin VB.Form frmConfig
       Alignment       =   2  'Center
       Enabled         =   0   'False
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -1268,10 +1307,10 @@ Begin VB.Form frmConfig
       Alignment       =   2  'Center
       Enabled         =   0   'False
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -1306,10 +1345,10 @@ Begin VB.Form frmConfig
          BackColor       =   &H00000000&
          Caption         =   "Cargar las imagenes a pedido"
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -1326,10 +1365,10 @@ Begin VB.Form frmConfig
          BackColor       =   &H00000000&
          Caption         =   "Cargar imagenes al inicio. Recomendado"
          BeginProperty Font 
-            Name            =   "Arial"
+            Name            =   "Verdana"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -1355,10 +1394,10 @@ Begin VB.Form frmConfig
       BorderColor     =   &H000000C0&
       BorderWidth     =   3
       Index           =   5
-      X1              =   7830
-      X2              =   7830
+      X1              =   7800
+      X2              =   7800
       Y1              =   2130
-      Y2              =   6900
+      Y2              =   8910
    End
    Begin VB.Line Line1 
       BorderColor     =   &H000000C0&
@@ -1385,7 +1424,7 @@ Begin VB.Form frmConfig
       X1              =   3750
       X2              =   3750
       Y1              =   2130
-      Y2              =   6960
+      Y2              =   6780
    End
    Begin VB.Line Line1 
       BorderColor     =   &H000000C0&
@@ -1409,27 +1448,27 @@ Begin VB.Form frmConfig
       BackColor       =   &H0000FFFF&
       Caption         =   "Detalle/Ayuda de la opcion elegida"
       BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   9.75
+         Name            =   "Verdana"
+         Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   1845
-      Left            =   3780
+      Height          =   2025
+      Left            =   3690
       TabIndex        =   90
-      Top             =   7050
-      Width           =   5895
+      Top             =   6900
+      Width           =   4035
    End
    Begin VB.Label Label1 
       Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
       Caption         =   "Agregar/quitar multimedia de 3PM"
       BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   12
+         Name            =   "Verdana"
+         Size            =   9.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -1449,8 +1488,8 @@ Begin VB.Form frmConfig
       BackStyle       =   0  'Transparent
       Caption         =   "Otras configuraciones"
       BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   12
+         Name            =   "Verdana"
+         Size            =   9.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -1470,8 +1509,8 @@ Begin VB.Form frmConfig
       BackStyle       =   0  'Transparent
       Caption         =   "Autoejecucion de temas"
       BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   12
+         Name            =   "Verdana"
+         Size            =   9.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -1491,8 +1530,8 @@ Begin VB.Form frmConfig
       BackStyle       =   0  'Transparent
       Caption         =   "Protector de pantalla"
       BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   12
+         Name            =   "Verdana"
+         Size            =   9.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -1512,8 +1551,8 @@ Begin VB.Form frmConfig
       BackStyle       =   0  'Transparent
       Caption         =   "Aceleracion de 3PM"
       BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   12
+         Name            =   "Verdana"
+         Size            =   9.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -1533,8 +1572,8 @@ Begin VB.Form frmConfig
       BackStyle       =   0  'Transparent
       Caption         =   "Opciones de teclado"
       BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   12
+         Name            =   "Verdana"
+         Size            =   9.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -1554,8 +1593,8 @@ Begin VB.Form frmConfig
       BackStyle       =   0  'Transparent
       Caption         =   "Opciones de Visualizacion/Presentacion de 3PM"
       BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   12
+         Name            =   "Verdana"
+         Size            =   9.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -1575,10 +1614,10 @@ Begin VB.Form frmConfig
       BackStyle       =   0  'Transparent
       Caption         =   "Duracion del protector"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -1596,10 +1635,10 @@ Begin VB.Form frmConfig
       BackStyle       =   0  'Transparent
       Caption         =   "Discos Horizontal"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -1617,10 +1656,10 @@ Begin VB.Form frmConfig
       BackStyle       =   0  'Transparent
       Caption         =   "Discos Vertical"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -1638,10 +1677,10 @@ Begin VB.Form frmConfig
       BackStyle       =   0  'Transparent
       Caption         =   "Porcentaje ejecutar tema"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -1659,8 +1698,8 @@ Begin VB.Form frmConfig
       BackStyle       =   0  'Transparent
       Caption         =   "Contador de Fichas Cargadas"
       BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   12
+         Name            =   "Verdana"
+         Size            =   9.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -1697,22 +1736,21 @@ Begin VB.Form frmConfig
       Width           =   1890
    End
    Begin VB.Image Image2 
-      Height          =   1200
-      Left            =   10830
+      Height          =   1800
+      Left            =   7950
       Picture         =   "frmConfig.frx":0442
-      Stretch         =   -1  'True
-      Top             =   6150
-      Width           =   1020
+      Top             =   6630
+      Width           =   1650
    End
    Begin VB.Label Label1 
       Alignment       =   1  'Right Justify
       BackStyle       =   0  'Transparent
       Caption         =   "Espera protector de pantalla"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -1738,10 +1776,10 @@ Begin VB.Form frmConfig
       BackStyle       =   0  'Transparent
       Caption         =   "Volumen"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -1758,10 +1796,10 @@ Begin VB.Form frmConfig
       BackStyle       =   0  'Transparent
       Caption         =   "Espera autoejecutar tema"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -1779,10 +1817,10 @@ Begin VB.Form frmConfig
       BackStyle       =   0  'Transparent
       Caption         =   "Maximo de fichas permitidas"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -2147,7 +2185,7 @@ End Sub
 Private Sub Command3_Click()
     frmCLAVE.Show 1
     'ver que la contraseña se tome desde el teclado al usuario
-    If ClaveIngresada = "cWaHr0121AWqA" Then '13 caracteres
+    If ClaveIngresada = "fRF4247L000wZ" Then '13 caracteres
         SumarContadorCreditos -CONTADOR 'esto lo deja en cero
         lblContador = STRceros(CONTADOR, 11)
     Else
@@ -2192,6 +2230,10 @@ End Sub
 
 Private Sub Command5_LostFocus()
     Command5.BackColor = &HFFC0C0
+End Sub
+
+Private Sub Command6_Click()
+    frmINI3PM.Show 1
 End Sub
 
 Private Sub Command7_Click()
