@@ -14,8 +14,8 @@ Private Declare Function OpenProcess Lib "kernel32" (ByVal dwAccess As _
 Private Declare Function CloseHandle Lib "kernel32" _
     (ByVal hObject As Long) As Long
 
-Public Sub AbrirArchivo(ARCH As String, FrmSolicita As Form)
-    ShellExecute FrmSolicita.hWnd, vbNullString, ARCH, vbNullString, vbNullString, vbMaximizedFocus
+Public Sub AbrirArchivo(Arch As String, FrmSolicita As Form)
+    ShellExecute FrmSolicita.hWnd, vbNullString, Arch, vbNullString, vbNullString, vbMaximizedFocus
 End Sub
 
 
@@ -215,7 +215,7 @@ Solo12: 'solo los 12 primeros
             End
         End If
                        
-        Dim nTAPAcd As Long
+        Dim nTAPAcd As Integer
         nTAPAcd = 0
         frmINI.PBar.Width = 0
         
@@ -233,7 +233,12 @@ Solo12: 'solo los 12 primeros
                 Dim ArchTapa As String
                 ArchTapa = UbicDiscoActual + "\tapa.jpg"
                 'arranca con 5 ya cargados
-               
+                If nTAPAcd > 0 Then
+                    Load frmINDEX.L(nTAPAcd)
+                    frmINDEX.L(nTAPAcd).Top = frmINDEX.L(nTAPAcd - 1).Top + frmINDEX.L(nTAPAcd - 1).Height
+                    frmINDEX.L(nTAPAcd).Visible = True
+                End If
+                frmINDEX.L(nTAPAcd) = NameCarp
                 frmINI.lblProces = NameCarp
                 frmINI.lblProces.Refresh
                 'INICIO RAPIDO fastini
@@ -521,20 +526,20 @@ Function EsperarPorProceso(taskId As Long, Optional msecs As Long = -1) _
         CloseHandle procHandle
 End Function
 
-Public Function LeerArch1Linea(ARCH As String) As String
+Public Function LeerArch1Linea(Arch As String) As String
     Dim TE As TextStream
-    If FSO.FileExists(ARCH) = False Then
+    If FSO.FileExists(Arch) = False Then
         LeerArch1Linea = "No existe archivo"
         Exit Function
     End If
-    Set TE = FSO.OpenTextFile(ARCH, ForReading, False)
+    Set TE = FSO.OpenTextFile(Arch, ForReading, False)
     LeerArch1Linea = TE.ReadLine
     TE.Close
 End Function
 
-Public Sub EscribirArch1Linea(ARCH As String, TXT As String)
+Public Sub EscribirArch1Linea(Arch As String, TXT As String)
     Dim TE As TextStream
-    Set TE = FSO.CreateTextFile(ARCH, True)
+    Set TE = FSO.CreateTextFile(Arch, True)
     TE.WriteLine TXT
     TE.Close
 End Sub
@@ -571,7 +576,7 @@ Public Function ObtenerArchMM(Carpeta As String) As String()
     Loop
     
     'mpg
-    NombreArchivo = Dir$(UbicDiscoActual + "\*.mpg")
+    NombreArchivo = Dir$(Carpeta + "\*.mpg")
     Do While Len(NombreArchivo)
         'corregir el nombre del tema
         NewName = QuitarCaracter(NombreArchivo, ",")
@@ -588,7 +593,7 @@ Public Function ObtenerArchMM(Carpeta As String) As String()
     Loop
     
     'mpeg
-    NombreArchivo = Dir$(UbicDiscoActual + "\*.mpeg")
+    NombreArchivo = Dir$(Carpeta + "\*.mpeg")
     Do While Len(NombreArchivo)
         'corregir el nombre del tema
         NewName = QuitarCaracter(NombreArchivo, ",")
@@ -605,7 +610,7 @@ Public Function ObtenerArchMM(Carpeta As String) As String()
     Loop
     
     'avi
-    NombreArchivo = Dir$(UbicDiscoActual + "\*.avi")
+    NombreArchivo = Dir$(Carpeta + "\*.avi")
     Do While Len(NombreArchivo)
         'corregir el nombre del tema
         NewName = QuitarCaracter(NombreArchivo, ",")

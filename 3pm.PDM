@@ -888,7 +888,7 @@ Handler2=PDWizard.WebPostDplySubWiz
 
 [Package|3pm 3.4|Root]
 SubWizProgID=PDWizard.SetupPkgSubWiz
-BuildFolder=D:\ahora\3pm\i hondur
+BuildFolder=D:\ahora\3pm\i publico
 
 [Package|3pm 3.4|Configure DAO ISAMs]
 Applicable=No
@@ -973,7 +973,7 @@ D:\ahora\3pm\top10.jpg=No
 [Package|3pm 3.4|Distribution]
 Type=single
 Size=720 KB
-Title=3pm Licenciado a Rigoberto Matamoros (Honduras)
+Title=3pm Demo Publico
 
 [Package|3pm 3.4|IconGroups]
 Group0=3pm
@@ -987,11 +987,11 @@ StartIn1=$(AppPath)
 Key1=Icon1
 
 [Package|3pm 3.4|Package]
-PackageFolder=D:\ahora\3pm\i hondur
+PackageFolder=D:\ahora\3pm\i publico
 ProjectFolder=D:\ahora\3pm
 ServerSideCab=
-File1=D:\ahora\3pm\i hondur\setup.exe
-File2=D:\ahora\3pm\i hondur\Setup.Lst
-File3=D:\ahora\3pm\i hondur\3pm.CAB
+File1=D:\ahora\3pm\i publico\setup.exe
+File2=D:\ahora\3pm\i publico\Setup.Lst
+File3=D:\ahora\3pm\i publico\3pm.CAB
 Handler1=PDWizard.FolderDplySubWiz
 Handler2=PDWizard.WebPostDplySubWiz

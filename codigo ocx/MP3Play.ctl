@@ -139,7 +139,7 @@ Public Function DoOpen()
     Dim lenShort As Long
     Dim FileNameSHORT As String
     
-    If Dir(m_FileName) = "" Then       '
+    If FSO.FileExists(m_FileName) = False Then        '
         WriteLog "No existe el archivo mp3 que se intenta abrir." + m_FileName + " Function DoOpen", True
         Exit Function
     End If
@@ -273,7 +273,6 @@ Public Function DoClose() As String
     dwReturn = mciSendString("close MP3Play", 0, 0, 0)
     If dwReturn <> 0 And dwReturn <> 263 Then '263 ES CUANDO NO HAY NADA ABIERTO
         LogErrorMCI dwReturn
-        'no se pudo modificar el volumen
         WriteLog "No se pudo cerrar MCI." + ". Tema: " + m_FileName + " Function DoClose", False
     End If
 End Function

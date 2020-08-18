@@ -1,79 +1,79 @@
 VERSION 5.00
 Begin VB.UserControl VUMeter 
    BackColor       =   &H00000000&
-   ClientHeight    =   1845
+   ClientHeight    =   1245
    ClientLeft      =   0
    ClientTop       =   0
    ClientWidth     =   1380
-   ScaleHeight     =   1845
+   ScaleHeight     =   1245
    ScaleWidth      =   1380
    Begin VB.PictureBox P2 
       BackColor       =   &H00004080&
       BorderStyle     =   0  'None
-      Height          =   220
+      Height          =   150
       Index           =   0
       Left            =   720
-      ScaleHeight     =   225
+      ScaleHeight     =   150
       ScaleWidth      =   600
       TabIndex        =   11
-      Top             =   1560
+      Top             =   990
       Width           =   600
    End
    Begin VB.PictureBox P2 
       BackColor       =   &H00004080&
       BorderStyle     =   0  'None
-      Height          =   220
+      Height          =   150
       Index           =   1
       Left            =   720
-      ScaleHeight     =   225
+      ScaleHeight     =   150
       ScaleWidth      =   600
       TabIndex        =   10
-      Top             =   1260
+      Top             =   780
       Width           =   600
    End
    Begin VB.PictureBox P2 
       BackColor       =   &H00004080&
       BorderStyle     =   0  'None
-      Height          =   220
+      Height          =   150
       Index           =   5
       Left            =   720
-      ScaleHeight     =   225
+      ScaleHeight     =   150
       ScaleWidth      =   600
       TabIndex        =   9
-      Top             =   960
+      Top             =   600
       Width           =   600
    End
    Begin VB.PictureBox P2 
       BackColor       =   &H00004080&
       BorderStyle     =   0  'None
-      Height          =   220
+      Height          =   150
       Index           =   4
       Left            =   720
-      ScaleHeight     =   225
+      ScaleHeight     =   150
       ScaleWidth      =   600
       TabIndex        =   8
-      Top             =   660
+      Top             =   420
       Width           =   600
    End
    Begin VB.PictureBox P2 
       BackColor       =   &H00004080&
       BorderStyle     =   0  'None
-      Height          =   220
+      Height          =   150
       Index           =   3
       Left            =   720
-      ScaleHeight     =   225
+      ScaleHeight     =   150
       ScaleWidth      =   600
       TabIndex        =   7
-      Top             =   360
+      Top             =   240
       Width           =   600
    End
    Begin VB.PictureBox P2 
       BackColor       =   &H00004080&
       BorderStyle     =   0  'None
-      Height          =   220
+      Height          =   150
       Index           =   2
       Left            =   720
-      ScaleHeight     =   225
+      ScaleHeight     =   150
       ScaleWidth      =   600
       TabIndex        =   6
       Top             =   60
@@ -82,10 +82,10 @@ Begin VB.UserControl VUMeter
    Begin VB.PictureBox P 
       BackColor       =   &H00004080&
       BorderStyle     =   0  'None
-      Height          =   220
+      Height          =   150
       Index           =   5
       Left            =   45
-      ScaleHeight     =   225
+      ScaleHeight     =   150
       ScaleWidth      =   600
       TabIndex        =   5
       Top             =   60
@@ -94,61 +94,61 @@ Begin VB.UserControl VUMeter
    Begin VB.PictureBox P 
       BackColor       =   &H00004080&
       BorderStyle     =   0  'None
-      Height          =   220
+      Height          =   150
       Index           =   4
       Left            =   45
-      ScaleHeight     =   225
+      ScaleHeight     =   150
       ScaleWidth      =   600
       TabIndex        =   4
-      Top             =   360
+      Top             =   240
       Width           =   600
    End
    Begin VB.PictureBox P 
       BackColor       =   &H00004080&
       BorderStyle     =   0  'None
-      Height          =   220
+      Height          =   150
       Index           =   3
       Left            =   45
-      ScaleHeight     =   225
+      ScaleHeight     =   150
       ScaleWidth      =   600
       TabIndex        =   3
-      Top             =   660
+      Top             =   420
       Width           =   600
    End
    Begin VB.PictureBox P 
       BackColor       =   &H00004080&
       BorderStyle     =   0  'None
-      Height          =   220
+      Height          =   150
       Index           =   2
       Left            =   45
-      ScaleHeight     =   225
+      ScaleHeight     =   150
       ScaleWidth      =   600
       TabIndex        =   2
-      Top             =   960
+      Top             =   600
       Width           =   600
    End
    Begin VB.PictureBox P 
       BackColor       =   &H00004080&
       BorderStyle     =   0  'None
-      Height          =   220
+      Height          =   150
       Index           =   1
       Left            =   45
-      ScaleHeight     =   225
+      ScaleHeight     =   150
       ScaleWidth      =   600
       TabIndex        =   1
-      Top             =   1260
+      Top             =   780
       Width           =   600
    End
    Begin VB.PictureBox P 
       BackColor       =   &H00004080&
       BorderStyle     =   0  'None
-      Height          =   220
+      Height          =   150
       Index           =   0
       Left            =   45
-      ScaleHeight     =   225
+      ScaleHeight     =   150
       ScaleWidth      =   600
       TabIndex        =   0
-      Top             =   1560
+      Top             =   990
       Width           =   600
    End
 End

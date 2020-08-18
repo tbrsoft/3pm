@@ -285,7 +285,6 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                 Else
                     frmINDEX.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
                 End If
-                ESTOY = 0
                 Unload Me
             Else
                 'apagar el fichero electronico
@@ -295,7 +294,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             TECLAS_PRES = TECLAS_PRES + "4"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
             frmINDEX.lblTECLAS = TECLAS_PRES
-            ESTOY = 0
+            
             Unload Me
         Case TeclaOK
             'ver si esta habilitado
@@ -340,7 +339,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                     EjecutarTema temaElegido, True
                 End If
                 'pase lo que pase me vuelvo a los discos y cierro ventana actual
-                ESTOY = 0
+                
                 Unload Me
             Else
                 lblNoEjecuta.Visible = True
@@ -374,7 +373,7 @@ Private Sub Form_Load()
     AjustarFRM Me, 12000
     Frame1.Left = Screen.Width / 2 - Frame1.Width / 2
     Frame1.Top = Screen.Height / 2 - Frame1.Height / 2
-    ESTOY = 1 'estoy dentro de un disco
+
     ReDim MATRIZ_TEMAS(0) 'matriz en blanco
     'es una matriz global
     UbicDiscoActual = txtInLista(MATRIZ_DISCOS(nDiscoGral + 1), 0, ",")

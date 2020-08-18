@@ -161,6 +161,27 @@ Begin VB.Form frmAddMusic
       Top             =   6630
       Width           =   6225
    End
+   Begin VB.Label lblInfoDisco 
+      Alignment       =   2  'Center
+      BackColor       =   &H000040C0&
+      BorderStyle     =   1  'Fixed Single
+      Caption         =   "Informacion del disco"
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00C0FFFF&
+      Height          =   1365
+      Left            =   180
+      TabIndex        =   24
+      Top             =   5400
+      Width           =   5145
+   End
    Begin VB.Label Label1 
       Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
@@ -282,7 +303,7 @@ Begin VB.Form frmAddMusic
       Height          =   1725
       Left            =   180
       TabIndex        =   16
-      Top             =   3960
+      Top             =   3630
       Visible         =   0   'False
       Width           =   5145
    End
@@ -342,9 +363,9 @@ Begin VB.Form frmAddMusic
       EndProperty
       ForeColor       =   &H00C0E0FF&
       Height          =   615
-      Left            =   5640
+      Left            =   5610
       TabIndex        =   12
-      Top             =   4290
+      Top             =   4320
       Width           =   5985
    End
    Begin VB.Line Line2 
@@ -658,6 +679,14 @@ Public Function FindCarpsConMM(Carp As String) As String()
     Dim ContTotal As Long
     Do
         AgregadosEnVuelta = 0
+        If LastIni = 1 And LastFin = 0 Then
+            'es una carpeta sin subcarpetas}
+            MsgBox "3PM no ha encontrado subcarpetas en la " + _
+            "ubicacion elegida. Pruebe buscar en un nivel " + _
+            "superior del arbol de directorios"
+            ReDim Preserve FindCarpsConMM(0)
+            Exit Function
+        End If
         For a = LastIni To LastFin
             ContTotal = ContTotal + 1
             ReDim Preserve TodasLasCarpetas(ContTotal)
@@ -690,7 +719,7 @@ NextMM:
     FindCarpsConMM = TodasLasCarpetas
 End Function
 
-' Devuelve un array de cadenas que incluye todos los subdirectorios
+' Devuelve un array de wcadenas que incluye todos los subdirectorios
 ' contenidos en una ruta que coincide con los atributos de búsqueda
 ' opcionalmente, devuelve la ruta completa.
 
@@ -732,23 +761,43 @@ Sub ShowDriveList()
     For Each d In dc
         s = s & d.DriveLetter & " - "
         Select Case d.DriveType
-            Case 0: t = "Desconocido"
-            Case 1: t = "Separable"
-            Case 2: t = "Fijo"
-            Case 3: t = "Red"
-            Case 4: t = "CD-ROM"
-            Case 5: t = "Disco RAM"
+            Case 0: T = "Desconocido"
+            Case 1: T = "Separable"
+            Case 2: T = "Fijo"
+            Case 3: T = "Red"
+            Case 4: T = "CD-ROM"
+            Case 5: T = "Disco RAM"
         End Select
         If d.DriveType = 3 Then
             n = d.ShareName
         Else
             n = d.VolumeName
         End If
-        s = s & n & "Tipo: " & t & vbCrLf
+        s = s & n & "Tipo: " & T & vbCrLf
     Next
     MsgBox s
 End Sub
 
 Private Sub Form_Load()
     AjustarFRM Me, 12000
+    Dim TotDisco
+    Dim TotFree1
+    Dim TotFree2
+    Dim Serial As String
+    Dim VolName As String
+    TotDisco = Round(FSO.Drives("C:\").TotalSize / 1024 / 1024, 2)
+    TotFree1 = Round(FSO.Drives("C:\").AvailableSpace / 1024 / 1024, 2)
+    TotFree2 = Round(FSO.Drives("C:\").FreeSpace / 1024 / 1024, 2)
+    Serial = FSO.Drives("C:\").SerialNumber
+    VolName = FSO.Drives("C:\").VolumeName
+    
+    Dim PorcLibre As Double
+    PorcLibre = Round(TotFree1 / TotDisco * 100, 2)
+    
+    lblInfoDisco = "Informacion del disco (" + VolName + ")" + vbCrLf + _
+    "Total disco: " + CStr(TotDisco) + " MB" + vbCrLf + _
+    "Total Disponible: " + CStr(TotFree1) + " MB" + vbCrLf + _
+    "Porcentaje libre: " + CStr(PorcLibre) + "%"
+    
 End Sub
+

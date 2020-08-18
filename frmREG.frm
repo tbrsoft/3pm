@@ -8,6 +8,7 @@ Begin VB.Form frmREG
    ClientTop       =   285
    ClientWidth     =   11910
    LinkTopic       =   "Form1"
+   LockControls    =   -1  'True
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   8175
@@ -19,26 +20,18 @@ Begin VB.Form frmREG
       BackColor       =   &H00404040&
       BorderStyle     =   0  'None
       Caption         =   "Frame1"
-      Height          =   3375
+      Height          =   3135
       Left            =   0
       TabIndex        =   15
-      Top             =   -90
+      Top             =   -30
       Visible         =   0   'False
       Width           =   4545
       Begin VB.ListBox lstArchReg 
-         Height          =   1620
+         Height          =   1425
          Left            =   120
-         TabIndex        =   22
-         Top             =   1620
-         Width           =   2085
-      End
-      Begin VB.CommandButton Command3 
-         Caption         =   "txt ni neg"
-         Height          =   465
-         Left            =   2280
          TabIndex        =   21
          Top             =   1650
-         Width           =   1095
+         Width           =   4395
       End
       Begin VB.TextBox txtCodigo 
          Alignment       =   2  'Center
@@ -142,9 +135,9 @@ Begin VB.Form frmREG
       EndProperty
       ForeColor       =   &H00C0FFFF&
       Height          =   375
-      Left            =   1830
-      TabIndex        =   26
-      Top             =   5910
+      Left            =   1950
+      TabIndex        =   25
+      Top             =   6000
       Value           =   1  'Checked
       Width           =   8655
    End
@@ -162,8 +155,8 @@ Begin VB.Form frmREG
       EndProperty
       Height          =   435
       Left            =   4770
-      TabIndex        =   25
-      Top             =   6330
+      TabIndex        =   24
+      Top             =   6390
       Width           =   1785
    End
    Begin VB.TextBox LBL 
@@ -179,14 +172,14 @@ Begin VB.Form frmREG
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00C0FFFF&
-      Height          =   3255
+      Height          =   3105
       Left            =   1080
       Locked          =   -1  'True
       MultiLine       =   -1  'True
       ScrollBars      =   2  'Vertical
-      TabIndex        =   24
+      TabIndex        =   23
       Text            =   "frmREG.frx":0000
-      Top             =   90
+      Top             =   60
       Width           =   8295
    End
    Begin VB.CommandButton Command2 
@@ -203,7 +196,7 @@ Begin VB.Form frmREG
       Height          =   435
       Left            =   5760
       TabIndex        =   10
-      Top             =   7320
+      Top             =   7380
       Width           =   1785
    End
    Begin VB.ComboBox cmbCountry 
@@ -212,7 +205,7 @@ Begin VB.Form frmREG
       Sorted          =   -1  'True
       Style           =   2  'Dropdown List
       TabIndex        =   8
-      Top             =   5280
+      Top             =   5340
       Width           =   2805
    End
    Begin VB.TextBox txtCOD 
@@ -232,7 +225,7 @@ Begin VB.Form frmREG
       Left            =   9060
       MaxLength       =   5
       TabIndex        =   7
-      Top             =   4230
+      Top             =   4290
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -252,7 +245,7 @@ Begin VB.Form frmREG
       Left            =   7980
       MaxLength       =   5
       TabIndex        =   6
-      Top             =   4230
+      Top             =   4290
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -272,7 +265,7 @@ Begin VB.Form frmREG
       Left            =   6900
       MaxLength       =   5
       TabIndex        =   5
-      Top             =   4230
+      Top             =   4290
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -292,7 +285,7 @@ Begin VB.Form frmREG
       Left            =   5820
       MaxLength       =   5
       TabIndex        =   4
-      Top             =   4230
+      Top             =   4290
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -312,7 +305,7 @@ Begin VB.Form frmREG
       Left            =   4740
       MaxLength       =   5
       TabIndex        =   3
-      Top             =   4230
+      Top             =   4290
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -332,7 +325,7 @@ Begin VB.Form frmREG
       Left            =   3660
       MaxLength       =   5
       TabIndex        =   2
-      Top             =   4230
+      Top             =   4290
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -352,7 +345,7 @@ Begin VB.Form frmREG
       Left            =   2580
       MaxLength       =   5
       TabIndex        =   1
-      Top             =   4230
+      Top             =   4290
       Width           =   1050
    End
    Begin VB.TextBox lblGUID 
@@ -374,7 +367,7 @@ Begin VB.Form frmREG
       TabIndex        =   11
       TabStop         =   0   'False
       Text            =   "Aqui va el codigo"
-      Top             =   3570
+      Top             =   3510
       Width           =   11535
    End
    Begin VB.TextBox txtCOD 
@@ -394,7 +387,7 @@ Begin VB.Form frmREG
       Left            =   1500
       MaxLength       =   5
       TabIndex        =   0
-      Top             =   4230
+      Top             =   4290
       Width           =   1050
    End
    Begin VB.CommandButton Command1 
@@ -412,7 +405,7 @@ Begin VB.Form frmREG
       Height          =   435
       Left            =   3810
       TabIndex        =   9
-      Top             =   7320
+      Top             =   7380
       Width           =   1785
    End
    Begin VB.Label lblLIC 
@@ -429,9 +422,9 @@ Begin VB.Form frmREG
       EndProperty
       ForeColor       =   &H00C0FFFF&
       Height          =   345
-      Left            =   90
-      TabIndex        =   27
-      Top             =   7800
+      Left            =   60
+      TabIndex        =   26
+      Top             =   7830
       Width           =   11565
    End
    Begin VB.Label Label1 
@@ -450,8 +443,8 @@ Begin VB.Form frmREG
       Height          =   255
       Index           =   3
       Left            =   1650
-      TabIndex        =   23
-      Top             =   4650
+      TabIndex        =   22
+      Top             =   4830
       Width           =   7815
    End
    Begin VB.Image Image1 
@@ -479,7 +472,7 @@ Begin VB.Form frmREG
       Index           =   2
       Left            =   4440
       TabIndex        =   14
-      Top             =   5070
+      Top             =   5130
       Width           =   2985
    End
    Begin VB.Label Label1 
@@ -497,9 +490,9 @@ Begin VB.Form frmREG
       ForeColor       =   &H00C0FFFF&
       Height          =   255
       Index           =   1
-      Left            =   2010
+      Left            =   1980
       TabIndex        =   13
-      Top             =   4020
+      Top             =   4050
       Width           =   7815
    End
    Begin VB.Label Label1 
@@ -519,7 +512,7 @@ Begin VB.Form frmREG
       Index           =   0
       Left            =   240
       TabIndex        =   12
-      Top             =   3360
+      Top             =   3240
       Width           =   8595
    End
 End
@@ -569,8 +562,8 @@ Private Sub Command1_Click()
     
     If CodigoUnido = "" Then
         Dim TXTmsg As String
-        TXTmsg = "3PM en version Demo no permite mas de 12 discos " + _
-            "cargados y trunca los temas a los 2 minutos." + vbCrLf + _
+        TXTmsg = "3PM en version Demo tiene limite de discos, " + _
+            "y trunca los temas a los 2 minutos." + vbCrLf + _
             "¿Desea ejecutar 3PM en version demo?"
         If MsgBox(TXTmsg, vbQuestion + vbYesNo, "3PM demo") = vbNo Then End
         Errores = 1
@@ -614,11 +607,13 @@ Private Sub Command1_Click()
         TE.WriteLine CStr(A6)
             
         TE.Close
+        
         If UsosDemo > 20 Then
             'no se puede iniciar mas de 20 veces como demo
             MsgBox "No se puede utilizar mas de 20 veces como demo. 3PM se cerrara"
             End
         End If
+        
         TypeVersion = "DEMO"
         frmINI.Show 1
     Else
@@ -700,23 +695,6 @@ Private Sub Command2_Click()
     End
 End Sub
 
-Private Sub Command3_Click()
-    Dim TMP As String
-    libre = FreeFile
-    c = 5000000
-    Open "c:\all.txt" For Output As libre
-        Do While c < 5010000
-            'para generar demo desencriptar y luego separar de a 5
-            TMP = GenerarCodigo(CStr(c), True) 'este es corto, es uno que busca automativamente todos los codigos
-            TMP = MostraDeA5(TMP)
-            Write #libre, CStr(c) + ": " + TMP
-            c = c + 1
-            Command2.Caption = CStr(c)
-        Loop
-    Close #libre
-    MsgBox "Se grabo el archivo"
-End Sub
-
 Private Sub Command4_Click()
     frmCLUF.Show 1
 End Sub
@@ -727,7 +705,7 @@ Private Sub Form_Load()
         End
     End If
     
-    LicenciadoA = "Rigoberto Matamoros (Honduras)."
+    LicenciadoA = "NO ESPECIFICADO demo publico"
     lblLIC = "Licencia perteneciente a " + LicenciadoA
     AjustarFRM Me, 12000
     'SACAR los 0 y las O por la confusion (igual con las l (eles))
@@ -817,13 +795,18 @@ STRconCodigos = STRconCodigos + "zsmkxjkLsiLc95uu8489fndefjL349845789f89w89" + _
     "Puede utilizar esta version demo con algunas restricciones simplemente " + _
     "indicando su pais de residencia y presionando OK ahora" + vbCrLf + vbCrLf + _
     "El costo de 3PM con licencia para un equipo es de U$S 75, cada licencia " + _
-    "adicional solicitada cuesta U$S 40. Puede optar por 3PM premium con " + _
-    "autorizacion para 5 equipos por U$S 190." + vbCrLf + _
-    "3PM no incluye en ninguna de sus licencia el derecho de venta. Por lo que " + _
+    "adicional solicitada cuesta U$S 40. Puede optar por licencias multiples " + _
+    "de la siguinte forma: " + vbCrLf + _
+    "5 licencias - U$S 200. (entre 5 y 9 licencias U$S 40 cada una)" + vbCrLf + _
+    "10 licencias - U$S 350. (entre 10 y 19 licencias U$S 35 cada una)" + vbCrLf + _
+    "20 licencias - U$S 600. (mas de 20 licencias U$S 30 cada una)" + vbCrLf + _
+    "" + vbCrLf + _
+    "3PM no incluye en ninguna de sus licencia el derecho de venta del software. Por lo que " + _
     "solo usted tendra una copia LEGAL si compra este software a " + _
-    "tbrSoft Argentina." + vbCrLf + vbCrLf + _
+    "tbrSoft Argentina." + vbCrLf + _
     "Para adquirir la version definitiva deberá solicitarlo a tbrSoft " + _
-    "via email indicando:" + vbCrLf + _
+    "via email a tbrsoft@hotmail.com o a avazquez@cpcipc.org " + vbCrLf + _
+    "indicando:" + vbCrLf + _
     "Codigo de este equipo" + vbCrLf + _
     "Pais de residencia" + vbCrLf + _
     "Empresa utilizada para la transeferencia de dinero" + vbCrLf + _

@@ -90,8 +90,6 @@ Public TEMA_SIGUIENTE As String 'tema actual. Para poder mostrar el texto
 Public TEMAS_EN_LISTA 'numero de temas a reproducir despues del actual
 
 Public TIEMPO_RESTANTE_TEMA_ACTUAL As Long 'tiempo en segundos restante
-Public ESTOY As Integer 'indica en que pantalla estoy
-'estoy vale 0=seleccion de disco, 1= dentro de un disco viendo los temas
 Public MATRIZ_DISCOS() As String 'path,nombrecarpeta
 Public MATRIZ_TEMAS() As String 'path,nombreTema. se usa solo para cargar lstTemas,
 'este los ordena alfabeticamente
@@ -150,7 +148,7 @@ Public Sub CargarProximosTemas()
             strProximos = strProximos + QuitarNumeroDeTema(txtInLista(MATRIZ_LISTA(c), 1, ","))
             strProximos = strProximos + vbCrLf
         Next
-        frmINDEX.lblProximoTema = strProximos
+        frmINDEX.lblProximoTema = "TEMAS PENDIENTES:" + vbCrLf + strProximos
     End If
     TotTemas = UBound(MATRIZ_LISTA)
     frmINDEX.lblTemasEnLista = "Pendientes: " + Trim(Str(TotTemas))
@@ -314,7 +312,7 @@ End Sub
 
 Public Sub VerClaves(CLAVE As String)
     Select Case CLAVE
-        Case "14411314114444443222"
+        Case "44213424443334434433"
             'cerrar 3pm
             OnOffCAPS vbKeyCapital, False
             If ApagarAlCierre Then APAGAR_PC
@@ -323,7 +321,7 @@ Public Sub VerClaves(CLAVE As String)
             frmINDEX.MP3.DoClose
             End
         
-        Case "44413212121214443441"
+        Case "44224433441114433441"
             'cargar 1 credito
             CREDITOS = CREDITOS + 1
             'no suma contador de creditos
@@ -335,7 +333,7 @@ Public Sub VerClaves(CLAVE As String)
             Else
                 frmINDEX.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
             End If
-        Case "44413212121214443442"
+        Case "44224433441114433442"
             'cargar 2 creditos
             CREDITOS = CREDITOS + 2
             'no suma contador de creditos
@@ -348,7 +346,7 @@ Public Sub VerClaves(CLAVE As String)
             Else
                 frmINDEX.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
             End If
-        Case "44413212121214443443"
+        Case "44224433441114433443"
             'cargar 3 creditos
             CREDITOS = CREDITOS + 3
             'no suma contador de creditos
@@ -361,7 +359,7 @@ Public Sub VerClaves(CLAVE As String)
             Else
                 frmINDEX.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
             End If
-        Case "44413212121214443444"
+        Case "44224433441114433444"
             'cargar 4 creditos
             CREDITOS = CREDITOS + 4
             'no suma contador de creditos
@@ -375,7 +373,7 @@ Public Sub VerClaves(CLAVE As String)
                 frmINDEX.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
             End If
 
-        Case "31121212444411112344"
+        Case "44113122341144444412"
             'entrar en configuracion
             frmConfig.Show 1
     End Select

@@ -19,25 +19,36 @@ Begin VB.Form frmINDEX
    Begin VB.Frame frDISCOS 
       BackColor       =   &H00004080&
       BorderStyle     =   0  'None
-      Height          =   6975
-      Left            =   90
+      Height          =   3495
+      Left            =   210
       TabIndex        =   13
-      Top             =   0
-      Width           =   10455
+      Top             =   150
+      Width           =   4020
+      Begin VB.PictureBox picVideo 
+         BackColor       =   &H00000000&
+         Height          =   495
+         Left            =   90
+         ScaleHeight     =   435
+         ScaleWidth      =   915
+         TabIndex        =   21
+         Top             =   90
+         Visible         =   0   'False
+         Width           =   975
+      End
       Begin VB.Timer Timer1 
-         Left            =   4230
-         Top             =   3480
+         Left            =   1620
+         Top             =   60
       End
       Begin VB.Timer Timer3 
          Interval        =   10000
-         Left            =   5010
-         Top             =   3495
+         Left            =   2400
+         Top             =   75
       End
       Begin tbr3pm.MP3Play MP3 
          Height          =   1620
-         Left            =   7680
+         Left            =   2400
          TabIndex        =   14
-         Top             =   3915
+         Top             =   900
          Visible         =   0   'False
          Width           =   1500
          _ExtentX        =   2646
@@ -46,9 +57,9 @@ Begin VB.Form frmINDEX
       Begin VB.Image TapaCD 
          Height          =   2505
          Index           =   0
-         Left            =   525
+         Left            =   540
          Stretch         =   -1  'True
-         Top             =   180
+         Top             =   210
          Visible         =   0   'False
          Width           =   2640
       End
@@ -84,14 +95,117 @@ Begin VB.Form frmINDEX
          Width           =   435
       End
    End
+   Begin VB.Frame frModoVideo 
+      BackColor       =   &H00404040&
+      BorderStyle     =   0  'None
+      ForeColor       =   &H00FFFFFF&
+      Height          =   1365
+      Left            =   9450
+      TabIndex        =   18
+      Top             =   210
+      Visible         =   0   'False
+      Width           =   2505
+      Begin VB.Label L 
+         BackColor       =   &H00FFFFFF&
+         Caption         =   "Nombre del artista - nombre del disco"
+         BeginProperty Font 
+            Name            =   "Arial Narrow"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   240
+         Index           =   0
+         Left            =   30
+         TabIndex        =   19
+         Top             =   0
+         Width           =   2445
+      End
+   End
+   Begin VB.Frame frTEMAS 
+      BackColor       =   &H00404040&
+      BorderStyle     =   0  'None
+      ForeColor       =   &H00FFFFFF&
+      Height          =   1365
+      Left            =   9450
+      TabIndex        =   22
+      Top             =   1830
+      Visible         =   0   'False
+      Width           =   2505
+      Begin VB.Label T 
+         BackColor       =   &H0080FFFF&
+         Caption         =   "Nombre del TEMA"
+         BeginProperty Font 
+            Name            =   "Arial Narrow"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   240
+         Index           =   0
+         Left            =   30
+         TabIndex        =   23
+         Top             =   0
+         Width           =   2445
+      End
+   End
    Begin tbr3pm.VUMeter VU1 
-      Height          =   8865
+      Height          =   8925
       Left            =   10650
       TabIndex        =   12
-      Top             =   90
+      Top             =   60
       Width           =   1395
       _ExtentX        =   2461
-      _ExtentY        =   15637
+      _ExtentY        =   15743
+   End
+   Begin VB.Label lblTEMAS 
+      Alignment       =   2  'Center
+      BackColor       =   &H00000000&
+      Caption         =   "Temas del disco elegido"
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FFFFFF&
+      Height          =   225
+      Left            =   9420
+      TabIndex        =   24
+      Top             =   1590
+      Visible         =   0   'False
+      Width           =   2595
+   End
+   Begin VB.Label lblModoVideo 
+      Alignment       =   2  'Center
+      BackColor       =   &H00000000&
+      Caption         =   "Discos en Modo Video"
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FFFFFF&
+      Height          =   225
+      Left            =   9420
+      TabIndex        =   20
+      Top             =   0
+      Visible         =   0   'False
+      Width           =   2565
    End
    Begin VB.Label lblPag 
       Alignment       =   2  'Center
@@ -99,7 +213,7 @@ Begin VB.Form frmINDEX
       BorderStyle     =   1  'Fixed Single
       Caption         =   "Pagina 88 de 88"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Arial Narrow"
          Size            =   12
          Charset         =   0
          Weight          =   700
@@ -111,7 +225,7 @@ Begin VB.Form frmINDEX
       Height          =   345
       Left            =   180
       TabIndex        =   16
-      Top             =   7710
+      Top             =   7650
       Visible         =   0   'False
       Width           =   2130
    End
@@ -131,9 +245,9 @@ Begin VB.Form frmINDEX
       EndProperty
       ForeColor       =   &H0000FFFF&
       Height          =   285
-      Left            =   9570
+      Left            =   9510
       TabIndex        =   8
-      Top             =   7770
+      Top             =   7560
       Width           =   1005
    End
    Begin VB.Image Image1 
@@ -141,7 +255,7 @@ Begin VB.Form frmINDEX
       Left            =   9120
       Picture         =   "frmINDEX.frx":0000
       Stretch         =   -1  'True
-      Top             =   7560
+      Top             =   7350
       Width           =   1470
    End
    Begin VB.Label lblPuesto 
@@ -150,7 +264,7 @@ Begin VB.Form frmINDEX
       BorderStyle     =   1  'Fixed Single
       Caption         =   "Rank #0"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Arial Narrow"
          Size            =   12
          Charset         =   0
          Weight          =   700
@@ -162,7 +276,7 @@ Begin VB.Form frmINDEX
       Height          =   345
       Left            =   7290
       TabIndex        =   11
-      Top             =   8620
+      Top             =   8445
       Width           =   1800
    End
    Begin VB.Label lblTiempoRestante 
@@ -171,7 +285,7 @@ Begin VB.Form frmINDEX
       BorderStyle     =   1  'Fixed Single
       Caption         =   "Falta: 00:00"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Arial Narrow"
          Size            =   12
          Charset         =   0
          Weight          =   700
@@ -183,11 +297,11 @@ Begin VB.Form frmINDEX
       Height          =   345
       Left            =   0
       TabIndex        =   1
-      Top             =   8620
+      Top             =   8445
       Width           =   1800
    End
    Begin VB.Label LBLpORCtEMA 
-      BackColor       =   &H00808000&
+      BackColor       =   &H00000000&
       BeginProperty Font 
          Name            =   "Times New Roman"
          Size            =   9.75
@@ -199,10 +313,10 @@ Begin VB.Form frmINDEX
       EndProperty
       ForeColor       =   &H00000000&
       Height          =   75
-      Left            =   15
+      Left            =   0
       TabIndex        =   6
-      Top             =   7455
-      Width           =   10550
+      Top             =   7275
+      Width           =   10545
    End
    Begin VB.Label lblNoUSO 
       Alignment       =   2  'Center
@@ -222,7 +336,7 @@ Begin VB.Form frmINDEX
       Height          =   240
       Left            =   8160
       TabIndex        =   7
-      Top             =   7605
+      Top             =   7485
       Visible         =   0   'False
       Width           =   705
    End
@@ -244,7 +358,7 @@ Begin VB.Form frmINDEX
       Height          =   240
       Left            =   7455
       TabIndex        =   10
-      Top             =   7605
+      Top             =   7485
       Visible         =   0   'False
       Width           =   705
    End
@@ -265,7 +379,7 @@ Begin VB.Form frmINDEX
       Height          =   195
       Left            =   7455
       TabIndex        =   9
-      Top             =   7830
+      Top             =   7710
       Visible         =   0   'False
       Width           =   1440
    End
@@ -275,7 +389,7 @@ Begin VB.Form frmINDEX
       BorderStyle     =   1  'Fixed Single
       Caption         =   "Discos 888"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Arial Narrow"
          Size            =   12
          Charset         =   0
          Weight          =   700
@@ -287,7 +401,7 @@ Begin VB.Form frmINDEX
       Height          =   345
       Left            =   5490
       TabIndex        =   5
-      Top             =   8620
+      Top             =   8445
       Width           =   1800
    End
    Begin VB.Label lblCreditos 
@@ -296,7 +410,7 @@ Begin VB.Form frmINDEX
       BorderStyle     =   1  'Fixed Single
       Caption         =   "Creditos 00"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Arial Narrow"
          Size            =   12
          Charset         =   0
          Weight          =   700
@@ -308,7 +422,7 @@ Begin VB.Form frmINDEX
       Height          =   345
       Left            =   3660
       TabIndex        =   3
-      Top             =   8620
+      Top             =   8445
       Width           =   1800
    End
    Begin VB.Label lblTemasEnLista 
@@ -317,7 +431,7 @@ Begin VB.Form frmINDEX
       BorderStyle     =   1  'Fixed Single
       Caption         =   "Pendientes: 00"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Arial Narrow"
          Size            =   12
          Charset         =   0
          Weight          =   700
@@ -329,7 +443,7 @@ Begin VB.Form frmINDEX
       Height          =   345
       Left            =   1830
       TabIndex        =   2
-      Top             =   8620
+      Top             =   8445
       Width           =   1800
    End
    Begin VB.Label lblTemaSonando 
@@ -350,9 +464,9 @@ Begin VB.Form frmINDEX
       Height          =   420
       Left            =   0
       TabIndex        =   0
-      Top             =   7020
+      Top             =   6840
       UseMnemonic     =   0   'False
-      Width           =   10550
+      Width           =   10545
    End
    Begin VB.Label lblDEMO 
       Alignment       =   2  'Center
@@ -369,10 +483,10 @@ Begin VB.Form frmINDEX
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H0000FFFF&
-      Height          =   360
+      Height          =   300
       Left            =   60
       TabIndex        =   17
-      Top             =   8220
+      Top             =   8100
       UseMnemonic     =   0   'False
       Visible         =   0   'False
       Width           =   9015
@@ -395,9 +509,28 @@ Begin VB.Form frmINDEX
       Height          =   1035
       Left            =   60
       TabIndex        =   4
-      Top             =   7560
+      Top             =   7380
       UseMnemonic     =   0   'False
       Width           =   9015
+   End
+   Begin VB.Label lblTBR 
+      Alignment       =   2  'Center
+      BackColor       =   &H00C0FFFF&
+      Caption         =   "Desarrollado por tbrSoft Argentina tbrsoft@hotmail.com / avazquez@cpcipc.org"
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   195
+      Left            =   0
+      TabIndex        =   25
+      Top             =   8790
+      Width           =   10600
    End
 End
 Attribute VB_Name = "frmINDEX"
@@ -405,6 +538,12 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Dim ModoVideoSelTema As Boolean 'si estoy envideo
+'saber si estoy eligiendo tema. Sino estoy en disco
+
+Dim TemaElegidoModoVideo As Integer
+
+Dim LastDiscoSel As Long
 Dim DiscosEnPagina As Long
 
 Dim VolBajando As Double 'bajando volumen para terminar tema demo
@@ -469,7 +608,15 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                 OnOffCAPS vbKeyScrollLock, False
             End If
         Case TeclaIZQ
-            If ESTOY = 0 Then 'si estoy en los discos
+            'ver si desplazo temas en modo video
+            If ModoVideoSelTema Then
+                If TemaElegidoModoVideo > 0 Then
+                    UnSelTema TemaElegidoModoVideo
+                    TemaElegidoModoVideo = TemaElegidoModoVideo - 1
+                    SelTema TemaElegidoModoVideo
+                    OrdenarListaTemaVideo
+                End If
+            Else
                 'no ir a -1
                 If nDiscoSEL = 0 Then
                     'ver si hay que pasar hoja o no
@@ -502,7 +649,15 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             TECLAS_PRES = Right(TECLAS_PRES, 20)
             lblTECLAS = TECLAS_PRES
         Case TeclaDER
-            If ESTOY = 0 Then 'si estoy en los discos
+            If ModoVideoSelTema Then
+                If TemaElegidoModoVideo < UBound(MATRIZ_TEMAS) Then
+                    UnSelTema TemaElegidoModoVideo
+                    TemaElegidoModoVideo = TemaElegidoModoVideo + 1
+                    SelTema TemaElegidoModoVideo
+                    OrdenarListaTemaVideo
+                End If
+            Else
+            
                 If nDiscoSEL = DiscosEnPagina - 1 Then
                     'ver si hay que pasar hojas
                     If PasarHoja Then
@@ -525,8 +680,9 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                         SelDisco nDiscoSEL + 1
                     End If
                 End If
-                lblTOTdiscos = "Disco " + CStr(nDiscoGral + 1) + " de " + CStr(TOTAL_DISCOS)
             End If
+            lblTOTdiscos = "Disco " + CStr(nDiscoGral + 1) + " de " + CStr(TOTAL_DISCOS)
+
             TECLAS_PRES = TECLAS_PRES + "2"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
             lblTECLAS = TECLAS_PRES
@@ -534,9 +690,107 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             TECLAS_PRES = TECLAS_PRES + "3"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
             lblTECLAS = TECLAS_PRES
-            If ESTOY = 0 Then
-                If lblDISCO(nDiscoSEL) = "01- Los mas escuchados" Then GoTo TOP10Show
-                frmTemasDeDisco.Show 1
+            
+            If ModoVideoSelTema Then
+                'si no dice salir cargar tema
+                If T(TemaElegidoModoVideo) = "SALIR" Or T(TemaElegidoModoVideo) = "No hay temas" Then
+                    'volver a elegir discos
+                    frTEMAS.Visible = False
+                    lblTEMAS.Visible = False
+                    For AA = 1 To UBound(MATRIZ_TEMAS)
+                        Unload T(AA)
+                    Next
+                    frModoVideo.Height = frDISCOS.Height - lblModoVideo.Height
+                    UnSelTema 0
+                    ModoVideoSelTema = False
+                Else
+                    'ejecutar el tema
+                    If CREDITOS > 0 Then
+                        CREDITOS = CREDITOS - 1
+                        'siempre que se ejecute un credito estaremos por debajo de maximo
+                        OnOffCAPS vbKeyScrollLock, True
+                        'grabar cant de creditos
+                        EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
+                        If CREDITOS < 10 Then frmINDEX.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+                        If CREDITOS >= 10 Then frmINDEX.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+                        Dim temaElegido As String
+                        'lstext es una lista oculta  con datos completos
+                        temaElegido = txtInLista(MATRIZ_TEMAS(TemaElegidoModoVideo), 0, ",")
+                        
+                        'si esta ejecutando pasa a la lista de reproducción
+                        If MP3.IsPlaying Then
+                            'pasar a la lista de reproducción
+                            Dim NewIndLista As Long
+                            NewIndLista = UBound(MATRIZ_LISTA)
+                            ReDim Preserve MATRIZ_LISTA(NewIndLista + 1)
+                            
+                            'se graba en Matriz_Listas como path, nombre(sin .mp3)
+                            MATRIZ_LISTA(NewIndLista + 1) = _
+                                temaElegido + "," + _
+                                FSO.GetBaseName(T(TemaElegidoModoVideo)) + _
+                                " / " + FSO.GetBaseName(UbicDiscoActual)
+                            CargarProximosTemas
+                            'graba en reini.tbr los datos que correspondan por si se corta la luz
+                            CargarArchReini UCase(ReINI) 'POR LAS DUDAS que no este en mayusculas
+                            'volver a elegir discos
+                            frTEMAS.Visible = False
+                            lblTEMAS.Visible = False
+                            For AA = 1 To UBound(MATRIZ_TEMAS)
+                                Unload T(AA)
+                            Next
+                            frModoVideo.Height = frDISCOS.Height - lblModoVideo.Height
+                            UnSelTema 0
+                            ModoVideoSelTema = False
+                        Else
+                            'NUNCA ENTRARA AQUI, siempre esta rep video
+                            'TEMA_REPRODUCIENDO y mp3.isplayin se cargan en ejecutartema
+                            'paciencia
+                            CORTAR_TEMA = False 'este tema va entero ya que lo eligio el usuario
+                            EjecutarTema temaElegido, True
+                        End If
+                    End If
+                End If
+            Else
+                'ver si hay que mostrar el frm
+                'o estamos en MODO VIDEO
+                If EsVideo Then
+                    frModoVideo.Height = frDISCOS.Height / 4
+                    OrdenarListaModoVideo
+                    lblTEMAS.Top = frModoVideo.Top + frModoVideo.Height + 50
+                    lblTEMAS.Left = lblModoVideo.Left
+                    frTEMAS.Top = lblTEMAS.Top + lblTEMAS.Height
+                    frTEMAS.Height = frDISCOS.Height - lblModoVideo.Height - frModoVideo.Height - lblTEMAS.Height - 75
+                    lblTEMAS.Visible = True
+                    frTEMAS.Visible = True
+                    
+                    'cargar los temas multimedia en t()
+                    ReDim MATRIZ_TEMAS(0) 'matriz en blanco
+                    'es una matriz global
+                    UbicDiscoActual = txtInLista(MATRIZ_DISCOS(nDiscoGral + 1), 0, ",")
+                    'encontrar todos los archivos *.mp3, *.avi, *.mpg, *.mpeg, etc
+                    ReDim Preserve MATRIZ_TEMAS(0)
+                    MATRIZ_TEMAS = ObtenerArchMM(UbicDiscoActual)
+                    If UBound(MATRIZ_TEMAS) = 0 Then
+                        T(0) = "No hay temas"
+                        SelTema 0
+                        ModoVideoSelTema = True
+                        Exit Sub
+                    End If
+                    T(0) = "SALIR"
+                    For AA = 1 To UBound(MATRIZ_TEMAS)
+                        Load T(AA)
+                        T(AA) = FSO.GetBaseName(txtInLista(MATRIZ_TEMAS(AA), 1, ","))
+                        T(AA).Top = T(AA - 1).Top + T(AA - 1).Height
+                        T(AA).Left = T(AA - 1).Left
+                        T(AA).Visible = True
+                    Next
+                    TemaElegidoModoVideo = 0
+                    SelTema 0
+                    ModoVideoSelTema = True
+                Else
+                    If lblDISCO(nDiscoSEL) = "01- Los mas escuchados" Then GoTo TOP10Show
+                    frmTemasDeDisco.Show 1
+                End If
             End If
         Case TeclaCerrarSistema
             OnOffCAPS vbKeyCapital, False
@@ -550,6 +804,17 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             TECLAS_PRES = TECLAS_PRES + "4"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
             lblTECLAS = TECLAS_PRES
+            If ModoVideoSelTema Then
+                'volver a elegir discos
+                frTEMAS.Visible = False
+                lblTEMAS.Visible = False
+                For AA = 1 To UBound(MATRIZ_TEMAS)
+                    Unload T(AA)
+                Next
+                frModoVideo.Height = frDISCOS.Height - lblModoVideo.Height
+                UnSelTema 0
+                ModoVideoSelTema = False
+            End If
     End Select
     VerClaves TECLAS_PRES
     SecSinTecla = 0
@@ -569,13 +834,17 @@ Private Sub Form_Load()
     'TapasMostradasH = 4: TapasMostradasV = 3
     
     'si no se ve el vumetro debo desplazar los controles
+    frDISCOS.Top = 0
+    frDISCOS.Left = 0
     If HabilitarVUMetro = False Then
         frDISCOS.Width = VU1.Left + VU1.Width
         lblTemaSonando.Width = lblTemaSonando.Width + VU1.Width
+        lblTBR.Width = lblTemaSonando.Width
         LBLpORCtEMA.Width = LBLpORCtEMA.Width + VU1.Width
         Image1.Left = frDISCOS.Width - Image1.Width
         lblV.Left = lblTemaSonando.Width - lblV.Width
         lblProximoTema.Width = Image1.Left - lblProximoTema.Left
+        
     Else
         frDISCOS.Left = 0
         frDISCOS.Width = VU1.Left
@@ -593,12 +862,11 @@ Private Sub Form_Load()
         'correr todo para abajo
         lblTemaSonando.Top = lblTiempoRestante.Top - lblTemaSonando.Height - LBLpORCtEMA.Height
         LBLpORCtEMA.Top = lblTiempoRestante.Top - LBLpORCtEMA.Height
-        frDISCOS.Height = lblTemaSonando.Top
         Image1.Left = lblTemaSonando.Width 'queda afuera
         Image1.Visible = False
         lblV.Visible = False
     End If
-    
+    frDISCOS.Height = lblTemaSonando.Top
     'ajustar los indicadores que esten visibles al ancho que este disponible
     Dim IndicadoresVisibles As Long
     IndicadoresVisibles = 0
@@ -766,11 +1034,12 @@ Private Sub Form_Load()
     'dejar cargado el mostrados de procesos
     'Load frmini
     'cargar las variables globales
-    ESTOY = 0 'aparece viendo los CDS
+
     TEMA_REPRODUCIENDO = "Sin reproducción actual"
     TEMA_SIGUIENTE = "No hay proximo tema"
     TEMAS_EN_LISTA = 0
     lblDEMO.Width = lblProximoTema.Width
+
     
     'buscar discos = todas las carpetas en AP\discos\*.*
     'y meterlos en la matriz
@@ -833,6 +1102,13 @@ Public Sub SelDisco(nDisco As Long)
     lblSel.Width = TapaCD(nDiscoSEL).Width + lblSel.BorderWidth * 20
     lblSel.Visible = True
     lblSel.ZOrder
+    lblDISCO(nDisco).ZOrder
+    
+    'seleccionar de la lista de solo video
+    L(nDiscoGral).ForeColor = vbWhite
+    L(nDiscoGral).BackColor = vbBlack
+    LastDiscoSel = nDiscoGral 'para saber cual desactivar en unsel
+    If EsVideo Then OrdenarListaModoVideo
     
 End Sub
 
@@ -841,8 +1117,11 @@ Public Sub UnSelDisco(nDisco As Long)
     'lblDISCO(nDisco).Font.Bold = False
     lblDISCO(nDisco).Font.Underline = False
     lblDISCO(nDisco).BackColor = vbBlack
+    'seleccionar de la lista de solo video
+    L(LastDiscoSel).ForeColor = vbBlack
+    L(LastDiscoSel).BackColor = vbWhite
+    If EsVideo Then OrdenarListaModoVideo
 End Sub
-
 
 Public Function CargarDiscos(numDiscoIniciar As Long, SelPrimero As Boolean) As Long
     'indicando en que disco se inicia carga ese y los seis (o lo que corresponde) que le sigen
@@ -939,7 +1218,7 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
     MostrarCursor True
     MP3.DoStop
     MP3.DoClose
-    VU.DoStop
+    VU1.DoStop
 End Sub
 
 Private Sub MP3_BeginPlay()
@@ -957,9 +1236,24 @@ Private Sub MP3_BeginPlay()
 End Sub
 
 Private Sub MP3_EndPlay()
+    'volver a PasarHoja a su estado original
+    PasarHoja = LeerConfig("PasarHoja")
+    If HabilitarVUMetro Then
+        frDISCOS.Width = VU1.Left
+        VU1.Top = 0
+        VU1.Height = Me.Height
+    Else
+        frDISCOS.Width = Me.Width
+    End If
+    frModoVideo.Visible = False
+    lblModoVideo.Visible = False
+    frTEMAS.Visible = False
+    lblTEMAS.Visible = False
+    ModoVideoSelTema = False
+    LBLpORCtEMA.Width = Ancho
     'termino una cancion
     If EsVideo Then MP3.DoClose
-    LBLpORCtEMA.Width = Ancho
+    picVideo.Visible = False
     EMPEZAR_SIGUIENTE
 End Sub
 
@@ -997,11 +1291,7 @@ Private Sub Timer1_Timer()
     SecSinUso = SecSinUso + 10
     lblNoUSO = Trim(Str(SecSinUso))
     If SecSinUso >= EsperaMinutos Then 'esperaminutos esta en segundos
-        'si estaba en temas de disco salir
-        If ESTOY = 1 Then
-            ESTOY = 0
-            Unload frmTemasDeDisco
-        End If
+                
         SecSinUso = 0
         Dim TemasDisponibles As Long
         If TemasEnRank(1) > 50 Then
@@ -1102,6 +1392,8 @@ Private Sub Timer3_Timer()
     'controla el tiempo sin uso (sin tocar teclas)
     SecSinTecla = SecSinTecla + 10
     lblNoTecla = Trim(Str(SecSinTecla))
+    'no protector en video
+    If EsVideo Then SecSinTecla = 0
     If SecSinTecla > EsperaTecla And EsVideo = False Then
         frmProtect.Show 1
     End If
@@ -1138,3 +1430,90 @@ Public Function TemasEnRank(MasDeXVotos) As Long
     TemasEnRank = CA
 End Function
 
+Public Sub OrdenarListaModoVideo()
+    'asegurarme que el disco elegido se ve en la lista
+    Dim CL As Long 'contador de L
+    Dim HayQueCorrerse As Long 'cuanto hay que correrse
+    'para acomodar
+    If L(nDiscoGral).Top > frModoVideo.Height - (L(0).Height + 25) Then
+        'esta fuera de la vista para abajo
+        'correr todo para abajo
+        'ver cuanto hay que corresse
+        'en gral es solo una casilla
+        'pero si me muevo por paginas
+        'puede ser mucho mas
+        HayQueCorrerse = L(nDiscoGral).Top - (frModoVideo.Height - (L(0).Height + 25))
+        
+        CL = 0
+        Do While CL < TOTAL_DISCOS
+            L(CL).Top = L(CL).Top - HayQueCorrerse
+            CL = CL + 1
+        Loop
+    End If
+    
+    If L(nDiscoGral).Top < 0 Then
+        'ver cuanto hay que corresse
+        'en gral es solo una casilla
+        'pero si me muevo por paginas
+        'puede ser mucho mas
+        HayQueCorrerse = -L(nDiscoGral).Top
+        
+        'esta fuera de la vista para arriba
+        'correr todo para arriba
+        CL = 0
+        Do While CL < TOTAL_DISCOS
+            L(CL).Top = L(CL).Top + HayQueCorrerse
+            CL = CL + 1
+        Loop
+    End If
+    
+End Sub
+
+Public Sub SelTema(n As Integer)
+    T(n).BackColor = &H0&
+    T(n).ForeColor = &H80FFFF
+End Sub
+
+Public Sub UnSelTema(n As Integer)
+    T(n).BackColor = &H80FFFF
+    T(n).ForeColor = &H0&
+End Sub
+
+Public Sub OrdenarListaTemaVideo()
+    'asegurarme que el disco elegido se ve en la lista
+    Dim CL As Long 'contador de L
+    Dim HayQueCorrerse As Long 'cuanto hay que correrse
+    'para acomodar
+    If T(TemaElegidoModoVideo).Top > frTEMAS.Height - (T(0).Height + 25) Then
+        'esta fuera de la vista para abajo
+        'correr todo para abajo
+        'ver cuanto hay que correrse
+        'en gral es solo una casilla
+        'pero si me muevo por paginas
+        'puede ser mucho mas
+        HayQueCorrerse = T(TemaElegidoModoVideo).Top - (frTEMAS.Height - (T(0).Height + 25))
+        
+        CL = 0
+        Do While CL <= UBound(MATRIZ_TEMAS)
+            T(CL).Top = T(CL).Top - HayQueCorrerse
+            CL = CL + 1
+        Loop
+    End If
+    
+    If T(TemaElegidoModoVideo).Top < 0 Then
+        'ver cuanto hay que corresse
+        'en gral es solo una casilla
+        'pero si me muevo por paginas
+        'puede ser mucho mas
+        HayQueCorrerse = -T(TemaElegidoModoVideo).Top
+        
+        'esta fuera de la vista para arriba
+        'correr todo para arriba
+        CL = 0
+        Do While CL <= UBound(MATRIZ_TEMAS)
+            T(CL).Top = T(CL).Top + HayQueCorrerse
+            CL = CL + 1
+        Loop
+    End If
+    
+End Sub

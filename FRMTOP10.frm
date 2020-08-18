@@ -174,7 +174,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                 Else
                     frmINDEX.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
                 End If
-                ESTOY = 0
+                
                 Unload Me
             Else
                 'apagar el fichero electronico
@@ -216,7 +216,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             TECLAS_PRES = TECLAS_PRES + "4"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
             frmINDEX.lblTECLAS = TECLAS_PRES
-            ESTOY = 0
+            
             Unload Me
         Case TeclaOK
             TECLAS_PRES = TECLAS_PRES + "3"
@@ -260,7 +260,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                     EjecutarTema temaElegido, True
                 End If
                 'pase lo que pase me vuelvo a los discos y cierro ventana actual
-                ESTOY = 0
+                
                 Unload Me
             Else
                 lblNoEjecuta.Visible = True

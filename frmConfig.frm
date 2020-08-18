@@ -2147,7 +2147,7 @@ End Sub
 Private Sub Command3_Click()
     frmCLAVE.Show 1
     'ver que la contraseña se tome desde el teclado al usuario
-    If ClaveIngresada = "fRF4247L000wZ" Then '13 caracteres
+    If ClaveIngresada = "cWaHr0121AWqA" Then '13 caracteres
         SumarContadorCreditos -CONTADOR 'esto lo deja en cero
         lblContador = STRceros(CONTADOR, 11)
     Else
@@ -2365,12 +2365,13 @@ End Sub
 Private Sub HSvolumen_Change()
     If frmINDEX.MP3.IsPlaying Then frmINDEX.MP3.Volumen = HSvolumen
     LblVol = "Volumen: " + Trim(Str(HSvolumen))
-    HLP "Volumen del sonido actual."
+    
 End Sub
 
 Private Sub HSvolumen_GotFocus()
     TeclaConfOK = "{UP}": TeclaConfESC = "{DOWN}"
     LineSCROLL.Visible = True
+    HLP "Volumen del sonido actual."
 End Sub
 
 Private Sub HSvolumen_LostFocus()

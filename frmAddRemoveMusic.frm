@@ -18,7 +18,7 @@ Begin VB.Form frmAddRemoveMusic
    WindowState     =   2  'Maximized
    Begin VB.CommandButton Command4 
       BackColor       =   &H00FFFFC0&
-      Caption         =   "Ver estadistica del archivo elegido"
+      Caption         =   "Ver estadisticas de tema"
       BeginProperty Font 
          Name            =   "Arial"
          Size            =   8.25
@@ -29,16 +29,15 @@ Begin VB.Form frmAddRemoveMusic
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   6450
+      Left            =   7170
       Style           =   1  'Graphical
-      TabIndex        =   7
-      Top             =   5970
-      Visible         =   0   'False
-      Width           =   3645
+      TabIndex        =   8
+      Top             =   5760
+      Width           =   2925
    End
    Begin VB.CommandButton Command2 
       BackColor       =   &H00C0FFFF&
-      Caption         =   "Ver estadisticas de la carpeta elegida"
+      Caption         =   "Ver estadisticas del disco elegido"
       BeginProperty Font 
          Name            =   "Arial"
          Size            =   8.25
@@ -51,10 +50,9 @@ Begin VB.Form frmAddRemoveMusic
       Height          =   375
       Left            =   6180
       Style           =   1  'Graphical
-      TabIndex        =   6
+      TabIndex        =   7
       Top             =   7290
-      Visible         =   0   'False
-      Width           =   4365
+      Width           =   2925
    End
    Begin VB.CommandButton Command3 
       BackColor       =   &H00FFC0C0&
@@ -91,7 +89,7 @@ Begin VB.Form frmAddRemoveMusic
       Left            =   7170
       Style           =   1  'Graphical
       TabIndex        =   4
-      Top             =   5580
+      Top             =   5400
       Width           =   2925
    End
    Begin VB.CommandButton Command1 
@@ -110,7 +108,7 @@ Begin VB.Form frmAddRemoveMusic
       Left            =   6180
       Style           =   1  'Graphical
       TabIndex        =   3
-      Top             =   6870
+      Top             =   6900
       Width           =   2925
    End
    Begin VB.ListBox lstTEMAS 
@@ -165,7 +163,7 @@ Begin VB.Form frmAddRemoveMusic
       Height          =   285
       Index           =   1
       Left            =   6540
-      TabIndex        =   8
+      TabIndex        =   6
       Top             =   150
       Width           =   3795
    End
@@ -229,7 +227,7 @@ End Sub
 Private Sub Command1_Click()
     If MsgBox("Esta seguro que desea eliminar las carpetas elegidas?", _
         vbQuestion + vbYesNo) = vbYes Then
-        
+        On Local Error GoTo NOBORRA
         Dim TotSel As Long, CarpSel As String
         TotSel = lstCarpetas.SelCount
         For AA = 0 To lstCarpetas.ListCount - 1
@@ -263,6 +261,11 @@ Public Sub CargarCarpetas()
     Next
     lstCarpetas.Selected(0) = True
 End Sub
+
+Private Sub Command2_Click()
+    'mostrar la cantidad de veces que se escucho este disco, cuanto se escucho el mas y cuanto el menos
+End Sub
+
 Private Sub Command3_Click()
     Unload Me
 End Sub
@@ -277,13 +280,14 @@ Private Sub lstCarpetas_Click()
     lstTEMAS.Clear
     'mostrar los temas de esta carpeta solo si hay una sola carpeta elegida
     If lstCarpetas.SelCount > 1 Then
+        Command2.Enabled = False
         lstTEMAS.AddItem "No hay vista disponible, multiples carpetas seleccionadas"
         lstTEMAS.Enabled = False
         GoTo FIN
     Else
+        Command2.Enabled = True
         lstTEMAS.Enabled = True
     End If
-    
     
     ReDim Preserve MTXfiles(0)
     

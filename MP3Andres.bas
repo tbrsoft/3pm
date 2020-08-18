@@ -20,8 +20,47 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
     
     If UCase(FSO.GetExtensionName(tema)) <> "MP3" Then
         EsVideo = True
+        'cerrar el protector si estaba activo
+        Unload frmProtect
+        'acomodar los controles en modo video
+        'modo texto pata elegir los discos
+        With frmINDEX
+            .frModoVideo.Left = .Width - .frModoVideo.Width
+            .frTEMAS.Left = .Width - .frTEMAS.Width
+            .frModoVideo.Height = .frDISCOS.Height - .lblModoVideo.Height
+            .frModoVideo.Visible = True
+            .lblModoVideo.Visible = True
+            .frDISCOS.Width = .Width - .frModoVideo.Width
+            .VU1.Top = .frDISCOS.Height
+            .VU1.Height = .Height - .frDISCOS.Height
+            .picVideo.Top = 0
+            .picVideo.Left = 0
+            .picVideo.Width = .frDISCOS.Width
+            .picVideo.Height = .frDISCOS.Height
+            .picVideo.Visible = True
+        End With
+        'habilitar pasar las paginas con teclas simples
+        'por que en el modo texto la lista no
+        'tiene paginas
+        PasarHoja = True
     Else
         EsVideo = False
+        'acomodar los controles en modo normal
+        With frmINDEX
+            If HabilitarVUMetro Then
+                .frDISCOS.Width = .VU1.Left
+                .VU1.Top = 0
+                .VU1.Height = .Height
+            Else
+                .frDISCOS.Width = .Width
+            End If
+            .frModoVideo.Visible = False
+            .lblModoVideo.Visible = False
+            .frTEMAS.Visible = False
+            .lblTEMAS.Visible = False
+        End With
+        'volver a PasarHoja a su estado original
+        PasarHoja = LeerConfig("PasarHoja")
     End If
     'Valores de ReIni FULL=tema ejecutando y lista LISTA=solo lista NADA=arranca de cero
     'si corresponde graba en reini.tbr la lista de temas por sis se corta la luz
@@ -43,11 +82,10 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
     'mostrar el puesto que esta en el ranking
     frmINDEX.lblPuesto = "Rank # " + PuestoN(tema)
     
-    
     With frmINDEX.MP3
         .FileName = tema
         If EsVideo Then
-            .DoOpenVideo "popup", frmINDEX.hWnd, 0, 0, (frmINDEX.frDISCOS.Width / 15), (frmINDEX.lblTemaSonando.Top / 15)
+            .DoOpenVideo "child", frmINDEX.picVideo.hWnd, 0, 0, (frmINDEX.frDISCOS.Width / 15), (frmINDEX.lblTemaSonando.Top / 15)
         Else
             .DoOpen
         End If
@@ -55,7 +93,9 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
         .DoPlay
     End With
     If HabilitarVUMetro Then frmINDEX.VU1.CarFantastic = False
-    If EsVideo Then frmINDEX.SetFocus 'JOYA JOYA!!! en mp3 da error, no usar
+    'If EsVideo Then
+        frmINDEX.SetFocus 'JOYA JOYA!!! en mp3 da error, no usar
+    'End If
     'para qyue tome de nuevo el control del teclado
     Exit Sub
 ErrEjecutarTema:
