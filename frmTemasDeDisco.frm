@@ -406,8 +406,8 @@ Private Sub Form_Activate()
     Dim pathTema As String
     lstEXT.Clear
     If NoHayTemasEnDisco Then
-        lstTEMAS.AddItem "No hay temas en este disco"
-        lstTEMAS.Enabled = False
+        lstTemas.AddItem "No hay temas en este disco"
+        lstTemas.Enabled = False
         lstTIME.Enabled = False
         WriteTBRLog "No hay temas en el disco: " + UbicDiscoActual, True
         Exit Sub
@@ -418,8 +418,8 @@ Private Sub Form_Activate()
         nombreTemas = txtInLista(MATRIZ_TEMAS(c), 1, ",")
         'quitar el molesto .mp3 o lo que fuera
         nombreTemas = FSO.GetBaseName(nombreTemas)
-        lstTEMAS.AddItem nombreTemas
-        lstTEMAS.Refresh
+        lstTemas.AddItem nombreTemas
+        lstTemas.Refresh
         lstEXT.AddItem pathTema
         c = c + 1
     Loop
@@ -443,8 +443,8 @@ Private Sub Form_Activate()
                     NoCargoDuracion = NoCargoDuracion + 1
                     If NoCargoDuracion > 3 Then
                         lstTIME.Visible = False
-                        lstTEMAS.Left = 50
-                        lstTEMAS.Width = lblNoEjecuta.Left - 50
+                        lstTemas.Left = 50
+                        lstTemas.Width = lblNoEjecuta.Left - 50
                     End If
                 End If
             End If
@@ -455,8 +455,8 @@ Private Sub Form_Activate()
         Set MP3tmp = Nothing
         lstTIME.Enabled = True
     End If
-    lstTEMAS.Enabled = True
-    lstTEMAS.ListIndex = 0
+    lstTemas.Enabled = True
+    lstTemas.ListIndex = 0
     Label1 = "Temas de este disco"
 End Sub
 
@@ -490,7 +490,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             'MP3 O VIDEO!!!!!!
             Dim temaElegido As String
             'lstext es una lista oculta  con datos completos
-            temaElegido = lstEXT.List(lstTEMAS.ListIndex) ' UbicDiscoActual + "\" + lstTemas + "." + EXTs(lstTemas.ListIndex)
+            temaElegido = lstEXT.List(lstTemas.ListIndex) ' UbicDiscoActual + "\" + lstTemas + "." + EXTs(lstTemas.ListIndex)
             
             If LCase(Right(temaElegido, 3)) = "mp3" Then
                 PideVideo = False
@@ -531,21 +531,21 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                     NewIndLista = UBound(MATRIZ_LISTA)
                     ReDim Preserve MATRIZ_LISTA(NewIndLista + 1)
                     'se graba en Matriz_Listas como patah, nombre(sin .mp3)
-                    MATRIZ_LISTA(NewIndLista + 1) = temaElegido + "," + lstTEMAS + " / " + FSO.GetBaseName(UbicDiscoActual)
+                    MATRIZ_LISTA(NewIndLista + 1) = temaElegido + "," + lstTemas + " / " + FSO.GetBaseName(UbicDiscoActual)
                     CargarProximosTemas
                     'graba en reini.tbr los datos que correspondan por si se corta la luz
                     CargarArchReini UCase(ReINI) 'POR LAS DUDAS que no este en mayusculas
                 Else
                     'TEMA_REPRODUCIENDO y mp3.isplayin se cargan en ejecutartema
                     'paciencia
-                    lstTEMAS.Enabled = False: lstTIME.Enabled = False
-                    lstTEMAS.BackColor = vbBlack: lstTIME.BackColor = vbBlack
-                    lstTEMAS.ForeColor = vbYellow
+                    lstTemas.Enabled = False: lstTIME.Enabled = False
+                    lstTemas.BackColor = vbBlack: lstTIME.BackColor = vbBlack
+                    lstTemas.ForeColor = vbYellow
                     'lstTemas.Font.Size = 22 esto hace que parezca mas de un lstbox
-                    lstTEMAS.Clear: lstTIME.Clear
-                    lstTEMAS.AddItem "CARGANDO TEMA"
-                    lstTEMAS.AddItem "ESPERE..."
-                    lstTEMAS.Refresh: lstTIME.Refresh
+                    lstTemas.Clear: lstTIME.Clear
+                    lstTemas.AddItem "CARGANDO TEMA"
+                    lstTemas.AddItem "ESPERE..."
+                    lstTemas.Refresh: lstTIME.Refresh
                     CORTAR_TEMA = False 'este tema va entero ya que lo eligio el usuario
                     EjecutarTema temaElegido, True
                 End If
@@ -562,19 +562,19 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             TECLAS_PRES = TECLAS_PRES + "2"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
             frmIndex.lblTECLAS = TECLAS_PRES
-            If lstTEMAS.ListIndex < lstTEMAS.ListCount - 1 Then
-                lstTEMAS.ListIndex = lstTEMAS.ListIndex + 1
+            If lstTemas.ListIndex < lstTemas.ListCount - 1 Then
+                lstTemas.ListIndex = lstTemas.ListIndex + 1
             Else
-                lstTEMAS.ListIndex = 0
+                lstTemas.ListIndex = 0
             End If
         Case TeclaIZQ
             TECLAS_PRES = TECLAS_PRES + "1"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
             frmIndex.lblTECLAS = TECLAS_PRES
-            If lstTEMAS.ListIndex > 0 Then
-                lstTEMAS.ListIndex = lstTEMAS.ListIndex - 1
+            If lstTemas.ListIndex > 0 Then
+                lstTemas.ListIndex = lstTemas.ListIndex - 1
             Else
-                lstTEMAS.ListIndex = lstTEMAS.ListCount - 1
+                lstTemas.ListIndex = lstTemas.ListCount - 1
             End If
         Case TeclaPagAd
             TECLAS_PRES = TECLAS_PRES + "5"
@@ -641,8 +641,8 @@ Private Sub Form_Load()
     'ocultar ahora
     If CargarDuracionTemas = False Then
         lstTIME.Visible = False
-        lstTEMAS.Left = 50
-        lstTEMAS.Width = lblNoEjecuta.Left - 150
+        lstTemas.Left = 50
+        lstTemas.Width = lblNoEjecuta.Left - 150
     End If
     SegSinTecla = 0
     RelojTDD.Enabled = True
@@ -651,7 +651,7 @@ End Sub
 
 Private Sub lstTemas_Click()
     On Local Error Resume Next
-    If CargarDuracionTemas Then lstTIME.ListIndex = lstTEMAS.ListIndex
+    If CargarDuracionTemas Then lstTIME.ListIndex = lstTemas.ListIndex
 End Sub
 
 Private Sub RelojTDD_Timer()

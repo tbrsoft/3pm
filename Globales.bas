@@ -1,4 +1,5 @@
 Attribute VB_Name = "Globales"
+Public Salida2 As Boolean 'indica si hay una 2° salida de video
 Public vidFullScreen As Boolean 'dice si el video es fullscreen o no
 Public NoVumVID As Boolean 'quitar el VUMetro de los videos
 

@@ -1,15 +1,16 @@
 VERSION 5.00
 Begin VB.Form Form1 
+   BackColor       =   &H00000000&
    BorderStyle     =   4  'Fixed ToolWindow
    Caption         =   "CLaves III Edicion"
-   ClientHeight    =   6285
+   ClientHeight    =   8085
    ClientLeft      =   45
    ClientTop       =   285
    ClientWidth     =   9975
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   6285
+   ScaleHeight     =   8085
    ScaleWidth      =   9975
    ShowInTaskbar   =   0   'False
    StartUpPosition =   3  'Windows Default
@@ -23,12 +24,12 @@ Begin VB.Form Form1
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   1200
-      Left            =   1680
+      Height          =   1800
+      Left            =   1560
       MultiLine       =   -1  'True
       ScrollBars      =   2  'Vertical
       TabIndex        =   6
-      Top             =   4860
+      Top             =   6180
       Width           =   8200
    End
    Begin VB.TextBox Text3 
@@ -41,26 +42,25 @@ Begin VB.Form Form1
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   1200
-      Left            =   1680
+      Height          =   1800
+      Left            =   1620
       MultiLine       =   -1  'True
       ScrollBars      =   2  'Vertical
       TabIndex        =   5
-      Top             =   3330
+      Top             =   3960
       Width           =   8200
    End
    Begin VB.TextBox tAsig 
-      Height          =   5535
-      Left            =   90
+      Height          =   6705
+      Left            =   30
       MultiLine       =   -1  'True
       ScrollBars      =   2  'Vertical
       TabIndex        =   4
-      Top             =   540
+      Top             =   1320
       Width           =   1515
    End
    Begin VB.TextBox Text6 
       Alignment       =   2  'Center
-      Enabled         =   0   'False
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   20.25
@@ -73,7 +73,7 @@ Begin VB.Form Form1
       Height          =   540
       Left            =   1620
       TabIndex        =   3
-      Top             =   540
+      Top             =   840
       Width           =   6345
    End
    Begin VB.TextBox lstClaves 
@@ -86,20 +86,21 @@ Begin VB.Form Form1
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   1200
-      Left            =   1680
+      Height          =   1800
+      Left            =   1620
       MultiLine       =   -1  'True
       ScrollBars      =   2  'Vertical
       TabIndex        =   2
-      Top             =   1740
+      Top             =   1770
       Width           =   8200
    End
    Begin VB.CommandButton Command1 
       Caption         =   "Generar Clave"
+      Enabled         =   0   'False
       Height          =   375
-      Left            =   6360
+      Left            =   8190
       TabIndex        =   1
-      Top             =   1140
+      Top             =   1350
       Width           =   1605
    End
    Begin VB.TextBox Text1 
@@ -131,9 +132,9 @@ Begin VB.Form Form1
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   1680
+      Left            =   1620
       TabIndex        =   9
-      Top             =   4530
+      Top             =   5790
       Width           =   4695
    End
    Begin VB.Label Label2 
@@ -150,7 +151,7 @@ Begin VB.Form Form1
       Height          =   375
       Left            =   1680
       TabIndex        =   8
-      Top             =   2970
+      Top             =   3600
       Width           =   4695
    End
    Begin VB.Label Label1 
@@ -165,7 +166,7 @@ Begin VB.Form Form1
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   1680
+      Left            =   1650
       TabIndex        =   7
       Top             =   1410
       Width           =   4695
@@ -219,5 +220,8 @@ End Sub
 Private Sub Text1_Change()
     'al cambiar que se vea a que numero de la clave anterior corresponde
     'Text6 = K.UniquePCOLD
-    Text6 = K.GetOldFromNew(Text1.Text)
+    'siempre mayusculas!!!!!!!!!!
+    'ya tuve quilombo con tomas porque copiaba de una PC a otra el codifp
+    'no tenia internet en la pcx de la fonola
+    Text6 = K.GetOldFromNew(UCase(Text1.Text))
 End Sub

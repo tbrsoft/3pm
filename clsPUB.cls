@@ -122,37 +122,37 @@ Public Sub CargarPUBs()
     CONT = 0
     Dim CONTimg As Long
     CONTimg = 0
-    Dim ARCH As String
-    ARCH = Dir(AP + "pub\*.*", vbArchive)
+    Dim Arch As String
+    Arch = Dir(AP + "pub\*.*", vbArchive)
     Dim IsMM As Boolean
     Dim IsIMG As Boolean
-    Do While ARCH <> ""
+    Do While Arch <> ""
         IsIMG = False
         IsMM = False
         'ver que tenga los formatos que busco
-        If LCase(Right(ARCH, 3)) = "mp3" Then IsMM = True
-        If LCase(Right(ARCH, 3)) = "avi" Then IsMM = True
-        If LCase(Right(ARCH, 3)) = "mpg" Then IsMM = True
-        If LCase(Right(ARCH, 4)) = "mpeg" Then IsMM = True
+        If LCase(Right(Arch, 3)) = "mp3" Then IsMM = True
+        If LCase(Right(Arch, 3)) = "avi" Then IsMM = True
+        If LCase(Right(Arch, 3)) = "mpg" Then IsMM = True
+        If LCase(Right(Arch, 4)) = "mpeg" Then IsMM = True
         'ver si es IMG
-        If LCase(Right(ARCH, 3)) = "jpg" Then IsIMG = True
-        If LCase(Right(ARCH, 3)) = "gif" Then IsIMG = True
-        If LCase(Right(ARCH, 3)) = "bmp" Then IsIMG = True
-        If LCase(Right(ARCH, 4)) = "jpeg" Then IsIMG = True
+        If LCase(Right(Arch, 3)) = "jpg" Then IsIMG = True
+        If LCase(Right(Arch, 3)) = "gif" Then IsIMG = True
+        If LCase(Right(Arch, 3)) = "bmp" Then IsIMG = True
+        If LCase(Right(Arch, 4)) = "jpeg" Then IsIMG = True
         
         If IsMM Then
             CONT = CONT + 1
             ReDim Preserve mPubs(CONT)
-            mPubs(CONT) = UCase(AP + "pub\" + ARCH)
+            mPubs(CONT) = UCase(AP + "pub\" + Arch)
         End If
         
         If IsIMG Then
             CONTimg = CONTimg + 1
             ReDim Preserve mPubsIMG(CONTimg)
-            mPubsIMG(CONTimg) = UCase(AP + "pub\" + ARCH)
+            mPubsIMG(CONTimg) = UCase(AP + "pub\" + Arch)
         End If
         
-        ARCH = Dir
+        Arch = Dir
     Loop
     
     'ordenarlo!!!!!!!!!!

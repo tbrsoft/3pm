@@ -16,8 +16,6 @@ Attribute VB_Exposed = False
     'Mas de una clave por tipo de licencia
     'Codigo de PC unico para dar seguridad. NO ES UNICO EL DEL WBMEME PROCID!!!!! FUCK!!!!!!
     'No importa que sea 98 o ME debe andar igual!!! con FF(98) y todo!!!
-    
-    
 
 Private FSO As New Scripting.FileSystemObject
 

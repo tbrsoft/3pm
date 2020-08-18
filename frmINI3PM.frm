@@ -870,8 +870,9 @@ End Sub
 
 Private Sub Option2_Click()
     If MostrarMensajeWarning Then
-        MsgBox "¡¡¡Solo active esta opción sobre " + _
+        'MsgBox "¡¡¡Solo active esta opción sobre " + _
         "Windows 98. Puede no ser compatible " + _
         "con otros sistemas operativos!!!"
     End If
 End Sub
+

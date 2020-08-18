@@ -1,0 +1,106 @@
+[Root]
+Most Recent Package=Paquete de instalación estándar 1
+
+
+[Package|Paquete de instalación estándar 1|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=D:\ahora\getUnicInfo\tbrWBem\i
+
+[Package|Paquete de instalación estándar 1|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Paquete de instalación estándar 1|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Paquete de instalación estándar 1|Files Found]
+
+[Package|Paquete de instalación estándar 1|Files Released]
+
+[Package|Paquete de instalación estándar 1|Missing Dependency Information]
+C:\WINDOWS\SYSTEM\WBEM\WBEMDISP.TLB=
+C:\TBRWIN\SYSTEM\WBEM\WBEMDISP.TLB=
+
+[Package|Paquete de instalación estándar 1|Out-of-Date Dependency Information]
+
+[Package|Paquete de instalación estándar 1|Files Added]
+
+[Package|Paquete de instalación estándar 1|Files Removed]
+c:\tbrwin\system\msvbvm60.dll=
+c:\tbrwin\system\oleaut32.dll=
+c:\tbrwin\system\olepro32.dll=
+c:\tbrwin\system\asycfilt.dll=
+c:\tbrwin\system\stdole2.tlb=
+c:\archivos de programa\microsoft visual studio\vb98\wizards\pdwizard\redist\comcat.dll=
+
+[Package|Paquete de instalación estándar 1|Files In Project]
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=No
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+D:\ahora\getUnicInfo\tbrWBem\tbrGUI.exe=Yes
+C:\TBRWIN\SYSTEM\msvbvm60.dll=No
+C:\TBRWIN\SYSTEM\OLEAUT32.DLL=No
+C:\TBRWIN\SYSTEM\OLEPRO32.DLL=No
+C:\TBRWIN\SYSTEM\ASYCFILT.DLL=No
+C:\TBRWIN\SYSTEM\STDOLE2.TLB=No
+C:\TBRWIN\SYSTEM\VB6ES.DLL=Yes
+C:\TBRWIN\SYSTEM\WBEM\WBEMDISP.TLB=Yes
+C:\TBRWIN\SYSTEM\VB6STKIT.DLL=Yes
+
+[Package|Paquete de instalación estándar 1|Configure Registry Files]
+Applicable=No
+
+[Package|Paquete de instalación estándar 1|Configure Remote Servers]
+Applicable=No
+
+[Package|Paquete de instalación estándar 1|Install Locations]
+E:\ahora\getUnicInfo\tbrGUI.exe=$(AppPath)
+C:\WINDOWS\SYSTEM\MSVBVM60.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\STDOLE2.TLB=$(WinSysPathSysFile)
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\VB6ES.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM\MSVBVM50.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\WBEM\WBEMDISP.TLB=$(WinSysPath)
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINDOWS\SYSTEM\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+D:\ahora\getUnicInfo\tbrWBem\tbrGUI.exe=$(AppPath)
+C:\TBRWIN\SYSTEM\VB6ES.DLL=$(WinSysPath)
+C:\TBRWIN\SYSTEM\WBEM\WBEMDISP.TLB=$(WinSysPath)
+C:\TBRWIN\SYSTEM\VB6STKIT.DLL=$(WinSysPathSysFile)
+
+[Package|Paquete de instalación estándar 1|Configure Shared Files]
+Applicable=Yes
+E:\ahora\getUnicInfo\tbrGUI.exe=No
+D:\ahora\getUnicInfo\tbrWBem\tbrGUI.exe=No
+
+[Package|Paquete de instalación estándar 1|Distribution]
+Type=single
+Size=
+Title=tbrGUI
+
+[Package|Paquete de instalación estándar 1|IconGroups]
+Group0=tbrGUI
+PrivateGroup0=Falso
+Parent0=$(Programs)
+
+[Package|Paquete de instalación estándar 1|tbrGUI]
+Icon1=tbrGUI.exe
+Title1=tbrGUI
+StartIn1=$(AppPath)
+Key1=Icon1
+
+[Package|Paquete de instalación estándar 1|Package]
+PackageFolder=D:\ahora\getUnicInfo\tbrWBem\i
+ProjectFolder=D:\ahora\getUnicInfo\tbrWBem
+ServerSideCab=
+File1=D:\ahora\getUnicInfo\tbrWBem\i\setup.exe
+File2=D:\ahora\getUnicInfo\tbrWBem\i\Setup.Lst
+File3=D:\ahora\getUnicInfo\tbrWBem\i\tbrGUI.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz

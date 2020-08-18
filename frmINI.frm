@@ -139,7 +139,7 @@ Attribute VB_Exposed = False
 
 Private Sub Form_Load()
     MostrarCursor False
-    
+    On Local Error GoTo NoINI
     VVV = "v " + Trim(Str(App.Major)) + "." + Trim(Str(App.Minor)) + "." + Trim(Str(App.Revision))
     '--------
     If K.LICENCIA = HSuperLicencia Then
@@ -183,6 +183,9 @@ Private Sub Form_Load()
     PorcentajeTEMA = Val(LeerConfig("PorcentajeTema", "60"))
     FASTini = LeerConfig("FastIni", "1")
     HabilitarVUMetro = LeerConfig("HabilitarVUMetro", "1")
+    vidFullScreen = LeerConfig("VidFullScreen", "1")
+    Salida2 = LeerConfig("Salida2", "0")
+    NoVumVID = LeerConfig("NoVumVid", "0")
     TapasMostradasH = Val(LeerConfig("DiscosH", "3"))
     TapasMostradasV = Val(LeerConfig("DiscosV", "2"))
     PasarHoja = LeerConfig("Pasarhoja", "1")
@@ -248,6 +251,8 @@ Private Sub Form_Load()
     'siempre copiarlo
     'If FSO.FileExists(AP + "discos\01- Los mas escuchados\tapa.jpg") = False Then
         If FSO.FileExists(AP + "top10.jpg") Then
+            'aqui hay un error de acceso denegado si es de solo lectura!!!!!
+            'se corrige así.
             FSO.CopyFile AP + "top10.jpg", AP + "discos\01- Los mas escuchados\tapa.jpg", True
         Else
             MsgBox "No se encuentra el archivo de imagen del Ranking!. La instalacion de 3PM no es corecta!"
@@ -419,6 +424,10 @@ FinOrden:
     Exit Sub
 notop:
     WriteTBRLog "frmINI - Ranking ordenar. " + vbCrLf + Err.Description, True
+    Resume Next
+    Exit Sub
+NoINI:
+    WriteTBRLog "frmINI - LOAD. " + vbCrLf + Err.Description, True
     Resume Next
 End Sub
 

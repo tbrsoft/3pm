@@ -559,7 +559,7 @@ Public Sub CargarCarpetas()
         Dim ThisFolder As String, TamTapa As Double
         ThisFolder = txtInLista(MATRIZ_DISCOS(A), 0, ",")
         'ver si existen o se borraron
-        If FSO.FolderExists(ThisFolder) Then ' And ThisFolder <> AP + "discos\01- Los mas escuchados" Then
+        If FSO.FolderExists(ThisFolder) And ThisFolder <> AP + "discos\01- Los mas escuchados" Then
             lstCarpetas.AddItem txtInLista(MATRIZ_DISCOS(A), 0, ",")
             lstCarpetasShow.AddItem txtInLista(MATRIZ_DISCOS(A), 1, ",")
         End If

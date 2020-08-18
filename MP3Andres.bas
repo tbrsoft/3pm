@@ -38,8 +38,6 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
     
     LineaError = "003-0009"
     If UCase(FSO.GetExtensionName(tema)) <> "MP3" Then
-        vidFullScreen = True
-        NoVumVID = True
         EsVideo = True
         LineaError = "003-0010"
         'cerrar el protector si estaba activo
@@ -50,23 +48,51 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
             'ver si es fullscreen o no!!!!!!!
             '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             If vidFullScreen Then
-                frmIndex.VU1.Height = Screen.Height
-                frmIndex.VU1.Width = Screen.Width
-                frmIndex.frDISCOS.Height = Screen.Height
                 ' si estan inhabilitados siempre o solo para videos
+                If Salida2 Then
+                    'si esta habilitada la salida 2 no me importa nada, dejo
+                    'todo como esta en la salida 1
+                    'si lo debere habilitar para que siga cargando creditos
+                    GoTo NoLeerOtros
+                    
+                    'para salida doble!!
+                    '-------------------
+                    '.WindowState = 0 'vbNormal
+                    '.Left = 0
+                    '.Top = 0
+                    '.Width = frmIndex.Width * 2
+                    '.Height = Screen.Height
+                    '.Refresh
+                    '.picVideo.Left = frmIndex.Width / 2
+                    '.picVideo.Width = frmIndex.Width / 2 - 50
+                    '.picVideo.Top = 0
+                    '.picVideo.Height = Screen.Height
+                End If
+                    
                 If HabilitarVUMetro Then
                     If NoVumVID Then
-                        .frDISCOS.Left = 0
-                        .frDISCOS.Width = .VU1.Width
+                        .picVideo.Top = 0
+                        .picVideo.Left = 0
+                        .picVideo.Width = Screen.Width
+                        .picVideo.Height = Screen.Height
                     Else
-                        .frDISCOS.Left = .VU1.AnchoBarra
-                        .frDISCOS.Width = .VU1.Width - (.VU1.AnchoBarra * 2) - 50
+                        .picVideo.Top = 0
+                        .picVideo.Left = .VU1.AnchoBarra
+                        .picVideo.Width = .VU1.Width - (.VU1.AnchoBarra * 2)
+                        .picVideo.Height = Screen.Height
+                        .VU1.Height = .picVideo.Height
                     End If
                 Else
-                    .frDISCOS.Left = 0
-                    .frDISCOS.Width = .VU1.Width
+                    .picVideo.Top = 0
+                    .picVideo.Left = 0
+                    .picVideo.Width = Screen.Width
+                    .picVideo.Height = Screen.Height
                 End If
             Else
+                'quita el fullscreen!!!!
+                '.frDISCOS.Height = .picFondo.Top
+                '.VU1.Height = .picFondo.Top
+                '!!!!!!
                 .frModoVideo.Left = Screen.Width - .frModoVideo.Width
                 .frTEMAS.Left = Screen.Width - .frTEMAS.Width
                 'en principio los discos ocupan todo
@@ -81,19 +107,22 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
                 End If
                 .picFondoDisco.Top = 0
                 .picFondoDisco.Left = 0
+                
+                .picVideo.Top = 0
+                .picVideo.Left = .VU1.AnchoBarra
+                .picVideo.Width = .VU1.Width - (.VU1.AnchoBarra * 2)
+                .picVideo.Height = .picFondo.Top
             End If
-            'si no hago esto el video no se ve (ya que esta adentro)
-            .picFondoDisco.Height = .frDISCOS.Height
-            .picFondoDisco.Width = .frDISCOS.Width
             
-            LineaError = "003-0024"
-            .picVideo.Top = 0
-            .picVideo.Left = 0
-            LineaError = "003-0025"
-            .picVideo.Width = .frDISCOS.Width
-            .picVideo.Height = .frDISCOS.Height
+            
+            
+'aqui vengo si es fullscreen y no me importa mover nada
+NoLeerOtros:
+            'si no hago esto el video no se ve (ya que esta adentro)
+            '.picFondoDisco.Height = .frDISCOS.Height
+            '.picFondoDisco.Width = .frDISCOS.Width
+            
             LineaError = "003-0026"
-            .picVideo.Visible = True
         End With
         'habilitar pasar las paginas con teclas simples
         'por que en el modo texto la lista no
@@ -104,6 +133,10 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
         EsVideo = False
         'acomodar los controles en modo normal
         With frmIndex
+            'quita el fullscreen!!!!
+            '.frDISCOS.Height = .picFondo.Top
+            .VU1.Height = .picFondo.Top
+            '!!!!!!
             LineaError = "003-0028"
             .VU1.Width = Screen.Width
             LineaError = "003-0029"
@@ -131,6 +164,7 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
             LineaError = "003-0035"
             .frTEMAS.Visible = False
             .lblTEMAS.Visible = False
+            .picVideo.Visible = False
         End With
         LineaError = "003-0036"
         'volver a PasarHoja a su estado original
@@ -150,6 +184,7 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
     'lo pongo al ultimo para que tenga tiempo de cargar el tema encargado
     'si lo pongo a donde estaba pasa un pedazito del tema anterior
     LineaError = "003-0040"
+    
     Unload frmTemasDeDisco
     LineaError = "003-0041"
     frmIndex.Refresh
@@ -169,9 +204,17 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
         .FileName = tema
         LineaError = "003-0047"
         If EsVideo Then
-            LineaError = "003-0048"
-            .DoOpenVideo "child", frmIndex.picVideo.hWnd, 0, 0, _
-                (frmIndex.picVideo.Width / 15), (frmIndex.picVideo.Height / 15)
+            If Salida2 Then
+                LineaError = "003-0048b"
+                .DoOpenVideo "child", frmVIDEO.hWnd, 0, 0, _
+                    (frmVIDEO.Width / 15), (frmVIDEO.Height / 15)
+                frmIndex.picVideo.Visible = False
+            Else
+                LineaError = "003-0048"
+                .DoOpenVideo "child", frmIndex.picVideo.hWnd, 0, 0, _
+                    (frmIndex.picVideo.Width / 15), (frmIndex.picVideo.Height / 15)
+                frmIndex.picVideo.Visible = True
+            End If
         Else
             LineaError = "003-0049"
             .DoOpen
@@ -199,8 +242,10 @@ End Sub
 Public Sub EMPEZAR_SIGUIENTE()
     LineaError = "003-0054"
     With frmIndex
+        'generar el endplay si o si
         'si hay algun elemento en la lista ejecutarlo
         If UBound(MATRIZ_LISTA) > 0 Then
+            
             LineaError = "003-0055"
             .lblTemaSonando = "Cargando Proximo Tema..."
             LineaError = "003-0056"
@@ -265,6 +310,8 @@ Public Sub EMPEZAR_SIGUIENTE()
             EsVideo = False 'no estamos rep video
             LineaError = "003-0077"
             frmIndex.MP3.DoClose
+            frmIndex.Refresh
+            frmIndex.picVideo.Visible = False
         End If
     End With
 End Sub

@@ -255,8 +255,8 @@ Private Sub Form_Load()
     "Ciudad: Mendiolaza" + vbCrLf + _
     "Estado/Provincia: Córdoba" + vbCrLf + _
     "Pais: Argentina" + vbCrLf + _
-    "Telefono: 54-3543-489271" + vbCrLf + _
-    "Celular: 54-3543-15530400" + vbCrLf + _
+    "Telefono: 54-3543-485045" + vbCrLf + _
+    "Celular: 54-9-351-4022170" + vbCrLf + _
     "DNI: 26.453.653 (Documento Nacional de Identidad)" + vbCrLf + vbCrLf + _
     "Luego envie un email a info@tbrsoft y a tbrsoft@cpcipc.org con el código de la " + _
     "transferencia y el codigo de su/s equipo/s. Recibira inmediatamente via email " + _
@@ -274,7 +274,7 @@ Private Sub Form_Load()
     lblPrecioSuperLIC = "1 Licencia = U$S 145" + vbCrLf + _
         "2 Licencias = U$S 245" + vbCrLf + _
         "3 Licencias = U$S 345" + vbCrLf + _
-        "5 Licencias = U$S 450"
+        "5 Licencias = U$S 400"
     
     lblUPLIC = "El costo para actualizar una licencia común a SUPERLICENCIA es de U$S 100"
         

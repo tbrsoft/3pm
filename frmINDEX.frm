@@ -7,33 +7,44 @@ Begin VB.Form frmIndex
    ClientHeight    =   9000
    ClientLeft      =   0
    ClientTop       =   0
-   ClientWidth     =   12000
+   ClientWidth     =   12045
    Icon            =   "frmINDEX.frx":0000
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   9000
-   ScaleWidth      =   12000
+   ScaleWidth      =   12045
    ShowInTaskbar   =   0   'False
    StartUpPosition =   3  'Windows Default
    WindowState     =   2  'Maximized
+   Begin VB.PictureBox picVideo 
+      BackColor       =   &H00000000&
+      Height          =   495
+      Left            =   3690
+      ScaleHeight     =   435
+      ScaleWidth      =   915
+      TabIndex        =   36
+      Top             =   5640
+      Visible         =   0   'False
+      Width           =   975
+   End
    Begin VB.Frame frDISCOS 
       BackColor       =   &H000000C0&
       BorderStyle     =   0  'None
       Height          =   5115
       Left            =   390
       TabIndex        =   11
-      Top             =   150
+      Top             =   180
       Width           =   5880
       Begin VB.Timer Timer1 
-         Left            =   5040
-         Top             =   3390
+         Left            =   5130
+         Top             =   2745
       End
       Begin VB.Timer Timer3 
          Interval        =   10000
-         Left            =   5220
-         Top             =   2820
+         Left            =   5040
+         Top             =   2295
       End
       Begin tbr3pm.MP3Play MP3 
          Height          =   1620
@@ -53,19 +64,8 @@ Begin VB.Form frmIndex
          ScaleHeight     =   3675
          ScaleWidth      =   4245
          TabIndex        =   0
-         Top             =   150
+         Top             =   180
          Width           =   4305
-         Begin VB.PictureBox picVideo 
-            BackColor       =   &H00000000&
-            Height          =   495
-            Left            =   60
-            ScaleHeight     =   435
-            ScaleWidth      =   915
-            TabIndex        =   33
-            Top             =   3120
-            Visible         =   0   'False
-            Width           =   975
-         End
          Begin VB.Label lblDisco 
             Alignment       =   2  'Center
             BackColor       =   &H00000000&
@@ -83,7 +83,7 @@ Begin VB.Form frmIndex
             Height          =   435
             Index           =   0
             Left            =   1470
-            TabIndex        =   34
+            TabIndex        =   33
             Top             =   3090
             UseMnemonic     =   0   'False
             Visible         =   0   'False
@@ -122,17 +122,17 @@ Begin VB.Form frmIndex
    Begin VB.PictureBox picFondo 
       AutoSize        =   -1  'True
       Height          =   3855
-      Left            =   30
+      Left            =   60
       Picture         =   "frmINDEX.frx":172C9
       ScaleHeight     =   3795
       ScaleWidth      =   15360
       TabIndex        =   13
-      Top             =   6660
+      Top             =   6720
       Width           =   15420
       Begin tbr3pm.tbrPassImg tbrPassImg1 
          Height          =   2250
          Left            =   0
-         TabIndex        =   35
+         TabIndex        =   34
          Top             =   0
          Width           =   2250
          _ExtentX        =   3969
@@ -154,7 +154,7 @@ Begin VB.Form frmIndex
             ForeColor       =   &H0000FFFF&
             Height          =   1665
             Left            =   90
-            TabIndex        =   36
+            TabIndex        =   35
             Top             =   330
             Visible         =   0   'False
             Width           =   2085
@@ -176,7 +176,7 @@ Begin VB.Form frmIndex
          Height          =   2135
          Left            =   9780
          TabIndex        =   14
-         Top             =   120
+         Top             =   45
          Width           =   2200
          Begin VB.CommandButton cmdPagAd 
             BackColor       =   &H00C0C0C0&
@@ -330,7 +330,7 @@ Begin VB.Form frmIndex
          Height          =   270
          Left            =   2280
          TabIndex        =   29
-         Top             =   2010
+         Top             =   1980
          UseMnemonic     =   0   'False
          Width           =   7470
       End
@@ -702,7 +702,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Dim ModoVideoSelTema As Boolean 'si estoy envideo
+Dim ModoVideoSelTema As Boolean 'si estoy en video
 'saber si estoy eligiendo tema. Sino estoy en disco
 
 Dim TemaElegidoModoVideo As Integer
@@ -829,6 +829,10 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     LineaError = "000-0033"
     Dim PagNum As Long
     Select Case KeyCode
+        Case vbKeyJ 'avanzar 10 segundos
+            Dim ToSec As Long
+            ToSec = MP3.PositionInSec * 1000 + 10000
+            MP3.SeekTo CStr(ToSec)
         'subir o bajar volumen
         Case 68 'es la D y baja el volumen
             LineaError = "000-0034"
@@ -861,9 +865,9 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         Case 66 ' es la b y pasa al siguiente tema
             'si es video ocultar la pantalla de video
             LineaError = "000-0043"
-            If EsVideo Then
-                picVideo.Visible = False
-            End If
+            'If EsVideo Then
+            '    picVideo.Visible = False
+            'End If
             LineaError = "000-0044"
             EMPEZAR_SIGUIENTE
         Case TeclaPagAd
@@ -1044,8 +1048,13 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             TECLAS_PRES = Right(TECLAS_PRES, 20)
             LineaError = "000-0111"
             lblTECLAS = TECLAS_PRES
+            'si estoy en video
+            'saber si estoy eligiendo tema. Si no estoy en disco
             
             If ModoVideoSelTema Then
+                'si esta en fullscreen NO EJECUTAR!!!
+                'solo si no sale por la segunda salida!!!
+                If EsVideo And vidFullScreen And Salida2 = False Then GoTo FinKD 'fin keydown
                 'si no dice salir cargar tema
                 LineaError = "000-0112"
                 If T(TemaElegidoModoVideo) = "SALIR" Or T(TemaElegidoModoVideo) = "No hay temas" Then
@@ -1155,7 +1164,12 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                 'ver si hay que mostrar el frm
                 'o estamos en MODO VIDEO
                 LineaError = "000-0140"
-                If EsVideo Then
+                'ver si es video debería desplegar los temas del disco elegido
+                'en modo de texto
+                'pero si estoy viendo el video en salida2 es video sera verdadero
+                'pero de todas formas no veo als lista de texto y sigo igual
+                'solo si esvideo y necesito el modo texto del video!!!!
+                If EsVideo And Salida2 = False Then
                     frModoVideo.Height = frDISCOS.Height / 4
                     LineaError = "000-0141"
                     OrdenarListaModoVideo
@@ -1265,6 +1279,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                 ModoVideoSelTema = False
             End If
     End Select
+FinKD:
     LineaError = "000-0185"
     VerClaves TECLAS_PRES
     LineaError = "000-0186"
@@ -1316,6 +1331,10 @@ End Sub
 
 Private Sub Form_Load()
     On Error GoTo NoLoadIndex
+    
+    picFondoDisco.Top = 0
+    picFondoDisco.Left = 0
+    
     LineaError = "000-0201"
      RegistroDiario 'anota la fecha, hora y numero del contador
      '--------
@@ -1324,7 +1343,6 @@ Private Sub Form_Load()
         LineaError = "000-0203"
         If FSO.FileExists(WINfolder + "\SL\indexchi.tbr") Then
             tbrPassImg1.Picture WINfolder + "\SL\indexchi.tbr"
-            'Image1.Picture = LoadPicture(WINfolder + "\SL\indexchi.tbr")
         End If
     End If
     '--------
@@ -1394,10 +1412,6 @@ Private Sub Form_Load()
     picFondoDisco.Height = frDISCOS.Height
     LineaError = "000-0228"
     picFondoDisco.Width = frDISCOS.Width
-    LineaError = "000-0229"
-    picFondoDisco.Top = 0
-    LineaError = "000-0230"
-    picFondoDisco.Left = 0
     
     'ver si hay que mostrar el touch
     MostrarTouch = LeerConfig("MostrarTouch", "0")
@@ -1405,23 +1419,11 @@ Private Sub Form_Load()
     If MostrarTouch = False Then
         LineaError = "000-0232"
         Frame1.Visible = False 'frame del touch
-        LineaError = "000-0233"
-        lblTemaSonando.Width = lblTemaSonando.Width + Frame1.Width
-        LineaError = "000-0234"
-        LBLpORCtEMA.Width = lblTemaSonando.Width
-        LineaError = "000-0235"
-        lstProximos.Width = lstProximos.Width + Frame1.Width
-        'NO!!! correr los 3 indicadores chicos
-        LineaError = "000-0236"
-        'lblTOTdiscos.Left = lstProximos.Left + lstProximos.Width
-        LineaError = "000-0237"
-        'lblPag.Left = lstProximos.Left + lstProximos.Width
-        LineaError = "000-0238"
-        'lblPrecios.Left = lstProximos.Left + lstProximos.Width
-        LineaError = "000-0239"
-        lblTBR.Width = lblTBR.Width + Frame1.Width
-        LineaError = "000-0240"
-        lblDEMO.Width = lblDEMO.Width + Frame1.Width
+        lblTemaSonando.Width = Screen.Width - lblTemaSonando.Left - 250
+        lstProximos.Width = Screen.Width - lstProximos.Left - 250
+        lblTBR.Width = Screen.Width - lblTBR.Left - 250
+        lblDEMO.Width = Screen.Width - lblDEMO.Left - 250
+        
     End If
     'frDISCOS contiene los discos a mostrar
     'se debera calcualr el tamaño de cada discos asi como cantidad horizontal y vertical
@@ -1678,7 +1680,9 @@ Private Sub Form_Load()
             'no hacer nada
             'borrar la lista
             LineaError = "000-0335"
+            'borrra los temas 'y los creditos?
             If FSO.FileExists(AP + "reini.tbr") Then FSO.DeleteFile AP + "reini.tbr", True
+            
             LineaError = "000-0336"
             Timer1.Interval = 10000
     End Select
@@ -1781,7 +1785,7 @@ Private Sub Form_Load()
     Exit Sub
 NoLoadIndex:
 ErrMP3:
-    'MsgBox Err.Description + " N°: " + Str(Err.Number)
+    MsgBox Err.Description + " N°: " + Str(Err.Number) + vbCrLf + "LINEA: " + LineaError
     WriteTBRLog "LINEA: " + LineaError + vbCrLf + Err.Description + " N°: " + Str(Err.Number), True
     Resume Next
 End Sub
@@ -2029,6 +2033,14 @@ Private Sub MP3_EndPlay()
     LineaError = "000-0436"
     VU1.Width = Screen.Width
     LineaError = "000-0437"
+    
+    'ver si es fullscreen o no!!!!!!!
+    '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    If vidFullScreen Then
+        'frDISCOS.Height = picFondo.Top
+        VU1.Height = picFondo.Top
+    End If
+    
     If HabilitarVUMetro Then
         LineaError = "000-0438"
         frDISCOS.Width = VU1.Width - (VU1.AnchoBarra * 2) - 50 'Screen.Width - VU1.Width
@@ -2041,37 +2053,24 @@ Private Sub MP3_EndPlay()
         LineaError = "000-0441"
         frDISCOS.Left = 0
     End If
-    LineaError = "000-0442"
+    
     picFondoDisco.Height = frDISCOS.Height
-    LineaError = "000-0443"
     picFondoDisco.Width = frDISCOS.Width
-    LineaError = "000-0444"
-    picFondoDisco.Top = 0
-    LineaError = "000-0445"
-    picFondoDisco.Left = 0
-    LineaError = "000-0446"
     frModoVideo.Visible = False
-    LineaError = "000-0447"
     lblModoVideo.Visible = False
-    LineaError = "000-0448"
     frTEMAS.Visible = False
-    LineaError = "000-0449"
     lblTEMAS.Visible = False
-    LineaError = "000-0450"
     ModoVideoSelTema = False
-    LineaError = "000-0451"
     LBLpORCtEMA.Width = Ancho
     'termino una cancion
-    LineaError = "000-0452"
     If EsVideo Then MP3.DoClose
-    LineaError = "000-0453"
-    picVideo.Visible = False
-    LineaError = "000-0454"
+    'lo destapo al terminar de acomodar todos los controles en otro lado
+    'picVideo.Visible = False
     EMPEZAR_SIGUIENTE
 End Sub
 
 Private Sub MP3_Played(SecondsPlayed As Long)
-    'esto pasa cada un segundo (si o si una vez por segundo
+    'esto pasa cada un segundo (si o si una vez por segundo)
     Dim sRest As Long
     LineaError = "000-0455"
     sRest = MP3.FaltaInSec
@@ -2096,6 +2095,7 @@ Private Sub MP3_Played(SecondsPlayed As Long)
     End If
     LineaError = "000-0463"
     lblTiempoRestante = "FALTA: " + MP3.Falta
+    
     LineaError = "000-0464"
     wi = Ancho - Variacion * (SecondsPlayed - 2)
     LineaError = "000-0465"

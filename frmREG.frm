@@ -534,6 +534,19 @@ Private Sub Command5_Click()
 End Sub
 
 Private Sub Form_Load()
+    '------------------------------------------------------
+    'dejar cragado el frmVideo
+    Load frmVIDEO
+    'ubicarlo joia para ir mostrando cosas por fuera
+    frmVIDEO.Left = Screen.Width
+    frmVIDEO.Width = Screen.Width
+    frmVIDEO.Top = 0
+    frmVIDEO.Height = Screen.Height
+    frmVIDEO.Show
+    frmVIDEO.Refresh
+    '------------------------------------------------------
+    
+    
     AP = App.path
     If Right(AP, 1) <> "\" Then AP = AP + "\"
     AjustarFRM Me, 12000
@@ -658,17 +671,19 @@ YaEstaIMG:
     'ver primero quien es para saber si esta habilitado licenciarse
     'si ClaveAdmin = "demo" quiere decir que lo bajo de internet y por
     'lo tanto no puede licenciar NI BOSTA!!!JAJAJAJAJA
-    ClaveAdmin = "andres"
+    ClaveAdmin = "sncMEX098181y"
     
     Select Case ClaveAdmin
         Case "grAS981aATTy6"
             DatosLicencia = "Licencia propiedad de Miguel Angel Cozzi. " + vbCrLf + _
                 "Venado Tuerto - Santa Fe - Argentina"
                 
-                
     End Select
-            
-'Mauro Villaroel
+'Tomas Nuñez Gonzalez    sncMEX098181y
+'Miguel Angel Santos Hernandez MEX MASH81090011y
+'JUAN MARTIN FLORES CRUZ MEX JMFCm6511yyyq
+'Mauro Villaroel     MV541CHQ9090Y
+'Chirstian Beltra    cb9811191ujY
 'Miguel Angel Cozzi  grAS981aATTy6
 'Marcos Sepulveda    bsaHH0981AWqQ
 'Rigoberto Matamoros - Oscar Otero Cartagena (El Salvador)   fRF4247L000wZ
@@ -692,7 +707,6 @@ YaEstaIMG:
 'Abelardo Garcia Morales ABG011boCO1ky
 'Judith Rodriguez    ROD0906mx143u
 'Guillermo Milian    gMIL991Mex199
-'Tomas Nuñez Gonzalez    sncMEX098181y
 'Jesus Andres Mata Jimenez MG611mex0909a
 'Juan Serano JaS0106uuw103
 'Sergio Sosa Mendoza SeSo711922yh6
@@ -700,7 +714,14 @@ YaEstaIMG:
 'Favio Martinez Gomez COL fa61MG52COL91
 'Oscar Armenta Soberanis OAS81090Mx880
 '(RIGMAT)Francisco Somoza  FrHN0102099yi
-    
+'Ernesto isidro vazquez MEX eiv767611iJAA
+'Cesar Gordillo GERSA de CV MEX cg5510978AByR
+'Rene escrich SALV REES91210909u
+'Allan orante Martinez MEX AOM519090hnYa
+'guille2p españa G2Pk9111900ES
+' Miguel Angel Santos hernandez dice que le di yo??? ms6511comp9ME
+'ES EL MISMO DE MSCOMPU GARKA!!!!!!!!!!!!!!!!
+'enrique israel mora suarez EIMS611609yyw
     
     'ver si hay registro
     

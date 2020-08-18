@@ -33,4 +33,8 @@ pub/*.jpg
 pub/*.mp3
 pub/*.MP3
 pub/*.mpeg
-
+pub/*.avi
+CFGDes.txt
+CFGenc.txt
+Desktop.ini
+Thumbs.db
