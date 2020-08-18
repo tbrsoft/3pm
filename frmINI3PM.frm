@@ -645,7 +645,7 @@ Private Sub Command1_Click()
         'ver si la imagen estaba
         If txtInLista(Ls(1), 1, "=") = "1" Then
             'volver a cargarla
-            FSO.CopyFile WINfolder + "\img3pm\w\logo.sys", "c:\logo.sys", True
+            FSO.CopyFile WINfolder + "img3pm\w\logo.sys", "c:\logo.sys", True
         Else
             'como no estaba se queda sin imagen
         End If
@@ -655,16 +655,16 @@ Private Sub Command1_Click()
         Ls(4) = "LoadImgIni=3"
         If FSO.FileExists("c:\logo.sys") Then FSO.DeleteFile "c:\logo.sys", True
         'volver a cargarla
-        FSO.CopyFile WINfolder + "\img3pm\3\logo.sys", "c:\logo.sys", True
+        FSO.CopyFile WINfolder + "img3pm\3\logo.sys", "c:\logo.sys", True
     End If
     
     If OpCerrandoWIN Then
         Ls(5) = "LoadImgCerrando=w"
-        If FSO.FileExists(WINfolder + "\logow.sys") Then FSO.DeleteFile WINfolder + "\logow.sys", True
+        If FSO.FileExists(WINfolder + "logow.sys") Then FSO.DeleteFile WINfolder + "logow.sys", True
         'ver si la imagen estaba
         If txtInLista(Ls(2), 1, "=") = "1" Then
             'volver a cargarla
-            FSO.CopyFile WINfolder + "\img3pm\w\logow.sys", WINfolder + "\logow.sys", True
+            FSO.CopyFile WINfolder + "img3pm\w\logow.sys", WINfolder + "logow.sys", True
         Else
             'como no estaba se queda sin imagen
         End If
@@ -672,18 +672,18 @@ Private Sub Command1_Click()
     
     If OpCerrando3PM Then
         Ls(5) = "LoadImgCerrando=3"
-        If FSO.FileExists(WINfolder + "\logow.sys") Then FSO.DeleteFile WINfolder + "\logow.sys", True
+        If FSO.FileExists(WINfolder + "logow.sys") Then FSO.DeleteFile WINfolder + "logow.sys", True
         'volver a cargarla
-        FSO.CopyFile WINfolder + "\img3pm\3\logow.sys", WINfolder + "\logow.sys", True
+        FSO.CopyFile WINfolder + "img3pm\3\logow.sys", WINfolder + "logow.sys", True
     End If
     
     If OpApagarWIN Then
         Ls(6) = "LoadImgApagar=w"
-        If FSO.FileExists(WINfolder + "\logos.sys") Then FSO.DeleteFile WINfolder + "\logos.sys", True
+        If FSO.FileExists(WINfolder + "logos.sys") Then FSO.DeleteFile WINfolder + "logos.sys", True
         'ver si la imagen estaba
         If txtInLista(Ls(3), 1, "=") = "1" Then
             'volver a cargarla
-            FSO.CopyFile WINfolder + "\img3pm\w\logos.sys", WINfolder + "\logos.sys", True
+            FSO.CopyFile WINfolder + "img3pm\w\logos.sys", WINfolder + "logos.sys", True
         Else
             'como no estaba se queda sin imagen
         End If
@@ -691,9 +691,9 @@ Private Sub Command1_Click()
     
     If OpApagar3PM Then
         Ls(6) = "LoadImgApagar=3"
-        If FSO.FileExists(WINfolder + "\logos.sys") Then FSO.DeleteFile WINfolder + "\logos.sys", True
+        If FSO.FileExists(WINfolder + "logos.sys") Then FSO.DeleteFile WINfolder + "logos.sys", True
         'volver a cargarla
-        FSO.CopyFile WINfolder + "\img3pm\3\logos.sys", WINfolder + "\logos.sys", True
+        FSO.CopyFile WINfolder + "img3pm\3\logos.sys", WINfolder + "logos.sys", True
     End If
         
     'volver a escribir el archivo de inicio con los nuevos datos
@@ -710,7 +710,7 @@ Private Sub Command1_Click()
     'leer el system.ini y ver si estamos con PROGMAN o EXPLORER
     'copiarlo para no echar moco
     If FSO.FileExists(AP + "system.ini") Then FSO.DeleteFile AP + "system.ini", True
-    FSO.CopyFile WINfolder + "\system.ini", AP + "system.ini", True
+    FSO.CopyFile WINfolder + "system.ini", AP + "system.ini", True
     Set TE = FSO.OpenTextFile(AP + "system.ini")
     Dim TodoSystem() As String
     Dim ActualShell As String, UbicShell As Long
@@ -735,9 +735,9 @@ Private Sub Command1_Click()
         TE.WriteLine TodoSystem(A)
     Next
     TE.Close
-    If FSO.FileExists(WINfolder + "\OLDsystem.ini") Then FSO.DeleteFile WINfolder + "\OLDsystem.ini", True
-    If FSO.FileExists(WINfolder + "\system.ini") Then FSO.MoveFile WINfolder + "\system.ini", WINfolder + "\OLDsystem.ini"
-    FSO.MoveFile AP + "system.ini", WINfolder + "\system.ini"
+    If FSO.FileExists(WINfolder + "OLDsystem.ini") Then FSO.DeleteFile WINfolder + "OLDsystem.ini", True
+    If FSO.FileExists(WINfolder + "system.ini") Then FSO.MoveFile WINfolder + "system.ini", WINfolder + "OLDsystem.ini"
+    FSO.MoveFile AP + "system.ini", WINfolder + "system.ini"
     
     Unload Me
 End Sub
@@ -791,25 +791,25 @@ Private Sub Form_Load()
     AjustarFRM Me, 12000
     
     'cargar las imágenes de 3pm
-    If FSO.FileExists(WINfolder + "\img3pm\3\logo.sys") Then imgIni3PM.Picture = LoadPicture(WINfolder + "\img3pm\3\logo.sys")
-    If FSO.FileExists(WINfolder + "\img3pm\3\logow.sys") Then imgCerrando3PM.Picture = LoadPicture(WINfolder + "\img3pm\3\logow.sys")
-    If FSO.FileExists(WINfolder + "\img3pm\3\logos.sys") Then imgApagar3PM.Picture = LoadPicture(WINfolder + "\img3pm\3\logos.sys")
+    If FSO.FileExists(WINfolder + "img3pm\3\logo.sys") Then imgIni3PM.Picture = LoadPicture(WINfolder + "img3pm\3\logo.sys")
+    If FSO.FileExists(WINfolder + "img3pm\3\logow.sys") Then imgCerrando3PM.Picture = LoadPicture(WINfolder + "img3pm\3\logow.sys")
+    If FSO.FileExists(WINfolder + "img3pm\3\logos.sys") Then imgApagar3PM.Picture = LoadPicture(WINfolder + "img3pm\3\logos.sys")
     
     'cargar las imágenes de windows
-    If FSO.FileExists(WINfolder + "\img3pm\w\logo.sys") Then
-        imgIniWin.Picture = LoadPicture(WINfolder + "\img3pm\w\logo.sys")
+    If FSO.FileExists(WINfolder + "img3pm\w\logo.sys") Then
+        imgIniWin.Picture = LoadPicture(WINfolder + "img3pm\w\logo.sys")
     Else
         lblNoImgIni.Visible = True
     End If
     
-    If FSO.FileExists(WINfolder + "\img3pm\w\logow.sys") Then
-        imgCerrandoWIN.Picture = LoadPicture(WINfolder + "\img3pm\w\logow.sys")
+    If FSO.FileExists(WINfolder + "img3pm\w\logow.sys") Then
+        imgCerrandoWIN.Picture = LoadPicture(WINfolder + "img3pm\w\logow.sys")
     Else
         lblNoImgCerrando.Visible = True
     End If
     
-    If FSO.FileExists(WINfolder + "\img3pm\w\logos.sys") Then
-        imgApagarWIN.Picture = LoadPicture(WINfolder + "\img3pm\w\logos.sys")
+    If FSO.FileExists(WINfolder + "img3pm\w\logos.sys") Then
+        imgApagarWIN.Picture = LoadPicture(WINfolder + "img3pm\w\logos.sys")
     Else
         lblNoImgApagar.Visible = True
     End If
@@ -845,7 +845,7 @@ Private Sub Form_Load()
     'leer el system.ini y ver si estamos con PROGMAN o EXPLORER
     'copiarlo para no echar moco
     If FSO.FileExists(AP + "system.ini") Then FSO.DeleteFile AP + "system.ini", True
-    FSO.CopyFile WINfolder + "\system.ini", AP + "system.ini", True
+    FSO.CopyFile WINfolder + "system.ini", AP + "system.ini", True
     Set TE = FSO.OpenTextFile(AP + "system.ini")
     Dim TodoSystem() As String
     Dim ActualShell As String, UbicShell As Long

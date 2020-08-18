@@ -196,7 +196,7 @@ Begin VB.Form frmClaves
    End
    Begin VB.Label Label1 
       BackStyle       =   0  'Transparent
-      Caption         =   "Clave para cerrar 3PM"
+      Caption         =   "Clave para ingreso a la configuracion"
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
@@ -263,11 +263,25 @@ Private Sub Command6_Click()
     'ver que tengan el largo correspondiente
     Dim LenClave As Integer
     LenClave = Len(txtClaveConfig)
-    If LenClave <> 20 Then MsgBox "La clave de configuración tiene " + CStr(LenClave) + " caracteres. Debe tener 20 para poder grabar": Exit Sub
+    
+    Select Case IDIOMA
+        Case "Español"
+            msg1 = "La clave de configuración tiene " + _
+                CStr(LenClave) + " caracteres. Debe tener 20 para poder grabar"
+            msg2 = "La clave de cerrado tiene " + _
+                CStr(LenClave) + " caracteres. Debe tener 20 para poder grabar"
+            msg3 = "La clave de creditos tiene " + _
+                CStr(LenClave) + " caracteres. Debe tener 19 para poder grabar"
+        Case "English"
+        Case "Francois"
+        Case "Italiano"
+    End Select
+    
+    If LenClave <> 20 Then MsgBox msg1: Exit Sub
     LenClave = Len(txtClaveCLose)
-    If LenClave <> 20 Then MsgBox "La clave de cerrado tiene " + CStr(LenClave) + " caracteres. Debe tener 20 para poder grabar": Exit Sub
+    If LenClave <> 20 Then MsgBox msg2: Exit Sub
     LenClave = Len(txtClaveCredit)
-    If LenClave <> 19 Then MsgBox "La clave de creditos tiene " + CStr(LenClave) + " caracteres. Debe tener 19 para poder grabar": Exit Sub
+    If LenClave <> 19 Then MsgBox msg3: Exit Sub
     
     'ok todas las claves estan bien
     Set TE = FSO.CreateTextFile(WINfolder + "/sevalc.dll", True)
@@ -280,6 +294,21 @@ End Sub
 
 Private Sub Command8_Click()
     Unload Me
+End Sub
+
+Private Sub Form_Activate()
+    Select Case IDIOMA
+        Case "Español"
+            Label1(0) = "Modifique sus claves para obtener mayor seguridad. Utilize solo las teclas que usted expone al público para no perder funcionalidad. Si no desea habilitar esta claves podrá cargar algún caracter no válido para que estas claves no puedan ser usadas (ej: el caracter '7')"
+            Label1(1) = "Clave para ingreso a la configuracion"
+            Label1(2) = "Clave para ingreso a la configuracion"
+            Label1(3) = "Clave para cargar créditos. Son 19 dígitos, el ultimo dependerá de la cantidad de créditos que desee cargar. Recuerde que estos créditos no se suman al contador"
+            Command6.Caption = "Grabar claves"
+            Command8.Caption = "Salir sin Grabar"
+        Case "English"
+        Case "Francois"
+        Case "Italiano"
+    End Select
 End Sub
 
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
@@ -305,9 +334,21 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             'grabar cant de creditos
             EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
             If CREDITOS >= 10 Then
-                frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+                Select Case IDIOMA
+                    Case "Español"
+                        frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+                    Case "English"
+                    Case "Francois"
+                    Case "Italiano"
+                End Select
             Else
-                frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+                Select Case IDIOMA
+                    Case "Español"
+                        frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+                    Case "English"
+                    Case "Francois"
+                    Case "Italiano"
+                End Select
             End If
             
             'grabar credito para validar
@@ -323,24 +364,31 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub Form_Load()
-    If FSO.FileExists(WINfolder + "\sevalc.dll") = False Then
+    If FSO.FileExists(WINfolder + "sevalc.dll") = False Then
         MsgBox "No esta presente el archivo de claves. Reinicie 3PM"
         Exit Sub
     End If
-    Set TE = FSO.OpenTextFile(WINfolder + "\sevalc.dll", ForReading, False)
+    Set TE = FSO.OpenTextFile(WINfolder + "sevalc.dll", ForReading, False)
     'config/close/credit es el orden del archivo
     txtClaveConfig = txtInLista(TE.ReadLine, 1, ":")
     txtClaveCLose = txtInLista(TE.ReadLine, 1, ":")
     txtClaveCredit = txtInLista(TE.ReadLine, 1, ":")
     TE.Close
     
-    lblIDteclas = "Identificacion de teclas" + vbCrLf + vbCrLf + _
-        "1- Izquierda" + vbCrLf + _
-        "2- Derecha" + vbCrLf + _
-        "3- OK" + vbCrLf + _
-        "4- Escape" + vbCrLf + _
-        "5- Página adelante" + vbCrLf + _
-        "6- Página atras"
+    Select Case IDIOMA
+        Case "Español"
+            lblIDteclas = "Identificacion de teclas" + vbCrLf + vbCrLf + _
+                "1- Izquierda" + vbCrLf + _
+                "2- Derecha" + vbCrLf + _
+                "3- OK" + vbCrLf + _
+                "4- Escape" + vbCrLf + _
+                "5- Página adelante" + vbCrLf + _
+                "6- Página atras"
+        Case "English"
+        Case "Francois"
+        Case "Italiano"
+    End Select
+    
 End Sub
 
 Private Sub txtClaveCLose_Change()

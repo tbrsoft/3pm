@@ -53,6 +53,7 @@ Private mArchPictures() As String 'lista de las fotos a usar. Si es solo una que
 Private mTotalImagenes As Long
 Private mUltimaReproducida As Long 'ultimo n° de imagen para saber cual sigue
 Private mActivarPUBS As Boolean 'saber si esta activo!
+Public Event ChangeImg()
 
 Public Property Let ActivarPUBS(Activar As Boolean)
     mActivarPUBS = Activar
@@ -81,20 +82,8 @@ Public Property Get IntervalBetwenIMGs() As Long
     IntervalBetwenIMGs = mIntervalBetwenIMGs
 End Property
 
-Private Sub Reloj_Timer()
-    mUltimaReproducida = mUltimaReproducida + 1
-    'si me paso se va al primero ya
-    If mUltimaReproducida > mTotalImagenes Then mUltimaReproducida = 1
-    '...
-    '...
-    'aca debe ir algun efecto. Ponete las pilas ANDRES
-    '...
-    '...
-    IMG.Picture = LoadPicture(mArchPictures(mUltimaReproducida))
-    Label1.Caption = mArchPictures(mUltimaReproducida)
-End Sub
-
 Private Sub UserControl_Initialize()
+    
     mTotalImagenes = 0
     IMG.Stretch = True
     mUltimaReproducida = 0 'de entrada va al 1
@@ -110,10 +99,10 @@ Private Sub UserControl_Resize()
     Label1.Left = 0
 End Sub
 
-Public Sub AddArchivoIMG(Arch As String)
+Public Sub AddArchivoIMG(ARCH As String)
     mTotalImagenes = UBound(mArchPictures) + 1
     ReDim Preserve mArchPictures(mTotalImagenes)
-    mArchPictures(mTotalImagenes) = Arch
+    mArchPictures(mTotalImagenes) = ARCH
 End Sub
 
 Public Sub ClearList()
@@ -137,3 +126,19 @@ End Sub
 Public Sub Detener()
     RELOJ.Interval = 0
 End Sub
+
+Private Sub Reloj_Timer()
+    mUltimaReproducida = mUltimaReproducida + 1
+    'si me paso se va al primero ya
+    If mUltimaReproducida > mTotalImagenes Then mUltimaReproducida = 1
+    '...
+    '...
+    'aca debe ir algun efecto. Ponete las pilas ANDRES
+    '...
+    '...
+    IMG.Picture = LoadPicture(mArchPictures(mUltimaReproducida))
+    Label1.Caption = mArchPictures(mUltimaReproducida)
+    RaiseEvent ChangeImg
+End Sub
+
+

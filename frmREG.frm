@@ -553,6 +553,8 @@ Private Sub Form_Load()
     'se graba en win y system
     SYSfolder = FSO.GetSpecialFolder(SystemFolder)
     WINfolder = FSO.GetSpecialFolder(WindowsFolder)
+    If Right(WINfolder, 1) <> "\" Then WINfolder = WINfolder + "\"
+    If Right(SYSfolder, 1) <> "\" Then SYSfolder = SYSfolder + "\"
     
     If UCase(App.EXEName) <> "3PM" Then
         MsgBox "No puede cambiar el nombre del programa"
@@ -566,37 +568,37 @@ Private Sub Form_Load()
         GoTo YaEstaIMG
     Else
         Set TE = FSO.CreateTextFile(ArchImgIni, True)
-        If FSO.FolderExists(WINfolder + "\img3PM") = False Then FSO.CreateFolder WINfolder + "\img3PM"
-        If FSO.FolderExists(WINfolder + "\img3PM\w") = False Then FSO.CreateFolder WINfolder + "\img3pm\w"
+        If FSO.FolderExists(WINfolder + "img3PM") = False Then FSO.CreateFolder WINfolder + "img3PM"
+        If FSO.FolderExists(WINfolder + "img3PM\w") = False Then FSO.CreateFolder WINfolder + "img3pm\w"
         'ver imagen de inicio
         If FSO.FileExists("c:\logo.sys") Then
             TE.WriteLine "ImgIni=1"
             'copiar el archivo a un lugar seguro para
             'despues administrar los cambios
-            If FSO.FileExists(WINfolder + "\img3pm\w\logo.sys") Then FSO.DeleteFile WINfolder + "\img3pm\w\logo.sys", True
-            FSO.CopyFile "c:\logo.sys", WINfolder + "\img3pm\w\logo.sys", True
+            If FSO.FileExists(WINfolder + "img3pm\w\logo.sys") Then FSO.DeleteFile WINfolder + "img3pm\w\logo.sys", True
+            FSO.CopyFile "c:\logo.sys", WINfolder + "img3pm\w\logo.sys", True
         Else
             TE.WriteLine "ImgIni=0"
         End If
         
         'ver imagen de cerrando
-        If FSO.FileExists(WINfolder + "\logow.sys") Then
+        If FSO.FileExists(WINfolder + "logow.sys") Then
             TE.WriteLine "ImgCerrando=1"
             'copiar el archivo a un lugar seguro para
             'despues administrar los cambios
-            If FSO.FileExists(WINfolder + "\img3pm\w\logow.sys") Then FSO.DeleteFile WINfolder + "\img3pm\w\logow.sys", True
-            FSO.CopyFile WINfolder + "\logow.sys", WINfolder + "\img3pm\w\logow.sys", True
+            If FSO.FileExists(WINfolder + "img3pm\w\logow.sys") Then FSO.DeleteFile WINfolder + "img3pm\w\logow.sys", True
+            FSO.CopyFile WINfolder + "logow.sys", WINfolder + "img3pm\w\logow.sys", True
         Else
             TE.WriteLine "ImgCerrando=0"
         End If
         
         'ver imagen de apagar
-        If FSO.FileExists(WINfolder + "\logos.sys") Then
+        If FSO.FileExists(WINfolder + "logos.sys") Then
             TE.WriteLine "ImgApagar=1"
             'copiar el archivo a un lugar seguro para
             'despues administrar los cambios
-            If FSO.FileExists(WINfolder + "\img3pm\w\logos.sys") Then FSO.DeleteFile WINfolder + "\img3pm\w\logos.sys", True
-            FSO.CopyFile WINfolder + "\logos.sys", WINfolder + "\img3pm\w\logos.sys", True
+            If FSO.FileExists(WINfolder + "img3pm\w\logos.sys") Then FSO.DeleteFile WINfolder + "img3pm\w\logos.sys", True
+            FSO.CopyFile WINfolder + "logos.sys", WINfolder + "img3pm\w\logos.sys", True
         Else
             TE.WriteLine "ImgApagar=0"
         End If
@@ -610,23 +612,23 @@ Private Sub Form_Load()
 YaEstaIMG:
     'VER si ya se pasaron las imagenes de 3pm
     'a la carpeta que corresponde
-    If FSO.FolderExists(WINfolder + "\img3pm") = False Then FSO.CreateFolder (WINfolder + "\img3pm")
-    If FSO.FolderExists(WINfolder + "\img3pm\3") = False Then FSO.CreateFolder (WINfolder + "\img3pm\3")
+    If FSO.FolderExists(WINfolder + "img3pm") = False Then FSO.CreateFolder (WINfolder + "img3pm")
+    If FSO.FolderExists(WINfolder + "img3pm\3") = False Then FSO.CreateFolder (WINfolder + "img3pm\3")
     If FSO.FileExists(AP + "logo.sys") Then
         'siempre copiarlo si esta
-        If FSO.FileExists(WINfolder + "\img3pm\3\logo.sys") Then FSO.DeleteFile WINfolder + "\img3pm\3\logo.sys", True
-        FSO.CopyFile AP + "logo.sys", WINfolder + "\img3pm\3\logo.sys", True
-        'If FSO.FileExists(WINfolder + "\img3pm\3\logo.sys") = False Then FSO.CopyFile AP + "logo.sys", WINfolder + "\img3pm\3\logo.sys", True
+        If FSO.FileExists(WINfolder + "img3pm\3\logo.sys") Then FSO.DeleteFile WINfolder + "img3pm\3\logo.sys", True
+        FSO.CopyFile AP + "logo.sys", WINfolder + "img3pm\3\logo.sys", True
+        'If FSO.FileExists(WINfolder + "img3pm\3\logo.sys") = False Then FSO.CopyFile AP + "logo.sys", WINfolder + "img3pm\3\logo.sys", True
     End If
     If FSO.FileExists(AP + "logow.sys") Then
         'siempre copiarlo si esta
-        If FSO.FileExists(WINfolder + "\img3pm\3\logow.sys") Then FSO.DeleteFile WINfolder + "\img3pm\3\logow.sys", True
-        FSO.CopyFile AP + "logow.sys", WINfolder + "\img3pm\3\logow.sys", True
+        If FSO.FileExists(WINfolder + "img3pm\3\logow.sys") Then FSO.DeleteFile WINfolder + "img3pm\3\logow.sys", True
+        FSO.CopyFile AP + "logow.sys", WINfolder + "img3pm\3\logow.sys", True
     End If
     If FSO.FileExists(AP + "logos.sys") Then
         'siempre copiarlo si esta
-        If FSO.FileExists(WINfolder + "\img3pm\3\logos.sys") Then FSO.DeleteFile WINfolder + "\img3pm\3\logos.sys", True
-        FSO.CopyFile AP + "logos.sys", WINfolder + "\img3pm\3\logos.sys", True
+        If FSO.FileExists(WINfolder + "img3pm\3\logos.sys") Then FSO.DeleteFile WINfolder + "img3pm\3\logos.sys", True
+        FSO.CopyFile AP + "logos.sys", WINfolder + "img3pm\3\logos.sys", True
     End If
     
     cmbCountry.AddItem "Argentina"
@@ -679,6 +681,7 @@ YaEstaIMG:
                 "Venado Tuerto - Santa Fe - Argentina"
                 
     End Select
+'VICTOR HUGO DE LA ROSA (de JMFC) vhdlr5001787y"
 'Tomas Nuñez Gonzalez    sncMEX098181y
 'Miguel Angel Santos Hernandez MEX MASH81090011y
 'JUAN MARTIN FLORES CRUZ MEX JMFCm6511yyyq
@@ -710,6 +713,7 @@ YaEstaIMG:
 'Jesus Andres Mata Jimenez MG611mex0909a
 'Juan Serano JaS0106uuw103
 'Sergio Sosa Mendoza SeSo711922yh6
+' Leandro Visciarelli CBA7111levi09
 'Eduardo Rodriguez Uruguay ERO77701192FF
 'Favio Martinez Gomez COL fa61MG52COL91
 'Oscar Armenta Soberanis OAS81090Mx880

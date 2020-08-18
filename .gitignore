@@ -38,3 +38,7 @@ CFGDes.txt
 CFGenc.txt
 Desktop.ini
 Thumbs.db
+pub/*.JPG
+pub/*.jpeg
+pub/*.gif
+pub/*.GIF

@@ -586,10 +586,10 @@ Private Sub cmdImgPresP_Click()
     If CmdLg.FileName = "" Then Exit Sub
     Dim ArchSel As String
     ArchSel = CmdLg.FileName
-    If FSO.FolderExists(WINfolder + "\SL") = False Then FSO.CreateFolder (WINfolder + "\SL")
-    If FSO.FileExists(WINfolder + "\SL\imgBig.tbr") Then FSO.DeleteFile WINfolder + "\SL\imgBig.tbr", True
+    If FSO.FolderExists(WINfolder + "SL") = False Then FSO.CreateFolder (WINfolder + "SL")
+    If FSO.FileExists(WINfolder + "SL\imgBig.tbr") Then FSO.DeleteFile WINfolder + "SL\imgBig.tbr", True
     'grabar la imagen elegida
-    FSO.CopyFile ArchSel, WINfolder + "\SL\imgbig.tbr", True
+    FSO.CopyFile ArchSel, WINfolder + "SL\imgbig.tbr", True
     'mostrar que se cambio
     imgPRESp.Picture = LoadPicture(ArchSel)
     'LISTO!!!
@@ -602,10 +602,10 @@ Private Sub cmdImgPresTbr_Click()
     If CmdLg.FileName = "" Then Exit Sub
     Dim ArchSel As String
     ArchSel = CmdLg.FileName
-    If FSO.FolderExists(WINfolder + "\SL") = False Then FSO.CreateFolder (WINfolder + "\SL")
-    If FSO.FileExists(WINfolder + "\SL\imgTBR.tbr") Then FSO.DeleteFile WINfolder + "\SL\imgTBR.tbr", True
+    If FSO.FolderExists(WINfolder + "SL") = False Then FSO.CreateFolder (WINfolder + "SL")
+    If FSO.FileExists(WINfolder + "SL\imgTBR.tbr") Then FSO.DeleteFile WINfolder + "SL\imgTBR.tbr", True
     'grabar la imagen elegida
-    FSO.CopyFile ArchSel, WINfolder + "\SL\imgTBR.tbr", True
+    FSO.CopyFile ArchSel, WINfolder + "SL\imgTBR.tbr", True
     'mostrar que se cambio
     imgIniTBR.Picture = LoadPicture(ArchSel)
     'LISTO!!!
@@ -622,20 +622,20 @@ Private Sub Command2_Click()
     If CmdLg.FileName = "" Then Exit Sub
     Dim ArchSel As String
     ArchSel = CmdLg.FileName
-    If FSO.FolderExists(WINfolder + "\SL") = False Then FSO.CreateFolder (WINfolder + "\SL")
-    If FSO.FileExists(WINfolder + "\SL\indexCHI.tbr") Then FSO.DeleteFile WINfolder + "\SL\indexCHI.tbr", True
+    If FSO.FolderExists(WINfolder + "SL") = False Then FSO.CreateFolder (WINfolder + "SL")
+    If FSO.FileExists(WINfolder + "SL\indexCHI.tbr") Then FSO.DeleteFile WINfolder + "SL\indexCHI.tbr", True
     'grabar la imagen elegida
-    FSO.CopyFile ArchSel, WINfolder + "\SL\indexCHI.tbr", True
+    FSO.CopyFile ArchSel, WINfolder + "SL\indexCHI.tbr", True
     'mostrar que se cambio
     imgIndexCHI.Picture = LoadPicture(ArchSel)
     'LISTO!!!
 End Sub
 
 Private Sub Command3_Click()
-    If FSO.FolderExists(WINfolder + "\SL") = False Then FSO.CreateFolder (WINfolder + "\SL")
-    If FSO.FileExists(WINfolder + "\SL\txtIDX.tbr") Then FSO.DeleteFile WINfolder + "\SL\txtIDX.tbr", True
+    If FSO.FolderExists(WINfolder + "SL") = False Then FSO.CreateFolder (WINfolder + "SL")
+    If FSO.FileExists(WINfolder + "SL\txtIDX.tbr") Then FSO.DeleteFile WINfolder + "SL\txtIDX.tbr", True
     'grabar el texto como un nuevo archivo
-    Set TE = FSO.CreateTextFile(WINfolder + "\SL\txtIDX.tbr", True)
+    Set TE = FSO.CreateTextFile(WINfolder + "SL\txtIDX.tbr", True)
     'si deja en blanco jode!!!!!!
     If lblTBR = "" Then lblTBR = " "
     TE.Write lblTBR
@@ -669,10 +669,10 @@ Private Sub Command5_Click()
 End Sub
 
 Private Sub Command6_Click()
-    If FSO.FolderExists(WINfolder + "\SL") = False Then FSO.CreateFolder (WINfolder + "\SL")
-    If FSO.FileExists(WINfolder + "\SL\txtCFG.tbr") Then FSO.DeleteFile WINfolder + "\SL\txtCFG.tbr", True
+    If FSO.FolderExists(WINfolder + "SL") = False Then FSO.CreateFolder (WINfolder + "SL")
+    If FSO.FileExists(WINfolder + "SL\txtCFG.tbr") Then FSO.DeleteFile WINfolder + "SL\txtCFG.tbr", True
     'grabar el texto como un nuevo archivo
-    Set TE = FSO.CreateTextFile(WINfolder + "\SL\txtCFG.tbr", True)
+    Set TE = FSO.CreateTextFile(WINfolder + "SL\txtCFG.tbr", True)
     If txtCFG = "" Then txtCFG = " "
     TE.Write txtCFG
     TE.Close
@@ -686,13 +686,13 @@ Private Sub Form_Load()
     img3.Picture = LoadPicture(AP + "logos.sys")
     TapaCD.Picture = LoadPicture(AP + "tapa.jpg")
     TapaRank.Picture = LoadPicture(AP + "top10.jpg")
-    If FSO.FileExists(WINfolder + "\SL\txtcfg.tbr") Then
-        Set TE = FSO.OpenTextFile(WINfolder + "\SL\txtcfg.tbr", ForReading, False)
+    If FSO.FileExists(WINfolder + "SL\txtcfg.tbr") Then
+        Set TE = FSO.OpenTextFile(WINfolder + "SL\txtcfg.tbr", ForReading, False)
         txtCFG = TE.ReadAll
         TE.Close
     End If
-    If FSO.FileExists(WINfolder + "\SL\txtIDX.tbr") Then
-        Set TE = FSO.OpenTextFile(WINfolder + "\SL\txtIDX.tbr", ForReading, False)
+    If FSO.FileExists(WINfolder + "SL\txtIDX.tbr") Then
+        Set TE = FSO.OpenTextFile(WINfolder + "SL\txtIDX.tbr", ForReading, False)
         lblTBR = TE.ReadAll
         TE.Close
     Else

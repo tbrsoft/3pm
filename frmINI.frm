@@ -138,13 +138,13 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 
 Private Sub Form_Load()
-    MostrarCursor False
+    'MostrarCursor False
     On Local Error GoTo NoINI
     VVV = "v " + Trim(Str(App.Major)) + "." + Trim(Str(App.Minor)) + "." + Trim(Str(App.Revision))
     '--------
     If K.LICENCIA = HSuperLicencia Then
-        If FSO.FileExists(WINfolder + "\SL\imgbig.tbr") Then Image1.Picture = LoadPicture(WINfolder + "\SL\imgbig.tbr")
-        If FSO.FileExists(WINfolder + "\SL\imgtbr.tbr") Then Image2.Picture = LoadPicture(WINfolder + "\SL\imgtbr.tbr")
+        If FSO.FileExists(WINfolder + "SL\imgbig.tbr") Then Image1.Picture = LoadPicture(WINfolder + "SL\imgbig.tbr")
+        If FSO.FileExists(WINfolder + "SL\imgtbr.tbr") Then Image2.Picture = LoadPicture(WINfolder + "SL\imgtbr.tbr")
                 
     End If
     '--------
@@ -205,7 +205,8 @@ Private Sub Form_Load()
     'inicializar publicidades si corresponde
     MostrarPUB = LeerConfig("MostrarPub", "0")
     PubliCada = LeerConfig("PubliCada", "5")
-    PUBs.HabilitarPublicidades = MostrarPUB
+    IDIOMA = LeerConfig("Idioma", "Español")
+    PUBs.HabilitarPublicidadesMp3Vid = MostrarPUB
     PUBs.SonarPublicidadesCada = PubliCada
     
     MostrarPUBIMG = LeerConfig("MostrarPubIMG", "0")
@@ -220,14 +221,14 @@ Private Sub Form_Load()
     
     'cargar variables de claves
     'archivo de claves
-    If FSO.FileExists(WINfolder + "\sevalc.dll") = False Then
-        Set TE = FSO.CreateTextFile(WINfolder + "\sevalc.dll", True)
+    If FSO.FileExists(WINfolder + "sevalc.dll") = False Then
+        Set TE = FSO.CreateTextFile(WINfolder + "sevalc.dll", True)
         TE.WriteLine "Config:12345612345612345612"
         TE.WriteLine "Close:45612345612345612345"
         TE.WriteLine "Credit:1234441234441234561"
         TE.Close
     End If
-    Set TE = FSO.OpenTextFile(WINfolder + "\sevalc.dll", ForReading, False)
+    Set TE = FSO.OpenTextFile(WINfolder + "sevalc.dll", ForReading, False)
     'config/close/credit es el orden del archivo
     ClaveConfig = txtInLista(TE.ReadLine, 1, ":")
     ClaveClose = txtInLista(TE.ReadLine, 1, ":")
@@ -287,9 +288,9 @@ Private Sub Form_Load()
     LineaError = "000A-00904"
     lblINI.Refresh
     LineaError = "000A-00905"
-    PBar.Width = 0
+    pBar.Width = 0
     LineaError = "000A-00906"
-    PBar.Refresh
+    pBar.Refresh
     LineaError = "000A-00907"
     Dim TT As String
     Dim mtxTOP10() As String, z As Integer
@@ -316,7 +317,7 @@ Private Sub Form_Load()
             LineaError = "000A-00913"
             z = z + 1
             LineaError = "000A-00914"
-            PBar.Width = z * 10
+            pBar.Width = z * 10
             LineaError = "000A-00915"
             ThisPTS = Val(txtInLista(TT, 0, ","))
             LineaError = "000A-00916"
@@ -345,11 +346,11 @@ Private Sub Form_Load()
     c = 0 'cantidad de minimos encontrados
     Dim Ordenados() As Long 'matriz con los indices ordenados
     LineaError = "000A-00923"
-    PBar.Width = 0
-    PBar.Refresh
+    pBar.Width = 0
+    pBar.Refresh
     LineaError = "000A-00924"
     Do
-        PBar.Width = c * 10
+        pBar.Width = c * 10
         LineaError = "000A-00925"
         For mtx = 1 To UBound(mtxTOP10)
             'se compara por los puntos
@@ -376,11 +377,12 @@ Private Sub Form_Load()
     Loop
     'cargar todos y sacar la primera columna de las zetas
     LineaError = "000A-00932"
-    PBar.Width = 0
-    PBar.Refresh
+    pBar.Width = 0
+    pBar.Refresh
     LineaError = "000A-00933"
     Dim MTXsort() As String
-    Set TE = FSO.OpenTextFile(AP + "ranking.tbr", ForWriting, True)
+    'cambie opentextfile por createtextfile por un error que suele dar
+    Set TE = FSO.CreateTextFile(AP + "ranking.tbr", True)
     'si no hay nada para escribir el Close da error?!?!?!?!?
     Dim RankWrite As Long
     RankWrite = 0
@@ -396,9 +398,9 @@ Private Sub Form_Load()
                 txtInLista(mtxTOP10(Ordenados(mtx)), 2, ",") + "," + _
                 txtInLista(mtxTOP10(Ordenados(mtx)), 3, ",") + "," + _
                 txtInLista(mtxTOP10(Ordenados(mtx)), 4, ",")
-                LineaError = "000A-00938"
+            LineaError = "000A-00938"
             TE.WriteLine MTXsort(mtx)
-            PBar.Width = mtx * 10
+            pBar.Width = mtx * 10
             RankWrite = RankWrite + 1
         Else
             LineaError = "000A-00937"

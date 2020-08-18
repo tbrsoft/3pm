@@ -42,7 +42,7 @@ Private Sub Reloj_Timer()
     'primero ver si ermina el tema
     If IsPlaying = False Then
         LineaError = "002-0002"
-        Reloj.Interval = 0
+        RELOJ.Interval = 0
         LineaError = "002-0003"
         RaiseEvent EndPlay
         LineaError = "002-0004"
@@ -381,7 +381,7 @@ Public Function DoPlay(Optional FullScreen As Boolean = False)
         WriteLog "No se pudo ejecutar un fichero." + m_FileName + " Function DoPlay", False
     End If
     LineaError = "002-0086"
-    Reloj.Interval = 1000
+    RELOJ.Interval = 1000
     LineaError = "002-0087"
     RaiseEvent BeginPlay
     Exit Function
@@ -402,7 +402,7 @@ Public Function DoPause()
         WriteLog "No se pudo poner en pausa un fichero." + m_FileName + " Function DoPause", False
     End If
     LineaError = "002-0092"
-    Reloj.Interval = 0
+    RELOJ.Interval = 0
     Exit Function
 ERmp3:
     WriteLog "-" + vbCrLf + _
@@ -420,7 +420,7 @@ Public Function DoStop() As String
         WriteLog "No se pudo parar un fichero." + m_FileName + " Function DoStop", False
     End If
     LineaError = "002-0097"
-    Reloj.Interval = 0
+    RELOJ.Interval = 0
     LineaError = "002-0098"
     RaiseEvent EndPlay
     
@@ -441,7 +441,7 @@ Public Function DoClose() As String
     End If
     'SI SIGUE EL RELOJ SE MARCAN 1000 errores!!!!!!!!!!
     LineaError = "002-0103"
-    Reloj.Interval = 0
+    RELOJ.Interval = 0
     Exit Function
 ERmp3:
     WriteLog "-" + vbCrLf + _
@@ -579,13 +579,6 @@ Public Function LengthInSec()
     'LengthInSec = Int(Trim(Mid$(s, 1, Len(s)) / 1000))
     Exit Function
 ErrFunc:
-    On Local Error GoTo ErrFunc2
-    WriteLog "El Valor devuelto por MCI para Length no es válido." + ". Tema: " + m_FileName + " Valor= " + s, True
-    'el error puede ser que el primer caracter de S no sea valido
-    LengthInSec = Int(Trim(Mid$(s, 2, Len(s)) / 1000))
-    Resume 'volver a ver que pasa
-    Exit Function
-ErrFunc2:
     WriteLog "El Valor devuelto (preuba desde el segundo caracter) por MCI para Length no es válido. Valor 2° prueba = " + Mid$(s, 2, Len(s)), False
     Resume Next
 End Function

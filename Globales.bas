@@ -1,4 +1,7 @@
 Attribute VB_Name = "Globales"
+Public IDIOMA As String
+    'Puede ser: Español / English / Francois / Italiano
+
 Public Salida2 As Boolean 'indica si hay una 2° salida de video
 Public vidFullScreen As Boolean 'dice si el video es fullscreen o no
 Public NoVumVID As Boolean 'quitar el VUMetro de los videos
@@ -515,7 +518,7 @@ End Function
 
 Public Sub WriteTBRLog(TXT As String, PonerFecha As Boolean)
 
-    TXT = "Linea: " + LineaError + vbCrLf + TXT
+    TXT = vbCrLf + "Linea: " + LineaError + vbCrLf + TXT
     If FSO.FileExists(AP + "TBRlog.txt") = False Then
         Set TE = FSO.CreateTextFile(AP + "TBRlog.txt", False)
         TE.Close
@@ -541,6 +544,14 @@ End Sub
 
 
 Public Function QuitarNumeroDeTema(TemaFull As String) As String
+    On Error GoTo ErrQuitaNum
+    'si es un archivo corto ni lo toco!!!
+    'en general es porque el nombre del tema es un número!!!
+    If Len(TemaFull) <= 4 Then
+        QuitarNumeroDeTema = TemaFull
+        Exit Function
+    End If
+    LineaError = "004-0001"
     Dim TMPtema As String
     TMPtema = TemaFull
     'ver si hay numeros adelante y si hay quitarselos
@@ -549,6 +560,7 @@ Public Function QuitarNumeroDeTema(TemaFull As String) As String
     If IsNumeric(Mid(TemaFull, 1, 1)) Then NumersoAlInicio = NumersoAlInicio + 1
     If IsNumeric(Mid(TemaFull, 2, 1)) Then NumersoAlInicio = NumersoAlInicio + 1
     If IsNumeric(Mid(TemaFull, 3, 1)) Then NumersoAlInicio = NumersoAlInicio + 1
+    LineaError = "004-0002"
     If NumersoAlInicio > 0 Then
         TMPtema = Trim(Right(TemaFull, Len(TemaFull) - 3))
         'ver si quedo con esto
@@ -566,7 +578,14 @@ Public Function QuitarNumeroDeTema(TemaFull As String) As String
         Next
         
     End If
+    LineaError = "004-0003"
     QuitarNumeroDeTema = TMPtema
+    Exit Function
+ErrQuitaNum:
+    WriteTBRLog "ERROR EN QuitarNumero TEMA. " + vbCrLf + _
+        "Arch: " + TemaFull + vbCrLf + _
+        "Descripcion: " + Err.Description, True
+    If frmIndex.MP3.IsPlaying = False Then EMPEZAR_SIGUIENTE
 End Function
 Public Sub InfoDisco(LBL As Label)
     Dim TotDisco, TotFree1, TotFree2, Serial As String, VolName As String
@@ -595,7 +614,7 @@ Public Sub VerSiTocaPUB()
     'pasar a la lista de reproducción
     'SOLO SI HAY PUBLICIDADES
     'NO VA A FALTAR ALGUN IDIOTA QUE HABILITE Y NO COLOQUE PUBS!!!!
-    If PUBs.HabilitarPublicidades And PUBs.TotalPUBs > 0 Then
+    If PUBs.HabilitarPublicidadesMp3Vid And PUBs.TotalPUBs > 0 Then
         'indicarle al PUB que paso otro tema
         PUBs.ContadorTemas = PUBs.ContadorTemas + 1
         'ver si ya corresponde
@@ -607,7 +626,8 @@ Public Sub VerSiTocaPUB()
             PUBs.UltimaReproducida = PUBs.UltimaReproducida + 1
             'si termino que empieze de vuelta. Siempre empieza en el 1
             'el cero esta en blanco!!!
-            If PUBs.UltimaReproducida >= PUBs.TotalPUBs Then PUBs.UltimaReproducida = 1
+            'no es >=!!!! es solo mayor si no no rep la ultima!!!
+            If PUBs.UltimaReproducida > PUBs.TotalPUBs Then PUBs.UltimaReproducida = 1
             
             'INDICAR CUAL SE EJECUTA
             Dim ArchPub As String
@@ -636,4 +656,10 @@ End Sub
 Public Sub Main()
     K.ClaveDLL = "ashjdklahsJKLHASL65456456456"
     frmREG.Show 1
+    Select Case IDIOMA
+        Case "Español"
+        Case "English"
+        Case "Francois"
+        Case "Italiano"
+    End Select
 End Sub

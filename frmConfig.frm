@@ -17,6 +17,192 @@ Begin VB.Form frmConfig
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    WindowState     =   2  'Maximized
+   Begin VB.Frame frPUBS 
+      BackColor       =   &H00000000&
+      Caption         =   "Publicidades"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FFFFFF&
+      Height          =   2565
+      Left            =   13680
+      TabIndex        =   133
+      Top             =   8280
+      Visible         =   0   'False
+      Width           =   3375
+      Begin VB.VScrollBar vsPubliIMGCada 
+         Height          =   330
+         Left            =   2910
+         Max             =   10
+         Min             =   100
+         TabIndex        =   137
+         Top             =   2055
+         Value           =   10
+         Width           =   330
+      End
+      Begin VB.TextBox txtPubliImgCada 
+         Alignment       =   2  'Center
+         Enabled         =   0   'False
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   315
+         Left            =   2280
+         TabIndex        =   140
+         TabStop         =   0   'False
+         Text            =   "0"
+         Top             =   2040
+         Width           =   600
+      End
+      Begin VB.CheckBox ckPubIMG 
+         BackColor       =   &H00000000&
+         Caption         =   "Reproducir Publicidades (imagenes rotativas) "
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   390
+         Left            =   150
+         TabIndex        =   136
+         Top             =   1500
+         Width           =   3105
+      End
+      Begin VB.VScrollBar vsPubliCada 
+         Height          =   330
+         Left            =   2910
+         Max             =   1
+         Min             =   100
+         TabIndex        =   135
+         Top             =   915
+         Value           =   5
+         Width           =   330
+      End
+      Begin VB.TextBox txtPubliCada 
+         Alignment       =   2  'Center
+         Enabled         =   0   'False
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   315
+         Left            =   2280
+         TabIndex        =   138
+         TabStop         =   0   'False
+         Text            =   "0"
+         Top             =   900
+         Width           =   600
+      End
+      Begin VB.CheckBox ckPUB 
+         BackColor       =   &H00000000&
+         Caption         =   "Reproducir Publicidades (Audio y video) "
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   570
+         Left            =   120
+         TabIndex        =   134
+         Top             =   300
+         Width           =   3105
+      End
+      Begin VB.Line Line5 
+         BorderColor     =   &H00FFFFFF&
+         X1              =   240
+         X2              =   3060
+         Y1              =   1380
+         Y2              =   1380
+      End
+      Begin VB.Label Label1 
+         Alignment       =   1  'Right Justify
+         BackStyle       =   0  'Transparent
+         Caption         =   "Reproducir publicidades cada X segundos"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   405
+         Index           =   30
+         Left            =   90
+         TabIndex        =   141
+         Top             =   1980
+         Width           =   2145
+      End
+      Begin VB.Label Label1 
+         Alignment       =   1  'Right Justify
+         BackStyle       =   0  'Transparent
+         Caption         =   "Reproducir publicidades cada X temas"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   405
+         Index           =   29
+         Left            =   90
+         TabIndex        =   139
+         Top             =   840
+         Width           =   2145
+      End
+   End
+   Begin VB.CommandButton Command21 
+      BackColor       =   &H0080C0FF&
+      Caption         =   "CLUF"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   435
+      Left            =   7590
+      Style           =   1  'Graphical
+      TabIndex        =   147
+      Top             =   8490
+      Width           =   2100
+   End
    Begin VB.Frame frVisualizacion 
       BackColor       =   &H00000000&
       Caption         =   "Visualizacion"
@@ -351,173 +537,6 @@ Begin VB.Form frmConfig
          Width           =   2145
       End
    End
-   Begin VB.Frame frPUBS 
-      BackColor       =   &H00000000&
-      Caption         =   "Publicidades"
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00FFFFFF&
-      Height          =   2685
-      Left            =   14580
-      TabIndex        =   133
-      Top             =   8190
-      Visible         =   0   'False
-      Width           =   3375
-      Begin VB.VScrollBar vsPubliIMGCada 
-         Height          =   330
-         Left            =   2910
-         Max             =   10
-         Min             =   100
-         TabIndex        =   137
-         Top             =   2055
-         Value           =   10
-         Width           =   330
-      End
-      Begin VB.TextBox txtPubliImgCada 
-         Alignment       =   2  'Center
-         Enabled         =   0   'False
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   315
-         Left            =   2280
-         TabIndex        =   140
-         TabStop         =   0   'False
-         Text            =   "0"
-         Top             =   2040
-         Width           =   600
-      End
-      Begin VB.CheckBox ckPubIMG 
-         BackColor       =   &H00000000&
-         Caption         =   "Reproducir Publicidades (imagenes rotativas) "
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00FFFFFF&
-         Height          =   390
-         Left            =   150
-         TabIndex        =   136
-         Top             =   1500
-         Width           =   3105
-      End
-      Begin VB.VScrollBar vsPubliCada 
-         Height          =   330
-         Left            =   2910
-         Max             =   1
-         Min             =   100
-         TabIndex        =   135
-         Top             =   915
-         Value           =   5
-         Width           =   330
-      End
-      Begin VB.TextBox txtPubliCada 
-         Alignment       =   2  'Center
-         Enabled         =   0   'False
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   315
-         Left            =   2280
-         TabIndex        =   138
-         TabStop         =   0   'False
-         Text            =   "0"
-         Top             =   900
-         Width           =   600
-      End
-      Begin VB.CheckBox ckPUB 
-         BackColor       =   &H00000000&
-         Caption         =   "Reproducir Publicidades (Audio y video) "
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00FFFFFF&
-         Height          =   570
-         Left            =   120
-         TabIndex        =   134
-         Top             =   300
-         Width           =   3105
-      End
-      Begin VB.Line Line5 
-         BorderColor     =   &H00FFFFFF&
-         X1              =   240
-         X2              =   3060
-         Y1              =   1380
-         Y2              =   1380
-      End
-      Begin VB.Label Label1 
-         Alignment       =   1  'Right Justify
-         BackStyle       =   0  'Transparent
-         Caption         =   "Reproducir publicidades cada X segundos"
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00FFFFFF&
-         Height          =   405
-         Index           =   30
-         Left            =   90
-         TabIndex        =   141
-         Top             =   1980
-         Width           =   2145
-      End
-      Begin VB.Label Label1 
-         Alignment       =   1  'Right Justify
-         BackStyle       =   0  'Transparent
-         Caption         =   "Reproducir publicidades cada X temas"
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00FFFFFF&
-         Height          =   405
-         Index           =   29
-         Left            =   90
-         TabIndex        =   139
-         Top             =   840
-         Width           =   2145
-      End
-   End
    Begin VB.CommandButton Command19 
       BackColor       =   &H0080C0FF&
       Caption         =   "COMPRAR AHORA!"
@@ -531,11 +550,11 @@ Begin VB.Form frmConfig
          Strikethrough   =   0   'False
       EndProperty
       Height          =   435
-      Left            =   7800
+      Left            =   9720
       Style           =   1  'Graphical
       TabIndex        =   123
       Top             =   8490
-      Width           =   3720
+      Width           =   2220
    End
    Begin VB.Frame frValidacion 
       BackColor       =   &H00000000&
@@ -1252,12 +1271,32 @@ Begin VB.Form frmConfig
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   3255
-      Left            =   12060
+      Height          =   3405
+      Left            =   12090
       TabIndex        =   73
       Top             =   2430
       Visible         =   0   'False
       Width           =   4485
+      Begin VB.ComboBox cmbIDIOMA 
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   360
+         ItemData        =   "frmConfig.frx":04A1
+         Left            =   2070
+         List            =   "frmConfig.frx":04B1
+         Style           =   2  'Dropdown List
+         TabIndex        =   145
+         Top             =   2790
+         Visible         =   0   'False
+         Width           =   2205
+      End
       Begin VB.TextBox txtSECwait 
          Alignment       =   2  'Center
          Enabled         =   0   'False
@@ -1271,34 +1310,34 @@ Begin VB.Form frmConfig
             Strikethrough   =   0   'False
          EndProperty
          Height          =   315
-         Left            =   3300
+         Left            =   3330
          TabIndex        =   96
          TabStop         =   0   'False
          Text            =   "0"
-         Top             =   2280
+         Top             =   2010
          Width           =   600
       End
       Begin VB.VScrollBar VSSegEspera 
          Height          =   330
          LargeChange     =   10
-         Left            =   3930
+         Left            =   3960
          Max             =   30
          Min             =   1200
          SmallChange     =   10
          TabIndex        =   95
-         Top             =   2280
+         Top             =   2010
          Value           =   30
          Width           =   330
       End
       Begin VB.VScrollBar VsPorcTema 
          Height          =   330
          LargeChange     =   10
-         Left            =   3930
+         Left            =   3960
          Max             =   10
          Min             =   100
          SmallChange     =   10
          TabIndex        =   94
-         Top             =   2655
+         Top             =   2385
          Value           =   10
          Width           =   330
       End
@@ -1315,11 +1354,11 @@ Begin VB.Form frmConfig
             Strikethrough   =   0   'False
          EndProperty
          Height          =   315
-         Left            =   3300
+         Left            =   3330
          TabIndex        =   93
          TabStop         =   0   'False
          Text            =   "0"
-         Top             =   2640
+         Top             =   2370
          Width           =   600
       End
       Begin VB.TextBox txtMaxFichas 
@@ -1335,20 +1374,20 @@ Begin VB.Form frmConfig
             Strikethrough   =   0   'False
          EndProperty
          Height          =   315
-         Left            =   3300
+         Left            =   3330
          TabIndex        =   89
          TabStop         =   0   'False
          Text            =   "0"
-         Top             =   1920
+         Top             =   1650
          Width           =   600
       End
       Begin VB.VScrollBar VSmaxFichas 
          Height          =   330
-         Left            =   3930
+         Left            =   3960
          Max             =   5
          Min             =   200
          TabIndex        =   88
-         Top             =   1920
+         Top             =   1650
          Value           =   5
          Width           =   330
       End
@@ -1413,6 +1452,28 @@ Begin VB.Form frmConfig
       Begin VB.Label Label1 
          Alignment       =   1  'Right Justify
          BackStyle       =   0  'Transparent
+         Caption         =   "IDIOMA"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   285
+         Index           =   27
+         Left            =   900
+         TabIndex        =   146
+         Top             =   2880
+         Visible         =   0   'False
+         Width           =   1065
+      End
+      Begin VB.Label Label1 
+         Alignment       =   1  'Right Justify
+         BackStyle       =   0  'Transparent
          Caption         =   "Porcentaje ejecutar tema"
          BeginProperty Font 
             Name            =   "Verdana"
@@ -1426,9 +1487,9 @@ Begin VB.Form frmConfig
          ForeColor       =   &H00FFFFFF&
          Height          =   285
          Index           =   12
-         Left            =   150
+         Left            =   180
          TabIndex        =   97
-         Top             =   2700
+         Top             =   2430
          Width           =   3075
       End
       Begin VB.Label Label1 
@@ -1447,9 +1508,9 @@ Begin VB.Form frmConfig
          ForeColor       =   &H00FFFFFF&
          Height          =   285
          Index           =   9
-         Left            =   120
+         Left            =   150
          TabIndex        =   98
-         Top             =   2340
+         Top             =   2070
          Width           =   3075
       End
       Begin VB.Label Label1 
@@ -1468,9 +1529,9 @@ Begin VB.Form frmConfig
          ForeColor       =   &H00FFFFFF&
          Height          =   240
          Index           =   8
-         Left            =   240
+         Left            =   270
          TabIndex        =   87
-         Top             =   1980
+         Top             =   1710
          Width           =   2925
       End
    End
@@ -1490,7 +1551,7 @@ Begin VB.Form frmConfig
       Height          =   2265
       Left            =   12060
       TabIndex        =   66
-      Top             =   5760
+      Top             =   5940
       Visible         =   0   'False
       Width           =   4185
       Begin VB.VScrollBar vsCreditosCuestaTemaVIDEO 
@@ -2752,7 +2813,7 @@ Begin VB.Form frmConfig
       Alignment       =   2  'Center
       BackColor       =   &H00808000&
       BorderStyle     =   1  'Fixed Single
-      Caption         =   $"frmConfig.frx":04A1
+      Caption         =   $"frmConfig.frx":04DB
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   9.75
@@ -3133,6 +3194,7 @@ Private Sub Command1_Click() 'GRABAR BUTTON
     FullConfig = FullConfig + "MostrarPUBIMG= " + CStr(ckPubIMG) + vbCrLf
     FullConfig = FullConfig + "PubliCada= " + txtPubliCada + vbCrLf
     FullConfig = FullConfig + "PubliIMGCada= " + txtPubliImgCada + vbCrLf
+    FullConfig = FullConfig + "Idioma= " + cmbIDIOMA + vbCrLf
     'encriptar
     FullConfig = Encriptar(FullConfig, False)
     'grabar el kilombo
@@ -3151,8 +3213,8 @@ Private Sub Command1_Click() 'GRABAR BUTTON
     
     PubliIMGCada = Val(txtPubliImgCada)
     MostrarPUBIMG = ckPubIMG
-    
-    PUBs.HabilitarPublicidades = MostrarPUB
+    IDIOMA = cmbIDIOMA
+    PUBs.HabilitarPublicidadesMp3Vid = MostrarPUB
     PUBs.SonarPublicidadesCada = PubliCada
     
     PUBs.HabilitarPublicidadesIMG = MostrarPUBIMG
@@ -3401,6 +3463,10 @@ Private Sub Command20_Click()
     CentrarFrEnFr frConfigVis, frPUBS
 End Sub
 
+Private Sub Command21_Click()
+    frmCLUF.Show 1
+End Sub
+
 Private Sub Command3_Click()
     SumarContadorCreditos -CONTADOR 'esto lo deja en cero
     lblContador = STRceros(CONTADOR, 11)
@@ -3520,7 +3586,7 @@ Private Sub Command9_LostFocus()
 End Sub
 
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
-    
+        
     Select Case KeyCode
         Case TeclaCerrarSistema
             OnOffCAPS vbKeyCapital, False
@@ -3569,8 +3635,8 @@ Private Sub Form_Load()
     MostrarCursor True
     AjustarFRM Me, 12000
     If K.LICENCIA = HSuperLicencia Then
-        If FSO.FileExists(WINfolder + "\SL\txtCFG.tbr") Then
-            Set TE = FSO.OpenTextFile(WINfolder + "\SL\txtCFG.tbr", ForReading, False)
+        If FSO.FileExists(WINfolder + "SL\txtCFG.tbr") Then
+            Set TE = FSO.OpenTextFile(WINfolder + "SL\txtCFG.tbr", ForReading, False)
             If TE.AtEndOfStream = False Then
                 Dim NewT As String
                 NewT = TE.ReadAll
@@ -3656,8 +3722,9 @@ Private Sub Form_Load()
     PubliCada = LeerConfig("PubliCada", "5")
     MostrarPUBIMG = LeerConfig("MostrarPubIMG", "0")
     PubliIMGCada = LeerConfig("PubliIMGCada", "10")
+    IDIOMA = LeerConfig("Idioma", "Español")
     
-    PUBs.HabilitarPublicidades = MostrarPUB
+    PUBs.HabilitarPublicidadesMp3Vid = MostrarPUB
     PUBs.SonarPublicidadesCada = PubliCada
     PUBs.HabilitarPublicidadesIMG = MostrarPUBIMG
     PUBs.SonarPublicidadesIMGCada = PubliIMGCada
@@ -3744,7 +3811,7 @@ Private Sub Form_Load()
     vsPubliCada = PubliCada
     ckPubIMG = -MostrarPUBIMG
     vsPubliIMGCada = PubliIMGCada
-    
+    cmbIDIOMA = IDIOMA
     'mostrar el registro diario de contador
     Dim TE2 As TextStream
     Set TE2 = FSO.OpenTextFile(SYSfolder + "\daily.cfg", ForReading, False)

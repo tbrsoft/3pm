@@ -472,11 +472,25 @@ Dim CmdLg As New CommonDialog
 
 Private Sub cmdKillArch_Click()
     If lstTEMAS.SelCount = 0 Then
-        MsgBox "No hay archivos seleccionados"
+        Select Case IDIOMA
+            Case "Español"
+                MsgBox "No hay archivos seleccionados"
+            Case "English"
+            Case "Francois"
+            Case "Italiano"
+        End Select
+        
         Exit Sub
     End If
-    If MsgBox("Esta seguro que desea eliminar los archivos elegidos?", _
-        vbQuestion + vbYesNo) = vbYes Then
+    Select Case IDIOMA
+        Case "Español"
+            msg = "Esta seguro que desea eliminar los archivos elegidos?"
+        Case "English"
+        Case "Francois"
+        Case "Italiano"
+    End Select
+        
+    If MsgBox(msg, vbQuestion + vbYesNo) = vbYes Then
         On Error GoTo NOBORRA
         Dim TotSel As Long, FileSel As String
         TotSel = lstTEMAS.SelCount
@@ -490,18 +504,40 @@ Private Sub cmdKillArch_Click()
         Next
         'actualizar todo
         Call lstCarpetas_Click
-        MsgBox "Los archivos se eliminaron correctamente"
+        Select Case IDIOMA
+            Case "Español"
+                MsgBox "Los archivos se eliminaron correctamente"
+            Case "English"
+            Case "Francois"
+            Case "Italiano"
+        End Select
+        
     End If
     InfoDisco lblInfoDisco
     Exit Sub
 NOBORRA:
-    MsgBox "No se ha podido borrar uno mas temas, compruebe " + _
-    "que no esten abiertos. Error numero:" + CStr(Err.Number) + _
-    " Descripcion interna: " + Err.Description
+    Select Case IDIOMA
+        Case "Español"
+            MsgBox "No se ha podido borrar uno mas temas, compruebe " + _
+                "que no esten abiertos. Error numero:" + CStr(Err.Number) + _
+                " Descripcion interna: " + Err.Description
+        Case "English"
+        Case "Francois"
+        Case "Italiano"
+    End Select
 End Sub
 
 Private Sub cmdKillTapa_Click()
-    If MsgBox("¿Esta seguro que desea eliminar la imagen elegida?", vbYesNo + vbCritical) = vbNo Then Exit Sub
+    
+    Select Case IDIOMA
+        Case "Español"
+            msg = "¿Esta seguro que desea eliminar la imagen elegida?"
+        Case "English"
+        Case "Francois"
+        Case "Italiano"
+    End Select
+
+    If MsgBox(msg, vbYesNo + vbCritical) = vbNo Then Exit Sub
     FSO.DeleteFile lstCarpetas + "\tapa.jpg", True
     'refrescar la imagen
     TapaCD.Picture = LoadPicture(AP + "tapa.jpg")
@@ -509,7 +545,14 @@ Private Sub cmdKillTapa_Click()
 End Sub
 
 Private Sub cmdKillTXT_Click()
-    If MsgBox("¿Esta seguro que desea eliminar el texto elegido?", vbYesNo + vbCritical) = vbNo Then Exit Sub
+    Select Case IDIOMA
+        Case "Español"
+            msg = "¿Esta seguro que desea eliminar el texto elegido?"
+        Case "English"
+        Case "Francois"
+        Case "Italiano"
+    End Select
+    If MsgBox(msg, vbYesNo + vbCritical) = vbNo Then Exit Sub
     FSO.DeleteFile lstCarpetas + "\data.txt", True
     cmdKillTXT.Enabled = False
     txtDataTXT = "NO EXISTE"
@@ -519,8 +562,14 @@ Private Sub Command1_Click()
     'si borro una vez esta todo OK
     ' si entro por segunda vez ya matriz_discos tiene distintos indices
     'con respecto a las listas!!!!!!!!!!!!
-    If MsgBox("Esta seguro que desea eliminar las carpetas elegidas?", _
-        vbQuestion + vbYesNo) = vbYes Then
+    Select Case IDIOMA
+        Case "Español"
+            msg = "Esta seguro que desea eliminar las carpetas elegidas?"
+        Case "English"
+        Case "Francois"
+        Case "Italiano"
+    End Select
+    If MsgBox(msg, vbQuestion + vbYesNo) = vbYes Then
         On Local Error GoTo NOBORRA
         Dim TotSel As Long, CarpSel As String
         TotSel = lstCarpetasShow.SelCount
@@ -532,23 +581,43 @@ Private Sub Command1_Click()
                 'CarpSel = txtInLista(MATRIZ_DISCOS(AA + 1), 0, ",")
                 CarpSel = lstCarpetas.List(AA)
                 If Right(CarpSel, 22) = "01- Los mas escuchados" Then
-                    MsgBox "No se puede borrar la carpeta del ranking"
+                    Select Case IDIOMA
+                        Case "Español"
+                            MsgBox "No se puede borrar la carpeta del ranking"
+                        Case "English"
+                        Case "Francois"
+                        Case "Italiano"
+                    End Select
                 Else
                     FSO.DeleteFolder CarpSel, True
                     WriteTBRLog "Se borro la carpeta " + CarpSel, True
                 End If
             End If
         Next
-        MsgBox "Las carpetas se eliminaron correctamente"
+        Select Case IDIOMA
+            Case "Español"
+                MsgBox "Las carpetas se eliminaron correctamente"
+            Case "English"
+            Case "Francois"
+            Case "Italiano"
+        End Select
+        
         'actualizar todo
         CargarCarpetas
         InfoDisco lblInfoDisco
     End If
     Exit Sub
 NOBORRA:
-    MsgBox "No se ha podido borrar uno mas carpetas, compruebe " + _
-    "que no esten abiertas. Error numero:" + CStr(Err.Number) + _
-    " Descripcion interna: " + Err.Description
+
+    Select Case IDIOMA
+        Case "Español"
+            MsgBox "No se ha podido borrar uno mas carpetas, compruebe " + _
+                "que no esten abiertas. Error numero:" + CStr(Err.Number) + _
+                " Descripcion interna: " + Err.Description
+        Case "English"
+        Case "Francois"
+        Case "Italiano"
+    End Select
 
 End Sub
 
@@ -576,8 +645,17 @@ Private Sub Command3_Click()
 End Sub
 
 Private Sub Command4_Click()
-    CmdLg.DialogTitle = "Eliga la nueva imagen del disco elegido"
-    CmdLg.Filter = "Imagen JPG o GIF|*.jpg;*.gif"
+    Select Case IDIOMA
+        Case "Español"
+            CmdLg.DialogTitle = "Eliga la nueva imagen del disco elegido"
+            CmdLg.Filter = "Imagen JPG o GIF|*.jpg;*.gif"
+        Case "English"
+            CmdLg.DialogTitle = "Eliga la nueva imagen del disco elegido"
+            CmdLg.Filter = "Image JPG o GIF|*.jpg;*.gif"
+        Case "Francois"
+        Case "Italiano"
+    End Select
+    
     CmdLg.ShowOpen
     If CmdLg.FileName = "" Then Exit Sub
     'ver el tamaño!!!
@@ -585,18 +663,44 @@ Private Sub Command4_Click()
     TamTapa = FileLen(CmdLg.FileName)
     TamTapa = Round(TamTapa / 1024, 2) 'son KB
     If TamTapa > 20 Then
-        If MsgBox("tbrSoft recomienda imagenes no mayores a 8 KB, esta " + _
-            "imagen tine " + CStr(TamTapa) + " KB. ¿Esta seguro que desea usarla?" + _
-            " Puede afectar el rendimiento del equipo!", vbYesNo + vbCritical) = vbNo Then Exit Sub
+    
+        Select Case IDIOMA
+            Case "Español"
+                msg = "tbrSoft recomienda imagenes no mayores a 8 KB, esta " + _
+                    "imagen tine " + CStr(TamTapa) + " KB. ¿Esta seguro que desea usarla?" + _
+                    " Puede afectar el rendimiento del equipo!"
+            Case "English"
+            Case "Francois"
+            Case "Italiano"
+        End Select
+    
+        If MsgBox(msg, vbYesNo + vbCritical) = vbNo Then Exit Sub
     End If
     
     If TamTapa > 200 Then
-        If MsgBox("Imagen demasiado pesada. Despues de la advertencia, ¿aun desea usarla?" + _
-            " Puede afectar el rendimiento del equipo!!!", vbYesNo + vbCritical) = vbNo Then Exit Sub
+        Select Case IDIOMA
+            Case "Español"
+                msg = "Imagen demasiado pesada. Despues de la advertencia, ¿aun desea usarla?" + _
+                    " Puede afectar el rendimiento del equipo!!!"
+            Case "English"
+            Case "Francois"
+            Case "Italiano"
+        End Select
+    
+        If MsgBox(msg, vbYesNo + vbCritical) = vbNo Then Exit Sub
     End If
     
     If cmdKillTapa.Enabled Then
-        If MsgBox("¿Esta seguro que desea reemplazar la imagen existente?", vbYesNo + vbCritical) = vbNo Then Exit Sub
+    
+        Select Case IDIOMA
+            Case "Español"
+                msg = "¿Esta seguro que desea reemplazar la imagen existente?"
+            Case "English"
+            Case "Francois"
+            Case "Italiano"
+        End Select
+    
+        If MsgBox(msg, vbYesNo + vbCritical) = vbNo Then Exit Sub
         FSO.DeleteFile lstCarpetas + "\tapa.jpg", True
     End If
     FSO.CopyFile CmdLg.FileName, lstCarpetas + "\tapa.jpg", True
@@ -604,10 +708,31 @@ Private Sub Command4_Click()
 End Sub
 
 Private Sub Command5_Click()
-    If Command5.Caption = "Confirmar" Then
+    
+    'ojo ARTIME que aqui el programa se guia por lo que esta escrito en el boton
+    'o sea fijate en mayusculas y minusculas!!!
+    
+    Select Case IDIOMA
+        Case "Español"
+            msg = "Confirmar"
+        Case "English"
+        Case "Francois"
+        Case "Italiano"
+    End Select
+    
+    If Command5.Caption = msg Then
         txtDataTXT.BackColor = &HE0E0E0   'color original
         txtDataTXT.Locked = True
-        Command5.Caption = "Nuevo texto"
+        
+        Select Case IDIOMA
+            Case "Español"
+                Command5.Caption = "Nuevo texto"
+            Case "English"
+                Command5.Caption = "New Text"
+            Case "Francois"
+            Case "Italiano"
+        End Select
+        
         'grabar el texto
         Set TE = FSO.CreateTextFile(lstCarpetas + "\data.txt", True)
         TE.Write txtDataTXT
@@ -618,15 +743,40 @@ Private Sub Command5_Click()
         txtDataTXT.SelStart = 0
         txtDataTXT.SelLength = Len(txtDataTXT)
         txtDataTXT.Locked = False
-        Command5.Caption = "Confirmar"
+        
+        Select Case IDIOMA
+            Case "Español"
+                Command5.Caption = "Confirmar"
+            Case "English"
+            Case "Francois"
+            Case "Italiano"
+        End Select
     End If
     
 End Sub
 
 Private Sub Command6_Click()
-    If Command6.Caption = "Generar estadistica de discos" Then
+
+    'ojo ARTIME que aqui el programa se guia por lo que esta escrito en el boton
+    'o sea fijate en mayusculas y minusculas!!!
+    Select Case IDIOMA
+        Case "Español"
+            msg = "Generar estadistica de discos"
+        Case "English"
+        Case "Francois"
+        Case "Italiano"
+    End Select
+    If Command6.Caption = msg Then
         lstTODO.Clear
-        lstTODO.AddItem " RANK DISCOS (primero los menos escuhados)"
+        
+        Select Case IDIOMA
+            Case "Español"
+                lstTODO.AddItem " RANK DISCOS (primero los menos escuhados)"
+            Case "English"
+            Case "Francois"
+            Case "Italiano"
+        End Select
+    
         'pasar por todos los discos y medir de cada uno las escuchadas
         Dim ThisFolder As String
         Dim Carp As String
@@ -638,12 +788,25 @@ Private Sub Command6_Click()
                 lstTODO.AddItem STRceros(ContarLisen(Carp), 4) + ": " + Carp
             End If
             lstTODO.Visible = True
-            Command6.Caption = "Quitar estadistica de discos"
+            
+            Select Case IDIOMA
+                Case "Español"
+                    Command6.Caption = "Quitar estadistica de discos"
+                Case "English"
+                Case "Francois"
+                Case "Italiano"
+            End Select
         Next
     Else
         lstTODO.Visible = False
-        Command6.Caption = "Generar estadistica de discos"
-    
+        
+        Select Case IDIOMA
+            Case "Español"
+                Command6.Caption = "Generar estadistica de discos"
+            Case "English"
+            Case "Francois"
+            Case "Italiano"
+        End Select
     End If
 End Sub
 
@@ -672,12 +835,38 @@ Private Sub Command7_Click()
     
     Dim MsGrandes As String
     Dim MsMuyGrandes As String
-    If TapasGrandes > 0 Then MsGrandes = "Hay " + CStr(TapasGrandes) + " tapas de mas de 20 Kb. Estas son:" + vbCrLf + MasDe20Kb
-    If TapasMuyGrandes > 0 Then MsMuyGrandes = "Hay " + CStr(TapasMuyGrandes) + " tapas de mas de 200 Kb. Estas son:" + vbCrLf + MasDe300Kb
+    
+    Select Case IDIOMA
+        Case "Español"
+            msg = "Hay " + CStr(TapasGrandes) + _
+                " tapas de mas de 20 Kb. Estas son:" + vbCrLf + MasDe20Kb
+        Case "English"
+        Case "Francois"
+        Case "Italiano"
+    End Select
+    
+    If TapasGrandes > 0 Then MsGrandes = msg
+    
+    Select Case IDIOMA
+        Case "Español"
+            msg = "Hay " + CStr(TapasMuyGrandes) + _
+                " tapas de mas de 200 Kb. Estas son:" + vbCrLf + MasDe300Kb
+        Case "English"
+        Case "Francois"
+        Case "Italiano"
+    End Select
+    If TapasMuyGrandes > 0 Then MsMuyGrandes = msg
+    
     Dim MSGfinal As String
     MSGfinal = MsGrandes + vbCrLf + MsMuyGrandes
     If Len(MSGfinal) < 5 Then
-        MsgBox "Todas las portadas de los discos tiene tamaños correctos"
+        Select Case IDIOMA
+            Case "Español"
+                MsgBox "Todas las portadas de los discos tiene tamaños correctos"
+            Case "English"
+            Case "Francois"
+            Case "Italiano"
+        End Select
     Else
         MsgBox MSGfinal
     End If
@@ -685,15 +874,43 @@ End Sub
 
 Private Sub Command8_Click()
     Dim NewFolder As String
-    NewFolder = InputBox("Ingrese el nuevo nombre para el disco", "Nuevo nombre")
+    
+    Select Case IDIOMA
+        Case "Español"
+            NewFolder = InputBox("Ingrese el nuevo nombre para el disco", _
+                "Nuevo nombre")
+        Case "English"
+        Case "Francois"
+        Case "Italiano"
+    End Select
+    
     If NewFolder <> "" Then
         'primero corregir y acomodar el ranking para no perder los votos!!
         '?????????¿¿¿¿¿¿¿¿¿¿¿¿
         
-        
         Name lstCarpetas As AP + "discos\" + NewFolder
         lstCarpetasShow.List(lstCarpetas.ListIndex) = NewFolder
     End If
+End Sub
+
+Private Sub Form_Activate()
+    Select Case IDIOMA
+        Case "Español"
+            Label1(0) = "DISCOS"
+            Command1.Caption = "Eliminar discos elegidos"
+            cmdKillTapa.Caption = "Quitar foto"
+            Command4.Caption = "Nueva foto"
+            cmdKillTXT.Caption = "Quitar texto"
+            Command2.Caption = "Nuevo texto"
+            cmdKillArch.Caption = "Eliminar temas elegidos"
+            Command2.Caption = "Agregar Música"
+            Command6.Caption = "Generar estadistica de discos"
+            Command7.Caption = "Revisar tamaño de las portadas"
+            Command3.Caption = "SALIR"
+        Case "English"
+        Case "Francois"
+        Case "Italiano"
+    End Select
 End Sub
 
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
@@ -719,9 +936,22 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             'grabar cant de creditos
             EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
             If CREDITOS >= 10 Then
-                frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+                Select Case IDIOMA
+                    Case "Español"
+                        frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+                    Case "English"
+                        frmIndex.lblCreditos = "Coins: " + Trim(Str(CREDITOS))
+                    Case "Francois"
+                    Case "Italiano"
+                End Select
             Else
-                frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+                Select Case IDIOMA
+                    Case "Español"
+                        frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+                    Case "English"
+                    Case "Francois"
+                    Case "Italiano"
+                End Select
             End If
             
             'grabar credito para validar
@@ -747,15 +977,30 @@ Private Sub lstCarpetas_Click()
     lstTEMAS.Clear
     'mostrar los temas de esta carpeta solo si hay una sola carpeta elegida
     If lstCarpetas.SelCount > 1 Then
-        lstTEMAS.AddItem "No hay vista disponible"
-        lstTEMAS.AddItem "Multiples carpetas seleccionadas"
+        Select Case IDIOMA
+            Case "Español"
+                lstTEMAS.AddItem "No hay vista disponible"
+                lstTEMAS.AddItem "Multiples carpetas seleccionadas"
+            Case "English"
+            Case "Francois"
+            Case "Italiano"
+        End Select
+        
         lstTEMAS.Enabled = False
+        
     Else
         lstTEMAS.Enabled = True
         ReDim Preserve MTXfiles(0)
         MTXfiles = ObtenerArchMM(lstCarpetas)
         If UBound(MTXfiles) = 0 Then
-            lstTEMAS.AddItem "No hay temas multimedia en esta carpeta"
+            Select Case IDIOMA
+                Case "Español"
+                    lstTEMAS.AddItem "No hay temas multimedia en esta carpeta"
+                Case "English"
+                Case "Francois"
+                Case "Italiano"
+            End Select
+            
             lstTEMAS.Enabled = False
         Else
             For A = 1 To UBound(MTXfiles)
@@ -789,13 +1034,27 @@ Private Sub lstCarpetas_Click()
         txtDataTXT = TE2.ReadAll
         cmdKillTXT.Enabled = True
     Else
-        txtDataTXT = "NO EXISTE"
+        Select Case IDIOMA
+            Case "Español"
+                txtDataTXT = "NO EXISTE"
+            Case "English"
+            Case "Francois"
+            Case "Italiano"
+        End Select
+        
         cmdKillTXT.Enabled = False
     End If
     'ver el ranking y analizar las estadísticas del disco
     'leer los discos y ver uno por uno (de mayor a menor) que temas se escucharon
     If FSO.FileExists(AP + "ranking.tbr") = False Then
-        lstEstadisticas.AddItem "No hay informacion"
+        Select Case IDIOMA
+            Case "Español"
+                lstEstadisticas.AddItem "No hay informacion"
+            Case "English"
+            Case "Francois"
+            Case "Italiano"
+        End Select
+        
         Exit Sub
     End If
     Set TE = FSO.OpenTextFile(AP + "ranking.tbr", ForReading, False)
@@ -816,10 +1075,23 @@ Private Sub lstCarpetas_Click()
         End If
     Loop
     If TotLisen = 0 Then
-        lstEstadisticas.AddItem "Este disco no se ha escuchado todavia"
+        Select Case IDIOMA
+            Case "Español"
+                lstEstadisticas.AddItem "Este disco no se ha escuchado todavia"
+            Case "English"
+            Case "Francois"
+            Case "Italiano"
+        End Select
     Else
         lstEstadisticas.AddItem ""
-        lstEstadisticas.AddItem "   TOTAL: " + CStr(TotLisen)
+        Select Case IDIOMA
+            Case "Español"
+                lstEstadisticas.AddItem "   TOTAL: " + CStr(TotLisen)
+            Case "English"
+            Case "Francois"
+            Case "Italiano"
+        End Select
+        
     End If
     TE.Close
 End Sub

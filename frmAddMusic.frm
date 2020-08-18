@@ -457,7 +457,15 @@ Dim CarpetaDesdeCargar As String
 Private Sub Command1_Click()
     X.CancelError = False
     X.InitDir = "" 'para que muestre todo
-    X.DialogPrompt = "Elegir carpeta contenedora de los nuevos discos"
+    Select Case IDIOMA
+        Case "Español"
+            X.DialogPrompt = "Elegir carpeta contenedora de los nuevos discos"
+        Case "English"
+            X.DialogPrompt = "Eligeu carpetau"
+        Case "Francois"
+        Case "Italiano"
+    End Select
+    
     X.ShowFolder
     
     If Len(X.InitDir) Then
@@ -484,32 +492,79 @@ Public Sub BuscarCarpetasMM()
     lstCarConMM.Clear
     TotCarpMM = 0
     For A = 1 To TotF
-        lblBAR = "Buscando en " + CarpsConMM(A)
+        Select Case IDIOMA
+            Case "Español"
+                lblBAR = "Buscando en " + CarpsConMM(A)
+            Case "English"
+            Case "Francois"
+            Case "Italiano"
+        End Select
+        
         PBar.Width = P.Width / TotF * A
         PBar.Refresh
         TMPfilesMM = ObtenerArchMM(CarpsConMM(A))
         If UBound(TMPfilesMM) > 0 Then
             TotalArchMM = TotalArchMM + UBound(TMPfilesMM)
-            lstCarConMM.AddItem CarpsConMM(A) + ", " + CStr(UBound(TMPfilesMM)) + " archivos"
+            Select Case IDIOMA
+                Case "Español"
+                    lstCarConMM.AddItem CarpsConMM(A) + ", " + CStr(UBound(TMPfilesMM)) + " archivos"
+                Case "English"
+                    lstCarConMM.AddItem CarpsConMM(A) + ", " + CStr(UBound(TMPfilesMM)) + " files"
+                Case "Francois"
+                Case "Italiano"
+            End Select
+            
             lstCarConMM.Selected(TotCarpMM) = True
             TotCarpMM = TotCarpMM + 1
-            Ltit = "Carpetas multimedia encontradas: " + CStr(TotCarpMM)
+            Select Case IDIOMA
+                Case "Español"
+                    Ltit = "Carpetas multimedia encontradas: " + CStr(TotCarpMM)
+                Case "English"
+                    Ltit = "Multimedia Folders Find: " + CStr(TotCarpMM)
+                Case "Francois"
+                Case "Italiano"
+            End Select
+            
             Ltit.Refresh
         End If
     Next
     lblWait.Visible = False
     lblWait.Refresh
-    lblBAR = "Sin Tareas"
+    Select Case IDIOMA
+        Case "Español"
+            lblBAR = "Sin Tareas"
+        Case "English"
+            lblBAR = "Without Work"
+        Case "Francois"
+        Case "Italiano"
+    End Select
+    
     PBar.Width = 0
     If TotCarpMM = 0 Then
-        MsgBox "No se han encontrado carpetas multimedia en la ubicacion elegida"
+        Select Case IDIOMA
+            Case "Español"
+                MsgBox "No se han encontrado carpetas multimedia en la ubicacion elegida"
+            Case "English"
+                MsgBox "Nou se encontraron"
+            Case "Francois"
+            Case "Italiano"
+        End Select
+        
     Else
-        MsgBox "Se han encontrado " + CStr(TotCarpMM) + " carpetas multimedia en la ubicacion elegida"
+        Select Case IDIOMA
+            Case "Español"
+                MsgBox "Se han encontrado " + CStr(TotCarpMM) + " carpetas multimedia en la ubicacion elegida"
+            Case "English"
+                MsgBox "Has Been Find " + CStr(TotCarpMM) + " multimedia folders in this ubication"
+            Case "Francois"
+            Case "Italiano"
+        End Select
     End If
 End Sub
 
 Private Sub Command4_Click()
     On Error GoTo LogERROR
+    LineaError = "0005-2540"
     'TotArchMM sabe cuantos temas hay en total
     
     'grabar en AP+"discos" los nuevos datos multimedia
@@ -522,12 +577,14 @@ Private Sub Command4_Click()
     'ver cuantos archivos efectivamente se copiaran
     Dim TotalACopiar As Long 'no cuenta los que no son multimedia
     TotalACopiar = 0
+    LineaError = "0005-2541"
     For A = 0 To lstCarConMM.ListCount - 1
         If lstCarConMM.Selected(A) Then
             TotMM = Val(txtInLista(lstCarConMM.List(A), 1, ","))
             TotalACopiar = TotalACopiar + TotMM
         End If
     Next
+    LineaError = "0005-2542"
     For A = 0 To lstCarConMM.ListCount - 1
         If lstCarConMM.Selected(A) Then
             TotMM = Val(txtInLista(lstCarConMM.List(A), 1, ","))
@@ -536,57 +593,94 @@ Private Sub Command4_Click()
             'hay que copiar solo los archivos MM
             SoloCarp = txtInLista(Ubic, 99998, "\") '99998 es el anteultimo
             NewCarp = AP + "discos\" + SoloCarp + "\"
+            LineaError = "0005-2543"
             'crear la carpeta si no esta
             If FSO.FolderExists(NewCarp) = False Then FSO.CreateFolder NewCarp
             
             'NO OLVIDARSE DE TAPA.JPG Y DATA.TXT
             Dim ArchTapa As String
             ArchTapa = Ubic + "tapa.jpg"
+            LineaError = "0005-2544"
             If FSO.FileExists(ArchTapa) Then
                 'si existe ver los atributos
                 If FSO.FileExists(NewCarp + "tapa.jpg") Then
+                    LineaError = "0005-2545"
                     aaa = GetAttr(NewCarp + "tapa.jpg")
                     If aaa = vbHidden Or aaa = vbReadOnly Then SetAttr NewCarp + "tapa.jpg", 0
                 End If
+                LineaError = "0005-2546"
                 FSO.CopyFile ArchTapa, NewCarp + "tapa.jpg"
             End If
-            
+            LineaError = "0005-2547"
             Dim ArchDaTa As String
             ArchDaTa = Ubic + "data.txt"
             If FSO.FileExists(ArchDaTa) Then
+                LineaError = "0005-2548"
                 'si existe ver los atributos
                 If FSO.FileExists(NewCarp + "data.txt") Then
+                    LineaError = "0005-2549"
                     aaa = GetAttr(NewCarp + "data.txt")
                     If aaa = vbHidden Or aaa = vbReadOnly Then SetAttr NewCarp + "data.txt", 0
                 End If
+                LineaError = "0005-2550"
                 FSO.CopyFile ArchDaTa, NewCarp + "data.txt"
             End If
-            
+            LineaError = "0005-2551"
             TMPfiles = ObtenerArchMM(Ubic) 'deveuelve pathfull , solonombre
             c = 1
             Do While c <= TotMM 'se supone que es el total de esta carpeta
                 PathArch = txtInLista(TMPfiles(c), 0, ",")
                 SoloArch = txtInLista(TMPfiles(c), 1, ",")
-                lblBAR2 = "Copiando " + PathArch
+                
+                Select Case IDIOMA
+                    Case "Español"
+                        lblBAR2 = "Copiando " + PathArch
+                    Case "English"
+                        lblBAR2 = "Copiyng " + PathArch
+                    Case "Francois"
+                    Case "Italiano"
+                End Select
+                
                 lblBAR2.Refresh
+                LineaError = "0005-2552"
                 ArchCopiados = ArchCopiados + 1
                 PBar2.Width = P2.Width / TotalACopiar * ArchCopiados
                 PBar2.Refresh
                 'si existe ver los atributos
                 If FSO.FileExists(NewCarp + SoloArch) Then
+                    LineaError = "0005-2553"
                     aaa = GetAttr(NewCarp + SoloArch)
                     If aaa = vbHidden Or aaa = vbReadOnly Then SetAttr NewCarp + SoloArch, 0
                 End If
+                LineaError = "0005-2554"
                 FSO.CopyFile PathArch, NewCarp + SoloArch, True
                 c = c + 1
             Loop
-            lblBAR2 = "Sin Tareas"
+            LineaError = "0005-2555"
+            Select Case IDIOMA
+                Case "Español"
+                    lblBAR2 = "Sin Tareas"
+                Case "English"
+                    lblBAR2 = "Without Work"
+                Case "Francois"
+                Case "Italiano"
+            End Select
+            
             PBar2.Width = 0
             
         End If
     Next
+    LineaError = "0005-2556"
     InfoDisco lblInfoDisco
-    MsgBox "Los archivos se copiaron correctamente"
+    Select Case IDIOMA
+        Case "Español"
+            MsgBox "Los archivos se copiaron correctamente"
+        Case "English"
+            MsgBox "The files se copiaron"
+        Case "Francois"
+        Case "Italiano"
+    End Select
+    
     Exit Sub
 LogERROR:
     WriteTBRLog "Error al cargar archivos MM. n° " + CStr(Err.Number) + " Descr: " + Err.Description, True
@@ -609,7 +703,15 @@ Private Sub Command5_Click()
     Next
     'Que el tipo eliga la unidad que desea si es que hay mas de una
     If ContCDs = -1 Then
-        MsgBox "No hay unidades de CD en su PC!"
+        Select Case IDIOMA
+            Case "Español"
+                MsgBox "No hay unidades de CD en su PC!"
+            Case "English"
+                MsgBox "There is not CD is PC"
+            Case "Francois"
+            Case "Italiano"
+        End Select
+        
         Exit Sub
     End If
     If ContCDs = 0 Then
@@ -623,13 +725,32 @@ Private Sub Command5_Click()
             Set DS = FSO.GetDrive(CDsDisponibles(A))
             'muestra un mensaje completo si esta listo y si no solo la letra
             If DS.IsReady Then
-                msg = "Desea bucar en la unidad de CD:" + vbCrLf + _
+                Select Case IDIOMA
+                    Case "Español"
+                        msg = "Desea bucar en la unidad de CD:" + vbCrLf + _
                             DS.DriveLetter + "-" + DS.VolumeName + vbCrLf + _
                             "No = Unidad Siguiente"
+                    Case "English"
+                        msg = "Want to search in:" + vbCrLf + _
+                            DS.DriveLetter + "-" + DS.VolumeName + vbCrLf + _
+                            "No = Next disc"
+                    Case "Francois"
+                    Case "Italiano"
+                End Select
             Else
-                msg = "Desea bucar en la unidad de CD:" + vbCrLf + _
+                Select Case IDIOMA
+                    Case "Español"
+                        msg = "Desea bucar en la unidad de CD:" + vbCrLf + _
                             DS.DriveLetter + " (no esta listo)" + vbCrLf + _
                             "No = Unidad Siguiente"
+                    Case "English"
+                        msg = "Want to search in:" + vbCrLf + _
+                            DS.DriveLetter + " (no esta listo)" + vbCrLf + _
+                            "No = Next disc"
+                    Case "Francois"
+                    Case "Italiano"
+                End Select
+                
             End If
             If MsgBox(msg, vbYesNo) = vbYes Then GoTo ElegidoCD
             
@@ -643,13 +764,30 @@ ElegidoCD:
     If DS.IsReady Then
         CarpetaDesdeCargar = DS.DriveLetter + ":\"
     Else
-        MsgBox "El disco " + DS.DriveLetter + " no esta " + _
-        "listo. Inserte un CD y reintente"
+        Select Case IDIOMA
+            Case "Español"
+                MsgBox "El disco " + DS.DriveLetter + " no esta " + _
+                    "listo. Inserte un CD y reintente"
+            Case "English"
+                MsgBox "The disc " + DS.DriveLetter + " is not " + _
+                    "ready. Insert a CD and try again"
+            Case "Francois"
+            Case "Italiano"
+        End Select
+        
         Exit Sub
     End If
     
     If CarpetaDesdeCargar = "NO" Then
-        MsgBox "No se encontro unidad de CD"
+        Select Case IDIOMA
+            Case "Español"
+                MsgBox "No se encontro unidad de CD"
+            Case "English"
+                MsgBox "Not Find CD drive"
+            Case "Francois"
+            Case "Italiano"
+        End Select
+        
         Exit Sub
     End If
     lblWait.Visible = True
@@ -678,9 +816,17 @@ Public Function FindCarpsConMM(Carp As String) As String()
         AgregadosEnVuelta = 0
         If LastIni = 1 And LastFin = 0 Then
             'es una carpeta sin subcarpetas
-            MsgBox "3PM no ha encontrado subcarpetas en la " + _
-            "ubicacion elegida. Pruebe buscar en un nivel " + _
-            "superior del arbol de directorios"
+            
+            Select Case IDIOMA
+                Case "Español"
+                    MsgBox "3PM no ha encontrado subcarpetas en la " + _
+                        "ubicacion elegida. Pruebe buscar en un nivel " + _
+                        "superior del arbol de directorios"
+                Case "English"
+                Case "Francois"
+                Case "Italiano"
+            End Select
+            
             ReDim Preserve FindCarpsConMM(0)
             Exit Function
         End If
@@ -773,6 +919,47 @@ Sub ShowDriveList()
     MsgBox s
 End Sub
 
+Private Sub Form_Activate()
+    Select Case IDIOMA
+        Case "Español"
+            Label1(3) = "Especificar ubicacion de los nuevos discos"
+            Command6.Caption = "CD Audio"
+            Command5.Caption = "CD Mp3"
+            Command1.Caption = "Explorar"
+            Label1(7) = "Desde aqui podra trandsformar un CD de audio en ficheros mp3."
+            Label1(0) = "3PM busca automaticamente en todas las carpetas del CD insertado."
+            Label1(1) = "Explore usted por nuevos discos. Ususe para discos duros o unidades de red."
+            Label2(1) = "Revise y controle la lista para asegurarse que el material encontrado es el deseado. Solo se agregaran aquellos discos que esten seleccionados. Quite todo el material que no sea necesario. Una vez terminado presione el boton AGREGAR"
+            Command4.Caption = "Agregar estos discos a mi fonola"
+            Command3.Caption = "SALIR"
+            lblBAR.Caption = "Sin Tareas"
+            lblBAR2.Caption = "Sin Tareas"
+            lblWait = "Analizando disco.  Espere..."
+            lblInfoDisco = "Informacion del disco"
+        Case "English"
+            Label1(3) = "Especify ubication for the new music"
+            Command6.Caption = "Audio CD"
+            Command5.Caption = "Mp3 CD"
+            Command1.Caption = "Explore"
+            Label1(7) = "Encode audio CD in mp3 files."
+            Label1(0) = "3PM find automatically all folder for inserted CD"
+            Label1(1) = "Find manually for new discs. Use it for hard disks or lan conbections"
+            Label2(1) = "Revise y controle la lista para asegurarse que el material encontrado es el deseado. Solo se agregaran aquellos discos que esten seleccionados. Quite todo el material que no sea necesario. Una vez terminado presione el boton AGREGAR"
+            Command4.Caption = "Agregar estos discos a mi fonola"
+            Command3.Caption = "SALIR"
+            lblBAR.Caption = "Sin Tareas"
+            lblBAR2.Caption = "Sin Tareas"
+            lblWait = "Analizando disco.  Espere..."
+            lblInfoDisco = "Informacion del disco"
+        Case "Francois"
+        
+        Case "Italiano"
+        
+    End Select
+    
+    
+End Sub
+
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     Select Case KeyCode
         Case TeclaCerrarSistema
@@ -795,7 +982,13 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             'grabar cant de creditos
             EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
             If CREDITOS >= 10 Then
-                frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+                Select Case IDIOMA
+                    Case "Español"
+                        frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+                    Case "English"
+                    Case "Francois"
+                    Case "Italiano"
+                End Select
             Else
                 frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
             End If
@@ -816,4 +1009,3 @@ Private Sub Form_Load()
     AjustarFRM Me, 12000
     InfoDisco lblInfoDisco
 End Sub
-

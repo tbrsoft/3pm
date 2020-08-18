@@ -121,10 +121,10 @@ Begin VB.Form frmIndex
    End
    Begin VB.PictureBox picFondo 
       AutoSize        =   -1  'True
-      Height          =   3855
+      Height          =   11940
       Left            =   60
       Picture         =   "frmINDEX.frx":172C9
-      ScaleHeight     =   3795
+      ScaleHeight     =   11880
       ScaleWidth      =   15360
       TabIndex        =   13
       Top             =   6720
@@ -180,10 +180,10 @@ Begin VB.Form frmIndex
          Width           =   2200
          Begin VB.CommandButton cmdPagAd 
             BackColor       =   &H00C0C0C0&
-            DownPicture     =   "frmINDEX.frx":1BDBD
+            DownPicture     =   "frmINDEX.frx":2C741
             Height          =   650
             Left            =   1140
-            Picture         =   "frmINDEX.frx":1CD7E
+            Picture         =   "frmINDEX.frx":2D702
             Style           =   1  'Graphical
             TabIndex        =   19
             TabStop         =   0   'False
@@ -192,10 +192,10 @@ Begin VB.Form frmIndex
          End
          Begin VB.CommandButton cmdDiscoAd 
             BackColor       =   &H00C0C0C0&
-            DownPicture     =   "frmINDEX.frx":1D78B
+            DownPicture     =   "frmINDEX.frx":2E10F
             Height          =   650
             Left            =   1110
-            Picture         =   "frmINDEX.frx":1E488
+            Picture         =   "frmINDEX.frx":2EE0C
             Style           =   1  'Graphical
             TabIndex        =   18
             TabStop         =   0   'False
@@ -204,10 +204,10 @@ Begin VB.Form frmIndex
          End
          Begin VB.CommandButton cmdDiscoAt 
             BackColor       =   &H00C0C0C0&
-            DownPicture     =   "frmINDEX.frx":1ED60
+            DownPicture     =   "frmINDEX.frx":2F6E4
             Height          =   650
             Left            =   90
-            Picture         =   "frmINDEX.frx":1FAD2
+            Picture         =   "frmINDEX.frx":30456
             Style           =   1  'Graphical
             TabIndex        =   17
             TabStop         =   0   'False
@@ -216,10 +216,10 @@ Begin VB.Form frmIndex
          End
          Begin VB.CommandButton cmdPagAt 
             BackColor       =   &H00C0C0C0&
-            DownPicture     =   "frmINDEX.frx":20415
+            DownPicture     =   "frmINDEX.frx":30D99
             Height          =   650
             Left            =   90
-            Picture         =   "frmINDEX.frx":21474
+            Picture         =   "frmINDEX.frx":31DF8
             Style           =   1  'Graphical
             TabIndex        =   16
             TabStop         =   0   'False
@@ -783,7 +783,7 @@ End Sub
 
 Private Sub Form_Activate()
     LineaError = "000-0024"
-    MostrarCursor False
+    'MostrarCursor False
     'actualizar los precios
     LineaError = "000-0025"
     If TemasPorCredito = 1 Then
@@ -828,7 +828,15 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     'aqui se regsitran las presiones de las teclas elegidas
     LineaError = "000-0033"
     Dim PagNum As Long
+        
     Select Case KeyCode
+        Case vbKeyF4
+            If Shift = 4 Then
+                Unload Me
+                End
+            End If
+        Case vbKeyU
+            frmOnlyContador.Show 1
         Case vbKeyJ 'avanzar 10 segundos
             Dim ToSec As Long
             ToSec = MP3.PositionInSec * 1000 + 10000
@@ -1256,6 +1264,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             LineaError = "000-0174"
             If ApagarAlCierre Then APAGAR_PC
             LineaError = "000-0175"
+            Unload Me
             End
         Case TeclaESC
             LineaError = "000-0176"
@@ -1341,8 +1350,8 @@ Private Sub Form_Load()
      LineaError = "000-0202"
     If K.LICENCIA = HSuperLicencia Then
         LineaError = "000-0203"
-        If FSO.FileExists(WINfolder + "\SL\indexchi.tbr") Then
-            tbrPassImg1.Picture WINfolder + "\SL\indexchi.tbr"
+        If FSO.FileExists(WINfolder + "SL\indexchi.tbr") Then
+            tbrPassImg1.Picture WINfolder + "SL\indexchi.tbr"
         End If
     End If
     '--------
@@ -1365,9 +1374,9 @@ Private Sub Form_Load()
     '-----------------
     If K.LICENCIA = HSuperLicencia Then
         LineaError = "000-0209"
-        If FSO.FileExists(WINfolder + "\SL\txtIDX.tbr") Then
+        If FSO.FileExists(WINfolder + "SL\txtIDX.tbr") Then
             LineaError = "000-0210"
-            Set TE = FSO.OpenTextFile(WINfolder + "\SL\txtIDX.tbr", ForReading, False)
+            Set TE = FSO.OpenTextFile(WINfolder + "SL\txtIDX.tbr", ForReading, False)
             LineaError = "000-0211"
             Dim NewT As String
             LineaError = "000-0212"
@@ -1995,6 +2004,34 @@ Public Function CargarDiscos(numDiscoIniciar As Long, SelPrimero As Boolean) As 
 End Function
 
 Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
+'Constante Valor Descripción
+'vbFormControlMenu 0 El usuario eligió el comando Cerrar del menú Control del formulario.
+'vbFormCode 1 Se invocó la instrucción Unload desde el código.
+'vbAppWindows 2 La sesión actual del entorno operativo Microsoft Windows está finalizando.
+'vbAppTaskManager 3 El Administrador de tareas de Microsoft Windows está cerrando la aplicación.
+'vbFormMDIForm 4 Un formulario MDI secundario se está cerrando porque el formulario MDI también se está cerrando.
+'vbFormOwner 5 Un formulario se está cerrando por que su formulario propietario se está cerrando
+
+    'Select Case UnloadMode
+    '    Case 0
+    '        MsgBox "El usuario eligió el comando Cerrar del menú Control " + _
+    '            "del formulario."
+    '    Case 1
+    '        MsgBox "Se invocó la instrucción Unload desde el código."
+    '    Case 2
+    '        MsgBox "La sesión actual del entorno operativo Microsoft Windows " + _
+    '            "está finalizando."
+    '    Case 3
+    '        MsgBox "El Administrador de tareas de Windows está cerrando la " + _
+    '           "aplicación."
+    '    Case 4
+    '        MsgBox "Un formulario MDI secundario se está cerrando porque " + _
+    '            "el formulario MDI también se está cerrando."
+    '    Case 5
+    '        MsgBox "Un formulario se está cerrando por que su formulario " + _
+    '            "propietario se está cerrando"
+    'End Select
+    
     LineaError = "000-0423"
     MostrarCursor True
     LineaError = "000-0425"
@@ -2147,6 +2184,31 @@ Private Sub TapaCD_Click(Index As Integer)
     LineaError = "000-0482"
     'totar la tecla de enar a disco
     Form_KeyDown TeclaOK, 0
+End Sub
+
+Private Sub tbrPassImg1_ChangeImg()
+    'si se esta pasando un video no dar bola!!!
+    If MP3.IsPlaying And EsVideo Then
+        frmVIDEO.picBigImg.Visible = False
+    Else
+        frmVIDEO.picBigImg.Visible = False
+        
+        'cambiar tambien las imágenes grandes de la salida de video
+        PUBs.UltimaReproducidaBigIMG = PUBs.UltimaReproducidaBigIMG + 1
+        'si me paso se va al primero ya
+        If PUBs.UltimaReproducidaBigIMG > PUBs.TotalPUBsBigIMG Then PUBs.UltimaReproducidaBigIMG = 1
+        '...
+        '...
+        'aca debe ir algun efecto. Ponete las pilas ANDRES
+        '...
+        '...
+        With frmVIDEO.picBigImg
+            .Picture = LoadPicture(PUBs.ArchsPubsBigIMG(PUBs.UltimaReproducidaBigIMG))
+            .Top = Me.Height / 2 - .Height / 2
+            .Left = Me.Width / 2 - .Width / 2
+            .Visible = True
+        End With
+    End If
 End Sub
 
 Private Sub Timer1_Timer()

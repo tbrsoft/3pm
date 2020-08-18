@@ -89,6 +89,11 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
                     .picVideo.Height = Screen.Height
                 End If
             Else
+                '--------------------------------
+                'si es salida de TV no volver!!!!
+                If Salida2 Then GoTo NoLeerOtros
+                '--------------------------------
+                
                 'quita el fullscreen!!!!
                 '.frDISCOS.Height = .picFondo.Top
                 '.VU1.Height = .picFondo.Top
@@ -205,6 +210,9 @@ NoLeerOtros:
         LineaError = "003-0047"
         If EsVideo Then
             If Salida2 Then
+                'ESCONDER LAS PUBLICIDADES EN LA SALIDA DE tv!!!!!
+                frmVIDEO.picBigImg.Visible = False
+                
                 LineaError = "003-0048b"
                 .DoOpenVideo "child", frmVIDEO.hWnd, 0, 0, _
                     (frmVIDEO.Width / 15), (frmVIDEO.Height / 15)
@@ -460,7 +468,7 @@ Public Sub SumarContadorCreditos(valorSUMAR As Long)
     Dim ARCHcont As String
     'ver el valor en win
     LineaError = "003-0127"
-    ARCHcont = WINfolder + "\nnr.dll"
+    ARCHcont = WINfolder + "nnr.dll"
     LineaError = "003-0128"
     If FSO.FileExists(ARCHcont) Then
         LineaError = "003-0129"
@@ -525,7 +533,7 @@ Public Sub SumarContadorCreditos(valorSUMAR As Long)
     CONTADOR = ContFinal
     LineaError = "003-0151"
     'actualizar el valor en win
-    ARCHcont = WINfolder + "\nnr.dll"
+    ARCHcont = WINfolder + "nnr.dll"
     LineaError = "003-0152"
     Set TE = FSO.CreateTextFile(ARCHcont, True)
     LineaError = "003-0153"

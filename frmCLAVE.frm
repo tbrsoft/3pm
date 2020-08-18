@@ -96,6 +96,19 @@ Private Sub Command1_Click()
     Unload Me
 End Sub
 
+Private Sub Form_Activate()
+    Select Case IDIOMA
+        Case "Español"
+            Label1 = "Ingrese su clave de administrador"
+            Command1.Caption = "OK"
+        Case "English"
+            
+            Command1.Caption = "OK"
+        Case "Francois"
+        Case "Italiano"
+    End Select
+End Sub
+
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     Select Case KeyCode
         
@@ -119,9 +132,22 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             'grabar cant de creditos
             EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
             If CREDITOS >= 10 Then
-                frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+                Select Case IDIOMA
+                    Case "Español"
+                        frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+                    Case "English"
+                    Case "Francois"
+                    Case "Italiano"
+                End Select
+                
             Else
-                frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+                Select Case IDIOMA
+                    Case "Español"
+                        frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+                    Case "English"
+                    Case "Francois"
+                    Case "Italiano"
+                End Select
             End If
             
             'grabar credito para validar
