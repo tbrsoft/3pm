@@ -118,8 +118,9 @@ Option Explicit
 
 
 Private Sub MyLog(T As String)
-    Text1.Text = Text1.Text + CStr(Timer) + "  " + T + vbCrLf
-    Text1.SelStart = Len(Text1.Text) - 1
+    If Len(Text1.tExt) > 300 Then Text1.tExt = Right(Text1.tExt, 300)
+    Text1.tExt = Text1.tExt + CStr(Timer) + "  " + T + vbCrLf
+    Text1.SelStart = Len(Text1.tExt) - 1
 End Sub
 
 Private Sub Form_Resize()
@@ -139,9 +140,10 @@ Private Sub XxBoton1_Click()
     Reparados = 0
     For J = 1 To UBound(MATRIZ_DISCOS)
         'ver si la imagen existe y esta dentro de rangos permitidos
-        
+        Me.Caption = "Reparación y búsqueda de imágenes " + CStr(J)
+        Me.Refresh
         CarpTapa = txtInLista(MATRIZ_DISCOS(J), 0, ",")
-        
+        tERR.Anotar "acnc66", CarpTapa
         If CarpTapa <> "_RANK_" Then
             If Right(CarpTapa, 1) <> "\" Then CarpTapa = CarpTapa + "\"
             
@@ -182,7 +184,7 @@ Private Sub XxBoton1_Click()
         MyLog TR.Trad("La imagen pesa %01% Bytes y se permite %02% bytes %99%")
               
         If FileLen(ArchTapa) > TamanoTapaPermitido * 1024 Then
-        
+            tERR.Anotar "acnc67"
             fso.CopyFile ArchTapa, CarpTapa + "ex-tapa.jpg", True
             
             Dim res As Long, sCompres As Long
@@ -238,7 +240,7 @@ Private Sub XxBoton1_Click()
             MyLog TR.Trad("El tamaño esta ok!%99%")
         End If
 sig:
-    MyLog "--------- SIG ----------"
+        MyLog "--------- SIG ----------"
     
     Next J
     
@@ -251,8 +253,15 @@ sig:
     
 MiErr:
     MyLog "ERROR N°" + CStr(Err.Number) + " - " + Err.Description
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acjs"
-    Resume Next
+    If Err.Number = 481 Then 'ivalid picture!!
+        MyLog "Imagen No valida! en " + CarpTapa
+        tERR.AppendSinHist "Imagen No valida! en " + CarpTapa
+        GoTo sig
+    Else
+        tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acjs"
+        Resume Next
+    End If
+    
 End Sub
 
 Private Function getBestImg(sFolder As String) As String

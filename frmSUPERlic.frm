@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{181111E6-07C8-4D47-8611-3BF038099354}#5.2#0"; "tbrFaroButton.ocx"
-Begin VB.Form frmSUPERlic 
+Begin VB.Form frmRepuL 
    AutoRedraw      =   -1  'True
    BackColor       =   &H00000000&
    BorderStyle     =   4  'Fixed ToolWindow
@@ -165,7 +165,7 @@ Begin VB.Form frmSUPERlic
       Width           =   2850
    End
 End
-Attribute VB_Name = "frmSUPERlic"
+Attribute VB_Name = "frmRepuL"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
@@ -199,7 +199,7 @@ Private Sub Command6_Click()
     'grabar el texto como un nuevo archivo
     Set TE = fso.CreateTextFile(GPF("telcnot"), True)
     If txtCFG = "" Then txtCFG = " "
-    TE.Write txtCFG.Text
+    TE.Write txtCFG.tExt
     TE.Close
 End Sub
 
@@ -209,7 +209,7 @@ Private Sub Form_Load()
     'texto en config No Tbr Wf + "SL\txtCFG.tbr"
     If fso.FileExists(GPF("telcnot")) Then
         Set TE = fso.OpenTextFile(GPF("telcnot"), ForReading, False)
-        txtCFG.Text = TE.ReadAll
+        txtCFG.tExt = TE.ReadAll
         TE.Close
     End If
     'texto de SL
@@ -236,7 +236,7 @@ Private Sub Traducir()
                "tbrsoft@cpcipc.org", _
                "Argentina"
                
-    txtCFG.Text = TR.Trad("Desarrollado por %01%" + vbCrLf + _
+    txtCFG.tExt = TR.Trad("Desarrollado por %01%" + vbCrLf + _
         "www.%01%.com" + vbCrLf + _
         "----------------" + vbCrLf + _
         "Contáctenos a %02%" + vbCrLf + _

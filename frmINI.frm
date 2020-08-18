@@ -123,7 +123,7 @@ Private Sub Form_Load()
     
     On Error GoTo MiErr
     
-    my_MEM.SetMomento "Pide Abriendo INI"
+    my_MEM.SetMomento "0088"
     
     tERR.Anotar "acmy"
     MostrarCursor False
@@ -139,8 +139,26 @@ Private Sub Form_Load()
     tERR.Anotar "sVU01-s3", LCs3
     'no se activa escuchar por el puerto si no esta configurado
     If LCs3 = "1" Then
+        my_MEM.SetMomento "0089"
         tERR.Anotar "faaa"
         Set s3 = New tbrSKS3.clsTbrSKS3
+        
+        'si hay que indicar otros puertos es aca !!!
+        'el lpt comun es
+        's3.setPorts &H378, &H379, &H37A ' 888 889 890
+        'ejemplo de lpt2
+        's3.setPorts &H278, &H279, &H27A ' 632 633 634
+        'ejemplo de pci+usb como en pc que mosse llevo a USA
+        's3.setPorts &HB050, &HB051, &HB052 'sera 45136, 45137 y 45138
+        
+        Dim Ports(2) As Integer
+        Ports(0) = CInt("&H" + LeerConfig("LptPort0", "378"))
+        Ports(1) = CInt("&H" + LeerConfig("LptPort1", "379"))
+        Ports(2) = CInt("&H" + LeerConfig("LptPort2", "37A"))
+        
+        s3.setPorts Ports(0), Ports(1), Ports(2)
+        s3.INIT
+        
         '*************************
         s3.HwndMsg = ts3INI.HWND
         
@@ -201,13 +219,17 @@ Private Sub Form_Load()
         
         tERR.Anotar "faag", cRet
         '*************************
+        my_MEM.SetMomento "0090 " + CStr(Wueltas)
         Wueltas = cRet
         If Wueltas < 8 Then
             tERR.AppendLog "Fin i2H" + CStr(Wueltas) + "." + CStr(J)
         Else
             s3.ToTimer2 True
             tERR.AppendSinHist CStr(Wueltas) + "_2100_H_" + CStr(NP)
-            K.IngresaClave "3pm", False
+            K.IngresaClave dcr("q44KmdDBQ+IB8dTOX8F+VA=="), False
+            'no entiendo por que esta ? (set/08)
+            'imagino que si el tipo configuro interfase yo no reviso licencia.
+            'Ahora que lo de la interfase es mentira veo si tiene de disco
         End If
         
     End If
@@ -215,14 +237,14 @@ Private Sub Form_Load()
     
     '--------
     'cargar los previstos
-    
-    tERR.Anotar "acmz", K.sabseee("3pm")
+    my_MEM.SetMomento "0081"
+    tERR.Anotar "acmz", K.sabseee(dcr("q44KmdDBQ+IB8dTOX8F+VA=="))
     'ver si existe la personalizada
     ', la del skin es:
     IMF = ExtraData.getDef.getImagePath("iniciasys")
     
     tERR.Anotar "acmz2", IMF
-    If K.sabseee("3pm") = Supsabseee Then
+    If K.sabseee(dcr("1Vx0YVGhEoIisHPLAZMHXw==")) = Supsabseee Then
         If fso.FileExists(GPF("iisl67")) Then
             tERR.Anotar "acmz3"
             Image1.Picture = LoadPicture(GPF("iisl67"))
@@ -238,6 +260,7 @@ Private Sub Form_Load()
         frmVIDEO.picBigImg = LoadPicture(IMF)
     End If
     
+    my_MEM.SetMomento "0091"
     tERR.Anotar "acmz4"
     Image1.Left = Screen.Width / 2 - Image1.Width / 2
     Image1.Top = 300 'Me.Height / 2 - Image1.Height / 2
@@ -246,9 +269,9 @@ Private Sub Form_Load()
     tERR.Anotar "acmz5", Screen.Height, Image1.Height, Image1.Top, Frame1.Left
     Frame1.Top = Image1.Top + Image1.Height + 300
     Frame1.Height = Screen.Height - Image1.Height - 1600
-    PBar.Left = lblINI.Left
+    pBAR.Left = lblINI.Left
     tERR.Anotar "acmz6"
-    XxBoton1.Left = PBar.Left - 15
+    XxBoton1.Left = pBAR.Left - 15
     XxBoton1.Width = lblINI.Width
     tERR.Anotar "acmz7"
     frmVIDEO.picBigImg.Top = frmVIDEO.Height / 2 - frmVIDEO.picBigImg.Height / 2
@@ -259,13 +282,15 @@ Private Sub Form_Load()
     tERR.Anotar "000A-00903"
     lblINI.Caption = TR.Trad("Inicializando 3PM...%98%Al arranque del sistema%99%")
     lblINI.Refresh
-    PBar.Width = 0
+    pBAR.Width = 0
     
     tERR.Anotar "acna"
     
     Me.Show
     Me.Refresh
     
+    my_MEM.SetMomento "0092"
+    '////////////////////////////////////////////////////////
     'leer el archivo de configuracion GPF("config")
     TeclaDER = Val(LeerConfig("TeclaDerecha", "88"))
     TeclaIZQ = Val(LeerConfig("TeclaIzquierda", "90"))
@@ -273,6 +298,7 @@ Private Sub Form_Load()
     TeclaPagAt = Val(LeerConfig("TeclaPagAt", "78"))
     TeclaOK = Val(LeerConfig("TeclaOK", "13"))
     TeclaCancionVIP = Val(LeerConfig("TeclaCancionVIP", "89"))
+    teclaSumValidar = Val(LeerConfig("teclaSumValidar", "80"))
     TeclaCarrito = Val(LeerConfig("TeclaCarrito", "79"))
     TeclaESC = Val(LeerConfig("TeclaESC", "27"))
     TeclaNewFicha = Val(LeerConfig("TeclaNuevaFicha", "81"))
@@ -288,13 +314,15 @@ Private Sub Form_Load()
     TeclaNextMusic = Val(LeerConfig("TeclaNextMusic", "66")) 'B
     lblINI.Caption = TR.Trad("Inicializando 3PM...%99%") + "01"
     lblINI.Refresh
-    PBar.Width = lblINI.Width * 0.15
+    pBAR.Width = lblINI.Width * 0.15
+    '////////////////////////////////////////////////////////
     TeclaDERx2 = Val(LeerConfig("TeclaDerechax2", "2"))
     TeclaIZQx2 = Val(LeerConfig("TeclaIzquierdax2", "1"))
     TeclaPagAdx2 = Val(LeerConfig("TeclaPagAdx2", "3"))
     TeclaPagAtx2 = Val(LeerConfig("TeclaPagAtx2", "4"))
     TeclaOKx2 = Val(LeerConfig("TeclaOKx2", "5"))
     TeclaCancionVIPx2 = Val(LeerConfig("TeclaCancionVIPx2", "17"))
+    teclaSumValidarX2 = Val(LeerConfig("teclaSumValidarX2", "18"))
     TeclaCarritox2 = Val(LeerConfig("TeclaCarritox2", "16"))
     TeclaESCx2 = Val(LeerConfig("TeclaESCx2", "7"))
     TeclaNewFichax2 = Val(LeerConfig("TeclaNuevaFichax2", "22"))
@@ -304,11 +332,11 @@ Private Sub Form_Load()
     tERR.Anotar "acnbx2"
     TeclaShowContadorx2 = Val(LeerConfig("TeclaShowContadorx2", "10")) 'U
     TeclaPutCeroContadorx2 = Val(LeerConfig("TeclaPutCeroContadorx2", "11")) 'V
-    TeclaFFx2 = Val(LeerConfig("TeclaFFx2", "74")) 'J
+    TeclaFFx2 = Val(LeerConfig("TeclaFFx2", "12")) 'J
     TeclaBajaVolumenx2 = Val(LeerConfig("TeclaBajaVolumenx2", "13")) 'D
     TeclaSubeVolumenx2 = Val(LeerConfig("TeclaSubeVolumenx2", "14")) 'E
     TeclaNextMusicx2 = Val(LeerConfig("TeclaNextMusicx2", "15")) 'B
-    
+    '////////////////////////////////////////////////////////
     ShowCreditsMode = Val(LeerConfig("ShowCreditsMode", "0"))
     ApagarAlCierre = LeerConfig("ApagarAlCierre", "0")
     'puede ser 46 o 5 por ahora
@@ -316,7 +344,7 @@ Private Sub Form_Load()
     
     lblINI.Caption = TR.Trad("Inicializando 3PM...%99%") + "02"
     lblINI.Refresh
-    PBar.Width = lblINI.Width * 0.45
+    pBAR.Width = lblINI.Width * 0.45
     
     MaximoFichas = Val(LeerConfig("MaximoFichas", "40"))
     EsperaMinutos = Val(LeerConfig("EsperaMinutos", "900"))
@@ -361,10 +389,11 @@ Private Sub Form_Load()
     tERR.Anotar "acne"
     CreditForTestMusic = CLng(LeerConfig("CreditForTestMusic", "0"))
     MaxListaTestMusic = CLng(LeerConfig("MaxListaTestMusic", "0"))
+    MaxMuestrasToAddCredit = CLng(LeerConfig("MaxMuestrasToAddCredit", "0"))
     
     lblINI.Caption = TR.Trad("Inicializando 3PM...%99%") + "03"
     lblINI.Refresh
-    PBar.Width = lblINI.Width * 0.67
+    pBAR.Width = lblINI.Width * 0.67
     
     CargarDuracionTemas = LeerConfig("CargarDuracionTemas", "0")
     MostrarRotulos = LeerConfig("MostrarRotulos", "1")
@@ -388,6 +417,8 @@ Private Sub Form_Load()
     CreditosCuestaTemaVIDEO(1) = LeerConfig("CreditosCuestaTemaVIDEO2", "3")
     CreditosCuestaTemaVIDEO(2) = LeerConfig("CreditosCuestaTemaVIDEO3", "4")
     
+    my_MEM.SetMomento "0093"
+    
     'ver cuantos creditos hay
     CREDITOS = 0
     
@@ -398,6 +429,7 @@ Private Sub Form_Load()
     End If
     tERR.Anotar "acfb", CREDITOS
     
+    ActionLedOn = LeerConfig("ActionLedOn", "0")
     ActionLedINIhs = LeerConfig("ActionLedINIhs", "0")
     ActionLedFINhs = LeerConfig("ActionLedFINhs", "24")
     ActionLedMuchoCredito = LeerConfig("ActionLedMuchoCredito", "6") 'predeterminado se enciende el scroll
@@ -407,10 +439,19 @@ Private Sub Form_Load()
     ActionLedPalyingVip = LeerConfig("ActionLedPalyingVip", "1") 'PUEDE JODER EL NUMLOCK A LAS SEÑALES DEL TECLADO!!
     ActionLedNoPlayVip = LeerConfig("ActionLedNoPlayVip", "2")
     
+    GrabaKar = LeerConfig("GrabaKar", "0")
+    KbpsKar = LeerConfig("KbpsKar", "128")
+    GrabaKarQuick = LeerConfig("GrabaKarQuick", "1")
+    'solo se gasta memoria si se va a usar!
+    If GrabaKar > 0 Then
+        Set TW10 = New tbrWRII.tbrWR2
+        TW10.SetFileLog AP + "logWII.log"
+    End If
+    
     'apagar todos e ir viendo que hacer
     LedEvent "APAGAR"
     'ver si hay algun led para avisar del monedero
-    If CREDITOS > MaximoFichas Then
+    If MaximoFichas > 0 And CREDITOS > MaximoFichas Then
         LedEvent "ActionLedMuchoCredito"
     Else
         'apagar el fichero electronico
@@ -425,7 +466,7 @@ Private Sub Form_Load()
     
     lblINI.Caption = TR.Trad("Inicializando 3PM...%99%") + "04"
     lblINI.Refresh
-    PBar.Width = lblINI.Width * 0.78
+    pBAR.Width = lblINI.Width * 0.78
     
     tERR.Anotar "acnf"
     'publicidad
@@ -458,7 +499,7 @@ Private Sub Form_Load()
     
     lblINI.Caption = TR.Trad("Inicializando 3PM...%99%") + "05"
     lblINI.Refresh
-    PBar.Width = lblINI.Width * 0.84
+    pBAR.Width = lblINI.Width * 0.84
     
     tERR.Anotar "acni"
     'ver si ya estaba cargado
@@ -469,6 +510,7 @@ Private Sub Form_Load()
             "sentido que se cargue de nuevo. Puede haber fallas%99%"): End
     End If
     
+    my_MEM.SetMomento "0094"
     'ASEGURARSE QUE EXISTA la carpeta del ranking y la imagen que le corresponde
     If fso.FolderExists(AP + "discos") = False Then
         fso.CreateFolder AP + "discos"
@@ -496,147 +538,22 @@ Private Sub Form_Load()
     
     
     '===================ORDENAR EL RANKING================================
-    
+    my_MEM.SetMomento "0096"
     lblINI.Caption = TR.Trad("Inicializando 3PM...%99%") + "06"
     lblINI.Refresh
-    PBar.Width = lblINI.Width * 0.95
+    pBAR.Width = lblINI.Width * 0.95
     
-    tERR.Anotar "000A-00901"
-    'ver si existe ranking.tbr
-    If fso.FileExists(GPF("rd3_444")) = False Then
-        tERR.Anotar "000A-00902"
-        fso.CreateTextFile GPF("rd3_444"), True
-        tERR.Anotar "000A-00903"
-        'si me quedo da error
-        GoTo FinOrden
-    End If
-    
-    tERR.Anotar "000A-00907"
-    Dim TT As String
-    Dim mtxTOP10() As String, Z As Integer
-    Dim ThisArch As String
-    Dim ThisTEMA As String
-    Dim ThisDISCO As String
-    Dim ThisPTS As Long
-    Dim Encontrado As Boolean
-    Encontrado = False
-    'abrir el archivo y CARGARLO A UNA MATRIZ
-    tERR.Anotar "acnl"
-    Set TE = fso.OpenTextFile(GPF("rd3_444"), ForReading, False)
-    'leerlo cargarlo en matriz y ordenar por mas escuchado
-    
-    'sin esto los archivos vacios se clavan
-    ReDim Preserve mtxTOP10(0)
-    
-    Do While Not TE.AtEndOfStream
-        'cada linea es "puntos,arch,nombretema,nombredisco"
-        
-        TT = TE.ReadLine
-        tERR.Anotar "acnm", TT
-        If TT <> "" Then
-            tERR.Anotar "acno", Z
-            Z = Z + 1
-            PBar.Width = (Z * 10) Mod (XxBoton1.Width / 2)
-            lblINI.Caption = ThisArch
-            lblINI.Refresh
-            ThisPTS = Val(txtInLista(TT, 0, ","))
-            ThisArch = txtInLista(TT, 1, ",")
-            ThisTEMA = txtInLista(TT, 2, ",")
-            ThisDISCO = txtInLista(TT, 3, ",")
-            ReDim Preserve mtxTOP10(Z)
-            mtxTOP10(Z) = TT
-        End If
-    Loop
-    
-    TE.Close
-    'ordenar la matriz
-    'tomar la matriz (con valores separador) y ordenala en base a la
-    'columna indicada. en este caso el separador es "," y la columna es 0.
-    'seria los mismo que tomara 1 ya que todos tienen el mismo path
-    
-    Dim MaxPT As Long 'comparacoin de cadenas. Empiezo con el máximo
-    Dim ubicMAX As Long 'indice en la matriz del menor encontrado cada vuelta
-    MaxPT = 0
-    Dim C As Long, mtx As Long, ValComp As Long
-    C = 0 'cantidad de minimos encontrados
-    Dim Ordenados() As Long 'matriz con los indices ordenados
-    
-    PBar.Width = 0
-    lblINI.Caption = "rank 1" '+ String((c Mod 70), ".") 'mtxTOP10(mtx)
-    lblINI.Refresh
-    Do
-        PBar.Width = (C * 60) Mod lblINI.Width
-        Frame1.Refresh
-        For mtx = 1 To UBound(mtxTOP10)
-            tERR.Anotar "acnp", C, mtx, mtxTOP10(mtx)
-            'se compara por los puntos
-            ValComp = Val(txtInLista(mtxTOP10(mtx), 0, ","))
-            If ValComp > MaxPT Then
-                'nunca uno sumara mas de dos puntos (legalmente)
-                MaxPT = ValComp
-                ubicMAX = mtx
-            End If
-        Next
-        
-        'al mayor lo quito para que no salga de nuevo
-        mtxTOP10(ubicMAX) = "0," + mtxTOP10(ubicMAX)
-        C = C + 1
-        ReDim Preserve Ordenados(C)
-        Ordenados(C) = ubicMAX
-        If C >= UBound(mtxTOP10) Then Exit Do
-        MaxPT = 0
-    Loop
-    'cargar todos y sacar la primera columna de las zetas
-    PBar.Width = 0
-
-    Dim MTXsort() As String
-    'cambie opentextfile por createtextfile por un error que suele dar
-    Dim TeRank As TextStream
-    Set TeRank = fso.CreateTextFile(GPF("rd3_444"), True)
-    'si no hay nada para escribir el Close da error?!?!?!?!?
-    Dim RankWrite As Long
-    RankWrite = 0
-    
-    lblINI.Caption = "rank 2" '+ String((mtx Mod 40), ".") 'mtxTOP10(mtx)
-    lblINI.Refresh
-    For mtx = 1 To UBound(mtxTOP10)
-        
-        PBar.Width = (mtx * 60) Mod lblINI.Width
-        Frame1.Refresh
-        tERR.Anotar "acnq", mtx
-        ReDim Preserve MTXsort(mtx)
-        'como se agrego un indice mas en archivo esta en el indice2
-        'ver si existe si si no no cargarlo
-        Dim JJ As String
-        JJ = txtInLista(mtxTOP10(Ordenados(mtx)), 2, ",")
-        If fso.FileExists(JJ) Then
-            MTXsort(mtx) = txtInLista(mtxTOP10(Ordenados(mtx)), 1, ",") + "," + _
-                txtInLista(mtxTOP10(Ordenados(mtx)), 2, ",") + "," + _
-                txtInLista(mtxTOP10(Ordenados(mtx)), 3, ",") + "," + _
-                txtInLista(mtxTOP10(Ordenados(mtx)), 4, ",")
-        
-            TeRank.WriteLine MTXsort(mtx)
-            RankWrite = RankWrite + 1
-        Else
-            Limpiaron = Limpiaron + 1
-        End If
-    Next
-    
-    tERR.Anotar "acnr"
-    'si no hay nada para escribir el Close da error?!?!?!?!?
-    If RankWrite = 0 Then TeRank.WriteLine ""
-    TeRank.Close
-    Set TeRank = Nothing
-    If Limpiaron > 0 Then tERR.Anotar "acnr"
+    'ordenar el ranking
+    srtRNK
     '==================================================================
-FinOrden:
+    my_MEM.SetMomento "0098"
     'se inicializa el contador para que la variable CONTADOR tenga el
     'valor de todas las fichas cargadas
     'si este es cero esta en los primeros usos entonces mostrar el CLUF
     tERR.Anotar "acns"
     SumarContadorCreditos 0
     SumarContadorCarrito 0
-        
+    
     Dim MtxTmpOrigenes() As String
     Dim Origenes As String
     Origenes = LeerArch1Linea(GPF("origs"))
@@ -644,40 +561,72 @@ FinOrden:
 
     Dim H As Long
     
+    'la carga real de origenes es el for que viene despues, esto solo en el caso excepcional que se graben karaokes
+    If GrabaKar > 0 Then
+        'asegurarse que haya una carpeta u origen donde caiga todo esto!
+        FolKarSave = AP + "Karaokes grabados"
+        If fso.FolderExists(FolKarSave) = False Then fso.CreateFolder FolKarSave
+        'si recien empeiza el dia puede ser que se vaya a grabar pero aun no este la carpeta, asegurarme que se cree!!
+        FolKarSaveNAU = FolKarSave + "\" + "GRABACIONES " + _
+            STRceros(Day(Date), 2) + "-" + STRceros(Month(Date), 2) + "-" + STRceros(Year(Date), 4)
+        If fso.FolderExists(FolKarSaveNAU) = False Then fso.CreateFolder FolKarSaveNAU
+        
+        tERR.Anotar "acfc3k", FolKarSave, FolKarSaveNAU
+                
+        Origenes = FolKarSave + "*" + LeerArch1Linea(GPF("origs"))
+        PartOrigenes = Split(Origenes, "*")
+    End If
+    my_MEM.SetMomento "0099"
     For H = 0 To UBound(PartOrigenes)
         tERR.Anotar "acfc3", PartOrigenes(H)
         
         'ver los discos del origene elegido
         lblINI.Caption = TR.Trad("ESPERE. Buscando...%99%") + PartOrigenes(H)
         lblINI.Refresh
-        PBar.Width = (lblINI.Width * H / 100) Mod lblINI.Width
+        pBAR.Width = (lblINI.Width * H / 100) Mod lblINI.Width
         
         MtxTmpOrigenes() = ObtenerDir(PartOrigenes(H))
         
         'ver los discos del origene elegido
         lblINI.Caption = TR.Trad("Ordenando...%99%") + PartOrigenes(H)
         lblINI.Refresh
-        PBar.Width = (lblINI.Width * H / 100) Mod lblINI.Width
+        pBAR.Width = (lblINI.Width * H / 100) Mod lblINI.Width
         
         'acumular a la matriz general
         SumarMatriz MATRIZ_DISCOS, MtxTmpOrigenes
     Next H
     
     '*******************************************************************
-    my_MEM.SetMomento "Carga Tapas"
+    my_MEM.SetMomento "0100"
     '*******************************************************************
     
     'ver que hay de discos nuevo e inicializar lo que corresponda
+    'en cada disco debe hacer un archivo que indique en que fecha se agrego
+    'de esta forma se cuanto se escucha en promedio cada disco y si un disco no se ha escuchado
+    'para al automatizar el ingreso de musica tambien se haga con el egreso de musica
+    
     Dim ArchDaTa As String
     For H = 1 To UBound(MATRIZ_DISCOS)
         ArchDaTa = txtInLista(MATRIZ_DISCOS(H), 0, ",")
         'If ArchTapa = "_RANK_" Then GoTo TAPADEF
         If Right(ArchDaTa, 1) <> "\" Then ArchDaTa = ArchDaTa + "\"
-        ArchDaTa = ArchDaTa + "2h.jpg"
-        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-    
+        ArchDaTa = ArchDaTa + "2h.dt"
+        
+        If fso.FileExists(ArchDaTa) = False Then
+            tERR.Anotar "acfc3m", ArchDaTa, "SI"
+            Dim TxR As TextStream
+            Set TxR = fso.CreateTextFile(ArchDaTa, True)
+                Dim dateCreate As Long
+                dateCreate = CLng(Date)
+                TxR.Write "create " + CStr(dateCreate)
+                'VER SI HACE FALTA MAS DEJE ACA!!!
+                'MM889
+            TxR.Close
+        Else
+            tERR.Anotar "acfc3m", ArchDaTa, "NO"
+        End If
     Next H
-    
+    'my_MEM.SetMomento "0101"
     'ver si hay que cargar las imagenes al inicio!!!
     Dim ArchTapa As String
     
@@ -690,7 +639,7 @@ FinOrden:
     '1: Tapa de ranking predeterminada (si es SL puede ser una personal)
 
     F6 = "tddp323"
-    If K.sabseee("3pm") = Supsabseee Then
+    If K.sabseee(dcr("1Vx0YVGhEoIisHPLAZMHXw==")) = Supsabseee Then
         If fso.FileExists(GPF(F6)) Then
             IMF = GPF(F6)
         Else
@@ -699,7 +648,7 @@ FinOrden:
     Else
         IMF = ExtraData.getDef.getImagePath("taparanking")
     End If
-    
+    tERR.Anotar "acfc3n", IMF
     LOP.AddImage IMF, True 'si o si se carga
     '*******************************************************************
     
@@ -707,9 +656,9 @@ FinOrden:
     '2: Tapa de DISCOS predeterminada (si es SL puede ser una personal)
     F6 = "tddp322"
     IMF = GetTpPred
-    
+    tERR.Anotar "acfc3p", IMF
     LOP.AddImage IMF, True 'si o si se carga
-    
+    my_MEM.SetMomento "0103"
     '*******************************************************************
     'TODOS LOS DEMAS!!!!
     For H = 1 To UBound(MATRIZ_DISCOS)
@@ -720,11 +669,12 @@ FinOrden:
         
         lblINI.Caption = TR.Trad("Buscando...%99%") + ArchTapa
         lblINI.Refresh
-        PBar.Width = (lblINI.Width * H / 100) Mod lblINI.Width
+        pBAR.Width = (lblINI.Width * H / 100) Mod lblINI.Width
         
         'solo la cargo si existe y ademas tiene el tamaño que tiene que tener
         If fso.FileExists(ArchTapa) Then
             'si la tapa es demasiado grande
+            tERR.Anotar "acfc3q", ArchTapa
             If FileLen(ArchTapa) > TamanoTapaPermitido * 1024 Then
                 tERR.Anotar "acgf2", NDR, ArchTapa, CStr(FileLen(ArchTapa))
             Else
@@ -732,11 +682,11 @@ FinOrden:
             End If
         End If
     Next H
-    
-    PBar.Visible = False
+    my_MEM.SetMomento "0104"
+    pBAR.Visible = False
     XxBoton1.Visible = False
     
-    my_MEM.SetMomento "Pide INDEX"
+    my_MEM.SetMomento "0084"
     
     lblINI.Caption = TR.Trad("Abriendo 3PM ... %99%")
     lblINI.Refresh

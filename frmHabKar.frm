@@ -159,7 +159,8 @@ Private Sub fBoton1_Click()
     Dim nFOt2 As New tbrDATA.clsTODO
     'asegurarse que vaya con el noombre que tiene que ir!!!
     nFOt2.SetLog AP + "kc2.log"
-    nFOt2.SetSF "mLicenciaCD001Kar" 'nuevo agosto 2007 para no mezclar con karaokes ni con programas de artime y manu
+    'mLicenciaCD001Kar
+    nFOt2.SetSF dcr("OqgcJfckN8975IVShi0xrqPphoO7CJfy1bRk3zQnHno=") 'nuevo agosto 2007 para no mezclar con karaokes ni con programas de artime y manu
     nFOt2.DoNow F2
     
     TR.SetVars F2
@@ -185,7 +186,7 @@ Private Sub fBoton2_Click()
     tERR.Anotar "IC10kar1"
     
     Dim PARA As String
-    PARA = "mLicenciaCD001Kar"
+    PARA = dcr("OqgcJfckN8975IVShi0xrqPphoO7CJfy1bRk3zQnHno=")
     
     'YYYYYYYYYYYYYYYYYYYYYY
     'traigo la licencia del 2 y anda en el 1 tambien!!!!!!!!!!!!!!
@@ -195,12 +196,12 @@ Private Sub fBoton2_Click()
     tERR.Anotar "IC10kar2"
     K.IngresaClave PARA, True
     
-    Dim j As TypeLic
-    j = K.sabseee("mLicenciaCD001Kar")
-    If j = Supsabseee Then
+    Dim J As TypeLic
+    J = K.sabseee(dcr("OqgcJfckN8975IVShi0xrqPphoO7CJfy1bRk3zQnHno="))
+    If J = Supsabseee Then
         MsgBox TR.Trad("Se cargo la SuperLicencia de karaoke%99%")
     Else
-        If j >= EComun Then
+        If J >= EComun Then
             MsgBox TR.Trad("Se cargo la licencia de karaoke%99%")
         Else
             MsgBox TR.Trad("No se cargo la licencia contacte a tbrSoft%99%")
@@ -218,7 +219,7 @@ End Sub
 'clave CD 03: "sdf6asd7f65sad65f4sad7f4as8df598sadf87sad6f987sad6f9"
 Private Sub Form_Load()
     Pintar_fBoton Me
-    Label2.Caption = K.sabseee("mLicenciaCD001Kar")
+    Label2.Caption = K.sabseee(dcr("OqgcJfckN8975IVShi0xrqPphoO7CJfy1bRk3zQnHno="))
 End Sub
 
 Private Sub Form_Resize()

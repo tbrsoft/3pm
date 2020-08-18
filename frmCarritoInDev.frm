@@ -27,7 +27,7 @@ Begin VB.Form frmCarritoInDev
    WindowState     =   2  'Maximized
    Begin tbrFaroButton.fBoton butOK 
       Height          =   705
-      Left            =   7800
+      Left            =   7830
       TabIndex        =   3
       Top             =   1500
       Visible         =   0   'False
@@ -100,22 +100,22 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Dim S() As String 'para usar el itemdata
 
-Public Sub ShowDEV(PTh As String)
+Public Sub ShowDEV(PTH As String)
         
     On Local Error GoTo MER
     
-    tERR.Anotar "dabo", PTh
+    tERR.Anotar "dabo", PTH
     Dim pt As New tbrPaths.clsPATHS
-    pt.LeerTodo PTh + ":\", True, False
+    pt.LeerTodo PTH + ":\", True, False
     
     tERR.Anotar "dabp"
     S = pt.GetLista
-    S(0) = PTh + ":\Expendedor\"
+    S(0) = PTH + ":\Expendedor\"
     tERR.Anotar "dabq", S(0)
     'XXXXXX
     'detectar si es un celular y poner el predeterminado donde corresponda
     'xxxxxx
-    lstPTHS.AddItem " Predeterminado y recomendado: " + PTh + ":\Expendedor"
+    lstPTHS.AddItem " Predeterminado y recomendado: " + PTH + ":\Expendedor"
     
     For H = 1 To UBound(S)
         lstPTHS.AddItem " Guardar en: " + S(H)
@@ -162,7 +162,7 @@ Public Sub Save(I As Long)
     
     'si eligió la predeterminada puede ser que no exista
     If I <= 0 Then
-        If fso.FolderExists(S(0)) = False Then fso.CreateFolder (S(0))
+        If FSO.FolderExists(S(0)) = False Then FSO.CreateFolder (S(0))
     End If
         
     SW.ShowWait "Creando directorios..."
@@ -175,13 +175,13 @@ Public Sub Save(I As Long)
         Dim T As String
         If Right(Carrito.GetElement(H), 1) = "\" Then
             'ES UNA CARPETA QUE ELIGIO !!
-            T = DEST + fso.GetBaseName(Carrito.GetElement(H))
+            T = DEST + FSO.GetBaseName(Carrito.GetElement(H))
             tERR.Anotar "dabv", T
-            SW.ShowWait "Creando directorio " + fso.GetBaseName(Carrito.GetElement(H))
+            SW.ShowWait "Creando directorio " + FSO.GetBaseName(Carrito.GetElement(H))
             If Right(T, 1) <> "\" Then T = T + "\"
-            If fso.FolderExists(T) = False Then
+            If FSO.FolderExists(T) = False Then
                 tERR.Anotar "dabw"
-                fso.CreateFolder T
+                FSO.CreateFolder T
             End If
         End If
     Next H
@@ -195,9 +195,17 @@ Public Sub Save(I As Long)
     Dim mxGra As Long
     mxGra = Int(Rnd * 5) + 5
     If Carrito.GetFileCantFull > mxGra Then
+    
+        Dim isKarSave As Boolean 'la grabacion de karaokes requiere licencia de karaoke no de carrito
+        isKarSave = Carrito.solo1Origen("Karaokes Grabados")
+        'ver que tenga licencia de grabar karaokes !!!!
+        If isKarSave Then
+            isKarSave = (K.sabseee(dcr("OqgcJfckN8975IVShi0xrqPphoO7CJfy1bRk3zQnHno=")) >= Supsabseee)
+        End If
+        
         Dim RDS As TypeLic
-        RDS = K.sabseee("mLicencia3PMVtaMusica")
-        If RDS < DMinima Then
+        RDS = K.sabseee(dcr("MCuVh38359iRH+GBaAkXedz8Pl38peUqZHKs0a0SpMe+QLrW9mKdnA=="))
+        If RDS < DMinima And isKarSave = False Then
             SW.ShowWait TR.Trad("Sin Licencia de carro de compras!%99%"), 3500
             SW.ShowWait ""
             Unload Me
@@ -219,20 +227,20 @@ Public Sub Save(I As Long)
     totCart = Carrito.GetTotalMB
     
     For H = 1 To Carrito.GetFileCantFull
-        InFolder = fso.GetBaseName(fso.GetParentFolderName(Carrito.GetElementFull(H)))
+        InFolder = FSO.GetBaseName(FSO.GetParentFolderName(Carrito.GetElementFull(H)))
         tERR.Anotar "dabx3", InFolder
         'EN LOS CELULARES O PENDRIVES PUEDE APARECER EL ERROR
         '-2147024784
         
         If InFolder = "" Then GoTo SIG444
         
-        If fso.FolderExists(DEST + InFolder) Then
+        If FSO.FolderExists(DEST + InFolder) Then
             tERR.Anotar "daby3", Carrito.GetElementFull(H), DEST + InFolder + "\"
             
             'si el archivo existe en destino no pasa nada pero si es solo lectura o algun modo extraño jode!
             Dim DestNow As String
-            DestNow = DEST + InFolder + "\" + fso.GetBaseName(Carrito.GetElementFull(H)) + "." + fso.GetExtensionName(Carrito.GetElementFull(H))
-            If fso.FileExists(DestNow) Then
+            DestNow = DEST + InFolder + "\" + FSO.GetBaseName(Carrito.GetElementFull(H)) + "." + FSO.GetExtensionName(Carrito.GetElementFull(H))
+            If FSO.FileExists(DestNow) Then
                 Dim at As Long 'atributos
                 at = GetAttr(DestNow)
 '                Constante Valor Descripción
@@ -248,10 +256,10 @@ Public Sub Save(I As Long)
                 End If
             End If
             
-            fso.CopyFile Carrito.GetElementFull(H), DEST + InFolder + "\", True
+            FSO.CopyFile Carrito.GetElementFull(H), DEST + InFolder + "\", True
         Else
             tERR.Anotar "dabz"
-            fso.CopyFile Carrito.GetElementFull(H), DEST, True
+            FSO.CopyFile Carrito.GetElementFull(H), DEST, True
         End If
         
         Copiado = Copiado + (FileLen(Carrito.GetElementFull(H)) / 1048576)
@@ -311,8 +319,8 @@ Public Sub Save(I As Long)
         End If
         
         SW.ShowWait "Copiando " + vbCrLf + _
-            fso.GetBaseName(Carrito.GetElementFull(H)) + " (" + _
-            fso.GetExtensionName(Carrito.GetElementFull(H)) + ")" + vbCrLf + _
+            FSO.GetBaseName(Carrito.GetElementFull(H)) + " (" + _
+            FSO.GetExtensionName(Carrito.GetElementFull(H)) + ")" + vbCrLf + _
             "(" + CStr(Round(MBxSec, 2)) + " MB/S falta: " + FaltaTXT + ")", _
             0, ((H / Carrito.GetFileCantFull) * 100)
         

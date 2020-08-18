@@ -9,26 +9,26 @@ Begin VB.UserControl tbrFullProc
    ScaleHeight     =   3600
    ScaleWidth      =   4800
    Begin tbrFaroButton.fBoton fBoton4 
-      Height          =   255
+      Height          =   405
       Left            =   720
       TabIndex        =   3
-      Top             =   3300
+      Top             =   3180
       Width           =   3195
       _ExtentX        =   5636
-      _ExtentY        =   450
+      _ExtentY        =   714
       fFColor         =   16777215
       fBColor         =   12632256
       fCapt           =   "Boton"
       fEnabled        =   -1  'True
-      fFontN          =   ""
-      fFontS          =   0
+      fFontN          =   "Trebuchet MS"
+      fFontS          =   14
       fECol           =   5452834
    End
    Begin tbrFaroButton.fBoton fBoton3 
       Height          =   285
       Left            =   720
       TabIndex        =   2
-      Top             =   3030
+      Top             =   2820
       Visible         =   0   'False
       Width           =   675
       _ExtentX        =   1191
@@ -45,7 +45,7 @@ Begin VB.UserControl tbrFullProc
       Height          =   285
       Left            =   720
       TabIndex        =   1
-      Top             =   3030
+      Top             =   2820
       Visible         =   0   'False
       Width           =   3165
       _ExtentX        =   5583
@@ -62,7 +62,7 @@ Begin VB.UserControl tbrFullProc
       Height          =   2115
       Left            =   720
       TabIndex        =   0
-      Top             =   900
+      Top             =   690
       Visible         =   0   'False
       Width           =   3165
       _ExtentX        =   5583
@@ -94,6 +94,9 @@ Public Sub ShowWait(T As String, _
         Exit Sub
     End If
     
+    fBoton4.Font.Size = 14
+    fBoton4.Font.Bold = True
+    
     Extender.Top = 0
     Extender.Left = 0
     'PutMe_X_Y 0, 0
@@ -117,7 +120,9 @@ Public Sub ShowWait(T As String, _
     fBoton4.Width = fBoton2.Width
     fBoton4.Left = fBoton2.Left
     fBoton4.Top = fBoton2.Top + fBoton2.Height + 30
-    fBoton4.Caption = Info2
+    fBoton4.Caption = Replace(Info2, vbCrLf, " / ") 'set08 no entran 2 renglones
+    fBoton4.Caption = Replace(Info2, vbCr, " / ") 'set08 no entran 2 renglones
+    fBoton4.Caption = Replace(Info2, vbLf, " / ") 'set08 no entran 2 renglones
     fBoton4.Visible = (Info2 <> "")
     
     Extender.Visible = True
@@ -128,17 +133,26 @@ Public Sub ShowWait(T As String, _
     
     UserControl.Refresh
 
-    If xMiliSegSalir > 0 Then
+    If xMiliSegSalir <> 0 Then
+        
+        'si es negativo son los mismo milisegundos pero no muestro el segundero feo
+        Dim ShowSecBack As Boolean
+        ShowSecBack = (xMiliSegSalir > 0)
+        xMiliSegSalir = Abs(xMiliSegSalir)
+        
         Dim H As Single
         H = Timer
         Dim SFalta As Long, LastS As Long
         LastS = 10
         Do
+            DoEvents 'agregado set 08 !!!!
             SFalta = CLng((H + (xMiliSegSalir / 1000)) - Timer)
             If LastS <> SFalta Then
                 Extender.ZOrder
                 'PutMeTop
-                fBoton1.Caption = T + vbCrLf + "(" + CStr(SFalta + 1) + ")"
+                If ShowSecBack Then
+                    fBoton1.Caption = T + vbCrLf + "(" + CStr(SFalta + 1) + ")"
+                End If
                 ShPorc ((SFalta * 1000) / xMiliSegSalir) * 100
                 'Extender.Refresh
                 UserControl.Refresh
@@ -152,7 +166,8 @@ Public Sub ShowWait(T As String, _
 End Sub
 
 Private Sub ShPorc(X As Single)
-
+    
+    X = Abs(X) '!!!!???? me llego negativo !!!???
 '    If x = 0 Then
 '        fBoton2.Visible = False
 '        fBoton3.Visible = False

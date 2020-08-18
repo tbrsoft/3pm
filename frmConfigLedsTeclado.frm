@@ -4,17 +4,36 @@ Begin VB.Form frmConfigLedsTeclado
    BackColor       =   &H00000000&
    BorderStyle     =   4  'Fixed ToolWindow
    Caption         =   "Seteo leds de teclado"
-   ClientHeight    =   4155
+   ClientHeight    =   4920
    ClientLeft      =   45
    ClientTop       =   285
    ClientWidth     =   9525
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   4155
+   ScaleHeight     =   4920
    ScaleWidth      =   9525
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
+   Begin VB.CheckBox chkActionLedOn 
+      BackColor       =   &H00000000&
+      Caption         =   "Activar luces del teclado"
+      BeginProperty Font 
+         Name            =   "Courier New"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FFFFFF&
+      Height          =   375
+      Left            =   2430
+      TabIndex        =   8
+      Top             =   1020
+      Width           =   3495
+   End
    Begin VB.ComboBox cmbHasta 
       BeginProperty Font 
          Name            =   "Courier New"
@@ -31,7 +50,7 @@ Begin VB.Form frmConfigLedsTeclado
       List            =   "frmConfigLedsTeclado.frx":0019
       Style           =   2  'Dropdown List
       TabIndex        =   6
-      Top             =   3660
+      Top             =   4470
       Width           =   880
    End
    Begin VB.ComboBox cmbDesde 
@@ -46,11 +65,11 @@ Begin VB.Form frmConfigLedsTeclado
       EndProperty
       Height          =   360
       ItemData        =   "frmConfigLedsTeclado.frx":0096
-      Left            =   1110
+      Left            =   1080
       List            =   "frmConfigLedsTeclado.frx":00AF
       Style           =   2  'Dropdown List
       TabIndex        =   5
-      Top             =   3660
+      Top             =   4470
       Width           =   880
    End
    Begin VB.ComboBox cmbAction 
@@ -66,11 +85,11 @@ Begin VB.Form frmConfigLedsTeclado
       Height          =   330
       Index           =   0
       ItemData        =   "frmConfigLedsTeclado.frx":012C
-      Left            =   7410
+      Left            =   7380
       List            =   "frmConfigLedsTeclado.frx":0145
       Style           =   2  'Dropdown List
       TabIndex        =   0
-      Top             =   870
+      Top             =   1680
       Width           =   2055
    End
    Begin VB.ListBox lstSuccess 
@@ -84,16 +103,16 @@ Begin VB.Form frmConfigLedsTeclado
          Strikethrough   =   0   'False
       EndProperty
       Height          =   2040
-      Left            =   150
+      Left            =   120
       TabIndex        =   2
-      Top             =   870
+      Top             =   1680
       Width           =   7245
    End
    Begin tbrFaroButton.fBoton fBoton1 
       Height          =   675
-      Left            =   8250
+      Left            =   8220
       TabIndex        =   3
-      Top             =   3210
+      Top             =   4020
       Width           =   1125
       _ExtentX        =   1984
       _ExtentY        =   1191
@@ -107,9 +126,9 @@ Begin VB.Form frmConfigLedsTeclado
    End
    Begin tbrFaroButton.fBoton fBoton4 
       Height          =   675
-      Left            =   7080
+      Left            =   7050
       TabIndex        =   4
-      Top             =   3210
+      Top             =   4020
       Width           =   1125
       _ExtentX        =   1984
       _ExtentY        =   1191
@@ -135,9 +154,9 @@ Begin VB.Form frmConfigLedsTeclado
       EndProperty
       ForeColor       =   &H00FFFFFF&
       Height          =   465
-      Left            =   240
+      Left            =   210
       TabIndex        =   7
-      Top             =   3060
+      Top             =   3870
       Width           =   4035
    End
    Begin VB.Label Label1 
@@ -154,7 +173,7 @@ Begin VB.Form frmConfigLedsTeclado
       EndProperty
       ForeColor       =   &H00FFFFFF&
       Height          =   765
-      Left            =   180
+      Left            =   210
       TabIndex        =   1
       Top             =   60
       Width           =   9255
@@ -165,11 +184,27 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Private Sub chkActionLedOn_Click()
+    lstSuccess.Enabled = chkActionLedOn
+    
+    Dim A As Long
+    For A = 0 To cmbAction.UBound
+        cmbAction(A).Enabled = lstSuccess.Enabled
+    Next A
+    
+    cmbDesde.Enabled = lstSuccess.Enabled
+    cmbHasta.Enabled = lstSuccess.Enabled
+    
+End Sub
+
 Private Sub cmbAction_Click(Index As Integer)
     lstSuccess.ListIndex = Index
 End Sub
 
 Private Sub fBoton1_Click()
+
+    ActionLedOn = CStr(Abs(chkActionLedOn))
+    ChangeConfig "ActionLedOn", CStr(ActionLedOn)
 
     ActionLedMuchoCredito = cmbAction(0).ListIndex
     ActionLedPocoCredito = cmbAction(1).ListIndex
@@ -191,6 +226,7 @@ Private Sub fBoton1_Click()
     ChangeConfig "ActionLedINIhs", CStr(ActionLedINIhs)
     ChangeConfig "ActionLedFINhs", CStr(ActionLedFINhs)
     
+    
     Unload Me
 End Sub
 
@@ -199,6 +235,10 @@ Private Sub fBoton4_Click()
 End Sub
 
 Private Sub Form_Load()
+    
+    
+    chkActionLedOn.Value = ActionLedOn
+    chkActionLedOn_Click 'que active o no segun corresponda
     
     'cargo los hotrarios
     Dim A As Long

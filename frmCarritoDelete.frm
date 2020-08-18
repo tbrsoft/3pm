@@ -339,6 +339,9 @@ Private Sub MoveLS(mov As Long)
 End Sub
 
 Private Sub Form_Load()
+           
+    EsSaving = True 'para que no se lance ni el protector ni temas al azar!
+    
     'buscar todas las carpetas con multimedia
     'mostrarlas con su peso en MB
     

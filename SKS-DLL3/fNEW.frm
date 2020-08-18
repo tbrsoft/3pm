@@ -8,6 +8,7 @@ Begin VB.Form fNEW
    ClientTop       =   345
    ClientWidth     =   9360
    Icon            =   "fNEW.frx":0000
+   KeyPreview      =   -1  'True
    LinkTopic       =   "Form2"
    ScaleHeight     =   5085
    ScaleWidth      =   9360
@@ -15,9 +16,9 @@ Begin VB.Form fNEW
    Begin tbrFaroButton.fBoton XxBoton1 
       Height          =   435
       Index           =   0
-      Left            =   4080
+      Left            =   4110
       TabIndex        =   12
-      Top             =   2580
+      Top             =   2640
       Width           =   1635
       _ExtentX        =   2884
       _ExtentY        =   767
@@ -126,7 +127,7 @@ Begin VB.Form fNEW
          Height          =   315
          Left            =   150
          TabIndex        =   5
-         Text            =   "100"
+         Text            =   "10"
          Top             =   810
          Width           =   795
       End
@@ -192,7 +193,7 @@ Begin VB.Form fNEW
       Left            =   60
       TabIndex        =   1
       Text            =   "Text1"
-      Top             =   3630
+      Top             =   3690
       Visible         =   0   'False
       Width           =   735
    End
@@ -252,9 +253,18 @@ Private Sub mLog(T As String, Optional bShow As Boolean = True)
         tLOG.Refresh
     End If
     
+    On Local Error Resume Next 'por si empeiza antes de iniciar pruebas
     'sea como sea se escribe en un archivo de texto
     TE.WriteLine CStr(Timer * 100) + " " + T
     
+End Sub
+
+Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
+    'Dim Azar As Integer
+    'Randomize
+    'Azar = Int(Rnd * 22) + 1
+    'If KeyCode = vbKeyF9 Then Text1.Text = "sD:" + CStr(Azar) 'no suma al counter de la placa
+    'If KeyCode = vbKeyF8 Then Text1.Text = "sD:14"
 End Sub
 
 Private Sub Form_Load()
@@ -306,9 +316,8 @@ Private Sub Form_Resize()
         Unload XxBoton1(J)
     Next J
     
-    For J = 1 To 22
-    
-        Load XxBoton1(J)
+    For J = 0 To 22
+        If J > 0 Then Load XxBoton1(J)
         
         XxBoton1(J).Width = XxBoton1(0).Width
         XxBoton1(J).Height = XxBoton1(0).Height
@@ -321,11 +330,11 @@ Private Sub Form_Resize()
             XxBoton1(J).Top = XxBoton1(J - 1).Top
         End If
         
-'        If J < 21 Then
-'            XxBoton1(J).Caption = "Boton " + String(2 - Len(CStr(J)), "0") + CStr(J)
-'        Else
-'            XxBoton1(J).Caption = "Monedero " + String(2 - Len(CStr(J - 20)), "0") + CStr(J - 20)
-'        End If
+        If J < 21 Then
+            XxBoton1(J).Caption = "Boton " + CStr(J + 1)
+        Else
+            XxBoton1(J).Caption = "Monedero " + CStr(J - 20)
+        End If
         
         XxBoton1(J).Visible = True
     Next J
@@ -333,6 +342,8 @@ Private Sub Form_Resize()
 End Sub
 
 Private Sub Text1_Change()
+    
+    On Local Error GoTo TR
     
     Dim P As String
     P = Text1.Text
@@ -351,24 +362,22 @@ Private Sub Text1_Change()
         Dim GC As Long
         I = CLng(SP(1))
         
-        mLog "Se apreto " + CStr(GC), True
+        mLog "Se apreto " + CStr(I), True
         
         'hasta los botones que tengo!
         If I > 23 Then
-            mLog " **** Se apreto " + CStr(GC), True
+            mLog " **** SIGNALIN: " + CStr(I), True
             Exit Sub
         End If
         
         'solo el contador que escuche
         GC = S3.GetCounter(I)
         If I = 0 Then Exit Sub 'solucionado abril 2008 "I" NO PUEDE SER CERO!!
-        If GC < 22 Then
-            XxBoton1(I - 1).Caption = "Boton " + String(2 - Len(CStr(I)), "0") + CStr(I) + ": " + _
-                String(4 - Len(CStr(GC)), "0") + CStr(GC)
+        If I < 22 Then
+            XxBoton1(I - 1).Caption = "Boton " + CStr(I) + ": " + CStr(GC)
             
         Else
-            XxBoton1(I - 1).Caption = "Monedero " + String(2 - Len(CStr(I - 21)), "0") + CStr(I - 21) + ": " + _
-                String(3 - Len(CStr(GC)), "0") + CStr(GC)
+            XxBoton1(I - 1).Caption = "Monedero " + CStr(I - 21) + ": " + CStr(GC)
         End If
         
 '        For I = 0 To 22
@@ -385,6 +394,12 @@ Private Sub Text1_Change()
 '        Next I
        
     End If
+    
+    Exit Sub
+    
+TR:
+    mLog "ERROR: " + CStr(Err.Number) + " (" + Err.Description + ")" + vbCrLf + "..." + CStr(I) + "/" + CStr(GC)
+    Resume Next
 End Sub
 
 Private Sub xINI_Click()
@@ -421,7 +436,7 @@ Private Sub xINI_Click()
     If FSO.FileExists(FileLog) Then FSO.DeleteFile FileLog
     
     Set TE = FSO.OpenTextFile(FileLog, ForAppending, True)
-
+    S3.INIT
     S3.HwndMsg = Text1.hWnd
     S3.ReIniCounters
     S3.Prender

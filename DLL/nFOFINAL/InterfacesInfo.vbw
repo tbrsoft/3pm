@@ -1,6 +1,6 @@
 ClsPlacaRED = 154, 156, 735, 573, C
 clsFinalID = 110, 110, 664, 529, C
-clstbrInfoPC = 0, 0, 540, 419, C
+clstbrInfoPC = 0, 0, 540, 419, 
 clsKEYS = 0, 0, 540, 419, 
 clsWindowsVERSION = 22, 22, 562, 441, C
 CommonDialog = 154, 154, 734, 573, 

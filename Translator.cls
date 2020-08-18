@@ -75,7 +75,7 @@ Attribute Trad.VB_MemberFlags = "200"
     'sacarlo todos los %01%...%98%....%99%
     Dim pSPA As String
     pSPA = pSpanishWord
-    tERR.Anotar "ACNC20", pSPA
+    'tERR.Anotar "ACNC20b", pSPA
     If pSPA <> "" Then
         Dim RealText As String, Ayuda As String
         Dim TMP() As String, B As Long, C As Long
@@ -96,7 +96,7 @@ Attribute Trad.VB_MemberFlags = "200"
         RealText = Replace(RealText, "%97%", vbCrLf)
     End If
         
-    tERR.Anotar "ACNC21", RealText
+    'tERR.Anotar "ACNC21", RealText
     
     Dim aux As String
     aux = vDictionary.Item(RealText)
@@ -113,7 +113,7 @@ Attribute Trad.VB_MemberFlags = "200"
     aux = Replace(aux, "%08%", v(8))
     
     Erase v 'limpio la matriz
-    tERR.Anotar "ACNC22", aux
+    'tERR.Anotar "ACNC22", aux
     
     If aux <> "" Then
         Trad = aux

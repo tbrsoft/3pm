@@ -5,14 +5,14 @@ Begin VB.Form frmVALID
    BackColor       =   &H00000000&
    BorderStyle     =   4  'Fixed ToolWindow
    Caption         =   "Validacion de uso del propietario"
-   ClientHeight    =   5955
+   ClientHeight    =   6690
    ClientLeft      =   45
    ClientTop       =   285
    ClientWidth     =   8640
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   5955
+   ScaleHeight     =   6690
    ScaleWidth      =   8640
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
@@ -34,7 +34,7 @@ Begin VB.Form frmVALID
       ScrollBars      =   2  'Vertical
       TabIndex        =   14
       Text            =   "frmVALID.frx":0000
-      Top             =   3630
+      Top             =   4140
       Width           =   3885
    End
    Begin VB.TextBox txtEstadoValidacion 
@@ -56,7 +56,7 @@ Begin VB.Form frmVALID
       ScrollBars      =   2  'Vertical
       TabIndex        =   13
       TabStop         =   0   'False
-      Top             =   2730
+      Top             =   3240
       Width           =   3885
    End
    Begin VB.ListBox List1 
@@ -70,10 +70,10 @@ Begin VB.Form frmVALID
          Strikethrough   =   0   'False
       EndProperty
       Height          =   645
-      Left            =   1710
+      Left            =   1680
       Sorted          =   -1  'True
       TabIndex        =   10
-      Top             =   900
+      Top             =   690
       Visible         =   0   'False
       Width           =   1755
    End
@@ -88,13 +88,13 @@ Begin VB.Form frmVALID
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   2205
-      Left            =   120
+      Height          =   2955
+      Left            =   90
       Locked          =   -1  'True
       MultiLine       =   -1  'True
       ScrollBars      =   2  'Vertical
       TabIndex        =   7
-      Top             =   480
+      Top             =   270
       Width           =   3885
    End
    Begin VB.CheckBox chkValid 
@@ -111,19 +111,39 @@ Begin VB.Form frmVALID
       EndProperty
       ForeColor       =   &H00FFFFFF&
       Height          =   345
-      Left            =   4620
+      Left            =   4590
       TabIndex        =   0
-      Top             =   540
+      Top             =   330
       Width           =   3735
    End
    Begin VB.Frame Frame1 
       BackColor       =   &H00000000&
       ForeColor       =   &H00FFFFFF&
-      Height          =   4755
-      Left            =   4050
+      Height          =   5445
+      Left            =   4020
       TabIndex        =   1
-      Top             =   360
+      Top             =   150
       Width           =   4455
+      Begin VB.TextBox txtSumValidar 
+         Alignment       =   2  'Center
+         Appearance      =   0  'Flat
+         BeginProperty Font 
+            Name            =   "Trebuchet MS"
+            Size            =   12
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   375
+         Left            =   1470
+         MaxLength       =   6
+         TabIndex        =   18
+         Text            =   "0"
+         Top             =   3570
+         Width           =   1395
+      End
       Begin VB.TextBox tCONT 
          Alignment       =   2  'Center
          Appearance      =   0  'Flat
@@ -206,11 +226,11 @@ Begin VB.Form frmVALID
       End
       Begin tbrFaroButton.fBoton XxBoton1 
          Height          =   405
-         Left            =   810
+         Left            =   780
          TabIndex        =   6
-         Top             =   3360
-         Width           =   2805
-         _ExtentX        =   4948
+         Top             =   4080
+         Width           =   2955
+         _ExtentX        =   5212
          _ExtentY        =   714
          fFColor         =   16777215
          fBColor         =   14737632
@@ -222,9 +242,9 @@ Begin VB.Form frmVALID
       End
       Begin tbrFaroButton.fBoton XxBoton4 
          Height          =   405
-         Left            =   810
+         Left            =   840
          TabIndex        =   12
-         Top             =   4200
+         Top             =   4950
          Width           =   2805
          _ExtentX        =   4948
          _ExtentY        =   714
@@ -240,7 +260,7 @@ Begin VB.Form frmVALID
          Height          =   405
          Left            =   810
          TabIndex        =   17
-         Top             =   3780
+         Top             =   4530
          Width           =   2805
          _ExtentX        =   4948
          _ExtentY        =   714
@@ -251,6 +271,27 @@ Begin VB.Form frmVALID
          fFontN          =   ""
          fFontS          =   0
          fECol           =   5452834
+      End
+      Begin VB.Label Label1 
+         Alignment       =   2  'Center
+         BackStyle       =   0  'Transparent
+         Caption         =   "Creditos que suma la tecla especial"
+         BeginProperty Font 
+            Name            =   "Trebuchet MS"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   225
+         Index           =   1
+         Left            =   690
+         TabIndex        =   19
+         Top             =   3330
+         Width           =   3045
       End
       Begin VB.Label Label3 
          Alignment       =   2  'Center
@@ -338,9 +379,9 @@ Begin VB.Form frmVALID
    End
    Begin tbrFaroButton.fBoton XxBoton3 
       Height          =   645
-      Left            =   2580
+      Left            =   2490
       TabIndex        =   11
-      Top             =   5220
+      Top             =   5850
       Width           =   3225
       _ExtentX        =   5689
       _ExtentY        =   1138
@@ -375,6 +416,7 @@ Private Sub Form_Load()
     VALIDAR = LeerConfig("Validar", "0")
     ValidarCada = LeerConfig("ValidarCada", "3000")
     AvisarAntes = LeerConfig("AvisarAntes", "500")
+    SumValidar = LeerConfig("SumValidar", "0")
     
     If VALIDAR Then
         chkValid.Value = 1
@@ -395,6 +437,7 @@ Private Sub Form_Load()
     txtUSOS = ValidarCada
     txtPreAviso = AvisarAntes
     tPC = LeerConfig("IdentPcValid", "No Identificada")
+    txtSumValidar = CStr(SumValidar)
     
     tERR.Anotar "acmv"
     'mostrar el registro diario de contador
@@ -409,9 +452,9 @@ Private Sub Form_Load()
         "Contador 'R' es el reiniciable y contador 'H' es el historico.%99%") + vbCrLf + vbCrLf + _
         TodoTe2
     
-    tCONT.Text = STRceros(CONTADOR2, 11)
+    tCONT.tExt = STRceros(CONTADOR2, 11)
     
-    Text2.Text = TR.Trad("¿Como proteger mi equipo al rentarlo ?" + vbCrLf + _
+    Text2.tExt = TR.Trad("¿Como proteger mi equipo al rentarlo ?" + vbCrLf + _
         "3PM cuenta con un sistema de bloqueos diferidos según cantidades de " + _
         "creditos cargados." + vbCrLf + _
         "En primer lugar debe activar la opción 'Bloquear el equipo segun usos'. " + _
@@ -425,17 +468,24 @@ Private Sub Form_Load()
         TR.Trad("Los 'Creditos de preaviso' son los de anticipación al bloqueo del equipo. " + _
         "Aqui le aparecerá al usuario una pantalla indicando que pida a usted la " + _
         "clave. Por ejemplo puede poner 4000 creditos con 400 de preaviso, de esta " + _
-        "forma cuando pasen 3600 creditos cada vez que inicie aparecera un cartel " + _
+        "forma cuando pasen 3600 creditos cada vez que inicie aparecera un indicador " + _
         "solicitando clave. Esta se podrá omitir pero cuando llegue a los 4000 ya " + _
         "no podrá qudará bloqueda.%99%") + vbCrLf + _
         TR.Trad("El boton 'Generar un archivo de claves' creara la lista de codigos y claves " + _
         "correspondientes y le pedirá una ubicación para grabar el archivo de claves " + _
         "desencriptado. Un pen-drive será una buena opción. Es muy recomendable " + _
-        "imprimirlo. Es un archivo de y le servirá para responder rápidamente cuando " + _
+        "imprimirlo. Es un archivo de texto y le servirá para responder rápidamente cuando " + _
         "le pidan una clave desde esta pc. Para evitar confusiones el documento " + _
         "incluye el texto que haya escrito 'texto para recordar el equipo' de forma " + _
         "que sabrá que claves dar a cada cliente si tiene más de un equipo con " + _
         "diferentes usuarios.%99%")
+    
+    Text2.tExt = Text2.tExt + vbCrLf + vbCrLf + "Algunos clientes han implementado un" + _
+        " aceptador de billetes dentro del equipo de modo que la persona que le renta la" + _
+        " rockola pueda pagar para sumar mas creditos a la validación. si lo va a implementar" + _
+        " deberá indicar en 'Creditos que suma la tecla especial' el valor de creditos que se" + _
+        " sumara por cada señal. En la sección 'teclado' de la configuración elegir que señal se " + _
+        "usará"
     
     chkValid_Click
     
@@ -453,7 +503,7 @@ Private Sub XxBoton2_Click()
         chkValid.Value = 1
         TR.SetVars CreditosValidar, ValidarCada, ValidarCada - CreditosValidar
             
-        txtEstadoValidacion.Text = TR.Trad("Estado de validación: " + vbCrLf + _
+        txtEstadoValidacion.tExt = TR.Trad("Estado de validación: " + vbCrLf + _
             "Creditos Usados: %01% de %02%" + vbCrLf + _
             "Quedan: %03%" + vbCrLf + _
             "Codigo Actual: %04% %98%La validacion es una cantidad de canciones que" + _
@@ -482,9 +532,10 @@ Private Sub XxBoton4_Click()
     
     tERR.Anotar "aclw"
     'validacion con clave cada x creditos
-    ChangeConfig "Validar", CStr(chkValid)
-    ChangeConfig "ValidarCada", txtUSOS
-    ChangeConfig "AvisarAntes", txtPreAviso
+    ChangeConfig "Validar", CStr(chkValid.Value)
+    ChangeConfig "ValidarCada", txtUSOS.tExt
+    ChangeConfig "AvisarAntes", txtPreAviso.tExt
+    ChangeConfig "sumValidar", txtSumValidar.tExt
     
     MsgBox TR.Trad("Los cambios se han guardado ok y se ha creado un numero " + _
         "nuevo de validacion%99%")
@@ -493,13 +544,13 @@ End Sub
 
 Private Sub XxBoton1_Click()
     
-    If tPC.Text = "" Then
+    If tPC.tExt = "" Then
         MsgBox TR.Trad("No definio el texto para recordar la PC. No puede seguir%99%")
         Exit Sub
     End If
     
-    If IsNumeric(txtUSOS.Text) Then
-        If CLng(txtUSOS.Text) = 0 Then
+    If IsNumeric(txtUSOS.tExt) Then
+        If CLng(txtUSOS.tExt) = 0 Then
             MsgBox TR.Trad("No puede usar valores en cero%99%")
             Exit Sub
         End If
@@ -508,8 +559,8 @@ Private Sub XxBoton1_Click()
         Exit Sub
     End If
     
-    If IsNumeric(txtPreAviso.Text) Then
-        If CLng(txtPreAviso.Text) = 0 Then
+    If IsNumeric(txtPreAviso.tExt) Then
+        If CLng(txtPreAviso.tExt) = 0 Then
             MsgBox TR.Trad("No puede usar valores en cero%99%")
             Exit Sub
         End If
@@ -556,7 +607,7 @@ Private Sub XxBoton1_Click()
         R2 = CompleteSTR(CLng(txtPreAviso) * 6, 8)
         'ahora las letras enumeradas
         Dim lR As Long, lR2 As Long
-        R3 = CompleteSTR(Len(tPC.Text), 2) 'indico el largo para que sepa hasta donde leer
+        R3 = CompleteSTR(Len(tPC.tExt), 2) 'indico el largo para que sepa hasta donde leer
         For lR = 1 To Len(tPC)
             lR2 = Asc(Mid(tPC, lR, 1)) * lR 'valor ascii de la letra (lr es maximo 15 segun maxLenght
             R3 = R3 + CompleteSTR(lR2, 4) 'letra pasada a 4 digitos en string
@@ -758,7 +809,7 @@ Private Sub XxBoton3_Click()
 End Sub
 '-------Agregado por el complemento traductor------------
 Private Sub Traducir()
-    txtRegistroDiario.Text = TR.Trad("Registro diario de actividades%99%")
+    txtRegistroDiario.tExt = TR.Trad("Registro diario de actividades%99%")
     chkValid.Caption = TR.Trad("Bloquear el equipo segun usos%99%")
     XxBoton1.Caption = TR.Trad("Generar un archivo de claves%98%Para que el dueño " + _
         "de la fonola pueda saber con clave responder al momento de validarlo se " + _
@@ -771,3 +822,4 @@ Private Sub Traducir()
     Label1(0).Caption = TR.Trad("cantidad de creditos a los que se bloquera%99%")
     XxBoton3.Caption = TR.Trad("Salir%99%")
 End Sub
+

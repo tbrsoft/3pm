@@ -33,8 +33,10 @@ Private mTotalVideo As Long
 Private mTotalRingtones As Long
 Private mTotalWallpapers As Long
 Private mTotalJava As Long
-Private mTotalIso As Long 'mm91
-Private mTotal3GP As Long 'mm91
+Private mTotalIso As Long 'mp01
+Private mTotal3GP As Long
+Private mTotalThemes As Long
+Private mTotalIsoDVD As Long 'mp01
 
 Private mArchivo As String 'se graba a disco por cortes de luz
 
@@ -56,6 +58,8 @@ Private mPricesWallpapers() As Single
 Private mPricesJava() As Single
 Private mPricesISO() As Single 'mm91
 Private mPrices3GP() As Single 'mm91
+Private mPricesThemes() As Single
+Private mPricesIsoDVD() As Single 'mp01
 
 'por ejemplo mPricesAudio(1)=3
 '            mPricesAudio(6)=10
@@ -159,6 +163,23 @@ Public Function SetPricesIso(XaCantidad As Long, PriceCred As Long) As Long 'mm9
     CarritoChange = True
 End Function
 
+'mp01
+Public Function SetPricesIsoDVD(XaCantidad As Long, PriceCred As Long) As Long 'mm91
+    
+    If XaCantidad > UBound(mPricesIsoDVD) Then
+        ReDim Preserve mPricesIsoDVD(XaCantidad)
+        mPricesIsoDVD(XaCantidad) = PriceCred
+        'devuelve el precio anterior
+        SetPricesIsoDVD = 0
+    Else
+        SetPricesIsoDVD = mPricesIsoDVD(XaCantidad)
+        mPricesIsoDVD(XaCantidad) = PriceCred
+    End If
+    
+    CarritoChange = True
+End Function
+
+
 Public Function SetPrices3GP(XaCantidad As Long, PriceCred As Long) As Long 'mm91
     
     If XaCantidad > UBound(mPrices3GP) Then
@@ -169,6 +190,21 @@ Public Function SetPrices3GP(XaCantidad As Long, PriceCred As Long) As Long 'mm9
     Else
         SetPrices3GP = mPrices3GP(XaCantidad)
         mPrices3GP(XaCantidad) = PriceCred
+    End If
+    
+    CarritoChange = True
+End Function
+
+Public Function SetPricesThemes(XaCantidad As Long, PriceCred As Long) As Long 'mm91
+    
+    If XaCantidad > UBound(mPricesThemes) Then
+        ReDim Preserve mPricesThemes(XaCantidad)
+        mPricesThemes(XaCantidad) = PriceCred
+        'devuelve el precio anterior
+        SetPricesThemes = 0
+    Else
+        SetPricesThemes = mPricesThemes(XaCantidad)
+        mPricesThemes(XaCantidad) = PriceCred
     End If
     
     CarritoChange = True
@@ -370,6 +406,40 @@ sig:
     GetPricesIso = 0 'ES GRATIS!
 End Function
 
+'mp01
+Public Function GetPricesIsoDVD(XaCantidad As Long) As Long 'mm91
+    'busca el precio para la cantidad indicada, si no existe igual baja hasta encontrar
+    
+    If XaCantidad = 0 Then
+        GetPricesIsoDVD = 0
+        Exit Function
+    End If
+    
+    Dim Xa As Long
+    Xa = XaCantidad
+    
+    'voy bajando hasta encontrar un precio
+    For Xa = XaCantidad To 1 Step -1
+        'ver que mida si da la matriz
+        If Xa > UBound(mPricesIsoDVD) Then GoTo sig
+        
+        If mPricesIsoDVD(Xa) > 0 Then
+            'ya se cual es el precio unitario por la cantidad que elegi
+            'ahora veo el precio que le hago por todo
+            Dim SubTot As Single
+            SubTot = (mPricesIsoDVD(Xa) / Xa)
+            SubTot = SubTot * XaCantidad
+            'ahora redondeo para no andar con faking monedas
+            GetPricesIsoDVD = CLng(SubTot)
+            Exit Function
+        End If
+sig:
+    Next Xa
+    
+    GetPricesIsoDVD = 0 'ES GRATIS!
+End Function
+
+
 Public Function GetPrices3GP(XaCantidad As Long) As Long 'mm91
     'busca el precio para la cantidad indicada, si no existe igual baja hasta encontrar
     
@@ -402,6 +472,37 @@ sig:
     GetPrices3GP = 0 'ES GRATIS!
 End Function
 
+Public Function GetPricesThemes(XaCantidad As Long) As Long 'mm91
+    'busca el precio para la cantidad indicada, si no existe igual baja hasta encontrar
+    
+    If XaCantidad = 0 Then
+        GetPricesThemes = 0
+        Exit Function
+    End If
+    
+    Dim Xa As Long
+    Xa = XaCantidad
+    
+    'voy bajando hasta encontrar un precio
+    For Xa = XaCantidad To 1 Step -1
+        'ver que mida si da la matriz
+        If Xa > UBound(mPricesThemes) Then GoTo sig
+        
+        If mPricesThemes(Xa) > 0 Then
+            'ya se cual es el precio unitario por la cantidad que elegi
+            'ahora veo el precio que le hago por todo
+            Dim SubTot As Single
+            SubTot = (mPricesThemes(Xa) / Xa)
+            SubTot = SubTot * XaCantidad
+            'ahora redondeo para no andar con faking monedas
+            GetPricesThemes = CLng(SubTot)
+            Exit Function
+        End If
+sig:
+    Next Xa
+    
+    GetPricesThemes = 0 'ES GRATIS!
+End Function
 
 Public Sub CleanPrices()
     
@@ -410,9 +511,10 @@ Public Sub CleanPrices()
     ReDim mPricesRingtones(0)
     ReDim mPricesWallpapers(0)
     ReDim mPricesJava(0)
-    ReDim mPricesISO(0) 'mm91
-    ReDim mPrices3GP(0) 'mm91
-    
+    ReDim mPricesISO(0)
+    ReDim mPrices3GP(0)
+    ReDim mPricesThemes(0)
+    ReDim mPricesIsoDVD(0) 'mp01
     CarritoChange = True
     
 End Sub
@@ -439,6 +541,8 @@ Public Function CalculateTotalPrice() As Single
     Dim PrJa As Long 'precio del java según la cantidad que tiene
     Dim PrIso As Long 'precio segun la cantidad de imagenes ISO 'MM91
     Dim Pr3GP As Long 'precio segun la cantidad de videos 3GP
+    Dim PrThemes As Long 'precio segun la cantidad de temas
+    Dim PrIsoDVD As Long 'precio segun la cantidad de temas 'mp01
     
     PrAu = GetPricesAudio(mTotalAudio)
     PrVi = GetPricesVideo(mTotalVideo)
@@ -447,8 +551,10 @@ Public Function CalculateTotalPrice() As Single
     PrJa = GetPricesJava(mTotalJava)
     PrIso = GetPricesIso(mTotalIso) 'mm91
     Pr3GP = GetPrices3GP(mTotal3GP) 'mm91
+    PrThemes = GetPricesThemes(mTotalThemes) 'mm91
+    PrIsoDVD = GetPricesIsoDVD(mTotalIsoDVD) 'mp01
     
-    CalculateTotalPrice = PrAu + PrVi + PrRin + PrWal + PrJa + PrIso + Pr3GP 'esta expresado en creditos MM91
+    CalculateTotalPrice = PrAu + PrVi + PrRin + PrWal + PrJa + PrIso + Pr3GP + PrThemes + PrIsoDVD 'esta expresado en creditos Mp01
 End Function
 
 Public Function CleanFile(I As Long) As Long
@@ -692,10 +798,19 @@ End Function
 Public Function GetTotalISO() As Long
     GetTotalISO = mTotalIso
 End Function
+'mp01
+Public Function GetTotalISODVD() As Long
+    GetTotalISODVD = mTotalIsoDVD
+End Function
 
 'mm91
 Public Function GetTotal3GP() As Long
     GetTotal3GP = mTotal3GP
+End Function
+
+'mm91
+Public Function GetTotalThemes() As Long
+    GetTotalThemes = mTotalThemes
 End Function
 
 Public Function AddFile(nFile As String, Optional fromFolder As Boolean = False, Optional perfil = 1) As Long
@@ -781,7 +896,7 @@ Public Function AddFolder(nFolder As String, Optional PerfilPreferido As Long = 
     H = UBound(mListaMM) + 1
     ReDim Preserve mListaMM(H)
     mListaMM(H).cPath = nFolder  'como termina en "\" sabre despues que es una carpeta
-    mListaMM(H).cFolder = 1
+    mListaMM(H).cFolder = 1 'indico que es una carpeta
     mListaMM(H).cPerfil = PerfilPreferido
     
     AddFolder = 0
@@ -903,6 +1018,40 @@ Public Function GetPricesISOBase(I As Long) As Long
     GetPricesISOBase = mPricesISO(I)
 End Function
 
+Public Function KillPricesISOBase(I As Long) As Long
+    If (I > UBound(mPricesISO)) Or (I = 0) Then
+        KillPricesISOBase = -1
+        Exit Function
+    End If
+    
+    mPricesISO(I) = 0
+    KillPricesISOBase = 0
+    
+    CarritoChange = True
+End Function
+
+'mp01
+Public Function GetPricesISODVDBase(I As Long) As Long
+    If (I > UBound(mPricesIsoDVD)) Or (I = 0) Then
+        GetPricesISODVDBase = 0
+        Exit Function
+    End If
+    
+    GetPricesISODVDBase = mPricesIsoDVD(I)
+End Function
+'mp01
+Public Function KillPricesISODVDBase(I As Long) As Long
+    If (I > UBound(mPricesIsoDVD)) Or (I = 0) Then
+        KillPricesISODVDBase = -1
+        Exit Function
+    End If
+    
+    mPricesIsoDVD(I) = 0
+    KillPricesISODVDBase = 0
+    
+    CarritoChange = True
+End Function
+
 'mm91
 Public Function GetPrices3GPBase(I As Long) As Long
     If (I > UBound(mPrices3GP)) Or (I = 0) Then
@@ -911,6 +1060,16 @@ Public Function GetPrices3GPBase(I As Long) As Long
     End If
     
     GetPrices3GPBase = mPrices3GP(I)
+End Function
+
+'mm91
+Public Function GetPricesThemesBase(I As Long) As Long
+    If (I > UBound(mPricesThemes)) Or (I = 0) Then
+        GetPricesThemesBase = 0
+        Exit Function
+    End If
+    
+    GetPricesThemesBase = mPricesThemes(I)
 End Function
 
 Public Function KillPricesJAVABase(I As Long) As Long
@@ -926,19 +1085,6 @@ Public Function KillPricesJAVABase(I As Long) As Long
 End Function
 
 'mm91
-Public Function KillPricesISOBase(I As Long) As Long
-    If (I > UBound(mPricesISO)) Or (I = 0) Then
-        KillPricesISOBase = -1
-        Exit Function
-    End If
-    
-    mPricesISO(I) = 0
-    KillPricesISOBase = 0
-    
-    CarritoChange = True
-End Function
-
-'mm91
 Public Function KillPrices3GPBase(I As Long) As Long
     If (I > UBound(mPrices3GP)) Or (I = 0) Then
         KillPrices3GPBase = -1
@@ -947,6 +1093,19 @@ Public Function KillPrices3GPBase(I As Long) As Long
     
     mPrices3GP(I) = 0
     KillPrices3GPBase = 0
+    
+    CarritoChange = True
+End Function
+
+'mm91
+Public Function KillPricesThemesBase(I As Long) As Long
+    If (I > UBound(mPricesThemes)) Or (I = 0) Then
+        KillPricesThemesBase = -1
+        Exit Function
+    End If
+    
+    mPricesThemes(I) = 0
+    KillPricesThemesBase = 0
     
     CarritoChange = True
 End Function
@@ -975,8 +1134,16 @@ Public Function GetTotalPricesISO() As Long 'mm91
     GetTotalPricesISO = UBound(mPricesISO)
 End Function
 
+Public Function GetTotalPricesISODVD() As Long 'mp01
+    GetTotalPricesISODVD = UBound(mPricesIsoDVD)
+End Function
+
 Public Function GetTotalPrices3GP() As Long 'mm91
     GetTotalPrices3GP = UBound(mPrices3GP)
+End Function
+
+Public Function GetTotalPricesThemes() As Long 'mm91
+    GetTotalPricesThemes = UBound(mPricesThemes)
 End Function
 
 Public Function GetElementFull(I As Long) As String
@@ -987,7 +1154,6 @@ Public Function GetElementFull(I As Long) As String
     
     GetElementFull = mListaMMFull(I).cPath
 End Function
-
 
 Public Function GetElementPath(I As Long) As String
     If (I > UBound(mListaMM)) Or (I = 0) Then
@@ -1033,7 +1199,7 @@ Public Function GetTotalMB() As Single
         Dim H As Long
         For H = 1 To UBound(mListaMMFull)
             If fso.FileExists(mListaMMFull(H).cPath) Then
-                TMP = TMP + ((FileLen(mListaMMFull(H).cPath) / 1024) / 1024)
+                TMP = TMP + ((fso.GetFile(mListaMMFull(H).cPath).Size / 1024) / 1024)
             End If
         Next H
         mGetTotalMB = Round(TMP, 2)
@@ -1073,7 +1239,6 @@ Public Function GetTotalMinutos() As Single
     
     
 End Function
-
 
 Public Function GetElementName(I As Long) As String
     If (I > UBound(mListaMM)) Or (I = 0) Then
@@ -1117,6 +1282,8 @@ Private Sub Class_Initialize()
     mTotalJava = 0
     mTotalIso = 0 'mm91
     mTotal3GP = 0 'mm91
+    mTotalThemes = 0
+    mTotalIsoDVD = 0 'mp01
     
     mArchivo = "c:\cart.txt" 'y si no hay "c:\" YA ME PASO!
     'mModoCompra = 0
@@ -1214,7 +1381,9 @@ Public Function ClearCart() As Long
     mTotalWallpapers = 0
     mTotalJava = 0
     mTotalIso = 0 'mm91
+    mTotalIsoDVD = 0 'mp01
     mTotal3GP = 0 'mm91
+    mTotalThemes = 0
     mGetTotalMinutos = 0
     
     CarritoChange = True
@@ -1241,6 +1410,16 @@ Public Function SavePrices(sFile As String)
 
     If fso.FileExists(sFile) Then fso.DeleteFile sFile
     Dim TePC As TextStream, H As Long
+    
+    'A|Audio                 'mp01
+    'V|Video
+    'R|Ringtones
+    'W|Wallpaper
+    'J|Juego java
+    'I|Iso cd
+    'D|Iso dvd
+    'G|video 3gp
+    'T|Tema cel
     
     Set TePC = fso.CreateTextFile(sFile, True)
         For H = 1 To GetTotalPricesAudio
@@ -1272,6 +1451,30 @@ Public Function SavePrices(sFile As String)
                 TePC.Write "J|" + CStr(H) + "|" + CStr(GetPricesJAVABase(H)) + Chr(6)
             End If
         Next H
+        
+        For H = 1 To GetTotalPricesISO
+            If GetPricesISOBase(H) > 0 Then
+                TePC.Write "I|" + CStr(H) + "|" + CStr(GetPricesISOBase(H)) + Chr(6)
+            End If
+        Next H
+        
+        For H = 1 To GetTotalPricesISODVD 'mp01
+            If GetPricesISODVDBase(H) > 0 Then
+                TePC.Write "D|" + CStr(H) + "|" + CStr(GetPricesISODVDBase(H)) + Chr(6)
+            End If
+        Next H
+        
+        For H = 1 To GetTotalPrices3GP
+            If GetPrices3GPBase(H) > 0 Then
+                TePC.Write "G|" + CStr(H) + "|" + CStr(GetPrices3GPBase(H)) + Chr(6)
+            End If
+        Next H
+        
+        For H = 1 To GetTotalPricesThemes
+            If GetPricesThemesBase(H) > 0 Then
+                TePC.Write "T|" + CStr(H) + "|" + CStr(GetPricesThemesBase(H)) + Chr(6)
+            End If
+        Next H
     TePC.Close
 
 End Function
@@ -1287,9 +1490,13 @@ VerPromoCart:
         Set TePC = fso.CreateTextFile(sFile, True)
             TePC.Write "A|1|2" + Chr(6) 'Audio 1 cancion 2 creditos
             TePC.Write "V|1|4" + Chr(6) 'Video 1 cancion 4 creditos
-            TePC.Write "R|1|1" + Chr(6) 'Video 1 cancion 4 creditos
-            TePC.Write "W|1|2" + Chr(6) 'Video 1 cancion 4 creditos
-            TePC.Write "J|1|3" + Chr(6) 'Video 1 cancion 4 creditos
+            TePC.Write "R|1|1" + Chr(6) 'ringtones
+            TePC.Write "W|1|2" + Chr(6) 'wallpapers
+            TePC.Write "J|1|3" + Chr(6) 'java
+            TePC.Write "I|1|12" + Chr(6) 'iso cd
+            TePC.Write "D|1|16" + Chr(6) 'iso dvd             'mp01
+            TePC.Write "G|1|3" + Chr(6) '3gp
+            TePC.Write "T|1|2" + Chr(6) 'temas
             
             TePC.Write "A|15|15" + Chr(6) 'Audio 15 canciones 15 creditos (1 cada uno)
             TePC.Write "V|10|19" + Chr(6) 'Video 10 videos 19 creditos (1.9 cred cada uno)
@@ -1345,6 +1552,10 @@ VerPromoCart:
                     Case "I": SetPricesIso CLng(SP9(1)), CLng(SP9(2))
                     'videos para movil 'mm91
                     Case "G": SetPrices3GP CLng(SP9(1)), CLng(SP9(2))
+                    'videos para movil 'mm91
+                    Case "T": SetPricesThemes CLng(SP9(1)), CLng(SP9(2))
+                    'mp01
+                    Case "D": SetPricesIsoDVD CLng(SP9(1)), CLng(SP9(2))
                     
                     Case Else: tERR.AppendLog "FuckCart:" + SP9(0)
                 End Select
@@ -1364,8 +1575,10 @@ sig:
     If UBound(mPricesRingtones) = 0 Then SetPricesRingtones 1, 1
     If UBound(mPricesWallpapers) = 0 Then SetPricesWallpapers 1, 2
     If UBound(mPricesJava) = 0 Then SetPricesJava 1, 3
-    If UBound(mPricesISO) = 0 Then SetPricesIso 1, 8 'mm91
-    If UBound(mPrices3GP) = 0 Then SetPrices3GP 1, 4 'mm91
+    If UBound(mPricesISO) = 0 Then SetPricesIso 1, 12
+    If UBound(mPrices3GP) = 0 Then SetPrices3GP 1, 4
+    If UBound(mPricesThemes) = 0 Then SetPricesThemes 1, 4
+    If UBound(mPricesIsoDVD) = 0 Then SetPricesIsoDVD 1, 16 'mp01
 
     CarritoChange = True
 End Function
@@ -1380,6 +1593,8 @@ Public Function Update_Tipos_Cantidad() As Single
     mTotalJava = 0
     mTotalIso = 0 'mm91
     mTotal3GP = 0 'mm91
+    mTotalThemes = 0
+    mTotalIsoDVD = 0 'mp01
     
     Dim Extranos As Long
     
@@ -1414,11 +1629,85 @@ Private Function miniUpTotalTypeFile(ptFile As String, indexMtxFull As Long) As 
             mTotalWallpapers = mTotalWallpapers + 1
         Case "jar" ', "jad"
             mTotalJava = mTotalJava + 1
+        'mp01
         Case "iso", "nrg", "nr3", "nra", "nrb", "nrc", "nrd", "nre", "nrh", "nri", "nrm", "nru", "nrv", "nrw" 'mm91
-            mTotalIso = mTotalIso + 1
+            'DIFERENCIAR LAS IMÄGENES DE CD DE LAS DE DVD!!!
+            If fso.GetFile(ptFile).Size > 734003200 Then '700 x 1024 x 1024
+                mTotalIsoDVD = mTotalIsoDVD + 1
+            Else
+                mTotalIso = mTotalIso + 1
+            End If
         Case "3gp" 'mm91 videos para celulares
             mTotal3GP = mTotal3GP + 1
+        Case "nth", "thm" 'nokia theme + sony theme
+            mTotalThemes = mTotalThemes + 1
         Case Else
             Extranos = 1
     End Select
+End Function
+
+'dice si es 1 carrito con solo 1 archivo de imagen de disco
+Public Function isISO() As Boolean
+    Dim isISO2 As Boolean
+    If GetFileCantFull = 1 Then 'mp01 'DECIA CARRITO !!!
+        Select Case LCase(fso.GetExtensionName(GetElementFull(1)))
+            'formatos de imagenes de nero
+            'NR3: cd de mp3s    /    'NRA: cd de audio    /  'NRB: cd-rom de arranque
+            'NRC: nero usf/iso  /    'NRD: nero DVD       /  'NRE: cd extra
+            'NRG: imagen        /    'NRH: cd-rom hibrido /  'NRI: cd-rom iso
+            'NRM: cd mixto      /    'NRU: cd-rom udf     /  'NRV: cd supervideo
+            'NRW: cd rom wma    /    'CDC: cd cover no tiene nada que ver con imagenes parece
+            Case "iso", "nrg", "nr3", "nra", "nrb", "nrc", "nrd", "nre", "nrh", "nri", "nrm", "nru", "nrv", "nrw"
+                isISO2 = True
+            Case Else
+                isISO2 = False
+        End Select
+    Else
+        isISO2 = False 'se supone que lo deje llegar aqui con varios archivos si lo que queria es grabar una imagen iso
+    End If
+    
+    isISO = isISO2
+End Function
+
+' se fija en que origen de discos esta cada uno de los elementos y hace una matriz con ellos
+' lo uso por ahora para ver si un contenido es 100% de karaokes grabados y por lo tanto
+' no exigir licencia de carrito
+Public Function GetOrigenesContenido() As String()
+    Dim H As Long, Oris() As String
+    ReDim Oris(0) 'empiezo en base 1
+    For H = 1 To UBound(mListaMMFull)
+        'ver el origen actual
+        Dim OriEste As String, tTmp() As String
+        tTmp = Split(mListaMMFull(H).cPath, "\")
+        OriEste = LCase(tTmp(UBound(tTmp) - 2)) 'ttmp(UBound(ttmp) es el archivo -- ttmp(UBound(ttmp)-1) es el disco -- ttmp(UBound(ttmp)-2) es el origen
+            
+        'ver si ya hay para comparar y no agregar repetidos
+        If UBound(Oris) = 0 Then
+            ReDim Oris(1)
+            Oris(1) = OriEste
+        Else
+            Dim H2 As Long, repe As Boolean
+            repe = False
+            For H2 = 1 To UBound(Oris)
+                If Oris(H2) = OriEste Then repe = True
+            Next H2
+            If repe = False Then
+                H2 = UBound(Oris) + 1
+                ReDim Preserve Oris(H2)
+                Oris(H2) = OriEste
+            End If
+        End If
+    Next H
+
+    GetOrigenesContenido = Oris
+
+End Function
+
+'aplicacion de la funciona anterior para el caso especifico de karaokes grabados
+Public Function solo1Origen(verif As String) As Boolean
+    Dim vf() As String
+    vf = GetOrigenesContenido
+    
+    solo1Origen = (UBound(vf) = 1) And (LCase(vf(1)) = LCase(verif))
+
 End Function

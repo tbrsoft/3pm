@@ -30,10 +30,10 @@ Begin VB.Form frmAddMusic
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   2835
-      Left            =   8310
+      Height          =   2505
+      Left            =   8280
       TabIndex        =   25
-      Top             =   1350
+      Top             =   1320
       Width           =   3555
       Begin VB.ListBox lstOrigenes 
          BeginProperty Font 
@@ -45,7 +45,7 @@ Begin VB.Form frmAddMusic
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Height          =   1515
+         Height          =   1245
          IntegralHeight  =   0   'False
          Left            =   60
          TabIndex        =   27
@@ -68,7 +68,7 @@ Begin VB.Form frmAddMusic
          MultiLine       =   -1  'True
          ScrollBars      =   2  'Vertical
          TabIndex        =   26
-         Top             =   1860
+         Top             =   1560
          Width           =   3375
       End
    End
@@ -76,7 +76,7 @@ Begin VB.Form frmAddMusic
       Height          =   615
       Left            =   8310
       TabIndex        =   24
-      Top             =   7980
+      Top             =   7860
       Width           =   3495
       _ExtentX        =   6165
       _ExtentY        =   1085
@@ -90,9 +90,9 @@ Begin VB.Form frmAddMusic
    End
    Begin tbrFaroButton.fBoton Command4 
       Height          =   525
-      Left            =   8325
+      Left            =   8310
       TabIndex        =   23
-      Top             =   6000
+      Top             =   5700
       Width           =   3495
       _ExtentX        =   6165
       _ExtentY        =   926
@@ -112,7 +112,7 @@ Begin VB.Form frmAddMusic
       ScaleHeight     =   195
       ScaleWidth      =   15
       TabIndex        =   10
-      Top             =   6675
+      Top             =   6285
       Width           =   15
    End
    Begin VB.ListBox lstCarConMM 
@@ -130,7 +130,7 @@ Begin VB.Form frmAddMusic
       Style           =   1  'Checkbox
       TabIndex        =   6
       Top             =   2430
-      Width           =   7995
+      Width           =   7695
    End
    Begin VB.PictureBox PBar 
       BackColor       =   &H000080FF&
@@ -146,13 +146,13 @@ Begin VB.Form frmAddMusic
    Begin VB.PictureBox P 
       BackColor       =   &H00E0E0E0&
       Height          =   195
-      Left            =   120
+      Left            =   150
       ScaleHeight     =   135
-      ScaleWidth      =   7665
+      ScaleWidth      =   7485
       TabIndex        =   3
       Top             =   7500
       Visible         =   0   'False
-      Width           =   7725
+      Width           =   7545
    End
    Begin VB.PictureBox P2 
       BackColor       =   &H00FFFFFF&
@@ -161,7 +161,7 @@ Begin VB.Form frmAddMusic
       ScaleHeight     =   135
       ScaleWidth      =   3435
       TabIndex        =   11
-      Top             =   6675
+      Top             =   6285
       Visible         =   0   'False
       Width           =   3495
    End
@@ -229,10 +229,10 @@ Begin VB.Form frmAddMusic
       ForeColor       =   &H00E0E0E0&
       Height          =   285
       Index           =   8
-      Left            =   810
+      Left            =   1260
       TabIndex        =   28
       Top             =   2220
-      Width           =   6525
+      Width           =   6345
    End
    Begin VB.Label lblP 
       BackStyle       =   0  'Transparent
@@ -315,7 +315,7 @@ Begin VB.Form frmAddMusic
       TabIndex        =   8
       Top             =   1920
       Visible         =   0   'False
-      Width           =   7215
+      Width           =   7035
    End
    Begin VB.Label Label1 
       BackStyle       =   0  'Transparent
@@ -354,9 +354,9 @@ Begin VB.Form frmAddMusic
       ForeColor       =   &H00FFFFFF&
       Height          =   555
       Index           =   6
-      Left            =   8130
+      Left            =   7800
       TabIndex        =   15
-      Top             =   4770
+      Top             =   3840
       Width           =   525
    End
    Begin VB.Label Label1 
@@ -398,7 +398,7 @@ Begin VB.Form frmAddMusic
       Index           =   4
       Left            =   60
       TabIndex        =   13
-      Top             =   30
+      Top             =   -30
       Width           =   525
    End
    Begin VB.Label lblBAR2 
@@ -417,7 +417,7 @@ Begin VB.Form frmAddMusic
       Height          =   1005
       Left            =   8325
       TabIndex        =   12
-      Top             =   6915
+      Top             =   6525
       Width           =   3495
    End
    Begin VB.Label Label2 
@@ -433,12 +433,12 @@ Begin VB.Form frmAddMusic
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00E0E0E0&
-      Height          =   2535
+      Height          =   1635
       Index           =   1
-      Left            =   8625
+      Left            =   8250
       TabIndex        =   9
-      Top             =   4215
-      Width           =   3495
+      Top             =   3900
+      Width           =   3615
    End
    Begin VB.Label lblBAR 
       BackStyle       =   0  'Transparent
@@ -495,7 +495,7 @@ Begin VB.Form frmAddMusic
       Index           =   3
       Left            =   600
       TabIndex        =   2
-      Top             =   120
+      Top             =   60
       Width           =   5685
    End
    Begin VB.Line Line1 
@@ -634,6 +634,8 @@ Public Sub BuscarCarpetasMM()
                     lstCarConMM.AddItem CarpsConMM(A) + TR.Trad("%01% imágenes ISO%98%La " + "variable 1 es un numero que se calcula%99%")
                 Case 6
                     lstCarConMM.AddItem CarpsConMM(A) + TR.Trad("%01% videos 3GP%98%La " + "variable 1 es un numero que se calcula%99%")
+                Case 7
+                    lstCarConMM.AddItem CarpsConMM(A) + TR.Trad("%01% temas para movil%98%La " + "variable 1 es un numero que se calcula%99%")
             End Select
             
             lstCarConMM.Selected(TotCarpMM) = True
@@ -840,11 +842,13 @@ Private Sub Command5_Click()
     
     Dim DRs As Drives, DS As Drive
     Set DRs = fso.Drives
+    
     CarpetaDesdeCargar = "NO"
     Dim CDsDisponibles() As String, ContCDs As Long
     ContCDs = -1
     For Each DS In DRs
         tERR.Anotar "aciu", DS.DriveType
+        
         If DS.DriveType = 4 Then '4 es CDROM
             'ver cuantos hay disponibles!!!!
             ContCDs = ContCDs + 1

@@ -34,7 +34,7 @@ Begin VB.Form frmConfigVIS
    End
    Begin tbrFaroButton.fBoton Command4 
       Height          =   465
-      Left            =   7680
+      Left            =   7710
       TabIndex        =   8
       Top             =   330
       Width           =   1935
@@ -358,7 +358,7 @@ Private Sub cmbSK_Click()
     imgTouchSel2.Picture = LoadPicture(IMF)
     
     'ver si es superlicencia y usa otra tapa predeterminada
-    If K.sabseee("3pm") = Supsabseee Then
+    If K.sabseee(dcr("q44KmdDBQ+IB8dTOX8F+VA==")) = Supsabseee Then
         If fso.FileExists(GPF("tddp323")) Then
             IMF = GPF("tddp323")
         Else
@@ -719,7 +719,7 @@ End Sub
 '-------Agregado por el complemento traductor------------
 Private Sub Traducir()
     Command4.Caption = TR.Trad("cambiar detalles%99%")
-    command3.Caption = TR.Trad("Crear nuevo skin%99%")
+    Command3.Caption = TR.Trad("Crear nuevo skin%99%")
     Command2.Caption = TR.Trad("grabar y salir%99%")
     Command1.Caption = TR.Trad("salir sin grabar%99%")
     Label5.Caption = TR.Trad("Puede elegir manualmente cada grafica o cargar " + _

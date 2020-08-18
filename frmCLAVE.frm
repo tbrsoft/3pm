@@ -160,7 +160,7 @@ Private Sub Form_Load()
     QuedanC = ValidarCada - CreditosValidar
     If QuedanC > 0 Then
         'CodigoParaClaveActual busca el archivo con el numero que corresponde validar en este periodo de control
-        TR.SetVars CodigoParaClaveActual, QuedanC, "3PM"
+        TR.SetVars CodigoParaClaveActual, QuedanC, dcr("q44KmdDBQ+IB8dTOX8F+VA==")
         Label3.Caption = TR.Trad("Ingrese a continuación su clave para continuar " + _
             "utilizando %03%. " + vbCrLf + _
             "Debe enviar la administrador el codigo: " + vbCrLf + _

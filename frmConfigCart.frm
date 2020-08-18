@@ -5,17 +5,38 @@ Begin VB.Form frmConfigCart
    BackColor       =   &H00000000&
    BorderStyle     =   4  'Fixed ToolWindow
    Caption         =   "Configuración del carrito de compras"
-   ClientHeight    =   3405
+   ClientHeight    =   7245
    ClientLeft      =   45
    ClientTop       =   285
-   ClientWidth     =   10575
+   ClientWidth     =   10665
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   3405
-   ScaleWidth      =   10575
+   ScaleHeight     =   7245
+   ScaleWidth      =   10665
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
+   Begin VB.CheckBox chkBloquearTecladosUSB 
+      BackColor       =   &H00533422&
+      Caption         =   "NO REPRODUCIR MÚSICA. ESTE EQUIPO SOLO VENDE."
+      Enabled         =   0   'False
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00E0E0E0&
+      Height          =   210
+      Left            =   4380
+      TabIndex        =   32
+      Top             =   780
+      Value           =   1  'Checked
+      Width           =   195
+   End
    Begin VB.CheckBox chkVentaExtras 
       BackColor       =   &H00533422&
       Caption         =   "NO REPRODUCIR MÚSICA. ESTE EQUIPO SOLO VENDE."
@@ -30,9 +51,9 @@ Begin VB.Form frmConfigCart
       EndProperty
       ForeColor       =   &H00E0E0E0&
       Height          =   210
-      Left            =   90
+      Left            =   180
       TabIndex        =   27
-      Top             =   2010
+      Top             =   2250
       Width           =   195
    End
    Begin VB.Frame Frame1 
@@ -48,11 +69,41 @@ Begin VB.Form frmConfigCart
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   2505
-      Left            =   4980
+      Height          =   2685
+      Left            =   150
       TabIndex        =   14
-      Top             =   60
-      Width           =   5505
+      Top             =   3390
+      Width           =   10395
+      Begin VB.VScrollBar vsMaxMuestrasToAddCredit 
+         Height          =   330
+         LargeChange     =   10
+         Left            =   10020
+         Max             =   0
+         Min             =   400
+         TabIndex        =   35
+         Top             =   2130
+         Width           =   330
+      End
+      Begin VB.TextBox txtMaxMuestrasToAddCredit 
+         Alignment       =   2  'Center
+         Enabled         =   0   'False
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   315
+         Left            =   9390
+         TabIndex        =   34
+         TabStop         =   0   'False
+         Text            =   "0"
+         Top             =   2130
+         Width           =   600
+      End
       Begin VB.TextBox txtMaxListaTestMusic 
          Alignment       =   2  'Center
          Enabled         =   0   'False
@@ -66,21 +117,21 @@ Begin VB.Form frmConfigCart
             Strikethrough   =   0   'False
          EndProperty
          Height          =   315
-         Left            =   4500
+         Left            =   9390
          TabIndex        =   25
          TabStop         =   0   'False
          Text            =   "0"
-         Top             =   1890
+         Top             =   1560
          Width           =   600
       End
       Begin VB.VScrollBar vsMaxListaTestMusic 
          Height          =   330
          LargeChange     =   10
-         Left            =   5130
+         Left            =   10020
          Max             =   0
          Min             =   400
          TabIndex        =   24
-         Top             =   1890
+         Top             =   1560
          Width           =   330
       End
       Begin VB.TextBox txtCreditForTestMusic 
@@ -96,21 +147,21 @@ Begin VB.Form frmConfigCart
             Strikethrough   =   0   'False
          EndProperty
          Height          =   315
-         Left            =   4500
+         Left            =   9330
          TabIndex        =   21
          TabStop         =   0   'False
          Text            =   "0"
-         Top             =   1200
+         Top             =   960
          Width           =   600
       End
       Begin VB.VScrollBar vsCreditForTestMusic 
          Height          =   330
          LargeChange     =   10
-         Left            =   5130
+         Left            =   9960
          Max             =   0
          Min             =   50
          TabIndex        =   20
-         Top             =   1200
+         Top             =   930
          Width           =   330
       End
       Begin VB.CheckBox chkShowDemoMusic 
@@ -129,7 +180,7 @@ Begin VB.Form frmConfigCart
          Height          =   210
          Left            =   150
          TabIndex        =   16
-         Top             =   780
+         Top             =   630
          Width           =   195
       End
       Begin VB.CheckBox chkNOMUSIC 
@@ -154,6 +205,89 @@ Begin VB.Form frmConfigCart
       Begin VB.Label Label1 
          Alignment       =   1  'Right Justify
          BackStyle       =   0  'Transparent
+         Caption         =   "Esto evita que con una moneda pasen todo el día realizando pruebas"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00E0E0E0&
+         Height          =   255
+         Index           =   4
+         Left            =   2790
+         TabIndex        =   39
+         Top             =   2370
+         Width           =   6555
+      End
+      Begin VB.Label Label1 
+         Alignment       =   1  'Right Justify
+         BackStyle       =   0  'Transparent
+         Caption         =   "Esto evita que aquellos que colocan monedas dejen programadas cientos de canciones en lista"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00E0E0E0&
+         Height          =   255
+         Index           =   1
+         Left            =   660
+         TabIndex        =   38
+         Top             =   1770
+         Width           =   8490
+      End
+      Begin VB.Label Label1 
+         Alignment       =   1  'Right Justify
+         BackStyle       =   0  'Transparent
+         Caption         =   "Esto evita que escuchen pruebas aquellos sin intenciones de comprar"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00E0E0E0&
+         Height          =   255
+         Index           =   0
+         Left            =   2280
+         TabIndex        =   37
+         Top             =   1230
+         Width           =   6555
+      End
+      Begin VB.Label Label16 
+         Alignment       =   1  'Right Justify
+         BackStyle       =   0  'Transparent
+         Caption         =   "Limitar el maximo de muestras musicales sin que se agregue crédito (cero permite todo)"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   255
+         Left            =   120
+         TabIndex        =   36
+         Top             =   2160
+         Width           =   9225
+      End
+      Begin VB.Label Label1 
+         Alignment       =   1  'Right Justify
+         BackStyle       =   0  'Transparent
          Caption         =   "canciones"
          BeginProperty Font 
             Name            =   "Verdana"
@@ -167,9 +301,9 @@ Begin VB.Form frmConfigCart
          ForeColor       =   &H00E0E0E0&
          Height          =   255
          Index           =   3
-         Left            =   4530
+         Left            =   9450
          TabIndex        =   26
-         Top             =   2190
+         Top             =   1860
          Width           =   885
       End
       Begin VB.Label Label11 
@@ -186,11 +320,11 @@ Begin VB.Form frmConfigCart
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00FFFFFF&
-         Height          =   465
-         Left            =   60
+         Height          =   255
+         Left            =   120
          TabIndex        =   23
-         Top             =   1860
-         Width           =   4425
+         Top             =   1590
+         Width           =   9225
       End
       Begin VB.Label Label1 
          Alignment       =   1  'Right Justify
@@ -208,9 +342,9 @@ Begin VB.Form frmConfigCart
          ForeColor       =   &H00E0E0E0&
          Height          =   255
          Index           =   2
-         Left            =   4500
+         Left            =   9630
          TabIndex        =   22
-         Top             =   1530
+         Top             =   1290
          Width           =   705
       End
       Begin VB.Label Label10 
@@ -227,11 +361,11 @@ Begin VB.Form frmConfigCart
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00FFFFFF&
-         Height          =   585
+         Height          =   255
          Left            =   90
          TabIndex        =   19
-         Top             =   1170
-         Width           =   4365
+         Top             =   1050
+         Width           =   9195
       End
       Begin VB.Label Label2 
          BackStyle       =   0  'Transparent
@@ -265,11 +399,11 @@ Begin VB.Form frmConfigCart
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00FFFFFF&
-         Height          =   435
+         Height          =   255
          Left            =   420
          TabIndex        =   17
-         Top             =   690
-         Width           =   4965
+         Top             =   630
+         Width           =   6795
       End
    End
    Begin VB.CheckBox chkTengoCD 
@@ -287,9 +421,9 @@ Begin VB.Form frmConfigCart
       EndProperty
       ForeColor       =   &H00E0E0E0&
       Height          =   210
-      Left            =   330
+      Left            =   300
       TabIndex        =   13
-      Top             =   1590
+      Top             =   1830
       Width           =   195
    End
    Begin VB.CheckBox chkTengoInfra 
@@ -307,9 +441,9 @@ Begin VB.Form frmConfigCart
       EndProperty
       ForeColor       =   &H00E0E0E0&
       Height          =   210
-      Left            =   330
+      Left            =   300
       TabIndex        =   11
-      Top             =   1260
+      Top             =   1560
       Width           =   195
    End
    Begin VB.CheckBox chkTengoUSB 
@@ -327,7 +461,7 @@ Begin VB.Form frmConfigCart
       EndProperty
       ForeColor       =   &H00E0E0E0&
       Height          =   210
-      Left            =   330
+      Left            =   240
       TabIndex        =   9
       Top             =   510
       Value           =   1  'Checked
@@ -348,9 +482,9 @@ Begin VB.Form frmConfigCart
       EndProperty
       ForeColor       =   &H00E0E0E0&
       Height          =   210
-      Left            =   330
+      Left            =   300
       TabIndex        =   7
-      Top             =   900
+      Top             =   1290
       Width           =   195
    End
    Begin VB.CheckBox chkVendoMusica 
@@ -387,17 +521,17 @@ Begin VB.Form frmConfigCart
       EndProperty
       ForeColor       =   &H00E0E0E0&
       Height          =   210
-      Left            =   300
+      Left            =   5820
       TabIndex        =   2
-      Top             =   2820
+      Top             =   6780
       Visible         =   0   'False
       Width           =   195
    End
    Begin tbrFaroButton.fBoton fBoton1 
       Height          =   660
-      Left            =   5670
+      Left            =   630
       TabIndex        =   0
-      Top             =   2640
+      Top             =   6510
       Width           =   1125
       _ExtentX        =   1984
       _ExtentY        =   1164
@@ -411,9 +545,9 @@ Begin VB.Form frmConfigCart
    End
    Begin tbrFaroButton.fBoton fBoton4 
       Height          =   660
-      Left            =   6870
+      Left            =   1830
       TabIndex        =   1
-      Top             =   2640
+      Top             =   6510
       Width           =   1125
       _ExtentX        =   1984
       _ExtentY        =   1164
@@ -425,28 +559,11 @@ Begin VB.Form frmConfigCart
       fFontS          =   0
       fECol           =   5452834
    End
-   Begin tbrFaroButton.fBoton fBoton9 
-      Height          =   660
-      Left            =   3840
-      TabIndex        =   30
-      Top             =   30
-      Visible         =   0   'False
-      Width           =   1125
-      _ExtentX        =   1984
-      _ExtentY        =   1164
-      fFColor         =   16777215
-      fBColor         =   4210752
-      fCapt           =   "GRABAR KARAOKES"
-      fEnabled        =   -1  'True
-      fFontN          =   ""
-      fFontS          =   0
-      fECol           =   4210816
-   End
    Begin tbrFaroButton.fBoton fBoton2 
       Height          =   660
-      Left            =   8310
-      TabIndex        =   31
-      Top             =   2640
+      Left            =   3270
+      TabIndex        =   30
+      Top             =   6510
       Width           =   2115
       _ExtentX        =   3731
       _ExtentY        =   1164
@@ -458,17 +575,72 @@ Begin VB.Form frmConfigCart
       fFontS          =   0
       fECol           =   5452834
    End
+   Begin tbrFaroButton.fBoton fBoton3 
+      Height          =   660
+      Left            =   9630
+      TabIndex        =   40
+      Top             =   1440
+      Width           =   945
+      _ExtentX        =   1667
+      _ExtentY        =   1164
+      fFColor         =   16777215
+      fBColor         =   14737632
+      fCapt           =   "Revisar JAVA"
+      fEnabled        =   -1  'True
+      fFontN          =   ""
+      fFontS          =   0
+      fECol           =   5452834
+   End
+   Begin VB.Label Label15 
+      BackStyle       =   0  'Transparent
+      Caption         =   $"frmConfigCart.frx":0000
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FFFFFF&
+      Height          =   435
+      Left            =   150
+      TabIndex        =   33
+      Top             =   2670
+      Width           =   10410
+   End
+   Begin VB.Label Label14 
+      AutoSize        =   -1  'True
+      BackStyle       =   0  'Transparent
+      Caption         =   "Bloquear cualquier teclado USB"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FFFFFF&
+      Height          =   195
+      Left            =   4650
+      TabIndex        =   31
+      Top             =   750
+      Width           =   2700
+   End
    Begin VB.Line Line1 
       BorderColor     =   &H00FFFFFF&
       Index           =   2
-      X1              =   270
-      X2              =   4290
-      Y1              =   1950
-      Y2              =   1950
+      X1              =   60
+      X2              =   7560
+      Y1              =   2130
+      Y2              =   2130
    End
    Begin VB.Label Label13 
       BackStyle       =   0  'Transparent
-      Caption         =   "Wallpapers, ringtones, juegos y aplicaciones JAVA"
+      Caption         =   "Wallpapers, ringtones, juegos, aplicaciones JAVA, imágenes iso / nrg, temas para móviles, videos 3GP, etc."
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
@@ -478,12 +650,12 @@ Begin VB.Form frmConfigCart
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00FFFFFF&
+      ForeColor       =   &H00C0FFFF&
       Height          =   435
-      Left            =   510
+      Left            =   4620
       TabIndex        =   29
-      Top             =   2220
-      Width           =   3150
+      Top             =   2190
+      Width           =   5880
    End
    Begin VB.Label Label12 
       BackStyle       =   0  'Transparent
@@ -497,20 +669,20 @@ Begin VB.Form frmConfigCart
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00FFFFFF&
+      ForeColor       =   &H00C0FFFF&
       Height          =   330
       Left            =   390
       TabIndex        =   28
-      Top             =   1980
+      Top             =   2220
       Width           =   3720
    End
    Begin VB.Line Line1 
       BorderColor     =   &H00FFFFFF&
       Index           =   1
-      X1              =   210
-      X2              =   4230
-      Y1              =   2730
-      Y2              =   2730
+      X1              =   60
+      X2              =   7800
+      Y1              =   3240
+      Y2              =   3240
    End
    Begin VB.Line Line1 
       BorderColor     =   &H00FFFFFF&
@@ -522,7 +694,7 @@ Begin VB.Form frmConfigCart
    End
    Begin VB.Label Label9 
       BackStyle       =   0  'Transparent
-      Caption         =   "Activar Grabación en CD (requiere nero 7 o superior)"
+      Caption         =   "Activar Grabación en CD/DVD (requiere nero 7 o superior)"
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
@@ -533,11 +705,11 @@ Begin VB.Form frmConfigCart
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   435
+      Height          =   255
       Left            =   600
       TabIndex        =   12
-      Top             =   1500
-      Width           =   4125
+      Top             =   1830
+      Width           =   7875
    End
    Begin VB.Label Label8 
       AutoSize        =   -1  'True
@@ -554,15 +726,14 @@ Begin VB.Form frmConfigCart
       EndProperty
       ForeColor       =   &H00FFFFFF&
       Height          =   195
-      Left            =   570
+      Left            =   600
       TabIndex        =   10
-      Top             =   1260
+      Top             =   1560
       Width           =   1860
    End
    Begin VB.Label Label7 
-      AutoSize        =   -1  'True
       BackStyle       =   0  'Transparent
-      Caption         =   "Activar USB automático"
+      Caption         =   "Activar USB automático (si va a exponer una conexion USB al público se reocmienda anular el uso de teclados USB)"
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
@@ -573,11 +744,11 @@ Begin VB.Form frmConfigCart
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   195
-      Left            =   570
+      Height          =   495
+      Left            =   540
       TabIndex        =   8
-      Top             =   510
-      Width           =   2295
+      Top             =   450
+      Width           =   9840
    End
    Begin VB.Label Label6 
       BackStyle       =   0  'Transparent
@@ -592,11 +763,11 @@ Begin VB.Form frmConfigCart
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   525
-      Left            =   570
+      Height          =   255
+      Left            =   600
       TabIndex        =   6
-      Top             =   780
-      Width           =   4305
+      Top             =   1260
+      Width           =   8205
    End
    Begin VB.Label Label5 
       BackStyle       =   0  'Transparent
@@ -611,7 +782,7 @@ Begin VB.Form frmConfigCart
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   330
+      Height          =   315
       Left            =   450
       TabIndex        =   5
       Top             =   90
@@ -631,12 +802,12 @@ Begin VB.Form frmConfigCart
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   615
-      Left            =   570
+      Height          =   1035
+      Left            =   6270
       TabIndex        =   3
-      Top             =   2820
+      Top             =   6330
       Visible         =   0   'False
-      Width           =   4230
+      Width           =   2520
    End
 End
 Attribute VB_Name = "frmConfigCart"
@@ -651,6 +822,16 @@ End Sub
 
 Private Sub chkShowDemoMusic_Click()
     UpCHKS
+End Sub
+
+Private Sub chkTengoUSB_Click()
+    If chkTengoUSB.Enabled And chkTengoUSB.Value <> 0 Then
+        Label14.ForeColor = vbWhite
+        chkBloquearTecladosUSB.Enabled = True
+    Else
+        Label14.ForeColor = &H808080
+        chkBloquearTecladosUSB.Enabled = False
+    End If
 End Sub
 
 Private Sub chkVendoMusica_Click()
@@ -668,12 +849,15 @@ Private Sub fBoton1_Click()
     ChangeConfig "VentaExtras", CStr(chkVentaExtras)
     
     ChangeConfig "TengoUsb", CStr(Abs(chkTengoUSB))
+    ChangeConfig "BloquearTecladosUSB", CStr(Abs(chkBloquearTecladosUSB))
+    
     ChangeConfig "TengoBluetooth", CStr(Abs(chkTengoBluetooth))
     ChangeConfig "TengoInfra", CStr(Abs(chkTengoInfra))
     ChangeConfig "TengoCD", CStr(Abs(chkTengoCD))
 
     ChangeConfig "CreditForTestMusic", txtCreditForTestMusic.tExt
     ChangeConfig "MaxListaTestMusic", txtMaxListaTestMusic.tExt
+    ChangeConfig "MaxMuestrasToAddCredit", txtMaxMuestrasToAddCredit.tExt
 
     VendoMusica = chkVendoMusica
     NOMUSIC = chkNOMUSIC
@@ -684,9 +868,11 @@ Private Sub fBoton1_Click()
     VentaExtras = chkVentaExtras
     TengoUSB = chkTengoUSB
     'TengoCD = chkTengoCD
+    'BloquearTecladosUSB=chkBloquearTecladosUSB'no por que si lo desactiva el teclado no se va a desactivar!
     
     CreditForTestMusic = vsCreditForTestMusic.Value
     MaxListaTestMusic = vsMaxListaTestMusic.Value
+    MaxMuestrasToAddCredit = vsMaxMuestrasToAddCredit.Value
 
     Unload Me
 End Sub
@@ -695,14 +881,13 @@ Private Sub fBoton2_Click()
     frmConfigCartPrecios.Show 1
 End Sub
 
-Private Sub fBoton4_Click()
+Private Sub fBoton3_Click()
     Unload Me
+    frmCheckJAR.Show 1
 End Sub
 
-
-Private Sub fBoton9_Click()
+Private Sub fBoton4_Click()
     Unload Me
-    frmConfigGrabarKar.Show 1
 End Sub
 
 Private Sub Form_Load()
@@ -716,12 +901,15 @@ Private Sub Form_Load()
     chkVentaExtras.Value = CLng(LeerConfig("VentaExtras", "0"))
     
     chkTengoUSB.Value = CLng(LeerConfig("TengoUsb", "1"))
+    chkBloquearTecladosUSB.Value = CLng(LeerConfig("BloquearTecladosUSB", "0"))
+    
     chkTengoBluetooth.Value = CLng(LeerConfig("TengoBluetooth", "0"))
     chkTengoInfra.Value = CLng(LeerConfig("TengoInfra", "0"))
     chkTengoCD.Value = CLng(LeerConfig("TengoCD", "0"))
     
     vsCreditForTestMusic.Value = CLng(LeerConfig("CreditForTestMusic", "0"))
     vsMaxListaTestMusic.Value = CLng(LeerConfig("MaxListaTestMusic", "0"))
+    vsMaxMuestrasToAddCredit.Value = CLng(LeerConfig("MaxMuestrasToAddCredit", "0"))
     
     tbrPintar frmIndex.Fondoxxx, Me, 0, 0, Me.Width / 15, Me.Height / 15
     
@@ -755,13 +943,17 @@ Private Sub UpCHKS()
         txtCreditForTestMusic.Enabled = vsCreditForTestMusic.Enabled
         vsMaxListaTestMusic.Enabled = vsCreditForTestMusic.Enabled
         txtMaxListaTestMusic.Enabled = vsCreditForTestMusic.Enabled
+        vsMaxMuestrasToAddCredit.Enabled = vsCreditForTestMusic.Enabled
+        txtMaxMuestrasToAddCredit.Enabled = vsCreditForTestMusic.Enabled
     
     If (chkShowDemoMusic.Value = 0) Or (chkShowDemoMusic.Enabled = False) Then
         Label10.ForeColor = &H808080
         Label11.ForeColor = &H808080
+        Label16.ForeColor = &H808080
     Else
         Label10.ForeColor = vbWhite
         Label11.ForeColor = vbWhite
+        Label16.ForeColor = vbWhite
     End If
     
     'ocultar los dependedientes de vender musica
@@ -786,6 +978,14 @@ Private Sub UpCHKS()
         Label7.ForeColor = &H808080
     End If
     
+    If chkTengoUSB.Enabled And chkTengoUSB.Value <> 0 Then
+        Label14.ForeColor = vbWhite
+        chkBloquearTecladosUSB.Enabled = True
+    Else
+        Label14.ForeColor = &H808080
+        chkBloquearTecladosUSB.Enabled = False
+    End If
+    
     chkTengoInfra.Enabled = False
     Label8.ForeColor = &H808080
     
@@ -797,4 +997,8 @@ End Sub
 
 Private Sub vsMaxListaTestMusic_Change()
     txtMaxListaTestMusic.tExt = vsMaxListaTestMusic.Value
+End Sub
+
+Private Sub vsMaxMuestrasToAddCredit_Change()
+    txtMaxMuestrasToAddCredit.tExt = vsMaxMuestrasToAddCredit.Value
 End Sub

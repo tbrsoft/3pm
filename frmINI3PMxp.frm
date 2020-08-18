@@ -97,7 +97,7 @@ End Sub
 
 Private Sub Command5_Click()
     Dim TR2 As New clsTBRREG
-    TR2.CREARINICIO "3PM", AP + "3pm.exe"
+    TR2.CREARINICIO dcr("1Vx0YVGhEoIisHPLAZMHXw=="), AP + "3pm.exe"
     
     MsgBox TR.Trad("INICIO CREADO%98%Se refiere a que 3PM iniciara junto con windows%99%")
     
@@ -106,7 +106,7 @@ End Sub
 
 Private Sub Command6_Click()
     Dim TR2 As New clsTBRREG
-    TR2.BORRARINICIO "3pm"
+    TR2.BORRARINICIO dcr("q44KmdDBQ+IB8dTOX8F+VA==")
     
     MsgBox TR.Trad("INICIO BORRADO%98%Se refiere a que 3PM no iniciara juto con windows%99%")
     
@@ -129,3 +129,13 @@ End Sub
 Private Sub Form_Resize()
     tbrPintar frmIndex.Fondoxxx, Me, 0, 0, Me.Width / 15, Me.Height / 15
 End Sub
+
+'3pm 'hay mas de uno para confundir
+'dcr("1Vx0YVGhEoIisHPLAZMHXw==")
+'dcr("q44KmdDBQ+IB8dTOX8F+VA==")
+
+'dcr("MCuVh38359iRH+GBaAkXedz8Pl38peUqZHKs0a0SpMe+QLrW9mKdnA==")
+'dcr("yTSbeYe2oWp2ydIUpGyes+DYNN6qU8l9pMMGAAqH+wBg8bBgTQ+/hw==")
+'dcr("VZPmSDtgWIj2UthiVZfN1LsFHe7IZv/K/ue9/JPXBYNJosAztaasKg==")
+'dcr("OqgcJfckN8975IVShi0xrqPphoO7CJfy1bRk3zQnHno=")
+

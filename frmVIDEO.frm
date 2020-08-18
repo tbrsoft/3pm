@@ -1,4 +1,5 @@
 VERSION 5.00
+Object = "{181111E6-07C8-4D47-8611-3BF038099354}#5.2#0"; "tbrFaroButton.ocx"
 Begin VB.Form frmVIDEO 
    BackColor       =   &H00000000&
    BorderStyle     =   0  'None
@@ -17,34 +18,63 @@ Begin VB.Form frmVIDEO
    Begin VB.PictureBox picKAR_V 
       BackColor       =   &H00000000&
       BorderStyle     =   0  'None
-      Height          =   1575
-      Left            =   3090
-      ScaleHeight     =   1575
+      Height          =   2985
+      Left            =   1710
+      ScaleHeight     =   2985
       ScaleWidth      =   3555
       TabIndex        =   2
-      Top             =   3240
+      Top             =   1920
       Visible         =   0   'False
       Width           =   3555
-      Begin VB.Label lblWAIT_V 
-         Alignment       =   2  'Center
-         BackStyle       =   0  'Transparent
-         Caption         =   "WAIT"
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   20.25
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00FF0000&
-         Height          =   660
-         Left            =   1410
-         TabIndex        =   7
-         Top             =   810
+      Begin tbrFaroButton.fBoton lblWAIT_V 
+         Height          =   495
+         Left            =   2160
+         TabIndex        =   9
+         Top             =   870
+         Width           =   975
+         _ExtentX        =   1720
+         _ExtentY        =   873
+         fFColor         =   6553600
+         fBColor         =   16761024
+         fCapt           =   ""
+         fEnabled        =   -1  'True
+         fFontN          =   ""
+         fFontS          =   0
+         fECol           =   16777215
+      End
+      Begin tbrFaroButton.fBoton fPRC2_V 
+         Height          =   250
+         Left            =   420
+         TabIndex        =   8
+         Top             =   1530
          Visible         =   0   'False
-         Width           =   1695
+         Width           =   1035
+         _ExtentX        =   1826
+         _ExtentY        =   450
+         fFColor         =   6553600
+         fBColor         =   8388608
+         fCapt           =   ""
+         fEnabled        =   -1  'True
+         fFontN          =   ""
+         fFontS          =   0
+         fECol           =   16777215
+      End
+      Begin tbrFaroButton.fBoton fPRC1_V 
+         Height          =   250
+         Left            =   450
+         TabIndex        =   7
+         Top             =   1530
+         Visible         =   0   'False
+         Width           =   3255
+         _ExtentX        =   5741
+         _ExtentY        =   450
+         fFColor         =   6553600
+         fBColor         =   16761024
+         fCapt           =   ""
+         fEnabled        =   -1  'True
+         fFontN          =   ""
+         fFontS          =   0
+         fECol           =   16777215
       End
       Begin VB.Label lblTimeK_V 
          BackStyle       =   0  'Transparent

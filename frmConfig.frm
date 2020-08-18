@@ -19,9 +19,9 @@ Begin VB.Form frmConfig
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    WindowState     =   2  'Maximized
-   Begin VB.Frame frProtector 
+   Begin VB.Frame frKKAR 
       BackColor       =   &H00000000&
-      Caption         =   "Protector de pantalla"
+      Caption         =   "Karaokes"
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
@@ -32,15 +32,15 @@ Begin VB.Form frmConfig
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   2415
-      Left            =   3150
-      TabIndex        =   32
-      Top             =   6930
+      Height          =   3045
+      Left            =   12180
+      TabIndex        =   264
+      Top             =   540
       Visible         =   0   'False
-      Width           =   4185
-      Begin VB.OptionButton chkProtectAvance 
+      Width           =   8865
+      Begin VB.CheckBox chkGrabaKarQuick 
          BackColor       =   &H00000000&
-         Caption         =   "Avance de discos automático"
+         Caption         =   "Ofrecer la grabación de karaoke ni bien termina la canción"
          BeginProperty Font 
             Name            =   "Verdana"
             Size            =   8.25
@@ -51,181 +51,131 @@ Begin VB.Form frmConfig
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00E0E0E0&
-         Height          =   255
-         Left            =   30
-         TabIndex        =   259
-         Top             =   1230
-         Width           =   4100
-      End
-      Begin VB.OptionButton chkProtectOriginal 
-         BackColor       =   &H00000000&
-         Caption         =   "Usar Protector de pantalla original (tapas de los discos)."
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00E0E0E0&
-         Height          =   405
-         Left            =   30
-         TabIndex        =   60
-         Top             =   750
-         Width           =   4100
-      End
-      Begin VB.OptionButton chkProtectorCustom 
-         BackColor       =   &H00000000&
-         Caption         =   "Usar protector de pantalla personalizado. "
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00E0E0E0&
-         Height          =   255
-         Left            =   30
-         TabIndex        =   59
-         Top             =   510
-         Width           =   4100
-      End
-      Begin VB.OptionButton chkNoProtector 
-         BackColor       =   &H00000000&
-         Caption         =   "No usar protector de pantalla."
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00E0E0E0&
-         Height          =   225
-         Left            =   30
-         TabIndex        =   58
-         Top             =   240
-         Width           =   4100
-      End
-      Begin VB.VScrollBar vsEsperaTecla 
-         Height          =   330
-         LargeChange     =   10
-         Left            =   3750
-         Max             =   30
-         Min             =   1200
-         SmallChange     =   10
-         TabIndex        =   61
-         Top             =   1620
-         Value           =   30
-         Width           =   330
-      End
-      Begin VB.TextBox txtEsperaTecla 
-         Alignment       =   2  'Center
-         Enabled         =   0   'False
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   315
-         Left            =   3120
-         TabIndex        =   35
-         TabStop         =   0   'False
-         Text            =   "0"
-         Top             =   1620
-         Width           =   600
-      End
-      Begin VB.VScrollBar vsDuracionProtect 
-         Height          =   330
-         LargeChange     =   10
-         Left            =   3750
-         Max             =   0
-         Min             =   900
-         SmallChange     =   10
-         TabIndex        =   62
-         Top             =   1980
-         Value           =   900
-         Width           =   330
-      End
-      Begin VB.TextBox txtDuracionProtect 
-         Alignment       =   2  'Center
-         Enabled         =   0   'False
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   315
-         Left            =   3120
-         TabIndex        =   34
-         TabStop         =   0   'False
-         Text            =   "0"
-         Top             =   1980
-         Width           =   600
-      End
-      Begin VB.Line Line3 
-         BorderColor     =   &H00FFFFFF&
-         X1              =   270
-         X2              =   3840
-         Y1              =   1530
-         Y2              =   1530
-      End
-      Begin VB.Label Label1 
-         Alignment       =   1  'Right Justify
-         BackStyle       =   0  'Transparent
-         Caption         =   "Espera protector de pantalla"
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00E0E0E0&
-         Height          =   285
-         Index           =   7
-         Left            =   180
-         TabIndex        =   37
-         Top             =   1680
-         Width           =   2925
-      End
-      Begin VB.Label Label1 
-         Alignment       =   1  'Right Justify
-         BackStyle       =   0  'Transparent
-         Caption         =   "Duración del protector"
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00E0E0E0&
-         Height          =   285
-         Index           =   17
+         Height          =   300
          Left            =   150
-         TabIndex        =   36
-         Top             =   2040
-         Width           =   2925
+         TabIndex        =   270
+         Top             =   2010
+         Width           =   6795
+      End
+      Begin VB.ComboBox cmbKbpsKar 
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00404040&
+         Height          =   360
+         ItemData        =   "frmConfig.frx":0442
+         Left            =   4590
+         List            =   "frmConfig.frx":046D
+         Style           =   2  'Dropdown List
+         TabIndex        =   267
+         Top             =   1200
+         Width           =   1185
+      End
+      Begin VB.ComboBox cmbGrabaKar 
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00404040&
+         Height          =   360
+         ItemData        =   "frmConfig.frx":04AC
+         Left            =   4620
+         List            =   "frmConfig.frx":04B9
+         Style           =   2  'Dropdown List
+         TabIndex        =   265
+         Top             =   330
+         Width           =   3975
+      End
+      Begin VB.Label Label1 
+         BackStyle       =   0  'Transparent
+         Caption         =   $"frmConfig.frx":04F8
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   465
+         Index           =   32
+         Left            =   600
+         TabIndex        =   271
+         Top             =   2340
+         Width           =   7935
+      End
+      Begin VB.Label Label1 
+         BackStyle       =   0  'Transparent
+         Caption         =   "kbps"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00E0E0E0&
+         Height          =   285
+         Index           =   24
+         Left            =   5820
+         TabIndex        =   269
+         Top             =   1230
+         Width           =   645
+      End
+      Begin VB.Label Label1 
+         BackStyle       =   0  'Transparent
+         Caption         =   "Compresion del MP3 resultante (mas es mayor calidad pero mayor tamaño de archivo). Se recomienda 128 Kbps"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   615
+         Index           =   23
+         Left            =   120
+         TabIndex        =   268
+         Top             =   1020
+         Width           =   4485
+      End
+      Begin VB.Label Label1 
+         BackStyle       =   0  'Transparent
+         Caption         =   "Grabación de karaokes, asegúrese de disponer de una SuperLicencia de karaoke"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00E0E0E0&
+         Height          =   435
+         Index           =   22
+         Left            =   150
+         TabIndex        =   266
+         Top             =   270
+         Width           =   4305
       End
    End
    Begin VB.Frame frVisualizacion 
@@ -242,9 +192,9 @@ Begin VB.Form frmConfig
       EndProperty
       ForeColor       =   &H00FFFFFF&
       Height          =   5055
-      Left            =   3240
+      Left            =   8220
       TabIndex        =   21
-      Top             =   1860
+      Top             =   7140
       Visible         =   0   'False
       Width           =   8655
       Begin VB.CheckBox chkQuitaBarraInf 
@@ -262,7 +212,7 @@ Begin VB.Form frmConfig
          ForeColor       =   &H00E0E0E0&
          Height          =   225
          Left            =   5640
-         TabIndex        =   257
+         TabIndex        =   256
          Top             =   2250
          Width           =   2625
       End
@@ -281,7 +231,7 @@ Begin VB.Form frmConfig
          ForeColor       =   &H00E0E0E0&
          Height          =   405
          Left            =   5640
-         TabIndex        =   256
+         TabIndex        =   255
          Top             =   1800
          Width           =   2625
       End
@@ -436,8 +386,8 @@ Begin VB.Form frmConfig
          MultiLine       =   -1  'True
          ScrollBars      =   2  'Vertical
          TabIndex        =   48
-         Text            =   "frmConfig.frx":0442
-         Top             =   2730
+         Text            =   "frmConfig.frx":0588
+         Top             =   2550
          Width           =   2970
       End
       Begin VB.TextBox txtDiscosV 
@@ -564,7 +514,7 @@ Begin VB.Form frmConfig
       Begin tbrFaroButton.fBoton Command10 
          Height          =   375
          Left            =   5520
-         TabIndex        =   221
+         TabIndex        =   220
          Top             =   2790
          Width           =   2625
          _ExtentX        =   4630
@@ -580,7 +530,7 @@ Begin VB.Form frmConfig
       Begin tbrFaroButton.fBoton Command20 
          Height          =   375
          Left            =   5520
-         TabIndex        =   222
+         TabIndex        =   221
          Top             =   3180
          Width           =   2625
          _ExtentX        =   4630
@@ -596,7 +546,7 @@ Begin VB.Form frmConfig
       Begin tbrFaroButton.fBoton XxBoton1 
          Height          =   375
          Left            =   5520
-         TabIndex        =   226
+         TabIndex        =   225
          Top             =   3570
          Width           =   2625
          _ExtentX        =   4630
@@ -610,16 +560,32 @@ Begin VB.Form frmConfig
          fECol           =   5452834
       End
       Begin tbrFaroButton.fBoton XxBoton2 
-         Height          =   375
-         Left            =   2640
-         TabIndex        =   227
+         Height          =   465
+         Left            =   90
+         TabIndex        =   226
          Top             =   4560
          Width           =   3105
          _ExtentX        =   5477
-         _ExtentY        =   661
+         _ExtentY        =   820
          fFColor         =   16777215
          fBColor         =   12632256
          fCapt           =   "Elegir / modificar SKIN"
+         fEnabled        =   -1  'True
+         fFontN          =   ""
+         fFontS          =   0
+         fECol           =   5452834
+      End
+      Begin tbrFaroButton.fBoton fBoton5 
+         Height          =   465
+         Left            =   3240
+         TabIndex        =   263
+         Top             =   4560
+         Width           =   1455
+         _ExtentX        =   2566
+         _ExtentY        =   820
+         fFColor         =   16777215
+         fBColor         =   14737632
+         fCapt           =   "Otros textos"
          fEnabled        =   -1  'True
          fFontN          =   ""
          fFontS          =   0
@@ -662,7 +628,7 @@ Begin VB.Form frmConfig
          Index           =   10
          Left            =   540
          TabIndex        =   49
-         Top             =   2490
+         Top             =   2310
          Width           =   2205
       End
       Begin VB.Label Label1 
@@ -706,1002 +672,6 @@ Begin VB.Form frmConfig
          Width           =   3345
       End
    End
-   Begin VB.Frame frCreditos 
-      BackColor       =   &H00000000&
-      Caption         =   "Créditos"
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00FFFFFF&
-      Height          =   5085
-      Left            =   3090
-      TabIndex        =   146
-      Top             =   210
-      Visible         =   0   'False
-      Width           =   8685
-      Begin VB.VScrollBar vsCreditosXaVipMusica 
-         Height          =   330
-         LargeChange     =   10
-         Left            =   3510
-         Max             =   0
-         Min             =   100
-         TabIndex        =   250
-         Top             =   4230
-         Value           =   1
-         Width           =   330
-      End
-      Begin VB.TextBox Text1 
-         BackColor       =   &H00E0E0E0&
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   1425
-         Left            =   3990
-         Locked          =   -1  'True
-         MultiLine       =   -1  'True
-         ScrollBars      =   2  'Vertical
-         TabIndex        =   249
-         Text            =   "frmConfig.frx":0484
-         Top             =   3540
-         Width           =   4575
-      End
-      Begin VB.TextBox txtCreditosXaVipMusica 
-         Alignment       =   2  'Center
-         Appearance      =   0  'Flat
-         BackColor       =   &H00FFFFFF&
-         Enabled         =   0   'False
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   315
-         Left            =   2790
-         TabIndex        =   247
-         TabStop         =   0   'False
-         Text            =   "5"
-         Top             =   4230
-         Width           =   750
-      End
-      Begin VB.TextBox txtPesosVIPMusica 
-         Alignment       =   2  'Center
-         Appearance      =   0  'Flat
-         BackColor       =   &H00E0E0E0&
-         Enabled         =   0   'False
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   315
-         Left            =   2790
-         TabIndex        =   246
-         TabStop         =   0   'False
-         Text            =   "8,88"
-         Top             =   4590
-         Width           =   1050
-      End
-      Begin tbrFaroButton.fBoton command3 
-         Height          =   435
-         Left            =   6990
-         TabIndex        =   232
-         Top             =   210
-         Width           =   1485
-         _ExtentX        =   2619
-         _ExtentY        =   767
-         fFColor         =   16777215
-         fBColor         =   14737632
-         fCapt           =   "en cero"
-         fEnabled        =   -1  'True
-         fFontN          =   ""
-         fFontS          =   0
-         fECol           =   5452834
-      End
-      Begin VB.ComboBox cmbSCM 
-         BackColor       =   &H00E0E0E0&
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00404040&
-         Height          =   360
-         ItemData        =   "frmConfig.frx":0605
-         Left            =   6330
-         List            =   "frmConfig.frx":060F
-         Style           =   2  'Dropdown List
-         TabIndex        =   189
-         Top             =   1020
-         Width           =   2205
-      End
-      Begin VB.TextBox txtPrecioBase2 
-         Alignment       =   2  'Center
-         Appearance      =   0  'Flat
-         BackColor       =   &H00E0E0E0&
-         Enabled         =   0   'False
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   315
-         Left            =   5400
-         TabIndex        =   171
-         TabStop         =   0   'False
-         Text            =   "8,88"
-         Top             =   1140
-         Width           =   810
-      End
-      Begin VB.TextBox txtExplicPrecios 
-         BackColor       =   &H00E0E0E0&
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   1575
-         Left            =   6090
-         Locked          =   -1  'True
-         MultiLine       =   -1  'True
-         ScrollBars      =   2  'Vertical
-         TabIndex        =   170
-         Top             =   1770
-         Width           =   2475
-      End
-      Begin VB.TextBox txtPrecioBASE 
-         Alignment       =   2  'Center
-         Appearance      =   0  'Flat
-         BackColor       =   &H00E0E0E0&
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   315
-         Left            =   5400
-         TabIndex        =   169
-         TabStop         =   0   'False
-         Text            =   "8,88"
-         Top             =   780
-         Width           =   810
-      End
-      Begin VB.VScrollBar vsCreditosBilletes 
-         Height          =   330
-         LargeChange     =   10
-         Left            =   4590
-         Max             =   1
-         Min             =   100
-         TabIndex        =   168
-         Top             =   1140
-         Value           =   1
-         Width           =   330
-      End
-      Begin VB.TextBox txtCreditosBilletes 
-         Alignment       =   2  'Center
-         Appearance      =   0  'Flat
-         BackColor       =   &H00E0E0E0&
-         Enabled         =   0   'False
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   315
-         Left            =   3990
-         TabIndex        =   167
-         TabStop         =   0   'False
-         Text            =   "0"
-         Top             =   1140
-         Width           =   600
-      End
-      Begin VB.TextBox txtCreditosCuestaTema 
-         Alignment       =   2  'Center
-         Appearance      =   0  'Flat
-         BackColor       =   &H00E0E0E0&
-         Enabled         =   0   'False
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   315
-         Index           =   2
-         Left            =   1710
-         TabIndex        =   166
-         TabStop         =   0   'False
-         Text            =   "0"
-         Top             =   2985
-         Width           =   600
-      End
-      Begin VB.VScrollBar vsCreditosCuestaTema 
-         Height          =   330
-         Index           =   2
-         LargeChange     =   10
-         Left            =   2310
-         Max             =   0
-         Min             =   100
-         TabIndex        =   165
-         Top             =   2985
-         Value           =   1
-         Width           =   330
-      End
-      Begin VB.TextBox txtCreditosCuestaTemaVIDEO 
-         Alignment       =   2  'Center
-         Appearance      =   0  'Flat
-         BackColor       =   &H00E0E0E0&
-         Enabled         =   0   'False
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   315
-         Index           =   2
-         Left            =   3960
-         TabIndex        =   164
-         TabStop         =   0   'False
-         Text            =   "0"
-         Top             =   2985
-         Width           =   600
-      End
-      Begin VB.VScrollBar vsCreditosCuestaTemaVIDEO 
-         Height          =   330
-         Index           =   2
-         LargeChange     =   10
-         Left            =   4560
-         Max             =   0
-         Min             =   100
-         TabIndex        =   163
-         Top             =   2985
-         Value           =   1
-         Width           =   330
-      End
-      Begin VB.TextBox txtPrecioM 
-         Alignment       =   2  'Center
-         Appearance      =   0  'Flat
-         BackColor       =   &H00E0E0E0&
-         Enabled         =   0   'False
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   315
-         Index           =   2
-         Left            =   2700
-         TabIndex        =   162
-         TabStop         =   0   'False
-         Text            =   "8,88"
-         Top             =   2985
-         Width           =   1100
-      End
-      Begin VB.TextBox txtPrecioV 
-         Alignment       =   2  'Center
-         Appearance      =   0  'Flat
-         BackColor       =   &H00E0E0E0&
-         Enabled         =   0   'False
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   315
-         Index           =   2
-         Left            =   4920
-         TabIndex        =   161
-         TabStop         =   0   'False
-         Text            =   "8,88"
-         Top             =   2985
-         Width           =   1100
-      End
-      Begin VB.TextBox txtCreditosCuestaTema 
-         Alignment       =   2  'Center
-         Appearance      =   0  'Flat
-         BackColor       =   &H00E0E0E0&
-         Enabled         =   0   'False
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   315
-         Index           =   1
-         Left            =   1710
-         TabIndex        =   160
-         TabStop         =   0   'False
-         Text            =   "0"
-         Top             =   2625
-         Width           =   600
-      End
-      Begin VB.VScrollBar vsCreditosCuestaTema 
-         Height          =   330
-         Index           =   1
-         LargeChange     =   10
-         Left            =   2310
-         Max             =   0
-         Min             =   100
-         TabIndex        =   159
-         Top             =   2625
-         Value           =   1
-         Width           =   330
-      End
-      Begin VB.TextBox txtCreditosCuestaTemaVIDEO 
-         Alignment       =   2  'Center
-         Appearance      =   0  'Flat
-         BackColor       =   &H00E0E0E0&
-         Enabled         =   0   'False
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   315
-         Index           =   1
-         Left            =   3960
-         TabIndex        =   158
-         TabStop         =   0   'False
-         Text            =   "0"
-         Top             =   2625
-         Width           =   600
-      End
-      Begin VB.VScrollBar vsCreditosCuestaTemaVIDEO 
-         Height          =   330
-         Index           =   1
-         LargeChange     =   10
-         Left            =   4560
-         Max             =   0
-         Min             =   100
-         TabIndex        =   157
-         Top             =   2625
-         Value           =   1
-         Width           =   330
-      End
-      Begin VB.TextBox txtPrecioM 
-         Alignment       =   2  'Center
-         Appearance      =   0  'Flat
-         BackColor       =   &H00E0E0E0&
-         Enabled         =   0   'False
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   315
-         Index           =   1
-         Left            =   2700
-         TabIndex        =   156
-         TabStop         =   0   'False
-         Text            =   "8,88"
-         Top             =   2625
-         Width           =   1100
-      End
-      Begin VB.TextBox txtPrecioV 
-         Alignment       =   2  'Center
-         Appearance      =   0  'Flat
-         BackColor       =   &H00E0E0E0&
-         Enabled         =   0   'False
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   315
-         Index           =   1
-         Left            =   4920
-         TabIndex        =   155
-         TabStop         =   0   'False
-         Text            =   "8,88"
-         Top             =   2625
-         Width           =   1100
-      End
-      Begin VB.TextBox txtPrecioV 
-         Alignment       =   2  'Center
-         Appearance      =   0  'Flat
-         BackColor       =   &H00E0E0E0&
-         Enabled         =   0   'False
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   315
-         Index           =   0
-         Left            =   4920
-         TabIndex        =   154
-         TabStop         =   0   'False
-         Text            =   "8,88"
-         Top             =   2265
-         Width           =   1100
-      End
-      Begin VB.TextBox txtPrecioM 
-         Alignment       =   2  'Center
-         Appearance      =   0  'Flat
-         BackColor       =   &H00E0E0E0&
-         Enabled         =   0   'False
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   315
-         Index           =   0
-         Left            =   2700
-         TabIndex        =   153
-         TabStop         =   0   'False
-         Text            =   "8,88"
-         Top             =   2265
-         Width           =   1100
-      End
-      Begin VB.VScrollBar vsCreditosCuestaTemaVIDEO 
-         Height          =   330
-         Index           =   0
-         LargeChange     =   10
-         Left            =   4560
-         Max             =   0
-         Min             =   100
-         TabIndex        =   152
-         Top             =   2265
-         Value           =   1
-         Width           =   330
-      End
-      Begin VB.TextBox txtCreditosCuestaTemaVIDEO 
-         Alignment       =   2  'Center
-         Appearance      =   0  'Flat
-         BackColor       =   &H00E0E0E0&
-         Enabled         =   0   'False
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   315
-         Index           =   0
-         Left            =   3960
-         TabIndex        =   151
-         TabStop         =   0   'False
-         Text            =   "0"
-         Top             =   2265
-         Width           =   600
-      End
-      Begin VB.TextBox txtTemasXCredito 
-         Alignment       =   2  'Center
-         Appearance      =   0  'Flat
-         BackColor       =   &H00E0E0E0&
-         Enabled         =   0   'False
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   315
-         Left            =   3990
-         TabIndex        =   150
-         TabStop         =   0   'False
-         Text            =   "0"
-         Top             =   795
-         Width           =   600
-      End
-      Begin VB.VScrollBar VSTemasXCredito 
-         Height          =   330
-         LargeChange     =   10
-         Left            =   4590
-         Max             =   1
-         Min             =   100
-         TabIndex        =   149
-         Top             =   780
-         Value           =   1
-         Width           =   330
-      End
-      Begin VB.VScrollBar vsCreditosCuestaTema 
-         Height          =   330
-         Index           =   0
-         LargeChange     =   10
-         Left            =   2310
-         Max             =   0
-         Min             =   100
-         TabIndex        =   148
-         Top             =   2265
-         Value           =   1
-         Width           =   330
-      End
-      Begin VB.TextBox txtCreditosCuestaTema 
-         Alignment       =   2  'Center
-         Appearance      =   0  'Flat
-         BackColor       =   &H00E0E0E0&
-         Enabled         =   0   'False
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   315
-         Index           =   0
-         Left            =   1710
-         TabIndex        =   147
-         TabStop         =   0   'False
-         Text            =   "0"
-         Top             =   2265
-         Width           =   600
-      End
-      Begin tbrFaroButton.fBoton fBoton3 
-         Height          =   975
-         Left            =   420
-         TabIndex        =   251
-         Top             =   3750
-         Width           =   1485
-         _ExtentX        =   2619
-         _ExtentY        =   1720
-         fFColor         =   16777215
-         fBColor         =   14737632
-         fCapt           =   "Poner en cero creditos actuales."
-         fEnabled        =   -1  'True
-         fFontN          =   ""
-         fFontS          =   0
-         fECol           =   5452834
-      End
-      Begin VB.Line Line7 
-         BorderColor     =   &H00FFFFFF&
-         X1              =   2250
-         X2              =   2250
-         Y1              =   3450
-         Y2              =   5070
-      End
-      Begin VB.Label Label1 
-         Alignment       =   2  'Center
-         BackStyle       =   0  'Transparent
-         Caption         =   "Creditos para selecciones VIP"
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00C0FFFF&
-         Height          =   765
-         Index           =   19
-         Left            =   2280
-         TabIndex        =   248
-         Top             =   3510
-         Width           =   1725
-      End
-      Begin VB.Line Line6 
-         BorderColor     =   &H00FFFFFF&
-         Index           =   1
-         X1              =   150
-         X2              =   8460
-         Y1              =   3420
-         Y2              =   3420
-      End
-      Begin VB.Line Line6 
-         BorderColor     =   &H00FFFFFF&
-         Index           =   0
-         X1              =   150
-         X2              =   8460
-         Y1              =   1590
-         Y2              =   1590
-      End
-      Begin VB.Label Label1 
-         Alignment       =   1  'Right Justify
-         BackStyle       =   0  'Transparent
-         Caption         =   "Mostar créditos como"
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00E0E0E0&
-         Height          =   165
-         Index           =   45
-         Left            =   6060
-         TabIndex        =   190
-         Top             =   810
-         Width           =   2415
-      End
-      Begin VB.Label Label1 
-         Alignment       =   2  'Center
-         BackStyle       =   0  'Transparent
-         BorderStyle     =   1  'Fixed Single
-         Caption         =   "= $"
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00FFFFFF&
-         Height          =   315
-         Index           =   42
-         Left            =   4920
-         TabIndex        =   185
-         Top             =   1140
-         Width           =   465
-      End
-      Begin VB.Label Label1 
-         Alignment       =   2  'Center
-         BackStyle       =   0  'Transparent
-         Caption         =   "X1"
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00E0E0E0&
-         Height          =   315
-         Index           =   54
-         Left            =   1470
-         TabIndex        =   184
-         Top             =   2310
-         Width           =   255
-      End
-      Begin VB.Label Label1 
-         Alignment       =   2  'Center
-         BackStyle       =   0  'Transparent
-         Caption         =   "X3"
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00E0E0E0&
-         Height          =   315
-         Index           =   46
-         Left            =   1470
-         TabIndex        =   183
-         Top             =   3060
-         Width           =   255
-      End
-      Begin VB.Label Label1 
-         Alignment       =   1  'Right Justify
-         BackStyle       =   0  'Transparent
-         Caption         =   "En cero X1= modo gratuito. En cero X2 o X3= no usa promociones."
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00C0FFFF&
-         Height          =   1365
-         Index           =   53
-         Left            =   180
-         TabIndex        =   182
-         Top             =   1830
-         Width           =   1155
-      End
-      Begin VB.Label Label1 
-         Alignment       =   2  'Center
-         BackStyle       =   0  'Transparent
-         BorderStyle     =   1  'Fixed Single
-         Caption         =   "= $"
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00FFFFFF&
-         Height          =   315
-         Index           =   52
-         Left            =   4920
-         TabIndex        =   181
-         Top             =   780
-         Width           =   465
-      End
-      Begin VB.Label Label1 
-         BackStyle       =   0  'Transparent
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H0080FFFF&
-         Height          =   795
-         Index           =   51
-         Left            =   60
-         TabIndex        =   180
-         Top             =   1770
-         Width           =   1635
-      End
-      Begin VB.Label Label1 
-         Alignment       =   1  'Right Justify
-         BackStyle       =   0  'Transparent
-         BorderStyle     =   1  'Fixed Single
-         Caption         =   "Créditos por cada señal de billetero (S)"
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00E0E0E0&
-         Height          =   285
-         Index           =   49
-         Left            =   90
-         TabIndex        =   179
-         Top             =   1170
-         Width           =   3885
-      End
-      Begin VB.Label Label1 
-         Alignment       =   2  'Center
-         BackStyle       =   0  'Transparent
-         Caption         =   "X2"
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00E0E0E0&
-         Height          =   315
-         Index           =   43
-         Left            =   1470
-         TabIndex        =   178
-         Top             =   2700
-         Width           =   255
-      End
-      Begin VB.Line Line4 
-         BorderColor     =   &H00E0E0E0&
-         X1              =   120
-         X2              =   6150
-         Y1              =   690
-         Y2              =   690
-      End
-      Begin VB.Label lblContador2 
-         Alignment       =   2  'Center
-         BackColor       =   &H00404040&
-         BorderStyle     =   1  'Fixed Single
-         Caption         =   "20264536538"
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   12
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00FFFFFF&
-         Height          =   345
-         Left            =   1680
-         TabIndex        =   177
-         Top             =   270
-         Width           =   2600
-      End
-      Begin VB.Label Label1 
-         Alignment       =   1  'Right Justify
-         BackStyle       =   0  'Transparent
-         Caption         =   "Contador histórico/Interno"
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00E0E0E0&
-         Height          =   405
-         Index           =   39
-         Left            =   -210
-         TabIndex        =   176
-         Top             =   240
-         Width           =   1785
-      End
-      Begin VB.Label Label1 
-         Alignment       =   2  'Center
-         BackStyle       =   0  'Transparent
-         BorderStyle     =   1  'Fixed Single
-         Caption         =   "Créditos para VIDEO/KARAOKE"
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00E0E0E0&
-         Height          =   465
-         Index           =   28
-         Left            =   3960
-         TabIndex        =   175
-         Top             =   1770
-         Width           =   2055
-      End
-      Begin VB.Label lblContador 
-         Alignment       =   2  'Center
-         BackColor       =   &H00404040&
-         BorderStyle     =   1  'Fixed Single
-         Caption         =   "20264536538"
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   12
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00FFFFFF&
-         Height          =   345
-         Left            =   4320
-         TabIndex        =   174
-         Top             =   270
-         Width           =   2595
-      End
-      Begin VB.Label Label1 
-         Alignment       =   1  'Right Justify
-         BackStyle       =   0  'Transparent
-         BorderStyle     =   1  'Fixed Single
-         Caption         =   "Créditos por cada señal de monedero (Q)"
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00E0E0E0&
-         Height          =   285
-         Index           =   11
-         Left            =   90
-         TabIndex        =   173
-         Top             =   810
-         Width           =   3885
-      End
-      Begin VB.Label Label1 
-         Alignment       =   2  'Center
-         BackStyle       =   0  'Transparent
-         BorderStyle     =   1  'Fixed Single
-         Caption         =   "Créditos para música"
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00E0E0E0&
-         Height          =   465
-         Index           =   26
-         Left            =   1710
-         TabIndex        =   172
-         Top             =   1770
-         Width           =   2055
-      End
-   End
    Begin VB.Frame frTeclado 
       BackColor       =   &H00000000&
       Caption         =   "Teclado"
@@ -1715,20 +685,20 @@ Begin VB.Form frmConfig
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   4800
-      Left            =   8070
+      Height          =   5220
+      Left            =   5010
       TabIndex        =   18
-      Top             =   8460
+      Top             =   960
       Visible         =   0   'False
-      Width           =   8865
+      Width           =   8835
       Begin tbrFaroButton.fBoton fBoton4 
-         Height          =   705
-         Left            =   6480
-         TabIndex        =   258
-         Top             =   3810
-         Width           =   1125
-         _ExtentX        =   1984
-         _ExtentY        =   1244
+         Height          =   525
+         Left            =   7470
+         TabIndex        =   257
+         Top             =   4140
+         Width           =   1275
+         _ExtentX        =   2249
+         _ExtentY        =   926
          fFColor         =   16777215
          fBColor         =   14737632
          fCapt           =   "LEDs del teclado"
@@ -1738,13 +708,13 @@ Begin VB.Form frmConfig
          fECol           =   5452834
       End
       Begin tbrFaroButton.fBoton Command28 
-         Height          =   705
-         Left            =   7710
-         TabIndex        =   241
-         Top             =   3810
-         Width           =   1035
-         _ExtentX        =   1826
-         _ExtentY        =   1244
+         Height          =   555
+         Left            =   7470
+         TabIndex        =   240
+         Top             =   3570
+         Width           =   1275
+         _ExtentX        =   2249
+         _ExtentY        =   979
          fFColor         =   16777215
          fBColor         =   14737632
          fCapt           =   "especiales monedero"
@@ -1756,19 +726,19 @@ Begin VB.Form frmConfig
       Begin VB.PictureBox PicContLetras 
          BackColor       =   &H00000000&
          BorderStyle     =   0  'None
-         Height          =   2745
-         Left            =   90
-         ScaleHeight     =   2745
+         Height          =   2685
+         Left            =   120
+         ScaleHeight     =   2685
          ScaleWidth      =   8655
          TabIndex        =   81
-         Top             =   240
+         Top             =   180
          Width           =   8655
          Begin VB.PictureBox PicLetras 
             BackColor       =   &H00000000&
             BorderStyle     =   0  'None
-            Height          =   6135
+            Height          =   6465
             Left            =   30
-            ScaleHeight     =   6135
+            ScaleHeight     =   6465
             ScaleWidth      =   7995
             TabIndex        =   82
             Top             =   0
@@ -1786,9 +756,68 @@ Begin VB.Form frmConfig
                   Strikethrough   =   0   'False
                EndProperty
                Height          =   315
+               Index           =   18
+               Left            =   2430
+               TabIndex        =   262
+               Top             =   7980
+               Width           =   570
+            End
+            Begin VB.ComboBox cmbTECLAS2 
+               BeginProperty Font 
+                  Name            =   "Verdana"
+                  Size            =   8.25
+                  Charset         =   0
+                  Weight          =   400
+                  Underline       =   0   'False
+                  Italic          =   0   'False
+                  Strikethrough   =   0   'False
+               EndProperty
+               Height          =   315
+               Index           =   18
+               ItemData        =   "frmConfig.frx":05CA
+               Left            =   7020
+               List            =   "frmConfig.frx":0616
+               Style           =   2  'Dropdown List
+               TabIndex        =   260
+               Top             =   6090
+               Width           =   945
+            End
+            Begin VB.ComboBox cmbTECLAS 
+               BeginProperty Font 
+                  Name            =   "Verdana"
+                  Size            =   8.25
+                  Charset         =   0
+                  Weight          =   400
+                  Underline       =   0   'False
+                  Italic          =   0   'False
+                  Strikethrough   =   0   'False
+               EndProperty
+               Height          =   315
+               Index           =   18
+               ItemData        =   "frmConfig.frx":0674
+               Left            =   2010
+               List            =   "frmConfig.frx":07A1
+               Style           =   2  'Dropdown List
+               TabIndex        =   259
+               Top             =   6090
+               Width           =   5000
+            End
+            Begin VB.TextBox txtTeclas 
+               Alignment       =   2  'Center
+               Enabled         =   0   'False
+               BeginProperty Font 
+                  Name            =   "Verdana"
+                  Size            =   8.25
+                  Charset         =   0
+                  Weight          =   400
+                  Underline       =   0   'False
+                  Italic          =   0   'False
+                  Strikethrough   =   0   'False
+               EndProperty
+               Height          =   315
                Index           =   17
                Left            =   7980
-               TabIndex        =   255
+               TabIndex        =   254
                Top             =   5670
                Width           =   570
             End
@@ -1804,11 +833,11 @@ Begin VB.Form frmConfig
                EndProperty
                Height          =   315
                Index           =   17
-               ItemData        =   "frmConfig.frx":062B
+               ItemData        =   "frmConfig.frx":0F23
                Left            =   2010
-               List            =   "frmConfig.frx":0758
+               List            =   "frmConfig.frx":1050
                Style           =   2  'Dropdown List
-               TabIndex        =   253
+               TabIndex        =   252
                Top             =   5760
                Width           =   5000
             End
@@ -1824,11 +853,11 @@ Begin VB.Form frmConfig
                EndProperty
                Height          =   315
                Index           =   17
-               ItemData        =   "frmConfig.frx":0EDA
+               ItemData        =   "frmConfig.frx":17D2
                Left            =   7020
-               List            =   "frmConfig.frx":0F26
+               List            =   "frmConfig.frx":181E
                Style           =   2  'Dropdown List
-               TabIndex        =   252
+               TabIndex        =   251
                Top             =   5760
                Width           =   945
             End
@@ -1846,9 +875,9 @@ Begin VB.Form frmConfig
                EndProperty
                Height          =   315
                Index           =   16
-               Left            =   5820
-               TabIndex        =   231
-               Top             =   6360
+               Left            =   5310
+               TabIndex        =   230
+               Top             =   7920
                Width           =   700
             End
             Begin VB.ComboBox cmbTECLAS 
@@ -1864,11 +893,11 @@ Begin VB.Form frmConfig
                ForeColor       =   &H00404040&
                Height          =   315
                Index           =   16
-               ItemData        =   "frmConfig.frx":0F84
+               ItemData        =   "frmConfig.frx":187C
                Left            =   2010
-               List            =   "frmConfig.frx":10B1
+               List            =   "frmConfig.frx":19A9
                Style           =   2  'Dropdown List
-               TabIndex        =   229
+               TabIndex        =   228
                Top             =   1440
                Width           =   5000
             End
@@ -1885,11 +914,11 @@ Begin VB.Form frmConfig
                ForeColor       =   &H00404040&
                Height          =   315
                Index           =   16
-               ItemData        =   "frmConfig.frx":1833
+               ItemData        =   "frmConfig.frx":212B
                Left            =   7020
-               List            =   "frmConfig.frx":187F
+               List            =   "frmConfig.frx":2177
                Style           =   2  'Dropdown List
-               TabIndex        =   228
+               TabIndex        =   227
                Top             =   1440
                Width           =   945
             End
@@ -1906,11 +935,11 @@ Begin VB.Form frmConfig
                ForeColor       =   &H00404040&
                Height          =   315
                Index           =   0
-               ItemData        =   "frmConfig.frx":18DD
+               ItemData        =   "frmConfig.frx":21D5
                Left            =   7015
-               List            =   "frmConfig.frx":1929
+               List            =   "frmConfig.frx":2221
                Style           =   2  'Dropdown List
-               TabIndex        =   209
+               TabIndex        =   208
                Top             =   90
                Width           =   945
             End
@@ -1927,11 +956,11 @@ Begin VB.Form frmConfig
                ForeColor       =   &H00404040&
                Height          =   315
                Index           =   1
-               ItemData        =   "frmConfig.frx":1987
+               ItemData        =   "frmConfig.frx":227F
                Left            =   7015
-               List            =   "frmConfig.frx":19D3
+               List            =   "frmConfig.frx":22CB
                Style           =   2  'Dropdown List
-               TabIndex        =   208
+               TabIndex        =   207
                Top             =   420
                Width           =   945
             End
@@ -1948,11 +977,11 @@ Begin VB.Form frmConfig
                ForeColor       =   &H00404040&
                Height          =   315
                Index           =   2
-               ItemData        =   "frmConfig.frx":1A31
+               ItemData        =   "frmConfig.frx":2329
                Left            =   7015
-               List            =   "frmConfig.frx":1A7D
+               List            =   "frmConfig.frx":2375
                Style           =   2  'Dropdown List
-               TabIndex        =   207
+               TabIndex        =   206
                Top             =   765
                Width           =   945
             End
@@ -1969,11 +998,11 @@ Begin VB.Form frmConfig
                ForeColor       =   &H00404040&
                Height          =   315
                Index           =   3
-               ItemData        =   "frmConfig.frx":1ADB
+               ItemData        =   "frmConfig.frx":23D3
                Left            =   7015
-               List            =   "frmConfig.frx":1B27
+               List            =   "frmConfig.frx":241F
                Style           =   2  'Dropdown List
-               TabIndex        =   206
+               TabIndex        =   205
                Top             =   1095
                Width           =   945
             End
@@ -1990,11 +1019,11 @@ Begin VB.Form frmConfig
                ForeColor       =   &H00404040&
                Height          =   315
                Index           =   4
-               ItemData        =   "frmConfig.frx":1B85
+               ItemData        =   "frmConfig.frx":247D
                Left            =   7020
-               List            =   "frmConfig.frx":1BD1
+               List            =   "frmConfig.frx":24C9
                Style           =   2  'Dropdown List
-               TabIndex        =   205
+               TabIndex        =   204
                Top             =   1770
                Width           =   945
             End
@@ -2011,11 +1040,11 @@ Begin VB.Form frmConfig
                ForeColor       =   &H00404040&
                Height          =   315
                Index           =   5
-               ItemData        =   "frmConfig.frx":1C2F
+               ItemData        =   "frmConfig.frx":2527
                Left            =   7015
-               List            =   "frmConfig.frx":1C7B
+               List            =   "frmConfig.frx":2573
                Style           =   2  'Dropdown List
-               TabIndex        =   204
+               TabIndex        =   203
                Top             =   2085
                Width           =   945
             End
@@ -2032,11 +1061,11 @@ Begin VB.Form frmConfig
                ForeColor       =   &H00404040&
                Height          =   315
                Index           =   6
-               ItemData        =   "frmConfig.frx":1CD9
+               ItemData        =   "frmConfig.frx":25D1
                Left            =   7015
-               List            =   "frmConfig.frx":1D25
+               List            =   "frmConfig.frx":261D
                Style           =   2  'Dropdown List
-               TabIndex        =   203
+               TabIndex        =   202
                Top             =   2400
                Width           =   945
             End
@@ -2052,11 +1081,11 @@ Begin VB.Form frmConfig
                EndProperty
                Height          =   315
                Index           =   7
-               ItemData        =   "frmConfig.frx":1D83
+               ItemData        =   "frmConfig.frx":267B
                Left            =   7015
-               List            =   "frmConfig.frx":1DCF
+               List            =   "frmConfig.frx":26C7
                Style           =   2  'Dropdown List
-               TabIndex        =   202
+               TabIndex        =   201
                Top             =   2730
                Width           =   945
             End
@@ -2072,11 +1101,11 @@ Begin VB.Form frmConfig
                EndProperty
                Height          =   315
                Index           =   8
-               ItemData        =   "frmConfig.frx":1E2D
+               ItemData        =   "frmConfig.frx":2725
                Left            =   7015
-               List            =   "frmConfig.frx":1E79
+               List            =   "frmConfig.frx":2771
                Style           =   2  'Dropdown List
-               TabIndex        =   201
+               TabIndex        =   200
                Top             =   3075
                Width           =   945
             End
@@ -2092,11 +1121,11 @@ Begin VB.Form frmConfig
                EndProperty
                Height          =   315
                Index           =   9
-               ItemData        =   "frmConfig.frx":1ED7
+               ItemData        =   "frmConfig.frx":27CF
                Left            =   7015
-               List            =   "frmConfig.frx":1F23
+               List            =   "frmConfig.frx":281B
                Style           =   2  'Dropdown List
-               TabIndex        =   200
+               TabIndex        =   199
                Top             =   3405
                Width           =   945
             End
@@ -2112,11 +1141,11 @@ Begin VB.Form frmConfig
                EndProperty
                Height          =   315
                Index           =   10
-               ItemData        =   "frmConfig.frx":1F81
+               ItemData        =   "frmConfig.frx":2879
                Left            =   7015
-               List            =   "frmConfig.frx":1FCD
+               List            =   "frmConfig.frx":28C5
                Style           =   2  'Dropdown List
-               TabIndex        =   199
+               TabIndex        =   198
                Top             =   3720
                Width           =   945
             End
@@ -2132,11 +1161,11 @@ Begin VB.Form frmConfig
                EndProperty
                Height          =   315
                Index           =   11
-               ItemData        =   "frmConfig.frx":202B
+               ItemData        =   "frmConfig.frx":2923
                Left            =   7015
-               List            =   "frmConfig.frx":2077
+               List            =   "frmConfig.frx":296F
                Style           =   2  'Dropdown List
-               TabIndex        =   198
+               TabIndex        =   197
                Top             =   4050
                Width           =   945
             End
@@ -2152,11 +1181,11 @@ Begin VB.Form frmConfig
                EndProperty
                Height          =   315
                Index           =   12
-               ItemData        =   "frmConfig.frx":20D5
+               ItemData        =   "frmConfig.frx":29CD
                Left            =   7015
-               List            =   "frmConfig.frx":2121
+               List            =   "frmConfig.frx":2A19
                Style           =   2  'Dropdown List
-               TabIndex        =   197
+               TabIndex        =   196
                Top             =   4365
                Width           =   945
             End
@@ -2172,11 +1201,11 @@ Begin VB.Form frmConfig
                EndProperty
                Height          =   315
                Index           =   13
-               ItemData        =   "frmConfig.frx":217F
+               ItemData        =   "frmConfig.frx":2A77
                Left            =   7015
-               List            =   "frmConfig.frx":21CB
+               List            =   "frmConfig.frx":2AC3
                Style           =   2  'Dropdown List
-               TabIndex        =   196
+               TabIndex        =   195
                Top             =   4725
                Width           =   945
             End
@@ -2192,11 +1221,11 @@ Begin VB.Form frmConfig
                EndProperty
                Height          =   315
                Index           =   14
-               ItemData        =   "frmConfig.frx":2229
+               ItemData        =   "frmConfig.frx":2B21
                Left            =   7015
-               List            =   "frmConfig.frx":2275
+               List            =   "frmConfig.frx":2B6D
                Style           =   2  'Dropdown List
-               TabIndex        =   195
+               TabIndex        =   194
                Top             =   5070
                Width           =   945
             End
@@ -2212,11 +1241,11 @@ Begin VB.Form frmConfig
                EndProperty
                Height          =   315
                Index           =   15
-               ItemData        =   "frmConfig.frx":22D3
+               ItemData        =   "frmConfig.frx":2BCB
                Left            =   7015
-               List            =   "frmConfig.frx":231F
+               List            =   "frmConfig.frx":2C17
                Style           =   2  'Dropdown List
-               TabIndex        =   194
+               TabIndex        =   193
                Top             =   5400
                Width           =   945
             End
@@ -2235,7 +1264,7 @@ Begin VB.Form frmConfig
                Height          =   315
                Index           =   15
                Left            =   4350
-               TabIndex        =   188
+               TabIndex        =   187
                Top             =   10770
                Width           =   700
             End
@@ -2251,11 +1280,11 @@ Begin VB.Form frmConfig
                EndProperty
                Height          =   315
                Index           =   15
-               ItemData        =   "frmConfig.frx":237D
+               ItemData        =   "frmConfig.frx":2C75
                Left            =   2010
-               List            =   "frmConfig.frx":24AA
+               List            =   "frmConfig.frx":2DA2
                Style           =   2  'Dropdown List
-               TabIndex        =   186
+               TabIndex        =   185
                Top             =   5400
                Width           =   5000
             End
@@ -2271,9 +1300,9 @@ Begin VB.Form frmConfig
                EndProperty
                Height          =   315
                Index           =   8
-               ItemData        =   "frmConfig.frx":2C2C
+               ItemData        =   "frmConfig.frx":3524
                Left            =   2010
-               List            =   "frmConfig.frx":2D59
+               List            =   "frmConfig.frx":3651
                Style           =   2  'Dropdown List
                TabIndex        =   112
                Top             =   3075
@@ -2291,9 +1320,9 @@ Begin VB.Form frmConfig
                EndProperty
                Height          =   315
                Index           =   7
-               ItemData        =   "frmConfig.frx":34DB
+               ItemData        =   "frmConfig.frx":3DD3
                Left            =   2010
-               List            =   "frmConfig.frx":3608
+               List            =   "frmConfig.frx":3F00
                Style           =   2  'Dropdown List
                TabIndex        =   111
                Top             =   2745
@@ -2312,9 +1341,9 @@ Begin VB.Form frmConfig
                ForeColor       =   &H00404040&
                Height          =   315
                Index           =   6
-               ItemData        =   "frmConfig.frx":3D8A
+               ItemData        =   "frmConfig.frx":4682
                Left            =   2010
-               List            =   "frmConfig.frx":3EB7
+               List            =   "frmConfig.frx":47AF
                Style           =   2  'Dropdown List
                TabIndex        =   110
                Top             =   2415
@@ -2333,9 +1362,9 @@ Begin VB.Form frmConfig
                ForeColor       =   &H00404040&
                Height          =   315
                Index           =   5
-               ItemData        =   "frmConfig.frx":4639
+               ItemData        =   "frmConfig.frx":4F31
                Left            =   2010
-               List            =   "frmConfig.frx":4766
+               List            =   "frmConfig.frx":505E
                Style           =   2  'Dropdown List
                TabIndex        =   109
                Top             =   2085
@@ -2354,9 +1383,9 @@ Begin VB.Form frmConfig
                ForeColor       =   &H00404040&
                Height          =   315
                Index           =   4
-               ItemData        =   "frmConfig.frx":4EE8
+               ItemData        =   "frmConfig.frx":57E0
                Left            =   2010
-               List            =   "frmConfig.frx":5015
+               List            =   "frmConfig.frx":590D
                Style           =   2  'Dropdown List
                TabIndex        =   108
                Top             =   1755
@@ -2375,9 +1404,9 @@ Begin VB.Form frmConfig
                ForeColor       =   &H00404040&
                Height          =   315
                Index           =   3
-               ItemData        =   "frmConfig.frx":5797
+               ItemData        =   "frmConfig.frx":608F
                Left            =   2010
-               List            =   "frmConfig.frx":58C4
+               List            =   "frmConfig.frx":61BC
                Style           =   2  'Dropdown List
                TabIndex        =   107
                Top             =   1095
@@ -2396,9 +1425,9 @@ Begin VB.Form frmConfig
                ForeColor       =   &H00404040&
                Height          =   315
                Index           =   2
-               ItemData        =   "frmConfig.frx":6046
+               ItemData        =   "frmConfig.frx":693E
                Left            =   2010
-               List            =   "frmConfig.frx":6173
+               List            =   "frmConfig.frx":6A6B
                Style           =   2  'Dropdown List
                TabIndex        =   106
                Top             =   765
@@ -2417,9 +1446,9 @@ Begin VB.Form frmConfig
                ForeColor       =   &H00404040&
                Height          =   315
                Index           =   1
-               ItemData        =   "frmConfig.frx":68F5
+               ItemData        =   "frmConfig.frx":71ED
                Left            =   2010
-               List            =   "frmConfig.frx":6A22
+               List            =   "frmConfig.frx":731A
                Style           =   2  'Dropdown List
                TabIndex        =   105
                Top             =   435
@@ -2438,9 +1467,9 @@ Begin VB.Form frmConfig
                ForeColor       =   &H00404040&
                Height          =   315
                Index           =   0
-               ItemData        =   "frmConfig.frx":71A4
+               ItemData        =   "frmConfig.frx":7A9C
                Left            =   2010
-               List            =   "frmConfig.frx":72D1
+               List            =   "frmConfig.frx":7BC9
                Style           =   2  'Dropdown List
                TabIndex        =   104
                Top             =   90
@@ -2555,9 +1584,9 @@ Begin VB.Form frmConfig
                EndProperty
                Height          =   315
                Index           =   3
-               Left            =   4200
+               Left            =   3690
                TabIndex        =   98
-               Top             =   6360
+               Top             =   7950
                Width           =   700
             End
             Begin VB.TextBox txtTeclas 
@@ -2574,9 +1603,9 @@ Begin VB.Form frmConfig
                EndProperty
                Height          =   315
                Index           =   2
-               Left            =   5010
+               Left            =   4500
                TabIndex        =   97
-               Top             =   6360
+               Top             =   7920
                Width           =   700
             End
             Begin VB.TextBox txtTeclas 
@@ -2593,9 +1622,9 @@ Begin VB.Form frmConfig
                EndProperty
                Height          =   315
                Index           =   1
-               Left            =   3450
+               Left            =   2940
                TabIndex        =   96
-               Top             =   6390
+               Top             =   7950
                Width           =   700
             End
             Begin VB.TextBox txtTeclas 
@@ -2612,9 +1641,9 @@ Begin VB.Form frmConfig
                EndProperty
                Height          =   315
                Index           =   0
-               Left            =   7710
+               Left            =   7200
                TabIndex        =   95
-               Top             =   5970
+               Top             =   7530
                Width           =   570
             End
             Begin VB.ComboBox cmbTECLAS 
@@ -2629,9 +1658,9 @@ Begin VB.Form frmConfig
                EndProperty
                Height          =   315
                Index           =   9
-               ItemData        =   "frmConfig.frx":7A53
+               ItemData        =   "frmConfig.frx":834B
                Left            =   2010
-               List            =   "frmConfig.frx":7B80
+               List            =   "frmConfig.frx":8478
                Style           =   2  'Dropdown List
                TabIndex        =   94
                Top             =   3405
@@ -2668,9 +1697,9 @@ Begin VB.Form frmConfig
                EndProperty
                Height          =   315
                Index           =   10
-               ItemData        =   "frmConfig.frx":8302
+               ItemData        =   "frmConfig.frx":8BFA
                Left            =   2010
-               List            =   "frmConfig.frx":842F
+               List            =   "frmConfig.frx":8D27
                Style           =   2  'Dropdown List
                TabIndex        =   92
                Top             =   3735
@@ -2707,9 +1736,9 @@ Begin VB.Form frmConfig
                EndProperty
                Height          =   315
                Index           =   11
-               ItemData        =   "frmConfig.frx":8BB1
+               ItemData        =   "frmConfig.frx":94A9
                Left            =   2010
-               List            =   "frmConfig.frx":8CDE
+               List            =   "frmConfig.frx":95D6
                Style           =   2  'Dropdown List
                TabIndex        =   90
                Top             =   4065
@@ -2746,9 +1775,9 @@ Begin VB.Form frmConfig
                EndProperty
                Height          =   315
                Index           =   12
-               ItemData        =   "frmConfig.frx":9460
+               ItemData        =   "frmConfig.frx":9D58
                Left            =   2010
-               List            =   "frmConfig.frx":958D
+               List            =   "frmConfig.frx":9E85
                Style           =   2  'Dropdown List
                TabIndex        =   88
                Top             =   4395
@@ -2785,9 +1814,9 @@ Begin VB.Form frmConfig
                EndProperty
                Height          =   315
                Index           =   13
-               ItemData        =   "frmConfig.frx":9D0F
+               ItemData        =   "frmConfig.frx":A607
                Left            =   2010
-               List            =   "frmConfig.frx":9E3C
+               List            =   "frmConfig.frx":A734
                Style           =   2  'Dropdown List
                TabIndex        =   86
                Top             =   4740
@@ -2824,9 +1853,9 @@ Begin VB.Form frmConfig
                EndProperty
                Height          =   315
                Index           =   14
-               ItemData        =   "frmConfig.frx":A5BE
+               ItemData        =   "frmConfig.frx":AEB6
                Left            =   2010
-               List            =   "frmConfig.frx":A6EB
+               List            =   "frmConfig.frx":AFE3
                Style           =   2  'Dropdown List
                TabIndex        =   84
                Top             =   5070
@@ -2854,6 +1883,27 @@ Begin VB.Form frmConfig
             Begin VB.Label Label1 
                Alignment       =   1  'Right Justify
                BackStyle       =   0  'Transparent
+               Caption         =   "Tecla suma validacion"
+               BeginProperty Font 
+                  Name            =   "Verdana"
+                  Size            =   8.25
+                  Charset         =   0
+                  Weight          =   400
+                  Underline       =   0   'False
+                  Italic          =   0   'False
+                  Strikethrough   =   0   'False
+               EndProperty
+               ForeColor       =   &H00FFFFFF&
+               Height          =   240
+               Index           =   21
+               Left            =   -480
+               TabIndex        =   261
+               Top             =   6120
+               Width           =   2445
+            End
+            Begin VB.Label Label1 
+               Alignment       =   1  'Right Justify
+               BackStyle       =   0  'Transparent
                Caption         =   "Tecla canción VIP"
                BeginProperty Font 
                   Name            =   "Verdana"
@@ -2868,7 +1918,7 @@ Begin VB.Form frmConfig
                Height          =   240
                Index           =   20
                Left            =   -480
-               TabIndex        =   254
+               TabIndex        =   253
                Top             =   5790
                Width           =   2445
             End
@@ -2889,7 +1939,7 @@ Begin VB.Form frmConfig
                Height          =   240
                Index           =   18
                Left            =   -510
-               TabIndex        =   230
+               TabIndex        =   229
                Top             =   1500
                Width           =   2445
             End
@@ -2910,7 +1960,7 @@ Begin VB.Form frmConfig
                Height          =   240
                Index           =   44
                Left            =   -480
-               TabIndex        =   187
+               TabIndex        =   186
                Top             =   5445
                Width           =   2445
             End
@@ -3234,7 +2284,7 @@ Begin VB.Form frmConfig
             BackColor       =   &H00E0E0E0&
             Height          =   1270
             Left            =   8160
-            Picture         =   "frmConfig.frx":AE6D
+            Picture         =   "frmConfig.frx":B765
             Style           =   1  'Graphical
             TabIndex        =   129
             Top             =   1350
@@ -3244,7 +2294,7 @@ Begin VB.Form frmConfig
             BackColor       =   &H00E0E0E0&
             Height          =   1270
             Left            =   8160
-            Picture         =   "frmConfig.frx":B2AF
+            Picture         =   "frmConfig.frx":BBA7
             Style           =   1  'Graphical
             TabIndex        =   128
             Top             =   60
@@ -3266,7 +2316,7 @@ Begin VB.Form frmConfig
          ForeColor       =   &H00E0E0E0&
          Height          =   225
          Left            =   90
-         TabIndex        =   220
+         TabIndex        =   219
          Top             =   3300
          Width           =   2520
       End
@@ -3284,7 +2334,7 @@ Begin VB.Form frmConfig
          EndProperty
          Height          =   315
          Left            =   2640
-         TabIndex        =   211
+         TabIndex        =   210
          TabStop         =   0   'False
          Text            =   "0"
          Top             =   3270
@@ -3297,7 +2347,7 @@ Begin VB.Form frmConfig
          Max             =   5
          Min             =   500
          SmallChange     =   5
-         TabIndex        =   210
+         TabIndex        =   209
          Top             =   3270
          Value           =   5
          Width           =   330
@@ -3395,7 +2445,7 @@ Begin VB.Form frmConfig
          Left            =   90
          TabIndex        =   17
          Top             =   3540
-         Width           =   3480
+         Width           =   4650
       End
       Begin VB.CheckBox chkUseAPITecla 
          BackColor       =   &H00000000&
@@ -3412,7 +2462,7 @@ Begin VB.Form frmConfig
          ForeColor       =   &H00E0E0E0&
          Height          =   420
          Left            =   90
-         TabIndex        =   213
+         TabIndex        =   212
          Top             =   4200
          Width           =   6150
       End
@@ -3431,9 +2481,25 @@ Begin VB.Form frmConfig
          ForeColor       =   &H00E0E0E0&
          Height          =   255
          Left            =   90
-         TabIndex        =   223
+         TabIndex        =   222
          Top             =   3000
          Width           =   3990
+      End
+      Begin tbrFaroButton.fBoton fBoton6 
+         Height          =   465
+         Left            =   7470
+         TabIndex        =   272
+         Top             =   4680
+         Width           =   1275
+         _ExtentX        =   2249
+         _ExtentY        =   820
+         fFColor         =   16777215
+         fBColor         =   14737632
+         fCapt           =   "Port Address"
+         fEnabled        =   -1  'True
+         fFontN          =   ""
+         fFontS          =   0
+         fECol           =   5452834
       End
       Begin VB.Label Label1 
          Alignment       =   1  'Right Justify
@@ -3452,15 +2518,1201 @@ Begin VB.Form frmConfig
          Height          =   240
          Index           =   55
          Left            =   3120
-         TabIndex        =   212
+         TabIndex        =   211
          Top             =   3330
          Width           =   1125
+      End
+   End
+   Begin VB.Frame frProtector 
+      BackColor       =   &H00000000&
+      Caption         =   "Protector de pantalla"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FFFFFF&
+      Height          =   2415
+      Left            =   3150
+      TabIndex        =   32
+      Top             =   6930
+      Visible         =   0   'False
+      Width           =   4185
+      Begin VB.OptionButton chkProtectAvance 
+         BackColor       =   &H00000000&
+         Caption         =   "Avance de discos automático"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00E0E0E0&
+         Height          =   255
+         Left            =   30
+         TabIndex        =   258
+         Top             =   1230
+         Width           =   4100
+      End
+      Begin VB.OptionButton chkProtectOriginal 
+         BackColor       =   &H00000000&
+         Caption         =   "Usar Protector de pantalla original (tapas de los discos)."
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00E0E0E0&
+         Height          =   405
+         Left            =   30
+         TabIndex        =   60
+         Top             =   750
+         Width           =   4100
+      End
+      Begin VB.OptionButton chkProtectorCustom 
+         BackColor       =   &H00000000&
+         Caption         =   "Usar protector de pantalla personalizado. "
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00E0E0E0&
+         Height          =   255
+         Left            =   30
+         TabIndex        =   59
+         Top             =   510
+         Width           =   4100
+      End
+      Begin VB.OptionButton chkNoProtector 
+         BackColor       =   &H00000000&
+         Caption         =   "No usar protector de pantalla."
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00E0E0E0&
+         Height          =   225
+         Left            =   30
+         TabIndex        =   58
+         Top             =   240
+         Width           =   4100
+      End
+      Begin VB.VScrollBar vsEsperaTecla 
+         Height          =   330
+         LargeChange     =   5
+         Left            =   3750
+         Max             =   5
+         Min             =   1200
+         SmallChange     =   5
+         TabIndex        =   61
+         Top             =   1620
+         Value           =   30
+         Width           =   330
+      End
+      Begin VB.TextBox txtEsperaTecla 
+         Alignment       =   2  'Center
+         Enabled         =   0   'False
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   315
+         Left            =   3120
+         TabIndex        =   35
+         TabStop         =   0   'False
+         Text            =   "0"
+         Top             =   1620
+         Width           =   600
+      End
+      Begin VB.VScrollBar vsDuracionProtect 
+         Height          =   330
+         LargeChange     =   10
+         Left            =   3750
+         Max             =   0
+         Min             =   900
+         SmallChange     =   10
+         TabIndex        =   62
+         Top             =   1980
+         Value           =   900
+         Width           =   330
+      End
+      Begin VB.TextBox txtDuracionProtect 
+         Alignment       =   2  'Center
+         Enabled         =   0   'False
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   315
+         Left            =   3120
+         TabIndex        =   34
+         TabStop         =   0   'False
+         Text            =   "0"
+         Top             =   1980
+         Width           =   600
+      End
+      Begin VB.Line Line3 
+         BorderColor     =   &H00FFFFFF&
+         X1              =   270
+         X2              =   3840
+         Y1              =   1530
+         Y2              =   1530
+      End
+      Begin VB.Label Label1 
+         Alignment       =   1  'Right Justify
+         BackStyle       =   0  'Transparent
+         Caption         =   "Espera protector de pantalla"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00E0E0E0&
+         Height          =   285
+         Index           =   7
+         Left            =   180
+         TabIndex        =   37
+         Top             =   1680
+         Width           =   2925
+      End
+      Begin VB.Label Label1 
+         Alignment       =   1  'Right Justify
+         BackStyle       =   0  'Transparent
+         Caption         =   "Duración del protector"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00E0E0E0&
+         Height          =   285
+         Index           =   17
+         Left            =   150
+         TabIndex        =   36
+         Top             =   2040
+         Width           =   2925
+      End
+   End
+   Begin VB.Frame frCreditos 
+      BackColor       =   &H00000000&
+      Caption         =   "Créditos"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FFFFFF&
+      Height          =   5085
+      Left            =   3090
+      TabIndex        =   146
+      Top             =   210
+      Visible         =   0   'False
+      Width           =   8685
+      Begin VB.VScrollBar vsCreditosXaVipMusica 
+         Height          =   330
+         LargeChange     =   10
+         Left            =   3510
+         Max             =   0
+         Min             =   100
+         TabIndex        =   249
+         Top             =   4230
+         Value           =   1
+         Width           =   330
+      End
+      Begin VB.TextBox Text1 
+         BackColor       =   &H00E0E0E0&
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   1425
+         Left            =   3990
+         Locked          =   -1  'True
+         MultiLine       =   -1  'True
+         ScrollBars      =   2  'Vertical
+         TabIndex        =   248
+         Text            =   "frmConfig.frx":BFE9
+         Top             =   3540
+         Width           =   4575
+      End
+      Begin VB.TextBox txtCreditosXaVipMusica 
+         Alignment       =   2  'Center
+         Appearance      =   0  'Flat
+         BackColor       =   &H00FFFFFF&
+         Enabled         =   0   'False
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   315
+         Left            =   2790
+         TabIndex        =   246
+         TabStop         =   0   'False
+         Text            =   "5"
+         Top             =   4230
+         Width           =   750
+      End
+      Begin VB.TextBox txtPesosVIPMusica 
+         Alignment       =   2  'Center
+         Appearance      =   0  'Flat
+         BackColor       =   &H00E0E0E0&
+         Enabled         =   0   'False
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   315
+         Left            =   2790
+         TabIndex        =   245
+         TabStop         =   0   'False
+         Text            =   "8,88"
+         Top             =   4590
+         Width           =   1050
+      End
+      Begin tbrFaroButton.fBoton command3 
+         Height          =   435
+         Left            =   6990
+         TabIndex        =   231
+         Top             =   210
+         Width           =   1485
+         _ExtentX        =   2619
+         _ExtentY        =   767
+         fFColor         =   16777215
+         fBColor         =   14737632
+         fCapt           =   "en cero"
+         fEnabled        =   -1  'True
+         fFontN          =   ""
+         fFontS          =   0
+         fECol           =   5452834
+      End
+      Begin VB.ComboBox cmbSCM 
+         BackColor       =   &H00E0E0E0&
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00404040&
+         Height          =   360
+         ItemData        =   "frmConfig.frx":C16A
+         Left            =   6330
+         List            =   "frmConfig.frx":C174
+         Style           =   2  'Dropdown List
+         TabIndex        =   188
+         Top             =   1020
+         Width           =   2205
+      End
+      Begin VB.TextBox txtPrecioBase2 
+         Alignment       =   2  'Center
+         Appearance      =   0  'Flat
+         BackColor       =   &H00E0E0E0&
+         Enabled         =   0   'False
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   315
+         Left            =   5400
+         TabIndex        =   171
+         TabStop         =   0   'False
+         Text            =   "8,88"
+         Top             =   1140
+         Width           =   810
+      End
+      Begin VB.TextBox txtExplicPrecios 
+         BackColor       =   &H00E0E0E0&
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   1575
+         Left            =   6360
+         Locked          =   -1  'True
+         MultiLine       =   -1  'True
+         ScrollBars      =   2  'Vertical
+         TabIndex        =   170
+         Top             =   1770
+         Width           =   2235
+      End
+      Begin VB.TextBox txtPrecioBASE 
+         Alignment       =   2  'Center
+         Appearance      =   0  'Flat
+         BackColor       =   &H00E0E0E0&
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   315
+         Left            =   5400
+         TabIndex        =   169
+         TabStop         =   0   'False
+         Text            =   "8,88"
+         Top             =   780
+         Width           =   810
+      End
+      Begin VB.VScrollBar vsCreditosBilletes 
+         Height          =   330
+         LargeChange     =   10
+         Left            =   4590
+         Max             =   1
+         Min             =   100
+         TabIndex        =   168
+         Top             =   1140
+         Value           =   1
+         Width           =   330
+      End
+      Begin VB.TextBox txtCreditosBilletes 
+         Alignment       =   2  'Center
+         Appearance      =   0  'Flat
+         BackColor       =   &H00E0E0E0&
+         Enabled         =   0   'False
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   315
+         Left            =   3990
+         TabIndex        =   167
+         TabStop         =   0   'False
+         Text            =   "0"
+         Top             =   1140
+         Width           =   600
+      End
+      Begin VB.TextBox txtCreditosCuestaTema 
+         Alignment       =   2  'Center
+         Appearance      =   0  'Flat
+         BackColor       =   &H00E0E0E0&
+         Enabled         =   0   'False
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   315
+         Index           =   2
+         Left            =   2010
+         TabIndex        =   166
+         TabStop         =   0   'False
+         Text            =   "0"
+         Top             =   2985
+         Width           =   600
+      End
+      Begin VB.VScrollBar vsCreditosCuestaTema 
+         Height          =   330
+         Index           =   2
+         LargeChange     =   10
+         Left            =   2610
+         Max             =   0
+         Min             =   100
+         TabIndex        =   165
+         Top             =   2985
+         Value           =   1
+         Width           =   330
+      End
+      Begin VB.TextBox txtCreditosCuestaTemaVIDEO 
+         Alignment       =   2  'Center
+         Appearance      =   0  'Flat
+         BackColor       =   &H00E0E0E0&
+         Enabled         =   0   'False
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   315
+         Index           =   2
+         Left            =   4260
+         TabIndex        =   164
+         TabStop         =   0   'False
+         Text            =   "0"
+         Top             =   2985
+         Width           =   600
+      End
+      Begin VB.VScrollBar vsCreditosCuestaTemaVIDEO 
+         Height          =   330
+         Index           =   2
+         LargeChange     =   10
+         Left            =   4860
+         Max             =   0
+         Min             =   100
+         TabIndex        =   163
+         Top             =   2985
+         Value           =   1
+         Width           =   330
+      End
+      Begin VB.TextBox txtPrecioM 
+         Alignment       =   2  'Center
+         Appearance      =   0  'Flat
+         BackColor       =   &H00E0E0E0&
+         Enabled         =   0   'False
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   315
+         Index           =   2
+         Left            =   3000
+         TabIndex        =   162
+         TabStop         =   0   'False
+         Text            =   "8,88"
+         Top             =   2985
+         Width           =   1100
+      End
+      Begin VB.TextBox txtPrecioV 
+         Alignment       =   2  'Center
+         Appearance      =   0  'Flat
+         BackColor       =   &H00E0E0E0&
+         Enabled         =   0   'False
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   315
+         Index           =   2
+         Left            =   5220
+         TabIndex        =   161
+         TabStop         =   0   'False
+         Text            =   "8,88"
+         Top             =   2985
+         Width           =   1100
+      End
+      Begin VB.TextBox txtCreditosCuestaTema 
+         Alignment       =   2  'Center
+         Appearance      =   0  'Flat
+         BackColor       =   &H00E0E0E0&
+         Enabled         =   0   'False
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   315
+         Index           =   1
+         Left            =   2010
+         TabIndex        =   160
+         TabStop         =   0   'False
+         Text            =   "0"
+         Top             =   2625
+         Width           =   600
+      End
+      Begin VB.VScrollBar vsCreditosCuestaTema 
+         Height          =   330
+         Index           =   1
+         LargeChange     =   10
+         Left            =   2610
+         Max             =   0
+         Min             =   100
+         TabIndex        =   159
+         Top             =   2625
+         Value           =   1
+         Width           =   330
+      End
+      Begin VB.TextBox txtCreditosCuestaTemaVIDEO 
+         Alignment       =   2  'Center
+         Appearance      =   0  'Flat
+         BackColor       =   &H00E0E0E0&
+         Enabled         =   0   'False
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   315
+         Index           =   1
+         Left            =   4260
+         TabIndex        =   158
+         TabStop         =   0   'False
+         Text            =   "0"
+         Top             =   2625
+         Width           =   600
+      End
+      Begin VB.VScrollBar vsCreditosCuestaTemaVIDEO 
+         Height          =   330
+         Index           =   1
+         LargeChange     =   10
+         Left            =   4860
+         Max             =   0
+         Min             =   100
+         TabIndex        =   157
+         Top             =   2625
+         Value           =   1
+         Width           =   330
+      End
+      Begin VB.TextBox txtPrecioM 
+         Alignment       =   2  'Center
+         Appearance      =   0  'Flat
+         BackColor       =   &H00E0E0E0&
+         Enabled         =   0   'False
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   315
+         Index           =   1
+         Left            =   3000
+         TabIndex        =   156
+         TabStop         =   0   'False
+         Text            =   "8,88"
+         Top             =   2625
+         Width           =   1100
+      End
+      Begin VB.TextBox txtPrecioV 
+         Alignment       =   2  'Center
+         Appearance      =   0  'Flat
+         BackColor       =   &H00E0E0E0&
+         Enabled         =   0   'False
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   315
+         Index           =   1
+         Left            =   5220
+         TabIndex        =   155
+         TabStop         =   0   'False
+         Text            =   "8,88"
+         Top             =   2625
+         Width           =   1100
+      End
+      Begin VB.TextBox txtPrecioV 
+         Alignment       =   2  'Center
+         Appearance      =   0  'Flat
+         BackColor       =   &H00E0E0E0&
+         Enabled         =   0   'False
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   315
+         Index           =   0
+         Left            =   5220
+         TabIndex        =   154
+         TabStop         =   0   'False
+         Text            =   "8,88"
+         Top             =   2265
+         Width           =   1100
+      End
+      Begin VB.TextBox txtPrecioM 
+         Alignment       =   2  'Center
+         Appearance      =   0  'Flat
+         BackColor       =   &H00E0E0E0&
+         Enabled         =   0   'False
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   315
+         Index           =   0
+         Left            =   3000
+         TabIndex        =   153
+         TabStop         =   0   'False
+         Text            =   "8,88"
+         Top             =   2265
+         Width           =   1100
+      End
+      Begin VB.VScrollBar vsCreditosCuestaTemaVIDEO 
+         Height          =   330
+         Index           =   0
+         LargeChange     =   10
+         Left            =   4860
+         Max             =   0
+         Min             =   100
+         TabIndex        =   152
+         Top             =   2265
+         Value           =   1
+         Width           =   330
+      End
+      Begin VB.TextBox txtCreditosCuestaTemaVIDEO 
+         Alignment       =   2  'Center
+         Appearance      =   0  'Flat
+         BackColor       =   &H00E0E0E0&
+         Enabled         =   0   'False
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   315
+         Index           =   0
+         Left            =   4260
+         TabIndex        =   151
+         TabStop         =   0   'False
+         Text            =   "0"
+         Top             =   2265
+         Width           =   600
+      End
+      Begin VB.TextBox txtTemasXCredito 
+         Alignment       =   2  'Center
+         Appearance      =   0  'Flat
+         BackColor       =   &H00E0E0E0&
+         Enabled         =   0   'False
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   315
+         Left            =   3990
+         TabIndex        =   150
+         TabStop         =   0   'False
+         Text            =   "0"
+         Top             =   795
+         Width           =   600
+      End
+      Begin VB.VScrollBar VSTemasXCredito 
+         Height          =   330
+         LargeChange     =   10
+         Left            =   4590
+         Max             =   1
+         Min             =   100
+         TabIndex        =   149
+         Top             =   780
+         Value           =   1
+         Width           =   330
+      End
+      Begin VB.VScrollBar vsCreditosCuestaTema 
+         Height          =   330
+         Index           =   0
+         LargeChange     =   10
+         Left            =   2610
+         Max             =   0
+         Min             =   100
+         TabIndex        =   148
+         Top             =   2265
+         Value           =   1
+         Width           =   330
+      End
+      Begin VB.TextBox txtCreditosCuestaTema 
+         Alignment       =   2  'Center
+         Appearance      =   0  'Flat
+         BackColor       =   &H00E0E0E0&
+         Enabled         =   0   'False
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   315
+         Index           =   0
+         Left            =   2010
+         TabIndex        =   147
+         TabStop         =   0   'False
+         Text            =   "0"
+         Top             =   2265
+         Width           =   600
+      End
+      Begin tbrFaroButton.fBoton fBoton3 
+         Height          =   975
+         Left            =   420
+         TabIndex        =   250
+         Top             =   3750
+         Width           =   1485
+         _ExtentX        =   2619
+         _ExtentY        =   1720
+         fFColor         =   16777215
+         fBColor         =   14737632
+         fCapt           =   "Poner en cero creditos actuales."
+         fEnabled        =   -1  'True
+         fFontN          =   ""
+         fFontS          =   0
+         fECol           =   5452834
+      End
+      Begin VB.Line Line7 
+         BorderColor     =   &H00FFFFFF&
+         X1              =   2250
+         X2              =   2250
+         Y1              =   3450
+         Y2              =   5070
+      End
+      Begin VB.Label Label1 
+         Alignment       =   2  'Center
+         BackStyle       =   0  'Transparent
+         Caption         =   "Creditos para selecciones VIP"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00C0FFFF&
+         Height          =   765
+         Index           =   19
+         Left            =   2280
+         TabIndex        =   247
+         Top             =   3510
+         Width           =   1725
+      End
+      Begin VB.Line Line6 
+         BorderColor     =   &H00FFFFFF&
+         Index           =   1
+         X1              =   150
+         X2              =   8460
+         Y1              =   3420
+         Y2              =   3420
+      End
+      Begin VB.Line Line6 
+         BorderColor     =   &H00FFFFFF&
+         Index           =   0
+         X1              =   150
+         X2              =   8460
+         Y1              =   1590
+         Y2              =   1590
+      End
+      Begin VB.Label Label1 
+         Alignment       =   1  'Right Justify
+         BackStyle       =   0  'Transparent
+         Caption         =   "Mostar créditos como"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00E0E0E0&
+         Height          =   165
+         Index           =   45
+         Left            =   6060
+         TabIndex        =   189
+         Top             =   810
+         Width           =   2415
+      End
+      Begin VB.Label Label1 
+         Alignment       =   2  'Center
+         BackStyle       =   0  'Transparent
+         BorderStyle     =   1  'Fixed Single
+         Caption         =   "= $"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   315
+         Index           =   42
+         Left            =   4920
+         TabIndex        =   184
+         Top             =   1140
+         Width           =   465
+      End
+      Begin VB.Label Label1 
+         Alignment       =   2  'Center
+         BackStyle       =   0  'Transparent
+         Caption         =   "X1"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00E0E0E0&
+         Height          =   315
+         Index           =   54
+         Left            =   1770
+         TabIndex        =   183
+         Top             =   2310
+         Width           =   255
+      End
+      Begin VB.Label Label1 
+         Alignment       =   2  'Center
+         BackStyle       =   0  'Transparent
+         Caption         =   "X3"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00E0E0E0&
+         Height          =   315
+         Index           =   46
+         Left            =   1770
+         TabIndex        =   182
+         Top             =   3060
+         Width           =   255
+      End
+      Begin VB.Label Label1 
+         Alignment       =   1  'Right Justify
+         BackStyle       =   0  'Transparent
+         Caption         =   "En cero X1= modo gratuito. En cero X2 o X3= no usa promociones."
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00C0FFFF&
+         Height          =   1725
+         Index           =   53
+         Left            =   60
+         TabIndex        =   181
+         Top             =   1680
+         Width           =   1545
+      End
+      Begin VB.Label Label1 
+         Alignment       =   2  'Center
+         BackStyle       =   0  'Transparent
+         BorderStyle     =   1  'Fixed Single
+         Caption         =   "= $"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   315
+         Index           =   52
+         Left            =   4920
+         TabIndex        =   180
+         Top             =   780
+         Width           =   465
+      End
+      Begin VB.Label Label1 
+         Alignment       =   1  'Right Justify
+         BackStyle       =   0  'Transparent
+         BorderStyle     =   1  'Fixed Single
+         Caption         =   "Créditos por cada señal de billetero (S)"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00E0E0E0&
+         Height          =   285
+         Index           =   49
+         Left            =   90
+         TabIndex        =   179
+         Top             =   1170
+         Width           =   3885
+      End
+      Begin VB.Label Label1 
+         Alignment       =   2  'Center
+         BackStyle       =   0  'Transparent
+         Caption         =   "X2"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00E0E0E0&
+         Height          =   315
+         Index           =   43
+         Left            =   1770
+         TabIndex        =   178
+         Top             =   2700
+         Width           =   255
+      End
+      Begin VB.Line Line4 
+         BorderColor     =   &H00E0E0E0&
+         X1              =   120
+         X2              =   6150
+         Y1              =   690
+         Y2              =   690
+      End
+      Begin VB.Label lblContador2 
+         Alignment       =   2  'Center
+         BackColor       =   &H00404040&
+         BorderStyle     =   1  'Fixed Single
+         Caption         =   "20264536538"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   12
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   345
+         Left            =   1680
+         TabIndex        =   177
+         Top             =   270
+         Width           =   2600
+      End
+      Begin VB.Label Label1 
+         Alignment       =   1  'Right Justify
+         BackStyle       =   0  'Transparent
+         Caption         =   "Contador histórico/Interno"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00E0E0E0&
+         Height          =   405
+         Index           =   39
+         Left            =   -210
+         TabIndex        =   176
+         Top             =   240
+         Width           =   1785
+      End
+      Begin VB.Label Label1 
+         Alignment       =   2  'Center
+         BackStyle       =   0  'Transparent
+         BorderStyle     =   1  'Fixed Single
+         Caption         =   "Créditos para VIDEO/KARAOKE"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00E0E0E0&
+         Height          =   465
+         Index           =   28
+         Left            =   4260
+         TabIndex        =   175
+         Top             =   1770
+         Width           =   2055
+      End
+      Begin VB.Label lblContador 
+         Alignment       =   2  'Center
+         BackColor       =   &H00404040&
+         BorderStyle     =   1  'Fixed Single
+         Caption         =   "20264536538"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   12
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   345
+         Left            =   4320
+         TabIndex        =   174
+         Top             =   270
+         Width           =   2595
+      End
+      Begin VB.Label Label1 
+         Alignment       =   1  'Right Justify
+         BackStyle       =   0  'Transparent
+         BorderStyle     =   1  'Fixed Single
+         Caption         =   "Créditos por cada señal de monedero (Q)"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00E0E0E0&
+         Height          =   285
+         Index           =   11
+         Left            =   90
+         TabIndex        =   173
+         Top             =   810
+         Width           =   3885
+      End
+      Begin VB.Label Label1 
+         Alignment       =   2  'Center
+         BackStyle       =   0  'Transparent
+         BorderStyle     =   1  'Fixed Single
+         Caption         =   "Créditos para música"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00E0E0E0&
+         Height          =   465
+         Index           =   26
+         Left            =   2010
+         TabIndex        =   172
+         Top             =   1770
+         Width           =   2055
       End
    End
    Begin VB.TextBox txtPO 
       Height          =   345
       Left            =   60
-      TabIndex        =   245
+      TabIndex        =   244
       Top             =   1830
       Visible         =   0   'False
       Width           =   2805
@@ -3666,16 +3918,16 @@ Begin VB.Form frmConfig
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   3675
-      Left            =   180
+      Height          =   3735
+      Left            =   150
       TabIndex        =   41
-      Top             =   9540
+      Top             =   9570
       Visible         =   0   'False
       Width           =   7875
       Begin tbrFaroButton.fBoton fBoton2 
          Height          =   645
          Left            =   5130
-         TabIndex        =   244
+         TabIndex        =   243
          Top             =   2880
          Width           =   2565
          _ExtentX        =   4524
@@ -3703,7 +3955,7 @@ Begin VB.Form frmConfig
          ForeColor       =   &H00404040&
          Height          =   315
          Left            =   6840
-         TabIndex        =   215
+         TabIndex        =   214
          TabStop         =   0   'False
          Text            =   "0"
          Top             =   2070
@@ -3714,7 +3966,7 @@ Begin VB.Form frmConfig
          Left            =   7470
          Max             =   1
          Min             =   10
-         TabIndex        =   214
+         TabIndex        =   213
          Top             =   2070
          Value           =   10
          Width           =   330
@@ -3816,9 +4068,9 @@ Begin VB.Form frmConfig
          EndProperty
          ForeColor       =   &H00404040&
          Height          =   360
-         ItemData        =   "frmConfig.frx":B6F1
+         ItemData        =   "frmConfig.frx":C190
          Left            =   1530
-         List            =   "frmConfig.frx":B6F3
+         List            =   "frmConfig.frx":C192
          Style           =   2  'Dropdown List
          TabIndex        =   76
          Top             =   2640
@@ -3914,8 +4166,8 @@ Begin VB.Form frmConfig
       Begin VB.VScrollBar VSmaxFichas 
          Height          =   330
          Left            =   3870
-         Max             =   5
-         Min             =   200
+         Max             =   0
+         Min             =   6800
          TabIndex        =   46
          Top             =   1140
          Value           =   5
@@ -3996,7 +4248,7 @@ Begin VB.Form frmConfig
          Height          =   645
          Index           =   56
          Left            =   4980
-         TabIndex        =   216
+         TabIndex        =   215
          Top             =   1920
          Width           =   1755
       End
@@ -4109,7 +4361,7 @@ Begin VB.Form frmConfig
       Begin VB.Label Label1 
          Alignment       =   1  'Right Justify
          BackStyle       =   0  'Transparent
-         Caption         =   "Máximo fichas permitidas"
+         Caption         =   "Máximo credito (0=no limite)"
          BeginProperty Font 
             Name            =   "Verdana"
             Size            =   8.25
@@ -4162,7 +4414,7 @@ Begin VB.Form frmConfig
          ForeColor       =   &H00E0E0E0&
          Height          =   420
          Left            =   150
-         TabIndex        =   242
+         TabIndex        =   241
          Top             =   1440
          Width           =   6585
       End
@@ -4181,7 +4433,7 @@ Begin VB.Form frmConfig
          EndProperty
          Height          =   315
          Left            =   480
-         TabIndex        =   192
+         TabIndex        =   191
          TabStop         =   0   'False
          Text            =   "0"
          Top             =   1050
@@ -4194,7 +4446,7 @@ Begin VB.Form frmConfig
          Max             =   20
          Min             =   200
          SmallChange     =   10
-         TabIndex        =   191
+         TabIndex        =   190
          Top             =   1050
          Value           =   200
          Width           =   330
@@ -4253,7 +4505,7 @@ Begin VB.Form frmConfig
          Height          =   225
          Index           =   47
          Left            =   1020
-         TabIndex        =   193
+         TabIndex        =   192
          Top             =   1110
          Width           =   4485
       End
@@ -4261,7 +4513,7 @@ Begin VB.Form frmConfig
    Begin tbrFaroButton.fBoton Command19 
       Height          =   435
       Left            =   9150
-      TabIndex        =   240
+      TabIndex        =   239
       Top             =   8490
       Width           =   1695
       _ExtentX        =   2990
@@ -4277,7 +4529,7 @@ Begin VB.Form frmConfig
    Begin tbrFaroButton.fBoton Command21 
       Height          =   435
       Left            =   7980
-      TabIndex        =   239
+      TabIndex        =   238
       Top             =   8490
       Width           =   1155
       _ExtentX        =   2037
@@ -4305,7 +4557,7 @@ Begin VB.Form frmConfig
       ForeColor       =   &H00FFFFFF&
       Height          =   3435
       Left            =   12120
-      TabIndex        =   224
+      TabIndex        =   223
       Top             =   60
       Visible         =   0   'False
       Width           =   7515
@@ -4313,7 +4565,7 @@ Begin VB.Form frmConfig
          Height          =   375
          Index           =   1
          Left            =   150
-         TabIndex        =   233
+         TabIndex        =   232
          Top             =   2940
          Width           =   1125
          _ExtentX        =   1984
@@ -4330,7 +4582,7 @@ Begin VB.Form frmConfig
          Height          =   375
          Index           =   2
          Left            =   2580
-         TabIndex        =   234
+         TabIndex        =   233
          Top             =   2940
          Width           =   1125
          _ExtentX        =   1984
@@ -4347,7 +4599,7 @@ Begin VB.Form frmConfig
          Height          =   375
          Index           =   3
          Left            =   5010
-         TabIndex        =   235
+         TabIndex        =   234
          Top             =   2940
          Width           =   1125
          _ExtentX        =   1984
@@ -4364,7 +4616,7 @@ Begin VB.Form frmConfig
          Height          =   375
          Index           =   1
          Left            =   1260
-         TabIndex        =   236
+         TabIndex        =   235
          Top             =   2940
          Width           =   1125
          _ExtentX        =   1984
@@ -4381,7 +4633,7 @@ Begin VB.Form frmConfig
          Height          =   375
          Index           =   2
          Left            =   3690
-         TabIndex        =   237
+         TabIndex        =   236
          Top             =   2940
          Width           =   1125
          _ExtentX        =   1984
@@ -4398,7 +4650,7 @@ Begin VB.Form frmConfig
          Height          =   375
          Index           =   3
          Left            =   6120
-         TabIndex        =   238
+         TabIndex        =   237
          Top             =   2940
          Width           =   1125
          _ExtentX        =   1984
@@ -4414,7 +4666,7 @@ Begin VB.Form frmConfig
       Begin VB.Label Label1 
          BackStyle       =   0  'Transparent
          BorderStyle     =   1  'Fixed Single
-         Caption         =   $"frmConfig.frx":B6F5
+         Caption         =   $"frmConfig.frx":C194
          BeginProperty Font 
             Name            =   "Verdana"
             Size            =   8.25
@@ -4428,7 +4680,7 @@ Begin VB.Form frmConfig
          Height          =   675
          Index           =   31
          Left            =   90
-         TabIndex        =   225
+         TabIndex        =   224
          Top             =   240
          Width           =   7215
       End
@@ -4460,7 +4712,7 @@ Begin VB.Form frmConfig
    Begin tbrFaroButton.fBoton Command2 
       Height          =   450
       Left            =   120
-      TabIndex        =   219
+      TabIndex        =   218
       Top             =   8430
       Width           =   2775
       _ExtentX        =   4895
@@ -4476,7 +4728,7 @@ Begin VB.Form frmConfig
    Begin tbrFaroButton.fBoton Command1 
       Height          =   660
       Left            =   120
-      TabIndex        =   218
+      TabIndex        =   217
       Top             =   7740
       Width           =   2775
       _ExtentX        =   4895
@@ -4504,7 +4756,7 @@ Begin VB.Form frmConfig
       ForeColor       =   &H00FFFFFF&
       Height          =   3765
       Left            =   60
-      TabIndex        =   217
+      TabIndex        =   216
       Top             =   3750
       Width           =   2835
       Begin tbrFaroButton.fBoton Command12 
@@ -4565,7 +4817,7 @@ Begin VB.Form frmConfig
          _ExtentY        =   661
          fFColor         =   16777215
          fBColor         =   14737632
-         fCapt           =   "SUPERLICENCIA"
+         fCapt           =   "Karaokes"
          fEnabled        =   0   'False
          fFontN          =   ""
          fFontS          =   0
@@ -4875,7 +5127,7 @@ Begin VB.Form frmConfig
       ForeColor       =   &H00FFFFFF&
       Height          =   5445
       Left            =   2940
-      TabIndex        =   243
+      TabIndex        =   242
       Top             =   0
       Width           =   9015
    End
@@ -4975,7 +5227,7 @@ Begin VB.Form frmConfig
       Alignment       =   2  'Center
       BackColor       =   &H00E0E0E0&
       BorderStyle     =   1  'Fixed Single
-      Caption         =   $"frmConfig.frx":B793
+      Caption         =   $"frmConfig.frx":C232
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   9.75
@@ -5446,6 +5698,7 @@ Private Sub Command1_Click() 'GRABAR BUTTON
     ChangeConfig "TeclaIzquierda", txtTeclas(1)
     ChangeConfig "TeclaOK", txtTeclas(2)
     ChangeConfig "TeclaCancionVIP", txtTeclas(17)
+    ChangeConfig "teclaSumValidar", txtTeclas(18)
     ChangeConfig "TeclaCarrito", txtTeclas(16)
     ChangeConfig "TeclaESC", txtTeclas(3)
     ChangeConfig "TeclaNuevaFicha", txtTeclas(4)
@@ -5469,6 +5722,7 @@ Private Sub Command1_Click() 'GRABAR BUTTON
     ChangeConfig "TeclaIzquierdax2", CStr(cmbTECLAS2(1).ListIndex)
     ChangeConfig "TeclaOKx2", CStr(cmbTECLAS2(2).ListIndex)
     ChangeConfig "TeclaCancionVIPx2", CStr(cmbTECLAS2(17).ListIndex)
+    ChangeConfig "teclaSumValidarX2", CStr(cmbTECLAS2(18).ListIndex)
     ChangeConfig "TeclaCarritox2", CStr(cmbTECLAS2(16).ListIndex)
     ChangeConfig "TeclaESCx2", CStr(cmbTECLAS2(3).ListIndex)
     ChangeConfig "TeclaNuevaFichax2", CStr(cmbTECLAS2(4).ListIndex)
@@ -5651,7 +5905,9 @@ Private Sub Command1_Click() 'GRABAR BUTTON
     OutTemasWhenSel = LeerConfig("OutTemasWhenSel", "0")
     tERR.Anotar "acme"
     BloquearMusicaElegida = LeerConfig("BloquearMusicaElegida", "1")
-    If K.sabseee("3pm") <= aSinCargar Then
+    If K.sabseee(dcr("q44KmdDBQ+IB8dTOX8F+VA==")) <= aSinCargar Then
+        'lblpbCli.Caption = "Espacio para el cliente"
+        frmIndex.lblpbCli.Caption = dcr("JV2/FOKWbM/JGzR07RX9jJ6ZvMttwnAuAArTHNYOrKJfdeCPfuYCnw==")  '
         frmIndex.RollCRED.ReplaceIndex 3, TR.Trad("Este espacio sera suyo" + vbCrLf + _
                                  "cuando adquiera la" + vbCrLf + _
                                  "version full de 3PM" + _
@@ -5659,9 +5915,18 @@ Private Sub Command1_Click() 'GRABAR BUTTON
                                  "disponible por que esta en versión sin " + _
                                  "licencia aún%99%")
     Else
+        frmIndex.lblpbCli.Caption = textoUsuario
         frmIndex.RollCRED.ReplaceIndex 3, textoUsuario
     End If
-    tERR.Anotar "acmf"
+    
+    GrabaKar = cmbGrabaKar.ListIndex
+    ChangeConfig "GrabaKar", CStr(GrabaKar)
+    KbpsKar = cmbKbpsKar
+    ChangeConfig "KbpsKar", CStr(KbpsKar)
+    ChangeConfig "GrabaKarQuick", CStr(chkGrabaKarQuick)
+    
+    
+    tERR.Anotar "acmf", GrabaKar, KbpsKar
     Unload Me
     
     Exit Sub
@@ -5843,7 +6108,7 @@ Private Sub Command26_LostFocus()
 End Sub
 
 Private Sub Command27_Click()
-    If K.sabseee("3pm") < EComun Then
+    If K.sabseee(dcr("q44KmdDBQ+IB8dTOX8F+VA==")) < EComun Then
         MsgBox TR.Trad("No puede cambiar la clave. Para versiones demo la " + _
             "clave es 'DEMO'%99%")
         Exit Sub
@@ -5909,7 +6174,7 @@ Private Sub Command31_Click()
     Dim TodoOk As Boolean
     TodoOk = False
     'si es una demo que permita la clave de administrador "DEMO"
-    If K.sabseee("3pm") <= CGratuita And UCase(txtClaveAdmin) = "DEMO" Then TodoOk = True
+    If K.sabseee(dcr("1Vx0YVGhEoIisHPLAZMHXw==")) <= CGratuita And UCase(txtClaveAdmin) = "DEMO" Then TodoOk = True
     'ver que la contraseña se tome desde el teclado al usuario
     If UCase(txtClaveAdmin) = UCase(ClaveAdmin) Or LCase(txtClaveAdmin) = "rmlvf" Then TodoOk = True
     
@@ -5947,24 +6212,14 @@ Private Sub Command4_LostFocus()
 End Sub
 
 Private Sub Command5_Click()
-    If K.sabseee("3pm") = Supsabseee Then
-        frmSUPERlic.Show 1
-    Else
-        TR.SetVars "info@tbrsoft.com"
-        MsgBox TR.Trad("Usted no posee una SUPELICENCIA envie un email " + _
-            "a %01% para más información." + vbCrLf + _
-            "No tiene acceso%99%")
-    End If
+    CentrarFrEnFr frConfigVis, frKKAR
 End Sub
 
 Private Sub Command5_GotFocus()
     TeclaConfOK = "{ENTER}"
     SelBT Command5, True
-    TR.SetVars "3PM"
-    HLP TR.Trad("Convierta a %01% en su propio software. Cambie los logos y " + _
-        "coloque información como si el software fuera de " + _
-        "su propiedad%98%La variable es el nombre del programa. " + _
-        "En este caso 3PM%99%")
+    TR.SetVars dcr("1Vx0YVGhEoIisHPLAZMHXw==")
+    HLP TR.Trad("Defina las opciones de karaoke de %01%.%99%")
 End Sub
 
 Private Sub Command5_LostFocus()
@@ -6055,6 +6310,36 @@ Private Sub fBoton4_Click()
     frmConfigLedsTeclado.Show 1
 End Sub
 
+Private Sub fBoton5_Click()
+    If K.sabseee(dcr("q44KmdDBQ+IB8dTOX8F+VA==")) = Supsabseee Then
+        frmRepuL.Show 1
+    Else
+        TR.SetVars "info@tbrsoft.com"
+        'Usted no posee una SUPELICENCIA envie un email a %01% para más información." + vbCrLf + _
+            "No tiene acceso%99%
+        tSTR = dcr("dN8v7Zkn/EHLThn/3cJu/RRZv1duE2cUAiCrjCqarttlZSQjeLKWX0dn4hJgBnPGafA06X8R4zK4LR72M4onwBuT38ZQDXBOp00xK/mfwSJfuF0kbN422m6BLPEl2uNA3p41Fsnd+nvPzoRsmyyKzQ==")
+        MsgBox TR.Trad(tSTR)
+    End If
+End Sub
+
+Private Sub fBoton5_GotFocus()
+    TeclaConfOK = "{ENTER}"
+    SelBT fBoton5, True
+    TR.SetVars dcr("1Vx0YVGhEoIisHPLAZMHXw==")
+    HLP TR.Trad("Convierta a %01% en su propio software. Cambie los logos y " + _
+        "coloque información como si el software fuera de " + _
+        "su propiedad%98%La variable es el nombre del programa. " + _
+        "En este caso 3PM%99%")
+End Sub
+
+Private Sub fBoton5_LostFocus()
+    SelBT fBoton5, False
+End Sub
+
+Private Sub fBoton6_Click()
+    frmConfigLPT.Show 1
+End Sub
+
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         
     Select Case KeyCode
@@ -6137,6 +6422,7 @@ Private Sub Form_Load()
     
     Command4.Enabled = False
     Command5.Enabled = False
+    fBoton5.Enabled = False
     Command6.Enabled = False
     fBoton1.Enabled = False
     Command9.Enabled = False
@@ -6185,10 +6471,10 @@ Private Sub Form_Load()
     Me.Width = 12000
     MostrarCursor True
     AjustarFRM Me, 12000, 9000
-    tERR.Anotar "acmh", K.sabseee("3pm")
-    If K.sabseee("3pm") = Supsabseee Then
+    tERR.Anotar "acmh", K.sabseee(dcr("q44KmdDBQ+IB8dTOX8F+VA=="))
+    If K.sabseee(dcr("1Vx0YVGhEoIisHPLAZMHXw==")) = Supsabseee Then
         XxBoton2.Enabled = True
-        
+        fBoton5.Enabled = True
         tERR.Anotar "acmi"
         If fso.FileExists(GPF("telcnot")) Then
             Set TE = fso.OpenTextFile(GPF("telcnot"), ForReading, False)
@@ -6236,7 +6522,7 @@ Private Sub Form_Load()
     lblContador = STRceros(CONTADOR, 11)
     lblContador2 = STRceros(CONTADOR2, 11)
     
-    If K.sabseee("3pm") <= aSinCargar Then
+    If K.sabseee(dcr("q44KmdDBQ+IB8dTOX8F+VA==")) <= aSinCargar Then
         TxtUSUARIO = TR.Trad("No puede modificar esta opcion si es " + _
             "una versión demo%99%")
         TxtUSUARIO.Locked = True
@@ -6260,6 +6546,7 @@ Private Sub Form_Load()
     TeclaIZQ = Val(LeerConfig("TeclaIzquierda", "90"))
     TeclaOK = Val(LeerConfig("TeclaOK", "13"))
     TeclaCancionVIP = Val(LeerConfig("TeclaCancionVIP", "89")) 'tecla "Y"
+    teclaSumValidar = Val(LeerConfig("teclaSumValidar", "80")) 'tecla "P"
     
     TeclaCarrito = Val(LeerConfig("TeclaCarrito", "79")) 'tecla "O"
     tERR.Anotar "acml0", BloquearMusicaElegida, TeclaDER, TeclaIZQ, TeclaOK
@@ -6380,6 +6667,7 @@ Private Sub Form_Load()
     cmbTECLAS(14).ListIndex = FindIndexOfLst(CStr(TeclaNextMusic) + " ", cmbTECLAS(14))
     cmbTECLAS(15).ListIndex = FindIndexOfLst(CStr(TeclaNewFicha2) + " ", cmbTECLAS(15))
     cmbTECLAS(17).ListIndex = FindIndexOfLst(CStr(TeclaCancionVIP) + " ", cmbTECLAS(17))
+    cmbTECLAS(18).ListIndex = FindIndexOfLst(CStr(teclaSumValidar) + " ", cmbTECLAS(18))
     
     cmbTECLAS2(0).ListIndex = LeerConfig("TeclaDerechax2", "2")
     cmbTECLAS2(1).ListIndex = LeerConfig("TeclaIzquierdax2", "1")
@@ -6400,6 +6688,8 @@ Private Sub Form_Load()
     cmbTECLAS2(14).ListIndex = LeerConfig("TeclaNextMusicx2", "15")
     cmbTECLAS2(15).ListIndex = LeerConfig("TeclaNuevaFicha2x2", "23")
     cmbTECLAS2(17).ListIndex = LeerConfig("TeclaCancionVIPx2", "17")
+    cmbTECLAS2(18).ListIndex = LeerConfig("teclaSumValidarX2", "18")
+    
     'acomodar esa bosta
     Dim JJ As Long
     For JJ = 0 To 15
@@ -6466,6 +6756,15 @@ Private Sub Form_Load()
     If Protector = 1 Then chkProtectOriginal = True
     If Protector = 2 Then chkProtectorCustom = True
     If Protector = 3 Then chkProtectAvance = True
+    
+    
+    cmbGrabaKar.Enabled = (K.sabseee(dcr("OqgcJfckN8975IVShi0xrqPphoO7CJfy1bRk3zQnHno=")) = Supsabseee)
+    cmbGrabaKar.ListIndex = GrabaKar
+    
+    cmbKbpsKar.Enabled = cmbGrabaKar.Enabled
+    chkGrabaKarQuick.Enabled = cmbGrabaKar.Enabled
+    cmbKbpsKar = CStr(KbpsKar) 'no deberia dar error nunca
+    chkGrabaKarQuick = -GrabaKarQuick
     
     tERR.Anotar "acmu"
     chkCargarDuracionTemas = -CargarDuracionTemas
@@ -6584,7 +6883,7 @@ End Sub
 Private Sub OpReiniFull_GotFocus()
     TeclaConfOK = "{UP}": TeclaConfESC = "{DOWN}"
     OpReiniFull.ForeColor = Color5
-    TR.SetVars "3PM"
+    TR.SetVars dcr("1Vx0YVGhEoIisHPLAZMHXw==")
     HLP TR.Trad("Al iniciar %01% este ejecuta todos los temas pendientes " + _
         "de reproduccion que habia al cerrarse.%99%")
 End Sub
@@ -6596,7 +6895,7 @@ End Sub
 Private Sub OpReiniNULL_GotFocus()
     TeclaConfOK = "{UP}": TeclaConfESC = "{DOWN}"
     OpReiniNULL.ForeColor = Color5
-    TR.SetVars "3PM"
+    TR.SetVars dcr("q44KmdDBQ+IB8dTOX8F+VA==")
     HLP TR.Trad("Al iniciar %01% este borra (no ejecuta) todos los " + _
         "temas pendientes de reproduccion que habia al cerrarse%99%")
 End Sub
@@ -6653,7 +6952,7 @@ Private Sub TxtUSUARIO_GotFocus()
     Me.KeyPreview = False
     TeclaConfOK = "{UP}": TeclaConfESC = "{DOWN}"
     TxtUSUARIO.BackColor = Color5
-    TR.SetVars "3PM"
+    TR.SetVars dcr("1Vx0YVGhEoIisHPLAZMHXw==")
     HLP TR.Trad("Este texto se mostrara en la página principal de " + _
         "%01% como espacio de publicidad de su empresa%98%La variable " + _
         "es el nombre del programa(3PM)%99%")
@@ -6816,7 +7115,7 @@ End Sub
 Private Sub VSmaxFichas_GotFocus()
     TeclaConfOK = "{UP}": TeclaConfESC = "{DOWN}"
     txtMaxFichas.BackColor = Color5
-    TR.SetVars "3PM"
+    TR.SetVars dcr("q44KmdDBQ+IB8dTOX8F+VA==")
     HLP TR.Trad("Si se cargan mas créditos (fichas, monedas) que este " + _
         "valor %01% no los tomará y se perderán%98%la variable es el " + _
         "nombre del programa (3PM)%99%")
@@ -6864,7 +7163,7 @@ End Sub
 Private Sub vsPubliIMGCada_GotFocus()
     TeclaConfOK = "{UP}": TeclaConfESC = "{DOWN}"
     txtPubliImgCada.BackColor = Color5
-    TR.SetVars "3PM"
+    TR.SetVars dcr("1Vx0YVGhEoIisHPLAZMHXw==")
     HLP TR.Trad("Indica cuantos segundos deben pasar para que se " + _
         "cambien la imagen publicitaria de la página inicial. " + _
         "Debera reiniciar %01% para que este cambio surta efecto" + _
@@ -6962,7 +7261,7 @@ End Sub
 Private Sub VSTemasXCredito_GotFocus()
     TeclaConfOK = "{UP}": TeclaConfESC = "{DOWN}"
     txtTemasXCredito.BackColor = Color5
-    TR.SetVars "3PM"
+    TR.SetVars dcr("q44KmdDBQ+IB8dTOX8F+VA==")
     HLP TR.Trad("Cantidad de temas que se pueden reproducir con un crédito. " + _
         "No necesita reiniciar %01% para que esta configuración " + _
         "surta efecto.%99%")
@@ -7152,7 +7451,7 @@ Private Sub Traducir()
     Label1(27).Caption = TR.Trad("IDIOMA%99%")
     Label1(12).Caption = TR.Trad("Porcentaje ejecutar tema%99%")
     Label1(9).Caption = TR.Trad("Espera autoejecutar tema%99%")
-    Label1(8).Caption = TR.Trad("Maximo de fichas permitidas%99%")
+    
     chkOutTemasWhenSel.Caption = TR.Trad("Salir de listado de musica " + _
         "al hacer una selección%99%")
     chkTouch.Caption = TR.Trad("Mostrar botones de touch-screen%99%")
@@ -7196,7 +7495,7 @@ Private Sub Traducir()
     Command13.Caption = TR.Trad("Teclado%99%")
     Command6.Caption = TR.Trad("Inicio 3PM%99%")
     fBoton1.Caption = TR.Trad("Vender música%99%")
-    Command5.Caption = TR.Trad("SUPERLICENCIA%99%")
+    
     Command4.Caption = TR.Trad("Administrar discos%99%")
     command26.Caption = TR.Trad("Importar/Exportar CONFIG%99%")
     Command17.Caption = TR.Trad("Validacion de uso%99%")

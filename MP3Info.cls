@@ -84,12 +84,12 @@ Public Property Get Seconds() As Integer
 End Property
 
 Public Property Get DurationSTR() As String
-    SEC = Seconds
-    If SEC < 60 Then DurationSTR = "0:" & Format(SEC, "00")
-    If SEC > 59 Then
-        MINS = Int(SEC / 60)
-        SEC = SEC - (MINS * 60)
-        DurationSTR = Format(MINS, "00") & ":" & Format(SEC, "00")
+    Sec = Seconds
+    If Sec < 60 Then DurationSTR = "0:" & Format(Sec, "00")
+    If Sec > 59 Then
+        MINS = Int(Sec / 60)
+        Sec = Sec - (MINS * 60)
+        DurationSTR = Format(MINS, "00") & ":" & Format(Sec, "00")
     End If
 End Property
 

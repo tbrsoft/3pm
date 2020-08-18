@@ -28,7 +28,7 @@ Private Declare Sub GlobalMemoryStatus Lib "kernel32" (lpBuffer As MEMORYSTATUS)
 
 Private MemUsadaMomentos() As Long
 Private Detalles() As String
-
+Dim tims() As Long 'timer de cada evento para saber cuanto tarda cada paso
 'Para cantidad de memoria
 
 Public Sub SetMomento(sDESCR As String) 'dejar un comentario de que esta haciendo el programa
@@ -39,23 +39,28 @@ Public Sub SetMomento(sDESCR As String) 'dejar un comentario de que esta haciend
     ReDim Preserve MemUsadaMomentos(UBound(MemUsadaMomentos) + 1)
     MemUsadaMomentos(UBound(MemUsadaMomentos)) = tmpUSA
     
+    ReDim Preserve tims(UBound(tims) + 1)
+    tims(UBound(tims)) = Timer * 100
+    
     ReDim Preserve Detalles(UBound(Detalles) + 1)
-    Detalles(UBound(Detalles)) = CStr(Timer) + " " + sDESCR
+    Detalles(UBound(Detalles)) = CStr(Timer * 100) + _
+        "(" + STRceros(tims(UBound(tims)) - tims(UBound(tims) - 1), 5) + " cent.s) " + _
+        sDESCR
 End Sub
 
-Public Function GetMemMoment(i As Long)
-    If i > GetMaxMoment Then
+Public Function GetMemMoment(I As Long)
+    If I > GetMaxMoment Then
         GetMemMoment = -1
     Else
-        GetMemMoment = MemUsadaMomentos(i)
+        GetMemMoment = MemUsadaMomentos(I)
     End If
 End Function
 
-Public Function GetDescrMoment(i As Long)
-    If i > GetMaxMoment Then
+Public Function GetDescrMoment(I As Long)
+    If I > GetMaxMoment Then
         GetDescrMoment = -1
     Else
-        GetDescrMoment = Detalles(i)
+        GetDescrMoment = Detalles(I)
     End If
 End Function
 
@@ -75,13 +80,15 @@ End Function
 Private Sub Class_Initialize()
     ReDim MemUsadaMomentos(0)
     ReDim Detalles(0)
+    ReDim tims(0)
     
     'dejo asentado como arranco
     Dim tmpUSA As Long, TOT As Long
     GetMem TOT, tmpUSA
     
     MemUsadaMomentos(0) = tmpUSA
-    Detalles(0) = CStr(Timer) + " INICIO tbrMEM con " + CStr(TOT) + " MB totales"
+    Detalles(0) = CStr(Timer * 100) + " INICIO tbrMEM con " + CStr(TOT) + " MB totales"
+    tims(0) = Timer * 100
 End Sub
 
 Public Function GetMem(ByRef MemTotalInMB As Long, ByRef MemUsadaInMB As Long) As Long

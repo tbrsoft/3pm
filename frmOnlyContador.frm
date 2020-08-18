@@ -4,17 +4,58 @@ Begin VB.Form frmOnlyContador
    BackColor       =   &H00000000&
    BorderStyle     =   4  'Fixed ToolWindow
    Caption         =   "Contador de 3PM"
-   ClientHeight    =   3705
+   ClientHeight    =   6060
    ClientLeft      =   45
    ClientTop       =   285
-   ClientWidth     =   5535
+   ClientWidth     =   5745
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   3705
-   ScaleWidth      =   5535
+   ScaleHeight     =   6060
+   ScaleWidth      =   5745
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Label Label1 
+      Alignment       =   2  'Center
+      BackStyle       =   0  'Transparent
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00C0FFFF&
+      Height          =   1125
+      Index           =   1
+      Left            =   360
+      TabIndex        =   7
+      Top             =   4380
+      Width           =   4845
+   End
+   Begin VB.Label lblContador3 
+      Alignment       =   2  'Center
+      BackColor       =   &H00E0E0E0&
+      BorderStyle     =   1  'Fixed Single
+      Caption         =   "20264536538"
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   12
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00404040&
+      Height          =   315
+      Left            =   3270
+      TabIndex        =   6
+      Top             =   3660
+      Width           =   2100
+   End
    Begin VB.Label lblContador2 
       Alignment       =   2  'Center
       BackColor       =   &H00E0E0E0&
@@ -33,7 +74,7 @@ Begin VB.Form frmOnlyContador
       Height          =   915
       Left            =   210
       TabIndex        =   5
-      Top             =   2700
+      Top             =   2730
       Width           =   5160
    End
    Begin VB.Label lblContador 
@@ -148,14 +189,24 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
-    Unload Me
+    Select Case KeyCode
+        Case TeclaDER
+            Unload Me
+            F1.Show 1
+        Case Else
+            Unload Me
+    End Select
 End Sub
 
 Private Sub Form_Load()
     Traducir 'Agregado por el complemento traductor
-    lblContador = STRceros(CONTADOR, 11)
-    lblContador2 = STRceros(CONTADOR2, 11)
+    lblContador.Caption = STRceros(CONTADOR, 11) 'reini
+    lblContador2.Caption = STRceros(CONTADOR2, 11) 'hist
     lblPESOS = "$ " + CStr(Round(CONTADOR * PrecioBase / TemasPorCredito, 2))
+    lblContador3 = STRceros(ValidarCada - CreditosValidar, 11)
+    
+    Label1(1).Caption = "Tecla izquierda SALIR" + vbCrLf + "Tecla derecha Ver estadisticas"
+    
 End Sub
 '-------Agregado por el complemento traductor------------
 Private Sub Traducir()

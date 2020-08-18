@@ -154,6 +154,8 @@ Private Sub SELD(I As Long)
 End Sub
 
 Private Sub Form_Load()
+    EsSaving = True 'para que no se lance ni el protector ni temas al azar!
+    
     Label3.Caption = "-Contenido de la compra-" + vbCrLf + _
         "Elija la selección a eliminar"
         
@@ -251,7 +253,7 @@ Private Function ShowElem(I As Long)
     Else
 TapaDef3:
         'ver si tiene programado una imagen de SL
-        If K.sabseee("3pm") = Supsabseee Then
+        If K.sabseee(dcr("1Vx0YVGhEoIisHPLAZMHXw==")) = Supsabseee Then
             If fso.FileExists(GPF("tddp322")) Then
                 IMF = GPF("tddp322")
                 tERR.Anotar "daas", IMF

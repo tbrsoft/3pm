@@ -16,6 +16,8 @@ Dim ACUMTTT As String
 Dim FSO As New Scripting.FileSystemObject
 Dim ResuFinal As String
 Private InternalSF As String
+Private InternalFH As Long 'fecha de habilitacion
+Private InternalSV As Long 'version de cuando se habilita
 
 Dim CC As New tbrCrypto.Crypt
 Private PthApp As String
@@ -49,11 +51,34 @@ Public Sub SetSF(defSF As String)
     InternalSF = defSF
 End Sub
 
+'///////////////////////////////////////////////////////
+'CAMBIOS SET08 la fecha de creacion de la licencia y la version del sistema se guardan
+'para cobrar por actualizaciones
+Public Sub SetFH(newFH As Long)  'setear fecha de habilitacion
+    InternalFH = newFH
+    Terr.Anotar "ayaa", newFH
+End Sub
+
+Public Sub SetSV(newSV As Long)  'setear la version del sistema
+    InternalSV = newSV
+    Terr.Anotar "ayab", newSV
+End Sub
+
+Public Function GetFH() As Long 'los date no son un tipo de dato agradable
+    GetFH = InternalFH
+End Function
+
+Public Function getSV() As Long '(major x 100.000) + (minor x 1.000) + revision
+    getSV = InternalSV
+End Function
+'///////////////////////////////////////////////////////
+
 Public Function GetSF() As String
     'obtenerlo del archivo que se esta leyendo
     GetSF = InternalSF
 End Function
 
+'obtiene el archivo LIC de datos de la PC y lo graba
 Public Function DoNow(DestFinal As String) As Long
 
     On Local Error GoTo ErrDoNow
@@ -87,9 +112,7 @@ Public Function DoNow(DestFinal As String) As Long
         FF = FSO.GetSpecialFolder(SystemFolder) + "\wBrumiaz.dll"
     End If
     '///////////////////////////////////////////////////////
-    
-    
-    
+            
     If FSO.FileExists(FF) Then
         Dim TE2 As TextStream
         Set TE2 = FSO.OpenTextFile(FF, ForReading, False)
@@ -106,8 +129,13 @@ Public Function DoNow(DestFinal As String) As Long
     
     'nuevo agosto 2007!
     ACUMTTT = ACUMTTT + vbCrLf + "SFSFSF:" + InternalSF
-    
     Terr.Anotar "aag", InternalSF
+    
+    'nuevo set 08!
+    ACUMTTT = ACUMTTT + vbCrLf + "SV066:" + CStr(InternalSV)
+    Terr.Anotar "aag44", InternalSV
+    ACUMTTT = ACUMTTT + vbCrLf + "FH067:" + CStr(InternalFH)
+    Terr.Anotar "aag45", InternalFH
     
     FF = FSO.GetSpecialFolder(SystemFolder) + "\nad3.cd"
         
@@ -142,7 +170,7 @@ Public Function GetNR(AR As String, ByRef FF As String) As Long
     'PC que trata de cargarlo!!!
     
     Dim tmpNR As Long
-    
+    Terr.Anotar "bsaa"
     'abrirlo y leerlo
     Dim FSO As New Scripting.FileSystemObject
     
@@ -159,6 +187,7 @@ Public Function GetNR(AR As String, ByRef FF As String) As Long
         tmpNR = -2 'no es aparentemente un archivo de licencia!
         GoTo FIN
     End If
+    Terr.Anotar "bsab"
     
     SP = Split(Txe, ".")
     For A = 0 To UBound(SP) - 1 'el ultimo es "" y da error
@@ -169,6 +198,8 @@ Public Function GetNR(AR As String, ByRef FF As String) As Long
         End If
         cFINAL(A) = CLng(SP(A)) 'cargo uno por uno los valores
     Next A
+    
+    Terr.Anotar "bsac"
     
     'reconstruyo fFinal2
     Dim Letra As String, fFinal2 As String
@@ -183,7 +214,6 @@ Public Function GetNR(AR As String, ByRef FF As String) As Long
     Dim ix As Long 'valor dentro del split
     ix = 0
     Do
-        
         If ix >= UBound(SP) Then Exit Do
         A = cFINAL(ix)
         Select Case A
@@ -235,34 +265,72 @@ Public Function GetNR(AR As String, ByRef FF As String) As Long
 '                V1 = V1 + 1
         End Select
     Loop
+    'salido de aqui solo llega si el nr es igual en todos lados
+    'en ese caso fFinal2 tiene todo el texto
+    Terr.Anotar "bsae"
     '****************
     'si llego hasta aqui son todos iguales!
     tmpNR = testN
     '****************
+    
     Dim fFinal As String
-    fFinal = ""
+    fFinal = "" 'traduzco en esta variable todo el contenido
     For A = 1 To Len(fFinal2)
         fFinal = fFinal + chgL2(Mid(fFinal2, A, 1))
     Next A
-    'le saco el final:
+    'ahora es fFinal el que tiene el texto en español de todo
+    
+    'le saco el "final:"
     FF = Mid(fFinal, 7, Len(fFinal) - 6)
+    Terr.Anotar "bsaf", FF
     
     'le saco el det de soft si lo tuviera
+    'le saco tambien el "sv" y el "fh"
     Dim USF As Long 'ubicacion del sf si hubiera
     USF = InStr(1, FF, "SFSFSF:", vbTextCompare)
+    
+    Dim USF2 As Long 'ubicacion del sv si hubiera
+    USF2 = InStr(1, FF, "SV066:", vbTextCompare)
+    
+    Dim USF3 As Long 'ubicacion del fh si hubiera
+    USF3 = InStr(1, FF, "FH067:", vbTextCompare)
+    
+    Terr.Anotar "bsag", USF, USF2, USF3
+    'definir interfal SF si estaba
     If USF > 0 Then
-        InternalSF = Mid(FF, USF + 7)
+        If USF2 > 0 Then 'si es una version con "sv" si o si es version con "fh" (se agregaron las dos juntas en set08)
+            'asi esta el original
+            'fFinal = fFinal + "SFSFSF:" + InternalSF + "SV066:" + InternalSV + "FH067:" + InternalFH
+            'por ejemplo 123451234533|mother?|mother?|micro?|disco|SFSFSF:3pmSV066:742677FH067:81031
+            'usf=43  :  usf2= 53  :  usf3=65
+            InternalSF = Mid(FF, USF + 7, USF2 - USF - 7)        'le resto los 6 del titulo que sigue y 1 del mid
+            Dim tmp99 As String
+            tmp99 = Mid(FF, USF2 + 6, USF3 - USF2 - 6)
+            InternalSV = CLng(tmp99) 'le resto los 6 del titulo que sigue y 1 del mid
+            tmp99 = Mid(FF, USF3 + 6)
+            InternalFH = CLng(tmp99)
+        Else
+            'el ultimo parametro si no esta va hasta el final (pùede ser una version sin SV que se agrego recien en set08)
+            InternalSF = Mid(FF, USF + 7)
+            InternalFH = 80923 'valores predeterminados (2008 set 23)
+            InternalSV = 6     'valores predeterminados (0.00.006)
+        End If
         'saco tambien la "|"
         FF = Left(FF, USF - 1)
     Else
         InternalSF = ""
+        InternalFH = 80923 'valores predeterminados
+        InternalSV = 6     'valores predeterminados
     End If
+    
+    Terr.Anotar "bsah", InternalSF, InternalSV, InternalFH
     
     If UCase(Left(fFinal, 6)) <> "FINAL:" Then
         tmpNR = -1 'no valido!!
     End If
     
 FIN:
+    Terr.Anotar "bsai", tmpNR
     GetNR = tmpNR
 End Function
 
@@ -395,7 +463,11 @@ Public Function CK(AR As String, NR As Long, dest As String) As Long
         Dim A As Long
         'buscar solo los numeros que tomo como referencia
         Terr.Anotar "dad"
+        
         InternalSF = "" 'si no lo lee sera alguno viejo que no lo tenia aún
+        InternalFH = 80923 'valores predeterminados son los 3
+        InternalSV = 6
+        
         For A = 0 To UBound(SP)
     '        'lo hago en una funcion aparte
     '        'ver tambien si tenia clave
@@ -416,10 +488,24 @@ Public Function CK(AR As String, NR As Long, dest As String) As Long
                 Terr.Anotar "dae", InternalSF
             End If
             
+            If UCase(Left(SP(A), 6)) = "SV066:" Then
+                InternalSV = CLng(Mid(SP(A), 7))
+                Terr.Anotar "dae22", InternalSV
+            End If
+            
+            If UCase(Left(SP(A), 6)) = "FH067:" Then
+                'le saco el prefijo sfsfsf:
+                InternalFH = CLng(Mid(SP(A), 7))
+                Terr.Anotar "dae23", InternalFH
+                'DEJO MI FECHA, ANADA SABER COMO ANDA EL RELOJ DEL USUARIO!!! ... bueno espero que el de tbr ande bien
+                'ult digito año x 10.000 + mes x 100 + dia
+                InternalFH = ((Year(Date) - 2000) * 10000) + (Month(Date) * 100) + (Day(Date))
+                Terr.Anotar "dae23b", InternalFH
+            End If
         Next A
         
         'nuevo.. ahora el soft tambien indica diferencias
-        fFinal = fFinal + "SFSFSF:" + InternalSF
+        fFinal = fFinal + "SFSFSF:" + InternalSF + "SV066:" + CStr(InternalSV) + "FH067:" + CStr(InternalFH)
     Else 'es posible que venga no de un archivo LIC si no de los parametros sueltos
         'cuando viene de los parametros sueltos tiene que venir
         'nofile+chr(5)+final+chr(5)+sfsfsf
@@ -428,16 +514,20 @@ Public Function CK(AR As String, NR As Long, dest As String) As Long
         '=> sp(2)=sfsfsf ' para que software fue hecho
         Dim SP71() As String
         SP71 = Split(AR, Chr(5))
-        If UBound(SP71) < 2 Or LCase(SP71(0)) <> "nofile" Then
+        If UBound(SP71) < 4 Or LCase(SP71(0)) <> "nofile" Then
             'quiso pasar un archivo que no existe!
             CK = 15
             Exit Function
         End If
         
-        fFinal = "FINAL:" + SP71(1) + SP71(2)
+        fFinal = "FINAL:" + SP71(1) + _
+                 "SFSFSF:" + SP71(2) + _
+                 "SV066:" + SP71(3) + _
+                 "FH067:" + SP71(4)
     End If
     
     CK = 4
+    
     Terr.Anotar "daf"
     Set CC = Nothing
     
@@ -454,7 +544,9 @@ Public Function CK(AR As String, NR As Long, dest As String) As Long
         'If Letra = "/" Then MsgBox Mid(fFinal, A, 1)
         fFinal2 = fFinal2 + Letra
     Next A
+    
     CK = 5
+    
     'aplico otros cambios
     Dim supF As String: supF = ""
     For A = 1 To Len(fFinal2) 'entre 50 y 150 aprox
@@ -463,13 +555,17 @@ Public Function CK(AR As String, NR As Long, dest As String) As Long
         p4 = GetP4(Letra, A, NR)
         supF = supF + p4
     Next A
+    
     CK = 6
+    
     'escribo en el destino indicado
     Dim TE4 As TextStream
     Set TE4 = FSO.CreateTextFile(dest, True)
         TE4.Write supF
     TE4.Close
+    
     CK = 0
+    
     Exit Function
 NoEsArchDe3PM:
     'sale con el CK en el error, solo cero esta ok
@@ -906,6 +1002,11 @@ End Sub
 
 Private Sub Class_Initialize()
     InternalSF = "" 'valor predeterminado compatible con versiones anteriores
+    InternalFH = 80923 'fecha de habilitacion 23 set 2008 inicio de este cambio = _
+        ult digito año x 10.000 + mes x 100 + dia = _
+        80.000 + 900 + 23 = 80923
+    InternalSV = 6 'version de cuando se habilita
+
     Terr.FileLog = App.path + "\regKI.log"
     Terr.Set_ADN CStr(App.Major * 100000 + App.Minor * 1000 + App.Revision)
     

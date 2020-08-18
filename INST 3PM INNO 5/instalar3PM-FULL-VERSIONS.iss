@@ -81,6 +81,7 @@ Source: "..\skin\3pmBaseSkin.SKIN"; DestDir: "{app}\skin"; Flags: ignoreversion
 Source: "..\skin\crystal front.SKIN"; DestDir: "{app}\skin"; Flags: ignoreversion
 Source: "..\skin\wood shell.SKIN"; DestDir: "{app}\skin"; Flags: ignoreversion
 Source: "..\skin\blare_skin.SKIN"; DestDir: "{app}\skin"; Flags: ignoreversion
+Source: "..\Update-Music.txt"; DestDir: "{app}"; Flags: ignoreversion
 
 Source: ..\license.rtf; DestDir: {app}; Flags: ignoreversion
 
@@ -116,7 +117,7 @@ Source: "..\externos\SKS-DLL3\Test_Teclado_TBR.exe"; DestDir: "{app}"; Flags: ig
 ;*********************************************************************************************
 ;*********************************************************************************************
 
-Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\wbemdisp.tlb"; DestDir: "{sys}\Wbem"; Flags: restartreplace uninsneveruninstall sharedfile
+Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\wbemdisp.tlb"; DestDir: "{sys}\w"; Flags: restartreplace uninsneveruninstall sharedfile
 Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\tbrerr.dll"; DestDir: "{sys}"; Flags: restartreplace sharedfile regserver
 Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\tbrreg.dll"; DestDir: "{sys}"; Flags: restartreplace sharedfile regserver
 Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\tbrtimer.dll"; DestDir: "{sys}"; Flags: restartreplace sharedfile regserver
@@ -141,6 +142,13 @@ Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\tbrPaths.dll"; DestD
 Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\tbrDrives.dll"; DestDir: "{sys}"; Flags: restartreplace sharedfile regserver
 Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\tbrBtActivex.dll"; DestDir: "{sys}"; Flags: restartreplace sharedfile regserver
 Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\tbrInstalledPrograms.dll"; DestDir: "{sys}"; Flags: restartreplace sharedfile regserver
+Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\tbrUsbKeyboard.dll"; DestDir: "{sys}"; Flags: restartreplace sharedfile regserver
+Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\tbrWaveRecod.dll"; DestDir: "{sys}"; Flags: restartreplace sharedfile regserver
+
+Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\lame_enc.dll"; DestDir: "{sys}"; Flags: ignoreversion
+Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\MEncoder.dll"; DestDir: "{sys}"; Flags: ignoreversion
+
+
 
 ;Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\tbrFrame.ocx"; DestDir: "{sys}"; Flags: restartreplace sharedfile regserver
 ;Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\tbrGraficos.dll"; DestDir: "{sys}"; Flags: restartreplace sharedfile regserver
@@ -148,14 +156,15 @@ Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\tbrALotOfPictures.dl
 
 Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\ijl11.dll"; DestDir: "{sys}"; Flags: ignoreversion
 Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\tbrJPG.ocx"; DestDir: "{sys}"; Flags: restartreplace sharedfile regserver
+Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\tbrGrap_b.ocx"; DestDir: "{sys}"; Flags: restartreplace sharedfile regserver
 Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\tbrBlueC.dll"; DestDir: "{sys}"; Flags: ignoreversion
 
 
   ;se registra despues en la seccion RUN (solo si tiene el framework que permite registrarlos
-  Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\tbrBurner.tlb"; DestDir: "{sys}"; Flags: ignoreversion
-  Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\Interop.NEROLib.dll"; DestDir: "{sys}"; Flags: ignoreversion
-  Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\Interop.NeroVisionAPI.dll"; DestDir: "{sys}"; Flags: ignoreversion
-  Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\tbrBurner.dll"; DestDir: "{sys}"; Flags: ignoreversion
+  Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\tbrBurner.tlb"; DestDir: "{sys}"; Flags: ignoreversion ; Check: IsDotNET20Detected
+  Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\Interop.NEROLib.dll"; DestDir: "{sys}"; Flags: ignoreversion ; Check: IsDotNET20Detected
+  Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\Interop.NeroVisionAPI.dll"; DestDir: "{sys}"; Flags: ignoreversion ; Check: IsDotNET20Detected
+  Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\tbrBurner.dll"; DestDir: "{sys}"; Flags: ignoreversion ; Check: IsDotNET20Detected
 
 Source: "..\3PM.EXE"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "..\tius.EXE"; DestDir: "{app}"; Flags: ignoreversion

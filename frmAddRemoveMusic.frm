@@ -11,7 +11,6 @@ Begin VB.Form frmAddRemoveMusic
    ClientWidth     =   11910
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
-   LockControls    =   -1  'True
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   8670
@@ -19,6 +18,85 @@ Begin VB.Form frmAddRemoveMusic
    ShowInTaskbar   =   0   'False
    StartUpPosition =   3  'Windows Default
    WindowState     =   2  'Maximized
+   Begin VB.Frame Frame1 
+      BackColor       =   &H00000000&
+      Caption         =   "Clave de actualizacion de musica"
+      ForeColor       =   &H00FFFFFF&
+      Height          =   855
+      Left            =   300
+      TabIndex        =   33
+      Top             =   30
+      Width           =   6585
+      Begin VB.CommandButton Command16 
+         Caption         =   "?"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   13.5
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   345
+         Left            =   3660
+         TabIndex        =   35
+         Top             =   270
+         Width           =   405
+      End
+      Begin VB.TextBox txtKeyUpdateMusic 
+         Alignment       =   2  'Center
+         Appearance      =   0  'Flat
+         BackColor       =   &H00FFFFFF&
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00404040&
+         Height          =   315
+         Left            =   120
+         TabIndex        =   34
+         Top             =   270
+         Width           =   2520
+      End
+      Begin tbrFaroButton.fBoton fBoton1 
+         Height          =   435
+         Left            =   2700
+         TabIndex        =   36
+         Top             =   210
+         Width           =   915
+         _ExtentX        =   1614
+         _ExtentY        =   767
+         fFColor         =   16777215
+         fBColor         =   14737632
+         fCapt           =   "grabar"
+         fEnabled        =   -1  'True
+         fFontN          =   ""
+         fFontS          =   0
+         fECol           =   5452834
+      End
+      Begin tbrFaroButton.fBoton fBoton2 
+         Height          =   525
+         Left            =   4200
+         TabIndex        =   37
+         Top             =   210
+         Width           =   2115
+         _ExtentX        =   3731
+         _ExtentY        =   926
+         fFColor         =   16777215
+         fBColor         =   14737632
+         fCapt           =   "escribir pendrive segun clave"
+         fEnabled        =   -1  'True
+         fFontN          =   ""
+         fFontS          =   0
+         fECol           =   5452834
+      End
+   End
    Begin tbrFaroButton.fBoton command7 
       Height          =   345
       Left            =   7230
@@ -184,7 +262,7 @@ Begin VB.Form frmAddRemoveMusic
       Height          =   435
       Left            =   5700
       TabIndex        =   16
-      Top             =   4200
+      Top             =   4860
       Width           =   1335
       _ExtentX        =   2355
       _ExtentY        =   767
@@ -200,7 +278,7 @@ Begin VB.Form frmAddRemoveMusic
       Height          =   435
       Left            =   4350
       TabIndex        =   15
-      Top             =   4200
+      Top             =   4860
       Width           =   1335
       _ExtentX        =   2355
       _ExtentY        =   767
@@ -287,12 +365,12 @@ Begin VB.Form frmAddRemoveMusic
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00404040&
-      Height          =   4500
+      Height          =   3690
       IntegralHeight  =   0   'False
-      Left            =   60
+      Left            =   90
       MultiSelect     =   2  'Extended
       TabIndex        =   5
-      Top             =   2190
+      Top             =   3000
       Width           =   4035
    End
    Begin VB.ListBox lstTEMAS 
@@ -307,14 +385,14 @@ Begin VB.Form frmAddRemoveMusic
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00404040&
-      Height          =   3030
+      Height          =   2220
       IntegralHeight  =   0   'False
       ItemData        =   "frmAddRemoveMusic.frx":0000
-      Left            =   4170
+      Left            =   4230
       List            =   "frmAddRemoveMusic.frx":0040
       MultiSelect     =   2  'Extended
       TabIndex        =   1
-      Top             =   4860
+      Top             =   5670
       Width           =   2985
    End
    Begin VB.ListBox lstCarpetas 
@@ -350,20 +428,20 @@ Begin VB.Form frmAddRemoveMusic
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00404040&
-      Height          =   1380
+      Height          =   1110
       IntegralHeight  =   0   'False
       ItemData        =   "frmAddRemoveMusic.frx":008B
-      Left            =   90
+      Left            =   120
       List            =   "frmAddRemoveMusic.frx":00A4
       TabIndex        =   12
-      Top             =   540
+      Top             =   1530
       Width           =   7035
    End
    Begin tbrFaroButton.fBoton Command9 
       Height          =   285
-      Left            =   4380
+      Left            =   4350
       TabIndex        =   17
-      Top             =   -30
+      Top             =   960
       Width           =   915
       _ExtentX        =   1614
       _ExtentY        =   503
@@ -377,9 +455,9 @@ Begin VB.Form frmAddRemoveMusic
    End
    Begin tbrFaroButton.fBoton Command10 
       Height          =   285
-      Left            =   4380
+      Left            =   4350
       TabIndex        =   18
-      Top             =   240
+      Top             =   1230
       Width           =   915
       _ExtentX        =   1614
       _ExtentY        =   503
@@ -393,9 +471,9 @@ Begin VB.Form frmAddRemoveMusic
    End
    Begin tbrFaroButton.fBoton Command14 
       Height          =   285
-      Left            =   5280
+      Left            =   5250
       TabIndex        =   19
-      Top             =   -30
+      Top             =   960
       Width           =   915
       _ExtentX        =   1614
       _ExtentY        =   503
@@ -409,9 +487,9 @@ Begin VB.Form frmAddRemoveMusic
    End
    Begin tbrFaroButton.fBoton Command13 
       Height          =   285
-      Left            =   5280
+      Left            =   5250
       TabIndex        =   20
-      Top             =   240
+      Top             =   1230
       Width           =   915
       _ExtentX        =   1614
       _ExtentY        =   503
@@ -425,9 +503,9 @@ Begin VB.Form frmAddRemoveMusic
    End
    Begin tbrFaroButton.fBoton Command11 
       Height          =   285
-      Left            =   6180
+      Left            =   6150
       TabIndex        =   21
-      Top             =   -30
+      Top             =   960
       Width           =   915
       _ExtentX        =   1614
       _ExtentY        =   503
@@ -441,9 +519,9 @@ Begin VB.Form frmAddRemoveMusic
    End
    Begin tbrFaroButton.fBoton command12 
       Height          =   285
-      Left            =   6180
+      Left            =   6150
       TabIndex        =   22
-      Top             =   240
+      Top             =   1230
       Width           =   915
       _ExtentX        =   1614
       _ExtentY        =   503
@@ -470,9 +548,9 @@ Begin VB.Form frmAddRemoveMusic
       ForeColor       =   &H00E0E0E0&
       Height          =   225
       Index           =   5
-      Left            =   150
+      Left            =   120
       TabIndex        =   14
-      Top             =   300
+      Top             =   1290
       Width           =   3915
    End
    Begin VB.Label Label1 
@@ -490,9 +568,9 @@ Begin VB.Form frmAddRemoveMusic
       ForeColor       =   &H00E0E0E0&
       Height          =   225
       Index           =   4
-      Left            =   150
+      Left            =   120
       TabIndex        =   13
-      Top             =   60
+      Top             =   1050
       Width           =   4125
    End
    Begin VB.Label lblKB 
@@ -512,7 +590,7 @@ Begin VB.Form frmAddRemoveMusic
       Height          =   195
       Left            =   6000
       TabIndex        =   10
-      Top             =   3990
+      Top             =   4650
       Width           =   1095
    End
    Begin VB.Label Label1 
@@ -558,9 +636,9 @@ Begin VB.Form frmAddRemoveMusic
    Begin VB.Image TapaCD 
       BorderStyle     =   1  'Fixed Single
       Height          =   1905
-      Left            =   4260
+      Left            =   4230
       Stretch         =   -1  'True
-      Top             =   2070
+      Top             =   2700
       Width           =   2850
    End
    Begin VB.Label lblInfoDisco 
@@ -601,10 +679,11 @@ Begin VB.Form frmAddRemoveMusic
       Index           =   1
       Left            =   4320
       TabIndex        =   3
-      Top             =   4650
+      Top             =   5310
       Width           =   2925
    End
    Begin VB.Label Label1 
+      Alignment       =   1  'Right Justify
       BackStyle       =   0  'Transparent
       Caption         =   "Discos"
       BeginProperty Font 
@@ -619,9 +698,9 @@ Begin VB.Form frmAddRemoveMusic
       ForeColor       =   &H00E0E0E0&
       Height          =   315
       Index           =   0
-      Left            =   60
+      Left            =   2490
       TabIndex        =   2
-      Top             =   1920
+      Top             =   2700
       Width           =   1575
    End
 End
@@ -802,8 +881,8 @@ Private Sub Command10_Click()
 End Sub
 
 Private Sub Command11_Click()
-    TR.SetVars "3PM"
-    MsgBox TR.Trad("3PM en modo SuperLicencia permite la carga de musica " + _
+    TR.SetVars dcr("1Vx0YVGhEoIisHPLAZMHXw==")
+    MsgBox TR.Trad("%01% en modo SuperLicencia permite la carga de musica " + _
         "desde diferentes ubicaciones." + vbCrLf + _
         "Esto permite utilizar mas de un disco rígido o diferentes particiones " + _
         "de un mismo disco." + vbCrLf + _
@@ -923,6 +1002,10 @@ Private Sub Command15_Click()
     TE121.Close
     Set TE121 = Nothing
     MsgBox TR.Trad("Las estadisticas se han grabado sin problemas en C:\STATS.TXT%99%")
+End Sub
+
+Private Sub Command16_Click()
+    AbrirArchivo AP + "update-music.txt", Me
 End Sub
 
 Private Sub Command2_Click()
@@ -1186,6 +1269,41 @@ MiErr:
     Resume Next
 End Sub
 
+Private Sub fBoton1_Click()
+    ChangeConfig "KeyUpdateMusic", txtKeyUpdateMusic.tExt
+    KeyUpdateMusic = txtKeyUpdateMusic.tExt
+    
+    MsgBox "La clave se ha grabado correctamente"
+End Sub
+
+Private Sub fBoton2_Click()
+    'que indique el tipo donde esta
+    If UB.GetCantidadUSB > 0 Then
+    
+        Dim RESUMEN As String
+    
+        Dim LTR As String
+        LTR = UB.GetLetterUSB(1)
+        'creo el archivo vacio que necesito
+        fso.CreateTextFile LTR + ":\" + KeyUpdateMusic
+        RESUMEN = "Se ha creado:" + vbCrLf + "  " + LTR + ":\" + KeyUpdateMusic
+        
+        If fso.FolderExists(LTR + ":\musica") = False Then fso.CreateFolder LTR + ":\musica"
+        RESUMEN = RESUMEN + vbCrLf + "  " + LTR + ":\MUSICA"
+        
+        'una carpeta para cada origen
+        Dim AAA As Long
+        For AAA = 0 To UBound(PartOrigenes)
+            Dim ORI As String
+            ORI = fso.GetBaseName(PartOrigenes(AAA))
+            If fso.FolderExists(LTR + ":\musica\" + ORI) = False Then fso.CreateFolder LTR + ":\musica\" + ORI
+            RESUMEN = RESUMEN + vbCrLf + "  " + LTR + ":\MUSICA\" + ORI
+        Next AAA
+        
+        MsgBox RESUMEN
+    End If
+End Sub
+
 Private Sub Form_Activate()
     Label1(0) = TR.Trad("DISCOS%98%Titulo de la lista de discos%99%")
     Command1.Caption = TR.Trad("Eliminar discos elegidos%99%")
@@ -1246,6 +1364,8 @@ Private Sub Form_Load()
 '    PartOrigenes = Split(Origenes, "*")
     'es publico !! ya se carga en el load
     
+    txtKeyUpdateMusic.tExt = KeyUpdateMusic
+    
     lstOrigenes.Clear
     Dim AAA As Long
     For AAA = 0 To UBound(PartOrigenes)
@@ -1256,7 +1376,7 @@ Private Sub Form_Load()
     lstOrigenes.ListIndex = 0
     
     'si no es SL taparlo JAJAJAJA!!!
-    If K.sabseee("3pm") <> Supsabseee Then
+    If K.sabseee(dcr("q44KmdDBQ+IB8dTOX8F+VA==")) <> Supsabseee Then
         lstOrigenes.Enabled = False
         Command9.Enabled = False 'boton agregar
         Command10.Enabled = False 'boton quitar

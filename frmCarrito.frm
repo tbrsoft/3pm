@@ -39,7 +39,7 @@ Begin VB.Form frmCarrito
    End
    Begin VB.Timer Timer1 
       Left            =   3090
-      Top             =   8550
+      Top             =   8580
    End
    Begin VB.TextBox tNADA 
       Height          =   435
@@ -79,7 +79,7 @@ Begin VB.Form frmCarrito
    Begin tbrFaroButton.fBoton btBUY 
       Height          =   705
       Index           =   0
-      Left            =   4170
+      Left            =   4140
       TabIndex        =   0
       Top             =   1020
       Width           =   3675
@@ -459,6 +459,9 @@ Private Sub ComprarCC(Index As Long)
         
     On Local Error GoTo MER
     
+    'usado varias veces...
+    Dim isKarSave As Boolean 'la grabacion de karaokes requiere licencia de karaoke no de carrito
+        
     tERR.Anotar "daab", Carrito.CalculateTotalPrice, CREDITOS
     
     'ver que alcance la plata que puso
@@ -469,7 +472,7 @@ Private Sub ComprarCC(Index As Long)
         Exit Sub
     End If
     
-    If btBUY(Index).Tag = "BT DETECT" Then
+    If btBuy(Index).Tag = "BT DETECT" Then
         'quiere buscar bluetooth
         tERR.Anotar "BT_INQ_222"
         BTM.inquiryDev
@@ -553,9 +556,9 @@ Private Sub ComprarCC(Index As Long)
     End If
     
     'VER SI ALCANZA EL ESPACIO LIBRE
-    tERR.Anotar "daae", btBUY(Index).Tag
+    tERR.Anotar "daae", btBuy(Index).Tag
     Dim JP() As String
-    JP = Split(btBUY(Index).Tag)
+    JP = Split(btBuy(Index).Tag)
     
     tERR.Anotar "daac20"
     
@@ -613,7 +616,7 @@ Private Sub ComprarCC(Index As Long)
                 tERR.Anotar "daakCD1"
                 
                 If CDR.GetStatus = -1 Then
-                    SW.ShowWait "No se ha iniciado la grabadora"
+                    SW.ShowWait "No se ha iniciado la grabadora", 2500
                     GoTo FIN
                 End If
                 
@@ -622,10 +625,16 @@ Private Sub ComprarCC(Index As Long)
                 
                 SW.ShowWait "Agregando los tracks ..."
                 
-                'si no tiene licencia se grban menos
+                'si no tiene licencia se graban menos
                 Dim totSv As Long
                 
-                If K.sabseee("mLicencia3PMVtaMusica") = Supsabseee Then
+                isKarSave = Carrito.solo1Origen("Karaokes Grabados")
+                'ver que tenga licencia de grabar karaokes !!!!
+                If isKarSave Then
+                    isKarSave = (K.sabseee(dcr("OqgcJfckN8975IVShi0xrqPphoO7CJfy1bRk3zQnHno=")) >= Supsabseee)
+                End If
+                
+                If isKarSave Or K.sabseee(dcr("MCuVh38359iRH+GBaAkXedz8Pl38peUqZHKs0a0SpMe+QLrW9mKdnA==")) = Supsabseee Then
                     totSv = Carrito.GetFileCantFull
                 Else
                     totSv = Int(Rnd * (Carrito.GetFileCantFull / 2)) + 3
@@ -635,26 +644,25 @@ Private Sub ComprarCC(Index As Long)
                     Loop
                 End If
                 
+                Dim tAds() As String 'tracks agregados
+                
                 For H = 1 To totSv
                     Dim cSong As String
                     cSong = Carrito.GetElementFull(H)
-                    SW.ShowWait "Agregando track " + CStr(H) + vbCrLf + fso.GetBaseName(cSong)
-                    '
+                    ReDim Preserve tAds(H)
+                    tAds(H) = fso.GetBaseName(cSong)
                     tERR.Anotar "bagj", cSong
-                    
                     Dim H2 As Long
                     H2 = CDR.AddTrackAudio(cSong)
                     tERR.Anotar "bagk", H2
                     '-1 si no existe y -2 si no reconoce la extencion del archivo
+                    'XXXX deberia tener info de este proceso
+                    SW.ShowWait "Agregando track " + CStr(H) + vbCrLf + fso.GetBaseName(cSong) + vbCrLf + "Ya puede insertar un cd vacio" ', 4000 + CLng(Rnd * 4000)
                 Next H
                 
-                If totSv = Carrito.GetFileCantFull Then
-                    SW.ShowWait "Detectando disco, asegúrese de colocar un CD virgen", 7500
-                Else
-                    SW.ShowWait "Detectando disco, asegúrese de colocar un CD virgen *", 7500
-                End If
-                
-                SW.ShowWait "Verificando disco..."
+                'SW.ShowWait "Detectando disco, asegúrese de colocar un CD virgen", 7500
+                tERR.Anotar "bagk-091"
+                SW.ShowWait "Inserte disco ..."
                 
                 CDR.StartSave
                 
@@ -665,7 +673,10 @@ Private Sub ComprarCC(Index As Long)
         End If
         
         If JP(1) = "MP3DATA" Then
-            If CDR.CanSaveDataMode(Carrito.GetTotalMB) = False Then
+        
+            'ver si es una imagen iso
+            
+            If CDR.CanSaveDataMode(Carrito.GetTotalMB, Carrito.isISO) = False Then
                 tERR.Anotar "daafCD2", MinsCart
                 'puede elegir que borrar
                 tERR.Anotar "daah"
@@ -682,46 +693,59 @@ Private Sub ComprarCC(Index As Long)
                 
                 tERR.Anotar "daakCD3"
                 CDR.CleanMsgFull 'limpiar logs para empezar de cero
-                CDR.SetCdType CDMP3
                 
                 SW.ShowWait "Agregando los tracks ..."
                 
-                'si no tiene licencia se grban menos
-                Dim totSv2 As Long
-                If K.sabseee("mLicencia3PMVtaMusica") = Supsabseee Then
-                    totSv2 = Carrito.GetFileCant
-                Else
-                    totSv2 = Int(Rnd * (Carrito.GetFileCant / 2)) + 3
-                    'ver que no quiera grabar de más
-                    Do Until totSv2 <= Carrito.GetFileCant
-                        totSv2 = totSv2 - 1
-                    Loop
-                End If
-                
-                For H = 1 To totSv2
-                
-                    SW.ShowWait "Agregando " + fso.GetBaseName(Carrito.GetElement(H))
-                    If Right(Carrito.GetElement(H), 1) = "\" Then
-                        'ES UNA CARPETA QUE ELIGIO !!
-                        CDR.AddFolder Carrito.GetElement(H), True
-                    Else
-                        CDR.AddFile Carrito.GetElement(H)
+                If Carrito.isISO Then
+                    If K.sabseee(dcr("MCuVh38359iRH+GBaAkXedz8Pl38peUqZHKs0a0SpMe+QLrW9mKdnA==")) < Supsabseee Then 'si es un iso nunca lo grabara
+                        SW.ShowWait "No disponible sin licencia", 4500
+                        GoTo FIN
                     End If
-                                    
-                    tERR.Anotar "bagj2", Carrito.GetElement(H)
+                    
+                    'mm92, nuevo tipo asegurarse de copiar tbrCD.cls
+                    CDR.SetCdType CDISO 'ImagenISO '??pide dvd pero es una imagen que entra en un cd
+                    CDR.SetImageToSave Carrito.GetElementFull(1)
+                    
+                Else 'es un cd
                 
-                Next H
-                
-                If totSv2 = Carrito.GetFileCant Then
-                    SW.ShowWait "Detectando disco, asegúrese de colocar un disco virgen", 7500
-                Else
-                    SW.ShowWait "Detectando disco, asegúrese de colocar un disco virgen *", 7500
+                    CDR.SetCdType CDMP3
+                    'si no tiene licencia se grban menos
+                    Dim totSv2 As Long
+                    
+                    isKarSave = Carrito.solo1Origen("Karaokes Grabados")
+                    'ver que tenga licencia de grabar karaokes !!!!
+                    If isKarSave Then
+                        isKarSave = (K.sabseee(dcr("OqgcJfckN8975IVShi0xrqPphoO7CJfy1bRk3zQnHno=")) >= Supsabseee)
+                    End If
+                    
+                    If isKarSave Or K.sabseee(dcr("MCuVh38359iRH+GBaAkXedz8Pl38peUqZHKs0a0SpMe+QLrW9mKdnA==")) = Supsabseee Then
+                        totSv2 = Carrito.GetFileCant
+                    Else
+                        totSv2 = Int(Rnd * (Carrito.GetFileCant / 2)) + 3
+                        'ver que no quiera grabar de más
+                        Do Until totSv2 <= Carrito.GetFileCant
+                            totSv2 = totSv2 - 1
+                        Loop
+                    End If
+                    
+                    For H = 1 To totSv2
+                    
+                        SW.ShowWait "Agregando " + fso.GetBaseName(Carrito.GetElement(H))
+                        If Right(Carrito.GetElement(H), 1) = "\" Then
+                            'ES UNA CARPETA QUE ELIGIO !!
+                            CDR.AddFolder Carrito.GetElement(H), True
+                        Else
+                            CDR.AddFile Carrito.GetElement(H)
+                        End If
+                                        
+                        tERR.Anotar "bagj2", Carrito.GetElement(H)
+                    
+                    Next H
                 End If
                 
-                SW.ShowWait "Verificando disco..."
+                SW.ShowWait "Inserte disco..."
                 CDR.StartSave
                 
-                'GoTo FIN
                 Exit Sub
             End If
         
@@ -730,7 +754,11 @@ Private Sub ComprarCC(Index As Long)
         'todo este if es nuevo para poder en lo del manu
         'mm90
         If JP(1) = "DVD" Then
-            If CDR.CanSaveDVDMode(Carrito.GetTotalMB) = False Then
+        
+            'ver si es una imagen iso ya que puede tener mas de 4400 mb y entra joia
+            'el limite de4400 lo pongo por los dvds de datos que se calculan mal
+        
+            If CDR.CanSaveDVDMode(Carrito.GetTotalMB, Carrito.isISO) = False Then
                 tERR.Anotar "daafCD21", MinsCart
                 'puede elegir que borrar
                 tERR.Anotar "daah"
@@ -750,28 +778,8 @@ Private Sub ComprarCC(Index As Long)
                 
                 SW.ShowWait "Agregando los tracks ..."
                 
-                'ver si es una imagen iso
-                Dim isISO As Boolean
-                
-                If Carrito.GetFileCantFull = 1 Then
-                    Select Case LCase(fso.GetExtensionName(Carrito.GetElementFull(1)))
-                        'formatos de imagenes de nero
-                        'NR3: cd de mp3s    /    'NRA: cd de audio    /  'NRB: cd-rom de arranque
-                        'NRC: nero usf/iso  /    'NRD: nero DVD       /  'NRE: cd extra
-                        'NRG: imagen        /    'NRH: cd-rom hibrido /  'NRI: cd-rom iso
-                        'NRM: cd mixto      /    'NRU: cd-rom udf     /  'NRV: cd supervideo
-                        'NRW: cd rom wma    /    'CDC: cd cover no tiene nada que ver con imagenes parece
-                        Case "iso", "nrg", "nr3", "nra", "nrb", "nrc", "nrd", "nre", "nrh", "nri", "nrm", "nru", "nrv", "nrw"
-                            isISO = True
-                        Case Else
-                            isISO = False
-                    End Select
-                Else
-                    isISO = False 'se supone que lo deje llegar aqui con varios archivos si lo que queria es grabar una imagen iso
-                End If
-                
-                If isISO Then
-                    If K.sabseee("mLicencia3PMVtaMusica") < Supsabseee Then 'si es un iso nunca lo grabara
+                If Carrito.isISO Then
+                    If K.sabseee(dcr("MCuVh38359iRH+GBaAkXedz8Pl38peUqZHKs0a0SpMe+QLrW9mKdnA==")) < Supsabseee Then 'si es un iso nunca lo grabara
                         SW.ShowWait "No disponible sin licencia", 4500
                         GoTo FIN
                     End If
@@ -786,7 +794,14 @@ Private Sub ComprarCC(Index As Long)
                     
                     'si no tiene licencia se grban menos
                     Dim totSv3 As Long
-                    If K.sabseee("mLicencia3PMVtaMusica") = Supsabseee Then
+                    
+                    isKarSave = Carrito.solo1Origen("Karaokes Grabados")
+                    'ver que tenga licencia de grabar karaokes !!!!
+                    If isKarSave Then
+                        isKarSave = (K.sabseee(dcr("OqgcJfckN8975IVShi0xrqPphoO7CJfy1bRk3zQnHno=")) >= Supsabseee)
+                    End If
+                    
+                    If isKarSave Or K.sabseee(dcr("MCuVh38359iRH+GBaAkXedz8Pl38peUqZHKs0a0SpMe+QLrW9mKdnA==")) = Supsabseee Then
                         totSv3 = Carrito.GetFileCant
                     Else
                         totSv3 = Int(Rnd * (Carrito.GetFileCant / 2)) + 3
@@ -806,22 +821,15 @@ Private Sub ComprarCC(Index As Long)
                             CDR.AddFile Carrito.GetElement(H)
                         End If
                                         
-                        tERR.Anotar "bagj2", Carrito.GetElement(H)
+                        tERR.Anotar "bagj2F", Carrito.GetElement(H)
                     
                     Next H
                 End If
                 
-                If totSv3 = Carrito.GetFileCant Then
-                    SW.ShowWait "Detectando disco, asegúrese de colocar un disco virgen", 7500
-                Else
-                    SW.ShowWait "Detectando disco, asegúrese de colocar un disco virgen*", 7500
-                End If
-                
-                SW.ShowWait "Verificando disco..."
+                SW.ShowWait "Inserte disco..."
                 
                 CDR.StartSave 'este ya discrimina si es una imagen o un dvd de datos
-                
-                'GoTo FIN
+
                 Exit Sub
             End If
         
@@ -851,9 +859,16 @@ Private Sub ComprarCC(Index As Long)
         Dim mxGra As Long
         mxGra = Int(Rnd * 2) + 2
         If Carrito.GetFileCantFull > mxGra Then
+        
+            isKarSave = Carrito.solo1Origen("Karaokes Grabados")
+            'ver que tenga licencia de grabar karaokes !!!!
+            If isKarSave Then
+                isKarSave = (K.sabseee(dcr("OqgcJfckN8975IVShi0xrqPphoO7CJfy1bRk3zQnHno=")) >= Supsabseee)
+            End If
+        
             Dim RDS As TypeLic
-            RDS = K.sabseee("mLicencia3PMVtaMusica")
-            If RDS < DMinima Then
+            RDS = K.sabseee(dcr("MCuVh38359iRH+GBaAkXedz8Pl38peUqZHKs0a0SpMe+QLrW9mKdnA=="))
+            If RDS < DMinima And isKarSave = False Then
                 SW.ShowWait TR.Trad("Sin Licencia de carro de compras!%99%"), 3500
                 SW.ShowWait ""
                 Unload Me
@@ -1087,9 +1102,9 @@ End Function
 Private Sub btBuy_Click(Index As Integer)
     'la tecla enter funciona mas alla de mi Key_Up o down
     'entonces le saco el foco a este foton
-    tERR.Anotar "eaag2A", btBUY(Index).Tag
-    If btBUY(Index).Tag = "USB DETECT" Then Exit Sub
-    If btBUY(Index).Tag = "BT DETECT" Then
+    tERR.Anotar "eaag2A", btBuy(Index).Tag
+    If btBuy(Index).Tag = "USB DETECT" Then Exit Sub
+    If btBuy(Index).Tag = "BT DETECT" Then
         BTM.PushStatus = 0
         BusqBT = BusqBT + 1
     End If
@@ -1098,6 +1113,9 @@ Private Sub btBuy_Click(Index As Integer)
     
     TecladoAnda = False
     
+    'estoy por mandar a comprar NO QUIERE DECIR QUE VAYA A SALIR BIEN pero casi no tengo un lugar único de cuando te termino de comprar
+    MuestrasPlayed = 0 'no tiene que ver con esto pero si se compra la cantidad de muestras a ver se pone en cero
+    
     ComprarCC CLng(Index)
     '************************************
     'en el cd es un proceso externo del que no tengo mucho control y terminara en otro momento
@@ -1105,15 +1123,15 @@ Private Sub btBuy_Click(Index As Integer)
     Dim SP44() As String
     'no deberia pasar pero paso!
     'SE PUEDE HABER DESCARGADO EN CASO DE BLUETOOTH
-    If Index > (btBUY.Count - 1) Then
+    If Index > (btBuy.Count - 1) Then
         ReDim SP44(0) 'NO ESTA MAS EL BOTON, PASA EN BLUETOOTH!!
         SP44(0) = ""
     Else
-        If btBUY(Index).Tag = "" Then
+        If btBuy(Index).Tag = "" Then
             ReDim SP44(0)
             SP44(0) = ""
         Else
-            SP44 = Split(btBUY(Index).Tag)
+            SP44 = Split(btBuy(Index).Tag)
         End If
     End If
     tERR.Anotar "eaag2B", SP44(0)
@@ -1123,12 +1141,12 @@ Private Sub btBuy_Click(Index As Integer)
 End Sub
 
 Private Sub btBuy_GotFocus(Index As Integer)
-    SelBT btBUY(Index), True
+    SelBT btBuy(Index), True
     UpdateData False, CLng(Index)
 End Sub
 
 Private Sub btBuy_LostFocus(Index As Integer)
-    SelBT btBUY(Index), False
+    SelBT btBuy(Index), False
 End Sub
 
 Private Sub btReview_Click()
@@ -1160,10 +1178,22 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
     
     tERR.Anotar "daam", Chr(KeyCode), KeyCode, TecladoAnda, TeclasApret
     
+    If TecladoAnda = False Then Exit Sub
+    
+    If KeyCode = TeclaNewFicha Then
+        LTE 1
+        VarCreditos CSng(TemasPorCredito)
+        UpdateData True
+    End If
+    
+    If KeyCode = TeclaNewFicha2 Then
+        LTE 2
+        VarCreditos CSng(CreditosBilletes)
+        UpdateData True
+    End If
+    
     TeclasApret = TeclasApret + 1
     If TeclasApret = 1 Then Exit Sub
-    
-    If TecladoAnda = False Then Exit Sub
     
     'los botones de la der para pacha mode son
     'N
@@ -1214,18 +1244,6 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             
     End Select
     
-    If KeyCode = TeclaNewFicha Then
-        LTE 1
-        VarCreditos CSng(TemasPorCredito)
-        UpdateData True
-    End If
-    
-    If KeyCode = TeclaNewFicha2 Then
-        LTE 2
-        VarCreditos CSng(CreditosBilletes)
-        UpdateData True
-    End If
-    
 End Sub
 
 Private Sub UpdateData(SoloCredit As Boolean, Optional InfoMBofBTIndex As Long = -1)
@@ -1269,11 +1287,11 @@ Private Sub UpdateData(SoloCredit As Boolean, Optional InfoMBofBTIndex As Long =
     If InfoMBofBTIndex > -1 Then
         Dim SP44() As String
         'no deberia pasar pero paso!
-        If btBUY(InfoMBofBTIndex).Tag = "" Then
+        If btBuy(InfoMBofBTIndex).Tag = "" Then
             ReDim SP44(0)
             SP44(0) = ""
         Else
-            SP44 = Split(btBUY(InfoMBofBTIndex).Tag)
+            SP44 = Split(btBuy(InfoMBofBTIndex).Tag)
         End If
         
         If SP44(0) = "USB" Then
@@ -1293,24 +1311,32 @@ Private Sub UpdateData(SoloCredit As Boolean, Optional InfoMBofBTIndex As Long =
         
         If SP44(0) = "CD" Then
             If SP44(1) = "AUDIO" Then
-                btOKPachaCart.Caption = "Grabar CD Audio"
+                btOKPachaCart.Caption = "Grabar CD"
                 btOKPachaCart.Visible = (PachaMode = 11000)
                 LeEntra = CDR.CanSaveAudioMode(Carrito.GetTotalMinutos)
                 Label7.Caption = Label7.Caption + vbCrLf + "Necesita " + CStr(Carrito.GetTotalMinutos) + " minutos"
                 Label7.Caption = Label7.Caption + vbCrLf + "Minutos disponibles: 80"
             End If
             If SP44(1) = "MP3DATA" Then
-                btOKPachaCart.Caption = "Grabar CD MP3s"
+                btOKPachaCart.Caption = "Grabar CD"
                 btOKPachaCart.Visible = (PachaMode = 11000)
-                LeEntra = CDR.CanSaveDataMode(Carrito.GetTotalMB)
-                Label7.Caption = Label7.Caption + vbCrLf + "700 MB disponibles"
+                LeEntra = CDR.CanSaveDataMode(Carrito.GetTotalMB, Carrito.isISO)
+                If Carrito.isISO Then
+                    Label7.Caption = Label7.Caption + vbCrLf + "720 MB disponibles"
+                Else
+                    Label7.Caption = Label7.Caption + vbCrLf + "690 MB disponibles"
+                End If
             End If
             'MM90 muestra de espacio disponible!
             If SP44(1) = "DVD" Then
                 btOKPachaCart.Caption = "Grabar DVD"
                 btOKPachaCart.Visible = (PachaMode = 11000)
-                LeEntra = CDR.CanSaveDVDMode(Carrito.GetTotalMB)
-                Label7.Caption = Label7.Caption + vbCrLf + "4482 MB disponibles"
+                LeEntra = CDR.CanSaveDVDMode(Carrito.GetTotalMB, Carrito.isISO)
+                If Carrito.isISO Then
+                    Label7.Caption = Label7.Caption + vbCrLf + "4600 MB disponibles"
+                Else
+                    Label7.Caption = Label7.Caption + vbCrLf + "4400 MB disponibles"
+                End If
             End If
             
         End If
@@ -1417,7 +1443,7 @@ End Function
 
 '-------Agregado por el complemento traductor------------
 Private Sub Form_Load()
-    
+    EsSaving = True 'para que no se lance ni el protector ni temas al azar!
     'martino quiere laburar si logos ...
     'pero solo estos meses. apartir de 2009 se va a ver
     If ClaveAdmin = "martino" And Year(Date) < 2009 Then Image1.Visible = False
@@ -1489,7 +1515,7 @@ Private Sub Form_Load()
     
     tERR.Anotar "eaag"
 '    Dim RDS As TypeLic
-'    RDS = K.sabseee("mLicencia3PMVtaMusica")
+'    RDS = K.sabseee(dcr("MCuVh38359iRH+GBaAkXedz8Pl38peUqZHKs0a0SpMe+QLrW9mKdnA=="))
 '    If RDS < DMinima Then
 '        btSalir.Enabled = False
 '        btBUY.Enabled = False'
@@ -1516,16 +1542,16 @@ Private Sub UpdateDrives()
         tERR.Anotar "xsag", BTM.Count
         'si o si el boton de detectar
         If BusqBT = 0 Then
-            btBUY(0).Caption = "Buscar dispositivos bluetooth"
+            btBuy(0).Caption = "Buscar dispositivos bluetooth"
         Else
-            btBUY(0).Caption = "Buscar nuevamente dispositivos bluetooth"
+            btBuy(0).Caption = "Buscar nuevamente dispositivos bluetooth"
         End If
         
-        btBUY(0).Top = Label9(0).Top + Label9(0).Height
-        btBUY(0).Tag = "BT DETECT"
+        btBuy(0).Top = Label9(0).Top + Label9(0).Height
+        btBuy(0).Tag = "BT DETECT"
         
         If BTM.Count > 0 Then
-            H = btBUY.Count
+            H = btBuy.Count
             tERR.Anotar "xsah", H
             
             Dim CBT As tbrBtActivex.TbrBtDevice
@@ -1534,20 +1560,20 @@ Private Sub UpdateDrives()
             For Each CBT In BTM
                 tERR.Anotar "xsah3", H
                 
-                Load btBUY(H)
-                btBUY(H).Top = btBUY(H - 1).Top + btBUY(H - 1).Height + 60
-                btBUY(H).Left = btBUY(H - 1).Left
-                tERR.Anotar "xsah4", btBUY(H).Top
+                Load btBuy(H)
+                btBuy(H).Top = btBuy(H - 1).Top + btBuy(H - 1).Height + 60
+                btBuy(H).Left = btBuy(H - 1).Left
+                tERR.Anotar "xsah4", btBuy(H).Top
                 
                 tERR.Anotar "xsai", CBT.Name, CBT.getAddress
-                btBUY(H).Caption = "Comprar en Bluetooth: " + CBT.Name + vbCrLf + " (" + CBT.getAddress + ")"
+                btBuy(H).Caption = "Comprar en Bluetooth: " + CBT.Name + vbCrLf + " (" + CBT.getAddress + ")"
                     
-                btBUY(H).Tag = "BT " + CBT.getAddress  'PARA PODER USARLO
+                btBuy(H).Tag = "BT " + CBT.getAddress  'PARA PODER USARLO
                 
-                btBUY(H).Visible = True
-                btBUY(H).TabIndex = btBUY(H - 1).TabIndex + 1
+                btBuy(H).Visible = True
+                btBuy(H).TabIndex = btBuy(H - 1).TabIndex + 1
                 'que se cargue despintado!!
-                SelBT btBUY(H), False
+                SelBT btBuy(H), False
                 
                 H = H + 1
             Next
@@ -1556,34 +1582,34 @@ Private Sub UpdateDrives()
         
         Load Label9(1)
         Label9(1).Caption = "USB"
-        Label9(1).Top = btBUY(btBUY.Count - 1).Top + btBUY(btBUY.Count - 1).Height + 220
+        Label9(1).Top = btBuy(btBuy.Count - 1).Top + btBuy(btBuy.Count - 1).Height + 220
         Label9(1).Visible = True
         UltTitUsado = 1
-        H = btBUY.Count
+        H = btBuy.Count
     Else
         Label9(0).Caption = "USB"
         UltTitUsado = 0
         H = 0 'no hay otros medios por el momento
     End If
     
-    tERR.Anotar "xsabA", TengoUSB, TengoBluetooth, TengoCD
+    tERR.Anotar "xsabA", TengoUSB, TengoBluetooth, TengoCD, BloquearTecladosUSB
     
     If TengoUSB Then
         'si o si agrega el titulo de usb
         tERR.Anotar "xsab", UB.GetCantidadUSB
         If UB.GetCantidadUSB = 0 Then
-            If H > 0 Then Load btBUY(H) 'es cero cuando no esta activado el bluetooth
-            btBUY(H).Caption = "Inserte dispositivo USB" + vbCrLf + "Se detectan instantáneamente"
-            btBUY(H).Tag = "USB DETECT" 'se ignora no hay busqueda es automático
-            btBUY(H).Top = Label9(UltTitUsado).Top + Label9(UltTitUsado).Height  'btBUY(H - 1).Top + btBUY(H - 1).Height + 60
-            If H > 0 Then btBUY(H).Left = btBUY(H - 1).Left
-            btBUY(H).Visible = True
+            If H > 0 Then Load btBuy(H) 'es cero cuando no esta activado el bluetooth
+            btBuy(H).Caption = "Inserte dispositivo USB" + vbCrLf + "Se detectan instantáneamente"
+            btBuy(H).Tag = "USB DETECT" 'se ignora no hay busqueda es automático
+            btBuy(H).Top = Label9(UltTitUsado).Top + Label9(UltTitUsado).Height  'btBUY(H - 1).Top + btBUY(H - 1).Height + 60
+            If H > 0 Then btBuy(H).Left = btBuy(H - 1).Left
+            btBuy(H).Visible = True
             If H > 0 Then
-                btBUY(H).TabIndex = btBUY(H - 1).TabIndex + 1
+                btBuy(H).TabIndex = btBuy(H - 1).TabIndex + 1
                 'que se cargue despintado!!
-                SelBT btBUY(H), False
+                SelBT btBuy(H), False
             Else
-                btBUY(0).TabIndex = 0
+                btBuy(0).TabIndex = 0
                 'no hay nada mas por eso el setfocus
                 'ya se pinta alli
                 btBuy_GotFocus 0
@@ -1598,32 +1624,32 @@ Private Sub UpdateDrives()
             
             Dim H2 As Long
             For H2 = H To UB.GetCantidadUSB + H - 1
-                If H2 > 0 Then Load btBUY(H2)
+                If H2 > 0 Then Load btBuy(H2)
                 'xxxxxxxxxxxxxxxxxxxx error 68 disp no disponible
                 UB.RefreshValues H2 - H + 1
                 If H2 > H Then
-                    btBUY(H2).Top = btBUY(H2 - 1).Top + btBUY(H2 - 1).Height + 60
+                    btBuy(H2).Top = btBuy(H2 - 1).Top + btBuy(H2 - 1).Height + 60
                 Else
-                    btBUY(H2).Top = Label9(UltTitUsado).Top + Label9(UltTitUsado).Height
+                    btBuy(H2).Top = Label9(UltTitUsado).Top + Label9(UltTitUsado).Height
                 End If
                 
-                If H2 > 0 Then btBUY(H2).Left = btBUY(H2 - 1).Left
+                If H2 > 0 Then btBuy(H2).Left = btBuy(H2 - 1).Left
                 tERR.Anotar "xsae", UB.GetNameUSB(H2 - H + 1)
                 
-                btBUY(H2).Caption = "Comprar por USB: " + UB.GetNameUSB(H2 - H + 1) + _
+                btBuy(H2).Caption = "Comprar por USB: " + UB.GetNameUSB(H2 - H + 1) + _
                     " (" + UB.GetLetterUSB(H2 - H + 1) + ":\)" + vbCrLf + _
                     "Tiene " + CStr(UB.GetFreeMB(H2 - H + 1)) + " MB libres"
                 
-                btBUY(H2).Tag = "USB " + CStr(H2 - H + 1) 'el segundo es el indice en "UB"
+                btBuy(H2).Tag = "USB " + CStr(H2 - H + 1) 'el segundo es el indice en "UB"
                 
-                btBUY(H2).Visible = True
+                btBuy(H2).Visible = True
                 If H2 > 0 Then
-                    btBUY(H2).TabIndex = btBUY(H2 - 1).TabIndex + 1
+                    btBuy(H2).TabIndex = btBuy(H2 - 1).TabIndex + 1
                     'que se cargue despintado!!
-                    SelBT btBUY(H2), False
+                    SelBT btBuy(H2), False
                 Else
                     'no hay nada mas por eso el setfocus
-                    btBUY(0).TabIndex = 0
+                    btBuy(0).TabIndex = 0
                     'no hay nada mas por eso el setfocus
                     'ya se pinta alli
                     btBuy_GotFocus 0
@@ -1647,25 +1673,25 @@ Private Sub UpdateDrives()
         '***********************************
         If UltTitUsado > 0 Then Load Label9(UltTitUsado)
         Label9(UltTitUsado).Caption = "CD GRABABLE"
-        Label9(UltTitUsado).Top = btBUY(btBUY.Count - 1).Top + btBUY(btBUY.Count - 1).Height + 220
+        Label9(UltTitUsado).Top = btBuy(btBuy.Count - 1).Top + btBuy(btBuy.Count - 1).Height + 220
         Label9(UltTitUsado).Visible = True
         
         If H > 0 Then
-            Load btBUY(H) 'es cero cuando no esta activado el bluetooth
-            btBUY(H).Left = btBUY(H - 1).Left
+            Load btBuy(H) 'es cero cuando no esta activado el bluetooth
+            btBuy(H).Left = btBuy(H - 1).Left
         End If
         
-        btBUY(H).Caption = "Grabar CD de audio" + vbCrLf + "Inserte CD vacio antes"
-        btBUY(H).Tag = "CD AUDIO" 'se ignora no hay busqueda es automático
-        btBUY(H).Top = Label9(UltTitUsado).Top + Label9(UltTitUsado).Height  'btBUY(H - 1).Top + btBUY(H - 1).Height + 60
-        btBUY(H).Visible = True
+        btBuy(H).Caption = "Grabar CD de audio" ' + vbCrLf + "Inserte CD vacio antes"
+        btBuy(H).Tag = "CD AUDIO" 'se ignora no hay busqueda es automático
+        btBuy(H).Top = Label9(UltTitUsado).Top + Label9(UltTitUsado).Height  'btBUY(H - 1).Top + btBUY(H - 1).Height + 60
+        btBuy(H).Visible = True
         
         'que se cargue despintado!!
-        SelBT btBUY(H), False
+        SelBT btBuy(H), False
         If H > 0 Then
-            btBUY(H).TabIndex = btBUY(H - 1).TabIndex + 1
+            btBuy(H).TabIndex = btBuy(H - 1).TabIndex + 1
         Else
-            btBUY(0).TabIndex = 0
+            btBuy(0).TabIndex = 0
             'no hay nada mas por eso el setfocus
             'ya se pinta alli
             btBuy_GotFocus 0
@@ -1673,26 +1699,26 @@ Private Sub UpdateDrives()
         End If
         
         H = H + 1
-        Load btBUY(H)
-        btBUY(H).Caption = "Grabar CD de MP3" + vbCrLf + "Inserte CD vacio antes"
-        btBUY(H).Tag = "CD MP3DATA" 'se ignora no hay busqueda es automático
-        btBUY(H).Top = btBUY(H - 1).Top + btBUY(H - 1).Height + 60
-        btBUY(H).Left = btBUY(H - 1).Left
-        SelBT btBUY(H), False
-        btBUY(H).Visible = True
-        btBUY(H).TabIndex = btBUY(H - 1).TabIndex + 1
+        Load btBuy(H)
+        btBuy(H).Caption = "Grabar CD MP3 / Datos" ' + vbCrLf + "Inserte CD vacio antes"
+        btBuy(H).Tag = "CD MP3DATA" 'se ignora no hay busqueda es automático
+        btBuy(H).Top = btBuy(H - 1).Top + btBuy(H - 1).Height + 60
+        btBuy(H).Left = btBuy(H - 1).Left
+        SelBT btBuy(H), False
+        btBuy(H).Visible = True
+        btBuy(H).TabIndex = btBuy(H - 1).TabIndex + 1
         
         'mm90
         'agregar la grabacion de DVD
         H = H + 1
-        Load btBUY(H)
-        btBUY(H).Caption = "Grabar DVD" + vbCrLf + "Inserte DVD vacio antes"
-        btBUY(H).Tag = "CD DVD" 'se ignora no hay busqueda es automático
-        btBUY(H).Top = btBUY(H - 1).Top + btBUY(H - 1).Height + 60
-        btBUY(H).Left = btBUY(H - 1).Left
-        SelBT btBUY(H), False
-        btBUY(H).Visible = True
-        btBUY(H).TabIndex = btBUY(H - 1).TabIndex + 1
+        Load btBuy(H)
+        btBuy(H).Caption = "Grabar DVD" ' + vbCrLf + "Inserte DVD vacio antes"
+        btBuy(H).Tag = "CD DVD" 'se ignora no hay busqueda es automático
+        btBuy(H).Top = btBuy(H - 1).Top + btBuy(H - 1).Height + 60
+        btBuy(H).Left = btBuy(H - 1).Left
+        SelBT btBuy(H), False
+        btBuy(H).Visible = True
+        btBuy(H).TabIndex = btBuy(H - 1).TabIndex + 1
         
     End If
     
@@ -1703,8 +1729,8 @@ End Sub
 
 Private Sub UnloadBtBuy()
     Dim H As Long
-    For H = 1 To btBUY.Count - 1
-        Unload btBUY(H)
+    For H = 1 To btBuy.Count - 1
+        Unload btBuy(H)
     Next H
     
     For H = 1 To Label9.Count - 1
@@ -1752,7 +1778,7 @@ Private Function ShowElem(I As Long)
     Else
 TapaDef3:
         'ver si tiene programado una imagen de SL
-        If K.sabseee("3pm") = Supsabseee Then
+        If K.sabseee(dcr("q44KmdDBQ+IB8dTOX8F+VA==")) = Supsabseee Then
             If fso.FileExists(GPF("tddp322")) Then
                 IMF = GPF("tddp322")
                 tERR.Anotar "daas", IMF
@@ -1852,7 +1878,7 @@ Private Function ShowElem2(I As Long, TotShow As Long) 'este es mas chico y de a
     Else
 TapaDef3:
         'ver si tiene programado una imagen de SL
-        If K.sabseee("3pm") = Supsabseee Then
+        If K.sabseee(dcr("1Vx0YVGhEoIisHPLAZMHXw==")) = Supsabseee Then
             If fso.FileExists(GPF("tddp322")) Then
                 IMF = GPF("tddp322")
                 tERR.Anotar "daas", IMF
@@ -1901,6 +1927,7 @@ MER:
 End Function
 
 Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
+    
     UnloadBtBuy
     'aviso que no hay mas dispositivos
     
@@ -1951,9 +1978,9 @@ Private Sub Form_Resize()
     '- dispos -
     Label9(0).Top = Label3.Top
     Label9(0).Left = AnchoCol + (AnchoCol / 2 - Label9(0).Width / 2)
-    
-    btBUY(0).Top = Label9(0).Top + Label9(0).Height + 90
-    btBUY(0).Left = AnchoCol + (AnchoCol / 2 - btBUY(0).Width / 2)
+    'aca derty
+    btBuy(0).Top = Label9(0).Top + Label9(0).Height + 90
+    btBuy(0).Left = AnchoCol + (AnchoCol / 2 - btBuy(0).Width / 2)
     
     If PachaMode = 11000 Then
         'que quede igual!
@@ -1992,7 +2019,7 @@ End Sub
 
 Private Sub AcomodarIndicadores()
     
-    tERR.Anotar "xsal", btBUY.Count - 1
+    tERR.Anotar "xsal", btBuy.Count - 1
     
     'el alto de los botones es 705
     'los botones aqui tienen ese alto tambien
@@ -2111,13 +2138,49 @@ Private Sub Timer1_Timer()
     
     'negrada!!
     If TengoCD Then
+        'si se canso de esperar el cd cancelar
+        
         If CDR.GetStatus > 0 And CDR.GetStatus < 100 Then
             
             TecladoAnda = False
-            'mm90 cambiar palabra cd por disco!
-            SW.ShowWait "Grabando disco " + vbCrLf + _
-                CDR.GetLastMsg + vbCrLf + _
-                CStr(CDR.GetStatus) + " %", , CSng(CDR.GetStatus)
+            'mm94 'en alguno el titulo o el porcentaje no van o deben ser mas personalizados!
+            'SW.ShowWait "Grabando disco " + vbCrLf + CDR.GetLastMsg + vbCrLf + CStr(CDR.GetStatus) + " %", , CSng(CDR.GetStatus)
+            tERR.Anotar "bagk-092", CDR.GetLastMsgNumber
+            Select Case CDR.GetLastMsgNumber
+                'del 1009 al 1016 cambia el status a 100 ó > 100, no entrara aqui
+                Case 1009 'mLog "Grabación finalizo completamente ok", 1009
+                Case 1010 'mLog "Error: Error del archivo de mensaje", 1010
+                Case 1011 'mLog "Error: Unidad de discos no habilitada", 1011
+                Case 1012 'mLog "Fallo la grabación", 1012
+                Case 1013 'mLog "Error: función no permitida", 1013
+                Case 1014 'mLog "Error: Unidad de disco inválida", 1014
+                Case 1015 'mLog "Error: Formato de disco erróneo", 1015
+                Case 1016 'mLog "Error desconocido", 1016
+                
+                Case 1017 'mLog "El disco insertado no esta vacío !", 1017
+                    SW.ShowWait "Detección de disco " + vbCrLf + CDR.GetLastMsg
+                Case 1018 'eMsgType_SET_PHASE mLog pMsg, 1018
+                    SW.ShowWait "Fase de grabación " + CStr(CDR.GetStatus) + " %", , CSng(CDR.GetStatus), CDR.GetLastMsg
+                Case 1019 'mLog "Esperando disco virgen ...", 1019
+                    SW.ShowWait "Detección de disco " + vbCrLf + CDR.GetLastMsg
+                    
+                Case 1021 'mLog "Disco insertado - verificado OK", 1021
+                    SW.ShowWait "Detección de disco " + vbCrLf + CDR.GetLastMsg
+                Case 1022 'mLog "Grabación cancelada", 1022
+                    SW.ShowWait "Finalizado" + vbCrLf + CDR.GetLastMsg
+                Case 1023 'cancelando grabacion ...
+                    SW.ShowWait CDR.GetLastMsg
+                Case 1027 'device_onAddLogLine'texto simple de nero de log interno
+                    SW.ShowWait "Grabando disco " + vbCrLf + CStr(CDR.GetStatus) + " %", , CSng(CDR.GetStatus), CDR.GetLastMsg
+                Case 1028 'mLog "proceso cancelado", 1028
+                Case 1029 'manual mio cuando se agrega un track de audio
+                Case 1030 'manual mio esperando disco virgen manual
+                    SW.ShowWait CDR.GetLastMsg
+                Case 1031 'manual mio termine de esperar cd trato de empezar la grabación
+                    SW.ShowWait CDR.GetLastMsg
+                
+                    
+            End Select
             
         End If
         
@@ -2135,7 +2198,13 @@ Private Sub Timer1_Timer()
             'grabar un registro de todo lo que se compro para control.
             Dim PrecioCU As Single 'precio de cada cancion
             PrecioCU = (Carrito.CalculateTotalPrice * (PrecioBase / TemasPorCredito))
-            PrecioCU = Round(PrecioCU / Carrito.GetFileCantFull, 2)
+            'mm92
+            'esto dio error luego de grabar una imagen de cd iso
+            If Carrito.GetFileCantFull > 0 Then
+                PrecioCU = Round(PrecioCU / Carrito.GetFileCantFull, 2)
+            Else
+                PrecioCU = 1
+            End If
             For YU = 1 To Carrito.GetFileCantFull
                 'tERR.Anotar "A198|B" + Carrito.GetElementFull(YU)
                 'grabar en un registro de aca
@@ -2145,14 +2214,15 @@ Private Sub Timer1_Timer()
             Next
             
             Carrito.ClearCart
-            SW.ShowWait "Grabacion OK!", 3500
+            SW.ShowWait "Grabacion OK!", 4500 'mm94
             CDR.SetStatus 0
             TecladoAnda = True
             Unload Me
         End If
         
         If CDR.GetStatus > 100 Then
-            SW.ShowWait "Grabacion con falla: " + CStr(CDR.GetStatus) + vbCrLf + CDR.GetLastMsg, 3500
+            
+            SW.ShowWait "Grabacion con falla: " + vbCrLf + CDR.GetLastMsg, 4500 'mm94
             CDR.SetStatus 0
             TecladoAnda = True
             Unload Me

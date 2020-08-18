@@ -29,7 +29,13 @@ Private Sub Class_Initialize()
     ReDim PROPs(0)
 End Sub
 
-Public Function Open_Jar(sFile As String) As Long
+Public Function Open_Jar(sFile As String, ignorarExistentes As Boolean) As Long
+    'se le pasa un archivo jar como parametro y devuelve el path del archivo MF con la info del jar
+    'ademas coloca el archivo mf en la misma carpeta que el jar con el mismo nombre exacto epro con la extencion jar
+    'devuelve 0 si todo esta ok
+    'devuelve 1 si no hay jar
+    'devuelve 2 si no se extrajo el mf
+    
     If fso.FileExists(sFile) Then
         mFile = sFile
     Else
@@ -37,9 +43,22 @@ Public Function Open_Jar(sFile As String) As Long
         Exit Function
     End If
     
+    ManifPath = fso.GetParentFolderName(sFile) + "\" + fso.GetBaseName(sFile) + ".MF"
+    
+    'si ya existe salir el nobrejava.MF quiere decir que ya lo hice!
+    If fso.FileExists(ManifPath) Then
+        If ignorarExistentes Then
+            Open_Jar = 3
+            Exit Function
+        Else
+            'quiere rehacer la base!!
+            fso.DeleteFile ManifPath, True
+        End If
+    End If
+    
     On Local Error Resume Next
     
-    'si ya hay un manifiesto borrarlo! (siemrpe usa la carpeta actual y es un lio cambiarla o saber cual es
+    'si ya hay un manifiesto borrarlo! (siempre usa la carpeta actual y es un lio cambiarla o saber cual es
     If fso.FileExists("META-INF\MANIFEST.MF") Then
         fso.DeleteFile "META-INF\MANIFEST.MF", True
     End If
@@ -51,10 +70,8 @@ Public Function Open_Jar(sFile As String) As Long
     comEx = "jar xf " + Chr(34) + mFile + Chr(34) + " META-INF\MANIFEST.MF *.jpg"
     res = Shell(comEx, vbHide) 'extraer solo el archivo de información , el vbHide hara que no se vea la ventana de DOS
     
-    EsperarSec 1 'esperar a que se extraiga!
-    
-    ManifPath = fso.GetParentFolderName(sFile) + "\" + fso.GetBaseName(sFile) + ".MF"
-    
+    EsperarSec 2 'esperar a que se extraiga! (con 1 segundo salen casi todos pero las pcs viejas pueden tener problemas
+        
     fso.CopyFile "META-INF\MANIFEST.MF", ManifPath 'si hay error lo saltea, parece que fileExists no labura sin path completo. Por eso me tiro el lanze de copiarlo
     
     'supuestamente si todo salio ok existira el archivo manifiesto ya descomprimido
@@ -67,6 +84,7 @@ Public Function Open_Jar(sFile As String) As Long
         Open_Manifest ManifPath
         'solo para leerlos
         EscribirArch1Linea2 ManifPath, TraslateManifest
+        Open_Jar = 0
     End If
     
     Open_Jar = 0
@@ -76,6 +94,7 @@ End Function
 Public Function Open_Manifest(sFile As String) As String
     'devuelve todo el archivo o vacio si no esta
     
+       
     'ya se asegura antes que exista! pero ...
     If fso.FileExists(sFile) = False Then
         Open_Manifest = ""
@@ -106,6 +125,8 @@ Public Function Open_Manifest(sFile As String) As String
         End If
     End If
     
+    'LIMPIAR LAS PROPIEDADES!!! NO ESTABA Y ACUMULABA TODOS LOS ABIERTOS!!!
+    ReDim PROPs(0)
     
     Dim H As Long, SP2() As String 'dentro de cada renglon se separa con ":"
     Dim PropName As String, PropValue As String
@@ -124,7 +145,7 @@ End Function
 Public Function getStringManifest(sFileJar As String)
     'si ya esta creado lo devuelvo si no lo creo
     If ManifPath = "" Then
-        Open_Jar sFileJar
+        Open_Jar sFileJar, True
     End If
     
     If ManifPath = "" Then 'no lo pudo abrir o encontrar!

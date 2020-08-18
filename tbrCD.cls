@@ -37,12 +37,13 @@ Private Unidades() As tbrDriveCd 'paquete de unidades de cd disponibles
 Public Enum TipoCD
     CDAudio = 1
     CDMP3 = 2
-    CDDatos = 3
-    ImagenNGR = 4
+    CDDATOS = 3
+    ImagenNRG = 4
     ImagenISO = 5
     DVDData = 6
+    CDISO = 7
 End Enum
-Private tipeThis As TipoCD 'tipo de la actual compilacion
+Private tipoThis As TipoCD 'tipo de la actual compilacion
 
 
 'evento de porcentaje
@@ -59,6 +60,9 @@ Private Status As Long
 Private MsgSinLeer As String 'acumula mensajes de log sin leer para cuando no use los eventos
 Private MsgFull As String 'acumula todos los mensajes
 Private LastMsg As String 'ultima de las notificaciones!
+Private LastMsgNumber As Long  'para olvidarme de los textos le doy un id a cada evento que pasa
+
+Private Declare Function mciSendString Lib "winmm.dll" Alias "mciSendStringA" (ByVal lpstrCommand As String, ByVal lpstrReturnString As String, ByVal uReturnLength As Long, ByVal hwndCallback As Long) As Long
 
 'solo una vez al inicio de 3Pm o la primera vez que se inicie el carrito
 Public Function DetectarUnidades() As Long
@@ -110,6 +114,11 @@ Public Function GetLastMsg() As String
     GetLastMsg = LastMsg
 End Function
 
+'mm94
+Public Function GetLastMsgNumber() As String
+    GetLastMsgNumber = LastMsgNumber
+End Function
+
 Public Function CleanMsgFull()
     MsgFull = ""
 End Function
@@ -124,14 +133,14 @@ Private Sub Class_Initialize()
     MsgSinLeer = ""
     MsgFull = ""
     LastMsg = ""
-    
+    LastMsgNumber = -1 'mm94
     'mm91
     tERR.Anotar "bgae41"
     Set mMp3 = New tbrBurner.clsMp3
     tERR.Anotar "bgae42"
     Set mImage = New tbrBurner.clsImage 'imagen NRG o ISO
     tERR.Anotar "bgae43"
-    Set mAudio = New tbrBurner.clsTracks 'disco de audio viejo
+    Set mAudio = New tbrBurner.clsTracks  'disco de audio viejo
     
     Exit Sub
     
@@ -142,7 +151,7 @@ End Sub
 
 Public Function Iniciar() As Long
     On Local Error GoTo NoIniCD
-    'ver si hay grabadoras
+    'ver si hay grabadoras, si no ni abro lo del paliza
     Dim H As Long
     H = DetectarUnidades
     tERR.Anotar "bgaf", H
@@ -151,7 +160,7 @@ Public Function Iniciar() As Long
         
         Set devices = New tbrBurner.clsDevices
         'Solo se hace la primera vez despues solo se pide DefaultDevice
-        devices.SetDefaultDevice devices.GetItem(0) 'meto la priomera grabadora que haya
+        devices.SetDefaultDevice devices.GetItem(0) 'meto la primera grabadora que haya
         
         ''' Se deberia recorrer la coleccion de devices para saber cual elegir
         Set device = devices.GetDefaultDevice()
@@ -172,14 +181,16 @@ NoIniCD:
         Case 429 'ActiveX component can't create object
             tERR.AppendLog "NoIniCD02", tERR.ErrToTXT(Err)
             Iniciar = 3
+        Case -2147024894 'err de automatizacion
+            Iniciar = Err.Number
         Case Else
             tERR.AppendLog "NoIniCD01", tERR.ErrToTXT(Err)
+            Iniciar = Err.Number
     End Select
-    
     
 End Function
 
-'cuando termina de grabarse un CD y me diçoy por enterado debo avisar aqui!!!
+'cuando termina de grabarse un CD y me doy por enterado debo avisar aqui!!!
 Public Sub SetStatus(newStatus As Long)
     Status = newStatus
 End Sub
@@ -189,14 +200,19 @@ Public Function GetStatus() As Long
 End Function
 
 Public Function SetCdType(tipo As TipoCD)
-    If tipo = CDAudio Then device.MediaType = NERO_MEDIA_TYPE_NERO_MEDIA_CD
-    If tipo = CDDatos Then device.MediaType = NERO_MEDIA_TYPE_NERO_MEDIA_CD 'no estoy seguro!
-    If tipo = CDMP3 Then device.MediaType = NERO_MEDIA_TYPE_NERO_MEDIA_CD 'no estoy seguro!
-    If tipo = ImagenNGR Then device.MediaType = NERO_MEDIA_TYPE_NERO_MEDIA_DVD_ANY
-    If tipo = ImagenISO Then device.MediaType = NERO_MEDIA_TYPE_NERO_MEDIA_DVD_ANY
-    If tipo = DVDData Then device.MediaType = NERO_MEDIA_TYPE_NERO_MEDIA_DVD_ANY
-    
-    tipeThis = tipo
+    If IsNull(device) Then
+        tERR.AppendLog "NoIniDevice09112"
+    Else
+        If tipo = CDAudio Then device.MediaType = NERO_MEDIA_TYPE_NERO_MEDIA_CD
+        If tipo = CDDATOS Then device.MediaType = NERO_MEDIA_TYPE_NERO_MEDIA_CD 'no estoy seguro!
+        If tipo = CDMP3 Then device.MediaType = NERO_MEDIA_TYPE_NERO_MEDIA_CD 'no estoy seguro!
+        If tipo = CDISO Then device.MediaType = NERO_MEDIA_TYPE_NERO_MEDIA_CD 'no estoy seguro!
+        If tipo = ImagenNRG Then device.MediaType = NERO_MEDIA_TYPE_NERO_MEDIA_DVD_ANY
+        If tipo = ImagenISO Then device.MediaType = NERO_MEDIA_TYPE_NERO_MEDIA_DVD_ANY
+        If tipo = DVDData Then device.MediaType = NERO_MEDIA_TYPE_NERO_MEDIA_DVD_ANY
+        
+        tipoThis = tipo
+    End If
 End Function
 
 Public Function AddFile(sPath As String) As Long
@@ -251,12 +267,15 @@ Public Function AddTrackAudio(sPath As String) As Long
         Case "mp3": T.TrackTipe = NERO_AUDIO_TRACK_TYPE_NERO_AUDIO_TRACK_FILE_MP3
         Case "wma": T.TrackTipe = NERO_AUDIO_TRACK_TYPE_NERO_AUDIO_TRACK_FILE_WMA
         Case "wav": T.TrackTipe = NERO_AUDIO_TRACK_TYPE_NERO_AUDIO_TRACK_FILE_WAV
-        'case"NOSE":t.TrackTipe = NERO_AUDIO_TRACK_TYPE_NERO_AUDIO_TRACK_THROUGH_EVENT
+        'case "NOSE":t.TrackTipe = NERO_AUDIO_TRACK_TYPE_NERO_AUDIO_TRACK_THROUGH_EVENT
         Case Else
+            'AVISAR AL IDIOTA POR EJEPLO SI SON MPG!!
+            tERR.AppendLog "bagk-094", LCase(fso.GetExtensionName(sPath))
             AddTrackAudio = -2
             Exit Function
     End Select
         
+    mLog "Agregando track " + fso.GetBaseName(sPath), 1029
     mAudio.Add T
 
 End Function
@@ -264,35 +283,104 @@ End Function
 'empieza a grabar
 Public Sub StartSave()
     
-    If tipeThis = CDAudio Then device.BurnAudio mAudio
+    On Local Error GoTo errSAVE
     
-    If tipeThis = CDDatos Then device.BurnMp3 mMp3
-    If tipeThis = CDMP3 Then device.BurnMp3 mMp3
+    CDDoor "open" 'hasta que el nero lo pida ...
+    
+    'ver si hay algun proceso mal terminado!!
+    'NO SE COMO !
+    
+    'se acaba de abrir la puerta del CD, darle tiempo antes de mandar la grabación
+    'ya que si la ndo y llega el evento que espero un cd todo se aborta
+    Status = 1 'si no no muestra nada !!!
+    Dim n As Single
+    Dim S As Long, LastS As Long 'es para mi propio segudero
+    n = Timer + 10
+    Do While Timer < n
+        DoEvents
+        S = CLng(n - Timer)
+        If LastS <> S Then
+            mLog "Esperando disco vacio" + vbCrLf + CStr(S), 1030
+            LastS = S
+        End If
+    Loop
+    mLog "Aguarde ...", 1031
+
+    
+    If tipoThis = CDAudio Then device.BurnAudio mAudio
+    
+    'mm94
+    'mMp3.ISOTrack.Name = "" 'n9ombre de la compilacion (nombre del cd)
+    
+    If tipoThis = CDDATOS Then device.BurnMp3 mMp3
+    If tipoThis = CDMP3 Then device.BurnMp3 mMp3
         
-    If tipeThis = ImagenNGR Then device.BurnImage mImage
-    If tipeThis = ImagenISO Then device.BurnImage mImage
+    If tipoThis = CDISO Then device.BurnImage mImage
+    If tipoThis = ImagenNRG Then device.BurnImage mImage
+    If tipoThis = ImagenISO Then device.BurnImage mImage
     
-    '???? sera asi un dvd de datos ????
-    If tipeThis = DVDData Then device.BurnMp3 mMp3
+    If tipoThis = DVDData Then device.BurnMp3 mMp3
+    
+    Exit Sub
+    
+errSAVE:
+    tERR.AppendLog "gasc", tERR.ErrToTXT(Err)
+    Select Case Err.Number
+        Case -2147220984 'ya hay un proceso de grabacion del nero!!!
+            Abort
+    End Select
+    
     
 End Sub
 
+Public Sub Abort()
+    'la compilacion de nero se debe borrar
+    Select Case tipoThis
+        Case CDAudio:            Set mAudio = New tbrBurner.clsTracks
+        Case CDDATOS:            Set mMp3 = New tbrBurner.clsMp3
+        Case CDISO:              Set mImage = New tbrBurner.clsImage
+        Case CDMP3:              Set mMp3 = New tbrBurner.clsMp3
+        Case DVDData:            Set mMp3 = New tbrBurner.clsMp3
+        Case ImagenISO:          Set mImage = New tbrBurner.clsImage
+        Case ImagenNRG:          Set mImage = New tbrBurner.clsImage
+    End Select
+    
+    device.Abort = True
+    mLog "Cancelando grabación ...", 1023
+End Sub
+
 'dice si se puede grabar, tiene en cuenta el espacio
-Public Function CanSaveDataMode(CantMB As Long) As Boolean
-    If CantMB > 695 Then
-        CanSaveDataMode = False
+Public Function CanSaveDataMode(CantMB As Long, paraISO As Boolean) As Boolean
+    If paraISO Then
+        If CantMB > 720 Then
+            CanSaveDataMode = False
+        Else
+            CanSaveDataMode = True
+        End If
     Else
-        CanSaveDataMode = True
+        If CantMB > 690 Then
+            CanSaveDataMode = False
+        Else
+            CanSaveDataMode = True
+        End If
     End If
 End Function
 
 'mm90
 'dice si se puede grabar, tiene en cuenta el espacio
-Public Function CanSaveDVDMode(CantMB As Long) As Boolean
-    If CantMB > 4482 Then 'esto es 4,7 GB mentirosos (en decimal o sea 4.700.000.000 bytes = 4,38 GB reales)
-        CanSaveDVDMode = False
+Public Function CanSaveDVDMode(CantMB As Long, paraISO As Boolean) As Boolean
+    If paraISO Then
+        If CantMB > 4600 Then 'esto es 4,7 GB mentirosos (en decimal o sea 4.700.000.000 bytes = 4,38 GB reales)
+            CanSaveDVDMode = False
+        Else
+            CanSaveDVDMode = True
+        End If
     Else
-        CanSaveDVDMode = True
+        If CantMB > 4400 Then 'esto es 4,7 GB mentirosos (en decimal o sea 4.700.000.000 bytes = 4,38 GB reales)
+            CanSaveDVDMode = False
+        Else
+            CanSaveDVDMode = True
+        End If
     End If
 End Function
 
@@ -306,16 +394,19 @@ Public Function CanSaveAudioMode(CantMinutos As Long) As Boolean
 End Function
 
 Private Sub device_onAddLogLine(ByVal pMsg As String)
+    'puedo recibir algun texzto y no tener porcentaje o que andresP lo haya sacada. Busco que todo se vea en el 3PM
+    If Status = 0 Then Status = 1
     tERR.Anotar "bgab-2", pMsg
-    mLog pMsg
+    mLog pMsg, 1027 'mm94
     'tERR.AppendSinHist CStr(time) + ": " + pMsg
     RaiseEvent MensajeLog(pMsg)
 End Sub
 
-Private Sub mLog(mMsg As String)
+Private Sub mLog(mMsg As String, msgNumber As Long)
     MsgSinLeer = MsgSinLeer + vbCrLf + CStr(time) + ": " + mMsg + " (" + CStr(Status) + ")"
     MsgFull = MsgFull + vbCrLf + CStr(time) + ": " + mMsg + " (" + CStr(Status) + ")"
     LastMsg = mMsg
+    LastMsgNumber = msgNumber 'mm94
     tERR.AppendSinHist "papalo " + CStr(time) + ": " + mMsg + " (" + CStr(Status) + ")"
 End Sub
 
@@ -323,42 +414,49 @@ Private Sub device_onDoneBurn(ByVal pError As tbrBurner.NERO_BURN_ERROR)
     Select Case pError
         Case tbrBurner.NERO_BURN_ERROR.NERO_BURN_ERROR_NERO_BURN_OK
             'la grabacion finalizo ok
-            LastMsg = "Grafacion finalizo completamente ok"
+            'mm94 enb esta y en cada case
+            mLog "Grabacion finalizo completamente ok", 1009
             tERR.Anotar "bgac"
             Status = 100
             
         Case tbrBurner.NERO_BURN_ERROR.NERO_BURN_ERROR_NERO_BURN_BAD_MESSAGE_FILE
-            LastMsg = "NERO_BURN_ERROR_NERO_BURN_BAD_MESSAGE_FILE"
+            mLog "Error: Error del archivo de mensaje", 1010
             tERR.AppendLog "QUEMOCD-001", LastMsg
             Status = 100 + pError
             
         Case tbrBurner.NERO_BURN_ERROR.NERO_BURN_ERROR_NERO_BURN_DRIVE_NOT_ALLOWED
-            LastMsg = "NERO_BURN_ERROR_NERO_BURN_DRIVE_NOT_ALLOWED"
+            mLog "Error: Unidad de discos no habilitada", 1011
             tERR.AppendLog "QUEMOCD-002", LastMsg
             Status = 100 + pError
             
         Case tbrBurner.NERO_BURN_ERROR.NERO_BURN_ERROR_NERO_BURN_FAILED
-            LastMsg = "NERO_BURN_ERROR_NERO_BURN_FAILED"
+            mLog "Fallo la grabación", 1012
             tERR.AppendLog "QUEMOCD-003", LastMsg
             Status = 100 + pError
             
         Case tbrBurner.NERO_BURN_ERROR.NERO_BURN_ERROR_NERO_BURN_FUNCTION_NOT_ALLOWED
-            LastMsg = "NERO_BURN_ERROR_NERO_BURN_FUNCTION_NOT_ALLOWED"
+            mLog "Error: función no permitida", 1013
             tERR.AppendLog "QUEMOCD-004", LastMsg
             Status = 100 + pError
             
         Case tbrBurner.NERO_BURN_ERROR.NERO_BURN_ERROR_NERO_BURN_INVALID_DRIVE
-            LastMsg = "NERO_BURN_ERROR_NERO_BURN_INVALID_DRIVE"
+            mLog "Error: Unidad de disco inválida", 1014
             tERR.AppendLog "QUEMOCD-005", LastMsg
             Status = 100 + pError
             
         Case tbrBurner.NERO_BURN_ERROR.NERO_BURN_ERROR_NERO_BURN_UNKNOWN_CD_FORMAT
-            LastMsg = "NERO_BURN_ERROR_NERO_BURN_UNKNOWN_CD_FORMAT"
+            mLog "Error: Formato de disco erróneo", 1015
             tERR.AppendLog "QUEMOCD-006", LastMsg
+            Status = 100 + pError
+        
+        'mm94
+        Case tbrBurner.NERO_BURN_ERROR.NERO_BURN_ERROR_NERO_BURN_USER_ABORT
+            mLog "proceso cancelado", 1028
+            tERR.AppendLog "QUEMOCD-007", LastMsg
             Status = 100 + pError
             
         Case Else 'xxxx ver manejo mas detallado
-            LastMsg = "Error desconocido"
+            mLog "Error desconocido", 1016
             tERR.Anotar "bgad", CLng(pError)
             tERR.AppendLog "QUEMOCD-000"
             Status = 100 + pError
@@ -367,24 +465,45 @@ Private Sub device_onDoneBurn(ByVal pError As tbrBurner.NERO_BURN_ERROR)
 End Sub
 
 Private Sub device_OnMessage(ByVal eType As tbrBurner.eMsgType, ByVal pMsg As String)
-    Dim MyMsg As String 'traduccion para mi o para mostrarle al cliente
+    'puedo recibir algun texto y no tener porcentaje o que andresP lo haya sacada. Busco que todo se vea en el 3PM
+    If Status = 0 Then Status = 1
     
     Select Case eType
         Case eMsgType_NON_EMPTY_CD
             'detecto que hay un cd pero no esta vacio!!
-            MyMsg = "El disco insertado no esta vacío !"
+            mLog "El disco insertado no esta vacío !", 1017
         Case eMsgType_SET_PHASE
             'cambio de fase, cada fase es una parte del proceso global y cada una de ellas tiene un texto
-            MyMsg = pMsg
+            mLog pMsg, 1018
         Case eMsgType_WAIT_CD
-            'esta esperando algun cd ... (puede pasar si requiero un dvd y meten un cd)
-            MyMsg = "Esperando disco virgen ..."
+            
+            'si esta esperando el cd quiere decir que no lo inserto
+            'yo por mi cuenta abro la bandeja de cd y le doy x segundos para colocar uno
+            'si cuando pongo startSave llego aqui quiere decir que no inserto!!!!
+            
+            mLog "Esperando disco vacio ...", 1019
+            '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            'parece que no recibo otro evento hasta que no responda y salga de este evento!!!!!
+            '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            'si se va a cancelar debe ser aqui necesariamente!!!
+            '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            'paradoja loca nunca va a llegar el evento de que entro un cd ok hasta que no salga de aca
+            'y no pudo cancelar si salgo de aca
+            '
+            'por todo esto NO USO ESTE EVNETO MAS que para confirmar que no inserto el CD el tiempo que le di
+            'por lo tanto ingresar aqui significa cancelar!!!
+            Abort
+            
         Case eMsgType_WAIT_CD_DONE
             'la espera de un cd virgen joia salio ok
-            MyMsg = "Disco insertado - verificado OK"
+            mLog "Disco insertado - verificado OK", 1021
+        Case eMsgType_ABORTED
+            'la espera de un cd virgen joia salio ok
+            mLog "Grabación cancelada", 1022
+            Status = 199
+        Case Else
+            MsgBox "!!!"
     End Select
-    
-    mLog pMsg
     
     RaiseEvent MensajeLog(pMsg)
 End Sub
@@ -397,6 +516,20 @@ Private Sub device_OnProgress(ByVal ProgressInPercent As Long)
     RaiseEvent PorcGraba(Status)
 End Sub
 
-Public Sub CancelarSave()
-    mLog "Cacelando grabación ..."
-End Sub
+'mm96
+Public Function CDDoor(strAction As String) As Long
+    On Local Error GoTo e
+    'abre "open" o cierra "closed" la puerta de la unidad de CD
+    ' y si hay mas de una !!!!
+    Dim sRET As String, RET As Long
+    sRET = Space(127)
+    RET = mciSendString("set CDAudio door " + strAction, sRET, Len(sRET), 0)
+    tERR.Anotar "gasa", RET, sRET
+    CDDoor = RET
+    
+    Exit Function
+    
+e:
+    tERR.AppendLog "gasa2", tERR.ErrToTXT(Err)
+End Function
+

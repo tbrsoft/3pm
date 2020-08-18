@@ -117,10 +117,10 @@ Public Sub BuscarArchivosUbicVieja()
     On Local Error GoTo ErrBAV
     
     Dim ArchAnt As String, ArchNew As String
-    Dim sF As String: sF = SYSfolder: Dim WF As String: WF = WINfolder
+    Dim SF As String: SF = SYSfolder: Dim WF As String: WF = WINfolder
     
     'lista de origenes de discos
-    ArchAnt = sF + "oddtb.jut": ArchNew = BasePath + "pindo.nga"
+    ArchAnt = SF + "oddtb.jut": ArchNew = BasePath + "pindo.nga"
     ReplaceArch ArchAnt, ArchNew
     
     'creditos actuales
@@ -128,74 +128,74 @@ Public Sub BuscarArchivosUbicVieja()
     ReplaceArch ArchAnt, ArchNew
     
     'config
-    ArchAnt = sF + "3pmcfg.tbr": ArchNew = BasePath + "marad.ona"
+    ArchAnt = SF + "3pmcfg.tbr": ArchNew = BasePath + "marad.ona"
     ReplaceArch ArchAnt, ArchNew
     
     'clave de validacion
-    ArchAnt = sF + "codped.cfg": ArchNew = BasePath + "cpd.dor"
+    ArchAnt = SF + "codped.cfg": ArchNew = BasePath + "cpd.dor"
     ReplaceArch ArchAnt, ArchNew
     
     'Codigos contados para validacion
-    ArchAnt = sF + "radilav.cfg": ArchNew = BasePath + "atak.e77"
+    ArchAnt = SF + "radilav.cfg": ArchNew = BasePath + "atak.e77"
     ReplaceArch ArchAnt, ArchNew
     
     'contadores de creditos sf + "cc891.dll" hasta 894
-    ArchAnt = sF + "cc891.dll": ArchNew = BasePath + "chd.c01"
+    ArchAnt = SF + "cc891.dll": ArchNew = BasePath + "chd.c01"
     ReplaceArch ArchAnt, ArchNew
-    ArchAnt = sF + "cc892.dll": ArchNew = BasePath + "chd.c02"
+    ArchAnt = SF + "cc892.dll": ArchNew = BasePath + "chd.c02"
     ReplaceArch ArchAnt, ArchNew
-    ArchAnt = sF + "cc893.dll": ArchNew = BasePath + "chd.c03"
+    ArchAnt = SF + "cc893.dll": ArchNew = BasePath + "chd.c03"
     ReplaceArch ArchAnt, ArchNew
-    ArchAnt = sF + "cc894.dll": ArchNew = BasePath + "chd.c04"
+    ArchAnt = SF + "cc894.dll": ArchNew = BasePath + "chd.c04"
     ReplaceArch ArchAnt, ArchNew
     
     'copia de seguridad de la config
-    ArchAnt = sF + "autoSave3PM.cfg": ArchNew = BasePath + "eber.lud"
+    ArchAnt = SF + "autoSave3PM.cfg": ArchNew = BasePath + "eber.lud"
     ReplaceArch ArchAnt, ArchNew
     
     'Clave XXXX dejarla del lado freezado ???
-    ArchAnt = sF + "dciLib22.dll": ArchNew = BasePath + "cd3.pm"
+    ArchAnt = SF + "dciLib22.dll": ArchNew = BasePath + "cd3.pm"
     ReplaceArch ArchAnt, ArchNew
     
     'dejarla en system para que la version 7 la lea!!!!
-    ArchNew = sF + "dciLib22.dll"
+    ArchNew = SF + "dciLib22.dll"
     ArchAnt = BasePath + "cd3.pm"
     If fso.FileExists(ArchAnt) Then fso.CopyFile ArchAnt, ArchNew
     
     'Copia clave
-    ArchAnt = sF + "c2LK.dll": ArchNew = BasePath + "cccd3.pm"
+    ArchAnt = SF + "c2LK.dll": ArchNew = BasePath + "cccd3.pm"
     ReplaceArch ArchAnt, ArchNew
     
     'registro diario del contador
-    ArchAnt = sF + "daily.cfg": ArchNew = BasePath + "rdc.day"
+    ArchAnt = SF + "daily.cfg": ArchNew = BasePath + "rdc.day"
     ReplaceArch ArchAnt, ArchNew
     
     'paquete de imagenes
-    ArchAnt = sF + "nev.man": ArchNew = BasePath + "pdis.233"
+    ArchAnt = SF + "nev.man": ArchNew = BasePath + "pdis.233"
     ReplaceArch ArchAnt, ArchNew
     
     '56 modificado por SL
-    ArchAnt = sF + "f5yaSL.nam": ArchNew = BasePath + "233.56b"
+    ArchAnt = SF + "f5yaSL.nam": ArchNew = BasePath + "233.56b"
     ReplaceArch ArchAnt, ArchNew
     
     '58 modificado por SL
-    ArchAnt = sF + "f7yaSL.nam": ArchNew = BasePath + "233.58b"
+    ArchAnt = SF + "f7yaSL.nam": ArchNew = BasePath + "233.58b"
     ReplaceArch ArchAnt, ArchNew
     
     'modif 57 (233)
-    ArchAnt = sF + "f6yaSL.nam": ArchNew = BasePath + "233.57b"
+    ArchAnt = SF + "f6yaSL.nam": ArchNew = BasePath + "233.57b"
     ReplaceArch ArchAnt, ArchNew
     
     'modif 54
-    ArchAnt = sF + "f9yaSL.nam": ArchNew = BasePath + "233.54b"
+    ArchAnt = SF + "f9yaSL.nam": ArchNew = BasePath + "233.54b"
     ReplaceArch ArchAnt, ArchNew
     
     ''reemplazo del reserved cuando no hay
-    ArchAnt = sF + "razaGUID.dll": ArchNew = BasePath + "rempres.44"
+    ArchAnt = SF + "razaGUID.dll": ArchNew = BasePath + "rempres.44"
     ReplaceArch ArchAnt, ArchNew
     
     'reemplazo para señales de monedero
-    ArchAnt = sF + "teclaesp.fas": ArchNew = BasePath + "rempmon.45"
+    ArchAnt = SF + "teclaesp.fas": ArchNew = BasePath + "rempmon.45"
     ReplaceArch ArchAnt, ArchNew
     
     'la 61 config en SL 'Wf + "SL\indexCHI.tbr"
@@ -503,6 +503,7 @@ Function ObtenerDir(ruta As String) As String()
             'corregir el nombre del tema
             newName = Replace(NombreDir, ".", "")
             newName = Replace(newName, "#", "")
+            newName = Replace(NombreDir, ",", "")
             
             tERR.Anotar "001-0054"
             If NombreDir <> newName Then
@@ -556,7 +557,7 @@ solo12: 'solo los 12 primeros
     'en este caso el separador es "," y la columna es 0.
     'seria los mismo que tomara 1 ya que todos tienen el mismo path
     tERR.Anotar "001-0070"
-    Dim MinSTR As String 'comparacoin de cadenas. Empiezo con el máximo
+    Dim MinSTR As String 'comparacion de cadenas. Empiezo con el máximo
     Dim ubicMIN As Long 'indice en la matriz del menor encontrado cada vuelta
     tERR.Anotar "001-0071"
     MinSTR = "zzzzzzzzzzzzzzzz"
@@ -604,13 +605,12 @@ EntreAlPedo:
     For mtx = LBound(Resultado) + 1 To UBound(Resultado)
         tERR.Anotar "001-0090"
         ReDim Preserve MTXsort(mtx)
-        tERR.Anotar "001-0091"
         Dim CarpFull As String, NameCarp As String
-        tERR.Anotar "001-0092"
+
         CarpFull = txtInLista(Resultado(Ordenados(mtx)), 1, ",")
-        tERR.Anotar "001-0093"
+        tERR.Anotar "001-0093", CarpFull
         NameCarp = txtInLista(Resultado(Ordenados(mtx)), 2, ",")
-        tERR.Anotar "001-0094"
+        tERR.Anotar "001-0094", NameCarp
         MTXsort(mtx) = CarpFull + "," + NameCarp
     Next
     ObtenerDir = MTXsort
@@ -949,18 +949,18 @@ End Sub
 
 Function BuscarArchTexto(ruta As String, buscar As String) As Variant()
     tERR.Anotar "001-0186"
-    Dim fil As Scripting.File, ts As Scripting.TextStream
+    Dim Fil As Scripting.File, ts As Scripting.TextStream
     Dim pos As Long, ContadorArch As Long
     tERR.Anotar "001-0187"
     ReDim Resultado(50) As Variant
     ' buscar for all the TXT files in the directory
     tERR.Anotar "001-0188"
-    For Each fil In fso.GetFolder(ruta).Files
+    For Each Fil In fso.GetFolder(ruta).Files
         tERR.Anotar "001-0189"
-        If UCase$(fso.GetExtensionName(fil.path)) = "TXT" Then
+        If UCase$(fso.GetExtensionName(Fil.path)) = "TXT" Then
             ' obtener el objeto TextStream correspondiente
             tERR.Anotar "001-0190"
-            Set ts = fil.OpenAsTextStream(ForReading)
+            Set ts = Fil.OpenAsTextStream(ForReading)
             ' leer su contenido, buscar la cadena y cerrarlo
             tERR.Anotar "001-0191"
             pos = InStr(1, ts.ReadAll, buscar, vbTextCompare)
@@ -971,7 +971,7 @@ Function BuscarArchTexto(ruta As String, buscar As String) As Variant()
                 ' si se encuentra la cadena, reabre el archivo
                 ' para determinar su posición en forma de (línea, columna)
                 tERR.Anotar "001-0194"
-                Set ts = fil.OpenAsTextStream(ForReading)
+                Set ts = Fil.OpenAsTextStream(ForReading)
                 ' salta todos los caracteres precedentes para saber dónde se
                 ' encuentra la cadena
                 tERR.Anotar "001-0194"
@@ -985,7 +985,7 @@ Function BuscarArchTexto(ruta As String, buscar As String) As Variant()
                 End If
                 ' cada array resultado tiene tres elementos
                 tERR.Anotar "001-0197"
-                Resultado(ContadorArch) = Array(fil.path, ts.Line, ts.Column)
+                Resultado(ContadorArch) = Array(Fil.path, ts.Line, ts.Column)
                 ' ahora podemos cerrar el TextStrem
                 tERR.Anotar "001-0198"
                 ts.Close
@@ -1082,7 +1082,7 @@ Public Sub EscribirArch1Linea2(Arch As String, TXT As String)
     tERR.Anotar "001-0213v"
 End Sub
 
-
+'devuelve una matriz con las canciones mas escuchadas
 Public Function ObtenerRankComoMM(Optional MaxTop As Long = 15) As String()
 
     Dim TMP() As String
@@ -1095,7 +1095,7 @@ Public Function ObtenerRankComoMM(Optional MaxTop As Long = 15) As String()
     End If
     
     Set TE = fso.OpenTextFile(GPF("rd3_444"), ForReading, False)
-    Dim TT As String
+    Dim tt As String
     Dim ThisArch As String
     Dim ThisTEMA As String
     Dim ThisDISCO As String
@@ -1103,12 +1103,12 @@ Public Function ObtenerRankComoMM(Optional MaxTop As Long = 15) As String()
     Dim C As Long: C = 0
     ReDim TMP(0)
     Do While Not TE.AtEndOfStream
-        TT = TE.ReadLine
-        ThisPTS = Val(txtInLista(TT, 0, ","))
-        ThisArch = txtInLista(TT, 1, ",")
-        ThisTEMA = txtInLista(TT, 2, ",")
+        tt = TE.ReadLine
+        ThisPTS = Val(txtInLista(tt, 0, ","))
+        ThisArch = txtInLista(tt, 1, ",")
+        ThisTEMA = txtInLista(tt, 2, ",")
         ThisTEMA = QuitarNumeroDeTema(ThisTEMA)
-        ThisDISCO = txtInLista(TT, 3, ",")
+        ThisDISCO = txtInLista(tt, 3, ",")
             
         If C = MaxTop Then Exit Do
         'si elarchivo no existe no se debe cargar
@@ -1144,6 +1144,7 @@ Public Function ObtenerArchMM(Carpeta As String, _
     ' = 4 discos de java
     ' = 5 disco de imagenes iso / nrg / etc 'mm91
     ' = 6 disco de videos 3gp
+    ' = 7 disco de temas para celular
 
     'ADEMÁS DEBO ASEGURARME QUE NO HAYA COMAS EN LOS NOMBRES
     On Error GoTo ErrObtMM
@@ -1202,8 +1203,12 @@ Public Function ObtenerArchMM(Carpeta As String, _
         Case 6, 106 'mm91 videos 3gp
             ReDim EEXX(0)
             EEXX(0) = "3gp"
+        Case 7, 107
+            ReDim EEXX(1)
+            EEXX(0) = "thm"
+            EEXX(1) = "nth"
         Case 1 'deteccio automática
-            ReDim EEXX(33) 'ampliado a cualquiera de los perfiles
+            ReDim EEXX(35) 'ampliado a cualquiera de los perfiles mm91
             EEXX(0) = "mp3"
             EEXX(1) = "wma"
             EEXX(2) = "mpg"
@@ -1240,6 +1245,8 @@ Public Function ObtenerArchMM(Carpeta As String, _
             EEXX(31) = "nrv"
             EEXX(32) = "nrw"
             EEXX(33) = "3gp" 'videos para movil  'mm91
+            EEXX(34) = "thm" 'temas para movil 'mm91
+            EEXX(35) = "nth"
     End Select
     
     Dim ArchMMBase As Long 'cantidad de archivos de musica y videos
@@ -1249,7 +1256,8 @@ Public Function ObtenerArchMM(Carpeta As String, _
     Dim ArchKaraoke As Long 'cantidad de mp3s o wmas de menos de 1,5 mb (hacer configurable)
     Dim ArchTotales As Long 'para saber proporciones de cada uno
     Dim ArchISO As Long 'imagenes ISO o de nero 'mm91
-    Dim Arch3GP As String 'videos para movil 'mm91
+    Dim Arch3GP As Long  'videos para movil 'mm91
+    Dim ArchThemes As Long 'temas para movil
     
     'una vez cargado esto por fuera se define un perfil del disco para ver de que tipo es
     'tambie estaría bueno definir un origen ya con características de tipo de disco
@@ -1279,6 +1287,7 @@ Public Function ObtenerArchMM(Carpeta As String, _
     ArchTotales = 0
     ArchISO = 0 'mm91
     Arch3GP = 0 'mm91
+    ArchThemes = 0
     
     Dim H As Long
     For H = 0 To UBound(EEXX)
@@ -1334,6 +1343,8 @@ Public Function ObtenerArchMM(Carpeta As String, _
                         ArchISO = ArchISO + 1
                     Case 33 'mm91
                         Arch3GP = Arch3GP + 1
+                    Case 34, 35 'mm91
+                        ArchThemes = ArchThemes + 1
                 End Select
                 
                 ArchTotales = ArchTotales + 1
@@ -1390,6 +1401,10 @@ sigEstaVacio:
             PROP = Arch3GP / ArchTotales 'mm91
             If PROP > 0.3 Then 'aqui es mas sensible porque deberia haber al menos una imagen por cada JAVA o como maximo eso + 1 de la tapa.jpg
                 PerfilFINAL = 6
+            End If
+            PROP = ArchThemes / ArchTotales 'mm91
+            If PROP > 0.3 Then 'aqui es mas sensible porque deberia haber al menos una imagen por cada JAVA o como maximo eso + 1 de la tapa.jpg
+                PerfilFINAL = 7
             End If
             
             'si hay pocos archivos no me pongo a renegar, es un multimedia
@@ -1466,6 +1481,16 @@ sigEstaVacio:
                         For H = 0 To UBound(EEXX)
                             If cadaExtencion = EEXX(H) Then
                                 If (H <> 33) Then
+                                    TMPmatriz(mm) = "" 'si no es de la base lo marco para eliminar!
+                                    totEliminados = totEliminados + 1
+                                End If
+                                Exit For
+                            End If
+                        Next H
+                    Case 7 'temas para movil 'mm91
+                        For H = 0 To UBound(EEXX)
+                            If cadaExtencion = EEXX(H) Then
+                                If (H < 34) And (H > 35) Then
                                     TMPmatriz(mm) = "" 'si no es de la base lo marco para eliminar!
                                     totEliminados = totEliminados + 1
                                 End If
@@ -1589,7 +1614,7 @@ End Function
 
 Public Function GetTpPred() As String
     Dim iMf2 As String
-    If K.sabseee("3pm") = Supsabseee Then
+    If K.sabseee(dcr("1Vx0YVGhEoIisHPLAZMHXw==")) = Supsabseee Then
         If fso.FileExists(GPF("tddp322")) Then
             iMf2 = GPF("tddp322")
         Else

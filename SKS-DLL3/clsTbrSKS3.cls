@@ -77,7 +77,7 @@ Dim ValAcum1 As Long
 'tambien el luis se resetea con el 126 que le informo que me apago
 'luis manda un 111 para certificar que puso en cero sus contadores
 
-Private Declare Function Inp Lib "inpout32.dll" Alias "Inp32" (ByVal PortAddress As Integer) As Integer
+Private Declare Function inP Lib "inpout32.dll" Alias "Inp32" (ByVal PortAddress As Integer) As Integer
 Private Declare Sub Out Lib "inpout32.dll" Alias "Out32" (ByVal PortAddress As Integer, ByVal Value As Integer)
 
 Dim LastDato As Byte 'para pasar lo ultimo leido entre varios procedimientos
@@ -117,6 +117,10 @@ Private totLicOK As Long 'total ok
 Private tmpLastDato As Long 'lo pongo en -1 cuando quiero y espero un resultado especifico
 'en principio para no esperar tiempo de mas en las licencias
 
+Private OutPort As Integer
+Private InPort As Integer
+Private CtrlPort As Integer
+
 'sme es para anuunciar al exterior, writeevent es para acumular privado
 Private Function SME(T As String)  'sendMessage Event
     SME = SendMessage(mHwndMsg, WM_SETTEXT, 0, ByVal T)
@@ -155,7 +159,7 @@ Private Sub tbrTimer1_Timer()
     EstoyEnElReloj = 1
     'leo todo el tiempo el puerto de status
     Dim LS2 As Byte
-    LS2 = Inp(&H379)
+    LS2 = inP(InPort)
     '*********************************************************************
     'agregado nuevo, solo me importan los bits 3 y el 6 (contand de 0 a 7)
     'transformo lo que lei solo para interpretar los valores derivados delos
@@ -274,9 +278,9 @@ Private Function GetDato(Optional bShowError As Boolean = True) As Byte
     On Local Error GoTo NoD
     
     'me aseguro de escuchar
-    Out &H37A, ChangeBit(Inp(&H37A), 5, 1)
+    Out CtrlPort, ChangeBit(inP(CtrlPort), 5, 1)
     Dim GD As Byte
-    GD = Inp(&H378)
+    GD = inP(OutPort)
     'sacarle el fakin bit mas significativo
     'por que el luis no puede escribirlo
     GD = ChangeBit(GD, 7, 0)
@@ -417,26 +421,26 @@ Private Sub SendDataLuis(sData As Byte, Optional AsignarSType As Boolean = False
     tbrTimer1.Enabled = False
     
     Dim iTMP As Integer
-    iTMP = ChangeBit(Inp(&H37A), 5, 0)
+    iTMP = ChangeBit(inP(CtrlPort), 5, 0)
     'sme "Put 37A " + CStr(iTMP)
     'pasar al modo habla poniendo en cero el bit 5 del puerto de control
-    Out &H37A, iTMP
+    Out CtrlPort, iTMP
     'escribir el valor deseado
     'SME "Put 378 " + CStr(sData)
-    Out &H378, CInt(sData)
+    Out OutPort, CInt(sData)
     'le aviso a luis que esta el dato interrumpiendolo
-    iTMP = ChangeBit(Inp(&H37A), 0, 1)
+    iTMP = ChangeBit(inP(CtrlPort), 0, 1)
     'sme "Put 37A " + CStr(iTMP)
-    Out &H37A, iTMP
+    Out CtrlPort, iTMP
     
-    iTMP = ChangeBit(Inp(&H37A), 0, 0)
+    iTMP = ChangeBit(inP(CtrlPort), 0, 0)
     'sme "Put 37A " + CStr(iTMP)
-    Out &H37A, iTMP
+    Out CtrlPort, iTMP
     
     'volver al modo escucha
-    iTMP = ChangeBit(Inp(&H37A), 5, 1)
+    iTMP = ChangeBit(inP(CtrlPort), 5, 1)
     'sme "Put 37A " + CStr(iTMP)
-    Out &H37A, iTMP
+    Out CtrlPort, iTMP
     
     tbrTimer1.Enabled = True
     
@@ -566,7 +570,28 @@ Public Function GetCounter(I As Long) As Long
     End If
 End Function
 
+Public Sub setPorts(outP As Integer, inP As Integer, ctrlP As Integer)
+    OutPort = outP
+    InPort = inP
+    CtrlPort = ctrlP
+End Sub
+
 Private Sub Class_Initialize()
+
+    'una PCI+LPT tenia estas direcciones
+    'OutPort = &HB050
+    'InPort = &HB051
+    'CtrlPort = &HB052
+    
+    OutPort = &H378
+    InPort = &H379
+    CtrlPort = &H37A
+    
+    'esto es lpt2
+    'OutPort = &H278
+    'InPort = &H279
+    'CtrlPort = &H27A
+
 
     'indicamos que la placa no esta cargada todavia
     nPLACA(0) = -1
@@ -575,6 +600,12 @@ Private Sub Class_Initialize()
     nPLACA(3) = -1
     nPLACA(4) = -1
     
+    'INIT antes apenas se creaba la instancia arracaba
+    'ahora esta aparte para poder setear los puertos antes de arranacar
+End Sub
+
+Public Sub INIT()
+
     ReIniCont
     
     Set tbrTimer1 = New tbrTimer.clsTimer
@@ -642,6 +673,13 @@ Public Function GetnPlaca(fLista As String) As String
     
     'lo que viene son botones
     SignalType = 0
+    
+    '//////////////////////////////////
+    'extraño caso excepcional de rocchio
+    'da: 127 - 93 - 54 - 96 - 9 donde deberia dar
+    '      0 - 93 - 54 - 96 - 9!!!
+    If nPLACA(0) > 99 Then nPLACA(0) = 0
+    '//////////////////////////////////
     
     If nPLACA(0) < 0 Or nPLACA(1) < 0 Or nPLACA(2) < 0 Or nPLACA(3) < 0 Or nPLACA(4) < 0 Then
         NumPLACA = -1

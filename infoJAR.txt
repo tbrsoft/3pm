@@ -1,0 +1,4 @@
+x es extraer
+f es que el archivo a extraer esta especificado en este renglon
+al final se puede pòner uno o mas archivos que se desean extraer
+jar xf fichero-jar [fichero(s)-archivados]
