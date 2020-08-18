@@ -611,13 +611,13 @@ Private Function LeerArch1Linea(Arch As String) As String
 End Function
 
 Private Function MostraDeA5(TXT As String)
-    Dim C As Long, Letra As String, newTXT As String
-    C = 0
-    Do While C < Len(TXT)
-        Letra = Mid(TXT, C + 1, 5)
+    Dim c As Long, Letra As String, newTXT As String
+    c = 0
+    Do While c < Len(TXT)
+        Letra = Mid(TXT, c + 1, 5)
         newTXT = newTXT + Letra
-        C = C + 5
-        If C < Len(TXT) Then newTXT = newTXT + "-"
+        c = c + 5
+        If c < Len(TXT) Then newTXT = newTXT + "-"
     Loop
     MostraDeA5 = newTXT
 End Function
@@ -626,11 +626,11 @@ Private Function HEXtoLONG(n As String)
     'recibe el hex en str y devuelve un numero en str
     
     Dim Letra As String
-    Dim C As Long
+    Dim c As Long
     Dim NumeroActual As Long
     Dim ACUM ' As Double
-    For C = 1 To Len(n)
-        Letra = Mid(n, C, 1)
+    For c = 1 To Len(n)
+        Letra = Mid(n, c, 1)
         Select Case Letra
             Case "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
                 NumeroActual = Val(Letra)
@@ -648,7 +648,7 @@ Private Function HEXtoLONG(n As String)
                 NumeroActual = 15
         End Select
         Dim ToSum ' As Double
-        ToSum = NumeroActual * (16 ^ (Len(n) - C))
+        ToSum = NumeroActual * (16 ^ (Len(n) - c))
         ACUM = ACUM + ToSum
         'Label10 = Label10 + "LETRA: " + Letra + "=" + CStr(ToSum) + vbCrLf
         

@@ -26,7 +26,7 @@ Begin VB.Form frmTemasDeDisco
       BackColor       =   &H00000000&
       Height          =   8985
       Left            =   150
-      TabIndex        =   1
+      TabIndex        =   0
       Top             =   30
       Width           =   11805
       Begin VB.TextBox lstAgregados 
@@ -69,7 +69,6 @@ Begin VB.Form frmTemasDeDisco
          Begin VB.CommandButton Command1 
             BackColor       =   &H00C0C0C0&
             Caption         =   "OK"
-            Default         =   -1  'True
             BeginProperty Font 
                Name            =   "Verdana"
                Size            =   9.75
@@ -82,7 +81,7 @@ Begin VB.Form frmTemasDeDisco
             Height          =   950
             Left            =   2280
             Style           =   1  'Graphical
-            TabIndex        =   0
+            TabIndex        =   5
             Top             =   240
             Width           =   1050
          End
@@ -170,7 +169,7 @@ Begin VB.Form frmTemasDeDisco
          Height          =   7750
          IntegralHeight  =   0   'False
          Left            =   45
-         TabIndex        =   4
+         TabIndex        =   3
          Top             =   480
          Width           =   1185
       End
@@ -294,7 +293,7 @@ Begin VB.Form frmTemasDeDisco
          EndProperty
          Height          =   255
          Left            =   60
-         TabIndex        =   5
+         TabIndex        =   4
          Top             =   180
          Width           =   7065
       End
@@ -314,7 +313,7 @@ Begin VB.Form frmTemasDeDisco
          ForeColor       =   &H00FFFFFF&
          Height          =   3225
          Left            =   7200
-         TabIndex        =   3
+         TabIndex        =   2
          Top             =   4200
          UseMnemonic     =   0   'False
          Width           =   4500
@@ -336,7 +335,7 @@ Begin VB.Form frmTemasDeDisco
          ForeColor       =   &H00FFFFFF&
          Height          =   495
          Left            =   7200
-         TabIndex        =   2
+         TabIndex        =   1
          Top             =   3660
          UseMnemonic     =   0   'False
          Width           =   4545
@@ -365,8 +364,24 @@ Dim YaInicio As Long
 'hasta que no haga un keyUp no da bola a ejecutar tema!!!!!!!
 
 Private Sub cmdDiscoAd_Click()
-    Form_KeyDown TeclaDER, 0
-    Command1.SetFocus
+    If IsMod46Teclas = 46 Then
+        'el evento set focus no puee ponerse si es que el formulario salio
+        ' o sea si ya n existe
+        'en el caso de 5 teclas las teclas del costado SALEN!
+        'y el set focus da error
+        Form_KeyDown TeclaDER, 0
+        'entonces solo lo hago si estoy el el modo 4 o6. NO EN EL 5!
+        Command1.SetFocus
+    End If
+    If IsMod46Teclas = 5 Then
+        'el evento set focus no puee ponerse si es que el formulario salio
+        ' o sea si ya n existe
+        'en el caso de 5 teclas las teclas del costado SALEN!
+        'y el set focus da error
+        Form_KeyDown TeclaPagAd, 0
+        'entonces solo lo hago si estoy el el modo 4 o6. NO EN EL 5!
+        'Command1.SetFocus
+    End If
 End Sub
 
 Private Sub cmdDiscoAd_KeyDown(KeyCode As Integer, Shift As Integer)
@@ -374,8 +389,29 @@ Private Sub cmdDiscoAd_KeyDown(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub cmdDiscoAt_Click()
-    Form_KeyDown TeclaIZQ, 0
-    Command1.SetFocus
+    'si esta en el modo de 5 teclas se debe simular los botones de pag adel y atras
+    'ya que estas son las que realmente pasan los discos
+    
+    If IsMod46Teclas = 46 Then
+        'el evento set focus no puee ponerse si es que el formulario salio
+        ' o sea si ya n existe
+        'en el caso de 5 teclas las teclas del costado SALEN!
+        'y el set focus da error
+        Form_KeyDown TeclaIZQ, 0
+        'entonces solo lo hago si estoy el el modo 4 o6. NO EN EL 5!
+        Command1.SetFocus
+    End If
+    
+    If IsMod46Teclas = 5 Then
+        'el evento set focus no puee ponerse si es que el formulario salio
+        ' o sea si ya n existe
+        'en el caso de 5 teclas las teclas del costado SALEN!
+        'y el set focus da error
+        Form_KeyDown TeclaPagAt, 0
+        'entonces solo lo hago si estoy el el modo 4 o6. NO EN EL 5!
+        'Command1.SetFocus
+    End If
+    
 End Sub
 
 Private Sub cmdDiscoAt_KeyDown(KeyCode As Integer, Shift As Integer)
@@ -394,7 +430,7 @@ Private Sub Form_Activate()
     Me.Refresh
     '
     'ver los precios!!!
-    LineaError = "000-0024"
+    CaminoError "000-0024"
     MostrarCursor False
     'actualizar los precios
     
@@ -404,35 +440,35 @@ Private Sub Form_Activate()
         lblPrecios = "Modo Gratuito"
     Else
         If TemasPorCredito = 1 Then
-            LineaError = "000-0026"
+            CaminoError "000-0026"
             lblPrecios = "1 coin = " + CStr(TemasPorCredito) + " credito"
         Else
-            LineaError = "000-0027"
+            CaminoError "000-0027"
             lblPrecios = "1 coin = " + CStr(TemasPorCredito) + " creditos"
         End If
     End If
     '-------------------------
-    LineaError = "000-0028"
+    CaminoError "000-0028"
     If CreditosCuestaTema = 1 Then
-        LineaError = "000-0029"
+        CaminoError "000-0029"
         lblPrecios = lblPrecios + " / " + "1 credito = 1 tema"
     Else
         If CreditosCuestaTema = 0 Then
             lblPrecios = lblPrecios + " / " + " 1 tema = GRATIS!"
         Else
-            LineaError = "000-0030"
+            CaminoError "000-0030"
             lblPrecios = lblPrecios + " / " + CStr(CreditosCuestaTema) + " creditos = 1 tema"
         End If
     End If
     'agreagr el precio de los videos!!!
     If CreditosCuestaTemaVIDEO = 1 Then
-        LineaError = "000-0029"
+        CaminoError "000-0029"
         lblPrecios = lblPrecios + " / " + "1 credito = 1 VIDEO"
     Else
         If CreditosCuestaTemaVIDEO = 0 Then
             lblPrecios = lblPrecios + " / " + " 1 VIDEO = GRATIS!"
         Else
-            LineaError = "000-0030"
+            CaminoError "000-0030"
             lblPrecios = lblPrecios + " / " + CStr(CreditosCuestaTemaVIDEO) + " creditos = 1 VIDEO"
         End If
     End If
@@ -447,12 +483,28 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     On Error GoTo Errores
     'y si no es una ficha la que se esta cargando
     lblNoEjecuta.Visible = False
-    Select Case KeyCode
+    
+    'la verdadera tecla debe mostrar si es una tecla del teclado numerico
+    Dim RealKeyCode As Integer
+    
+    'de manera predeterminada son el mismo
+    'salvo los casos que se especifican
+    RealKeyCode = KeyCode
+    
+    If IsKeyPad(Me) Then
+        'lasa falla reconocida por microsoft es de la tecla enter
+        'sea cual sea sale el keycode 13 por mas que sea la del keypad
+        'que es el 108
+        If KeyCode = 13 Then RealKeyCode = 108
+        'ademas si esta apretado el BLOQ NUM
+    End If
+    
+    Select Case RealKeyCode
         Case vbKeyF4
             If Shift = 4 Then
                 Unload Me
             End If
-        Case vbKeyU
+        Case TeclaShowContador
             frmOnlyContador.Show 1
         Case TeclaCerrarSistema
             OnOffCAPS vbKeyCapital, False
@@ -462,7 +514,6 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             frmIndex.MP3.DoClose
             If ApagarAlCierre Then APAGAR_PC
             End
-        
         Case TeclaESC
             TECLAS_PRES = TECLAS_PRES + "4"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
@@ -473,10 +524,10 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         Case TeclaDER
             'si esta en el modo 5 debe salir!!!
             If IsMod46Teclas = 46 Then
-                If lstTemas.ListIndex < lstTemas.ListCount - 1 Then
-                    lstTemas.ListIndex = lstTemas.ListIndex + 1
+                If lstTEMAS.ListIndex < lstTEMAS.ListCount - 1 Then
+                    lstTEMAS.ListIndex = lstTEMAS.ListIndex + 1
                 Else
-                    lstTemas.ListIndex = 0
+                    lstTEMAS.ListIndex = 0
                 End If
                 SaltarEspaciosLstTemas True
             End If
@@ -494,10 +545,10 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         Case TeclaIZQ
             
             If IsMod46Teclas = 46 Then
-                If lstTemas.ListIndex > 0 Then
-                    lstTemas.ListIndex = lstTemas.ListIndex - 1
+                If lstTEMAS.ListIndex > 0 Then
+                    lstTEMAS.ListIndex = lstTEMAS.ListIndex - 1
                 Else
-                    lstTemas.ListIndex = lstTemas.ListCount - 1
+                    lstTEMAS.ListIndex = lstTEMAS.ListCount - 1
                 End If
                 SaltarEspaciosLstTemas False
             End If
@@ -516,12 +567,21 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             frmIndex.lblTECLAS = TECLAS_PRES
             
         Case TeclaPagAd
+            'si esta en 5 teclas y ademas eligio la flecha de direccion abajo o arriba
+            'falla por que el listbox recibe y se mueve!
+            'KeyCode 40 = Flecha abajo
+            'KeyCode 38 = Flecha Arriba
             If IsMod46Teclas = 5 Then
                 'igual que el boton adelante!!
-                If lstTemas.ListIndex < lstTemas.ListCount - 1 Then
-                    lstTemas.ListIndex = lstTemas.ListIndex + 1
+                If lstTEMAS.ListIndex < lstTEMAS.ListCount - 1 Then
+                    'si es 40 ya va a bajar de todas formas!
+                    'se evita la duplicacion!
+                    If TeclaPagAd <> 40 Then lstTEMAS.ListIndex = lstTEMAS.ListIndex + 1
                 Else
-                    lstTemas.ListIndex = 0
+                    'en este caso si es 40 ira al 0 y luego llegari el movimiento hacia abajo
+                    'porque primero yo y despues el funcionamiento propio del lstBox ¿?
+                    'NO LO SE!. Se queda si la vuelta
+                    If TeclaPagAd <> 40 Then lstTEMAS.ListIndex = 0
                 End If
                 SaltarEspaciosLstTemas True
             End If
@@ -531,10 +591,15 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         Case TeclaPagAt
             If IsMod46Teclas = 5 Then
                 'igual que el boton atras!!
-                If lstTemas.ListIndex > 0 Then
-                    lstTemas.ListIndex = lstTemas.ListIndex - 1
+                If lstTEMAS.ListIndex > 0 Then
+                    'ver comentario TeclaPagAd!!!
+                    '!!!!!!!!!!!!!
+                    If TeclaPagAt <> 38 Then lstTEMAS.ListIndex = lstTEMAS.ListIndex - 1
                 Else
-                    lstTemas.ListIndex = lstTemas.ListCount - 1
+                    'en este caso si es 40 ira al 0 y luego llegari el movimiento hacia abajo
+                    'porque primero yo y despues el funcionamiento propio del lstBox ¿?
+                    'NO LO SE!. Se queda si la vuelta
+                    If TeclaPagAt <> 38 Then lstTEMAS.ListIndex = lstTEMAS.ListCount - 1
                 End If
                 SaltarEspaciosLstTemas False
             End If
@@ -555,12 +620,28 @@ Errores:
 End Sub
 
 Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
-    'ver detalle mas abajo de que mierda es esto y eln el gral de este frm
+    'la verdadera tecla debe mostrar si es una tecla del teclado numerico
+    Dim RealKeyCode As Integer
+    'ver si es o no numpad
+    If IsKeyPad(Me) Then
+        'las falla reconocida por microsoft es de la tecla enter
+        'sea cual sea sale el keycode 13 por mas que sea la del keypad
+        'que es el 108
+        If KeyCode = 13 Then RealKeyCode = 108
+    Else
+        'de manera predeterminada son el mismo
+        'salvo los casos que se especifican
+        RealKeyCode = KeyCode
+    End If
+      
+    'ver detalle mas abajo de que mierda es esto y en el gral de este frm
     YaInicio = YaInicio + 1
     'puede no escuchar el coin!!!!!!
     'esto se pone mas abajo!!!!
     'If YaInicio <= 1 Then Exit Sub
-    Select Case KeyCode
+        
+    
+    Select Case RealKeyCode
         Case TeclaNewFicha
             If CREDITOS <= MaximoFichas Then
                 'apagar el fichero electronico
@@ -595,9 +676,9 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             'MP3 O VIDEO!!!!!!
             Dim temaElegido As String
             'lstext es una lista oculta  con datos completos
-            temaElegido = lstEXT.List(lstTemas.ListIndex) ' UbicDiscoActual + "\" + lstTemas + "." + EXTs(lstTemas.ListIndex)
+            temaElegido = lstEXT.List(lstTEMAS.ListIndex) ' UbicDiscoActual + "\" + lstTemas + "." + EXTs(lstTemas.ListIndex)
             
-            If LCase(Right(temaElegido, 3)) = "mp3" Then
+            If LCase(Right(temaElegido, 3)) = "mp3" Or LCase(Right(temaElegido, 3)) = "wma" Then
                 PideVideo = False
             Else
                 PideVideo = True
@@ -626,7 +707,7 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
                 'grabar credito para validar
                 'creditosValidar ya se cargo en load de frmindex
                 CreditosValidar = CreditosValidar + TemasPorCredito
-                EscribirArch1Linea SYSfolder + "\radilav.cfg", CStr(CreditosValidar)
+                EscribirArch1Linea SYSfolder + "radilav.cfg", CStr(CreditosValidar)
                 
                 'si esta ejecutando pasa a la lista de reproducción
                 'si esta ejecutando una prueba SACARLA!!!
@@ -636,22 +717,24 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
                     NewIndLista = UBound(MATRIZ_LISTA)
                     ReDim Preserve MATRIZ_LISTA(NewIndLista + 1)
                     'se graba en Matriz_Listas como patah, nombre(sin .mp3)
-                    MATRIZ_LISTA(NewIndLista + 1) = temaElegido + "," + lstTemas + " / " + FSO.GetBaseName(UbicDiscoActual)
+                    MATRIZ_LISTA(NewIndLista + 1) = temaElegido + "," + lstTEMAS + " / " + FSO.GetBaseName(UbicDiscoActual)
                     CargarProximosTemas
                     'graba en reini.tbr los datos que correspondan por si se corta la luz
                     CargarArchReini UCase(ReINI) 'POR LAS DUDAS que no este en mayusculas
                     'AHORA DEBE MARCARLO COMO EJECUTADO Y SALIR PARA ELIJA OTRO
-                    lstAgregados = lstAgregados + lstTemas.List(lstTemas.ListIndex) + " / "
+                    lstAgregados = lstAgregados + lstTEMAS.List(lstTEMAS.ListIndex) + " / "
                     
                     If BloquearMusicaElegida Then
-                        lstTemas.List(lstTemas.ListIndex) = "----------"
+                        lstTEMAS.List(lstTEMAS.ListIndex) = "----------"
                         lstTIME.List(lstTIME.ListIndex) = "---"
                     End If
                         
                     lstAgregados.Visible = True
-                    lstTemas.Height = lstAgregados.Top - lstTemas.Top
+                    lstTEMAS.Height = lstAgregados.Top - lstTEMAS.Top
                     lstTIME.Height = lstAgregados.Top - lstTIME.Top
                     SaltarEspaciosLstTemas True
+                    
+                    If OutTemasWhenSel Then Unload Me
                 Else
                     'TEMA_REPRODUCIENDO y mp3.isplayin se cargan en ejecutartema
                     
@@ -670,15 +753,15 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
                     ''----------------------
                     ''----------------------
                     'AHORA DEBE MARCARLO COMO EJECUTADO Y SALIR PARA ELIJA OTRO
-                    lstAgregados = lstAgregados + lstTemas.List(lstTemas.ListIndex) + " / "
+                    lstAgregados = lstAgregados + lstTEMAS.List(lstTEMAS.ListIndex) + " / "
                     
                     If BloquearMusicaElegida Then
-                        lstTemas.List(lstTemas.ListIndex) = "----------"
+                        lstTEMAS.List(lstTEMAS.ListIndex) = "----------"
                         lstTIME.List(lstTIME.ListIndex) = "---"
                     End If
                     
                     lstAgregados.Visible = True
-                    lstTemas.Height = lstAgregados.Top - lstTemas.Top
+                    lstTEMAS.Height = lstAgregados.Top - lstTEMAS.Top
                     lstTIME.Height = lstAgregados.Top - lstTIME.Top
                     SaltarEspaciosLstTemas True
                     CORTAR_TEMA = False 'este tema va entero ya que lo eligio el usuario
@@ -688,22 +771,21 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
                 
                 VerSiTocaPUB
                 'dejo seguir eligiendo y no salgo!!!
-                'Unload Me
+                'SI ESTA CONFIGURADO ASI (6.5)!!!
+                If OutTemasWhenSel Then Unload Me
             Else
                 lblNoEjecuta.Visible = True
             End If
-        
     End Select
-    
     
 End Sub
 
 Private Sub Form_Load()
     YaInicio = 0
     If Is3pmExclusivo Then
-        lstTemas.BackColor = vbBlack
+        lstTEMAS.BackColor = vbBlack
         lstTIME.BackColor = vbBlack
-        lstTemas.ForeColor = vbYellow
+        lstTEMAS.ForeColor = vbYellow
         lstTIME.ForeColor = vbYellow
         Frame1.BackColor = &H404000
         lblDataDisco.Visible = False
@@ -723,7 +805,7 @@ Private Sub Form_Load()
 
     ReDim MATRIZ_TEMAS(0) 'matriz en blanco
     'es una matriz global
-    UbicDiscoActual = txtInLista(MATRIZ_DISCOS(nDiscoGral + 1), 0, ",")
+    UbicDiscoActual = txtInLista(MATRIZ_DISCOS(nDiscoGral), 0, ",")
     
     'encontrar todos los archivos *.mp3, *.avi, *.mpg, *.mpeg, etc
     ReDim Preserve MATRIZ_TEMAS(0)
@@ -739,8 +821,8 @@ Private Sub Form_Load()
     'ocultar ahora
     If CargarDuracionTemas = False Then
         lstTIME.Visible = False
-        lstTemas.Left = 50
-        lstTemas.Width = lblNoEjecuta.Left - 150
+        lstTEMAS.Left = 50
+        lstTEMAS.Width = lblNoEjecuta.Left - 150
     End If
     SegSinTecla = 0
     RelojTDD.Enabled = True
@@ -768,35 +850,48 @@ Private Sub Form_Load()
     
     'si estoy mostrando discos debo mostrar temas
     'se cargan los temas en una matriz con ubic archivo,nombreTema
-    Dim C As Integer, nombreTemas As String
+    Dim c As Integer, nombreTemas As String
     Dim pathTema As String
     lstEXT.Clear
+    lstTEMAS.Clear
     If NoHayTemasEnDisco Then
-        lstTemas.AddItem "No hay temas en este disco"
-        lstTemas.Enabled = False
+        lstTEMAS.AddItem "No hay temas en este disco"
+        lstTEMAS.Enabled = False
         lstTIME.Enabled = False
         WriteTBRLog "No hay temas en el disco: " + UbicDiscoActual, True
         Exit Sub
     End If
-    C = 1
-    Do While C <= UBound(MATRIZ_TEMAS)
-        pathTema = txtInLista(MATRIZ_TEMAS(C), 0, ",")
-        nombreTemas = txtInLista(MATRIZ_TEMAS(C), 1, ",")
+    c = 1
+    Dim EXT As String
+    Do While c <= UBound(MATRIZ_TEMAS)
+        pathTema = txtInLista(MATRIZ_TEMAS(c), 0, ",")
+        nombreTemas = txtInLista(MATRIZ_TEMAS(c), 1, ",")
+        EXT = LCase(txtInLista(nombreTemas, 1, "."))
         'quitar el molesto .mp3 o lo que fuera
-        nombreTemas = FSO.GetBaseName(nombreTemas)
-        lstTemas.AddItem nombreTemas
-        lstTemas.Refresh
+        Select Case LCase(EXT)
+            Case "mp3"
+                EXT = " (mp3-Musica)"
+            Case "wma"
+                EXT = " (wma-Musica)"
+            Case "mpeg", "mpg", "avi", "wmv"
+                EXT = " (" + LCase(EXT) + "-Video)"
+            Case "dat"
+                EXT = " (dat-VCD-Video)"
+        End Select
+        nombreTemas = FSO.GetBaseName(nombreTemas) + EXT
+        lstTEMAS.AddItem nombreTemas
+        lstTEMAS.Refresh
         lstEXT.AddItem pathTema
-        C = C + 1
+        c = c + 1
     Loop
     If CargarDuracionTemas Then
         'ahora cargar las duaciones
         Dim NoCargoDuracion As Long
         NoCargoDuracion = 0
-        C = 1
+        c = 1
         Dim MP3tmp As New MP3Info
-        Do While C <= UBound(MATRIZ_TEMAS)
-            pathTema = lstEXT.List(C - 1)
+        Do While c <= UBound(MATRIZ_TEMAS)
+            pathTema = lstEXT.List(c - 1)
             'si es mp3 usar el rápido, si no usar el viejo
             If UCase(Right(pathTema, 3)) = "MP3" Then
                 MP3tmp.FileName = pathTema
@@ -809,20 +904,20 @@ Private Sub Form_Load()
                     NoCargoDuracion = NoCargoDuracion + 1
                     If NoCargoDuracion > 3 Then
                         lstTIME.Visible = False
-                        lstTemas.Left = 50
-                        lstTemas.Width = lblNoEjecuta.Left - 50
+                        lstTEMAS.Left = 50
+                        lstTEMAS.Width = lblNoEjecuta.Left - 50
                     End If
                 End If
             End If
             lstTIME.AddItem DuracionTema
             lstTIME.Refresh
-            C = C + 1
+            c = c + 1
         Loop
         Set MP3tmp = Nothing
         lstTIME.Enabled = True
     End If
-    lstTemas.Enabled = True
-    lstTemas.ListIndex = 0
+    lstTEMAS.Enabled = True
+    lstTEMAS.ListIndex = 0
     Label1 = "Temas de este disco"
     
     
@@ -830,7 +925,7 @@ End Sub
 
 Private Sub lstTemas_Click()
     On Local Error Resume Next
-    If CargarDuracionTemas Then lstTIME.ListIndex = lstTemas.ListIndex
+    If CargarDuracionTemas Then lstTIME.ListIndex = lstTEMAS.ListIndex
 End Sub
 
 Private Sub RelojTDD_Timer()
@@ -850,12 +945,12 @@ Private Sub SaltarEspaciosLstTemas(HaciaAdelante As Boolean)
     Dim A As Long
     Dim CC As Long
     Dim Ahora As Long
-    Ahora = lstTemas.ListIndex
+    Ahora = lstTEMAS.ListIndex
     
     Dim nINI As Long, nFin As Long, StepMio As Long
     If HaciaAdelante Then
         nINI = Ahora
-        nFin = lstTemas.ListCount - 1
+        nFin = lstTEMAS.ListCount - 1
         StepMio = 1
     Else
         nINI = Ahora
@@ -872,10 +967,10 @@ ReiniLST:
         Exit Sub
     End If
     For A = nINI To nFin Step StepMio
-        If lstTemas.List(A) <> "----------" Then
+        If lstTEMAS.List(A) <> "----------" Then
             'ya esta lo encontro!!!!!!!
             'ir ahi!!!
-            lstTemas.ListIndex = A
+            lstTEMAS.ListIndex = A
             Exit For
         Else
             'si es el ultimo......!!
@@ -888,7 +983,7 @@ ReiniLST:
             Else
                 If A = nFin Then 'este es 0
                     'voy al ultimo
-                    nINI = lstTemas.ListCount - 1
+                    nINI = lstTEMAS.ListCount - 1
                     GoTo ReiniLST
                 End If
             End If

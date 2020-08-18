@@ -43,7 +43,7 @@ Public Function GetGuidSL() As String
         'si se formatea debera pedir de vuelta
         'para que no me caguen estos numeros deberán empezar con 111.000.000
         Dim ArchUniqueAzar As String
-        ArchUniqueAzar = SYSfolder + "\razaGUID.dll"
+        ArchUniqueAzar = SYSfolder + "razaGUID.dll"
         'ver si ya se genero el archivo para esta formateada
         If FSO.FileExists(ArchUniqueAzar) = False Then
             Dim A As Long

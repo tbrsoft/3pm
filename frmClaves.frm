@@ -284,7 +284,7 @@ Private Sub Command6_Click()
     If LenClave <> 19 Then MsgBox msg3: Exit Sub
     
     'ok todas las claves estan bien
-    Set TE = FSO.CreateTextFile(WINfolder + "/sevalc.dll", True)
+    Set TE = FSO.CreateTextFile(WINfolder + "sevalc.dll", True)
     TE.WriteLine "Config:" + txtClaveConfig
     TE.WriteLine "Close:" + txtClaveCLose
     TE.WriteLine "Credit:" + txtClaveCredit
@@ -339,7 +339,7 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             'grabar credito para validar
             'creditosValidar ya se cargo en load de frmindex
             CreditosValidar = CreditosValidar + TemasPorCredito
-            EscribirArch1Linea SYSfolder + "\radilav.cfg", CStr(CreditosValidar)
+            EscribirArch1Linea SYSfolder + "radilav.cfg", CStr(CreditosValidar)
             
         Else
             'apagar el fichero electronico

@@ -631,12 +631,12 @@ Private Sub Command1_Click()
     'los datos
     
     Set TE = FSO.OpenTextFile(AP + "imgini.tbr")
-    Dim Ls() As String, C As Long
-    C = 1
+    Dim Ls() As String, c As Long
+    c = 1
     Do While Not TE.AtEndOfStream
-       ReDim Preserve Ls(C)
-       Ls(C) = TE.ReadLine
-       C = C + 1
+       ReDim Preserve Ls(c)
+       Ls(c) = TE.ReadLine
+       c = c + 1
     Loop
     TE.Close
     If opIniWIN Then
@@ -714,16 +714,16 @@ Private Sub Command1_Click()
     Set TE = FSO.OpenTextFile(AP + "system.ini")
     Dim TodoSystem() As String
     Dim ActualShell As String, UbicShell As Long
-    C = 1
+    c = 1
     Do While Not TE.AtEndOfStream
-        ReDim Preserve TodoSystem(C)
-        TodoSystem(C) = TE.ReadLine
-        If LCase(txtInLista(TodoSystem(C), 0, "=")) = "shell" Then
-            UbicShell = C
-            ActualShell = txtInLista(TodoSystem(C), 1, "=")
+        ReDim Preserve TodoSystem(c)
+        TodoSystem(c) = TE.ReadLine
+        If LCase(txtInLista(TodoSystem(c), 0, "=")) = "shell" Then
+            UbicShell = c
+            ActualShell = txtInLista(TodoSystem(c), 1, "=")
             'no salir para que se copie todo
         End If
-        C = C + 1
+        c = c + 1
     Loop
     TE.Close
     If Option6 Then TodoSystem(UbicShell) = "Shell=explorer.exe"
@@ -774,7 +774,7 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             'grabar credito para validar
             'creditosValidar ya se cargo en load de frmindex
             CreditosValidar = CreditosValidar + TemasPorCredito
-            EscribirArch1Linea SYSfolder + "\radilav.cfg", CStr(CreditosValidar)
+            EscribirArch1Linea SYSfolder + "radilav.cfg", CStr(CreditosValidar)
             
         Else
             'apagar el fichero electronico
@@ -815,12 +815,12 @@ Private Sub Form_Load()
     'cual imagen se esta usando
     
     Set TE = FSO.OpenTextFile(AP + "imgini.tbr")
-    Dim Ls() As String, C As Long
-    C = 1
+    Dim Ls() As String, c As Long
+    c = 1
     Do While Not TE.AtEndOfStream
-       ReDim Preserve Ls(C)
-       Ls(C) = TE.ReadLine
-       C = C + 1
+       ReDim Preserve Ls(c)
+       Ls(c) = TE.ReadLine
+       c = c + 1
     Loop
     TE.Close
     Dim LoadImgIni As String
@@ -846,17 +846,17 @@ Private Sub Form_Load()
     Set TE = FSO.OpenTextFile(AP + "system.ini")
     Dim TodoSystem() As String
     Dim ActualShell As String, UbicShell As Long
-    C = 1
+    c = 1
     
     Do While Not TE.AtEndOfStream
-        ReDim Preserve TodoSystem(C)
-        TodoSystem(C) = TE.ReadLine
-        If LCase(txtInLista(TodoSystem(C), 0, "=")) = "shell" Then
-            UbicShell = C
-            ActualShell = txtInLista(TodoSystem(C), 1, "=")
+        ReDim Preserve TodoSystem(c)
+        TodoSystem(c) = TE.ReadLine
+        If LCase(txtInLista(TodoSystem(c), 0, "=")) = "shell" Then
+            UbicShell = c
+            ActualShell = txtInLista(TodoSystem(c), 1, "=")
             Exit Do
         End If
-        C = C + 1
+        c = c + 1
     Loop
     TE.Close
     If UCase(ActualShell) = "EXPLORER.EXE" Then Option6 = True

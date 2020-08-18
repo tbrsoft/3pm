@@ -16,12 +16,126 @@ Begin VB.Form frmAddRemoveMusic
    ShowInTaskbar   =   0   'False
    StartUpPosition =   3  'Windows Default
    WindowState     =   2  'Maximized
+   Begin VB.CommandButton Command14 
+      BackColor       =   &H00E0E0E0&
+      Caption         =   "subir"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   255
+      Left            =   5310
+      Style           =   1  'Graphical
+      TabIndex        =   30
+      Top             =   30
+      Width           =   900
+   End
+   Begin VB.CommandButton Command11 
+      BackColor       =   &H00C0C0C0&
+      Caption         =   "ayuda"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   255
+      Left            =   6210
+      Style           =   1  'Graphical
+      TabIndex        =   27
+      Top             =   30
+      Width           =   900
+   End
+   Begin VB.CommandButton Command9 
+      BackColor       =   &H00C0C0C0&
+      Caption         =   "agregar"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   255
+      Left            =   4410
+      Style           =   1  'Graphical
+      TabIndex        =   25
+      Top             =   30
+      Width           =   900
+   End
+   Begin VB.CommandButton Command13 
+      BackColor       =   &H00E0E0E0&
+      Caption         =   "bajar"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   255
+      Left            =   5310
+      Style           =   1  'Graphical
+      TabIndex        =   29
+      Top             =   270
+      Width           =   900
+   End
+   Begin VB.CommandButton Command12 
+      BackColor       =   &H00C0C0C0&
+      Caption         =   "grabar"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   255
+      Left            =   6210
+      Style           =   1  'Graphical
+      TabIndex        =   28
+      Top             =   270
+      Width           =   900
+   End
+   Begin VB.CommandButton Command10 
+      BackColor       =   &H00C0C0C0&
+      Caption         =   "quitar"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   255
+      Left            =   4410
+      Style           =   1  'Graphical
+      TabIndex        =   26
+      Top             =   270
+      Width           =   900
+   End
    Begin VB.CommandButton Command8 
       Caption         =   "Rename Disco"
       Height          =   555
-      Left            =   3030
+      Left            =   3270
       TabIndex        =   22
-      Top             =   7140
+      Top             =   5760
       Visible         =   0   'False
       Width           =   1155
    End
@@ -37,12 +151,13 @@ Begin VB.Form frmAddRemoveMusic
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   7470
+      Height          =   7440
+      IntegralHeight  =   0   'False
       Left            =   7200
       MultiSelect     =   2  'Extended
       Sorted          =   -1  'True
       TabIndex        =   21
-      Top             =   0
+      Top             =   30
       Visible         =   0   'False
       Width           =   4665
    End
@@ -134,10 +249,10 @@ Begin VB.Form frmAddRemoveMusic
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   5670
+      Left            =   1890
       Style           =   1  'Graphical
       TabIndex        =   13
-      Top             =   3780
+      Top             =   7980
       Width           =   1450
    End
    Begin VB.CommandButton cmdKillTXT 
@@ -153,10 +268,10 @@ Begin VB.Form frmAddRemoveMusic
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   4170
+      Left            =   390
       Style           =   1  'Graphical
       TabIndex        =   12
-      Top             =   3780
+      Top             =   7980
       Width           =   1450
    End
    Begin VB.CommandButton Command4 
@@ -172,10 +287,10 @@ Begin VB.Form frmAddRemoveMusic
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   5670
+      Left            =   5610
       Style           =   1  'Graphical
       TabIndex        =   11
-      Top             =   2550
+      Top             =   4230
       Width           =   1450
    End
    Begin VB.CommandButton cmdKillTapa 
@@ -191,10 +306,10 @@ Begin VB.Form frmAddRemoveMusic
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   4200
+      Left            =   4140
       Style           =   1  'Graphical
       TabIndex        =   10
-      Top             =   2550
+      Top             =   4230
       Width           =   1450
    End
    Begin VB.TextBox txtDataTXT 
@@ -210,14 +325,14 @@ Begin VB.Form frmAddRemoveMusic
          Strikethrough   =   0   'False
       EndProperty
       Height          =   765
-      Left            =   4170
+      Left            =   60
       Locked          =   -1  'True
       MultiLine       =   -1  'True
       ScrollBars      =   2  'Vertical
       TabIndex        =   9
       Text            =   "frmAddRemoveMusic.frx":0000
-      Top             =   2940
-      Width           =   2955
+      Top             =   7140
+      Width           =   4095
    End
    Begin VB.ListBox lstCarpetasShow 
       BackColor       =   &H00C0FFFF&
@@ -230,12 +345,12 @@ Begin VB.Form frmAddRemoveMusic
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   7665
+      Height          =   4500
+      IntegralHeight  =   0   'False
       Left            =   60
       MultiSelect     =   2  'Extended
-      Sorted          =   -1  'True
       TabIndex        =   8
-      Top             =   300
+      Top             =   2190
       Width           =   4035
    End
    Begin VB.CommandButton Command3 
@@ -289,11 +404,11 @@ Begin VB.Form frmAddRemoveMusic
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   90
+      Left            =   75
       Style           =   1  'Graphical
       TabIndex        =   3
-      Top             =   7980
-      Width           =   4005
+      Top             =   6720
+      Width           =   4035
    End
    Begin VB.ListBox lstTEMAS 
       BackColor       =   &H00FFFFC0&
@@ -306,11 +421,14 @@ Begin VB.Form frmAddRemoveMusic
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   3570
+      Height          =   3030
+      IntegralHeight  =   0   'False
+      ItemData        =   "frmAddRemoveMusic.frx":0006
       Left            =   4170
+      List            =   "frmAddRemoveMusic.frx":0046
       MultiSelect     =   2  'Extended
       TabIndex        =   1
-      Top             =   4380
+      Top             =   4860
       Width           =   2985
    End
    Begin VB.ListBox lstCarpetas 
@@ -325,17 +443,38 @@ Begin VB.Form frmAddRemoveMusic
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   255
-      Left            =   30
+      Height          =   300
+      IntegralHeight  =   0   'False
+      Left            =   60
       MultiSelect     =   2  'Extended
-      Sorted          =   -1  'True
       TabIndex        =   0
-      Top             =   8400
+      Top             =   8370
       Width           =   7095
    End
-   Begin VB.Label lblKB 
-      Alignment       =   1  'Right Justify
+   Begin VB.ListBox lstOrigenes 
+      BackColor       =   &H00000080&
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FFFFFF&
+      Height          =   1380
+      IntegralHeight  =   0   'False
+      ItemData        =   "frmAddRemoveMusic.frx":0091
+      Left            =   90
+      List            =   "frmAddRemoveMusic.frx":00AA
+      TabIndex        =   23
+      Top             =   540
+      Width           =   7035
+   End
+   Begin VB.Label Label1 
       BackStyle       =   0  'Transparent
+      Caption         =   "La musica se cargara en este orden"
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
@@ -346,15 +485,56 @@ Begin VB.Form frmAddRemoveMusic
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   195
-      Left            =   2820
-      TabIndex        =   20
-      Top             =   60
-      Width           =   1485
+      Height          =   225
+      Index           =   5
+      Left            =   150
+      TabIndex        =   31
+      Top             =   300
+      Width           =   3915
    End
    Begin VB.Label Label1 
       BackStyle       =   0  'Transparent
-      Caption         =   $"frmAddRemoveMusic.frx":0006
+      Caption         =   "Ubicaciones de música (solo SL)"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00C0FFFF&
+      Height          =   225
+      Index           =   4
+      Left            =   150
+      TabIndex        =   24
+      Top             =   60
+      Width           =   4125
+   End
+   Begin VB.Label lblKB 
+      Alignment       =   1  'Right Justify
+      BackStyle       =   0  'Transparent
+      Caption         =   "8888 KB"
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FFFFFF&
+      Height          =   195
+      Left            =   6000
+      TabIndex        =   20
+      Top             =   3990
+      Width           =   1095
+   End
+   Begin VB.Label Label1 
+      BackStyle       =   0  'Transparent
+      Caption         =   $"frmAddRemoveMusic.frx":00C3
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   9.75
@@ -394,11 +574,11 @@ Begin VB.Form frmAddRemoveMusic
    End
    Begin VB.Image TapaCD 
       BorderStyle     =   1  'Fixed Single
-      Height          =   2505
-      Left            =   4320
+      Height          =   1905
+      Left            =   4260
       Stretch         =   -1  'True
-      Top             =   30
-      Width           =   2640
+      Top             =   2070
+      Width           =   2850
    End
    Begin VB.Label lblInfoDisco 
       Alignment       =   2  'Center
@@ -436,9 +616,9 @@ Begin VB.Form frmAddRemoveMusic
       ForeColor       =   &H00FFFFFF&
       Height          =   285
       Index           =   1
-      Left            =   4170
+      Left            =   4140
       TabIndex        =   6
-      Top             =   4170
+      Top             =   4650
       Width           =   2925
    End
    Begin VB.Label Label1 
@@ -456,9 +636,9 @@ Begin VB.Form frmAddRemoveMusic
       ForeColor       =   &H00FFFFFF&
       Height          =   315
       Index           =   0
-      Left            =   120
+      Left            =   60
       TabIndex        =   2
-      Top             =   30
+      Top             =   1920
       Width           =   1575
    End
 End
@@ -484,13 +664,13 @@ Private Sub cmdKillArch_Click()
     End If
     Select Case IDIOMA
         Case "Español"
-            msg = "Esta seguro que desea eliminar los archivos elegidos?"
+            MSG = "Esta seguro que desea eliminar los archivos elegidos?"
         Case "English"
         Case "Francois"
         Case "Italiano"
     End Select
         
-    If MsgBox(msg, vbQuestion + vbYesNo) = vbYes Then
+    If MsgBox(MSG, vbQuestion + vbYesNo) = vbYes Then
         On Error GoTo NOBORRA
         Dim TotSel As Long, FileSel As String
         TotSel = lstTEMAS.SelCount
@@ -531,13 +711,13 @@ Private Sub cmdKillTapa_Click()
     
     Select Case IDIOMA
         Case "Español"
-            msg = "¿Esta seguro que desea eliminar la imagen elegida?"
+            MSG = "¿Esta seguro que desea eliminar la imagen elegida?"
         Case "English"
         Case "Francois"
         Case "Italiano"
     End Select
 
-    If MsgBox(msg, vbYesNo + vbCritical) = vbNo Then Exit Sub
+    If MsgBox(MSG, vbYesNo + vbCritical) = vbNo Then Exit Sub
     FSO.DeleteFile lstCarpetas + "\tapa.jpg", True
     'refrescar la imagen
     TapaCD.Picture = LoadPicture(SYSfolder + "f61.dlw")
@@ -547,12 +727,12 @@ End Sub
 Private Sub cmdKillTXT_Click()
     Select Case IDIOMA
         Case "Español"
-            msg = "¿Esta seguro que desea eliminar el texto elegido?"
+            MSG = "¿Esta seguro que desea eliminar el texto elegido?"
         Case "English"
         Case "Francois"
         Case "Italiano"
     End Select
-    If MsgBox(msg, vbYesNo + vbCritical) = vbNo Then Exit Sub
+    If MsgBox(MSG, vbYesNo + vbCritical) = vbNo Then Exit Sub
     FSO.DeleteFile lstCarpetas + "\data.txt", True
     cmdKillTXT.Enabled = False
     txtDataTXT = "NO EXISTE"
@@ -564,12 +744,12 @@ Private Sub Command1_Click()
     'con respecto a las listas!!!!!!!!!!!!
     Select Case IDIOMA
         Case "Español"
-            msg = "Esta seguro que desea eliminar las carpetas elegidas?"
+            MSG = "Esta seguro que desea eliminar las carpetas elegidas?"
         Case "English"
         Case "Francois"
         Case "Italiano"
     End Select
-    If MsgBox(msg, vbQuestion + vbYesNo) = vbYes Then
+    If MsgBox(MSG, vbQuestion + vbYesNo) = vbYes Then
         On Local Error GoTo NOBORRA
         Dim TotSel As Long, CarpSel As String
         TotSel = lstCarpetasShow.SelCount
@@ -625,7 +805,7 @@ Public Sub CargarCarpetas()
     lstCarpetas.Clear 'si no se duplican todos
     lstCarpetasShow.Clear
     On Error GoTo ErrCarp
-    For A = 1 To UBound(MATRIZ_DISCOS)
+    For A = 0 To UBound(MATRIZ_DISCOS)
         Dim ThisFolder As String, TamTapa As Double
         ThisFolder = txtInLista(MATRIZ_DISCOS(A), 0, ",")
         'ver si existen o se borraron
@@ -640,6 +820,72 @@ ErrCarp:
     WriteTBRLog "LINEA: " + LineaError + vbCrLf + Err.Description + " N°: " + Str(Err.Number), True
     Resume Next
 
+End Sub
+
+Private Sub Command10_Click()
+    'ver sio hay mas de uno!!!
+    If lstOrigenes.ListCount = 1 Then
+        MsgBox "No se puede quitar el ultimo oprigen de discos. Debe haber uno!"
+        Exit Sub
+    End If
+    'borrar
+    lstOrigenes.RemoveItem lstOrigenes.ListIndex
+    lstOrigenes.ListIndex = 0
+End Sub
+
+Private Sub Command11_Click()
+    MsgBox "3PM en modo SuperLicencia permite la carga de musica desde diferentes ubicaciones." + vbCrLf + _
+        "Esto permite utilizar mas de un disco rígido o diferentes particiones de un mismo disco." + vbCrLf + _
+        "Además 3PM Kabalin 6.5 permite dar un mejor orden a la música y videos expuestos al público." + vbCrLf + _
+        "Al iniciar el sistema 3PM leerá en primer lugar la musica de la primera ubicación hasta llegar a la ultima." + vbCrLf + _
+        "De esta forma se podrá separar la musica en diferentes ritmos (rock, pop, folcklore, popular, etc)." + vbCrLf + _
+        "Dentro de cada ubicación los discos estarán ordenados alfabéticamente permitiendo al usuario final un acceso mas sencillo a la musica buscada", vbQuestion, "UBICACIONES DE MUSICA"
+End Sub
+
+Private Sub Command12_Click()
+    Dim TMPs As String
+    TMPs = ""
+    For A = 0 To lstOrigenes.ListCount - 1
+        'al ultimo no pongo asterisco para que al dividir no quede uno vacio al ultimo!
+        If A < lstOrigenes.ListCount - 1 Then
+            TMPs = TMPs + lstOrigenes.List(A) + "*"
+        Else
+            TMPs = TMPs + lstOrigenes.List(A)
+        End If
+    Next A
+    
+    EscribirArch1Linea SYSfolder + "oddtb.jut", TMPs
+    MsgBox "Los cambios se han grabado satisfactoriamente"
+End Sub
+
+Private Sub Command13_Click()
+    'poner el que esta elegido abajo -BAJAR-
+    'si es el ultimo (X) o no hay elegido (-1) se va
+    If lstOrigenes.ListIndex = (lstOrigenes.ListCount - 1) Then Exit Sub
+    If lstOrigenes.ListIndex = -1 Then Exit Sub
+    
+    Dim TMPlst As String, NumSube As Long
+    NumSube = lstOrigenes.ListIndex
+    TMPlst = lstOrigenes.List(NumSube + 1)
+    'el anterior se transforma en el que sube
+    lstOrigenes.List(NumSube + 1) = lstOrigenes
+    lstOrigenes.List(NumSube) = TMPlst
+    lstOrigenes.ListIndex = NumSube + 1
+End Sub
+
+Private Sub Command14_Click()
+    'poner el que esta elegido arriba -SUBIR-
+    'si es el primero (0) o no hay elegido (-1) se va
+    If lstOrigenes.ListIndex < 1 Then Exit Sub
+    
+    Dim TMPlst As String, NumSube As Long
+    NumSube = lstOrigenes.ListIndex
+    TMPlst = lstOrigenes.List(NumSube - 1)
+    'el anterior se transforma en el que sube
+    lstOrigenes.List(NumSube - 1) = lstOrigenes
+    lstOrigenes.List(NumSube) = TMPlst
+    lstOrigenes.ListIndex = NumSube - 1
+    
 End Sub
 
 Private Sub Command2_Click()
@@ -672,7 +918,7 @@ Private Sub Command4_Click()
     
         Select Case IDIOMA
             Case "Español"
-                msg = "tbrSoft recomienda imagenes no mayores a 8 KB, esta " + _
+                MSG = "tbrSoft recomienda imagenes no mayores a 8 KB, esta " + _
                     "imagen tine " + CStr(TamTapa) + " KB. ¿Esta seguro que desea usarla?" + _
                     " Puede afectar el rendimiento del equipo!"
             Case "English"
@@ -680,33 +926,33 @@ Private Sub Command4_Click()
             Case "Italiano"
         End Select
     
-        If MsgBox(msg, vbYesNo + vbCritical) = vbNo Then Exit Sub
+        If MsgBox(MSG, vbYesNo + vbCritical) = vbNo Then Exit Sub
     End If
     
     If TamTapa > 200 Then
         Select Case IDIOMA
             Case "Español"
-                msg = "Imagen demasiado pesada. Despues de la advertencia, ¿aun desea usarla?" + _
+                MSG = "Imagen demasiado pesada. Despues de la advertencia, ¿aun desea usarla?" + _
                     " Puede afectar el rendimiento del equipo!!!"
             Case "English"
             Case "Francois"
             Case "Italiano"
         End Select
     
-        If MsgBox(msg, vbYesNo + vbCritical) = vbNo Then Exit Sub
+        If MsgBox(MSG, vbYesNo + vbCritical) = vbNo Then Exit Sub
     End If
     
     If cmdKillTapa.Enabled Then
     
         Select Case IDIOMA
             Case "Español"
-                msg = "¿Esta seguro que desea reemplazar la imagen existente?"
+                MSG = "¿Esta seguro que desea reemplazar la imagen existente?"
             Case "English"
             Case "Francois"
             Case "Italiano"
         End Select
     
-        If MsgBox(msg, vbYesNo + vbCritical) = vbNo Then Exit Sub
+        If MsgBox(MSG, vbYesNo + vbCritical) = vbNo Then Exit Sub
         FSO.DeleteFile lstCarpetas + "\tapa.jpg", True
     End If
     FSO.CopyFile CmdLg.FileName, lstCarpetas + "\tapa.jpg", True
@@ -720,13 +966,13 @@ Private Sub Command5_Click()
     
     Select Case IDIOMA
         Case "Español"
-            msg = "Confirmar"
+            MSG = "Confirmar"
         Case "English"
         Case "Francois"
         Case "Italiano"
     End Select
     
-    If Command5.Caption = msg Then
+    If Command5.Caption = MSG Then
         txtDataTXT.BackColor = &HE0E0E0   'color original
         txtDataTXT.Locked = True
         
@@ -767,12 +1013,12 @@ Private Sub Command6_Click()
     'o sea fijate en mayusculas y minusculas!!!
     Select Case IDIOMA
         Case "Español"
-            msg = "Generar estadistica de discos"
+            MSG = "Generar estadistica de discos"
         Case "English"
         Case "Francois"
         Case "Italiano"
     End Select
-    If Command6.Caption = msg Then
+    If Command6.Caption = MSG Then
         lstTODO.Clear
         
         Select Case IDIOMA
@@ -786,7 +1032,7 @@ Private Sub Command6_Click()
         'pasar por todos los discos y medir de cada uno las escuchadas
         Dim ThisFolder As String
         Dim Carp As String
-        For A = 1 To UBound(MATRIZ_DISCOS)
+        For A = 0 To UBound(MATRIZ_DISCOS)
             Carp = txtInLista(MATRIZ_DISCOS(A), 1, ",")
             ThisFolder = txtInLista(MATRIZ_DISCOS(A), 0, ",")
             'ver si existen o se borraron
@@ -822,7 +1068,7 @@ Private Sub Command7_Click()
     Dim TapasGrandes As Long, TapasMuyGrandes As Long
     TapasGrandes = 0: TapasMuyGrandes = 0
         
-    For A = 1 To UBound(MATRIZ_DISCOS)
+    For A = 0 To UBound(MATRIZ_DISCOS)
         ThisFolder = txtInLista(MATRIZ_DISCOS(A), 0, ",")
         If FSO.FileExists(ThisFolder + "\tapa.jpg") Then
             TamTapa = FileLen(ThisFolder + "\tapa.jpg")
@@ -844,24 +1090,24 @@ Private Sub Command7_Click()
     
     Select Case IDIOMA
         Case "Español"
-            msg = "Hay " + CStr(TapasGrandes) + _
+            MSG = "Hay " + CStr(TapasGrandes) + _
                 " tapas de mas de 20 Kb. Estas son:" + vbCrLf + MasDe20Kb
         Case "English"
         Case "Francois"
         Case "Italiano"
     End Select
     
-    If TapasGrandes > 0 Then MsGrandes = msg
+    If TapasGrandes > 0 Then MsGrandes = MSG
     
     Select Case IDIOMA
         Case "Español"
-            msg = "Hay " + CStr(TapasMuyGrandes) + _
+            MSG = "Hay " + CStr(TapasMuyGrandes) + _
                 " tapas de mas de 200 Kb. Estas son:" + vbCrLf + MasDe300Kb
         Case "English"
         Case "Francois"
         Case "Italiano"
     End Select
-    If TapasMuyGrandes > 0 Then MsMuyGrandes = msg
+    If TapasMuyGrandes > 0 Then MsMuyGrandes = MSG
     
     Dim MSGfinal As String
     MSGfinal = MsGrandes + vbCrLf + MsMuyGrandes
@@ -897,6 +1143,19 @@ Private Sub Command8_Click()
         Name lstCarpetas As AP + "discos\" + NewFolder
         lstCarpetasShow.List(lstCarpetas.ListIndex) = NewFolder
     End If
+End Sub
+
+Private Sub Command9_Click()
+    Dim tNewFolder As String
+    CmdLg.InitDir = "C:\"
+    CmdLg.ShowFolder
+    
+    If CmdLg.InitDir = "" Or CmdLg.InitDir = "C:\" Then Exit Sub
+    
+    tNewFolder = CmdLg.InitDir
+    
+    lstOrigenes.AddItem tNewFolder
+    lstOrigenes.ListIndex = lstOrigenes.ListCount - 1
 End Sub
 
 Private Sub Form_Activate()
@@ -946,7 +1205,7 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             'grabar credito para validar
             'creditosValidar ya se cargo en load de frmindex
             CreditosValidar = CreditosValidar + TemasPorCredito
-            EscribirArch1Linea SYSfolder + "\radilav.cfg", CStr(CreditosValidar)
+            EscribirArch1Linea SYSfolder + "radilav.cfg", CStr(CreditosValidar)
             
         Else
             'apagar el fichero electronico
@@ -957,6 +1216,30 @@ End Sub
 
 Private Sub Form_Load()
     AjustarFRM Me, 12000
+    
+    'mostrar los origenes
+    Dim Origenes As String
+    Origenes = LeerArch1Linea(SYSfolder + "oddtb.jut")
+    Dim PartOrigenes() As String
+    PartOrigenes = Split(Origenes, "*")
+    
+    lstOrigenes.Clear
+    Dim AAA As Long
+    For AAA = 0 To UBound(PartOrigenes)
+        lstOrigenes.AddItem PartOrigenes(AAA)
+    Next AAA
+    'siempre uno elegido!
+    lstOrigenes.ListIndex = 0
+    
+    'si no es SL taparlo JAJAJAJA!!!
+    If K.LICENCIA <> HSuperLicencia Then
+        lstOrigenes.Enabled = False
+        Command9.Enabled = False 'boton agregar
+        Command10.Enabled = False 'boton quitar
+        Command14.Enabled = False 'boton up
+        Command13.Enabled = False 'boton down
+        Command12.Enabled = False 'boton grabar
+    End If
     'mostrar la lista de carpetas cargadas en 3PM
     CargarCarpetas
     InfoDisco lblInfoDisco

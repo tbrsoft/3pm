@@ -564,7 +564,7 @@ End Sub
 
 Private Sub Command4_Click()
     On Error GoTo LogERROR
-    LineaError = "0005-2540"
+    CaminoError "0005-2540"
     'TotArchMM sabe cuantos temas hay en total
     
     'grabar en AP+"discos" los nuevos datos multimedia
@@ -577,14 +577,14 @@ Private Sub Command4_Click()
     'ver cuantos archivos efectivamente se copiaran
     Dim TotalACopiar As Long 'no cuenta los que no son multimedia
     TotalACopiar = 0
-    LineaError = "0005-2541"
+    CaminoError "0005-2541"
     For A = 0 To lstCarConMM.ListCount - 1
         If lstCarConMM.Selected(A) Then
             TotMM = Val(txtInLista(lstCarConMM.List(A), 1, ","))
             TotalACopiar = TotalACopiar + TotMM
         End If
     Next
-    LineaError = "0005-2542"
+    CaminoError "0005-2542"
     For A = 0 To lstCarConMM.ListCount - 1
         If lstCarConMM.Selected(A) Then
             TotMM = Val(txtInLista(lstCarConMM.List(A), 1, ","))
@@ -593,44 +593,44 @@ Private Sub Command4_Click()
             'hay que copiar solo los archivos MM
             SoloCarp = txtInLista(Ubic, 99998, "\") '99998 es el anteultimo
             NewCarp = AP + "discos\" + SoloCarp + "\"
-            LineaError = "0005-2543"
+            CaminoError "0005-2543"
             'crear la carpeta si no esta
             If FSO.FolderExists(NewCarp) = False Then FSO.CreateFolder NewCarp
             
             'NO OLVIDARSE DE TAPA.JPG Y DATA.TXT
             Dim ArchTapa As String
             ArchTapa = Ubic + "tapa.jpg"
-            LineaError = "0005-2544"
+            CaminoError "0005-2544"
             If FSO.FileExists(ArchTapa) Then
                 'si existe ver los atributos
                 If FSO.FileExists(NewCarp + "tapa.jpg") Then
-                    LineaError = "0005-2545"
-                    aaa = GetAttr(NewCarp + "tapa.jpg")
-                    If aaa = vbHidden Or aaa = vbReadOnly Then SetAttr NewCarp + "tapa.jpg", 0
+                    CaminoError "0005-2545"
+                    AAA = GetAttr(NewCarp + "tapa.jpg")
+                    If AAA = vbHidden Or AAA = vbReadOnly Then SetAttr NewCarp + "tapa.jpg", 0
                 End If
-                LineaError = "0005-2546"
+                CaminoError "0005-2546"
                 FSO.CopyFile ArchTapa, NewCarp + "tapa.jpg"
             End If
-            LineaError = "0005-2547"
+            CaminoError "0005-2547"
             Dim ArchDaTa As String
             ArchDaTa = Ubic + "data.txt"
             If FSO.FileExists(ArchDaTa) Then
-                LineaError = "0005-2548"
+                CaminoError "0005-2548"
                 'si existe ver los atributos
                 If FSO.FileExists(NewCarp + "data.txt") Then
-                    LineaError = "0005-2549"
-                    aaa = GetAttr(NewCarp + "data.txt")
-                    If aaa = vbHidden Or aaa = vbReadOnly Then SetAttr NewCarp + "data.txt", 0
+                    CaminoError "0005-2549"
+                    AAA = GetAttr(NewCarp + "data.txt")
+                    If AAA = vbHidden Or AAA = vbReadOnly Then SetAttr NewCarp + "data.txt", 0
                 End If
-                LineaError = "0005-2550"
+                CaminoError "0005-2550"
                 FSO.CopyFile ArchDaTa, NewCarp + "data.txt"
             End If
-            LineaError = "0005-2551"
+            CaminoError "0005-2551"
             TMPfiles = ObtenerArchMM(Ubic) 'deveuelve pathfull , solonombre
-            C = 1
-            Do While C <= TotMM 'se supone que es el total de esta carpeta
-                PathArch = txtInLista(TMPfiles(C), 0, ",")
-                SoloArch = txtInLista(TMPfiles(C), 1, ",")
+            c = 1
+            Do While c <= TotMM 'se supone que es el total de esta carpeta
+                PathArch = txtInLista(TMPfiles(c), 0, ",")
+                SoloArch = txtInLista(TMPfiles(c), 1, ",")
                 
                 Select Case IDIOMA
                     Case "Español"
@@ -642,21 +642,21 @@ Private Sub Command4_Click()
                 End Select
                 
                 lblBAR2.Refresh
-                LineaError = "0005-2552"
+                CaminoError "0005-2552"
                 ArchCopiados = ArchCopiados + 1
                 PBar2.Width = P2.Width / TotalACopiar * ArchCopiados
                 PBar2.Refresh
                 'si existe ver los atributos
                 If FSO.FileExists(NewCarp + SoloArch) Then
-                    LineaError = "0005-2553"
-                    aaa = GetAttr(NewCarp + SoloArch)
-                    If aaa = vbHidden Or aaa = vbReadOnly Then SetAttr NewCarp + SoloArch, 0
+                    CaminoError "0005-2553"
+                    AAA = GetAttr(NewCarp + SoloArch)
+                    If AAA = vbHidden Or AAA = vbReadOnly Then SetAttr NewCarp + SoloArch, 0
                 End If
-                LineaError = "0005-2554"
+                CaminoError "0005-2554"
                 FSO.CopyFile PathArch, NewCarp + SoloArch, True
-                C = C + 1
+                c = c + 1
             Loop
-            LineaError = "0005-2555"
+            CaminoError "0005-2555"
             Select Case IDIOMA
                 Case "Español"
                     lblBAR2 = "Sin Tareas"
@@ -670,7 +670,7 @@ Private Sub Command4_Click()
             
         End If
     Next
-    LineaError = "0005-2556"
+    CaminoError "0005-2556"
     InfoDisco lblInfoDisco
     Select Case IDIOMA
         Case "Español"
@@ -727,11 +727,11 @@ Private Sub Command5_Click()
             If DS.IsReady Then
                 Select Case IDIOMA
                     Case "Español"
-                        msg = "Desea bucar en la unidad de CD:" + vbCrLf + _
+                        MSG = "Desea bucar en la unidad de CD:" + vbCrLf + _
                             DS.DriveLetter + "-" + DS.VolumeName + vbCrLf + _
                             "No = Unidad Siguiente"
                     Case "English"
-                        msg = "Want to search in:" + vbCrLf + _
+                        MSG = "Want to search in:" + vbCrLf + _
                             DS.DriveLetter + "-" + DS.VolumeName + vbCrLf + _
                             "No = Next disc"
                     Case "Francois"
@@ -740,11 +740,11 @@ Private Sub Command5_Click()
             Else
                 Select Case IDIOMA
                     Case "Español"
-                        msg = "Desea bucar en la unidad de CD:" + vbCrLf + _
+                        MSG = "Desea bucar en la unidad de CD:" + vbCrLf + _
                             DS.DriveLetter + " (no esta listo)" + vbCrLf + _
                             "No = Unidad Siguiente"
                     Case "English"
-                        msg = "Want to search in:" + vbCrLf + _
+                        MSG = "Want to search in:" + vbCrLf + _
                             DS.DriveLetter + " (no esta listo)" + vbCrLf + _
                             "No = Next disc"
                     Case "Francois"
@@ -752,7 +752,7 @@ Private Sub Command5_Click()
                 End Select
                 
             End If
-            If MsgBox(msg, vbYesNo) = vbYes Then GoTo ElegidoCD
+            If MsgBox(MSG, vbYesNo) = vbYes Then GoTo ElegidoCD
             
         Next
         'si llego hasta aca y no eligio se caga por boludo
@@ -987,7 +987,7 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             'grabar credito para validar
             'creditosValidar ya se cargo en load de frmindex
             CreditosValidar = CreditosValidar + TemasPorCredito
-            EscribirArch1Linea SYSfolder + "\radilav.cfg", CStr(CreditosValidar)
+            EscribirArch1Linea SYSfolder + "radilav.cfg", CStr(CreditosValidar)
             
         Else
             'apagar el fichero electronico

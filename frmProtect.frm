@@ -175,7 +175,7 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             'grabar credito para validar
             'creditosValidar ya se cargo en load de frmindex
             CreditosValidar = CreditosValidar + TemasPorCredito
-            EscribirArch1Linea SYSfolder + "\radilav.cfg", CStr(CreditosValidar)
+            EscribirArch1Linea SYSfolder + "radilav.cfg", CStr(CreditosValidar)
             
         Else
             'apagar el fichero electronico

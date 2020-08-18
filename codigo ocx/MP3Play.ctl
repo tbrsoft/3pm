@@ -38,19 +38,19 @@ Event EndPlay()
 
 Private Sub Reloj_Timer()
     On Error GoTo ERmp3
-    LineaError = "002-0001"
+    CaminoError "002-0001"
     'primero ver si ermina el tema
     If IsPlaying = False Then
-        LineaError = "002-0002"
+        CaminoError "002-0002"
         RELOJ.Interval = 0
-        LineaError = "002-0003"
+        CaminoError "002-0003"
         RaiseEvent EndPlay
-        LineaError = "002-0004"
+        CaminoError "002-0004"
         
         Exit Sub 'ESTO NO ESTABA!!!!!!!, seguia mandando el evento!!!!!!!!!!
     End If
     'y SOLO si no termino largar el evento. Antes estaba alreves!!!!!!!!!
-    LineaError = "002-0005"
+    CaminoError "002-0005"
     RaiseEvent Played(PositionInSec)
     Exit Sub
 ERmp3:
@@ -60,9 +60,9 @@ End Sub
 
 Private Sub UserControl_Resize()
     On Error GoTo ERmp3
-    LineaError = "002-0006"
+    CaminoError "002-0006"
     UserControl.Height = 1620
-    LineaError = "002-0007"
+    CaminoError "002-0007"
     UserControl.Width = 1500
 Exit Sub
 ERmp3:
@@ -74,7 +74,7 @@ End Sub
 'MappingInfo=UserControl,UserControl,-1,Enabled
 Public Property Get Enabled() As Boolean
     On Error GoTo ERmp3
-    LineaError = "002-0008"
+    CaminoError "002-0008"
     Enabled = UserControl.Enabled
     Exit Property
 ERmp3:
@@ -84,9 +84,9 @@ End Property
 
 Public Property Let Enabled(ByVal New_Enabled As Boolean)
     On Error GoTo ERmp3
-    LineaError = "002-0009"
+    CaminoError "002-0009"
     UserControl.Enabled() = New_Enabled
-    LineaError = "002-0010"
+    CaminoError "002-0010"
     PropertyChanged "Enabled"
     Exit Property
 ERmp3:
@@ -96,9 +96,9 @@ End Property
 
 Public Property Get Volumen() As Long
     On Error GoTo ERmp3
-    LineaError = "002-0011"
+    CaminoError "002-0011"
     m_Volumen = m_Volumen / 10
-    LineaError = "002-0012"
+    CaminoError "002-0012"
     Volumen = m_Volumen
     Exit Property
 ERmp3:
@@ -109,17 +109,17 @@ End Property
 Public Property Let Volumen(ByVal New_Volumen As Long)
     On Error GoTo ERmp3
     'en mi máquina anda del 0 al 1000
-    LineaError = "002-0013"
+    CaminoError "002-0013"
     m_Volumen = New_Volumen * 10 ' * 30 - 3000
-    LineaError = "002-0014"
+    CaminoError "002-0014"
     Ret = mciSendString("SetAudio MP3Play Volume To " + CStr(m_Volumen), 0, 0, 0)
-    LineaError = "002-0015"
+    CaminoError "002-0015"
     If Ret <> 0 Then
         LogErrorMCI Ret
         'no se pudo modificar el volumen
         WriteLog "No se pudo poner el volumen en " + CStr(New_Volumen) + ". Tema: " + m_FileName + ". Property Let Volume", False
     End If
-    LineaError = "002-0018"
+    CaminoError "002-0018"
     PropertyChanged "Volumen"
     Exit Property
 ERmp3:
@@ -131,7 +131,7 @@ End Property
 'MemberInfo=13,0,0,
 Public Property Get FileName() As String
     On Error GoTo ERmp3
-    'LineaError = "002-0019"
+    'CaminoError "002-0019"
     FileName = m_FileName
     Exit Property
 ERmp3:
@@ -141,9 +141,9 @@ End Property
 
 Public Property Let FileName(ByVal New_FileName As String)
     On Error GoTo ERmp3
-    LineaError = "002-0020"
+    CaminoError "002-0020"
     m_FileName = New_FileName
-    LineaError = "002-0021"
+    CaminoError "002-0021"
     PropertyChanged "FileName"
     Exit Property
 ERmp3:
@@ -154,7 +154,7 @@ End Property
 'Initialize Properties for User Control
 Private Sub UserControl_InitProperties()
     On Error GoTo ERmp3
-    LineaError = "002-0022"
+    CaminoError "002-0022"
     m_FileName = m_def_FileName
     'Visible = True
     Exit Sub
@@ -166,9 +166,9 @@ End Sub
 'Load property values from storage
 Private Sub UserControl_ReadProperties(PropBag As PropertyBag)
     On Error GoTo ERmp3
-    LineaError = "002-0023"
+    CaminoError "002-0023"
     UserControl.Enabled = PropBag.ReadProperty("Enabled", True)
-    LineaError = "002-0024"
+    CaminoError "002-0024"
     m_FileName = PropBag.ReadProperty("FileName", m_def_FileName)
     Exit Sub
 ERmp3:
@@ -179,9 +179,9 @@ End Sub
 'Write property values to storage
 Private Sub UserControl_WriteProperties(PropBag As PropertyBag)
     On Error GoTo ERmp3
-    LineaError = "002-0025"
+    CaminoError "002-0025"
     Call PropBag.WriteProperty("Enabled", UserControl.Enabled, True)
-    LineaError = "002-0026"
+    CaminoError "002-0026"
     Call PropBag.WriteProperty("FileName", m_FileName, m_def_FileName)
     Exit Sub
 ERmp3:
@@ -191,22 +191,22 @@ End Sub
 
 Public Function IsPlaying() As Boolean
     On Error GoTo ERmp3
-    LineaError = "002-0027"
+    CaminoError "002-0027"
     If m_FileName = "" Then
-        LineaError = "002-0028"
+        CaminoError "002-0028"
         IsPlaying = False
     Else
-        LineaError = "002-0029"
+        CaminoError "002-0029"
         Static s As String * 30
-        LineaError = "002-0030"
+        CaminoError "002-0030"
         Ret = mciSendString("status MP3Play mode", s, Len(s), 0)
-        LineaError = "002-0031"
+        CaminoError "002-0031"
         If Ret <> 0 And Ret <> 263 Then '263 es cuando no ha abierto nada
             LogErrorMCI Ret
             'no se pudo modificar el volumen
             WriteLog "No se pudo definir el estado de ejecucion." + ". Tema: " + m_FileName + " Function IsPlaying", False
         End If
-        LineaError = "002-0034"
+        CaminoError "002-0034"
         IsPlaying = (Mid$(s, 1, 7) = "playing")
     End If
     Exit Function
@@ -220,40 +220,40 @@ Public Function DoOpen()
     'DoStop    'DoClose
     'si uso esos dos mando el evento endPlay y se arma un kilombo
     On Error GoTo ERmp3
-    LineaError = "002-0035"
+    CaminoError "002-0035"
     Dim Ret As String * 128
-    LineaError = "002-0036"
+    CaminoError "002-0036"
     Ret = mciSendString("Close MP3Play", 0, 0, 0)
-    LineaError = "002-0037"
+    CaminoError "002-0037"
     If Ret <> 0 And Ret <> 263 Then '263 es cuando no ha abierto nada
         LogErrorMCI Ret
         WriteLog "No se pudo cerrar MCI para reabrir tema." + ". Tema: " + m_FileName + " Function DoOpen", False
     End If
-    LineaError = "002-0040"
+    CaminoError "002-0040"
     Dim cmdToDo As String * 255
     Dim TMP As String * 255
     Dim lenShort As Long
     Dim FileNameSHORT As String
-    LineaError = "002-0041"
+    CaminoError "002-0041"
     If FSO.FileExists(m_FileName) = False Then        '
-        LineaError = "002-0042"
+        CaminoError "002-0042"
         WriteLog "No existe el archivo mp3 que se intenta abrir." + m_FileName + " Function DoOpen", True
-        LineaError = "002-0043"
+        CaminoError "002-0043"
         Exit Function
     End If
-    LineaError = "002-0044"
+    CaminoError "002-0044"
     lenShort = GetShortPathName(m_FileName, TMP, 255)
     'la funcion transforma todo a 8.3 por que con espacioes
     'el reproductor no anda. JOYA JOYA JOYA
-    LineaError = "002-0045"
+    CaminoError "002-0045"
     FileNameSHORT = Left$(TMP, lenShort)
-    LineaError = "002-0046"
-    glo_hWnd = hWnd
-    LineaError = "002-0047"
+    CaminoError "002-0046"
+    glo_hWnd = hwnd
+    CaminoError "002-0047"
     cmdToDo = "open " & FileNameSHORT & " type MPEGVideo Alias MP3Play style child"
-    LineaError = "002-0048"
+    CaminoError "002-0048"
     dwReturn = mciSendString(cmdToDo, 0&, 0&, 0&)
-    LineaError = "002-0049"
+    CaminoError "002-0049"
     If dwReturn <> 0 Then
         If dwReturn = 263 Then
             'si da el error 263 es probable que la máquina no tenga MCI, lo que le paso a Mauro con W98 PE y a efren con ME
@@ -270,10 +270,10 @@ Public Function DoOpen()
         'no se puedo abrir!!!
         WriteLog "No se pudo abrir un fichero mp3." + ". Tema: " + m_FileName + " Function DoOpen", False
     End If
-    LineaError = "002-0054"
+    CaminoError "002-0054"
     'uso todo en milisegundos
     dwReturn = mciSendString("set MP3Play time format milliseconds", 0, 0, 0)
-    LineaError = "002-0055"
+    CaminoError "002-0055"
     If dwReturn <> 0 Then
         LogErrorMCI dwReturn
         'no se pudo modificar el volumen
@@ -293,50 +293,50 @@ Public Function DoOpenVideo(Style As String, HWind As Long, _
     'DoStop
     'DoClose
     'si uso esos dos mando el evento endPlay y se arma un kilombo
-    LineaError = "002-0058"
+    CaminoError "002-0058"
     Dim Ret As String * 128
-    LineaError = "002-0059"
+    CaminoError "002-0059"
     Ret = mciSendString("Close MP3Play", 0, 0, 0)
-    LineaError = "002-0060"
+    CaminoError "002-0060"
     If Ret <> 0 And Ret <> 263 Then '263 es cuando no ha abierto nada
         LogErrorMCI Ret
         'no se pudo modificar el volumen
         WriteLog "No se pudo cerrar MCI (video) para reabrir tema." + ". Tema: " + m_FileName + "Function DoOpenVideo", False
     End If
-    LineaError = "002-0063"
+    CaminoError "002-0063"
     Dim cmdToDo As String * 255
 
-    LineaError = "002-0064"
+    CaminoError "002-0064"
     Dim TMP As String * 255
     Dim lenShort As Long
     Dim FileNameSHORT As String
-    LineaError = "002-0065"
+    CaminoError "002-0065"
     If Dir(m_FileName) = "" Then
         WriteLog "No existe el archivo de video que se intenta abrir." + m_FileName + " Function DoOpenVideo", True
         Exit Function
     End If
-    LineaError = "002-0068"
+    CaminoError "002-0068"
     lenShort = GetShortPathName(m_FileName, TMP, 255)
     'la funcion transforma todo a 8.3 por que con espacioes
     'el reproductor no anda. JOYA JOYA JOYA
-    LineaError = "002-0069"
+    CaminoError "002-0069"
     'volu = mciGetDeviceID(lenShort)
     FileNameSHORT = Left$(TMP, lenShort)
-    LineaError = "002-0070"
-    glo_hWnd = hWnd
-    LineaError = "002-0071"
+    CaminoError "002-0070"
+    glo_hWnd = hwnd
+    CaminoError "002-0071"
     cmdToDo = "open " & FileNameSHORT & " type MPEGVideo Alias MP3Play style " + Style + " parent " + CStr(HWind)
-    LineaError = "002-0072"
+    CaminoError "002-0072"
     dwReturn = mciSendString(cmdToDo, 0&, 0&, 0&)
-    LineaError = "002-0073"
+    CaminoError "002-0073"
     If dwReturn <> 0 Then
         LogErrorMCI dwReturn
         'no se pudo modificar el volumen
         WriteLog "No se pudo abrir un fichero de video." + ". Tema: " + m_FileName + " Function DoOpenVideo", False
     End If
-    LineaError = "002-0076"
+    CaminoError "002-0076"
     cmdToDo = "put MP3Play window at " + CStr(X1) + " " + CStr(Y1) + " " + CStr(X2) + " " + CStr(Y2) + " "
-    LineaError = "002-0077"
+    CaminoError "002-0077"
     dwReturn = mciSendString(cmdToDo, 0&, 0&, 0&)
     If dwReturn <> 0 Then
         LogErrorMCI dwReturn
@@ -358,7 +358,7 @@ Public Function DoOpenVideo(Style As String, HWind As Long, _
    ' End If
         
     'uso todo en milisegundos
-    LineaError = "002-0081"
+    CaminoError "002-0081"
     mciSendString "set MP3Play time format milliseconds", 0, 0, 0
     Exit Function
 ERmp3:
@@ -369,7 +369,7 @@ End Function
 
 Public Function DoPlay(Optional FullScreen As Boolean = False)
     On Error GoTo ERmp3
-    LineaError = "002-0082"
+    CaminoError "002-0082"
     If FullScreen Then
         dwReturn = mciSendString("play MP3Play fullscreen", 0, 0, 0)
     Else
@@ -380,9 +380,9 @@ Public Function DoPlay(Optional FullScreen As Boolean = False)
         'no se pudo modificar el volumen
         WriteLog "No se pudo ejecutar un fichero." + m_FileName + " Function DoPlay", False
     End If
-    LineaError = "002-0086"
+    CaminoError "002-0086"
     RELOJ.Interval = 1000
-    LineaError = "002-0087"
+    CaminoError "002-0087"
     RaiseEvent BeginPlay
     Exit Function
 ERmp3:
@@ -393,15 +393,15 @@ End Function
 
 Public Function DoPause()
     On Error GoTo ERmp3
-    LineaError = "002-0088"
+    CaminoError "002-0088"
     dwReturn = mciSendString("pause MP3Play", 0, 0, 0)
-    LineaError = "002-0089"
+    CaminoError "002-0089"
     If dwReturn <> 0 Then
         LogErrorMCI dwReturn
         'no se pudo modificar el volumen
         WriteLog "No se pudo poner en pausa un fichero." + m_FileName + " Function DoPause", False
     End If
-    LineaError = "002-0092"
+    CaminoError "002-0092"
     RELOJ.Interval = 0
     Exit Function
 ERmp3:
@@ -412,16 +412,16 @@ End Function
 
 Public Function DoStop() As String
     On Error GoTo ERmp3
-    LineaError = "002-0093"
+    CaminoError "002-0093"
     dwReturn = mciSendString("stop MP3Play", 0, 0, 0)
     If dwReturn <> 0 Then
         LogErrorMCI dwReturn
         'no se pudo modificar el volumen
         WriteLog "No se pudo parar un fichero." + m_FileName + " Function DoStop", False
     End If
-    LineaError = "002-0097"
+    CaminoError "002-0097"
     RELOJ.Interval = 0
-    LineaError = "002-0098"
+    CaminoError "002-0098"
     RaiseEvent EndPlay
     
     Exit Function
@@ -433,14 +433,14 @@ End Function
 
 Public Function DoClose() As String
     On Error GoTo ERmp3
-    LineaError = "002-0099"
+    CaminoError "002-0099"
     dwReturn = mciSendString("close MP3Play", 0, 0, 0)
     If dwReturn <> 0 And dwReturn <> 263 Then '263 ES CUANDO NO HAY NADA ABIERTO
         LogErrorMCI dwReturn
         WriteLog "No se pudo cerrar MCI." + ". Tema: " + m_FileName + " Function DoClose", False
     End If
     'SI SIGUE EL RELOJ SE MARCAN 1000 errores!!!!!!!!!!
-    LineaError = "002-0103"
+    CaminoError "002-0103"
     RELOJ.Interval = 0
     Exit Function
 ERmp3:
@@ -451,7 +451,7 @@ End Function
 
 Public Function PercentPlay()
     On Error GoTo ERmp3
-    LineaError = "002-0104"
+    CaminoError "002-0104"
     PercentPlay = PositionInSec / LengthInSec * 100
     Exit Function
 ERmp3:
@@ -461,17 +461,17 @@ ERmp3:
 End Function
 
 Public Function PositionInSec()
-    LineaError = "002-0105"
+    CaminoError "002-0105"
     On Local Error GoTo ErrFunc
     Static s As String * 30
-    LineaError = "002-0106"
+    CaminoError "002-0106"
     dwReturn = mciSendString("status MP3Play position", s, Len(s), 0)
     If dwReturn <> 0 Then
         LogErrorMCI dwReturn
         'no se pudo modificar el volumen
         WriteLog "No se pudo establecer la posicion." + m_FileName + " Function PositionInSec", False
     End If
-    LineaError = "002-0109"
+    CaminoError "002-0109"
     'esta funcion anda joya!!!
     PositionInSec = CLng(SoloNumeros(s)) / 1000
     'porqueria
@@ -491,25 +491,25 @@ End Function
 Public Function Position()
     On Local Error GoTo ErrFunc
     Static s As String * 30
-    LineaError = "002-0113"
+    CaminoError "002-0113"
     dwReturn = mciSendString("status MP3Play position", s, Len(s), 0)
-    LineaError = "002-0114"
+    CaminoError "002-0114"
     If dwReturn <> 0 Then
         LogErrorMCI dwReturn
         'no se pudo modificar el volumen
         WriteLog "No se pudo establecer la posicion." + m_FileName + " Function Position", False
     End If
-    LineaError = "002-0117"
+    CaminoError "002-0117"
     sec = Int(Mid$(s, 1, Len(s)) / 1000)
-    LineaError = "002-0118"
+    CaminoError "002-0118"
     If sec < 60 Then Position = "0:" & Format(sec, "00")
-    LineaError = "002-0119"
+    CaminoError "002-0119"
     If sec > 59 Then
-        LineaError = "002-0120"
+        CaminoError "002-0120"
         mins = Int(sec / 60)
-        LineaError = "002-0121"
+        CaminoError "002-0121"
         sec = sec - (mins * 60)
-        LineaError = "002-0122"
+        CaminoError "002-0122"
         Position = Format(mins, "00") & ":" & Format(sec, "00")
     End If
     
@@ -528,9 +528,9 @@ End Function
 
 Public Function FaltaInSec()
     On Error GoTo ERmp3
-    LineaError = "002-0129"
+    CaminoError "002-0129"
     Static s As String * 30
-    LineaError = "002-0130"
+    CaminoError "002-0130"
     FaltaInSec = LengthInSec - PositionInSec 'llamo a la funcion para que se manejen los errores desde ahi
     Exit Function
 ERmp3:
@@ -541,17 +541,17 @@ End Function
 
 Public Function Falta()
     On Error GoTo ERmp3
-    LineaError = "002-0131"
+    CaminoError "002-0131"
     sec = FaltaInSec
-    LineaError = "002-0132"
+    CaminoError "002-0132"
     If sec < 60 Then Falta = "0:" & Format(sec, "00")
-    LineaError = "002-0133"
+    CaminoError "002-0133"
     If sec > 59 Then
-        LineaError = "002-0134"
+        CaminoError "002-0134"
         mins = Int(sec / 60)
-        LineaError = "002-0135"
+        CaminoError "002-0135"
         sec = sec - (mins * 60)
-        LineaError = "002-0136"
+        CaminoError "002-0136"
         Falta = Format(mins, "00") & ":" & Format(sec, "00")
     End If
     Exit Function
@@ -562,17 +562,17 @@ ERmp3:
 End Function
 
 Public Function LengthInSec()
-    LineaError = "002-0137"
+    CaminoError "002-0137"
     On Local Error GoTo ErrFunc
     Static s As String * 30
-    LineaError = "002-0138"
+    CaminoError "002-0138"
     dwReturn = mciSendString("status MP3Play length", s, Len(s), 0)
     If dwReturn <> 0 Then
         LogErrorMCI dwReturn
         'no se pudo modificar el volumen
         WriteLog "No se pudo establecer la duracion." + m_FileName + " Function LengthInSec", False
     End If
-    LineaError = "002-0141"
+    CaminoError "002-0141"
     'esta funcion anda joya!!!!
     LengthInSec = CLng(SoloNumeros(s)) / 1000
     'esto era una porqueria!!!!
@@ -585,17 +585,17 @@ End Function
 
 Public Function Length()
     On Error GoTo ERmp3
-    LineaError = "002-0148"
+    CaminoError "002-0148"
     sec = LengthInSec 'pateo posibles errores a LengthInSec
-    LineaError = "002-0149"
+    CaminoError "002-0149"
     If sec < 60 Then Length = "0:" & Format(sec, "00")
-    LineaError = "002-0150"
+    CaminoError "002-0150"
     If sec > 59 Then
-        LineaError = "002-0151"
+        CaminoError "002-0151"
         mins = Int(sec / 60)
-        LineaError = "002-0152"
+        CaminoError "002-0152"
         sec = sec - (mins * 60)
-        LineaError = "002-0153"
+        CaminoError "002-0153"
         Length = Format(mins, "00") & ":" & Format(sec, "00")
     End If
     Exit Function
@@ -607,20 +607,20 @@ End Function
 
 Public Function SeekTo(Second)
     On Error GoTo ERmp3
-    LineaError = "002-0154"
+    CaminoError "002-0154"
     If IsPlaying = True Then
-        LineaError = "002-0155"
+        CaminoError "002-0155"
         dwReturn = mciSendString("play MP3Play from " & Second, 0, 0, 0)
-        LineaError = "002-0156"
+        CaminoError "002-0156"
         If dwReturn <> 0 Then
-            LineaError = "002-0157"
+            CaminoError "002-0157"
             LogErrorMCI dwReturn
             'no se pudo modificar el volumen
-            LineaError = "002-0158"
+            CaminoError "002-0158"
             WriteLog "No se pudo seek mientras se ejecutaba." + m_FileName + " Function SeekTo", False
         End If
     Else
-        LineaError = "002-0159"
+        CaminoError "002-0159"
         dwReturn = mciSendString("seek MP3Play to " & Second, 0, 0, 0)
         If dwReturn <> 0 Then
             LogErrorMCI dwReturn
@@ -637,23 +637,23 @@ End Function
 
 Function Record()
     On Error GoTo ERmp3
-    LineaError = "002-0162"
+    CaminoError "002-0162"
     dwReturn = mciSendString("Close MP3rec", 0, 0, 0)
-    LineaError = "002-0163"
+    CaminoError "002-0163"
     If dwReturn <> 0 And dwReturn <> 263 Then '263 es cuando no hay nada abierto
-        LineaError = "002-0164"
+        CaminoError "002-0164"
         LogErrorMCI dwReturn
         'no se pudo modificar el volumen
-        LineaError = "002-0165"
+        CaminoError "002-0165"
         WriteLog "No se pudo cerrar para comenzar a grabar." + m_FileName + " Function Record", False
     End If
-    LineaError = "002-0166"
+    CaminoError "002-0166"
     Dim cmdToDo As String * 255
-    LineaError = "002-0167"
+    CaminoError "002-0167"
     'abrir nuevo
-    LineaError = "002-0168"
+    CaminoError "002-0168"
     cmdToDo = "open new type WaveAudio Alias MP3rec"
-    LineaError = "002-0169"
+    CaminoError "002-0169"
     dwReturn = mciSendString(cmdToDo, 0&, 0&, 0&)
     If dwReturn <> 0 Then
         LogErrorMCI dwReturn
@@ -662,9 +662,9 @@ Function Record()
         Exit Function
     End If
     'iniciar grabacion
-    LineaError = "002-0174"
+    CaminoError "002-0174"
     cmdToDo = "record MP3rec"
-    LineaError = "002-0175"
+    CaminoError "002-0175"
     dwReturn = mciSendString(cmdToDo, 0&, 0&, 0&)
     If dwReturn <> 0 Then
         LogErrorMCI dwReturn
@@ -681,23 +681,23 @@ End Function
 Function StopRecord()
     On Error GoTo ERmp3
     Dim cmdToDo As String * 255
-    LineaError = "002-0178"
+    CaminoError "002-0178"
     'parar nuevo
     cmdToDo = "stop MP3rec"
-    LineaError = "002-0179"
+    CaminoError "002-0179"
     dwReturn = mciSendString(cmdToDo, 0&, 0&, 0&)
-    LineaError = "002-0180"
+    CaminoError "002-0180"
     If dwReturn <> 0 Then
         LogErrorMCI dwReturn
         'no se pudo modificar el volumen
         WriteLog "No se pudo detener la grabacion." + m_FileName + " Function StopRecord", False
     End If
     'grabar grabacion
-    LineaError = "002-0182"
+    CaminoError "002-0182"
     cmdToDo = "save MP3rec 3pm.wav"
-    LineaError = "002-0183"
+    CaminoError "002-0183"
     dwReturn = mciSendString(cmdToDo, 0&, 0&, 0&)
-    LineaError = "002-0184"
+    CaminoError "002-0184"
     If dwReturn <> 0 Then
         LogErrorMCI dwReturn
         'no se pudo modificar el volumen
@@ -705,11 +705,11 @@ Function StopRecord()
     End If
     
     'cerrra grabacion
-    LineaError = "002-0185"
+    CaminoError "002-0185"
     cmdToDo = "Close MP3rec "
-    LineaError = "002-0186"
+    CaminoError "002-0186"
     dwReturn = mciSendString(cmdToDo, 0&, 0&, 0&)
-    LineaError = "002-0187"
+    CaminoError "002-0187"
     If dwReturn <> 0 And dwReturn <> 263 Then '263 es cuando no hay nada abierto
         LogErrorMCI dwReturn
         'no se pudo modificar el volumen
@@ -763,7 +763,7 @@ Public Sub WriteLog(TXT As String, PonerFecha As Boolean)
     
     Set TE = FSO.OpenTextFile(AP + "log.txt", ForAppending, False)
     If PonerFecha Then
-        TE.WriteLine Trim(Str(Date)) + " / " + Trim(Str(Time)) + vbCrLf + TXT
+        TE.WriteLine Trim(Str(Date)) + " / " + Trim(Str(time)) + vbCrLf + TXT
     Else
         TE.WriteLine TXT
     End If
@@ -772,12 +772,12 @@ End Sub
 
 Public Function QuickLargoDeTema(TemaQuick As String) As String
     On Local Error GoTo ErrFunc
-    LineaError = "002-0192"
+    CaminoError "002-0192"
     QuickLargoDeTema = "N/S"
     '------------cerrar si estaba abierto--------------
-    LineaError = "002-0193"
+    CaminoError "002-0193"
     Ret = mciSendString("Close MP3quick", 0, 0, 0)
-    LineaError = "002-0194"
+    CaminoError "002-0194"
     If Ret <> 0 And Ret <> 263 Then '263 es cuando no hay abierto nada
         LogErrorMCI Ret
         WriteLog "No se pudo cerrar MCI para reabrir tema MP3 quick." + ". Tema: " + TemaQuick + " Function QuickLargoDeTema", False
@@ -785,27 +785,27 @@ Public Function QuickLargoDeTema(TemaQuick As String) As String
     '------------abrir--------------
     Dim cmdToDo As String * 255
     
-    LineaError = "002-0195"
+    CaminoError "002-0195"
     Dim TMP As String * 255
     Dim lenShort As Long
     Dim FileNameSHORT As String
-    LineaError = "002-0196"
+    CaminoError "002-0196"
     If Dir(TemaQuick) = "" Then       '
-        LineaError = "002-0197"
+        CaminoError "002-0197"
         WriteLog "No existe el archivo mp3 que se intenta abrir (QUICK)." + TemaQuick + " Function QuickLargoDeTema", True
         Exit Function
     End If
-    LineaError = "002-0198"
+    CaminoError "002-0198"
     lenShort = GetShortPathName(TemaQuick, TMP, 255)
-    LineaError = "002-0199"
+    CaminoError "002-0199"
     FileNameSHORT = Left$(TMP, lenShort)
-    LineaError = "002-0200"
-    glo_hWnd = hWnd
-    LineaError = "002-0201"
+    CaminoError "002-0200"
+    glo_hWnd = hwnd
+    CaminoError "002-0201"
     cmdToDo = "open " & FileNameSHORT & " type MPEGVideo Alias MP3quick"
-    LineaError = "002-0202"
+    CaminoError "002-0202"
     dwReturn = mciSendString(cmdToDo, 0&, 0&, 0&)
-    LineaError = "002-0203"
+    CaminoError "002-0203"
     If dwReturn = 264 Then 'no hay memoria sufuciente!!!
         LogErrorMCI dwReturn
         WriteLog "No se pudo abrir MCI (QUICK) ." + ". Tema: " + TemaQuick + " Function QuickLargoDeTema", False
@@ -813,43 +813,43 @@ Public Function QuickLargoDeTema(TemaQuick As String) As String
         'cierre el MCI original (el que reproduce)
         Exit Function
     End If
-    LineaError = "002-0204"
+    CaminoError "002-0204"
     If dwReturn <> 0 And dwReturn <> 264 Then
         LogErrorMCI dwReturn
         WriteLog "No se pudo abrir un fichero mp3 (QUICK)." + ". Tema: " + TemaQuick + " Function QuickLargoDeTema", False
         Exit Function
     End If
-    LineaError = "002-0205"
+    CaminoError "002-0205"
     '------------poner en milisegundos--------------
     dwReturn = mciSendString("set MP3quick time format milliseconds", 0, 0, 0)
-    LineaError = "002-0206"
+    CaminoError "002-0206"
     If dwReturn <> 0 Then
         LogErrorMCI dwReturn
         WriteLog "No se pudo establecer el formato a milisegundos." + ". Tema: " + temacuick + " Function QuickLargoDeTema", False
     End If
     '------------ver el largo--------------
-    LineaError = "002-0207"
+    CaminoError "002-0207"
     Static s As String * 30
-    LineaError = "002-0208"
+    CaminoError "002-0208"
     dwReturn = mciSendString("status MP3quick length", s, Len(s), 0)
     If dwReturn <> 0 Then
         LogErrorMCI dwReturn
         WriteLog "No se pudo establecer la duracion." + TemaQuick + " Function QuickLargoDeTema", False
     End If
-    LineaError = "002-0209"
+    CaminoError "002-0209"
     sec = CLng(SoloNumeros(s)) / 1000
     'sec = Int(Mid$(s, 1, Len(s)) / 1000)
-    LineaError = "002-0210"
+    CaminoError "002-0210"
     If sec < 60 Then QuickLargoDeTema = "00:" & Format(sec, "00")
-    LineaError = "002-0211"
+    CaminoError "002-0211"
     If sec > 59 Then
-        LineaError = "002-0212"
+        CaminoError "002-0212"
         mins = Int(sec / 60)
-        LineaError = "002-0213"
+        CaminoError "002-0213"
         sec = sec - (mins * 60)
-        LineaError = "002-0214"
+        CaminoError "002-0214"
         QuickLargoDeTema = Format(mins, "00") & ":" & Format(sec, "00")
-        LineaError = "002-0215"
+        CaminoError "002-0215"
     End If
     Exit Function
 ErrFunc:

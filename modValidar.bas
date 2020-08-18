@@ -9,7 +9,7 @@ Public Sub CrearNuevoCodigoValidar()
     Dim A As Long
     Randomize Timer
     A = Int(Rnd * 1000000) '1 millon
-    EscribirArch1Linea SYSfolder + "\codped.cfg", CStr(A)
+    EscribirArch1Linea SYSfolder + "codped.cfg", CStr(A)
 End Sub
 
 
@@ -19,7 +19,7 @@ Public Function CodigoParaClaveActual() As String
     
     'PARA QUE NO CAMBIE ESTA EN UNA ARCHIVO
     Dim Cod As String
-    Cod = LeerArch1Linea(SYSfolder + "\codped.cfg")
+    Cod = LeerArch1Linea(SYSfolder + "codped.cfg")
     
     CodigoParaClaveActual = Cod
     
@@ -85,9 +85,9 @@ End Function
 Public Sub RegistroDiario()
     'registra cada inicio de 3PM y el numero que indica el contador
     Dim TE As TextStream
-    Set TE = FSO.OpenTextFile(SYSfolder + "\daily.cfg", ForAppending, True)
+    Set TE = FSO.OpenTextFile(SYSfolder + "daily.cfg", ForAppending, True)
     SumarContadorCreditos 0 'me aseguro que se carge la variable contador
-    TE.WriteLine CStr(Date) + " - " + CStr(Time) + " Contador en: " + CStr(CONTADOR)
+    TE.WriteLine CStr(Date) + " - " + CStr(time) + " Contador R en: " + CStr(CONTADOR) + " Contador H en: " + CStr(CONTADOR2)
     TE.Close
 
 End Sub

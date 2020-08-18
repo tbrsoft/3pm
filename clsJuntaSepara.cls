@@ -321,7 +321,7 @@ ReRead:
         ReDim Preserve mInis(0)
         ReDim Preserve mLargos(0)
         
-        Dim C As Long, D As Long
+        Dim c As Long, D As Long
         'pongo uno para que mArchivos empieze en uno
         B = 1
         For A = 1 To 10000
@@ -329,19 +329,19 @@ ReRead:
             If A = 1 Then B = InStr(B, GetSPC, "(iARH)")
             'si ya no hay salir
             If B = 0 Then Exit For
-            C = InStr(B, GetSPC, "(aINI)")
-            D = InStr(C, GetSPC, "(aSZE)")
+            c = InStr(B, GetSPC, "(aINI)")
+            D = InStr(c, GetSPC, "(aSZE)")
             ReDim Preserve mArchivosFT(A)
             'aca el FN se completa para que este pero vacio, ya no se usa
             ReDim Preserve mArchivosFN(A)
             mArchivosFN(A) = ""
             
             B = B + 6
-            mArchivosFT(A) = Mid(GetSPC, B, C - B)
+            mArchivosFT(A) = Mid(GetSPC, B, c - B)
             
-            C = C + 6
+            c = c + 6
             ReDim Preserve mInis(A)
-            mInis(A) = Mid(GetSPC, C, D - C)
+            mInis(A) = Mid(GetSPC, c, D - c)
             'no entiendo porque pero es asi!!!
             'mInis(A) = mInis(A) + A - 1
             D = D + 6

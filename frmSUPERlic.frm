@@ -28,10 +28,10 @@ Begin VB.Form frmSUPERlic
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   8460
+      Left            =   7080
       Style           =   1  'Graphical
       TabIndex        =   27
-      Top             =   7950
+      Top             =   8160
       Width           =   1215
    End
    Begin VB.CommandButton Command7 
@@ -50,7 +50,7 @@ Begin VB.Form frmSUPERlic
       Left            =   2070
       Style           =   1  'Graphical
       TabIndex        =   26
-      Top             =   5580
+      Top             =   5970
       Width           =   1215
    End
    Begin VB.CommandButton cmdImgQ 
@@ -204,10 +204,10 @@ Begin VB.Form frmSUPERlic
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   7215
+      Left            =   7080
       Style           =   1  'Graphical
       TabIndex        =   15
-      Top             =   7950
+      Top             =   7800
       Width           =   1215
    End
    Begin VB.CommandButton Command3 
@@ -245,7 +245,7 @@ Begin VB.Form frmSUPERlic
       Left            =   2070
       Style           =   1  'Graphical
       TabIndex        =   11
-      Top             =   5190
+      Top             =   5580
       Width           =   1215
    End
    Begin VB.CommandButton cmdImgPresP 
@@ -411,9 +411,9 @@ Begin VB.Form frmSUPERlic
    End
    Begin VB.Image TapaRank 
       Height          =   1245
-      Left            =   7155
+      Left            =   7020
       Stretch         =   -1  'True
-      Top             =   6660
+      Top             =   6540
       Width           =   1320
    End
    Begin VB.Label Label1 
@@ -610,7 +610,7 @@ Begin VB.Form frmSUPERlic
       Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
       BorderStyle     =   1  'Fixed Single
-      Caption         =   "Imagenes de inicio y cierre"
+      Caption         =   "Imagenes de inicio y cierre (solo Windows 98-Me, NO XP)"
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   9.75

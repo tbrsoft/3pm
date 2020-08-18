@@ -266,7 +266,7 @@ Dim ContTopVU As Long
 
 Public Property Get AnchoBarra() As Long
     'Valor del ancho de las barras. Sirve para saber que zona esta libre
-    AnchoBarra = P(C).Width
+    AnchoBarra = P(c).Width
 End Property
 
 Private Sub UserControl_Initialize()
@@ -344,11 +344,11 @@ Property Let Borde(new_Borde As Long)
     If new_Borde > 1 Then new_Borde = 1
     If new_Borde < 0 Then new_Borde = 0
     m_Borde = new_Borde
-    C = 0
-    Do While C < BarrasEnVUmeter
-        P(C).BorderStyle = Val(m_Borde)
-        P2(C).BorderStyle = Val(m_Borde)
-        C = C + 1
+    c = 0
+    Do While c < BarrasEnVUmeter
+        P(c).BorderStyle = Val(m_Borde)
+        P2(c).BorderStyle = Val(m_Borde)
+        c = c + 1
     Loop
     PropertyChanged "Borde"
 End Property
@@ -572,36 +572,39 @@ Private Sub UserControl_Resize()
     Else
         'quitar barras solo si hasta las 12 originales
         Do While BarrasEnVUmeter > BarrasToShow And BarrasEnVUmeter > 6
+            P(BarrasEnVUmeter - 1).Visible = False
             Unload P(BarrasEnVUmeter - 1)
+            
+            P2(BarrasEnVUmeter - 1).Visible = False
             Unload P2(BarrasEnVUmeter - 1)
             BarrasEnVUmeter = BarrasEnVUmeter - 1
         Loop
     End If
     'reubicar todas las barras
-    C = 0
-    Do While C < BarrasEnVUmeter
-        If C = 0 Then
-            P(C).Top = UserControl.Height - P(C).Height - m_EspacioEntreBarras
+    c = 0
+    Do While c < BarrasEnVUmeter
+        If c = 0 Then
+            P(c).Top = UserControl.Height - P(c).Height - m_EspacioEntreBarras
         Else
-            P(C).Top = P(C - 1).Top - P(C).Height - m_EspacioEntreBarras
-            P(C).Left = P(0).Left
+            P(c).Top = P(c - 1).Top - P(c).Height - m_EspacioEntreBarras
+            P(c).Left = P(0).Left
         End If
-        C = C + 1
+        c = c + 1
     Loop
     'darles a todos el mimo ancho
-    C = 0
-    Do While C < BarrasEnVUmeter
+    c = 0
+    Do While c < BarrasEnVUmeter
         'P(c).Width = (UserControl.Width - 150) / 2
-        C = C + 1
+        c = c + 1
     Loop
     'acomodar los P2
-    C = 0
-    Do While C < BarrasEnVUmeter
-        P2(C).Width = P(C).Width
-        P2(C).Height = P(C).Height
-        P2(C).Left = UserControl.Width - P2(C).Width 'P(c).Left + P(c).Width + 20
-        P2(C).Top = P(C).Top
-        C = C + 1
+    c = 0
+    Do While c < BarrasEnVUmeter
+        P2(c).Width = P(c).Width
+        P2(c).Height = P(c).Height
+        P2(c).Left = UserControl.Width - P2(c).Width 'P(c).Left + P(c).Width + 20
+        P2(c).Top = P(c).Top
+        c = c + 1
     Loop
     
     

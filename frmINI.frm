@@ -58,10 +58,10 @@ Begin VB.Form frmINI
       EndProperty
       ForeColor       =   &H00C0FFFF&
       Height          =   285
-      Left            =   8040
+      Left            =   1350
       TabIndex        =   1
-      Top             =   7740
-      Width           =   2280
+      Top             =   7470
+      Width           =   4620
    End
    Begin VB.Label lblProces 
       Alignment       =   2  'Center
@@ -134,6 +134,15 @@ Private Sub Form_Load()
     TeclaNewFicha = Val(LeerConfig("TeclaNuevaFicha", "81"))
     TeclaConfig = Val(LeerConfig("TeclaConfig", "67"))
     TeclaCerrarSistema = Val(LeerConfig("TeclaCerrarSistema", "87"))
+    
+    TeclaShowContador = Val(LeerConfig("TeclaShowContador", "85")) 'U
+    TeclaPutCeroContador = Val(LeerConfig("TeclaPutCeroContador", "86")) 'V
+    TeclaFF = Val(LeerConfig("TeclaFF", "74")) 'J
+    TeclaBajaVolumen = Val(LeerConfig("TeclaBajaVolumen", "68")) 'D
+    TeclaSubeVolumen = Val(LeerConfig("TeclaSubeVolumen", "69")) 'E
+    TeclaNextMusic = Val(LeerConfig("TeclaNextMusic", "66")) 'B
+    
+    
     ApagarAlCierre = LeerConfig("ApagarAlCierre", "0")
     'puede ser 46 o 5 por ahora
     IsMod46Teclas = CLng(LeerConfig("IsMod46Teclas", "46"))
@@ -143,6 +152,7 @@ Private Sub Form_Load()
     'Valores de ReIni FULL=tema ejecutando y lista LISTA=solo lista NADA=arranca de cero
     ReINI = LeerConfig("ReINI", "LISTA")
     VolumenIni = CLng(LeerConfig("Volumen", "50"))
+    VolumenIni2 = CLng(LeerConfig("Volumen2", "50"))
     EsperaTecla = Val(LeerConfig("EsperaTecla", "900"))
     PorcentajeTEMA = Val(LeerConfig("PorcentajeTema", "60"))
     FASTini = LeerConfig("FastIni", "1")
@@ -150,6 +160,7 @@ Private Sub Form_Load()
     vidFullScreen = LeerConfig("VidFullScreen", "1")
     Salida2 = LeerConfig("Salida2", "0")
     NoVumVID = LeerConfig("NoVumVid", "0")
+    OutTemasWhenSel = LeerConfig("OutTemasWhenSel", "0")
     BloquearMusicaElegida = LeerConfig("BloquearMusicaElegida", "1")
     TapasMostradasH = Val(LeerConfig("DiscosH", "3"))
     TapasMostradasV = Val(LeerConfig("DiscosV", "2"))
@@ -241,24 +252,24 @@ Private Sub Form_Load()
     
     '===================ORDENAR EL RANKING================================
     On Error GoTo notop
-    LineaError = "000A-00901"
+    CaminoError "000A-00901"
     'ver si existe ranking.tbr
     If FSO.FileExists(AP + "ranking.tbr") = False Then
-        LineaError = "000A-00902"
+        CaminoError "000A-00902"
         FSO.CreateTextFile AP + "ranking.tbr", True
-        LineaError = "000A-00903"
+        CaminoError "000A-00903"
         'si me quedo da error
         GoTo FinOrden
     End If
-    LineaError = "000A-00903"
+    CaminoError "000A-00903"
     lblINI.Caption = "Inicializando 3PM..."
-    LineaError = "000A-00904"
+    CaminoError "000A-00904"
     lblINI.Refresh
-    LineaError = "000A-00905"
+    CaminoError "000A-00905"
     PBar.Width = 0
-    LineaError = "000A-00906"
+    CaminoError "000A-00906"
     PBar.Refresh
-    LineaError = "000A-00907"
+    CaminoError "000A-00907"
     Dim TT As String
     Dim mtxTOP10() As String, z As Integer
     Dim ThisArch As String
@@ -268,86 +279,86 @@ Private Sub Form_Load()
     Dim Encontrado As Boolean
     Encontrado = False
     'abrir el archivo y CARGARLO A UNA MATRIZ
-    LineaError = "000A-00908"
+    CaminoError "000A-00908"
     Set TE = FSO.OpenTextFile(AP + "ranking.tbr", ForReading, False)
     'leerlo cargarlo en matriz y ordenar por mas escuchado
-    LineaError = "000A-00909"
+    CaminoError "000A-00909"
     'sin esto los archivos vacios se clavan
     ReDim Preserve mtxTOP10(0)
-    LineaError = "000A-00910"
+    CaminoError "000A-00910"
     Do While Not TE.AtEndOfStream
         'cada linea es "puntos,arch,nombretema,nombredisco"
-        LineaError = "000A-00911"
+        CaminoError "000A-00911"
         TT = TE.ReadLine
-        LineaError = "000A-00912"
+        CaminoError "000A-00912"
         If TT <> "" Then
-            LineaError = "000A-00913"
+            CaminoError "000A-00913"
             z = z + 1
-            LineaError = "000A-00914"
+            CaminoError "000A-00914"
             PBar.Width = z * 10
             If PBar.Width > lblProces.Width Then PBar.Width = 100
-            LineaError = "000A-00915"
+            CaminoError "000A-00915"
             ThisPTS = Val(txtInLista(TT, 0, ","))
-            LineaError = "000A-00916"
+            CaminoError "000A-00916"
             ThisArch = txtInLista(TT, 1, ",")
-            LineaError = "000A-00917"
+            CaminoError "000A-00917"
             ThisTEMA = txtInLista(TT, 2, ",")
-            LineaError = "000A-00918"
+            CaminoError "000A-00918"
             ThisDISCO = txtInLista(TT, 3, ",")
-            LineaError = "000A-00919"
+            CaminoError "000A-00919"
             ReDim Preserve mtxTOP10(z)
-            LineaError = "000A-00920"
+            CaminoError "000A-00920"
             mtxTOP10(z) = TT
         End If
     Loop
-    LineaError = "000A-00921"
+    CaminoError "000A-00921"
     TE.Close
     'ordenar la matriz
     'tomar la matriz (con valores separador) y ordenala en base a la
     'columna indicada. en este caso el separador es "," y la columna es 0.
     'seria los mismo que tomara 1 ya que todos tienen el mismo path
-    LineaError = "000A-00922"
+    CaminoError "000A-00922"
     Dim MaxPT As Long 'comparacoin de cadenas. Empiezo con el máximo
     Dim ubicMAX As Long 'indice en la matriz del menor encontrado cada vuelta
     MaxPT = 0
-    Dim C As Long, mtx As Long, ValComp As Long
-    C = 0 'cantidad de minimos encontrados
+    Dim c As Long, mtx As Long, ValComp As Long
+    c = 0 'cantidad de minimos encontrados
     Dim Ordenados() As Long 'matriz con los indices ordenados
-    LineaError = "000A-00923"
+    CaminoError "000A-00923"
     PBar.Width = 0
     PBar.Refresh
-    LineaError = "000A-00924"
+    CaminoError "000A-00924"
     Do
-        PBar.Width = C * 10
-        LineaError = "000A-00925"
+        PBar.Width = c * 10
+        CaminoError "000A-00925"
         For mtx = 1 To UBound(mtxTOP10)
             'se compara por los puntos
-            LineaError = "000A-00926"
+            CaminoError "000A-00926"
             ValComp = Val(txtInLista(mtxTOP10(mtx), 0, ","))
-            LineaError = "000A-00927"
+            CaminoError "000A-00927"
             If ValComp > MaxPT Then
                 'nunca uno sumara mas de dos puntos (legalmente)
-                LineaError = "000A-00928"
+                CaminoError "000A-00928"
                 MaxPT = ValComp
                 ubicMAX = mtx
             End If
         Next
-        LineaError = "000A-00929"
+        CaminoError "000A-00929"
         'al mayor lo quito para que no salga de nuevo
         mtxTOP10(ubicMAX) = "0," + mtxTOP10(ubicMAX)
-        C = C + 1
-        LineaError = "000A-00930"
-        ReDim Preserve Ordenados(C)
-        Ordenados(C) = ubicMAX
-        LineaError = "000A-00931"
-        If C >= UBound(mtxTOP10) Then Exit Do
+        c = c + 1
+        CaminoError "000A-00930"
+        ReDim Preserve Ordenados(c)
+        Ordenados(c) = ubicMAX
+        CaminoError "000A-00931"
+        If c >= UBound(mtxTOP10) Then Exit Do
         MaxPT = 0
     Loop
     'cargar todos y sacar la primera columna de las zetas
-    LineaError = "000A-00932"
+    CaminoError "000A-00932"
     PBar.Width = 0
     PBar.Refresh
-    LineaError = "000A-00933"
+    CaminoError "000A-00933"
     Dim MTXsort() As String
     'cambie opentextfile por createtextfile por un error que suele dar
     Dim TeRank As TextStream
@@ -355,35 +366,35 @@ Private Sub Form_Load()
     'si no hay nada para escribir el Close da error?!?!?!?!?
     Dim RankWrite As Long
     RankWrite = 0
-    LineaError = "000A-00934"
+    CaminoError "000A-00934"
     For mtx = 1 To UBound(mtxTOP10)
-        LineaError = "000A-00935"
+        CaminoError "000A-00935"
         ReDim Preserve MTXsort(mtx)
         'como se agrego un indice mas en archivo esta en el indice2
         'ver si existe si si no no cargarlo
-        LineaError = "000A-00936"
+        CaminoError "000A-00936"
         If Dir(txtInLista(mtxTOP10(Ordenados(mtx)), 2, ",")) <> "" Then
             MTXsort(mtx) = txtInLista(mtxTOP10(Ordenados(mtx)), 1, ",") + "," + _
                 txtInLista(mtxTOP10(Ordenados(mtx)), 2, ",") + "," + _
                 txtInLista(mtxTOP10(Ordenados(mtx)), 3, ",") + "," + _
                 txtInLista(mtxTOP10(Ordenados(mtx)), 4, ",")
-            LineaError = "000A-00938"
+            CaminoError "000A-00938"
             TeRank.WriteLine MTXsort(mtx)
             PBar.Width = mtx * 10
             RankWrite = RankWrite + 1
         Else
-            LineaError = "000A-00937"
+            CaminoError "000A-00937"
             WriteTBRLog "limpiado del Rank: " + _
                 txtInLista(mtxTOP10(Ordenados(mtx)), 2, ","), False
             Limpiaron = Limpiaron + 1
         End If
     Next
-    LineaError = "000A-00939"
+    CaminoError "000A-00939"
     'si no hay nada para escribir el Close da error?!?!?!?!?
     If RankWrite = 0 Then TeRank.WriteLine ""
-    LineaError = "000A-00981"
+    CaminoError "000A-00981"
     TeRank.Close
-    LineaError = "000A-00940"
+    CaminoError "000A-00940"
     Set TeRank = Nothing
     If Limpiaron > 0 Then WriteTBRLog "Se limpiaron " + CStr(Limpiaron) + " temas", True
     '==================================================================
@@ -391,7 +402,7 @@ FinOrden:
     'se inicializa el contador para que la variable CONTADOR tenga el
     'valor de todas las fichas cargadas
     'si este es cero esta en los primeros usos entonces mostrar el CLUF
-    LineaError = "000A-00941"
+    CaminoError "000A-00941"
     SumarContadorCreditos 0
     frmIndex.Show 1
     Exit Sub
@@ -403,4 +414,3 @@ NoINI:
     WriteTBRLog "frmINI - LOAD. " + vbCrLf + Err.Description, True
     Resume Next
 End Sub
-

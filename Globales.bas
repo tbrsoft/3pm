@@ -1,4 +1,7 @@
 Attribute VB_Name = "Globales"
+Public AcumCaminoError As String 'ultimos identificadores de camino
+
+Public EsModo5PeroLabura46 As Boolean 'para el caso de modo video
 Public vW As New clsWindowsVERSION
 Public EstoyEnModoVideoMiniSelDisco As Boolean
 Public IsMod46Teclas As Long 'no es boolean porque puede haber mas modos
@@ -14,6 +17,7 @@ Public IDIOMA As String
 Public Salida2 As Boolean 'indica si hay una 2° salida de video
 Public vidFullScreen As Boolean 'dice si el video es fullscreen o no
 Public NoVumVID As Boolean 'quitar el VUMetro de los videos
+Public OutTemasWhenSel As Boolean 'quitar el VUMetro de los videos
 
 Public K As New clsKEYS 'control de llaves y licencias
 
@@ -88,6 +92,15 @@ Public TeclaESC As Integer
 Public TeclaNewFicha As Integer
 Public TeclaConfig As Integer 'tecla para entrar a la pantalla de configuracion
 Public TeclaCerrarSistema As Integer
+'agregadas en la ver 6.5
+Public TeclaShowContador As Integer
+Public TeclaPutCeroContador As Integer
+Public TeclaFF As Integer
+Public TeclaBajaVolumen As Integer
+Public TeclaSubeVolumen As Integer
+Public TeclaNextMusic As Integer
+
+
 Public MaximoFichas As Integer
 Public ApagarAlCierre As Boolean
 Public FASTini As Boolean 'comienzo con sin mostrar imágenes
@@ -95,6 +108,7 @@ Public EsperaMinutos As Integer 'en realizadad es SEGUNDOS. Espera antes de que 
 Public EsperaTecla As Integer '. Espera antes del protector de pantalla
 Public ReINI As String 'Valores de ReIni FULL=tema ejecutando y lista LISTA=solo lista NADA=arranca de cero
 Public VolumenIni As Long
+Public VolumenIni2 As Long 'volumen de la musica gratuita
 Public PorcentajeTEMA As Integer 'del 0 al 100 para ver que parte se ejecuta de las muestras
 Public CORTAR_TEMA As Boolean 'indica si el tema que se esta ejecutando se debe cortar
 'esto puede ser porque es una version demo o por que el tema que se ejecuta es uno
@@ -135,17 +149,17 @@ Public Function txtInLista(lista As String, Orden As Long, Separador As String) 
     'si pongo 99999 en orden saco el ultimo
     Dim lAct As String, lOrden As Integer
     Dim palabra(40) As String
-    Dim C As Integer
-    C = 1: lOrden = 0
-    Do While C <= Len(lista)
-        lAct = Mid(lista, C, 1)
+    Dim c As Integer
+    c = 1: lOrden = 0
+    Do While c <= Len(lista)
+        lAct = Mid(lista, c, 1)
         If lAct = Separador Then
             lOrden = lOrden + 1
         Else
             palabra(lOrden) = palabra(lOrden) + lAct
             If lOrden > Orden Then Exit Do
         End If
-        C = C + 1
+        c = c + 1
     Loop
     'si oreden solicitado>ultimo oreden de la lista...
     If Orden > lOrden Then
@@ -178,15 +192,15 @@ Public Sub CargarProximosTemas()
         'volver a contar
         PUBs.PubsEnLista = 0
         'el indice 0 no existe ni existira por eso el C=1
-        For C = 1 To UBound(MATRIZ_LISTA)
+        For c = 1 To UBound(MATRIZ_LISTA)
             'no cargar las publicidades
-            strProximos = QuitarNumeroDeTema(txtInLista(MATRIZ_LISTA(C), 1, ","))
+            strProximos = QuitarNumeroDeTema(txtInLista(MATRIZ_LISTA(c), 1, ","))
             'frmIndex.lstProximos.AddItem CStr(c) + "- " + strProximos
             If strProximos = "Publicidad" Then
                 'contador de publicidades en lista
                 PUBs.PubsEnLista = PUBs.PubsEnLista + 1
             Else
-                frmIndex.lstProximos = frmIndex.lstProximos + CStr(C - PUBs.PubsEnLista) + "- " + strProximos + vbCrLf
+                frmIndex.lstProximos = frmIndex.lstProximos + CStr(c - PUBs.PubsEnLista) + "- " + strProximos + vbCrLf
             End If
         Next
         'primero se escribe la lista y despues la primera linea
@@ -426,8 +440,8 @@ Public Function LeerConfig(Conf As String, ValDefault As String) As String
     LeerConfig = "NO EXISTE"
     
     Dim TXT As String, CFG As String, RST As String
-    If FSO.FileExists(SYSfolder + "\3pmcfg.tbr") Then
-        Set TE = FSO.OpenTextFile(SYSfolder + "\3pmcfg.tbr", ForReading, False)
+    If FSO.FileExists(SYSfolder + "3pmcfg.tbr") Then
+        Set TE = FSO.OpenTextFile(SYSfolder + "3pmcfg.tbr", ForReading, False)
             Dim FullConfig As String
             FullConfig = TE.ReadAll
         TE.Close
@@ -542,11 +556,13 @@ Public Sub WriteTBRLog(TXT As String, PonerFecha As Boolean)
     Set TE = FSO.OpenTextFile(AP + "TBRlog.txt", ForAppending, False)
     TE.WriteLine "" 'dejar un renglon en blanco
     If PonerFecha Then
-        TE.WriteLine Trim(Str(Date)) + " / " + Trim(Str(Time)) + vbCrLf + TXT
+        TE.WriteLine Trim(Str(Date)) + " / " + Trim(Str(time)) + vbCrLf + TXT
     Else
         TE.WriteLine TXT
     End If
     TE.Close
+    
+    If LCase(AP) = "d:\ahora\3pmv65 kabalin\" Then MsgBox TXT
 End Sub
 
 
@@ -558,7 +574,7 @@ Public Function QuitarNumeroDeTema(TemaFull As String) As String
         QuitarNumeroDeTema = TemaFull
         Exit Function
     End If
-    LineaError = "004-0001"
+    CaminoError "004-0001"
     Dim TMPtema As String
     TMPtema = TemaFull
     'ver si hay numeros adelante y si hay quitarselos
@@ -567,7 +583,7 @@ Public Function QuitarNumeroDeTema(TemaFull As String) As String
     If IsNumeric(Mid(TemaFull, 1, 1)) Then NumersoAlInicio = NumersoAlInicio + 1
     If IsNumeric(Mid(TemaFull, 2, 1)) Then NumersoAlInicio = NumersoAlInicio + 1
     If IsNumeric(Mid(TemaFull, 3, 1)) Then NumersoAlInicio = NumersoAlInicio + 1
-    LineaError = "004-0002"
+    CaminoError "004-0002"
     If NumersoAlInicio > 0 Then
         TMPtema = Trim(Right(TemaFull, Len(TemaFull) - 3))
         'ver si quedo con esto
@@ -585,7 +601,7 @@ Public Function QuitarNumeroDeTema(TemaFull As String) As String
         Next
         
     End If
-    LineaError = "004-0003"
+    CaminoError "004-0003"
     QuitarNumeroDeTema = TMPtema
     Exit Function
 ErrQuitaNum:
@@ -672,6 +688,9 @@ Public Sub Main()
     If Right(AP, 1) <> "\" Then AP = AP + "\"
 
     K.ClaveDLL = "ashjdklahsJKLHASL65456456456"
+    
+    ReDim Preserve MATRIZ_DISCOS(0)
+    
     frmREG.Show 1
     
 End Sub
@@ -689,3 +708,88 @@ Public Sub ShowCredits()
         End If
     End If
 End Sub
+
+Public Function FindIndexOfLst(SplitSpace1 As String, CMB As ComboBox) As Long
+    'busca en un combobox el elemnto que tenga al
+    'inicio la secuencia buscada
+    'devuelve el indice del combo
+    
+    If CMB.ListCount = -1 Then
+        FindIndexOfLst = -1
+        Exit Function
+    End If
+    Dim Largo As Long
+    Largo = Len(SplitSpace1)
+    For A = 0 To CMB.ListCount - 1
+        If Left(CMB.List(A), Largo) = SplitSpace1 Then
+            FindIndexOfLst = A
+            Exit Function
+        End If
+    Next A
+    
+    
+End Function
+
+Public Sub SumarMatriz(MatrizAcumuladora() As String, MatrizAgregada() As String)
+
+    Dim YaEmpezo As Boolean
+    YaEmpezo = False
+    Dim j As Long
+    For A = 1 To UBound(MatrizAgregada)
+        'si es la primera suma me quedaria el indice cero al pedo!!!
+        If UBound(MatrizAcumuladora) = 0 And YaEmpezo = False Then
+            j = 0
+            YaEmpezo = True
+        Else
+            j = UBound(MatrizAcumuladora) + 1
+        End If
+        
+        '=============================================================================
+        '=============================================================================
+        Dim MD
+        MD = 12
+        CaminoError "001-0060"
+        If K.LICENCIA = aSinCargar And j > MD Then
+            'limite de discos
+            CaminoError "001-0061"
+            MsgBox "Esta es una version demo y no se pueden cargar más " + _
+            "de " + Trim(Str(MD)) + " discos." + vbCrLf + _
+            "Para conseguir la versión sin límite de discos y con el manual " + _
+            "completo envie un e-mail a tbrsoft@hotmail.com o a " + _
+            "tbrsoft@cpcipc.org. Solo se cargaran los " + Trim(Str(MD)) + " primeros discos"
+            CaminoError "001-0062"
+            Exit For
+        End If
+        CaminoError "001-0063"
+        If K.LICENCIA = CGratuita And j > MD Then
+            'limite de discos
+            CaminoError "001-0064"
+            MsgBox "Esta es una version demo y no se pueden cargar más " + _
+            "de " + Trim(Str(MD)) + " discos." + vbCrLf + _
+            "Para conseguir la versión sin límite de discos y con el manual " + _
+            "completo envie un e-mail a tbrsoft@hotmail.com o a " + _
+            "tbrsoft@cpcipc.org. Solo se cargaran los " + Trim(Str(MD)) + " primeros discos"
+            CaminoError "001-0065"
+            Exit For
+        End If
+        '=============================================================================
+        '=============================================================================
+    
+        
+        ReDim Preserve MatrizAcumuladora(j)
+        MatrizAcumuladora(j) = MatrizAgregada(A)
+    Next A
+
+End Sub
+
+Public Sub CaminoError(Ubic As String)
+    'aqui se van acumulando los ultimos identificadores enviados
+    'Ubic es un identificador mas
+    
+    AcumCaminoError = AcumCaminoError + " " + Ubic
+    If Len(AcumCaminoError) > 90 Then
+        AcumCaminoError = Right(AcumCaminoError, 90)
+    End If
+    LineaError = AcumCaminoError
+End Sub
+

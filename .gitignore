@@ -25,8 +25,11 @@ grap/*.doc
 manual.zip
 protect.tbr
 logo.sys
+LOGO.SYS
+logos.sys
 LOGOS.SYS
 logow.sys
+LOGOW.SYS
 *.cdr
 *.wav
 up3PM/source
@@ -39,6 +42,7 @@ pub/*.mp3
 pub/*.MP3
 pub/*.mpeg
 pub/*.avi
+pub/*.txt
 CFGDes.txt
 CFGenc.txt
 Desktop.ini
@@ -50,3 +54,6 @@ pub/*.GIF
 *.kar
 nev.man
 *.dlw
+instalador/Output
+up3PM/*.txt
+Nev.man

@@ -1,10 +1,10 @@
 [Root]
-Most Recent Package=Paquete de instalación estándar 1
+Most Recent Package=Paquete de instalación estándar 2
 
 
 [Package|Paquete de instalación estándar 1|Root]
 SubWizProgID=PDWizard.SetupPkgSubWiz
-BuildFolder=e:\AHORA\3PMv65 Kabalin\i1
+BuildFolder=D:\ahora\3PMv65 Kabalin\inst 3pm kab 6.5\WXP
 
 [Package|Paquete de instalación estándar 1|Configure DAO ISAMs]
 Applicable=No
@@ -14,9 +14,8 @@ JetWorkspace=
 ODBCDirect=
 
 [Package|Paquete de instalación estándar 1|Files Found]
-INI.EXE=E:\AHORA\3PMv6\INI.EXE
-LEER.TXT=E:\AHORA\3PMv6\PUB\LEER.TXT
-MANUAL.DOC=E:\AHORA\3PMv6\MANUAL.DOC
+ini.exe=D:\ahora\3PMv65 Kabalin\ini.exe
+LEER.txt=D:\ahora\3PMv65 Kabalin\pub\LEER.txt
 
 [Package|Paquete de instalación estándar 1|Missing Dependency Information]
 C:\WINDOWS\system32\wbem\wbemdisp.tlb=
@@ -26,46 +25,43 @@ C:\ahora\3PMv6\ini.exe=
 E:\AHORA\3PMv6\INI.EXE=
 E:\AHORA\3PMv6\REPAIR.EXE=
 C:\LINUX3\SYSTEM\WBEMDISP.TLB=
+D:\ahora\3PMv65 Kabalin\ini.exe=
+D:\ahora\3PMv65 Kabalin\repair.exe=
 
 [Package|Paquete de instalación estándar 1|Out-of-Date Dependency Information]
 C:\WINDOWS\system32\scrrun.dll=
 C:\LINUX3\SYSTEM\scrrun.dll=
 
 [Package|Paquete de instalación estándar 1|Files Added]
-e:\ahora\3pmv6\ini.exe=
-e:\ahora\3pmv6\manual.doc=
-e:\ahora\3pmv6\repair.exe=
-e:\ahora\3pmv6\pub\leer.txt=
-e:\ahora\3pmv6\krans.man=
-E:\ahora\3PMv65 Kabalin\Nev.man=
+d:\ahora\3pmv65 kabalin\ini.exe=
+d:\ahora\3pmv65 kabalin\manual.doc=
+d:\ahora\3pmv65 kabalin\repair.exe=
+leer.txt=
+krans.man=
+d:\ahora\3pmv65 kabalin\nev.man=
 
 [Package|Paquete de instalación estándar 1|Files Removed]
 c:\windows\system32\msvcrt.dll=
-c:\windows\system32\msvbvm60.dll=
-c:\windows\system32\oleaut32.dll=
-c:\windows\system32\olepro32.dll=
-c:\windows\system32\asycfilt.dll=
-c:\windows\system32\stdole2.tlb=
 c:\linux3\system\msvcrt.dll=
 c:\linux3\system\msvbvm60.dll=
 c:\linux3\system\oleaut32.dll=
 c:\linux3\system\olepro32.dll=
 c:\linux3\system\asycfilt.dll=
 c:\linux3\system\stdole2.tlb=
-c:\archivos de programa\microsoft visual studio\vb98\wizards\pdwizard\redist\comcat.dll=
 e:\ahora\3pmv6\krans.man=
+c:\windows\system32\krans.man=
+c:\windows\system32\msvbvm60.dll=
+c:\windows\system32\oleaut32.dll=
+c:\windows\system32\olepro32.dll=
+c:\windows\system32\asycfilt.dll=
+c:\windows\system32\stdole2.tlb=
+c:\archivos de programa\microsoft visual studio\vb98\wizards\pdwizard\redist\comcat.dll=
 
 [Package|Paquete de instalación estándar 1|Files In Project]
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=No
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
-E:\AHORA\3PMv6\INI.EXE=Yes
-E:\AHORA\3PMv6\MANUAL.DOC=Yes
-E:\AHORA\3PMv6\REPAIR.EXE=Yes
-E:\AHORA\3PMv6\PUB\LEER.TXT=Yes
-E:\AHORA\3PMv6\krans.man=No
-E:\ahora\3PMv65 Kabalin\3PM.EXE=Yes
 C:\WINDOWS\system32\msvbvm60.dll=No
 C:\WINDOWS\system32\oleaut32.dll=No
 C:\WINDOWS\system32\olepro32.dll=No
@@ -77,7 +73,13 @@ C:\WINDOWS\system32\msvcrt.dll=No
 C:\WINDOWS\system32\scrrnes.dll=Yes
 C:\WINDOWS\system32\wbemdisp.tlb=Yes
 C:\WINDOWS\system32\VB6STKIT.DLL=Yes
-E:\ahora\3PMv65 Kabalin\Nev.man=Yes
+D:\ahora\3PMv65 Kabalin\3PM.EXE=Yes
+D:\ahora\3PMv65 Kabalin\ini.exe=Yes
+D:\ahora\3PMv65 Kabalin\manual.doc=Yes
+D:\ahora\3PMv65 Kabalin\repair.exe=Yes
+D:\ahora\3PMv65 Kabalin\pub\LEER.txt=Yes
+C:\WINDOWS\system32\krans.man=No
+D:\ahora\3PMv65 Kabalin\Nev.man=Yes
 
 [Package|Paquete de instalación estándar 1|Configure Registry Files]
 Applicable=No
@@ -114,6 +116,18 @@ C:\WINDOWS\system32\scrrnes.dll=$(WinSysPath)
 C:\WINDOWS\system32\wbemdisp.tlb=$(WinSysPath)
 C:\WINDOWS\system32\VB6STKIT.DLL=$(WinSysPathSysFile)
 E:\ahora\3PMv65 Kabalin\Nev.man=$(WinSysPath)
+D:\ahora\3PMv65 Kabalin\3PM.EXE=$(AppPath)
+D:\ahora\3PMv65 Kabalin\ini.exe=$(AppPath)
+D:\ahora\3PMv65 Kabalin\manual.doc=$(AppPath)
+D:\ahora\3PMv65 Kabalin\repair.exe=$(AppPath)
+D:\ahora\3PMv65 Kabalin\pub\LEER.txt=$(AppPath)\PUB
+C:\WINDOWS\system32\krans.man=$(WinSysPath)
+D:\ahora\3PMv65 Kabalin\Nev.man=$(WinSysPath)
+C:\WINDOWS\system32\msvbvm60.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\oleaut32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\olepro32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\asycfilt.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\stdole2.tlb=$(WinSysPathSysFile)
 
 [Package|Paquete de instalación estándar 1|Configure Shared Files]
 Applicable=Yes
@@ -124,6 +138,11 @@ E:\AHORA\3PMv6\REPAIR.EXE=No
 E:\AHORA\3PMv6\PUB\LEER.TXT=No
 E:\AHORA\3PMv6\KRANS.MAN=No
 E:\ahora\3PMv65 Kabalin\3PM.EXE=No
+D:\ahora\3PMv65 Kabalin\3PM.EXE=No
+D:\ahora\3PMv65 Kabalin\ini.exe=No
+D:\ahora\3PMv65 Kabalin\manual.doc=No
+D:\ahora\3PMv65 Kabalin\repair.exe=No
+D:\ahora\3PMv65 Kabalin\pub\LEER.txt=No
 
 [Package|Paquete de instalación estándar 1|Distribution]
 Type=single
@@ -152,11 +171,138 @@ StartIn3=$(AppPath)
 Key3=Icon3
 
 [Package|Paquete de instalación estándar 1|Package]
-PackageFolder=e:\AHORA\3PMv65 Kabalin\i1
-ProjectFolder=E:\ahora\3PMv65 Kabalin
+PackageFolder=D:\ahora\3PMv65 Kabalin\inst 3pm kab 6.5\WXP
+ProjectFolder=D:\ahora\3PMv65 Kabalin
 ServerSideCab=
-File1=e:\AHORA\3PMv65 Kabalin\i1\setup.exe
-File2=e:\AHORA\3PMv65 Kabalin\i1\Setup.Lst
-File3=e:\AHORA\3PMv65 Kabalin\i1\3pm.CAB
+File1=D:\ahora\3PMv65 Kabalin\inst 3pm kab 6.5\WXP\setup.exe
+File2=D:\ahora\3PMv65 Kabalin\inst 3pm kab 6.5\WXP\Setup.Lst
+File3=D:\ahora\3PMv65 Kabalin\inst 3pm kab 6.5\WXP\3pm.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz
+
+
+[Package|Paquete de instalación estándar 2|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=D:\CD JUAN\3PMW98SE
+
+[Package|Paquete de instalación estándar 2|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Paquete de instalación estándar 2|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Paquete de instalación estándar 2|Files Found]
+
+[Package|Paquete de instalación estándar 2|Files Released]
+
+[Package|Paquete de instalación estándar 2|Missing Dependency Information]
+C:\WINDOWS\system32\wbemdisp.tlb=
+D:\ahora\3PMv65 Kabalin\repair.exe=
+D:\ahora\3PMv65 Kabalin\ini.exe=
+
+[Package|Paquete de instalación estándar 2|Out-of-Date Dependency Information]
+C:\WINDOWS\system32\scrrun.dll=
+
+[Package|Paquete de instalación estándar 2|Files Added]
+d:\ahora\3pmv65 kabalin\repair.exe=
+d:\ahora\3pmv65 kabalin\ini.exe=
+d:\ahora\3pmv65 kabalin\manual.doc=
+d:\ahora\3pmv65 kabalin\nev.man=
+d:\ahora\3pmv65 kabalin\pub\leer.txt=
+
+[Package|Paquete de instalación estándar 2|Files Removed]
+c:\windows\system32\msvcrt.dll=
+
+[Package|Paquete de instalación estándar 2|Files In Project]
+D:\ahora\3PMv65 Kabalin\3PM.EXE=Yes
+C:\WINDOWS\system32\msvbvm60.dll=Yes
+C:\WINDOWS\system32\oleaut32.dll=Yes
+C:\WINDOWS\system32\olepro32.dll=Yes
+C:\WINDOWS\system32\asycfilt.dll=Yes
+C:\WINDOWS\system32\stdole2.tlb=Yes
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\WINDOWS\system32\VB6ES.DLL=Yes
+C:\WINDOWS\system32\scrrun.dll=Yes
+C:\WINDOWS\system32\msvcrt.dll=No
+C:\WINDOWS\system32\scrrnes.dll=Yes
+C:\WINDOWS\system32\wbemdisp.tlb=Yes
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\WINDOWS\system32\VB6STKIT.DLL=Yes
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+D:\ahora\3PMv65 Kabalin\repair.exe=Yes
+D:\ahora\3PMv65 Kabalin\ini.exe=Yes
+D:\ahora\3PMv65 Kabalin\manual.doc=Yes
+D:\ahora\3PMv65 Kabalin\Nev.man=Yes
+D:\ahora\3PMv65 Kabalin\pub\LEER.txt=Yes
+
+[Package|Paquete de instalación estándar 2|Configure Registry Files]
+Applicable=No
+
+[Package|Paquete de instalación estándar 2|Configure Remote Servers]
+Applicable=No
+
+[Package|Paquete de instalación estándar 2|Install Locations]
+D:\ahora\3PMv65 Kabalin\3PM.EXE=$(AppPath)
+C:\WINDOWS\system32\VB6ES.DLL=$(WinSysPath)
+C:\WINDOWS\system32\scrrun.dll=$(WinSysPath)
+C:\WINDOWS\system32\scrrnes.dll=$(WinSysPath)
+C:\WINDOWS\system32\wbemdisp.tlb=$(WinSysPath)
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINDOWS\system32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+D:\ahora\3PMv65 Kabalin\repair.exe=$(AppPath)
+D:\ahora\3PMv65 Kabalin\ini.exe=$(AppPath)
+D:\ahora\3PMv65 Kabalin\manual.doc=$(AppPath)
+D:\ahora\3PMv65 Kabalin\Nev.man=$(WinSysPath)
+D:\ahora\3PMv65 Kabalin\pub\LEER.txt=$(AppPath)\PUB
+C:\WINDOWS\system32\msvbvm60.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\oleaut32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\olepro32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\asycfilt.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\stdole2.tlb=$(WinSysPathSysFile)
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+
+[Package|Paquete de instalación estándar 2|Configure Shared Files]
+Applicable=Yes
+D:\ahora\3PMv65 Kabalin\3PM.EXE=No
+D:\ahora\3PMv65 Kabalin\repair.exe=No
+D:\ahora\3PMv65 Kabalin\ini.exe=No
+D:\ahora\3PMv65 Kabalin\manual.doc=No
+D:\ahora\3PMv65 Kabalin\pub\LEER.txt=No
+
+[Package|Paquete de instalación estándar 2|Distribution]
+Type=single
+Size=
+Title=3pm Kabalin 6.5
+
+[Package|Paquete de instalación estándar 2|IconGroups]
+Group0=3pm Kabalin 6.5
+PrivateGroup0=Falso
+Parent0=$(Programs)
+
+[Package|Paquete de instalación estándar 2|3pm Kabalin 6.5]
+Icon1=3pm.exe
+Title1=3pm Kabalin 6.5
+StartIn1=$(AppPath)
+Key1=Icon1
+Icon2=repair.exe
+Title2=Reparador 3PM
+StartIn2=$(AppPath)
+Key2=Icon4
+Icon3=manual.doc
+Title3=Manual de Uso
+StartIn3=$(AppPath)
+Key3=Icon5
+
+[Package|Paquete de instalación estándar 2|Package]
+PackageFolder=D:\CD JUAN\3PMW98SE
+ProjectFolder=D:\ahora\3PMv65 Kabalin
+ServerSideCab=
+File1=D:\CD JUAN\3PMW98SE\setup.exe
+File2=D:\CD JUAN\3PMW98SE\Setup.Lst
+File3=D:\CD JUAN\3PMW98SE\3pm.CAB
 Handler1=PDWizard.FolderDplySubWiz
 Handler2=PDWizard.WebPostDplySubWiz

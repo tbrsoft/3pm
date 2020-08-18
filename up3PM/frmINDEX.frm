@@ -1,29 +1,29 @@
 VERSION 5.00
 Begin VB.Form frmINDEX 
-   BackColor       =   &H00000000&
+   BackColor       =   &H00404040&
    BorderStyle     =   4  'Fixed ToolWindow
    Caption         =   "Actualizacion de 3PM"
-   ClientHeight    =   4590
+   ClientHeight    =   4755
    ClientLeft      =   45
    ClientTop       =   285
-   ClientWidth     =   8730
+   ClientWidth     =   5130
    Icon            =   "frmINDEX.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   4590
-   ScaleWidth      =   8730
+   ScaleHeight     =   4755
+   ScaleWidth      =   5130
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    Begin VB.PictureBox Picture2 
       AutoSize        =   -1  'True
       Height          =   1155
-      Left            =   5070
+      Left            =   90
       Picture         =   "frmINDEX.frx":0442
       ScaleHeight     =   1095
       ScaleWidth      =   3570
-      TabIndex        =   9
-      Top             =   60
+      TabIndex        =   7
+      Top             =   3540
       Width           =   3630
    End
    Begin VB.CommandButton Command2 
@@ -38,9 +38,9 @@ Begin VB.Form frmINDEX
          Strikethrough   =   0   'False
       EndProperty
       Height          =   345
-      Left            =   4410
-      TabIndex        =   8
-      Top             =   2130
+      Left            =   3780
+      TabIndex        =   6
+      Top             =   2040
       Width           =   1305
    End
    Begin VB.TextBox txtUbic3PM 
@@ -53,14 +53,14 @@ Begin VB.Form frmINDEX
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   585
-      Left            =   300
+      Height          =   735
+      Left            =   60
       MultiLine       =   -1  'True
       ScrollBars      =   2  'Vertical
-      TabIndex        =   6
+      TabIndex        =   4
       Text            =   "frmINDEX.frx":1EB0
-      Top             =   1530
-      Width           =   5385
+      Top             =   1290
+      Width           =   5025
    End
    Begin VB.CommandButton cmdUP 
       Caption         =   "Actualizar!"
@@ -75,25 +75,14 @@ Begin VB.Form frmINDEX
          Strikethrough   =   0   'False
       EndProperty
       Height          =   495
-      Left            =   810
-      TabIndex        =   5
-      Top             =   3480
+      Left            =   60
+      TabIndex        =   3
+      Top             =   2730
       Width           =   1425
    End
-   Begin VB.PictureBox Picture1 
-      AutoSize        =   -1  'True
-      BorderStyle     =   0  'None
-      Height          =   1635
-      Left            =   7170
-      Picture         =   "frmINDEX.frx":1ECC
-      ScaleHeight     =   1635
-      ScaleWidth      =   1500
-      TabIndex        =   0
-      Top             =   1320
-      Width           =   1500
-   End
    Begin VB.Label Label2 
-      BackStyle       =   0  'Transparent
+      Alignment       =   2  'Center
+      BackColor       =   &H00000080&
       Caption         =   "ASEGURESE QUE 3PM NO SE ESTE EJECUTANDO EN ESTE MOMENTO!!!"
       BeginProperty Font 
          Name            =   "Verdana"
@@ -105,12 +94,12 @@ Begin VB.Form frmINDEX
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   255
+      Height          =   405
       Index           =   2
       Left            =   0
-      TabIndex        =   10
-      Top             =   3210
-      Width           =   6915
+      TabIndex        =   8
+      Top             =   0
+      Width           =   4935
    End
    Begin VB.Label Label2 
       BackStyle       =   0  'Transparent
@@ -127,50 +116,30 @@ Begin VB.Form frmINDEX
       ForeColor       =   &H00FFFFFF&
       Height          =   255
       Index           =   1
-      Left            =   360
-      TabIndex        =   7
-      Top             =   1320
-      Width           =   5055
+      Left            =   90
+      TabIndex        =   5
+      Top             =   1080
+      Width           =   3525
    End
    Begin VB.Label lblBAR 
       BackColor       =   &H0000FFFF&
       Height          =   225
-      Left            =   240
-      TabIndex        =   4
-      Top             =   4170
+      Left            =   1560
+      TabIndex        =   2
+      Top             =   2880
       Width           =   285
    End
    Begin VB.Label lblTODOBar 
-      BackColor       =   &H00808000&
+      BackColor       =   &H00000080&
       Height          =   225
-      Left            =   270
-      TabIndex        =   3
-      Top             =   4170
-      Width           =   8355
-   End
-   Begin VB.Label Label2 
-      BackStyle       =   0  'Transparent
-      Caption         =   "Solo válido usuarios de 3PM v 3.4.200 en adelante"
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00FFFFFF&
-      Height          =   465
-      Index           =   0
-      Left            =   90
-      TabIndex        =   2
-      Top             =   360
-      Width           =   4965
+      Left            =   1590
+      TabIndex        =   1
+      Top             =   2880
+      Width           =   2115
    End
    Begin VB.Label Label1 
       BackStyle       =   0  'Transparent
-      Caption         =   "Actualizacion de 3PM a la version 3.4.820"
+      Caption         =   "Actualizacion de 3PM a la versión Kabalin 6.5"
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   9.75
@@ -181,11 +150,11 @@ Begin VB.Form frmINDEX
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00C0FFFF&
-      Height          =   345
-      Left            =   60
-      TabIndex        =   1
-      Top             =   30
-      Width           =   4995
+      Height          =   315
+      Left            =   30
+      TabIndex        =   0
+      Top             =   420
+      Width           =   5025
    End
 End
 Attribute VB_Name = "frmINDEX"

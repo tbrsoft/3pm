@@ -539,6 +539,15 @@ Private Sub Form_Load()
     If Right(WINfolder, 1) <> "\" Then WINfolder = WINfolder + "\"
     If Right(SYSfolder, 1) <> "\" Then SYSfolder = SYSfolder + "\"
     
+    If FSO.FileExists(SYSfolder + "oddtb.jut") = False Then
+        'ESCRIBIRLO!!!
+        EscribirArch1Linea SYSfolder + "oddtb.jut", AP + "discos"
+    End If
+    
+    Dim tORIG As String
+    tORIG = LeerArch1Linea(SYSfolder + "oddtb.jut")
+    
+    
     IDIOMA = LeerConfig("Idioma", "Español")
     'descomprimir el pakage de imágenes siemrpe que se inicia para evitar
     'violaciones. La version exclusiva puede ser un paquete generado especialmente
@@ -743,29 +752,45 @@ YaEstaIMG:
     'ver primero quien es para saber si esta habilitado licenciarse
     'si ClaveAdmin = "demo" quiere decir que lo bajo de internet y por
     'lo tanto no puede licenciar NI BOSTA!!!JAJAJAJAJA
-    ClaveAdmin = "WFMSPR2981109"
-    'MARC777
-    
+    ClaveAdmin = "MASH81090011y"
+    'ERO77701192FF / MARC777
     Select Case ClaveAdmin
         Case "xx"
             DatosLicencia = "Licencia propiedad de Miguel Angel Cozzi. " + vbCrLf + _
                 "Venado Tuerto - Santa Fe - Argentina"
                 
     End Select
-
+   
+'Abraham Grenberg Valle Verde SA GUAT AGVVSA8177109
+'humberto segundo cruces CHI HSCC719288012
+'juan miguel RepDominic JMRD611885094
+'Pablo Duvos UY PDUY210098881
+'FRANCISCO JAVIER GONZALEZ LAZCANO CHILE FJGLC71625551
+'Oscar Figeuroa Martinez Salvador OEFMES810001
+'Hector Amigo BsAs HABSAS8281901
+'Jesus Alexander SALV JAS7166290011
+'william Obando y Francisco Vielman Flores GUAT WOFVFGU918812
+'Damian Ostuni BsAs DOBA811726300
+'carlos salas JJY CSJJYAR719922
+'daniel omar herrera robles chile DOHRCH6199201
+'paulo garcia CHILE PGC5220119851
+'Jorge Horta CHILE JOCH102881276
+'Alejandro Carmona Oliveros Chile ACOCH3217729
+'edison ariel caceres chile EACCH81032772
+'Daniel Martinez Chicago DMCE183745510
 'Wilmar Fidel Marquez Silva WFMSPR2981109
 'julio papetti TUCUMAN JPT1077594731
-'jorge albin JACP719283001
+'jorge albin JACP719283001 jorge albin FEDERICODANIEL
 'german peier BsAs GPBSAS7812003
 'luis iglesias BsAs LIBA6152896R
 'eduardo alberti UY EAJCM2987889h
 'juan francisco gonzalez COL JFG729432119q
 'Mauricio Levuy Sergio Davo MEX MLSD61846362e
-' Jesus Andrès Mata Jimenez MEX JAMG67298187r
-' Thomas Hernadez MEX THH635478111g
+'Jesus Andrès Mata Jimenez MEX JAMG67298187r
+'Thomas Hernadez MEX THH635478111g
 'rolando torres honduras RTMH523142567z
 'david gonzalez MEX DGM652253435y
-' Jose Juan Martinez Arguello JIMM MEX JJMA81948572y
+'Jose Juan Martinez Arguello JIMM MEX JJMA81948572y
 'Giovanne Barrios MEX GB6156901836y
 'tommy corrientes TC194736251438y
 'Luis Enrique Ruiz Chaparro MEX LERC8711101yy
@@ -867,20 +892,9 @@ YaEstaIMG:
         Else
             'que siga de largo he ingrese
             'MsgBox "SUPERLICENCIA de 3PM. El codigo de SuperLicencia se ha cargado correctamente. Bienvenido a Super3PM"
-            
             '-----------------------------------------
             '-----------------------------------------
-            '-----------------------------------------
-            '-----------------------------------------
-            'habra algunas que ingresen como exlcusivo!!!!!!!!
-            'revise cuales entregue y aparentemente nunca del 1 al 10!!!!!
-            If K.VariacionClave <= 10 Then
-                Is3pmExclusivo = True
-            Else
-                Is3pmExclusivo = False
-            End If
-            '-----------------------------------------
-            '-----------------------------------------
+            Is3pmExclusivo = LeerConfig("3pmExcl", "0")
             '-----------------------------------------
             '-----------------------------------------
         End If

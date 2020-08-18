@@ -179,8 +179,10 @@ Public Sub CargarPUBs()
         'ver que tenga los formatos que busco
         If LCase(Right(Arch, 3)) = "txt" Then IsTXT = True
         If LCase(Right(Arch, 3)) = "mp3" Then IsMM = True
+        If LCase(Right(Arch, 3)) = "wma" Then IsMM = True
         If LCase(Right(Arch, 3)) = "avi" Then IsMM = True
         If LCase(Right(Arch, 3)) = "mpg" Then IsMM = True
+        If LCase(Right(Arch, 3)) = "dat" Then IsMM = True
         If LCase(Right(Arch, 4)) = "mpeg" Then IsMM = True
         'ver si es IMG
         If LCase(Right(Arch, 3)) = "jpg" Then IsIMG = True

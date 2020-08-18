@@ -288,7 +288,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             End If
             temaElegido = MTXtop(PuestoElegido + 1)
             
-            If LCase(Right(temaElegido, 3)) = "mp3" Then
+            If LCase(Right(temaElegido, 3)) = "mp3" Or LCase(Right(temaElegido, 3)) = "wma" Then
                 PideVideo = False
             Else
                 PideVideo = True
@@ -416,7 +416,7 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             'grabar credito para validar
             'creditosValidar ya se cargo en load de frmindex
             CreditosValidar = CreditosValidar + TemasPorCredito
-            EscribirArch1Linea SYSfolder + "\radilav.cfg", CStr(CreditosValidar)
+            EscribirArch1Linea SYSfolder + "radilav.cfg", CStr(CreditosValidar)
             
         Else
             'apagar el fichero electronico
@@ -443,36 +443,36 @@ Private Sub Form_Load()
     MaxTop = 30
     
     'mostrar todos los lbls
-    Dim C As Integer
-    C = 0
+    Dim c As Integer
+    c = 0
     lblPuestos(0).BackColor = ColorUnSel
     lblPuestos(0).ForeColor = ForeColorTop
     
-    Do While C < MaxTop - 1
-        C = C + 1
-        Load lblPuestos(C)
-        If C > 0 And C < 10 Then
-            lblPuestos(C).Font.Size = 12
-            lblPuestos(C).Height = 300
+    Do While c < MaxTop - 1
+        c = c + 1
+        Load lblPuestos(c)
+        If c > 0 And c < 10 Then
+            lblPuestos(c).Font.Size = 12
+            lblPuestos(c).Height = 300
         End If
-        If C >= 10 Then
-            lblPuestos(C).Font.Size = 10
-            lblPuestos(C).Height = 250
+        If c >= 10 Then
+            lblPuestos(c).Font.Size = 10
+            lblPuestos(c).Height = 250
         End If
-        If C = 1 Or C = 10 Or C = 20 Then
-            lblPuestos(C).Top = lblPuestos(C - 1).Top + lblPuestos(C - 1).Height + 150
+        If c = 1 Or c = 10 Or c = 20 Then
+            lblPuestos(c).Top = lblPuestos(c - 1).Top + lblPuestos(c - 1).Height + 150
         Else
-            lblPuestos(C).Top = lblPuestos(C - 1).Top + lblPuestos(C - 1).Height
+            lblPuestos(c).Top = lblPuestos(c - 1).Top + lblPuestos(c - 1).Height
         End If
-        lblPuestos(C).Width = lblPuestos(C - 1).Width
-        If C = 5 Then lblPuestos(C).Width = 11650
-        If C >= 20 Then
-            lblPuestos(C).Font.Size = 8
-            lblPuestos(C).Height = 250
-            lblPuestos(C).Width = Frame2.Left - 100
+        lblPuestos(c).Width = lblPuestos(c - 1).Width
+        If c = 5 Then lblPuestos(c).Width = 11650
+        If c >= 20 Then
+            lblPuestos(c).Font.Size = 8
+            lblPuestos(c).Height = 250
+            lblPuestos(c).Width = Frame2.Left - 100
         End If
-        lblPuestos(C).Visible = True
-        lblPuestos(C).Refresh
+        lblPuestos(c).Visible = True
+        lblPuestos(c).Refresh
     Loop
     
     'leer ranking.tbr y cargar los temas que haya
@@ -486,7 +486,7 @@ Private Sub Form_Load()
     Dim ThisTEMA As String
     Dim ThisDISCO As String
     Dim ThisPTS As Long
-    C = 0
+    c = 0
     'INICIALIAZAR LA MATRIZ si no hay error al poner OK sin nada en el rank!!
     ReDim Preserve MTXtop(0)
     Do While Not TE.AtEndOfStream
@@ -496,21 +496,21 @@ Private Sub Form_Load()
         ThisTEMA = txtInLista(TT, 2, ",")
         ThisDISCO = txtInLista(TT, 3, ",")
             
-        If C = MaxTop Then Exit Do
+        If c = MaxTop Then Exit Do
         'si elarchivo no existe no se debe cargar
         If FSO.FileExists(ThisArch) Then
-            lblPuestos(C).UseMnemonic = False
-            lblPuestos(C) = " " + Trim(Str(C + 1)) + "º " + _
+            lblPuestos(c).UseMnemonic = False
+            lblPuestos(c) = " " + Trim(Str(c + 1)) + "º " + _
             QuitarNumeroDeTema(ThisTEMA) + " / " + ThisDISCO + " [" + Trim(Str(ThisPTS)) + " pts]"
-            lblPuestos(C).Refresh
+            lblPuestos(c).Refresh
             
-            C = C + 1
-            ReDim Preserve MTXtop(C)
-            MTXtop(C) = ThisArch
-            ReDim Preserve MTXtemas(C)
-            MTXtemas(C) = ThisTEMA
-            ReDim Preserve MTXdiscos(C)
-            MTXdiscos(C) = ThisDISCO
+            c = c + 1
+            ReDim Preserve MTXtop(c)
+            MTXtop(c) = ThisArch
+            ReDim Preserve MTXtemas(c)
+            MTXtemas(c) = ThisTEMA
+            ReDim Preserve MTXdiscos(c)
+            MTXdiscos(c) = ThisDISCO
         End If
     Loop
     TE.Close
@@ -523,7 +523,8 @@ Private Sub Form_Load()
 End Sub
 
 Private Sub cmdDiscoAt_Click()
-    Form_KeyDown TeclaIZQ, 0
+    If IsMod46Teclas = 5 Then Form_KeyDown TeclaPagAt, 0
+    If IsMod46Teclas = 46 Then Form_KeyDown TeclaIZQ, 0
     Command1.SetFocus
 End Sub
 
@@ -532,7 +533,8 @@ Private Sub cmdDiscoAt_KeyDown(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub cmdDiscoAd_Click()
-    Form_KeyDown TeclaDER, 0
+    If IsMod46Teclas = 5 Then Form_KeyDown TeclaPagAd, 0
+    If IsMod46Teclas = 46 Then Form_KeyDown TeclaDER, 0
     Command1.SetFocus
 End Sub
 
