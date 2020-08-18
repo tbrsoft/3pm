@@ -1,0 +1,42 @@
+Instalación de la Version Demo de 3PM
+			tbrSoft desafios digitales Noviembre de 2002
+
+3pm es un sistema gráfico de reproducción de ficheros MP3. Estos ficheros se agrupan en
+discos que tendrán una presentación gráfica (una imagen que representa la tapa del disco).
+
+3pm en su versión demo no incluye ningún fichero por lo que debera cargar bajo su 
+responsabilidad la musica a ejecutarse. 3pm fue pensado para difundir música independiente
+y siempre autorizada por los titulares de los derechos. Bajo ninguna circunstancia utilize
+este programa para difundir música sin las autorizaciones correspondientes. tbrSoft no 
+se hace responsable por el uso dado a este software.
+
+3pm esta pensado para incluirse en mueble similares a tragmonedas (por lo tanto no
+incluye funciones para el uso de mouse) en donde la botonera del mueble esta 
+conectada a el teclado. Mas detalles en el manual de la versión terminada.
+
+------------------------------------
+Como cargar discos a 3pm?
+
+Cada disco deberá estar en un directorio. Este directorio deberá incluir los temas mp3
+y podrá incluir un archivo con la imagen del frente del disco y un archivo de texto 
+con datos adicionales. Ninguno de estos ultimos es de uso obligatorio. 
+El archivo de la imagen deberá estar en la misma carpeta de los ficheros mp3 y 
+deberá llamarse "tapa.jpg", si no existiera, el sistema usará una imagen que tiene
+por defecto.
+El archivo de texto deberá estar en la misma carpeta de los ficheros mp3 y deberá
+llamarse "data.txt". Este tampo es obligatorio.
+
+No cualquier fichero mp3 (si la mayoria) es compatible con el motor de reproducción
+de 3pm. Los detalles de compatibilidad se especifican en el manual de la version
+terminada de 3pm.
+
+En esta versión demo solo podrá incluir 10 discos con funcionalidad completa del sistema.
+
+------------------------------------
+Como configurar 3pm?
+
+Por defecto (y esto se puede configurar) utilize la tecla "C" para accerder a la 
+página de configuración de 3pm. Es sencillo de comprender y los detalles se dan en
+el manual que se adquiere con la versión terminada. Aqui se puede conocer cuales 
+son las distintas funciones habilitadas desde el teclado.
+

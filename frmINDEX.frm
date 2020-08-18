@@ -1,7 +1,6 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Begin VB.Form frmINDEX 
-   BackColor       =   &H00000040&
+   BackColor       =   &H00004080&
    BorderStyle     =   0  'None
    Caption         =   "Form1"
    ClientHeight    =   9000
@@ -16,345 +15,91 @@ Begin VB.Form frmINDEX
    ScaleWidth      =   12000
    ShowInTaskbar   =   0   'False
    StartUpPosition =   3  'Windows Default
-   Begin VB.Timer Timer1 
-      Left            =   7890
-      Top             =   3420
-   End
-   Begin MSComctlLib.Slider SLvolumen 
-      Height          =   240
+   WindowState     =   2  'Maximized
+   Begin VB.Frame frDISCOS 
+      BackColor       =   &H00004080&
+      BorderStyle     =   0  'None
+      Height          =   6975
       Left            =   90
       TabIndex        =   13
-      Top             =   8730
-      Width           =   1185
-      _ExtentX        =   2090
-      _ExtentY        =   423
-      _Version        =   393216
-      Min             =   -10000
-      Max             =   0
-      SelStart        =   -1900
-      Value           =   -1900
+      Top             =   0
+      Width           =   10455
+      Begin VB.Timer Timer1 
+         Left            =   4230
+         Top             =   3480
+      End
+      Begin VB.Timer Timer3 
+         Interval        =   10000
+         Left            =   5010
+         Top             =   3495
+      End
+      Begin tbr3pm.MP3Play MP3 
+         Height          =   1620
+         Left            =   7680
+         TabIndex        =   14
+         Top             =   3915
+         Visible         =   0   'False
+         Width           =   1500
+         _ExtentX        =   2646
+         _ExtentY        =   2858
+      End
+      Begin VB.Image TapaCD 
+         Height          =   2505
+         Index           =   0
+         Left            =   525
+         Stretch         =   -1  'True
+         Top             =   180
+         Visible         =   0   'False
+         Width           =   2640
+      End
+      Begin VB.Label lblDisco 
+         Alignment       =   2  'Center
+         BackColor       =   &H00000000&
+         Caption         =   "Complete al menos la primera hoja de discos cargados"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   435
+         Index           =   0
+         Left            =   540
+         TabIndex        =   15
+         Top             =   2730
+         UseMnemonic     =   0   'False
+         Visible         =   0   'False
+         Width           =   2640
+      End
+      Begin VB.Shape lblSel 
+         BorderColor     =   &H0000FFFF&
+         BorderWidth     =   5
+         Height          =   555
+         Left            =   0
+         Top             =   450
+         Width           =   435
+      End
    End
-   Begin VB.Label Label3 
-      Alignment       =   2  'Center
-      BackStyle       =   0  'Transparent
-      BorderStyle     =   1  'Fixed Single
-      Caption         =   "Tema actual"
-      BeginProperty Font 
-         Name            =   "HandelGotDLig"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00C0E0FF&
-      Height          =   315
-      Left            =   60
-      TabIndex        =   16
-      Top             =   7590
-      Width           =   1215
-   End
-   Begin VB.Label Label2 
-      Alignment       =   2  'Center
-      BackStyle       =   0  'Transparent
-      BorderStyle     =   1  'Fixed Single
-      Caption         =   "Proximos temas elegidos"
-      BeginProperty Font 
-         Name            =   "HandelGotDLig"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00C0E0FF&
-      Height          =   1095
-      Left            =   60
-      TabIndex        =   15
-      Top             =   7890
-      Width           =   1215
-   End
-   Begin VB.Label Label1 
-      Alignment       =   2  'Center
-      BackColor       =   &H00000080&
-      Caption         =   "3PM"
-      BeginProperty Font 
-         Name            =   "HandelGotDLig"
-         Size            =   14.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00FFFFFF&
-      Height          =   400
-      Left            =   10200
-      TabIndex        =   14
-      Top             =   8610
-      Width           =   1800
-   End
-   Begin VB.Image FlechaCD 
-      Height          =   480
-      Index           =   5
-      Left            =   7920
-      Picture         =   "frmINDEX.frx":0000
-      Top             =   6510
-      Visible         =   0   'False
-      Width           =   480
-   End
-   Begin VB.Image FlechaCD 
-      Height          =   480
-      Index           =   4
-      Left            =   7890
-      Picture         =   "frmINDEX.frx":0442
-      Top             =   2880
-      Visible         =   0   'False
-      Width           =   480
-   End
-   Begin VB.Image FlechaCD 
-      Height          =   480
-      Index           =   3
-      Left            =   3900
-      Picture         =   "frmINDEX.frx":0884
-      Top             =   6480
-      Visible         =   0   'False
-      Width           =   480
-   End
-   Begin VB.Image FlechaCD 
-      Height          =   480
-      Index           =   2
-      Left            =   3930
-      Picture         =   "frmINDEX.frx":0CC6
-      Top             =   2880
-      Visible         =   0   'False
-      Width           =   480
-   End
-   Begin VB.Image FlechaCD 
-      Height          =   480
-      Index           =   1
-      Left            =   -30
-      Picture         =   "frmINDEX.frx":1108
-      Top             =   6480
-      Visible         =   0   'False
-      Width           =   480
-   End
-   Begin VB.Image FlechaCD 
-      Height          =   480
-      Index           =   0
-      Left            =   0
-      Picture         =   "frmINDEX.frx":154A
-      Top             =   2880
-      Visible         =   0   'False
-      Width           =   480
-   End
-   Begin VB.Label lblDisco 
-      Alignment       =   2  'Center
-      BackStyle       =   0  'Transparent
-      Caption         =   "Titulo"
-      BeginProperty Font 
-         Name            =   "Trebuchet MS"
-         Size            =   9
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00FFFFFF&
-      Height          =   345
-      Index           =   5
-      Left            =   8130
+   Begin tbr3pm.VUMeter VU1 
+      Height          =   8865
+      Left            =   10650
       TabIndex        =   12
-      Top             =   6990
-      UseMnemonic     =   0   'False
-      Visible         =   0   'False
-      Width           =   3885
+      Top             =   90
+      Width           =   1395
+      _ExtentX        =   2461
+      _ExtentY        =   15637
    End
-   Begin VB.Label lblDisco 
+   Begin VB.Label lblPag 
       Alignment       =   2  'Center
-      BackStyle       =   0  'Transparent
-      Caption         =   "Titulo"
+      BackColor       =   &H00004040&
+      BorderStyle     =   1  'Fixed Single
+      Caption         =   "Pagina 88 de 88"
       BeginProperty Font 
-         Name            =   "Trebuchet MS"
-         Size            =   9
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00FFFFFF&
-      Height          =   345
-      Index           =   4
-      Left            =   8130
-      TabIndex        =   11
-      Top             =   3330
-      UseMnemonic     =   0   'False
-      Visible         =   0   'False
-      Width           =   3885
-   End
-   Begin VB.Label lblDisco 
-      Alignment       =   2  'Center
-      BackStyle       =   0  'Transparent
-      Caption         =   "Titulo"
-      BeginProperty Font 
-         Name            =   "Trebuchet MS"
-         Size            =   9
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00FFFFFF&
-      Height          =   345
-      Index           =   3
-      Left            =   4170
-      TabIndex        =   10
-      Top             =   6990
-      UseMnemonic     =   0   'False
-      Visible         =   0   'False
-      Width           =   3885
-   End
-   Begin VB.Label lblDisco 
-      Alignment       =   2  'Center
-      BackStyle       =   0  'Transparent
-      Caption         =   "Titulo"
-      BeginProperty Font 
-         Name            =   "Trebuchet MS"
-         Size            =   9
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00FFFFFF&
-      Height          =   345
-      Index           =   2
-      Left            =   4170
-      TabIndex        =   9
-      Top             =   3330
-      UseMnemonic     =   0   'False
-      Visible         =   0   'False
-      Width           =   3885
-   End
-   Begin VB.Label lblDisco 
-      Alignment       =   2  'Center
-      BackStyle       =   0  'Transparent
-      Caption         =   "Titulo"
-      BeginProperty Font 
-         Name            =   "Trebuchet MS"
-         Size            =   9
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00FFFFFF&
-      Height          =   345
-      Index           =   1
-      Left            =   210
-      TabIndex        =   8
-      Top             =   6990
-      UseMnemonic     =   0   'False
-      Visible         =   0   'False
-      Width           =   3885
-   End
-   Begin VB.Label lblDisco 
-      Alignment       =   2  'Center
-      BackStyle       =   0  'Transparent
-      Caption         =   "Titulo"
-      BeginProperty Font 
-         Name            =   "Trebuchet MS"
-         Size            =   9
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00FFFFFF&
-      Height          =   345
-      Index           =   0
-      Left            =   120
-      TabIndex        =   7
-      Top             =   3300
-      UseMnemonic     =   0   'False
-      Visible         =   0   'False
-      Width           =   3885
-   End
-   Begin VB.Image TapaCD 
-      BorderStyle     =   1  'Fixed Single
-      Height          =   3300
-      Index           =   5
-      Left            =   8370
-      Stretch         =   -1  'True
-      Top             =   3660
-      Visible         =   0   'False
-      Width           =   3465
-   End
-   Begin VB.Image TapaCD 
-      BorderStyle     =   1  'Fixed Single
-      Height          =   3300
-      Index           =   4
-      Left            =   8340
-      Stretch         =   -1  'True
-      Top             =   0
-      Visible         =   0   'False
-      Width           =   3465
-   End
-   Begin VB.Image TapaCD 
-      BorderStyle     =   1  'Fixed Single
-      Height          =   3300
-      Index           =   3
-      Left            =   4380
-      Stretch         =   -1  'True
-      Top             =   3660
-      Visible         =   0   'False
-      Width           =   3465
-   End
-   Begin VB.Image TapaCD 
-      BorderStyle     =   1  'Fixed Single
-      Height          =   3300
-      Index           =   2
-      Left            =   4410
-      Stretch         =   -1  'True
-      Top             =   0
-      Visible         =   0   'False
-      Width           =   3465
-   End
-   Begin VB.Image TapaCD 
-      BorderStyle     =   1  'Fixed Single
-      Height          =   3300
-      Index           =   1
-      Left            =   420
-      Stretch         =   -1  'True
-      Top             =   3660
-      Visible         =   0   'False
-      Width           =   3465
-   End
-   Begin VB.Image TapaCD 
-      BorderStyle     =   1  'Fixed Single
-      Height          =   3300
-      Index           =   0
-      Left            =   420
-      Stretch         =   -1  'True
-      Top             =   0
-      Visible         =   0   'False
-      Width           =   3465
-   End
-   Begin VB.Label lblTemaSonando 
-      Alignment       =   2  'Center
-      BackStyle       =   0  'Transparent
-      BorderStyle     =   1  'Fixed Single
-      Caption         =   "Sin Reproducción actual"
-      BeginProperty Font 
-         Name            =   "HandelGotDLig"
+         Name            =   "Arial"
          Size            =   12
          Charset         =   0
          Weight          =   700
@@ -362,137 +107,297 @@ Begin VB.Form frmINDEX
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00C0E0FF&
-      Height          =   315
-      Left            =   1290
-      TabIndex        =   0
-      Top             =   7590
-      Width           =   8925
+      ForeColor       =   &H00E0E0E0&
+      Height          =   345
+      Left            =   180
+      TabIndex        =   16
+      Top             =   7710
+      Visible         =   0   'False
+      Width           =   2130
    End
-   Begin VB.Label lblIndicaciones 
-      Alignment       =   2  'Center
-      BackColor       =   &H00000080&
-      Caption         =   "Utilize las flechas para desplazarse sobre los distintos discos, para conocer el detalle de cada disco utilice en boton OK"
+   Begin VB.Label lblV 
+      Alignment       =   1  'Right Justify
+      BackColor       =   &H000040C0&
+      BackStyle       =   0  'Transparent
+      Caption         =   "v 8.88"
       BeginProperty Font 
-         Name            =   "HandelGotDLig"
-         Size            =   9
+         Name            =   "Arial"
+         Size            =   8.25
          Charset         =   0
          Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H0000FFFF&
+      Height          =   285
+      Left            =   9570
+      TabIndex        =   8
+      Top             =   7770
+      Width           =   1005
+   End
+   Begin VB.Image Image1 
+      Height          =   1425
+      Left            =   9120
+      Picture         =   "frmINDEX.frx":0000
+      Stretch         =   -1  'True
+      Top             =   7560
+      Width           =   1470
+   End
+   Begin VB.Label lblPuesto 
+      Alignment       =   2  'Center
+      BackColor       =   &H00004040&
+      BorderStyle     =   1  'Fixed Single
+      Caption         =   "Rank #0"
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   12
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00E0E0E0&
+      Height          =   345
+      Left            =   7290
+      TabIndex        =   11
+      Top             =   8620
+      Width           =   1800
+   End
+   Begin VB.Label lblTiempoRestante 
+      Alignment       =   2  'Center
+      BackColor       =   &H00004040&
+      BorderStyle     =   1  'Fixed Single
+      Caption         =   "Falta: 00:00"
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   12
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00E0E0E0&
+      Height          =   345
+      Left            =   0
+      TabIndex        =   1
+      Top             =   8620
+      Width           =   1800
+   End
+   Begin VB.Label LBLpORCtEMA 
+      BackColor       =   &H00808000&
+      BeginProperty Font 
+         Name            =   "Times New Roman"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00000000&
+      Height          =   75
+      Left            =   15
+      TabIndex        =   6
+      Top             =   7455
+      Width           =   10550
+   End
+   Begin VB.Label lblNoUSO 
+      Alignment       =   2  'Center
+      BackColor       =   &H00000000&
+      BorderStyle     =   1  'Fixed Single
+      Caption         =   "0"
+      BeginProperty Font 
+         Name            =   "Times New Roman"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00E0E0E0&
+      Height          =   240
+      Left            =   8160
+      TabIndex        =   7
+      Top             =   7605
+      Visible         =   0   'False
+      Width           =   705
+   End
+   Begin VB.Label lblNoTecla 
+      Alignment       =   2  'Center
+      BackColor       =   &H00000000&
+      BorderStyle     =   1  'Fixed Single
+      Caption         =   "0"
+      BeginProperty Font 
+         Name            =   "Times New Roman"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00E0E0E0&
+      Height          =   240
+      Left            =   7455
+      TabIndex        =   10
+      Top             =   7605
+      Visible         =   0   'False
+      Width           =   705
+   End
+   Begin VB.Label lblTECLAS 
+      Alignment       =   2  'Center
+      BackColor       =   &H00000000&
+      Caption         =   "11111222223333344444"
+      BeginProperty Font 
+         Name            =   "Arial Narrow"
+         Size            =   6.75
+         Charset         =   0
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H0080FFFF&
-      Height          =   225
-      Left            =   0
-      TabIndex        =   6
-      Top             =   7350
-      Width           =   11955
+      Height          =   195
+      Left            =   7455
+      TabIndex        =   9
+      Top             =   7830
+      Visible         =   0   'False
+      Width           =   1440
    End
-   Begin VB.Label lblTemasPorFicha 
+   Begin VB.Label lblTOTdiscos 
       Alignment       =   2  'Center
-      BackStyle       =   0  'Transparent
+      BackColor       =   &H00004040&
       BorderStyle     =   1  'Fixed Single
-      Caption         =   "Temas/ficha: 01"
+      Caption         =   "Discos 888"
       BeginProperty Font 
-         Name            =   "HandelGotDLig"
-         Size            =   9
+         Name            =   "Arial"
+         Size            =   12
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00C0E0FF&
-      Height          =   250
-      Left            =   10200
+      ForeColor       =   &H00E0E0E0&
+      Height          =   345
+      Left            =   5490
       TabIndex        =   5
-      Top             =   8340
+      Top             =   8620
       Width           =   1800
    End
    Begin VB.Label lblCreditos 
       Alignment       =   2  'Center
-      BackStyle       =   0  'Transparent
+      BackColor       =   &H00004040&
       BorderStyle     =   1  'Fixed Single
-      Caption         =   "Creditos: 00"
+      Caption         =   "Creditos 00"
       BeginProperty Font 
-         Name            =   "HandelGotDLig"
-         Size            =   9
+         Name            =   "Arial"
+         Size            =   12
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H008080FF&
-      Height          =   250
-      Left            =   10200
+      ForeColor       =   &H00E0E0E0&
+      Height          =   345
+      Left            =   3660
       TabIndex        =   3
-      Top             =   8100
+      Top             =   8620
       Width           =   1800
    End
    Begin VB.Label lblTemasEnLista 
       Alignment       =   2  'Center
-      BackStyle       =   0  'Transparent
+      BackColor       =   &H00004040&
       BorderStyle     =   1  'Fixed Single
-      Caption         =   "En lista: 00"
+      Caption         =   "Pendientes: 00"
       BeginProperty Font 
-         Name            =   "HandelGotDLig"
-         Size            =   9
+         Name            =   "Arial"
+         Size            =   12
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H008080FF&
-      Height          =   250
-      Left            =   10200
+      ForeColor       =   &H00E0E0E0&
+      Height          =   345
+      Left            =   1830
       TabIndex        =   2
-      Top             =   7830
+      Top             =   8620
       Width           =   1800
    End
-   Begin VB.Label lblTiempoRestante 
+   Begin VB.Label lblTemaSonando 
       Alignment       =   2  'Center
-      BackStyle       =   0  'Transparent
+      BackColor       =   &H00400000&
       BorderStyle     =   1  'Fixed Single
-      Caption         =   "Restante: 00:00"
+      Caption         =   "Sin Reproducción actual"
       BeginProperty Font 
-         Name            =   "HandelGotDLig"
-         Size            =   9
+         Name            =   "Arial"
+         Size            =   14.25
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H008080FF&
-      Height          =   250
-      Left            =   10200
-      TabIndex        =   1
-      Top             =   7590
-      Width           =   1800
+      ForeColor       =   &H0000FFFF&
+      Height          =   420
+      Left            =   0
+      TabIndex        =   0
+      Top             =   7020
+      UseMnemonic     =   0   'False
+      Width           =   10550
+   End
+   Begin VB.Label lblDEMO 
+      Alignment       =   2  'Center
+      BackColor       =   &H00400000&
+      BorderStyle     =   1  'Fixed Single
+      Caption         =   "Demo 3PM. Solicite la version definitiva a tbrsoft@hotmail.com ó a avazquez@cpcipc.org"
+      BeginProperty Font 
+         Name            =   "Arial Narrow"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H0000FFFF&
+      Height          =   360
+      Left            =   60
+      TabIndex        =   17
+      Top             =   8220
+      UseMnemonic     =   0   'False
+      Visible         =   0   'False
+      Width           =   9015
    End
    Begin VB.Label lblProximoTema 
       Alignment       =   2  'Center
-      BackStyle       =   0  'Transparent
+      BackColor       =   &H00404080&
       BorderStyle     =   1  'Fixed Single
       Caption         =   "No hay próximo tema"
       BeginProperty Font 
-         Name            =   "HandelGotDLig"
-         Size            =   9
+         Name            =   "Arial"
+         Size            =   9.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00C0E0FF&
-      Height          =   1095
-      Left            =   1260
+      ForeColor       =   &H00FFFFFF&
+      Height          =   1035
+      Left            =   60
       TabIndex        =   4
-      Top             =   7890
-      Width           =   8940
+      Top             =   7560
+      UseMnemonic     =   0   'False
+      Width           =   9015
    End
 End
 Attribute VB_Name = "frmINDEX"
@@ -500,35 +405,119 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Dim DiscosEnPagina As Long
+
+Dim VolBajando As Double 'bajando volumen para terminar tema demo
+Dim LastpSeconds As Long 'comparador para bajar de a uno el volumen en demos
+
+Dim Ancho As Long, Variacion As Long 'PARA la barra de proceso del tema
+Public DuracionTema As Long 'duracion de todos los tenmas de un disco
+Dim TotalTema As Long 'duracion total
 Dim nDiscoSEL As Long 'del 0 al 5
-Dim nDiscoGral As Long ' del 0 a total_discos
+
+Private Sub Form_Activate()
+    MostrarCursor False
+    If HabilitarVUMetro Then
+        If VU1.inHabilitado = False Then VU1.DoStart
+    End If
+End Sub
 
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
+    'y si no es una ficha la que se esta cargando
     'aqui se regsitran las presiones de las teclas elegidas
+    Dim PagNum As Long
     Select Case KeyCode
-        Case vbKeyC
-            frmConfig.Show 1
-        Case vbKeyW
-            'si ya hay 9 cargados se traga las fichas
-            If CREDITOS < 9 Then
-                CREDITOS = CREDITOS + 1
-                lblCreditos = "Creditos: 0" + Str(CREDITOS)
+        Case TeclaPagAd
+            PagNum = nDiscoGral \ (TapasMostradasH * TapasMostradasV)
+            Dim PrimeroDeLaPaginaQueSigue As Long
+            PrimeroDeLaPaginaQueSigue = (PagNum + 1) * (TapasMostradasH * TapasMostradasV)
+            If PrimeroDeLaPaginaQueSigue < TOTAL_DISCOS Then
+                If nDiscoSEL <> 0 Then UnSelDisco nDiscoSEL
+                DiscosEnPagina = CargarDiscos(PrimeroDeLaPaginaQueSigue, True)
+                lblTOTdiscos = "Disco " + CStr(PrimeroDeLaPaginaQueSigue + 1) + " de " + CStr(TOTAL_DISCOS)
+                nDiscoSEL = 0
+                nDiscoSEL = 0
             End If
-        Case vbKeyU
+        Case TeclaPagAt
+            PagNum = nDiscoGral \ (TapasMostradasH * TapasMostradasV)
+            If PagNum > 0 Then
+                Dim PrimeroDeLaPaginaQueAnterior As Long
+                PrimeroDeLaPaginaQueAnterior = (PagNum - 1) * (TapasMostradasH * TapasMostradasV)
+                If nDiscoSEL <> 0 Then UnSelDisco nDiscoSEL
+                DiscosEnPagina = CargarDiscos(PrimeroDeLaPaginaQueAnterior, False)
+                lblTOTdiscos = "Disco " + CStr(PrimeroDeLaPaginaQueAnterior + 1) + " de " + CStr(TOTAL_DISCOS)
+                'SelDisco 0
+                'nDiscoSEL = 0
+            End If
+        Case TeclaConfig
+            frmConfig.Show 1
+        Case TeclaNewFicha
+            'si ya hay 9 cargados se traga las fichas
+            If CREDITOS <= MaximoFichas Then
+                OnOffCAPS vbKeyScrollLock, True
+                CREDITOS = CREDITOS + 1
+                SumarContadorCreditos 1
+                'grabar cant de creditos
+                EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
+                If CREDITOS >= 10 Then
+                    lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+                Else
+                    lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+                End If
+            Else
+                'apagar el fichero electronico
+                OnOffCAPS vbKeyScrollLock, False
+            End If
+        Case TeclaIZQ
             If ESTOY = 0 Then 'si estoy en los discos
                 'no ir a -1
                 If nDiscoSEL = 0 Then
-                    If nDiscoGral > 0 Then CargarDiscos nDiscoGral - 6, False
+                    'ver si hay que pasar hoja o no
+                    If PasarHoja Then
+                        If nDiscoGral > 0 Then DiscosEnPagina = CargarDiscos(nDiscoGral - ((TapasMostradasH * TapasMostradasV)), False)
+                    Else
+                        'NO NO NO!!!! nDiscoGral = (TapasMostradasH * TapasMostradasV) - 1
+                        'estoy en una hoja al principio y debo elegir el disco del final
+                        'sel y unsel trabajan con referencias de o al total de discos por pag
+                        'nDiscoGral es el numero absoluto del disco
+                        'ver si existe el disco al que voy
+                        If TOTAL_DISCOS > nDiscoGral + (TapasMostradasH * TapasMostradasV) - 1 Then
+                            nDiscoGral = nDiscoGral + (TapasMostradasH * TapasMostradasV) - 1
+                            UnSelDisco nDiscoSEL
+                            SelDisco (TapasMostradasH * TapasMostradasV) - 1
+                        Else
+                            nDiscoGral = TOTAL_DISCOS - 1
+                            UnSelDisco nDiscoSEL
+                            SelDisco DiscosEnPagina - 1
+                        End If
+                    End If
                 Else
                     nDiscoGral = nDiscoGral - 1
                     UnSelDisco nDiscoSEL
                     SelDisco nDiscoSEL - 1
                 End If
+                lblTOTdiscos = "Disco " + CStr(nDiscoGral + 1) + " de " + CStr(TOTAL_DISCOS)
             End If
-        Case vbKeyI
+            TECLAS_PRES = TECLAS_PRES + "1"
+            TECLAS_PRES = Right(TECLAS_PRES, 20)
+            lblTECLAS = TECLAS_PRES
+        Case TeclaDER
             If ESTOY = 0 Then 'si estoy en los discos
-                If nDiscoSEL = 5 Then
-                    If nDiscoGral + 1 < TOTAL_DISCOS Then CargarDiscos nDiscoGral + 1, True
+                If nDiscoSEL = DiscosEnPagina - 1 Then
+                    'ver si hay que pasar hojas
+                    If PasarHoja Then
+                        If nDiscoGral + 1 < TOTAL_DISCOS Then
+                            DiscosEnPagina = CargarDiscos(nDiscoGral + 1, True)
+                        End If
+                    Else
+                        '!!!NO NO NO nDiscoGral = 0
+                        'estoy en una hoja al final y debo elegir el disco del principio
+                        'sel y unsel trabajan con referencias de o al total de discos por pag
+                        'nDiscoGral es el numero absoluto del disco
+                        nDiscoGral = nDiscoGral - DiscosEnPagina + 1
+                        UnSelDisco nDiscoSEL
+                        SelDisco 0
+                    End If
                 Else
                     If nDiscoGral + 1 < TOTAL_DISCOS Then
                         nDiscoGral = nDiscoGral + 1
@@ -536,212 +525,616 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                         SelDisco nDiscoSEL + 1
                     End If
                 End If
+                lblTOTdiscos = "Disco " + CStr(nDiscoGral + 1) + " de " + CStr(TOTAL_DISCOS)
             End If
-        Case vbKeyP
+            TECLAS_PRES = TECLAS_PRES + "2"
+            TECLAS_PRES = Right(TECLAS_PRES, 20)
+            lblTECLAS = TECLAS_PRES
+        Case TeclaOK
+            TECLAS_PRES = TECLAS_PRES + "3"
+            TECLAS_PRES = Right(TECLAS_PRES, 20)
+            lblTECLAS = TECLAS_PRES
             If ESTOY = 0 Then
-                'si estoy mostrando discos debo mostrar temas
-                'se cargan los temas en una matriz con ubic archivo,nombreTema
-                ReDim MATRIZ_TEMAS(0) 'matriz en blanco
-                'es una matriz global
-                UbicDiscoActual = txtInLista(MATRIZ_DISCOS(nDiscoGral + 1), 0, ",")
-                MATRIZ_TEMAS = ObtenerArchivos(UbicDiscoActual, "*.mp3")
-                ESTOY = 1 'estoy dentro de un disco
-                Dim c As Integer, nombreTemas As String
-                Dim pathTema As String, DuracionTema As String
-                Do While c < UBound(MATRIZ_TEMAS)
-                    nombreTemas = txtInLista(MATRIZ_TEMAS(c + 1), 1, ",")
-                    pathTema = txtInLista(MATRIZ_TEMAS(c + 1), 0, ",")
-                    ''no mostrar duracion
-                    'ver cuanto dura
-                    'Dim archMP3 As cPlayWMP
-                    'Set archMP3 = New cPlayWMP
-                    'archMP3.FileName = PathTema
-                    'DuracionTema = archMP3.TiempoTotal
-                    'quitar el molesto ".mp3"
-                    nombreTemas = Left(nombreTemas, Len(nombreTemas) - 4)
-                    frmTemasDeDisco.lstTemas.AddItem nombreTemas '+ " / " + DuracionTema
-                    c = c + 1
-                Loop
-                'ver si hay elementos en la lista
-                If frmTemasDeDisco.lstTemas.ListCount = 0 Then
-                    MsgBox "No hay Temas"
-                    Unload frmTemasDeDisco
-                    ESTOY = 0
-                    Exit Sub
-                End If
-                frmTemasDeDisco.lstTemas.ListIndex = 0
+                If lblDISCO(nDiscoSEL) = "01- Los mas escuchados" Then GoTo TOP10Show
                 frmTemasDeDisco.Show 1
             End If
-        Case vbKeyE
-            If ESTOY = 0 Then
-                If MsgBox("salir?", vbYesNo) = vbYes Then End
-            End If
-            ''nunca va a detectar en estoy=1 ya que es otro formulario el que recibe la tecla
-            'If ESTOY = 1 Then
-            '    Unload frmTemasDeDisco
-            '    ESTOY = 0
-            'End If
+        Case TeclaCerrarSistema
+            OnOffCAPS vbKeyCapital, False
+            'no puedo usar do stop porque lanza el evento ENDPLAY y esto produce un EMPEZARSIGUIENTE
+            'que se come un tema de la lista
+            MostrarCursor True
+            MP3.DoClose
+            If ApagarAlCierre Then APAGAR_PC
+            End
+        Case TeclaESC
+            TECLAS_PRES = TECLAS_PRES + "4"
+            TECLAS_PRES = Right(TECLAS_PRES, 20)
+            lblTECLAS = TECLAS_PRES
     End Select
-    'lblProximoTema = "nDiscoSel=" + Str(nDiscoSEL) + " - nDiscoGral=" + Str(nDiscoGral)
+    VerClaves TECLAS_PRES
+    SecSinTecla = 0
+    lblNoTecla = 0
+    Exit Sub
+TOP10Show:
+    FRMTOP10.Show 1
 End Sub
 
 Private Sub Form_Load()
+    lblDEMO.Visible = (TypeVersion = "DEMO")
+    lblDEMO = "Demo 3PM. Solicite la version definitiva a tbrsoft@hotmail.com ó a avazquez@cpcipc.org"
+    AjustarFRM Me, 12000
+    VU1.Visible = HabilitarVUMetro
+    'cargar la cantidad de tapas que corresponda
+    'SE CARGAN EN ini YA ES configurable
+    'TapasMostradasH = 4: TapasMostradasV = 3
+    
+    'si no se ve el vumetro debo desplazar los controles
+    If HabilitarVUMetro = False Then
+        frDISCOS.Width = VU1.Left + VU1.Width
+        lblTemaSonando.Width = lblTemaSonando.Width + VU1.Width
+        LBLpORCtEMA.Width = LBLpORCtEMA.Width + VU1.Width
+        Image1.Left = frDISCOS.Width - Image1.Width
+        lblV.Left = lblTemaSonando.Width - lblV.Width
+        lblProximoTema.Width = Image1.Left - lblProximoTema.Left
+    Else
+        frDISCOS.Left = 0
+        frDISCOS.Width = VU1.Left
+    End If
+        
+    'ocultar los indicadores que no correspondan
+    lblTiempoRestante.Visible = verTiempoRestante
+    lblTemasEnLista.Visible = verTemasEnLista
+    lblCreditos.Visible = verCreditos
+    lblTOTdiscos.Visible = verTOTdiscos
+    lblPuesto.Visible = verPuesto
+    lblProximoTema.Visible = verLista
+    
+    If verLista = False Then
+        'correr todo para abajo
+        lblTemaSonando.Top = lblTiempoRestante.Top - lblTemaSonando.Height - LBLpORCtEMA.Height
+        LBLpORCtEMA.Top = lblTiempoRestante.Top - LBLpORCtEMA.Height
+        frDISCOS.Height = lblTemaSonando.Top
+        Image1.Left = lblTemaSonando.Width 'queda afuera
+        Image1.Visible = False
+        lblV.Visible = False
+    End If
+    
+    'ajustar los indicadores que esten visibles al ancho que este disponible
+    Dim IndicadoresVisibles As Long
+    IndicadoresVisibles = 0
+    If lblTiempoRestante.Visible Then IndicadoresVisibles = IndicadoresVisibles + 1
+    If lblTemasEnLista.Visible Then IndicadoresVisibles = IndicadoresVisibles + 1
+    If lblCreditos.Visible Then IndicadoresVisibles = IndicadoresVisibles + 1
+    If lblTOTdiscos.Visible Then IndicadoresVisibles = IndicadoresVisibles + 1
+    If lblPuesto.Visible Then IndicadoresVisibles = IndicadoresVisibles + 1
+    
+    Dim AnchoPorIndicador As Long, LastPuntoParaLeft As Long
+    If IndicadoresVisibles > 0 Then 'si no se ve ninguno se tira todo para abajo
+        LastPuntoParaLeft = 0
+        AnchoPorIndicador = Image1.Left / IndicadoresVisibles
+        If lblTiempoRestante.Visible Then
+            lblTiempoRestante.Left = LastPuntoParaLeft
+            lblTiempoRestante.Width = AnchoPorIndicador
+            LastPuntoParaLeft = lblTiempoRestante.Width
+        End If
+        If lblTemasEnLista.Visible Then
+            lblTemasEnLista.Left = LastPuntoParaLeft
+            lblTemasEnLista.Width = AnchoPorIndicador
+            LastPuntoParaLeft = lblTemasEnLista.Left + lblTemasEnLista.Width
+        End If
+        If lblCreditos.Visible Then
+            lblCreditos.Left = LastPuntoParaLeft
+            lblCreditos.Width = AnchoPorIndicador
+            LastPuntoParaLeft = lblCreditos.Left + lblCreditos.Width
+        End If
+        If lblTOTdiscos.Visible Then
+            lblTOTdiscos.Left = LastPuntoParaLeft
+            lblTOTdiscos.Width = AnchoPorIndicador
+            LastPuntoParaLeft = lblTOTdiscos.Left + lblTOTdiscos.Width
+        End If
+        If lblPuesto.Visible Then
+            lblPuesto.Left = LastPuntoParaLeft
+            lblPuesto.Width = AnchoPorIndicador
+        End If
+    Else
+        'tirar controles para abajo!!
+    End If
+    
+    'frDISCOS contiene los discos a mostrar
+    'se debera calcualr el tamaño de cada discos asi como cantidad horizontal y vertical
+    Dim AnchoTapaDisco As Long
+    Dim AltoTapaDisco As Long
+    'el alto de estos incluye tambien el lbldisco
+    
+    AnchoTapaDisco = (frDISCOS.Width * 0.97 / TapasMostradasH)
+    AltoTapaDisco = (frDISCOS.Height * 0.97 / TapasMostradasV)
+    'ver cual es mayor para no permitir mucha distorsion
+    'lo que se ajuste se agranda del espacio entrediscos
+    Dim EspacioEntreDiscosH As Long
+    Dim EspacioEntreDiscosV As Long
+    EspacioEntreDiscosV = 50: EspacioEntreDiscosH = 50
+    If DistorcionarTapas = False Then
+        Dim DIFF As Double
+        DIFF = AnchoTapaDisco - AltoTapaDisco
+        If DIFF > 0 Then
+            'el ancho es mas que el alto
+            AnchoTapaDisco = AltoTapaDisco
+            EspacioEntreDiscosH = DIFF
+        Else
+            'el alto es mas que el ancho
+            AltoTapaDisco = AnchoTapaDisco
+            EspacioEntreDiscosV = -DIFF
+        End If
+    End If
+    
+    If MostrarRotulos Then
+        TapaCD(0).Width = AnchoTapaDisco
+        TapaCD(0).Height = AltoTapaDisco * 0.79 '80%disco, 20% lbldisco
+        lblDISCO(0).Height = AltoTapaDisco * 0.19 '80%disco, 20% lbldisco
+        lblDISCO(0).Width = AnchoTapaDisco
+    Else
+        TapaCD(0).Width = AnchoTapaDisco
+        TapaCD(0).Height = AltoTapaDisco
+        lblDISCO(0).Visible = False
+    End If
+    
+    'ver si los rotulos van arriba o abajo
+    If RotulosArriba Then
+        lblDISCO(0).Left = 50
+        lblDISCO(0).Top = 50
+        TapaCD(0).Left = 50
+        If MostrarRotulos Then
+            TapaCD(0).Top = lblDISCO(0).Top + lblDISCO(0).Height + 50
+        Else
+            TapaCD(0).Top = 50
+        End If
+    Else
+        TapaCD(0).Left = 50
+        TapaCD(0).Top = 50
+        lblDISCO(0).Left = 50
+        lblDISCO(0).Top = TapaCD(0).Top + TapaCD(0).Height + 50
+    End If
+    
+    Dim CantDiscos As Long
+    CantDiscos = TapasMostradasH * TapasMostradasV
+    'cargar la cantidad de tapas correspondientes
+    c = 0
+    Do While c < CantDiscos - 1 'si la primera hoja incompleta se carga completa!!
+        c = c + 1
+        Load TapaCD(c)
+        Load lblDISCO(c)
+        'ya toman el tamaño del original
+        If c / TapasMostradasH = c \ TapasMostradasH Then
+            'es una tapa al principio de linea
+            If RotulosArriba Then
+                lblDISCO(c).Left = 50
+                lblDISCO(c).Top = TapaCD(c - TapasMostradasH).Top + TapaCD(c - TapasMostradasH).Height + EspacioEntreDiscosV
+                TapaCD(c).Left = 50
+                If MostrarRotulos Then
+                    TapaCD(c).Top = lblDISCO(c).Top + lblDISCO(c).Height + 50
+                Else
+                    TapaCD(c).Top = TapaCD(c - TapasMostradasH).Top + TapaCD(c - TapasMostradasH).Height + 50
+                End If
+                TapaCD(c).Visible = True
+                If MostrarRotulos Then lblDISCO(c).Visible = True
+            Else
+                TapaCD(c).Left = 50
+                If MostrarRotulos Then
+                    TapaCD(c).Top = lblDISCO(c - TapasMostradasH).Top + lblDISCO(c - TapasMostradasH).Height + EspacioEntreDiscosV
+                Else
+                    TapaCD(c).Top = TapaCD(c - TapasMostradasH).Top + TapaCD(c - TapasMostradasH).Height + EspacioEntreDiscosV
+                End If
+                lblDISCO(c).Left = 50
+                lblDISCO(c).Top = TapaCD(c).Top + TapaCD(c).Height + 50
+                TapaCD(c).Visible = True
+                If MostrarRotulos Then lblDISCO(c).Visible = True
+            End If
+        Else
+            'una tapa comun que se acomoda a la derecha de la anterior
+            If RotulosArriba Then
+                lblDISCO(c).Left = lblDISCO(c - 1).Left + AnchoTapaDisco + EspacioEntreDiscosH
+                lblDISCO(c).Top = lblDISCO(c - 1).Top
+                TapaCD(c).Left = lblDISCO(c).Left
+                TapaCD(c).Top = TapaCD(c - 1).Top
+                TapaCD(c).Visible = True
+            Else
+                TapaCD(c).Left = TapaCD(c - 1).Left + AnchoTapaDisco + EspacioEntreDiscosH
+                TapaCD(c).Top = TapaCD(c - 1).Top
+                lblDISCO(c).Left = TapaCD(c).Left
+                lblDISCO(c).Top = lblDISCO(c - 1).Top
+                TapaCD(c).Visible = True
+            End If
+            If MostrarRotulos Then lblDISCO(c).Visible = True
+        End If
+    Loop
+    
+    OnOffCAPS vbKeyScrollLock, True
+    lblV = "v " + Trim(Str(App.Major)) + "." + Trim(Str(App.Minor)) + "." + Trim(Str(App.Revision))
+    lblTiempoRestante = "FALTA: " + "00:00"
+    lblTemasEnLista = "Pendientes: 0"
+    'ocultar las etiquetas
+    Me.AutoRedraw = AutoReDibuj
     Me.Left = Screen.Width / 2 - Me.Width / 2
     Me.Top = Screen.Height / 2 - Me.Height / 2
+    'ver cuantos creditos hay
+    CREDITOS = Val(LeerArch1Linea(AP + "creditos.tbr"))
+    If CREDITOS >= 10 Then
+        lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+    Else
+        lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+    End If
     'dejar cargado el mostrados de procesos
-    Load frmProces
+    'Load frmini
     'cargar las variables globales
     ESTOY = 0 'aparece viendo los CDS
-    CREDITOS = 0
     TEMA_REPRODUCIENDO = "Sin reproducción actual"
     TEMA_SIGUIENTE = "No hay proximo tema"
     TEMAS_EN_LISTA = 0
-    ESTOY_REPRODUCIENDO = False
+    lblDEMO.Width = lblProximoTema.Width
+    
     'buscar discos = todas las carpetas en AP\discos\*.*
     'y meterlos en la matriz
     MATRIZ_DISCOS() = ObtenerDir(AP + "discos")
-    ''leer los temas de cada carpeta de la matriz anterior
-    ''y generar una nueva matriz con path, duracion
-    ''NO SE HACE PORE AHORA
     
     Dim CarpActual As String
-    Dim MP3 As cPlayWMP, pathTema As String, DuracionTema As String, NombreTema As String
-    Set MP3 = New cPlayWMP
+    Dim pathTema As String, DuracionTema As String, nombreTEMA As String
     'mostrar proceso
-    frmProces.Show
-    frmProces.pBar = 0
-    frmProces.pBar.Max = UBound(MATRIZ_DISCOS) * 15 'mas o menos 15 temas por disco
-    ReDim Preserve MATRIZ_TOTAL(did150, 30)
-    'On Error GoTo ErrMP3
-    'For c = 1 To UBound(MATRIZ_DISCOS)
-        'encontar todos los temas grabar su duracion
-   '     CarpActual = txtInLista(MATRIZ_DISCOS(c + 1), 0, ",")
-   '     frmProces.lblProces = "Buscando en Disco " + CarpActual
-   '     frmProces.lblProces.Refresh
-   '     MATRIZ_TEMAS = ObtenerArchivos(CarpActual, "*.mp3")
-   '     For d = 1 To UBound(MATRIZ_TEMAS)
-   '         pathTema = txtInLista(MATRIZ_TEMAS(d), 0, ",")
-   '         NombreTema = txtInLista(MATRIZ_TEMAS(d), 1, ",")
-   '
-   '         MP3.FileName = pathTema
-   '         DuracionTema = MP3.TiempoTotal
-   '
-   '         MATRIZ_TOTAL(c, d) = CarpActual + "," + NombreTema + "," + DuracionTema
-   '         frmProces.lblProces = "Tema encontrado " + NombreTema + " = " + DuracionTema
-   '         frmProces.lblProces.Refresh
-   '         If frmProces.pBar + 1 = frmProces.pBar.Max Then frmProces.pBar.Max = frmProces.pBar.Max + 1
-   '         frmProces.pBar = frmProces.pBar + 1
-   '     Next
-    'Next
-    'ahora cargarlos en pantalla
+    ReDim Preserve MATRIZ_TOTAL(150, 30)
+    
     'ret devuelve la cantidadd de discos cargados
-    Ret = CargarDiscos(0, True)
+    DiscosEnPagina = CargarDiscos(0, True)
     'inicializar la matriz_lista (lista de reproduccion
     
     ReDim MATRIZ_LISTA(0)
+    lblTOTdiscos = "Discos: " + Trim(Str(UBound(MATRIZ_DISCOS)))
+    
+    'si quedaron temas pendientes cargarlos
+    
+    Select Case ReINI
+        Case "LISTA" 'solo la lista despues del tema actual
+            Dim TE As TextStream
+            If FSO.FileExists(AP + "reini.tbr") Then
+                Set TE = FSO.OpenTextFile(AP + "reini.tbr", ForReading, False)
+                Dim TT As String 'cada tema
+                Dim Z As Integer 'contador de temas en lista anterior
+                Z = 1
+                Do While Not TE.AtEndOfStream
+                    TT = TE.ReadLine
+                    ReDim Preserve MATRIZ_LISTA(Z)
+                    MATRIZ_LISTA(Z) = TT
+                    Z = Z + 1
+                Loop
+                TE.Close
+            End If
+            EMPEZAR_SIGUIENTE
+        Case "NADA"
+            'no hacer nada
+            'borrar la lista
+            If FSO.FileExists(AP + "reini.tbr") Then FSO.DeleteFile AP + "reini.tbr", True
+            Timer1.Interval = 10000
+    End Select
+    Unload frmINI
     Exit Sub
 ErrMP3:
     MsgBox Err.Description + " N°: " + Str(Err.Number)
 End Sub
 
 Public Sub SelDisco(nDisco As Long)
-    FlechaCD(nDisco).Visible = True
-    lblDisco(nDisco).ForeColor = vbYellow
-    lblDisco(nDisco).Font.Bold = True
-    lblDisco(nDisco).Font.Underline = True
+    lblSel.Visible = False
+    lblDISCO(nDisco).ForeColor = vbBlack
+    'lblDISCO(nDisco).Font.Bold = True
+    lblDISCO(nDisco).Font.Underline = True
+    lblDISCO(nDisco).BackColor = vbYellow
     nDiscoSEL = nDisco
+    
+    lblSel.Top = TapaCD(nDiscoSEL).Top - lblSel.BorderWidth * 10
+    lblSel.Left = TapaCD(nDiscoSEL).Left - lblSel.BorderWidth * 10
+    lblSel.Height = TapaCD(nDiscoSEL).Height + lblSel.BorderWidth * 20
+    lblSel.Width = TapaCD(nDiscoSEL).Width + lblSel.BorderWidth * 20
+    lblSel.Visible = True
+    lblSel.ZOrder
     
 End Sub
 
 Public Sub UnSelDisco(nDisco As Long)
-    FlechaCD(nDisco).Visible = False
-    lblDisco(nDisco).ForeColor = vbWhite
-    lblDisco(nDisco).Font.Bold = False
-    lblDisco(nDisco).Font.Underline = False
+    lblDISCO(nDisco).ForeColor = vbWhite
+    'lblDISCO(nDisco).Font.Bold = False
+    lblDISCO(nDisco).Font.Underline = False
+    lblDISCO(nDisco).BackColor = vbBlack
 End Sub
 
 
 Public Function CargarDiscos(numDiscoIniciar As Long, SelPrimero As Boolean) As Long
-    'indicando en que disco se inicia carga ese y los seis que le sigen
+    'indicando en que disco se inicia carga ese y los seis (o lo que corresponde) que le sigen
     'devuelve el número de discos cargados
     CargarDiscos = 0
-    'tomar el disco que va a quedar seleccionado como numero de disoc en el indice general
+    Dim TotPags As Long
+    TotPags = (TOTAL_DISCOS - 1) \ (TapasMostradasH * TapasMostradasV)
+    lblPag = "Pagina " + CStr(Round(numDiscoIniciar / (TapasMostradasH * TapasMostradasV) + 1, 0)) + " de " + CStr(TotPags + 1)
+    'tomar el disco que va a quedar seleccionado como numero de disco en el indice general
     If SelPrimero Then
         nDiscoGral = numDiscoIniciar
     Else
-        nDiscoGral = numDiscoIniciar + 5
+        nDiscoGral = numDiscoIniciar + ((TapasMostradasH * TapasMostradasV) - 1) 'era un 5, o sea total tapas-1
     End If
     'esconder todos los discos
-    Dim NDR 'numero de tapa de disco real del 0 al 5
-    NDR = 0
-    Do While NDR < 6
-        TapaCD(NDR).Visible = False
-        lblDisco(NDR).Visible = False
-        NDR = NDR + 1
-    Loop
-    NDR = 0
-    Dim NDI '=numdiscoiniciar
+    Dim NDR As Long 'numero de tapa de disco real del 0 al 5 (total de discos-1)
     
-    NDR = 0
+    'no hacer esto al pedo si ya estan cargadas
+    Dim NDI As Long '=numdiscoiniciar de la pagina
+    Dim c As Integer
+    c = 1
     NDI = numDiscoIniciar
-    ''si llegue al final empiezo de vuelta
-    ''If NDI >= UBound(MATRIZ_DISCOS) Then NDI = 0
-    Dim ArchTapa As String
-    Do While NDI < numDiscoIniciar + 6
+    If CargarIMGinicio Then
+        If SelPrimero Then
+            'si voy para adelante
+            'ocultar los que ya pse
+            c = 1
+            Do While c <= (TapasMostradasH * TapasMostradasV)
+                If NDI >= (TapasMostradasH * TapasMostradasV) Then
+                    TapaCD(NDI - c).Visible = False
+                    'no se cargan lbldisco, usan solo del 0 al 5
+                    lblDISCO(c - 1).Visible = False
+                End If
+                c = c + 1
+            Loop
+            Me.Refresh
+        Else
+            'sino ocultar los de adelante
+            c = 1
+            Do While c <= (TapasMostradasH * TapasMostradasV)
+                If NDI + ((TapasMostradasH * TapasMostradasV) - 1) + c < UBound(MATRIZ_DISCOS) Then TapaCD(NDI + ((TapasMostradasH * TapasMostradasV) - 1) + c).Visible = False
+                lblDISCO(c - 1).Visible = False
+                c = c + 1
+            Loop
+            'Me.Refresh
+        End If
+    Else
+        Do While NDR < ((TapasMostradasH * TapasMostradasV))
+            TapaCD(NDR).Visible = False
+            lblDISCO(NDR).Visible = False
+            NDR = NDR + 1
+        Loop
+        Dim ArchTapa As String
+    End If
+    NDR = 0
+    
+    Do While NDI < numDiscoIniciar + ((TapasMostradasH * TapasMostradasV))
         'ver si existe si hay disco con este n°
         If NDI < UBound(MATRIZ_DISCOS) Then
-            '''las tapas se cargan al inicio-------------------
-            '''ver si hay tapa
-            ''ArchTapa = txtInLista(MATRIZ_DISCOS(NDI + 1), 0, ",")
-            ''If Right(ArchTapa, 1) <> "\" Then ArchTapa = ArchTapa + "\"
-            ''ArchTapa = ArchTapa + "tapa.jpg"
-            ''If FSO.FileExists(ArchTapa) Then
-            ''    TapaCD(NDR).Picture = LoadPicture(ArchTapa)
-            ''Else
-            ''    TapaCD(NDR).Picture = LoadPicture(AP + "tapa.jpg")
-            ''End If
-            'si voy para adelante
-            If SelPrimero Then
-                'ver que no sea al iniciop del sistema en la primera hoja
-                If NDI > 6 Then TapaCD(NDI - 6).Visible = False
+            CargarDiscos = CargarDiscos + 1
+            'ver si ya estan cargadas o se deben cargar
+            If CargarIMGinicio Then
+                 TapaCD(NDI).Visible = True
+                TapaCD(NDI).ZOrder
             Else
-              'ver que no se pase de los elementos que hay en la matriz
-                If NDI + 6 < UBound(MATRIZ_DISCOS) Then TapaCD(NDI + 6).Visible = False
+                'ver si hay tapa
+                ArchTapa = txtInLista(MATRIZ_DISCOS(NDI + 1), 0, ",")
+                If Right(ArchTapa, 1) <> "\" Then ArchTapa = ArchTapa + "\"
+                ArchTapa = ArchTapa + "tapa.jpg"
+                If FSO.FileExists(ArchTapa) Then
+                    TapaCD(NDR).Picture = LoadPicture(ArchTapa)
+                Else
+                    TapaCD(NDR).Picture = LoadPicture(AP + "tapa.jpg")
+                End If
+                TapaCD(NDR).Visible = True
             End If
-            TapaCD(NDI).Visible = True
-            TapaCD(NDI).ZOrder
-            ''TapaCD(NDR).Visible = True
-            lblDisco(NDR) = txtInLista(MATRIZ_DISCOS(NDI + 1), 1, ",")
-            lblDisco(NDR).Visible = True
+            'poner nombre al disco
+            lblDISCO(NDR) = txtInLista(MATRIZ_DISCOS(NDI + 1), 1, ",")
+            If MostrarRotulos Then lblDISCO(NDR).Visible = True
         End If
         NDI = NDI + 1
         NDR = NDR + 1
     Loop
     If SelPrimero Then
-        UnSelDisco 5
+        UnSelDisco ((TapasMostradasH * TapasMostradasV) - 1)
         SelDisco 0
     Else
         UnSelDisco 0
-        SelDisco 5
+        SelDisco ((TapasMostradasH * TapasMostradasV) - 1)
     End If
-    
 End Function
 
-Private Sub SLvolumen_Change()
-    m_csplay.Volumen = SLvolumen
+Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
+    MostrarCursor True
+    MP3.DoStop
+    MP3.DoClose
+    VU.DoStop
+End Sub
+
+Private Sub MP3_BeginPlay()
+    TotalTema = MP3.LengthInSec
+    Ancho = lblTemaSonando.Width
+    'EVITAR DIVISIONES POR CERO
+    If TotalTema > 0 And MP3.IsPlaying Then
+        Variacion = Ancho / TotalTema
+        lblTiempoRestante = "TOTAL: " + MP3.Falta
+    Else
+        lblTiempoRestante = "FALTA: " + "00:00"
+    End If
+    VolBajando = MP3.Volumen
+    
+End Sub
+
+Private Sub MP3_EndPlay()
+    'termino una cancion
+    If EsVideo Then MP3.DoClose
+    LBLpORCtEMA.Width = Ancho
+    EMPEZAR_SIGUIENTE
+End Sub
+
+Private Sub MP3_Played(SecondsPlayed As Long)
+    'esto pasa cada un segundo (si o si una vez por segundo
+    Dim sRest As Long
+    sRest = MP3.FaltaInSec
+    PorcEjecutado = MP3.PercentPlay
+    If PorcEjecutado > PorcentajeTEMA And CORTAR_TEMA Then
+        VolBajando = VolBajando - 5 'baja 1 por segundo
+        lblTemaSonando = "Cerrando " + QuitarNumeroDeTema(FSO.GetBaseName(TEMA_REPRODUCIENDO))
+        If VolBajando > 0 Then
+            MP3.Volumen = VolBajando
+        Else
+            MP3.DoStop
+            'EL DOSTOP DESENCADENA UN END PLAY QUE REALIZA UN EMPEZAR SIGUINETE
+            'EMPEZAR_SIGUIENTE
+        End If
+    End If
+    lblTiempoRestante = "FALTA: " + MP3.Falta
+    wi = Ancho - Variacion * (SecondsPlayed - 2)
+    If wi > 0 Then LBLpORCtEMA.Width = wi
+    '=====================================
+    'poner en rem si es definitivo
+    If TypeVersion = "DEMO" And SecondsPlayed > 126 And SecondsPlayed < TotalTema - 5 Then
+        lblTemaSonando = "Tema Truncado. Version DEMO"
+        MP3.DoStop
+    End If
+    '=====================================
 End Sub
 
 Private Sub Timer1_Timer()
-    Dim m As Long, s As Long, tt As String
-    Dim sRest As Long
-    'sRest = m_csplay.Duration - m_csplay.CurrentPosition
-    sRest = m_csplay.SegundosRestantes
-    m = sRest \ 60
-    s = sRest - (m * 60)
-    'corregir 2:5 por 2:05
-    If s < 10 Then
-        lblTiempoRestante = "Restante " + Str(m) + ":0" + Trim(Str(s))
-    Else
-        lblTiempoRestante = "Restante " + Str(m) + ":" + Trim(Str(s))
+    If MP3.IsPlaying Then Exit Sub
+    'controla el tiempo sin uso (sin ejecucion de temas)
+    SecSinUso = SecSinUso + 10
+    lblNoUSO = Trim(Str(SecSinUso))
+    If SecSinUso >= EsperaMinutos Then 'esperaminutos esta en segundos
+        'si estaba en temas de disco salir
+        If ESTOY = 1 Then
+            ESTOY = 0
+            Unload frmTemasDeDisco
+        End If
+        SecSinUso = 0
+        Dim TemasDisponibles As Long
+        If TemasEnRank(1) > 50 Then
+            TemasDisponibles = TemasEnRank(1) 'todos los que se escucharon
+        Else
+            TemasDisponibles = TemasEnRank(0) 'todos los que se escucharon
+        End If
+        Randomize Timer
+        Z = Int(Rnd * TemasDisponibles)
+        Z = Z + 1
+        CC = 0
+        If FSO.FileExists(AP + "ranking.tbr") = False Then
+            FSO.CreateTextFile AP + "ranking.tbr", True
+            'me voy al azar ya que no hay para elegirdel rank
+            GoTo AZAR
+        End If
+        Dim TE As TextStream
+        Set TE = FSO.OpenTextFile(AP + "ranking.tbr", ForReading, False)
+        Dim TT As String
+        'antes de entra ver si el archivo no tiene nada
+        If TE.AtEndOfStream Then GoTo AZAR
+        Do While Not TE.AtEndOfStream
+            CC = CC + 1
+            TT = TE.ReadLine
+            If CC = Z Then
+                Dim TemaAzar As String
+                TemaAzar = txtInLista(TT, 1, ",")
+                'si tuve los discos cargados en una unidad o una ubicación distinta a la que aparece
+                'en el ranking, me da un error por que el archivo no existe
+                If FSO.FileExists(TemaAzar) Then
+                    CORTAR_TEMA = True 'este tema se eligio al azar no va entero
+                    SecSinUso = 0
+                    EjecutarTema TemaAzar, False
+                    Exit Sub
+                Else
+AZAR:
+                    'ejecutar algun tema de cualquier disco
+                    Dim MTX10() As String: zz = 0
+                    ruta = AP + "discos\"
+                    Dim NombreDir As String
+                    NombreDir = Dir$(ruta & "*.*", vbDirectory)
+                    Do While Len(NombreDir)
+                        If NombreDir = "." Or NombreDir = ".." Then
+                            ' excluir las entradas "." y ".."
+                        ElseIf (GetAttr(ruta & NombreDir) And vbDirectory) = 0 Then
+                            ' este es un archivo normal
+                        Else
+                            'ver los primeros diez discos. En alguno tiene que haber temas
+                            'yo se que el primero no tiene temas por que es
+                            '01 - los mas escuchados
+                            ReDim Preserve MTX10(zz) As String
+                            MTX10(zz) = ruta & NombreDir
+                            zz = zz + 1
+                        End If
+                        NombreDir = Dir$
+                    Loop
+BuscaMP3:
+                    'siempre cae en el primer tema del primer directorio habilitado
+                    Randomize Timer
+                    Dim a As Integer, ContA As Integer
+                    a = Int(Rnd * 1000) + 1
+                    Dim NombreMP3 As String: zz = 0
+                    Dim temaMP As String
+                    Do While zz < UBound(MTX10)
+                        NombreMP3 = Dir$(MTX10(zz) & "\*.mp3")
+                        'si no hay ningun tema se va a la prox carpeta
+                        If NombreMP3 = "" Then GoTo NextFolder
+                        'da vueltas hasta encontrar un tema valido
+                        Do While Len(NombreMP3)
+                            temaMP = MTX10(zz) & "\" & NombreMP3
+                            If FSO.FileExists(temaMP) Then
+                                ContA = ContA + 1
+                                If ContA >= a Then
+                                    CORTAR_TEMA = True 'este tema va cortado ya que es de 3PM para que haga ruido
+                                    EjecutarTema temaMP, False
+                                    'solo sale cueando encuentra un tema valido
+                                    SecSinUso = 0
+                                    Exit Sub
+                                End If
+                            End If
+                            NombreMP3 = Dir$
+                        Loop
+NextFolder:
+                        zz = zz + 1
+                    Loop
+                End If
+                Exit Do
+            End If
+         Loop
+        'si llego aca es por que no encontro el numero sorteado al azar en la lista
+        'de los mejores. Entonces elige un tema al azar
+        GoTo AZAR
+    End If
+    
+End Sub
+
+Private Sub Timer3_Timer()
+    'controla el tiempo sin uso (sin tocar teclas)
+    SecSinTecla = SecSinTecla + 10
+    lblNoTecla = Trim(Str(SecSinTecla))
+    If SecSinTecla > EsperaTecla And EsVideo = False Then
+        frmProtect.Show 1
     End If
 End Sub
+
+Public Function TemasEnRank(MasDeXVotos) As Long
+    'indica cuantos temas hay en el ranking
+    If FSO.FileExists(AP + "ranking.tbr") = False Then
+        FSO.CreateTextFile AP + "ranking.tbr", True
+        TemasEnRankMasDeUnVoto = 0
+        Exit Function
+    End If
+    Dim TE As TextStream
+    Set TE = FSO.OpenTextFile(AP + "ranking.tbr", ForReading, False)
+    Dim TT As String
+    'antes de entra ver si el archivo no tiene nada
+    If TE.AtEndOfStream Then
+        TemasEnRankMasDeUnVoto = 0
+        Exit Function
+    End If
+    Dim CA As Long
+    CA = 0
+    Dim PuntosEste  As Long
+    Do While Not TE.AtEndOfStream
+        TT = TE.ReadLine
+        PuntosEste = Val(txtInLista(TT, 0, ","))
+        If PuntosEste > MasDeXVotos Then
+            CA = CA + 1
+        Else
+            'todos los que siguen tienen uno (1)
+            Exit Do
+        End If
+    Loop
+    TemasEnRank = CA
+End Function
+

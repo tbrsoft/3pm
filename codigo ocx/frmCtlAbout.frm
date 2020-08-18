@@ -7,6 +7,7 @@ Begin VB.Form frmCtlAbout
    ClientLeft      =   45
    ClientTop       =   330
    ClientWidth     =   8460
+   Icon            =   "frmCtlAbout.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
@@ -45,7 +46,7 @@ Begin VB.Form frmCtlAbout
    Begin VB.Image Image1 
       Height          =   2340
       Left            =   45
-      Picture         =   "frmCtlAbout.frx":0000
+      Picture         =   "frmCtlAbout.frx":0442
       Top             =   90
       Width           =   3150
    End

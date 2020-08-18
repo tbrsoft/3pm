@@ -1,3 +1,6 @@
 *.TMP
 *.exe
 *.dll
+*.oca
+creditos.tbr
+*.log

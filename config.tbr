@@ -1,29 +1,36 @@
-CargarImagenInicio=0
+CargarImagenInicio=Verdadero
 AutoReDraw=0
-TeclaDerecha=64
-TeclaIzquierda=65
+TeclaDerecha=88
+TeclaIzquierda=90
+TeclaPagAd=77
+TeclaPagAt=78
 TeclaOK=13
 TeclaESC=27
-TeclaNuevaFicha=77
-MaximoFichas=9
-TemasPorFicha=1
-EsperaMinutos=15
-ReIni=Full
-Volumen=-1200
-
-
-REMs
-	Valores de ReIni
-		FULL=tema ejecutando y lista
-		LISTA=solo lista
-		NADA=arranca de cero
-
-3PM es un desarrollo de tbr-soft desafios digitales
-54(03543)437620
-54(03543)15606633
-tbrsoft@hotmail.com
-avazquez@cpcipc.org
-
-Hecho en villa Allende, Provincia de Cordoba
-entre julio y setiembre del 2002
-
+TeclaNuevaFicha=81
+TeclaConfig=67
+TeclaCerrarSistema=87
+ApagarAlCierre= 0
+RankToPeople= 1
+MaximoFichas=40
+EsperaMinutos=900
+FastIni=1
+HabilitarVUMetro=0
+ReINI=LISTA
+Volumen=15
+EsperaTecla=600
+PorcentajeTema=60
+DiscosH=5
+DiscosV=3
+DuracionProtect=180
+verTiempoRestante=1
+verTemasEnLista=1
+verCreditos=1
+verTOTdiscos=1
+verPuesto=1
+verLista=1
+PasarHoja=1
+DistorcionarTapas=0
+ProtectOriginal=0
+CargarDuracionTemas=0
+MostrarRotulos=1
+RotulosArriba=0

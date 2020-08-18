@@ -1,12 +1,10 @@
 Attribute VB_Name = "Archivos"
-Option Compare Text
-'---------------------------------------------------------
-' BIBLIOTECA DE RUTINAS DE PROGRAMACIÓN VB6 - (C) Francesco Balena
-'
-' (36+10) Rutinas del capítulo 05
-'---------------------------------------------------------
-
 Option Explicit
+Option Compare Text
+
+Public Declare Function ShowCursor Lib "user32" (ByVal bShow As Long) As Long
+Public Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteA" (ByVal hWnd As Long, ByVal lpOperation As String, ByVal lpFile As String, ByVal lpParameters As String, ByVal lpDirectory As String, ByVal nShowCmd As Long) As Long
+
 
 ' API declaración (utilizada por la rutina EsperarPorProceso)
 Private Declare Function EsperarUnicoObjeto Lib "kernel32" _
@@ -16,49 +14,68 @@ Private Declare Function OpenProcess Lib "kernel32" (ByVal dwAccess As _
 Private Declare Function CloseHandle Lib "kernel32" _
     (ByVal hObject As Long) As Long
 
+Public Sub AbrirArchivo(ARCH As String, FrmSolicita As Form)
+    ShellExecute FrmSolicita.hWnd, vbNullString, ARCH, vbNullString, vbNullString, vbMaximizedFocus
+End Sub
+
+
+Public Sub MostrarCursor(Mostrar As Boolean)
+    Dim a As Long
+    If Mostrar Then
+        a = 0
+        Do While a < 1
+            a = ShowCursor(1) 'suma uno
+        Loop
+    Else
+        a = 1
+        Do While a >= 0
+            a = ShowCursor(0) 'suma uno
+        Loop
+    End If
+End Sub
+
 ' devuelve los atributos de un archivo en un formato legible
 ' esta rutina también funciona con archivos abiertos
 ' provoca un error si el archivo no existe
 
 Function ObtAtribDescrip(nombrearch As String) As String
-    Dim resultado As String, attr As Long
+    Dim Resultado As String, attr As Long
     attr = GetAttr(nombrearch)
     ' GetAttr también funciona con directorios
-    If attr And vbDirectory Then resultado = resultado & " Directorio"
-    If attr And vbReadOnly Then resultado = resultado & " Sólo lectura"
-    If attr And vbHidden Then resultado = resultado & " Oculto"
-    If attr And vbSystem Then resultado = resultado & " Sistema"
-    If attr And vbArchive Then resultado = resultado & " Archivo"
+    If attr And vbDirectory Then Resultado = Resultado & " Directorio"
+    If attr And vbReadOnly Then Resultado = Resultado & " Sólo lectura"
+    If attr And vbHidden Then Resultado = Resultado & " Oculto"
+    If attr And vbSystem Then Resultado = Resultado & " Sistema"
+    If attr And vbArchive Then Resultado = Resultado & " Archivo"
     ' descarta el primer espacio
-    ObtAtribDescrip = Mid$(resultado, 2)
+    ObtAtribDescrip = Mid$(Resultado, 2)
 End Function
 
 
 
-Function ObtenerArchivos(Path As String, EXT As String) As String()
+Function ObtenerArchivos(path As String, EXT As String) As String()
         ' proporciona un array de cadenas que almacenan todos los nombres de archivo que
         ' coinciden con una especificación de archivo dada y unos atributos de búsqueda.
         'devuelve path,nombrearchivo
-        If Right(Path, 1) <> "\" Then Path = Path + "\"
-        Dim resultado() As String
-        Dim NombreArchivo As String, Contador As Long, ruta2 As String
+        If Right(path, 1) <> "\" Then path = path + "\"
+        Dim Resultado() As String
+        Dim NombreArchivo As String, CONTADOR As Long, Ruta2 As String
         Const ALLOC_CHUNK = 50
-        ReDim resultado(0 To ALLOC_CHUNK) As String
-        NombreArchivo = Dir$(Path + EXT)
+        ReDim Resultado(0 To ALLOC_CHUNK) As String
+        NombreArchivo = Dir$(path + EXT)
         Do While Len(NombreArchivo)
-            Contador = Contador + 1
-            If Contador > UBound(resultado) Then
+            CONTADOR = CONTADOR + 1
+            If CONTADOR > UBound(Resultado) Then
                 ' cambia el tamaño del array resultado, si es necesario
-                ReDim Preserve resultado(0 To Contador + ALLOC_CHUNK) As String
+                ReDim Preserve Resultado(0 To CONTADOR + ALLOC_CHUNK) As String
             End If
-            resultado(Contador) = Path + NombreArchivo + "," + NombreArchivo
+            Resultado(CONTADOR) = path + NombreArchivo + "," + NombreArchivo
             ' queda preparado para la siguiente iteración
             NombreArchivo = Dir$
         Loop
-        
-        ' devuelve el array resultado
-        ReDim Preserve resultado(0 To Contador) As String
-        ObtenerArchivos = resultado
+        'devuelve el array resultado
+        ReDim Preserve Resultado(0 To CONTADOR) As String
+        ObtenerArchivos = Resultado
 End Function
 
 ' analiza la existencia de un archivo
@@ -70,62 +87,98 @@ End Function
 
 ' verificar si existe un directorio
 
-Function ExisteDir(Ruta As String) As Boolean
+Function ExisteDir(ruta As String) As Boolean
     On Error Resume Next
-    ExisteDir = (Dir$(Ruta & "\nul") <> "")
+    ExisteDir = (Dir$(ruta & "\nul") <> "")
 End Function
 
 ' Devuelve un array de cadenas que incluye todos los subdirectorios
 ' contenidos en una ruta
 
+'corrige ademas los puntos que pueda tener, los saca
+
 'tiene metido el mostrador de avance de proceso
 
-Function ObtenerDir(Ruta As String) As String()
-        frmProces.Show
-        frmProces.pBar.Max = 150 'calculo que mas de estos discos no hay
-        frmProces.pBar = 0
-        frmProces.lblProces = "Iniciando busqueda"
-        frmProces.lblProces.Refresh
+Function ObtenerDir(ruta As String) As String()
+        Dim NewName As String 'nuevo nombre si hay que corregir puntos metidos en el nombre de la carpeta
+        Dim MaxPBAR As Long
+        MaxPBAR = frmINI.PBar.Width
+        frmINI.PBar.Width = 0
+        frmINI.lblProces = "Iniciando busqueda"
+        frmINI.lblProces.Refresh
         Dim ParaMatriz As String 'para generar cada elemento de la matriz
         Dim ContadorCarp As Long, CantMP3 As Long
-        Dim resultado() As String
-        Dim NombreDir As String, Contador As Long, ruta2 As String
+        Dim Resultado() As String
+        Dim NombreDir As String, CONTADOR As Long, Ruta2 As String
         Const ALLOC_CHUNK = 50
-        ReDim resultado(ALLOC_CHUNK) As String
+        ReDim Resultado(ALLOC_CHUNK) As String
         ' genera el nombre de ruta + barra invertida
-        ruta2 = Ruta
-        If Right$(ruta2, 1) <> "\" Then ruta2 = ruta2 & "\"
-        NombreDir = Dir$(ruta2 & "*.*", vbDirectory)
+        Ruta2 = ruta
+        If Right$(Ruta2, 1) <> "\" Then Ruta2 = Ruta2 & "\"
+        NombreDir = Dir$(Ruta2 & "*.*", vbDirectory)
         Do While Len(NombreDir)
             If NombreDir = "." Or NombreDir = ".." Then
                 ' excluir las entradas "." y ".."
-            ElseIf (GetAttr(ruta2 & NombreDir) And vbDirectory) = 0 Then
+            ElseIf (GetAttr(Ruta2 & NombreDir) And vbDirectory) = 0 Then
                 ' este es un archivo normal
             Else
                 ' es un directorio
-                Contador = Contador + 1
-                If Contador > UBound(resultado) Then
+                If RankToPeople = False And NombreDir = "01- Los mas escuchados" Then
+                    'pasar al que sigue
+                    GoTo NextCarp
+                End If
+                CONTADOR = CONTADOR + 1
+                                
+                frmINI.lblINI = "Contando Discos: " + Trim(Str(CONTADOR))
+                frmINI.lblINI.Refresh
+                If CONTADOR > UBound(Resultado) Then
                     ' cambia el tamaño del array resultante, si
                     ' en necesario
-                    ReDim Preserve resultado(Contador + ALLOC_CHUNK) As String
+                    ReDim Preserve Resultado(CONTADOR + ALLOC_CHUNK) As String
                 End If
                 
-                frmProces.pBar = frmProces.pBar + 1
+                frmINI.PBar.Width = frmINI.PBar.Width + 100
                 'si me hacerco al max de pbar lo hago inalcanzable
-                If frmProces.pBar > 140 Then frmProces.pBar.Max = frmProces.pBar.Max + 1
-                frmProces.lblProces = NombreDir
-                frmProces.lblProces.Refresh
+                frmINI.lblProces = NombreDir
+                frmINI.lblProces.Refresh
                 ContadorCarp = ContadorCarp + 1
-                ParaMatriz = ruta2 & NombreDir + "," + NombreDir
+                'corregir el nombre del tema
+                NewName = QuitarCaracter(NombreDir, ".")
+                If NombreDir <> NewName Then
+                    FSO.MoveFolder Ruta2 + NombreDir, Ruta2 + NewName
+                    WriteTBRLog "Se corrigio el nombre de la carpeta " + NombreDir + _
+                        " por " + NewName, True
+                    NombreDir = NewName
+                End If
+                ParaMatriz = Ruta2 & NombreDir + "," + NombreDir
                 
-                resultado(Contador) = ParaMatriz
+                Resultado(CONTADOR) = ParaMatriz
+NextCarp:
+                '=============================================================================
+                '=============================================================================
+                'poner en rem si es version sin limite de discos
+                Dim MD
+                MD = 12
+                If TypeVersion = "DEMO" And CONTADOR > MD Then
+                    'limite de discos
+                    MsgBox "Esta es una version demo y no se pueden cargar más " + _
+                    "de " + Trim(Str(MD)) + " discos." + vbCrLf + _
+                    "Para conseguir la versión sin límite de discos y con el manual " + _
+                    "completo envie un e-mail a tbrsoft@hotmail.com o a " + _
+                    "avazquez@cpcipc.org. Solo se cargaran los " + Trim(Str(MD)) + " primeros discos"
+                    GoTo Solo12
+                End If
+                '=============================================================================
+                '=============================================================================
             End If
             NombreDir = Dir$
             
         Loop
+Solo12: 'solo los 12 primeros
+        frmINI.PBar.Width = MaxPBAR
         TOTAL_DISCOS = ContadorCarp
         ' proporciona el array resultante
-        ReDim Preserve resultado(Contador) As String
+        ReDim Preserve Resultado(CONTADOR) As String
         
         'tomar la matriz (con valores separador) y ordenala en base a la columna indicada.
         'en este caso el separador es "," y la columna es 0.
@@ -133,67 +186,93 @@ Function ObtenerDir(Ruta As String) As String()
         Dim MinSTR As String 'comparacoin de cadenas. Empiezo con el máximo
         Dim ubicMIN As Long 'indice en la matriz del menor encontrado cada vuelta
         MinSTR = "zzzzzzzzzzzzzzzz"
-        Dim c As Long, MTX As Long, ValComp As String
+        Dim c As Long, mtx As Long, ValComp As String
         c = 0 'cantidad de minimos encontrados
         Dim Ordenados() As Long 'matriz con los indices ordenados
         Do
-            For MTX = LBound(resultado) + 1 To UBound(resultado)
-                ValComp = txtInLista(resultado(MTX), 0, ",")
+            For mtx = LBound(Resultado) + 1 To UBound(Resultado)
+                ValComp = txtInLista(Resultado(mtx), 0, ",")
                 If ValComp < MinSTR Then
                     MinSTR = ValComp
-                    ubicMIN = MTX
+                    ubicMIN = mtx
                 End If
             Next
-            resultado(ubicMIN) = "zzzzzzzzzz," + resultado(ubicMIN)
+            Resultado(ubicMIN) = "zzzzzzzzzz," + Resultado(ubicMIN)
             c = c + 1
             ReDim Preserve Ordenados(c)
             Ordenados(c) = ubicMIN
-            If c >= UBound(resultado) Then Exit Do
+            If c >= UBound(Resultado) Then Exit Do
             MinSTR = "zzzzzzzzzz"
         Loop
         'cargar todos y sacar la primera columna de las zetas
         Dim MTXsort() As String
-        frmProces.pBar.Max = ContadorCarp + 2
-        frmProces.pBar = 0
-        
+        'ver que haya alguna carpeta
+        If ContadorCarp = 0 Then
+            MsgBox "No hay discos para mostrar." + vbCrLf + _
+            "En la carpeta del programa debe haber una carpeta llamada DISCOS y " + _
+            "dentro de esta una carpeta por cada disco a mostrar. Los temas y los" + _
+            " discos se ordenan alfabeticamente. Esto se detalla en el manual completo."
+            End
+        End If
+                       
         Dim nTAPAcd As Long
         nTAPAcd = 0
-        For MTX = LBound(resultado) + 1 To UBound(resultado)
-            ReDim Preserve MTXsort(MTX)
-            MTXsort(MTX) = txtInLista(resultado(Ordenados(MTX)), 1, ",") + "," + txtInLista(resultado(Ordenados(MTX)), 2, ",")
-            frmProces.lblProces = txtInLista(resultado(Ordenados(MTX)), 2, ",")
-            frmProces.lblProces.Refresh
-            UbicDiscoActual = txtInLista(resultado(Ordenados(MTX)), 1, ",")
-            'caragar las imágenes en diferentes IMGs para que no se cargen despues
-            Dim ArchTapa As String
-            ArchTapa = UbicDiscoActual + "\tapa.jpg"
-            'arranca con 5 ya cargados
-            If nTAPAcd > 5 Then
-                Load frmINDEX.TapaCD(nTAPAcd)
-                frmINDEX.TapaCD(nTAPAcd).Left = frmINDEX.TapaCD(nTAPAcd - 6).Left
-                frmINDEX.TapaCD(nTAPAcd).Top = frmINDEX.TapaCD(nTAPAcd - 6).Top
-            End If
-            
-            If FSO.FileExists(ArchTapa) Then
-                frmINDEX.TapaCD(nTAPAcd).Picture = LoadPicture(ArchTapa)
-            Else
-                frmINDEX.TapaCD(nTAPAcd).Picture = LoadPicture(AP + "tapa.jpg")
-            End If
-            frmProces.pBar = frmProces.pBar + 1
-            nTAPAcd = nTAPAcd + 1
-        Next
+        frmINI.PBar.Width = 0
         
+        For mtx = LBound(Resultado) + 1 To UBound(Resultado)
+            ReDim Preserve MTXsort(mtx)
+            Dim CarpFull As String, NameCarp As String
+            CarpFull = txtInLista(Resultado(Ordenados(mtx)), 1, ",")
+            NameCarp = txtInLista(Resultado(Ordenados(mtx)), 2, ",")
+            MTXsort(mtx) = CarpFull + "," + NameCarp
+            'cargar todas las imagenes si asi esta configurado
+            If CargarIMGinicio Then
+                UbicDiscoActual = txtInLista(Resultado(Ordenados(mtx)), 1, ",")
+                
+                'caragar las imágenes en diferentes IMGs para que no se cargen despues
+                Dim ArchTapa As String
+                ArchTapa = UbicDiscoActual + "\tapa.jpg"
+                'arranca con 5 ya cargados
+               
+                frmINI.lblProces = NameCarp
+                frmINI.lblProces.Refresh
+                'INICIO RAPIDO fastini
+                'si hay, mostrar la tapa
+                If FASTini = False And FSO.FileExists(ArchTapa) Then frmINI.TapaCD.Picture = LoadPicture(ArchTapa)
+                
+                frmINI.lblINI = "Ordenando Discos: " + Trim(Str(mtx))
+                frmINI.lblINI.Refresh
+                frmINI.PBar.Width = frmINI.PBar.Width + 100
+                frmINI.PBar.Refresh
+                
+                If nTAPAcd > ((TapasMostradasH * TapasMostradasV) - 1) Then
+                    Load frmINDEX.TapaCD(nTAPAcd)
+                    frmINDEX.TapaCD(nTAPAcd).Left = frmINDEX.TapaCD(nTAPAcd - ((TapasMostradasH * TapasMostradasV))).Left
+                    frmINDEX.TapaCD(nTAPAcd).Top = frmINDEX.TapaCD(nTAPAcd - ((TapasMostradasH * TapasMostradasV))).Top
+                End If
+            
+                If FSO.FileExists(ArchTapa) Then
+                    frmINDEX.TapaCD(nTAPAcd).Picture = LoadPicture(ArchTapa)
+                Else
+                    frmINDEX.TapaCD(nTAPAcd).Picture = LoadPicture(AP + "tapa.jpg")
+                End If
+                nTAPAcd = nTAPAcd + 1
+            End If
+        Next
+        frmINI.lblINI = "Proceso terminado, cargando 3PM..."
+        frmINI.lblINI.Refresh
+        frmINI.PBar.Width = MaxPBAR
         ObtenerDir = MTXsort
 End Function
 
 'cuenta los archivos de determinada extension contenidos en una carpeta
-Public Function ContarArch(ByVal Ruta As String, EXT As String, VerSubDIRs As Boolean) As Long
+Public Function ContarArch(ByVal ruta As String, EXT As String, VerSubDIRs As Boolean) As Long
     Dim nombres() As String, i As Long, CONT As Long
     ' asegurarse de que existe una barra invertida inicial
-    If Right(Ruta, 1) <> "\" Then Ruta = Ruta & "\"
+    If Right(ruta, 1) <> "\" Then ruta = ruta & "\"
     ' obtener la lista de archivos ejecutables
     
-    nombres() = ObtenerArchivos(Ruta, EXT)
+    nombres() = ObtenerArchivos(ruta, EXT)
     'aqui esta la lista, por ahora no la uso
     'For i = 1 To UBound(nombres)
     '    lst.AddItem Ruta & nombres(i)
@@ -203,16 +282,16 @@ Public Function ContarArch(ByVal Ruta As String, EXT As String, VerSubDIRs As Bo
     If VerSubDIRs Then
         ' obtener la lista de subdirectorios, incluyendo los ocultos
         ' y ejecutar recursivamente esta rutina en todos ellos.
-        nombres() = ObtenerDir(Ruta)
+        nombres() = ObtenerDir(ruta)
         For i = 1 To UBound(nombres)
-            ContarArch Ruta & nombres(i), EXT, True
+            ContarArch ruta & nombres(i), EXT, True
         Next
     End If
 End Function
 
 ' carga un archivo de texto en un control TextBox
 
-Sub cargarArchivoEnTextBox(NombreArchivo As String, txt As TextBox)
+Sub cargarArchivoEnTextBox(NombreArchivo As String, TXT As TextBox)
     Dim numlib As Integer, isOpen As Boolean
     Dim lineatexto As String, Texto As String
     On Error GoTo Manejador_Error
@@ -227,7 +306,7 @@ Sub cargarArchivoEnTextBox(NombreArchivo As String, txt As TextBox)
         Texto = Texto & lineatexto & vbCrLf
     Loop
     ' cargar en el cuadro de texto
-    txt.Text = Texto
+    TXT.Text = Texto
     ' se cae intencionadamente en el manejador de error para
     ' cerrar el archivo
 Manejador_Error:
@@ -358,7 +437,6 @@ End Sub
 '       utiliza el procedimiento Private Sub DuplicarDirArbolSub
 
 Sub DuplicarDirArbol(rutaOrigen As String, rutaDest As String)
-    Dim FSO As New Scripting.FileSystemObject
     Dim CarpOrigen As Scripting.Folder, CarpDest As Scripting.Folder
     ' la carpeta origen debe existir
     Set CarpOrigen = FSO.GetFolder(rutaOrigen)
@@ -392,14 +470,13 @@ End Sub
 ' y el número de columna.
 ' NOTA: las búsquedas no distinguen el uso de mayúsculas y minúsculas
 
-Function BuscarArchTexto(Ruta As String, buscar As String) As Variant()
-    Dim FSO As New Scripting.FileSystemObject
+Function BuscarArchTexto(ruta As String, buscar As String) As Variant()
     Dim fil As Scripting.File, ts As Scripting.TextStream
-    Dim pos As Long, Contador As Long
-    ReDim resultado(50) As Variant
+    Dim pos As Long, CONTADOR As Long
+    ReDim Resultado(50) As Variant
     ' buscar for all the TXT files in the directory
-    For Each fil In FSO.GetFolder(Ruta).Files
-        If UCase$(FSO.GetExtensionName(fil.Path)) = "TXT" Then
+    For Each fil In FSO.GetFolder(ruta).Files
+        If UCase$(FSO.GetExtensionName(fil.path)) = "TXT" Then
             ' obtener el objeto TextStream correspondiente
             Set ts = fil.OpenAsTextStream(ForReading)
             ' leer su contenido, buscar la cadena y cerrarlo
@@ -413,12 +490,12 @@ Function BuscarArchTexto(Ruta As String, buscar As String) As Variant()
                 ' encuentra la cadena
                 ts.Skip pos - 1
                 ' llena el array resultado, hace sitio en caso necesario
-                Contador = Contador + 1
-                If Contador > UBound(resultado) Then
-                    ReDim Preserve resultado(UBound(resultado) + 50) As Variant
+                CONTADOR = CONTADOR + 1
+                If CONTADOR > UBound(Resultado) Then
+                    ReDim Preserve Resultado(UBound(Resultado) + 50) As Variant
                 End If
                 ' cada array resultado tiene tres elementos
-                resultado(Contador) = Array(fil.Path, ts.Line, ts.Column)
+                Resultado(CONTADOR) = Array(fil.path, ts.Line, ts.Column)
                 ' ahora podemos cerrar el TextStrem
                 ts.Close
             End If
@@ -426,8 +503,8 @@ Function BuscarArchTexto(Ruta As String, buscar As String) As Variant()
     Next
     ' cambia el tamaño del array resultado para indicar el número de
     ' coincidencas
-    ReDim Preserve resultado(0 To Contador) As Variant
-    BuscarArchTexto = resultado
+    ReDim Preserve Resultado(0 To CONTADOR) As Variant
+    BuscarArchTexto = Resultado
 End Function
 
 ' espera un número de milisegundos y devuelve el estado de ejecución de un
@@ -444,10 +521,130 @@ Function EsperarPorProceso(taskId As Long, Optional msecs As Long = -1) _
         CloseHandle procHandle
 End Function
 
+Public Function LeerArch1Linea(ARCH As String) As String
+    Dim TE As TextStream
+    If FSO.FileExists(ARCH) = False Then
+        LeerArch1Linea = "No existe archivo"
+        Exit Function
+    End If
+    Set TE = FSO.OpenTextFile(ARCH, ForReading, False)
+    LeerArch1Linea = TE.ReadLine
+    TE.Close
+End Function
 
-Public Sub OrdenarMatriz(MTX As Variant, Columna As Long, Separador As String)
-    
-    
-
-
+Public Sub EscribirArch1Linea(ARCH As String, TXT As String)
+    Dim TE As TextStream
+    Set TE = FSO.CreateTextFile(ARCH, True)
+    TE.WriteLine TXT
+    TE.Close
 End Sub
+
+Public Function ObtenerArchMM(Carpeta As String) As String()
+    'devuelve "Carpeta + NombreArchivo + "," + NombreArchivo"
+    'devuelve PathFull,SoloNombre
+
+    'ADEMÁS DEBO ASEGURARME QUE NO HAYA COMAS EN LOS NOMBRES
+    
+    If Right(Carpeta, 1) <> "\" Then Carpeta = Carpeta + "\"
+    Dim TMPmatriz() As String
+    ReDim Preserve TMPmatriz(0)
+    'mp3
+    Dim NombreArchivo As String, CONTADOR As Long, NewName As String
+    NombreArchivo = Dir$(Carpeta + "*.mp3")
+    Do While Len(NombreArchivo)
+        'corregir el nombre del tema
+        NewName = QuitarCaracter(NombreArchivo, ",")
+        If NombreArchivo <> NewName Then
+            'no se puede corregir si es un CD. Solo corrige si es disco duro
+            'esta funcion se usa para leer CDs debo prevenir
+            If FSO.Drives(Left(Carpeta, 1)).DriveType = Fixed Then
+                FSO.MoveFile Carpeta + NombreArchivo, Carpeta + NewName
+                WriteTBRLog "Se corrigio el nombre de tema " + NombreArchivo + _
+                    " por " + NewName + " en la carpeta " + Carpeta, True
+                NombreArchivo = NewName
+            End If
+        End If
+        CONTADOR = CONTADOR + 1
+        ReDim Preserve TMPmatriz(CONTADOR)
+        TMPmatriz(CONTADOR) = Carpeta + NombreArchivo + "," + NombreArchivo
+        NombreArchivo = Dir$
+    Loop
+    
+    'mpg
+    NombreArchivo = Dir$(UbicDiscoActual + "\*.mpg")
+    Do While Len(NombreArchivo)
+        'corregir el nombre del tema
+        NewName = QuitarCaracter(NombreArchivo, ",")
+        If NombreArchivo <> NewName Then
+            FSO.MoveFile Carpeta + NombreArchivo, Carpeta + NewName
+            WriteTBRLog "Se corrigio el nombre de tema " + NombreArchivo + _
+                " por " + NewName + " en la carpeta " + Carpeta, True
+            NombreArchivo = NewName
+        End If
+        CONTADOR = CONTADOR + 1
+        ReDim Preserve TMPmatriz(CONTADOR)
+        TMPmatriz(CONTADOR) = Carpeta + NombreArchivo + "," + NombreArchivo
+        NombreArchivo = Dir$
+    Loop
+    
+    'mpeg
+    NombreArchivo = Dir$(UbicDiscoActual + "\*.mpeg")
+    Do While Len(NombreArchivo)
+        'corregir el nombre del tema
+        NewName = QuitarCaracter(NombreArchivo, ",")
+        If NombreArchivo <> NewName Then
+            FSO.MoveFile Carpeta + NombreArchivo, Carpeta + NewName
+            WriteTBRLog "Se corrigio el nombre de tema " + NombreArchivo + _
+                " por " + NewName + " en la carpeta " + Carpeta, True
+            NombreArchivo = NewName
+        End If
+        CONTADOR = CONTADOR + 1
+        ReDim Preserve TMPmatriz(CONTADOR)
+        TMPmatriz(CONTADOR) = Carpeta + NombreArchivo + "," + NombreArchivo
+        NombreArchivo = Dir$
+    Loop
+    
+    'avi
+    NombreArchivo = Dir$(UbicDiscoActual + "\*.avi")
+    Do While Len(NombreArchivo)
+        'corregir el nombre del tema
+        NewName = QuitarCaracter(NombreArchivo, ",")
+        If NombreArchivo <> NewName Then
+            FSO.MoveFile Carpeta + NombreArchivo, Carpeta + NewName
+            WriteTBRLog "Se corrigio el nombre de tema " + NombreArchivo + _
+                " por " + NewName + " en la carpeta " + Carpeta, True
+            NombreArchivo = NewName
+        End If
+        CONTADOR = CONTADOR + 1
+        ReDim Preserve TMPmatriz(CONTADOR)
+        TMPmatriz(CONTADOR) = Carpeta + NombreArchivo + "," + NombreArchivo
+        NombreArchivo = Dir$
+    Loop
+    ObtenerArchMM = TMPmatriz
+End Function
+
+Public Function QuitarCaracter(FileOrFolder As String, _
+    CaracterToKill As String) As String
+    'sacar en caracter de una cadena
+    'lo uso para sacar las comas de los archivos mp3
+    'o los puntos de los nombre de los discos
+    Dim SeCambio As Boolean
+    Dim TMPfOf 'temporario de file or folder
+    TMPfOf = FileOrFolder
+    Dim FindIn As Long
+    Dim Parte1 As String, Parte2 As String
+    SeCambio = False
+    Do
+        FindIn = InStr(TMPfOf, CaracterToKill)
+        If FindIn > 0 Then
+            SeCambio = True
+            Parte1 = Mid(TMPfOf, 1, FindIn - 1)
+            Parte2 = Mid(TMPfOf, FindIn + 1, Len(TMPfOf) - FindIn)
+            TMPfOf = Parte1 + Parte2
+        Else
+            Exit Do
+        End If
+    Loop
+    QuitarCaracter = TMPfOf
+    
+End Function

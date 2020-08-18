@@ -1,44 +1,74 @@
 Attribute VB_Name = "MP3Andres"
-Option Explicit
-Option Compare Text
+Public Declare Function mciGetErrorString Lib "winmm.dll" Alias "mciGetErrorStringA" (ByVal dwError As Long, ByVal lpstrBuffer As String, ByVal uLength As Long) As Long
+Public CONTADOR As Long
+Public EsVideo As Boolean 'saber si el tema en ejecucion es video
 
-Private CambiandoPos As Boolean
-Private dPos As Double
-
-Public sLista As String
-Public sEstadoActual() As String
-Public sUnidad As String
-
-Public m_Tocando As Boolean
-Public m_TocandoLista As Boolean
-Public m_queFichero As Long
-
-' Clase para manejar el fichero a tocar
-Public m_csplay As cPlayWMP
-
-Public m_CD As cComDlg
-
-Public Sub EjecutarTema(Tema As String)
-    OnOffCAPS vbKeyCapital, True
+Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
+    If FSO.FileExists(tema) = False Then
+        frmINDEX.lblTemaSonando = "No se encontro el tema"
+        EMPEZAR_SIGUIENTE
+    End If
+     OnOffCAPS vbKeyCapital, True
     ' Tocar el fichero
-    Set m_csplay = New cPlayWMP
-    'm_csplay.Volumen = -4000
-    m_csplay.FileName = Tema
-    m_csplay.Volumen = frmINDEX.SLvolumen
-    m_csplay.Tocar Tema
+    On Local Error GoTo ErrEjecutarTema
     ' El valor de cada paso del HScrollPos
-    ESTOY_REPRODUCIENDO = True
-    TEMA_REPRODUCIENDO = Tema
-    frmINDEX.lblTemaSonando = FSO.GetBaseName(Tema) + " / " + FSO.GetBaseName(FSO.GetParentFolderName(Tema))
-    frmINDEX.Timer1.Interval = 1000 'reloj que cuenta el tiempo restante
+    TEMA_REPRODUCIENDO = tema
+    Dim nombreTEMA As String, nombreDISCO As String
+    nombreTEMA = FSO.GetBaseName(tema)
+    nombreDISCO = FSO.GetBaseName(FSO.GetParentFolderName(tema))
+    frmINDEX.lblTemaSonando = QuitarNumeroDeTema(nombreTEMA) + " / " + nombreDISCO
+    
+    If UCase(FSO.GetExtensionName(tema)) <> "MP3" Then
+        EsVideo = True
+    Else
+        EsVideo = False
+    End If
+    'Valores de ReIni FULL=tema ejecutando y lista LISTA=solo lista NADA=arranca de cero
+    'si corresponde graba en reini.tbr la lista de temas por sis se corta la luz
+   'graba en reini.tbr los datos que correspondan por si se corta la luz
+    CargarArchReini UCase(ReINI) 'POR LAS DUDAS que no este en mayusculas
+    
+    'reiniciar reloj de tiempo sin uso
+    frmINDEX.Timer1.Interval = 0
+    frmINDEX.lblNoUSO = "0"
+    SecSinUso = 0
+    'lo pongo al ultimo para que tenga tiempo de cargar el tema encargado
+    'si lo pongo a donde estaba pasa un pedazito del tema anterior
+    
+    Unload frmTemasDeDisco
+    frmINDEX.Refresh
+    frmINDEX.lblPuesto = "Calculando..."
+    'contabilizar para el ranking solo si lo pide
+    If SumaRanking Then TOP10 tema, nombreTEMA, nombreDISCO
+    'mostrar el puesto que esta en el ranking
+    frmINDEX.lblPuesto = "Rank # " + PuestoN(tema)
+    
+    
+    With frmINDEX.MP3
+        .FileName = tema
+        If EsVideo Then
+            .DoOpenVideo "popup", frmINDEX.hWnd, 0, 0, (frmINDEX.frDISCOS.Width / 15), (frmINDEX.lblTemaSonando.Top / 15)
+        Else
+            .DoOpen
+        End If
+        .Volumen = VolumenIni
+        .DoPlay
+    End With
+    If HabilitarVUMetro Then frmINDEX.VU1.CarFantastic = False
+    If EsVideo Then frmINDEX.SetFocus 'JOYA JOYA!!! en mp3 da error, no usar
+    'para qyue tome de nuevo el control del teclado
+    Exit Sub
+ErrEjecutarTema:
+    WriteTBRLog "ERROR EN EJECUTAR TEMA. " + frmINDEX.MP3.FileName + "Descripcion: " + Err.Description, True
+    If frmINDEX.MP3.IsPlaying = False Then EMPEZAR_SIGUIENTE
 End Sub
 
 Public Sub EMPEZAR_SIGUIENTE()
     With frmINDEX
-        .Timer1.Interval = 0
-        .lblTiempoRestante = "Restante 0:00"
         'si hay algun elemento en la lista ejecutarlo
         If UBound(MATRIZ_LISTA) > 0 Then
+            .lblTemaSonando = "Cargando Proximo Tema..."
+            .lblTemaSonando.Refresh
             Dim TemaDeMatriz As String
             TemaDeMatriz = txtInLista(MATRIZ_LISTA(1), 0, ",")
             'reacomodar la matriz para quitar el primer elemento
@@ -51,21 +81,224 @@ Public Sub EMPEZAR_SIGUIENTE()
                     'cuando sea el ultimo
                     'redefinir la matriz con un indice menos
                     ReDim Preserve MATRIZ_LISTA(c - 1)
+                    .lblProximoTema = "No hay próximo tema"
                 End If
-            
             Next
-            EjecutarTema TemaDeMatriz
+            CORTAR_TEMA = False 'este tema va entero ya que lo eligio el usuario
+            EjecutarTema TemaDeMatriz, True
             CargarProximosTemas
         Else
+            'frmINDEX.MP3.SongName = "" 'no sirve
+            .Timer1.Interval = 10000
+            SecSinUso = 0
             'si no hay temas mostrar la leyenda que lo indica
+            .lblTiempoRestante = "FALTA: " + "00:00"
             OnOffCAPS vbKeyCapital, False
-            .lblTiempoRestante = "Restante 0:00"
             .lblTemaSonando = "Sin reproduccion actual"
+            .lblPuesto = "No Rank"
             .lblProximoTema = "No hay próximo tema"
+            .lblTiempoRestante = "FALTA: " + "00:00"
+            .LBLpORCtEMA.Width = .lblTemaSonando.Width
             TEMA_REPRODUCIENDO = "Sin reproduccion actual"
-            ESTOY_REPRODUCIENDO = False
-        
+            If HabilitarVUMetro Then frmINDEX.VU1.CarFantastic = True
+            EsVideo = False 'no estamos rep video
         End If
     End With
-
 End Sub
+
+Public Sub TOP10(nameARCH As String, nameTEMA As String, nameDISCO As String)
+    'On Error GoTo notop
+    'ver si existe ranking.tbr
+    If FSO.FileExists(AP + "ranking.tbr") = False Then
+        FSO.CreateTextFile AP + "ranking.tbr", True
+    End If
+    
+    Dim TT As String
+    Dim mtxTOP10() As String, Z As Integer
+    Dim ThisArch As String
+    Dim ThisTEMA As String
+    Dim ThisDISCO As String
+    Dim ThisPTS As Long
+    Dim Encontrado As Boolean
+    Dim PTnuevo As Long 'puntos del elemento nuevo
+    Dim DatoNuevoFull As String
+    Dim ArchivoNuevo As String
+    Encontrado = False
+    'abrir el archivo y ver si ya esta el tema
+    Dim TE As TextStream
+    Set TE = FSO.OpenTextFile(AP + "ranking.tbr", ForReading, False)
+    'leerlo cargarlo en matriz y ordenar por mas escuchado
+    Do While Not TE.AtEndOfStream
+        'cada linea es "puntos,arch,nombretema,nombredisco"
+        TT = TE.ReadLine
+        If TT <> "" Then
+            Z = Z + 1
+            ThisPTS = Val(txtInLista(TT, 0, ","))
+            ThisArch = txtInLista(TT, 1, ",")
+            ThisTEMA = txtInLista(TT, 2, ",")
+            ThisDISCO = txtInLista(TT, 3, ",")
+            ReDim Preserve mtxTOP10(Z)
+            'comparar este tema con el elegido actual
+            
+            If UCase(Trim(nameARCH)) = UCase(Trim(ThisArch)) Then
+                'sumarle un punto
+                ThisPTS = ThisPTS + 1
+                'marcar esta cantidad de puntos como referencai futura para
+                'agregar el nuevo dato al ranking
+                PTnuevo = ThisPTS
+                TT = Str(ThisPTS) + "," + ThisArch + "," + ThisTEMA + "," + ThisDISCO
+                DatoNuevoFull = TT
+                ArchivoNuevo = ThisArch
+                Encontrado = True
+            End If
+            mtxTOP10(Z) = TT
+        End If
+    Loop
+     TE.Close
+    'ver si el archivo habia sido votado
+    If Encontrado = False Then
+        TT = "1," + Trim(nameARCH) + "," + Trim(nameTEMA) + "," + Trim(nameDISCO)
+        ReDim Preserve mtxTOP10(Z + 1)
+        mtxTOP10(Z + 1) = TT
+        PTnuevo = 1
+        DatoNuevoFull = TT
+        ArchivoNuevo = nameARCH
+    End If
+    'cargar todos y sacar la primera columna de las zetas
+    Dim MTXsort() As String
+    Set TE = FSO.CreateTextFile(AP + "ranking.tbr", True)
+    Dim PTactual As Long
+    Dim YaSeEscribioDatoNuevo As Boolean
+    Dim VarMTX As Long 'variacion del indice de la matriz
+    YaSeEscribioDatoNuevo = False
+    VarMTX = 0
+    For mtx = 1 To UBound(mtxTOP10)
+        ReDim Preserve MTXsort(mtx + 1)
+        PTactual = txtInLista(mtxTOP10(mtx), 0, ",")
+        If PTactual = PTnuevo And YaSeEscribioDatoNuevo = False Then
+            MTXsort(mtx) = DatoNuevoFull
+            TE.WriteLine MTXsort(mtx)
+            YaSeEscribioDatoNuevo = True
+            mtx = mtx - 1
+            VarMTX = 1
+        Else
+            If Trim(UCase(ArchivoNuevo)) = Trim(UCase(txtInLista(mtxTOP10(mtx), 1, ","))) Then
+                VarMTX = 0
+                GoTo SIG
+            End If
+            MTXsort(mtx + VarMTX) = CStr(PTactual) + "," + _
+                txtInLista(mtxTOP10(mtx), 1, ",") + "," + _
+                txtInLista(mtxTOP10(mtx), 2, ",") + "," + _
+                txtInLista(mtxTOP10(mtx), 3, ",")
+            TE.WriteLine MTXsort(mtx + VarMTX)
+        End If
+SIG:
+    Next
+    TE.Close
+    Exit Sub
+notop:
+    MsgBox Err.Description
+    
+End Sub
+
+Public Sub SumarContadorCreditos(valorSUMAR As Integer)
+    'se graba en win y system
+    Dim SYSfolder As String
+    Dim WINfolder As String
+    SYSfolder = FSO.GetSpecialFolder(SystemFolder)
+    WINfolder = FSO.GetSpecialFolder(WindowsFolder)
+    Dim ARCHcont As String
+    Dim TE As TextStream
+    
+    'ver el valor en win
+    ARCHcont = WINfolder + "\nnr.dll"
+    If FSO.FileExists(ARCHcont) Then
+        Set TE = FSO.OpenTextFile(ARCHcont, ForReading, False)
+        Dim CONTw As Long
+        CONTw = Val(TE.ReadLine)
+        TE.Close
+    Else
+        Set TE = FSO.CreateTextFile(ARCHcont, True)
+        TE.WriteLine "0"
+        TE.Close
+        CONTw = 0
+    End If
+    
+    'ver el valor en sys
+    ARCHcont = SYSfolder + "\nnr.dll"
+    If FSO.FileExists(ARCHcont) Then
+        Set TE = FSO.OpenTextFile(ARCHcont, ForReading, False)
+        Dim CONTs As Long
+        CONTs = Val(TE.ReadLine)
+        TE.Close
+    Else
+        Set TE = FSO.CreateTextFile(ARCHcont, True)
+        TE.WriteLine "0"
+        TE.Close
+        CONTs = 0
+    End If
+    
+    Dim ContFinal As Long
+    If CONTw <> CONTs Then
+        If CONTw > CONTs Then
+            ContFinal = CONTw
+        Else
+            ContFinal = CONTs
+        End If
+    Else
+        'aqui vale cualquiera de los dos por que son iguales
+        ContFinal = CONTs
+    End If
+    'sumar lo que corresponde
+    ContFinal = ContFinal + valorSUMAR
+    'asignarlo a la variable global
+    CONTADOR = ContFinal
+    
+    'actualizar el valor en win
+    ARCHcont = WINfolder + "\nnr.dll"
+    Set TE = FSO.CreateTextFile(ARCHcont, True)
+    TE.WriteLine Trim(Str(CONTADOR))
+    TE.Close
+    
+    'actualizar el valor en sys
+    ARCHcont = SYSfolder + "\nnr.dll"
+    Set TE = FSO.CreateTextFile(ARCHcont, True)
+    TE.WriteLine Trim(Str(CONTADOR))
+    TE.Close
+    
+End Sub
+
+Public Function PuestoN(TemaBuscado As String) As String
+    'leer ranking.tbr y buscar el tema
+    Dim TE As TextStream
+    If FSO.FileExists(AP + "ranking.tbr") = False Then
+        'esto no deberia pasar nunca ya que entra despues de que el tema se carga en el ranking
+        FSO.CreateTextFile AP + "ranking.tbr", True
+        PuestoN = 1
+        Exit Function
+    End If
+    Set TE = FSO.OpenTextFile(AP + "ranking.tbr", ForReading, False)
+    Dim TT As String
+    Dim ThisArch As String
+    Dim ThisTEMA As String
+    Dim ThisDISCO As String
+    Dim ThisPTS As Long
+    
+    Dim PuestoActual As Long
+    PuestoActual = 0
+    Do While Not TE.AtEndOfStream
+        TT = TE.ReadLine
+        ThisPTS = Val(txtInLista(TT, 0, ","))
+        ThisArch = txtInLista(TT, 1, ",")
+        ThisTEMA = txtInLista(TT, 2, ",")
+        ThisDISCO = txtInLista(TT, 3, ",")
+        If FSO.FileExists(ThisArch) Then
+            PuestoActual = PuestoActual + 1
+            If UCase(ThisArch) = UCase(TemaBuscado) Then
+                PuestoN = Trim(Str(PuestoActual))
+                Exit Function
+            End If
+        End If
+    Loop
+    PuestoN = "No Rank"
+End Function
