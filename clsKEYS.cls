@@ -680,7 +680,7 @@ VALIDAR:
             GoTo ValeTAMBIEN
         Else
             TmpLic = ParaOtraPC
-            If EsErrorSiNoVa Then tERR.AppendLog "IC08" 'para que me envien el registro en cualquier caso
+            If EsErrorSiNoVa Then tERR.AppendLog "IC08", CStr(PT1) 'para que me envien el registro en cualquier caso
         End If
     Else 'el archivo fue hecho para esta PC
     

@@ -1,7 +1,7 @@
 VERSION 5.00
 Begin VB.UserControl tbrPassImg 
    BackColor       =   &H00000000&
-   BorderStyle     =   1  'Fixed Single
+   CanGetFocus     =   0   'False
    ClientHeight    =   2460
    ClientLeft      =   0
    ClientTop       =   0
@@ -54,6 +54,7 @@ Private mTotalImagenes As Long
 Private mUltimaReproducida As Long 'ultimo n° de imagen para saber cual sigue
 Private mActivarPUBS As Boolean 'saber si esta activo!
 Public Event ChangeImg()
+Public Event Click()
 
 Public Property Let ActivarPUBS(Activar As Boolean)
     mActivarPUBS = Activar
@@ -81,6 +82,18 @@ End Sub
 Public Property Get IntervalBetwenIMGs() As Long
     IntervalBetwenIMGs = mIntervalBetwenIMGs
 End Property
+
+Private Sub IMG_Click()
+    RaiseEvent Click
+End Sub
+
+Private Sub Label1_Click()
+    RaiseEvent Click
+End Sub
+
+Private Sub UserControl_Click()
+    RaiseEvent Click
+End Sub
 
 Private Sub UserControl_Initialize()
     tERR.Anotar "PASI001"

@@ -19,6 +19,250 @@ Begin VB.Form frmIndex
    ShowInTaskbar   =   0   'False
    StartUpPosition =   3  'Windows Default
    WindowState     =   2  'Maximized
+   Begin VB.PictureBox picFondo 
+      AutoRedraw      =   -1  'True
+      BackColor       =   &H00000000&
+      BorderStyle     =   0  'None
+      Height          =   1620
+      Left            =   630
+      ScaleHeight     =   1620
+      ScaleWidth      =   10650
+      TabIndex        =   3
+      Top             =   5790
+      Width           =   10650
+      Begin VB.Frame FR_2 
+         BackColor       =   &H00000000&
+         BorderStyle     =   0  'None
+         Height          =   1845
+         Left            =   7020
+         TabIndex        =   59
+         Top             =   0
+         Width           =   3555
+         Begin tbrFaroButton.fBoton lbltriPem 
+            Height          =   255
+            Left            =   90
+            TabIndex        =   63
+            Top             =   150
+            Width           =   3435
+            _ExtentX        =   6059
+            _ExtentY        =   450
+            fFColor         =   16777215
+            fBColor         =   192
+            fCapt           =   "3PM version 7 - www.tbrsoft.com"
+            fEnabled        =   -1  'True
+            fFontN          =   "Trebuchet MS"
+            fFontS          =   8
+            fECol           =   0
+         End
+         Begin VB.Label lblNexts 
+            BackStyle       =   0  'Transparent
+            Caption         =   "Label2"
+            BeginProperty Font 
+               Name            =   "Trebuchet MS"
+               Size            =   9.75
+               Charset         =   0
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            ForeColor       =   &H00E0E0E0&
+            Height          =   555
+            Left            =   1050
+            TabIndex        =   65
+            Top             =   690
+            Width           =   1125
+         End
+      End
+      Begin VB.Frame FR_1 
+         BackColor       =   &H00000000&
+         BorderStyle     =   0  'None
+         Height          =   1845
+         Left            =   30
+         TabIndex        =   58
+         Top             =   30
+         Width           =   4635
+         Begin tbrFaroButton.fBoton lbl0000 
+            Height          =   285
+            Left            =   3960
+            TabIndex        =   60
+            Top             =   0
+            Width           =   495
+            _ExtentX        =   873
+            _ExtentY        =   503
+            fFColor         =   16777215
+            fBColor         =   192
+            fCapt           =   "00:00"
+            fEnabled        =   -1  'True
+            fFontN          =   "Trebuchet MS"
+            fFontS          =   8
+            fECol           =   0
+         End
+         Begin tbrFaroButton.fBoton lblPrecos 
+            Height          =   1365
+            Left            =   30
+            TabIndex        =   61
+            Top             =   240
+            Width           =   2475
+            _ExtentX        =   4366
+            _ExtentY        =   2408
+            fFColor         =   16777215
+            fBColor         =   0
+            fCapt           =   "1 cancion $15000.00 1 cancion $15000.00 1 cancion $15000.00 1 cancion $15000.00 1 cancion VIP $ 5555555"
+            fEnabled        =   -1  'True
+            fFontN          =   "Trebuchet MS"
+            fFontS          =   9
+            fECol           =   8388608
+         End
+         Begin tbrFaroButton.fBoton lblpbCli 
+            Height          =   1335
+            Left            =   2490
+            TabIndex        =   62
+            Top             =   240
+            Width           =   1995
+            _ExtentX        =   3519
+            _ExtentY        =   2355
+            fFColor         =   16777215
+            fBColor         =   0
+            fCapt           =   "a"
+            fEnabled        =   -1  'True
+            fFontN          =   "Arial"
+            fFontS          =   11
+            fECol           =   8388608
+         End
+         Begin VB.Label lblRepNau 
+            BackStyle       =   0  'Transparent
+            Caption         =   "Label2"
+            BeginProperty Font 
+               Name            =   "Trebuchet MS"
+               Size            =   8.25
+               Charset         =   0
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            ForeColor       =   &H00FFFFFF&
+            Height          =   255
+            Left            =   30
+            TabIndex        =   64
+            Top             =   0
+            Width           =   4485
+         End
+      End
+      Begin tbr3pm.txtRolling RollCRED 
+         Height          =   1335
+         Left            =   210
+         TabIndex        =   13
+         Top             =   240
+         Width           =   2295
+         _ExtentX        =   4048
+         _ExtentY        =   2355
+      End
+      Begin tbr3pm.txtRolling RollSONG 
+         Height          =   1155
+         Left            =   7680
+         TabIndex        =   14
+         Top             =   360
+         Width           =   1725
+         _ExtentX        =   3043
+         _ExtentY        =   2037
+      End
+      Begin tbr3pm.tbrPassImg tbrPassImg1 
+         Height          =   1260
+         Left            =   4800
+         TabIndex        =   6
+         Top             =   330
+         Width           =   2115
+         _extentx        =   3731
+         _extenty        =   2223
+         Begin VB.Label Label1 
+            Alignment       =   2  'Center
+            BackColor       =   &H00000080&
+            BorderStyle     =   1  'Fixed Single
+            Caption         =   "VERSION DEMOSTRATIVA. tbrSoft Argentina. www.tbrsoft.com"
+            BeginProperty Font 
+               Name            =   "Verdana"
+               Size            =   8.25
+               Charset         =   0
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            ForeColor       =   &H0000FFFF&
+            Height          =   885
+            Left            =   120
+            TabIndex        =   7
+            Top             =   180
+            Visible         =   0   'False
+            Width           =   1845
+         End
+      End
+      Begin VB.Label lblCreditos 
+         Alignment       =   2  'Center
+         BackStyle       =   0  'Transparent
+         Caption         =   "Credito $ 55555"
+         BeginProperty Font 
+            Name            =   "Trebuchet MS"
+            Size            =   11.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   345
+         Left            =   4740
+         TabIndex        =   66
+         Top             =   30
+         Width           =   2145
+      End
+      Begin VB.Label lblV 
+         Alignment       =   1  'Right Justify
+         BackColor       =   &H000040C0&
+         BackStyle       =   0  'Transparent
+         Caption         =   "version 8.88.888"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H0000FFFF&
+         Height          =   285
+         Left            =   10230
+         TabIndex        =   5
+         Top             =   2940
+         Visible         =   0   'False
+         Width           =   1335
+      End
+      Begin VB.Label lblValidar 
+         Alignment       =   2  'Center
+         BackColor       =   &H00000000&
+         Caption         =   "validacion"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00E0E0E0&
+         Height          =   195
+         Left            =   3240
+         TabIndex        =   4
+         Top             =   2310
+         Visible         =   0   'False
+         Width           =   3255
+      End
+   End
    Begin VB.ListBox List1 
       BeginProperty Font 
          Name            =   "Terminal"
@@ -32,10 +276,10 @@ Begin VB.Form frmIndex
       Height          =   4290
       IntegralHeight  =   0   'False
       ItemData        =   "frmINDEX.frx":08CA
-      Left            =   6960
+      Left            =   6930
       List            =   "frmINDEX.frx":0910
       TabIndex        =   9
-      Top             =   4560
+      Top             =   4530
       Visible         =   0   'False
       Width           =   5055
    End
@@ -258,250 +502,6 @@ Begin VB.Form frmIndex
       Top             =   3900
       Visible         =   0   'False
       Width           =   270
-   End
-   Begin VB.PictureBox picFondo 
-      AutoRedraw      =   -1  'True
-      BackColor       =   &H00000000&
-      BorderStyle     =   0  'None
-      Height          =   1620
-      Left            =   630
-      ScaleHeight     =   1620
-      ScaleWidth      =   10650
-      TabIndex        =   3
-      Top             =   5790
-      Width           =   10650
-      Begin VB.Frame FR_2 
-         BackColor       =   &H00000000&
-         BorderStyle     =   0  'None
-         Height          =   1845
-         Left            =   7020
-         TabIndex        =   59
-         Top             =   0
-         Width           =   3555
-         Begin tbrFaroButton.fBoton lbltriPem 
-            Height          =   255
-            Left            =   90
-            TabIndex        =   63
-            Top             =   150
-            Width           =   3435
-            _ExtentX        =   6059
-            _ExtentY        =   450
-            fFColor         =   16777215
-            fBColor         =   192
-            fCapt           =   "3PM version 7 - www.tbrsoft.com"
-            fEnabled        =   -1  'True
-            fFontN          =   "Trebuchet MS"
-            fFontS          =   8
-            fECol           =   0
-         End
-         Begin VB.Label lblNexts 
-            BackStyle       =   0  'Transparent
-            Caption         =   "Label2"
-            BeginProperty Font 
-               Name            =   "Trebuchet MS"
-               Size            =   9.75
-               Charset         =   0
-               Weight          =   700
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            ForeColor       =   &H00E0E0E0&
-            Height          =   555
-            Left            =   1050
-            TabIndex        =   65
-            Top             =   690
-            Width           =   1125
-         End
-      End
-      Begin VB.Frame FR_1 
-         BackColor       =   &H00000000&
-         BorderStyle     =   0  'None
-         Height          =   1845
-         Left            =   30
-         TabIndex        =   58
-         Top             =   30
-         Width           =   4635
-         Begin tbrFaroButton.fBoton lbl0000 
-            Height          =   285
-            Left            =   3960
-            TabIndex        =   60
-            Top             =   0
-            Width           =   495
-            _ExtentX        =   873
-            _ExtentY        =   503
-            fFColor         =   16777215
-            fBColor         =   192
-            fCapt           =   "00:00"
-            fEnabled        =   -1  'True
-            fFontN          =   "Trebuchet MS"
-            fFontS          =   8
-            fECol           =   0
-         End
-         Begin tbrFaroButton.fBoton lblPrecos 
-            Height          =   1365
-            Left            =   30
-            TabIndex        =   61
-            Top             =   240
-            Width           =   2475
-            _ExtentX        =   4366
-            _ExtentY        =   2408
-            fFColor         =   16777215
-            fBColor         =   0
-            fCapt           =   "1 cancion $15000.00 1 cancion $15000.00 1 cancion $15000.00 1 cancion $15000.00 1 cancion VIP $ 5555555"
-            fEnabled        =   -1  'True
-            fFontN          =   "Trebuchet MS"
-            fFontS          =   9
-            fECol           =   8388608
-         End
-         Begin tbrFaroButton.fBoton lblpbCli 
-            Height          =   1335
-            Left            =   2490
-            TabIndex        =   62
-            Top             =   240
-            Width           =   1995
-            _ExtentX        =   3519
-            _ExtentY        =   2355
-            fFColor         =   16777215
-            fBColor         =   0
-            fCapt           =   "a"
-            fEnabled        =   -1  'True
-            fFontN          =   "Arial"
-            fFontS          =   11
-            fECol           =   8388608
-         End
-         Begin VB.Label lblRepNau 
-            BackStyle       =   0  'Transparent
-            Caption         =   "Label2"
-            BeginProperty Font 
-               Name            =   "Trebuchet MS"
-               Size            =   8.25
-               Charset         =   0
-               Weight          =   700
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            ForeColor       =   &H00FFFFFF&
-            Height          =   255
-            Left            =   30
-            TabIndex        =   64
-            Top             =   30
-            Width           =   4485
-         End
-      End
-      Begin tbr3pm.txtRolling RollCRED 
-         Height          =   1335
-         Left            =   210
-         TabIndex        =   13
-         Top             =   240
-         Width           =   2295
-         _ExtentX        =   4048
-         _ExtentY        =   2355
-      End
-      Begin tbr3pm.txtRolling RollSONG 
-         Height          =   1155
-         Left            =   7680
-         TabIndex        =   14
-         Top             =   360
-         Width           =   1725
-         _ExtentX        =   3043
-         _ExtentY        =   2037
-      End
-      Begin tbr3pm.tbrPassImg tbrPassImg1 
-         Height          =   1260
-         Left            =   4770
-         TabIndex        =   6
-         Top             =   330
-         Width           =   2115
-         _ExtentX        =   3731
-         _ExtentY        =   2223
-         Begin VB.Label Label1 
-            Alignment       =   2  'Center
-            BackColor       =   &H00000080&
-            BorderStyle     =   1  'Fixed Single
-            Caption         =   "VERSION DEMOSTRATIVA. tbrSoft Argentina. www.tbrsoft.com"
-            BeginProperty Font 
-               Name            =   "Verdana"
-               Size            =   8.25
-               Charset         =   0
-               Weight          =   700
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            ForeColor       =   &H0000FFFF&
-            Height          =   885
-            Left            =   120
-            TabIndex        =   7
-            Top             =   180
-            Visible         =   0   'False
-            Width           =   1845
-         End
-      End
-      Begin VB.Label lblCreditos 
-         Alignment       =   2  'Center
-         BackStyle       =   0  'Transparent
-         Caption         =   "Credito $ 55555"
-         BeginProperty Font 
-            Name            =   "Trebuchet MS"
-            Size            =   11.25
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00FFFFFF&
-         Height          =   345
-         Left            =   4740
-         TabIndex        =   66
-         Top             =   30
-         Width           =   2145
-      End
-      Begin VB.Label lblV 
-         Alignment       =   1  'Right Justify
-         BackColor       =   &H000040C0&
-         BackStyle       =   0  'Transparent
-         Caption         =   "version 8.88.888"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H0000FFFF&
-         Height          =   285
-         Left            =   10230
-         TabIndex        =   5
-         Top             =   2940
-         Visible         =   0   'False
-         Width           =   1335
-      End
-      Begin VB.Label lblValidar 
-         Alignment       =   2  'Center
-         BackColor       =   &H00000000&
-         Caption         =   "validacion"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00E0E0E0&
-         Height          =   195
-         Left            =   3240
-         TabIndex        =   4
-         Top             =   2310
-         Visible         =   0   'False
-         Width           =   3255
-      End
    End
    Begin VB.PictureBox picFondoPacha 
       BackColor       =   &H00000000&
@@ -808,7 +808,7 @@ Begin VB.Form frmIndex
    End
    Begin VB.Timer Timer3 
       Interval        =   10000
-      Left            =   11370
+      Left            =   11340
       Top             =   3270
    End
    Begin VB.Timer Timer1 
@@ -3301,10 +3301,10 @@ Private Sub Form_Load()
     TapaCD(0).Height = AltoTapaDisco - (MargSup + MargInf + MargInf)
     
     If MostrarRotulos Then
-        lblDISCO(0).Height = MargInf 'AltoTapaDisco * 0.19 '80%disco, 20% lbldisco
-        lblDISCO(0).Width = AnchoTapaDisco - MargDer - MargIzq 'XXXX habria que ver si hay que sacar los margenes laterales
+        lblDisco(0).Height = MargInf 'AltoTapaDisco * 0.19 '80%disco, 20% lbldisco
+        lblDisco(0).Width = AnchoTapaDisco - MargDer - MargIzq 'XXXX habria que ver si hay que sacar los margenes laterales
     Else
-        lblDISCO(0).Visible = False
+        lblDisco(0).Visible = False
         lblDisco2(0).Visible = False
     End If
     'centrar!!
@@ -3312,21 +3312,21 @@ Private Sub Form_Load()
     IniCentrarH = EspacioEntreDiscosH
     Dim IniCentrarV As Long
     IniCentrarV = EspacioEntreDiscosV
-    lblDISCO(0).Left = IniCentrarH + MargDer
+    lblDisco(0).Left = IniCentrarH + MargDer
     TapaCD(0).Left = IniCentrarH + MargDer
     'ver si los rotulos van arriba o abajo
     tERR.Anotar "acex", RotulosArriba
     If RotulosArriba Then
-        lblDISCO(0).Top = IniCentrarV
+        lblDisco(0).Top = IniCentrarV
         TapaCD(0).Top = IniCentrarV + MargSup
     Else
         tERR.Anotar "000-0269"
         TapaCD(0).Top = IniCentrarV + MargSup
-        lblDISCO(0).Top = IniCentrarV + AltoTapaDisco - (2 * MargInf) 'TapaCD(0).Top + TapaCD(0).Height - MargInf '+ 150
+        lblDisco(0).Top = IniCentrarV + AltoTapaDisco - (2 * MargInf) 'TapaCD(0).Top + TapaCD(0).Height - MargInf '+ 150
     End If
     
     tERR.Anotar "TCD(0).TOP", TapaCD(C).Top
-    tERR.Anotar "LBL(0).TOP", lblDISCO(C).Top
+    tERR.Anotar "LBL(0).TOP", lblDisco(C).Top
     
     imageFONDO(0).Picture = imgUNSELBUP.Picture
     imageFONDO(0).Visible = True
@@ -3339,7 +3339,7 @@ Private Sub Form_Load()
     TapaCD(0).ZOrder
     imageFONDO(0).ZOrder
     lblDisco2(0).ZOrder
-    lblDISCO(0).ZOrder
+    lblDisco(0).ZOrder
  
     Dim CantDiscos As Long
     CantDiscos = TapasMostradasH * TapasMostradasV
@@ -3350,7 +3350,7 @@ Private Sub Form_Load()
         tERR.Anotar "acez", C
         C = C + 1
         Load TapaCD(C)
-        Load lblDISCO(C)
+        Load lblDisco(C)
         Load lblDisco2(C)
         Load imageFONDO(C)
         'ya toman el tamaño del original
@@ -3367,18 +3367,18 @@ Private Sub Form_Load()
         tERR.Anotar "LTA(" + CStr(C) + ")", LineaTopActual
         If C / TapasMostradasH = C \ TapasMostradasH Then
             'es una tapa al principio de linea!!!!
-            lblDISCO(C).Left = IniCentrarH + MargDer
+            lblDisco(C).Left = IniCentrarH + MargDer
             TapaCD(C).Left = TapaCD(0).Left
             TapaCD(C).Top = LineaTopActual + MargSup
             tERR.Anotar "TCD(" + CStr(C) + ").TOP", TapaCD(C).Top
             If RotulosArriba Then
-                lblDISCO(C).Top = LineaTopActual
-                tERR.Anotar "LBL(" + CStr(C) + ").TOP", lblDISCO(C).Top
+                lblDisco(C).Top = LineaTopActual
+                tERR.Anotar "LBL(" + CStr(C) + ").TOP", lblDisco(C).Top
                 TapaCD(C).Visible = True
                 imageFONDO(C).Visible = True
                 If MostrarRotulos Then
 '                   TapaCD(c).Top =lblDISCO(c).Top + lblDISCO(c).Height + 50
-                    lblDISCO(C).Visible = True
+                    lblDisco(C).Visible = True
                     lblDisco2(C).Visible = True
                 Else
 '                   TapaCD(c).Top = TapaCD(c - TapasMostradasH).Top + TapaCD(c - TapasMostradasH).Height + 50
@@ -3389,22 +3389,22 @@ Private Sub Form_Load()
 '                Else
 '                    TapaCD(c).Top = TapaCD(c - TapasMostradasH).Top + TapaCD(c - TapasMostradasH).Height + EspacioEntreDiscosV
 '                End If
-                lblDISCO(C).Top = LineaTopActual + AltoTapaDisco - (2 * MargInf) 'TapaCD(c).Top + TapaCD(c).Height - MargInf '+ 150
-                tERR.Anotar "LBL(" + CStr(C) + ").TOP", lblDISCO(C).Top
+                lblDisco(C).Top = LineaTopActual + AltoTapaDisco - (2 * MargInf) 'TapaCD(c).Top + TapaCD(c).Height - MargInf '+ 150
+                tERR.Anotar "LBL(" + CStr(C) + ").TOP", lblDisco(C).Top
                 TapaCD(C).Visible = True
                 imageFONDO(C).Visible = True
                 If MostrarRotulos Then
-                    lblDISCO(C).Visible = True
+                    lblDisco(C).Visible = True
                     lblDisco2(C).Visible = True
                 End If
             End If
         Else 'el c-1 tiene el mismo top, es cualquiera de una linea que no sea el pri de la izq
             'una tapa comun que se acomoda a la derecha de la anterior
             If RotulosArriba Then
-                lblDISCO(C).Left = lblDISCO(C - 1).Left + AnchoTapaDisco + EspacioEntreDiscosH + MargDer
-                lblDISCO(C).Top = lblDISCO(C - 1).Top
-                tERR.Anotar "LBL(" + CStr(C) + ").TOP", lblDISCO(C).Top
-                TapaCD(C).Left = lblDISCO(C).Left
+                lblDisco(C).Left = lblDisco(C - 1).Left + AnchoTapaDisco + EspacioEntreDiscosH + MargDer
+                lblDisco(C).Top = lblDisco(C - 1).Top
+                tERR.Anotar "LBL(" + CStr(C) + ").TOP", lblDisco(C).Top
+                TapaCD(C).Left = lblDisco(C).Left
                 TapaCD(C).Top = TapaCD(C - 1).Top
                 tERR.Anotar "TCD(" + CStr(C) + ").TOP", TapaCD(C).Top
                 TapaCD(C).Visible = True
@@ -3414,14 +3414,14 @@ Private Sub Form_Load()
                 TapaCD(C).Top = TapaCD(C - 1).Top
                 
                 tERR.Anotar "TCD(" + CStr(C) + ").TOP", TapaCD(C).Top
-                lblDISCO(C).Left = TapaCD(C).Left
-                lblDISCO(C).Top = lblDISCO(C - 1).Top
-                tERR.Anotar "LBL(" + CStr(C) + ").TOP", lblDISCO(C).Top
+                lblDisco(C).Left = TapaCD(C).Left
+                lblDisco(C).Top = lblDisco(C - 1).Top
+                tERR.Anotar "LBL(" + CStr(C) + ").TOP", lblDisco(C).Top
                 TapaCD(C).Visible = True
                 imageFONDO(C).Visible = True
             End If
             If MostrarRotulos Then
-                lblDISCO(C).Visible = True
+                lblDisco(C).Visible = True
                 lblDisco2(C).Visible = True
             End If
         End If
@@ -3435,7 +3435,7 @@ Private Sub Form_Load()
         TapaCD(C).ZOrder
         imageFONDO(C).ZOrder
         lblDisco2(C).ZOrder
-        lblDISCO(C).ZOrder
+        lblDisco(C).ZOrder
     Loop
     'tERR.AppendLog "LISTO TAPAS"
     tERR.Anotar "acfa"
@@ -3911,7 +3911,7 @@ Public Sub SelDisco(nDisco As Long)
         lLETRAS2(AAA - 65).Left = lLETRAS(AAA - 65).Left + 15
         lLETRAS2(AAA - 65).Top = lLETRAS(AAA - 65).Top + 15
         
-        If UCase(Left(lblDISCO(nDisco), 1)) = UCase(lLETRAS(AAA - 65).Caption) Then
+        If UCase(Left(lblDisco(nDisco), 1)) = UCase(lLETRAS(AAA - 65).Caption) Then
             lLETRAS(AAA - 65).ForeColor = vbRed
             LineLETRA.X1 = lLETRAS(AAA - 65).Left
             LineLETRA.X2 = lLETRAS(AAA - 65).Left + lLETRAS(AAA - 65).Width
@@ -4025,7 +4025,7 @@ Public Function CargarDiscos(numDiscoIniciar As Long, SelPrimero As Boolean, DeQ
     tERR.Anotar "acgb", NDR, TapasMostradasH, TapasMostradasV
     Do While NDR < ((TapasMostradasH * TapasMostradasV))
         TapaCD(NDR).Visible = False
-        lblDISCO(NDR).Visible = False
+        lblDisco(NDR).Visible = False
         lblDisco2(NDR).Visible = False
         imageFONDO(NDR).Visible = False
         NDR = NDR + 1
@@ -4060,9 +4060,9 @@ Public Function CargarDiscos(numDiscoIniciar As Long, SelPrimero As Boolean, DeQ
 
             'poner nombre al disco
             'antes en la 6.3 era NDI+1 !!
-            lblDISCO(NDR) = txtInLista(MATRIZ_DISCOS(NDI), 1, ",")
+            lblDisco(NDR) = txtInLista(MATRIZ_DISCOS(NDI), 1, ",")
             If MostrarRotulos Then
-                lblDISCO(NDR).Visible = True
+                lblDisco(NDR).Visible = True
                 lblDisco2(NDR).Visible = True
             End If
         End If
@@ -4276,7 +4276,7 @@ Private Sub SuperSel2(ByVal Index As Integer)
         'lo uso solo en tapa cd, cuando esta no esta mostrada ni su label ni su fondo lo estan
         TapaCD(M).Visible = False
         imageFONDO(M).Visible = False
-        lblDISCO(M).Visible = False
+        lblDisco(M).Visible = False
         lblDisco2(M).Visible = False
     Next M
 
@@ -4296,8 +4296,8 @@ Private Sub SuperSel2(ByVal Index As Integer)
     lblDiscoSEL.Visible = False
     lblDiscoSEL2.Visible = False
     
-    lblDiscoSEL.Caption = lblDISCO(Index).Caption
-    lblDiscoSEL.Font.Size = lblDISCO(Index).Font.Size
+    lblDiscoSEL.Caption = lblDisco(Index).Caption
+    lblDiscoSEL.Font.Size = lblDisco(Index).Font.Size
     lblDiscoSEL.Top = imgDiscoSEL.Top + imgDiscoSEL.Height
     lblDiscoSEL.Left = imgDiscoSEL.Left
     lblDiscoSEL.Width = imgDiscoSEL.Width - 200
@@ -5102,7 +5102,7 @@ Private Sub UnSuperSel()
             TapaCD(M).Visible = True
             imageFONDO(M).Visible = True
             If MostrarRotulos Then
-                lblDISCO(M).Visible = True
+                lblDisco(M).Visible = True
                 lblDisco2(M).Visible = True
             End If
         End If
@@ -5213,16 +5213,16 @@ Private Sub lblCreditos_Change()
 End Sub
 
 Private Sub lblCreditos_DblClick()
-    List1.Visible = Not (List1.Visible)
-    List1.ZOrder
+    'List1.Visible = Not (List1.Visible)
+    'List1.ZOrder
 End Sub
 
 Private Sub lblDisco_Change(Index As Integer)
-    lblDisco2(Index).Caption = lblDISCO(Index).Caption
-    lblDisco2(Index).Left = lblDISCO(Index).Left + 15
-    lblDisco2(Index).Top = lblDISCO(Index).Top + 15
-    lblDisco2(Index).Width = lblDISCO(Index).Width
-    lblDisco2(Index).Height = lblDISCO(Index).Height
+    lblDisco2(Index).Caption = lblDisco(Index).Caption
+    lblDisco2(Index).Left = lblDisco(Index).Left + 15
+    lblDisco2(Index).Top = lblDisco(Index).Top + 15
+    lblDisco2(Index).Width = lblDisco(Index).Width
+    lblDisco2(Index).Height = lblDisco(Index).Height
 End Sub
 
 Private Sub lblNOCREDIT_Change()
@@ -5337,18 +5337,18 @@ Private Sub transK(F1 As String)
         End With
     Else
         tERR.Anotar "acg24"
-        lblWait.Caption = "Preparando audio" + vbCrLf + _
+        lblWAIT.Caption = "Preparando audio" + vbCrLf + _
                 "Al finalizar podrá llevarse su cancion" + vbCrLf + _
                 "Aguarde ..."
-        fPRC1.Left = lblWait.Left
-        fPRC1.Width = lblWait.Width
+        fPRC1.Left = lblWAIT.Left
+        fPRC1.Width = lblWAIT.Width
         fPRC2.Left = fPRC1.Left
         fPRC2.Width = 15
-        fPRC1.Top = lblWait.Top + lblWait.Height - fPRC1.Height
+        fPRC1.Top = lblWAIT.Top + lblWAIT.Height - fPRC1.Height
         fPRC2.Top = fPRC1.Top
         fPRC2.Height = fPRC1.Height
         
-        lblWait.Visible = True
+        lblWAIT.Visible = True
         fPRC1.Visible = True
         fPRC2.Visible = True
     End If
@@ -5369,7 +5369,7 @@ Private Sub transK(F1 As String)
         frmVIDEO.fPRC1_V.Visible = False
         frmVIDEO.fPRC2_V.Visible = False
     Else
-        lblWait.Visible = False
+        lblWAIT.Visible = False
         fPRC1.Visible = False
         fPRC2.Visible = False
     End If
@@ -5408,7 +5408,7 @@ Private Sub GetEvento_Estado(Porcentaje As Integer)
                 "Aguarde ..."
     Else
         fPRC2.Width = (Porcentaje * fPRC1.Width) / 100
-        lblWait.Caption = "Preparando audio " + CStr(Porcentaje) + " %" + vbCrLf + _
+        lblWAIT.Caption = "Preparando audio " + CStr(Porcentaje) + " %" + vbCrLf + _
                 "Al finalizar podrá llevarse su cancion" + vbCrLf + _
                 "Aguarde ..."
     End If
@@ -5877,6 +5877,10 @@ MiErr:
     tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".aceb"
     Resume Next
 
+End Sub
+
+Private Sub tbrPassImg1_Click()
+    If ForceFocus(Me.HWND) = False Then tERR.AppendSinHist "NOFOCO98798"
 End Sub
 
 'Private Sub TF_PerdioFoco(hwndFoco As Long)
@@ -6643,13 +6647,13 @@ Public Function WaitOk(sCancion As String) As Long
         picVideo(1).Visible = False
     Else
         picKAR.AutoRedraw = True
-        lblWait.Width = picKAR.Width / 2
-        lblWait.Left = picKAR.Width / 2 - lblWait.Width / 2
-        lblWait.Height = 8000
-        lblWait.Top = 800
-        lblWait.Font.Name = "Trebuchet MS"
-        lblWait.Font.Size = 28
-        lblWait.ForeColor = &H800000
+        lblWAIT.Width = picKAR.Width / 2
+        lblWAIT.Left = picKAR.Width / 2 - lblWAIT.Width / 2
+        lblWAIT.Height = 8000
+        lblWAIT.Top = 800
+        lblWAIT.Font.Name = "Trebuchet MS"
+        lblWAIT.Font.Size = 28
+        lblWAIT.ForeColor = &H800000
         picKAR.Visible = True
         picKAR.ZOrder
         LF1.Visible = True
@@ -6672,8 +6676,8 @@ Public Function WaitOk(sCancion As String) As Long
             frmVIDEO.lblWAIT_V.Caption = EspCancion
             frmVIDEO.lblWAIT_V.Visible = True
         Else
-            lblWait.Caption = EspCancion
-            lblWait.Visible = True
+            lblWAIT.Caption = EspCancion
+            lblWAIT.Visible = True
         End If
         
         Dim RR As Single
@@ -6714,8 +6718,8 @@ Public Function WaitOk(sCancion As String) As Long
         frmVIDEO.lblWAIT_V.Caption = EspCancion
         frmVIDEO.lblWAIT_V.Visible = True
     Else
-        lblWait.Caption = EspCancion
-        lblWait.Visible = True
+        lblWAIT.Caption = EspCancion
+        lblWAIT.Visible = True
     End If
     
     'empiezo a contar el tiempo de nuevo para ver si se arrepiente
@@ -6724,7 +6728,7 @@ Public Function WaitOk(sCancion As String) As Long
     Do
         DoEvents
         If LastTecla = TeclaDER Then
-            lblWait.Visible = False
+            lblWAIT.Visible = False
             frmVIDEO.lblWAIT_V.Visible = False
             Exit Do
         End If
@@ -6758,7 +6762,7 @@ Public Function WaitOk(sCancion As String) As Long
         
     Loop
     
-    lblWait.Visible = False
+    lblWAIT.Visible = False
     frmVIDEO.lblWAIT_V.Visible = False
     
     Dim sCancion2 As String
@@ -6787,8 +6791,8 @@ Public Function WaitOk(sCancion As String) As Long
                 frmVIDEO.lblWAIT_V.Visible = True
                 frmVIDEO.lblWAIT_V.Caption = NOP
             Else
-                lblWait.Visible = True
-                lblWait.Caption = NOP
+                lblWAIT.Visible = True
+                lblWAIT.Caption = NOP
             End If
 
             RR = Timer
@@ -6822,8 +6826,8 @@ Public Function WaitOk(sCancion As String) As Long
                 frmVIDEO.lblWAIT_V.Visible = True
                 frmVIDEO.lblWAIT_V.Caption = NOP
             Else
-                lblWait.Visible = True
-                lblWait.Caption = NOP
+                lblWAIT.Visible = True
+                lblWAIT.Caption = NOP
             End If
             
             RR = Timer
@@ -6956,10 +6960,10 @@ End Function
 Private Sub Traducir()
     lblNOCREDIT.Caption = TR.Trad("CREDITO INSUFICIENTE%99%")
     lblCanciones(0).Caption = TR.Trad("Lista de canciones%99%")
-    lblDISCO(0).Caption = TR.Trad("Complete al menos la primera hoja de discos cargados%98%Hoja se refiere a una pagina completa con discos%99%")
-    lblDisco2(0).Caption = lblDISCO(0).Caption
-    lblDiscoSEL.Caption = lblDISCO(0).Caption
-    lblDiscoSEL2.Caption = lblDISCO(0).Caption
+    lblDisco(0).Caption = TR.Trad("Complete al menos la primera hoja de discos cargados%98%Hoja se refiere a una pagina completa con discos%99%")
+    lblDisco2(0).Caption = lblDisco(0).Caption
+    lblDiscoSEL.Caption = lblDisco(0).Caption
+    lblDiscoSEL2.Caption = lblDisco(0).Caption
     lblCanciones2(0).Caption = TR.Trad("Lista de canciones%99%")
     Label1.Caption = TR.Trad("VERSION DEMOSTRATIVA%99%" + _
         " tbrSoft Argentina. www.tbrsoft.com")
@@ -7036,7 +7040,7 @@ Private Sub SuperSel3(ByVal Index As Integer)
         'lo uso solo en tapa cd, cuando esta no esta mostrada ni su label ni su fondo lo estan
         TapaCD(M).Visible = False
         imageFONDO(M).Visible = False
-        lblDISCO(M).Visible = False
+        lblDisco(M).Visible = False
         lblDisco2(M).Visible = False
     Next M
     
@@ -7077,8 +7081,8 @@ Private Sub SuperSel3(ByVal Index As Integer)
     lblDiscoSEL.Visible = False
     lblDiscoSEL2.Visible = False
     
-    lblDiscoSEL.Caption = lblDISCO(Index).Caption
-    lblDiscoSEL.Font.Size = lblDISCO(Index).Font.Size
+    lblDiscoSEL.Caption = lblDisco(Index).Caption
+    lblDiscoSEL.Font.Size = lblDisco(Index).Font.Size
     lblDiscoSEL.Top = imgDiscoSEL.Top + imgDiscoSEL.Height
     lblDiscoSEL.Left = imgDiscoSEL.Left
     lblDiscoSEL.Width = imgDiscoSEL.Width - 200

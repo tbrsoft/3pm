@@ -334,7 +334,7 @@ Public Sub MostrarCursor(Mostrar As Boolean)
     
     'si estoy en el IDE NOLO HAGO!
     'necesito el mouse para depurar!
-    If Left(LCase(AP), 10) = "d:\dev\3pm" Then Exit Sub
+    If Left(LCase(AP), 10) = "d:\dev\3ku" Then Exit Sub
     
     tERR.Anotar "001-0002"
     Dim A As Long, CONT As Long 'para que no de muchas vueltas !!!
@@ -535,7 +535,7 @@ Function ObtenerDir(ruta As String) As String()
             
             frmINI.lblINI.Caption = ParaMatriz
             frmINI.lblINI.Refresh
-            frmINI.PBar.Width = (frmINI.lblINI.Width * ContadorArch / 100) Mod frmINI.lblINI.Width
+            frmINI.pBAR.Width = (frmINI.lblINI.Width * ContadorArch / 100) Mod frmINI.lblINI.Width
 NextCarp:
             
         End If
@@ -578,7 +578,7 @@ solo12: 'solo los 12 primeros
         
         frmINI.lblINI.Caption = CStr(C)
         frmINI.lblINI.Refresh
-        frmINI.PBar.Width = (frmINI.lblINI.Width * mtx / 100) Mod frmINI.lblINI.Width
+        frmINI.pBAR.Width = (frmINI.lblINI.Width * mtx / 100) Mod frmINI.lblINI.Width
         
         tERR.Anotar "001-0079"
         Resultado(ubicMIN) = "zzzzzzzzzz," + Resultado(ubicMIN)
