@@ -86,9 +86,23 @@ Public Sub RegistroDiario()
     'registra cada inicio de 3PM y el numero que indica el contador
     Dim TE As TextStream
     Set TE = FSO.OpenTextFile(SYSfolder + "daily.cfg", ForAppending, True)
-    SumarContadorCreditos 0 'me aseguro que se carge la variable contador
-    TE.WriteLine CStr(Date) + " - " + CStr(time) + " Contador R en: " + CStr(CONTADOR) + " Contador H en: " + CStr(CONTADOR2)
+        SumarContadorCreditos 0 'me aseguro que se carge la variable contador
+        TE.WriteLine CStr(Date) + " - " + CStr(time) + " Contador R en: " + CStr(CONTADOR) + " Contador H en: " + CStr(CONTADOR2)
     TE.Close
+    If FileLen(SYSfolder + "daily.cfg") > 50000 Then
+        'si es muy grande achicarlo.
+        Dim TE431 As String
+        Set TE = FSO.OpenTextFile(SYSfolder + "daily.cfg", ForReading, True)
+            TE431 = TE.ReadAll
+        TE.Close
+        'le saco al mitad
+        Dim MIT As Long
+        MIT = Len(TE431) / 2
+        TE431 = Right(TE431, MIT)
+        Set TE = FSO.CreateTextFile(SYSfolder + "daily.cfg", True)
+            TE.WriteLine TE431
+        TE.Close
+    End If
 
 End Sub
 

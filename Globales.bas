@@ -1,4 +1,14 @@
 Attribute VB_Name = "Globales"
+'--------------
+Public PrecNowAudio As Single 'precio del momento de audio
+'este cambia segun si se cumple el monto para alguna oferta
+Public PrecNowVideo As Single
+'estos dos valores se resetean al valor comun cuando creditos llega a cero
+'--------------
+
+Public PrecioBase As Single
+Public CreditosBilletes As Long 'credito por señal del billetero
+
 Public EsModo5PeroLabura46 As Boolean 'para el caso de modo video
 Public vW As New clsWindowsVERSION
 Public EstoyEnModoVideoMiniSelDisco As Boolean
@@ -38,8 +48,8 @@ Public textoUsuario As String
 
 Public DatosLicencia As String
 
-Public CreditosCuestaTema As Long
-Public CreditosCuestaTemaVIDEO As Long
+Public CreditosCuestaTema(2) As Long
+Public CreditosCuestaTemaVIDEO(2) As Long
 Public PideVideo As Boolean 'antes de ejecutar para saber que cobrar tengo que saber que pide
 Public TemasPorCredito As Long
 
@@ -117,7 +127,9 @@ Private Declare Function SetKeyboardState Lib "user32" (lppbKeyState As Byte) As
 '''''nombre temas,nombre carpeta,path completo con nombre de archivo
 Public FSO As New Scripting.FileSystemObject
 Public AP As String
-Public CREDITOS As Long ' fichas cargadas (o temas habilitados para cargar)
+Public CREDITOS As Single ' fichas cargadas (o temas habilitados para cargar)
+'lo puse sinle por que las promociones de precios lo requieren
+
 Public TEMA_REPRODUCIENDO As String 'tema actual. Para poder mostrar el texto
 'si no hay nada el valor es "sin reproduccion actual"
 Public TEMA_SIGUIENTE As String 'tema actual. Para poder mostrar el texto
@@ -139,6 +151,7 @@ Public K 'control de llaves y licencias
 Public tERR As New tbrErrores.clsTbrERR
 
 Public Sub Main()
+    
     On Error GoTo ErrINI
     AP = App.path
     If Right(AP, 1) <> "\" Then AP = AP + "\"
@@ -147,7 +160,6 @@ Public Sub Main()
     WINfolder = FSO.GetSpecialFolder(WindowsFolder)
     If Right(WINfolder, 1) <> "\" Then WINfolder = WINfolder + "\"
     If Right(SYSfolder, 1) <> "\" Then SYSfolder = SYSfolder + "\"
-    
     
     'antes que todo el registro de error
     tERR.FileLog = AP + "reg3PM.log"
@@ -184,6 +196,8 @@ Public Sub Main()
     K.ClaveDLL = "ashjdklahsJKLHASL65456456456"
     
     frmREG.Show 1
+    
+    Exit Sub
     
 ErrINI:
     
@@ -469,6 +483,122 @@ Public Sub VerClaves(CLAVE As String)
     End If
 End Sub
 
+Public Sub VarCreditos(VarCre As Single)
+    CREDITOS = CREDITOS + VarCre
+    '-------------------------------------------------------
+    'si es menor que cero es por que el tipo puso un tema
+    'la funcion sumarcont... si puede tener negativos o ceros por ejemplo para
+    'reiniciar el contador reiniciable. En el caso de esta funcion VarCreditos
+    'hay valores negativos cuando se usa na cancion y se descuenta el credito dispo
+    'nible, esto no implica que se cambie el contador reiniciable ni el historico
+    If VarCre > 0 Then SumarContadorCreditos CLng(VarCre)
+    '-------------------------------------------------------
+    'grabar cant de creditos
+    EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
+    tERR.Anotar "acei", CreditosValidar, CREDITOS
+    ShowCredits
+    'grabar credito para validar
+    'creditosValidar ya se cargo en load de frmindex
+    If VarCre < 0 Then
+        CreditosValidar = CreditosValidar - VarCre
+        EscribirArch1Linea SYSfolder + "radilav.cfg", CStr(CreditosValidar)
+        'si se ejecutaron canciones o videos y los creditos llegan hasta un valor
+        'menor de una cancion en la maxima oferta disponible
+        'enonces el precio vuelve a lo normal
+        If CREDITOS < GetPrecioAudioMasBarato Then
+            CREDITOS = 0
+            PrecNowAudio = CreditosCuestaTema(0)
+            PrecNowVideo = CreditosCuestaTemaVIDEO(0)
+            ShowCredits
+        End If
+    End If
+    
+    'si se pusieron monedas entonces el precio puede cambiar
+    If VarCre > 0 Then
+        'si puso varias monedas bajar los precios
+        If CREDITOS >= CreditosCuestaTema(1) And CreditosCuestaTema(1) > 0 Then
+            PrecNowAudio = tbrFIX(Round(CreditosCuestaTema(1) / 2, 4), 2)
+            '(porque son los creditos xa 2 canciones)
+        End If
+        
+        If CREDITOS >= CreditosCuestaTema(2) And CreditosCuestaTema(2) > 0 Then
+            PrecNowAudio = tbrFIX(Round(CreditosCuestaTema(2) / 3, 4), 2)
+            '(porque son los creditos xa 3 canciones)
+        End If
+        
+        If CREDITOS >= CreditosCuestaTemaVIDEO(1) And CreditosCuestaTemaVIDEO(1) > 0 Then
+            PrecNowVideo = tbrFIX(Round(CreditosCuestaTemaVIDEO(1) / 2, 4), 2)
+            '(porque son los creditos xa 2 canciones)
+        End If
+        
+        If CREDITOS >= CreditosCuestaTemaVIDEO(2) And CreditosCuestaTemaVIDEO(2) > 0 Then
+            PrecNowVideo = tbrFIX(Round(CreditosCuestaTemaVIDEO(2) / 3, 4), 2)
+            '(porque son los creditos xa 3 canciones)
+        End If
+    End If
+    
+    'frmIndex.p1.Cls
+    'frmIndex.p1.Print "Audio:" + CStr(PrecNowAudio) + " / Video:" + CStr(PrecNowVideo)
+    
+End Sub
+
+Public Function tbrFIX(n As Single, DecimalesTruncar As Long) As Single
+    'truncar a una X cantidad de decimales
+    Dim sN As String
+    'tratarlo como caracter es mas facil
+    sN = CStr(n)
+    'si es entero entonces salgo, no hay nada que hacer
+    Dim TieneDec As Boolean
+    If InStr(sN, ",") > 0 Then TieneDec = True
+    If InStr(sN, ".") > 0 Then TieneDec = True
+    If TieneDec = False Then
+        tbrFIX = n
+        Exit Function
+    End If
+    
+    Dim AA As Long, Largo As Long, BB As Long
+    BB = 0 'cuenta la cantidad de decimales
+    Largo = Len(sN)
+    Dim EmpezoDec As Boolean
+    EmpezoDec = False
+    For AA = 1 To Largo
+        If EmpezoDec Then BB = BB + 1
+        'si se llega al total cortar ahi
+        If BB = DecimalesTruncar Then
+            tbrFIX = CSng(Mid(sN, 1, AA))
+            Exit Function
+        End If
+        If Mid(sN, AA, 1) = "." Or Mid(sN, AA, 1) = "," Then EmpezoDec = True
+    Next AA
+    'si sale de aqui sin haber salido antes es porque no llega a la cantida deseada
+    tbrFIX = n
+End Function
+
+Public Function GetPrecioAudioMasBarato() As Long
+    'saber el precio mas barato me sirve para saber cuando ya no hay
+    'posibilidad de poner mas canciones, en ese caso vuelve al precio normal
+    
+    GetPrecioAudioMasBarato = 0
+    
+    If CreditosCuestaTema(2) > 0 Then
+        GetPrecioAudioMasBarato = CreditosCuestaTema(2) / 3
+        Exit Function
+    End If
+    
+    If CreditosCuestaTema(1) > 0 Then
+        GetPrecioAudioMasBarato = CreditosCuestaTema(1) / 2
+        Exit Function
+    End If
+    
+    If CreditosCuestaTema(0) > 0 Then
+        GetPrecioAudioMasBarato = CreditosCuestaTema(0)
+        Exit Function
+    End If
+        
+        
+        
+End Function
+
 Public Sub AjustarFRM(FRM As Form, HechoParaTwipsHoriz)
     'ajusta el formulario a la pantalla. JOYA, JOYA
     'HechoParaPixelHoriz quiere decir que el tamaño original entra justo en
@@ -517,7 +647,12 @@ Public Function LeerConfig(Conf As String, ValDefault As String) As String
                 CFG = Trim(txtInLista(TXT, 0, "=")) 'la configuracion
                 If UCase(CFG) = UCase(Conf) Then
                     RST = Trim(txtInLista(TXT, 1, "=")) 'el valor
-                    LeerConfig = RST
+                    'y si esta vacio!!!!
+                    If RST <> "" Then
+                        LeerConfig = RST
+                    Else
+                        LeerConfig = ValDefault
+                    End If
                     Exit Do
                 End If
             Loop
@@ -634,7 +769,7 @@ Public Function QuitarNumeroDeTema(TemaFull As String) As String
         QuitarNumeroDeTema = TemaFull
         Exit Function
     End If
-    tERR.Anotar "004-0001"
+    tERR.Anotar "004-0001", TemaFull
     Dim TMPtema As String
     TMPtema = TemaFull
     'ver si hay numeros adelante y si hay quitarselos
@@ -661,9 +796,10 @@ Public Function QuitarNumeroDeTema(TemaFull As String) As String
         Next
         
     End If
-    tERR.Anotar "004-0003"
+    
     QuitarNumeroDeTema = TMPtema
     
+    tERR.Anotar "004-0003", TMPtema
     
     Exit Function
     
@@ -692,6 +828,29 @@ Public Sub InfoDisco(LBL As Label)
     "Total Disponible: " + CStr(TotFree1) + " MB" + vbCrLf + _
     "Porcentaje libre: " + CStr(PorcLibre) + "%"
 End Sub
+
+Public Function InfoDisco2(LetraDisco As String, ByRef MbTotal As Long, _
+    MbLibre As Long, PorcFree As Single) As String
+    
+    Dim TotDisco, TotFree1, TotFree2, Serial As String, VolName As String
+    'ver en que disco esta instalado
+    LetraDisco = LetraDisco + ":\"
+    TotDisco = Round(FSO.Drives(LetraDisco).TotalSize / 1024 / 1024, 2)
+    TotFree1 = Round(FSO.Drives(LetraDisco).AvailableSpace / 1024 / 1024, 2)
+    TotFree2 = Round(FSO.Drives(LetraDisco).FreeSpace / 1024 / 1024, 2)
+    Serial = FSO.Drives(LetraDisco).SerialNumber
+    VolName = FSO.Drives(LetraDisco).VolumeName
+    
+    Dim PorcLibre As Double
+    PorcLibre = Round(TotFree1 / TotDisco * 100, 2)
+    
+    MbTotal = TotDisco
+    MbLibre = TotFree1
+    PorcFree = PorcLibre
+    
+    InfoDisco2 = LetraDisco + "(" + VolName + ")=" + CStr(TotDisco) + " MB y " + _
+        CStr(TotFree1) + " MB libres (" + CStr(PorcLibre) + "%)"
+End Function
 
 Public Sub VerSiTocaPUB()
     'despues de ejecutar un tema desde Temas de Disco, index o Top10
@@ -739,18 +898,15 @@ Public Sub VerSiTocaPUB()
 End Sub
 
 Public Sub ShowCredits()
-    If CREDITOS >= 10 Then
-        frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
-        frmIndex.lblCreditos2 = "Creditos" + vbCrLf + Trim(Str(CREDITOS))
+    'frmIndex.lblPuesto = CStr(CREDITOS)
+    If CREDITOS = 0 Then
+        frmIndex.lblCreditos = "Credito $ 0"
+        frmIndex.lblCreditos2 = "INSERT" + vbCrLf + "COIN"
     Else
-        If CREDITOS = 0 Then
-            frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
-            frmIndex.lblCreditos2 = "INSERT" + vbCrLf + "COIN"
-        Else
-            frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
-            frmIndex.lblCreditos2 = "Creditos" + vbCrLf + "0" + Trim(Str(CREDITOS))
-        End If
+        frmIndex.lblCreditos = "Credito " + CStr(FormatCurrency(CREDITOS * PrecioBase / TemasPorCredito, , , , vbFalse))
+        frmIndex.lblCreditos2 = "Credito" + vbCrLf + CStr(FormatCurrency(CREDITOS * PrecioBase / TemasPorCredito, , , , vbFalse))
     End If
+
 End Sub
 
 Public Function FindIndexOfLst(SplitSpace1 As String, CMB As ComboBox) As Long

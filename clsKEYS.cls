@@ -73,9 +73,7 @@ Public Property Get FileData() As String
 End Property
 
 Private Sub Class_Initialize()
-        
     FileWithDatosClave = SYSfolder + "dciLib22.dll" 'DatosClaveIngresada.DLL
-    
 End Sub
 
 Public Property Let ClaveDLL(NewClave As String)
@@ -88,7 +86,7 @@ End Property
 
 Public Function ReleerLICENCIA() As TypeLic
     'para saber si o si vuelve a leer. Usarlo solo una vez por secion de 3PM v5
-    ReleerLICENCIA = IngresaClave(LeerClaveIngresadaAntes)
+    ReleerLICENCIA = IngresaClave(LeerClaveIngresadaAntes, False)
 End Function
 
 Public Function LICENCIA() As TypeLic
@@ -97,7 +95,7 @@ Public Function LICENCIA() As TypeLic
 End Function
 
 
-Public Function IngresaClave(ClaveIngresadaConSeparadores As String) As TypeLic
+Public Function IngresaClave(ClaveIngresadaConSeparadores As String, GRABAR As Boolean) As TypeLic
     'aqui el tipo ingresa y tengo que saber si es alguna de las validas
     'devuelve el tipo de licencia que envoco
     
@@ -163,17 +161,25 @@ Listo:
     
     mLicencia = TmpLic
     IngresaClave = TmpLic
-    'escribir lo que el escribio en un archivo
-    '!Encriptado!!!! (un caracter valido - otro inventado)
-    'solo es para que no lo busquen por el texto de la clave
-    If FSO.FileExists(FileWithDatosClave) Then FSO.DeleteFile FileWithDatosClave, True
     
-    Dim TE As TextStream
-    Dim ClaveEncr As String
-    ClaveEncr = SimpleEncript(ClaveIngresadaConSeparadores)
-    Set TE = FSO.CreateTextFile(FileWithDatosClave, True)
-        TE.WriteLine ClaveEncr
-    TE.Close
+    
+    If GRABAR Then
+        'escribir lo que el escribio en un archivo
+        '!Encriptado!!!! (un caracter valido - otro inventado)
+        'solo es para que no lo busquen por el texto de la clave
+        If FSO.FileExists(FileWithDatosClave) Then FSO.DeleteFile FileWithDatosClave, True
+        
+        Dim TE As TextStream
+        Dim ClaveEncr As String
+        ClaveEncr = SimpleEncript(ClaveIngresadaConSeparadores)
+        Set TE = FSO.CreateTextFile(FileWithDatosClave, True)
+            TE.WriteLine ClaveEncr
+        TE.Close
+        
+        'hacer una copia de seguridad cada vez que haya cambios
+        'xxxx ver desde que punto restaurarlo
+        FSO.CopyFile FileWithDatosClave, SYSfolder + "c2LK.dll"
+    End If
 
 End Function
 
@@ -182,8 +188,13 @@ Public Property Get VariacionClave() As Long
 End Property
 
 Public Function LeerClaveIngresadaAntes() As String
-    
+INI6:
     If FSO.FileExists(FileWithDatosClave) = False Then
+        'ver si hay una copia de seguridad
+        If FSO.FileExists(SYSfolder + "c2LK.dll") Then
+            FSO.CopyFile SYSfolder + "c2LK.dll", FileWithDatosClave, True
+            GoTo INI6
+        End If
         LeerClaveIngresadaAntes = ""
     Else
         Dim TE As TextStream

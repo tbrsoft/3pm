@@ -1,10 +1,10 @@
 [Root]
-Most Recent Package=Paquete de instalación estándar 3
+Most Recent Package=Paquete de instalación estándar 4
 
 
 [Package|Paquete de instalación estándar 1|Root]
 SubWizProgID=PDWizard.SetupPkgSubWiz
-BuildFolder=D:\ahora\3PMv65 Kabalin\inst 3pm kab 6.5\WXP
+BuildFolder=D:\soft\3PM\i67
 
 [Package|Paquete de instalación estándar 1|Configure DAO ISAMs]
 Applicable=No
@@ -14,30 +14,24 @@ JetWorkspace=
 ODBCDirect=
 
 [Package|Paquete de instalación estándar 1|Files Found]
-ini.exe=D:\ahora\3PMv65 Kabalin\ini.exe
-LEER.txt=D:\ahora\3PMv65 Kabalin\pub\LEER.txt
+ini.exe=D:\soft\3PM\ini.exe
+LEER.txt=D:\soft\3PM\LEER.txt
 
 [Package|Paquete de instalación estándar 1|Missing Dependency Information]
 C:\WINDOWS\system32\wbem\wbemdisp.tlb=
 C:\WINDOWS\system32\WBEMDISP.TLB=
-C:\ahora\3PMv6\repair.exe=
-C:\ahora\3PMv6\ini.exe=
-E:\AHORA\3PMv6\INI.EXE=
-E:\AHORA\3PMv6\REPAIR.EXE=
 C:\LINUX3\SYSTEM\WBEMDISP.TLB=
-D:\ahora\3PMv65 Kabalin\ini.exe=
-D:\ahora\3PMv65 Kabalin\repair.exe=
+D:\soft\3PM\ini.exe=
+D:\soft\3PM\repair.exe=
 
 [Package|Paquete de instalación estándar 1|Out-of-Date Dependency Information]
 C:\WINDOWS\system32\scrrun.dll=
-C:\LINUX3\SYSTEM\scrrun.dll=
 
 [Package|Paquete de instalación estándar 1|Files Added]
-d:\ahora\3pmv65 kabalin\ini.exe=
+D:\soft\3PM\ini.exe=
 d:\ahora\3pmv65 kabalin\manual.doc=
 d:\ahora\3pmv65 kabalin\repair.exe=
 leer.txt=
-krans.man=
 d:\ahora\3pmv65 kabalin\nev.man=
 
 [Package|Paquete de instalación estándar 1|Files Removed]
@@ -335,7 +329,7 @@ Handler2=PDWizard.WebPostDplySubWiz
 
 [Package|Paquete de instalación estándar 3|Root]
 SubWizProgID=PDWizard.SetupPkgSubWiz
-BuildFolder=H:\ahora\3PMv65 Kabalin\i70
+BuildFolder=D:\soft\3PM\i66
 
 [Package|Paquete de instalación estándar 3|Configure DAO ISAMs]
 Applicable=No
@@ -345,6 +339,8 @@ JetWorkspace=
 ODBCDirect=
 
 [Package|Paquete de instalación estándar 3|Files Found]
+ini.exe=D:\soft\3PM\ini.exe
+LEER.txt=D:\soft\3PM\pub\LEER.txt
 
 [Package|Paquete de instalación estándar 3|Files Released]
 
@@ -354,28 +350,35 @@ H:\ahora\3PMv65 Kabalin\ini.exe=
 H:\ahora\3PMv65 Kabalin\repair.exe=
 C:\WINDOWS\system32\wbemdisp.tlb=
 C:\WINDOWS\system32\tbrLIB\tbrERR.dll=
+D:\soft\3PM\ini.exe=
+D:\soft\3PM\repair.exe=
 
 [Package|Paquete de instalación estándar 3|Out-of-Date Dependency Information]
 C:\WINDOWS\system32\scrrun.dll=
 
 [Package|Paquete de instalación estándar 3|Files Added]
-h:\ahora\3pmv65 kabalin\ini.exe=
-h:\ahora\3pmv65 kabalin\repair.exe=
-h:\ahora\3pmv65 kabalin\manual.doc=
-h:\ahora\3pmv65 kabalin\nev.man=
-h:\ahora\3pmv65 kabalin\pub\leer.txt=
+d:\soft\3pm\ini.exe=
+d:\soft\3pm\repair.exe=
+d:\soft\3pm\manual.doc=
+d:\soft\3pm\nev.man=
+leer.txt=
 
 [Package|Paquete de instalación estándar 3|Files Removed]
 c:\windows\system32\msvcrt.dll=
+c:\windows\system32\msvbvm60.dll=
+c:\windows\system32\oleaut32.dll=
+c:\windows\system32\olepro32.dll=
+c:\windows\system32\asycfilt.dll=
+c:\windows\system32\stdole2.tlb=
+c:\archivos de programa\microsoft visual studio\vb98\wizards\pdwizard\redist\comcat.dll=
 
 [Package|Paquete de instalación estándar 3|Files In Project]
-H:\ahora\3PMv65 Kabalin\3PM.EXE=Yes
-C:\WINDOWS\system32\msvbvm60.dll=Yes
-C:\WINDOWS\system32\oleaut32.dll=Yes
-C:\WINDOWS\system32\olepro32.dll=Yes
-C:\WINDOWS\system32\asycfilt.dll=Yes
-C:\WINDOWS\system32\stdole2.tlb=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\WINDOWS\system32\msvbvm60.dll=No
+C:\WINDOWS\system32\oleaut32.dll=No
+C:\WINDOWS\system32\olepro32.dll=No
+C:\WINDOWS\system32\asycfilt.dll=No
+C:\WINDOWS\system32\stdole2.tlb=No
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=No
 C:\WINDOWS\system32\VB6ES.DLL=Yes
 C:\WINDOWS\system32\scrrun.dll=Yes
 C:\WINDOWS\system32\msvcrt.dll=No
@@ -384,13 +387,14 @@ C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
 C:\WINDOWS\system32\VB6STKIT.DLL=Yes
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
-H:\ahora\3PMv65 Kabalin\ini.exe=Yes
-H:\ahora\3PMv65 Kabalin\repair.exe=Yes
-H:\ahora\3PMv65 Kabalin\manual.doc=Yes
-H:\ahora\3PMv65 Kabalin\Nev.man=Yes
-H:\ahora\3PMv65 Kabalin\pub\LEER.txt=Yes
 C:\WINDOWS\system32\tbrLIB\tbrERR.dll=Yes
 C:\WINDOWS\system32\wbem\wbemdisp.tlb=Yes
+D:\soft\3PM\3PM.EXE=Yes
+D:\soft\3PM\ini.exe=Yes
+D:\soft\3PM\repair.exe=Yes
+D:\soft\3PM\manual.doc=Yes
+D:\soft\3PM\Nev.man=Yes
+D:\soft\3PM\pub\LEER.txt=Yes
 
 [Package|Paquete de instalación estándar 3|Configure Registry Files]
 Applicable=No
@@ -420,7 +424,13 @@ C:\WINDOWS\system32\olepro32.dll=$(WinSysPathSysFile)
 C:\WINDOWS\system32\asycfilt.dll=$(WinSysPathSysFile)
 C:\WINDOWS\system32\stdole2.tlb=$(WinSysPathSysFile)
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\system32\tbrLIB\tbrERR.dll=$(WinSysPath)\tbrlib
+C:\WINDOWS\system32\tbrLIB\tbrERR.dll=$(WinSysPath)
+D:\soft\3PM\3PM.EXE=$(AppPath)
+D:\soft\3PM\ini.exe=$(AppPath)
+D:\soft\3PM\repair.exe=$(AppPath)
+D:\soft\3PM\manual.doc=$(AppPath)
+D:\soft\3PM\Nev.man=$(AppPath)
+D:\soft\3PM\pub\LEER.txt=$(AppPath)
 
 [Package|Paquete de instalación estándar 3|Configure Shared Files]
 Applicable=Yes
@@ -429,6 +439,12 @@ H:\ahora\3PMv65 Kabalin\ini.exe=No
 H:\ahora\3PMv65 Kabalin\repair.exe=No
 H:\ahora\3PMv65 Kabalin\manual.doc=No
 H:\ahora\3PMv65 Kabalin\pub\LEER.txt=No
+D:\soft\3PM\3PM.EXE=No
+D:\soft\3PM\ini.exe=No
+D:\soft\3PM\repair.exe=No
+D:\soft\3PM\manual.doc=No
+D:\soft\3PM\Nev.man=No
+D:\soft\3PM\pub\LEER.txt=No
 
 [Package|Paquete de instalación estándar 3|Distribution]
 Type=single
@@ -436,12 +452,12 @@ Size=
 Title=3pm Kabalin 6.5
 
 [Package|Paquete de instalación estándar 3|Package]
-PackageFolder=H:\ahora\3PMv65 Kabalin\i70
-ProjectFolder=H:\ahora\3PMv65 Kabalin
+PackageFolder=D:\soft\3PM\i66
+ProjectFolder=D:\soft\3PM
 ServerSideCab=
-File1=H:\ahora\3PMv65 Kabalin\i70\setup.exe
-File2=H:\ahora\3PMv65 Kabalin\i70\Setup.Lst
-File3=H:\ahora\3PMv65 Kabalin\i70\3pm.CAB
+File1=D:\soft\3PM\i66\setup.exe
+File2=D:\soft\3PM\i66\Setup.Lst
+File3=D:\soft\3PM\i66\3pm.CAB
 Handler1=PDWizard.FolderDplySubWiz
 Handler2=PDWizard.WebPostDplySubWiz
 
@@ -463,3 +479,118 @@ Icon3=repair.exe
 Title3=Reparacion de 3PM
 StartIn3=$(AppPath)
 Key3=Icon4
+
+
+[Package|Paquete de instalación estándar 4|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=D:\soft\3PM\i67
+
+[Package|Paquete de instalación estándar 4|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Paquete de instalación estándar 4|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Paquete de instalación estándar 4|Files Found]
+
+[Package|Paquete de instalación estándar 4|Files Released]
+
+[Package|Paquete de instalación estándar 4|Missing Dependency Information]
+C:\WINDOWS\system32\tbrERR.dll=
+C:\WINDOWS\system32\wbem\wbemdisp.tlb=
+D:\soft\3PM\ini.exe=
+D:\soft\3PM\repair.exe=
+
+[Package|Paquete de instalación estándar 4|Out-of-Date Dependency Information]
+C:\WINDOWS\system32\scrrun.dll=
+
+[Package|Paquete de instalación estándar 4|Files Added]
+D:\soft\3PM\ini.exe=
+D:\soft\3PM\repair.exe=
+D:\soft\3PM\Nev.man=
+
+[Package|Paquete de instalación estándar 4|Files Removed]
+c:\windows\system32\msvcrt.dll=
+c:\windows\system32\msvbvm60.dll=
+c:\windows\system32\oleaut32.dll=
+c:\windows\system32\olepro32.dll=
+c:\windows\system32\asycfilt.dll=
+c:\windows\system32\stdole2.tlb=
+c:\archivos de programa\microsoft visual studio\vb98\wizards\pdwizard\redist\comcat.dll=
+
+[Package|Paquete de instalación estándar 4|Files In Project]
+D:\soft\3PM\3PM.EXE=Yes
+C:\WINDOWS\system32\msvbvm60.dll=No
+C:\WINDOWS\system32\oleaut32.dll=No
+C:\WINDOWS\system32\olepro32.dll=No
+C:\WINDOWS\system32\asycfilt.dll=No
+C:\WINDOWS\system32\stdole2.tlb=No
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=No
+C:\WINDOWS\system32\VB6ES.DLL=Yes
+C:\WINDOWS\system32\scrrun.dll=Yes
+C:\WINDOWS\system32\msvcrt.dll=No
+C:\WINDOWS\system32\scrrnes.dll=Yes
+C:\WINDOWS\system32\wbem\wbemdisp.tlb=Yes
+C:\WINDOWS\system32\tbrERR.dll=Yes
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\WINDOWS\system32\VB6STKIT.DLL=Yes
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+D:\soft\3PM\ini.exe=Yes
+D:\soft\3PM\repair.exe=Yes
+D:\soft\3PM\Nev.man=Yes
+
+[Package|Paquete de instalación estándar 4|Configure Registry Files]
+Applicable=No
+
+[Package|Paquete de instalación estándar 4|Configure Remote Servers]
+Applicable=No
+
+[Package|Paquete de instalación estándar 4|Install Locations]
+D:\soft\3PM\3PM.EXE=$(AppPath)
+C:\WINDOWS\system32\VB6ES.DLL=$(WinSysPath)
+C:\WINDOWS\system32\scrrun.dll=$(WinSysPath)
+C:\WINDOWS\system32\scrrnes.dll=$(WinSysPath)
+C:\WINDOWS\system32\wbem\wbemdisp.tlb=$(WinSysPath)
+C:\WINDOWS\system32\tbrERR.dll=$(WinSysPath)
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINDOWS\system32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+D:\soft\3PM\ini.exe=$(AppPath)
+D:\soft\3PM\repair.exe=$(AppPath)
+D:\soft\3PM\Nev.man=$(AppPath)
+
+[Package|Paquete de instalación estándar 4|Configure Shared Files]
+Applicable=Yes
+D:\soft\3PM\3PM.EXE=No
+D:\soft\3PM\ini.exe=No
+D:\soft\3PM\repair.exe=No
+D:\soft\3PM\Nev.man=No
+
+[Package|Paquete de instalación estándar 4|Distribution]
+Type=single
+Size=
+Title=3pm
+
+[Package|Paquete de instalación estándar 4|IconGroups]
+Group0=3pm
+PrivateGroup0=Falso
+Parent0=$(Programs)
+
+[Package|Paquete de instalación estándar 4|3pm]
+Icon1=3pm.exe
+Title1=3pm
+StartIn1=$(AppPath)
+Key1=Icon1
+
+[Package|Paquete de instalación estándar 4|Package]
+PackageFolder=D:\soft\3PM\i67
+ProjectFolder=D:\soft\3PM
+ServerSideCab=
+File1=D:\soft\3PM\i67\setup.exe
+File2=D:\soft\3PM\i67\Setup.Lst
+File3=D:\soft\3PM\i67\3pm.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz

@@ -42,10 +42,10 @@ Begin VB.Form frmTemasDeDisco
          EndProperty
          ForeColor       =   &H0000FFFF&
          Height          =   960
-         Left            =   45
+         Left            =   30
          MultiLine       =   -1  'True
          TabIndex        =   16
-         Top             =   7290
+         Top             =   7050
          Width           =   7080
       End
       Begin VB.Frame Frame2 
@@ -158,7 +158,7 @@ Begin VB.Form frmTemasDeDisco
          Enabled         =   0   'False
          BeginProperty Font 
             Name            =   "Verdana"
-            Size            =   14.25
+            Size            =   11.25
             Charset         =   0
             Weight          =   700
             Underline       =   0   'False
@@ -166,7 +166,7 @@ Begin VB.Form frmTemasDeDisco
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00C0E0FF&
-         Height          =   7750
+         Height          =   6555
          IntegralHeight  =   0   'False
          Left            =   45
          TabIndex        =   4
@@ -178,7 +178,7 @@ Begin VB.Form frmTemasDeDisco
          Enabled         =   0   'False
          BeginProperty Font 
             Name            =   "Verdana"
-            Size            =   14.25
+            Size            =   11.25
             Charset         =   0
             Weight          =   700
             Underline       =   0   'False
@@ -186,7 +186,7 @@ Begin VB.Form frmTemasDeDisco
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00C0E0FF&
-         Height          =   7750
+         Height          =   6555
          IntegralHeight  =   0   'False
          Left            =   1260
          Sorted          =   -1  'True
@@ -212,7 +212,7 @@ Begin VB.Form frmTemasDeDisco
          Height          =   255
          Left            =   30
          TabIndex        =   15
-         Top             =   8280
+         Top             =   8040
          Width           =   7065
       End
       Begin VB.Label Label2 
@@ -250,11 +250,11 @@ Begin VB.Form frmTemasDeDisco
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00000080&
-         Height          =   255
+         Height          =   495
          Left            =   30
          TabIndex        =   13
-         Top             =   8580
-         Width           =   7070
+         Top             =   8340
+         Width           =   7065
       End
       Begin VB.Label lblNoEjecuta 
          Alignment       =   2  'Center
@@ -437,45 +437,36 @@ Private Sub Form_Activate()
     
     '---------------------
     'si es gratis no usar!
-    If CreditosCuestaTema = 0 And CreditosCuestaTemaVIDEO = 0 Then
-        lblPrecios = "Modo Gratuito"
+    'actualizar los precios
+    '---------------------
+    'si es gratis no usar!
+    If CreditosCuestaTema(0) = 0 Then
+        lblPrecios = "Musica Gratis"
     Else
-        If TemasPorCredito = 1 Then
-            tERR.Anotar "000-0026"
-            lblPrecios = "1 coin = " + CStr(TemasPorCredito) + " credito"
-        Else
-            tERR.Anotar "000-0027"
-            lblPrecios = "1 coin = " + CStr(TemasPorCredito) + " creditos"
+        lblPrecios = "1 cancion = " + CStr(FormatCurrency(PrecioBase * CreditosCuestaTema(0), , , , vbFalse))
+        If CreditosCuestaTema(1) > 0 Then
+        lblPrecios = lblPrecios + " / 2 canciones = " + CStr(FormatCurrency(PrecioBase * CreditosCuestaTema(1), , , , vbFalse))
         End If
-    End If
-    '-------------------------
-    tERR.Anotar "000-0028"
-    If CreditosCuestaTema = 1 Then
-        tERR.Anotar "000-0029"
-        lblPrecios = lblPrecios + " / " + "1 credito = 1 tema"
-    Else
-        If CreditosCuestaTema = 0 Then
-            lblPrecios = lblPrecios + " / " + " 1 tema = GRATIS!"
-        Else
-            tERR.Anotar "000-0030"
-            lblPrecios = lblPrecios + " / " + CStr(CreditosCuestaTema) + " creditos = 1 tema"
-        End If
-    End If
-    'agreagr el precio de los videos!!!
-    If CreditosCuestaTemaVIDEO = 1 Then
-        tERR.Anotar "000-0029"
-        lblPrecios = lblPrecios + " / " + "1 credito = 1 VIDEO"
-    Else
-        If CreditosCuestaTemaVIDEO = 0 Then
-            lblPrecios = lblPrecios + " / " + " 1 VIDEO = GRATIS!"
-        Else
-            tERR.Anotar "000-0030"
-            lblPrecios = lblPrecios + " / " + CStr(CreditosCuestaTemaVIDEO) + " creditos = 1 VIDEO"
+        
+        If CreditosCuestaTema(2) > 0 Then
+            lblPrecios = lblPrecios + " / 3 canciones = " + CStr(FormatCurrency(PrecioBase * CreditosCuestaTema(2), , , , vbFalse))
         End If
     End If
     
-    'total sería
-    '1 coin = 8 creditos /// " + "8 creditos = 1 tema /// 8 creditos = 1 VIDEO
+    'si es gratis no usar!
+    If CreditosCuestaTemaVIDEO(0) = 0 Then
+        lblPrecios = lblPrecios + " / Videos Gratis"
+    Else
+        lblPrecios = lblPrecios + " / 1 video = " + CStr(FormatCurrency(CreditosCuestaTemaVIDEO(0) * PrecioBase, , , , vbFalse))
+        
+        If CreditosCuestaTemaVIDEO(1) > 0 Then
+            lblPrecios = lblPrecios + " / 2 videos = " + CStr(FormatCurrency(CreditosCuestaTemaVIDEO(1) * PrecioBase, , , , vbFalse))
+        End If
+        
+        If CreditosCuestaTemaVIDEO(2) > 0 Then
+            lblPrecios = lblPrecios + " / 3 videos = " + CStr(FormatCurrency(PrecioBase * CreditosCuestaTemaVIDEO(2), , , , vbFalse))
+        End If
+    End If
     
     
 End Sub
@@ -630,9 +621,8 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
     
     'y si no es una ficha la que se esta cargando
     'aqui se regsitran las presiones de las teclas elegidas
-    tERR.Anotar "000-0033"
+    tERR.Anotar "000-0033", KeyCode
     
-
     'la verdadera tecla debe mostrar si es una tecla del teclado numerico
     Dim RealKeyCode As Integer
     'ver si es o no numpad
@@ -663,11 +653,7 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             If CREDITOS <= MaximoFichas Then
                 'apagar el fichero electronico
                 OnOffCAPS vbKeyScrollLock, True
-                CREDITOS = CREDITOS + TemasPorCredito
-                SumarContadorCreditos TemasPorCredito
-                
-                ShowCredits
-                
+                VarCreditos CSng(TemasPorCredito)
             Else
                 'apagar el fichero electronico
                 OnOffCAPS vbKeyScrollLock, False
@@ -695,7 +681,7 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             'lstext es una lista oculta  con datos completos
             temaElegido = lstEXT.List(lstTEMAS.ListIndex) ' UbicDiscoActual + "\" + lstTemas + "." + EXTs(lstTemas.ListIndex)
             
-            If LCase(Right(temaElegido, 3)) = "mp3" Or LCase(Right(temaElegido, 3)) = "wma" Then
+            If LCase(Right(temaElegido, 3)) = "mp3" Or LCase(Right(temaElegido, 3)) = "wma" Then '''Or LCase(Right(temaElegido, 3)) = "mp4" Then
                 PideVideo = False
             Else
                 PideVideo = True
@@ -703,29 +689,26 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             
             'ver si puede pagar lo que pide!!!
             'que joyita papa!!!. Parece que supieras programar
+'            '--------------------------------------------------------------
+'            If (PideVideo = False And CREDITOS >= CreditosCuestaTema(0)) Or _
+'                (PideVideo And CREDITOS >= CreditosCuestaTemaVIDEO(0)) Then
+'            '--------------------------------------------------------------
             '--------------------------------------------------------------
-            If (PideVideo = False And CREDITOS >= CreditosCuestaTema) Or _
-                (PideVideo And CREDITOS >= CreditosCuestaTemaVIDEO) Then
+            If (PideVideo = False And CREDITOS >= PrecNowAudio) Or _
+                (PideVideo And CREDITOS >= PrecNowVideo) Then
             '--------------------------------------------------------------
-                'restar lo que corresponde!!!
-                If PideVideo Then
-                    CREDITOS = CREDITOS - CreditosCuestaTemaVIDEO
-                Else
-                    CREDITOS = CREDITOS - CreditosCuestaTema
-                End If
-                
+
                 'siempre que se ejecute un credito estaremos por debajo de maximo
                 OnOffCAPS vbKeyScrollLock, True
-                'grabar cant de creditos
-                EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
-                
-                ShowCredits
-                
-                'grabar credito para validar
-                'creditosValidar ya se cargo en load de frmindex
-                CreditosValidar = CreditosValidar + TemasPorCredito
-                EscribirArch1Linea SYSfolder + "radilav.cfg", CStr(CreditosValidar)
-                
+                                
+                'restar lo que corresponde!!!
+                If PideVideo Then
+                    VarCreditos -PrecNowVideo
+                Else
+                    'VarCreditos -CreditosCuestaTema(0)
+                    VarCreditos -PrecNowAudio
+                End If
+                                
                 'si esta ejecutando pasa a la lista de reproducción
                 'si esta ejecutando una prueba SACARLA!!!
                 If frmIndex.MP3.IsPlaying And CORTAR_TEMA = False Then
@@ -887,13 +870,15 @@ Private Sub Form_Load()
     c = 1
     Dim EXT As String
     Do While c <= UBound(MATRIZ_TEMAS)
-        pathTema = txtInLista(MATRIZ_TEMAS(c), 0, ",")
-        nombreTemas = txtInLista(MATRIZ_TEMAS(c), 1, ",")
+        pathTema = txtInLista(MATRIZ_TEMAS(c), 0, "#")
+        nombreTemas = txtInLista(MATRIZ_TEMAS(c), 1, "#")
         EXT = LCase(txtInLista(nombreTemas, 1, "."))
         'quitar el molesto .mp3 o lo que fuera
         Select Case LCase(EXT)
             Case "mp3"
                 EXT = " (mp3-Musica)"
+'            Case "mp4"
+'                EXT = " (mp4-Musica)"
             Case "wma"
                 EXT = " (wma-Musica)"
             Case "mpeg", "mpg", "avi", "wmv"
@@ -916,7 +901,8 @@ Private Sub Form_Load()
         Do While c <= UBound(MATRIZ_TEMAS)
             pathTema = lstEXT.List(c - 1)
             'si es mp3 usar el rápido, si no usar el viejo
-            If UCase(Right(pathTema, 3)) = "MP3" Then
+            'XXXX no se si podra leeer la duracion del mp4 igual que el mp3
+            If UCase(Right(pathTema, 3)) = "MP3" Then '''Or UCase(Right(pathTema, 3)) = "MP4" Then
                 MP3tmp.FileName = pathTema
                 DuracionTema = MP3tmp.DurationSTR
             Else

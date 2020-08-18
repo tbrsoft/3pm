@@ -351,9 +351,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
-
-
-
+    
     'la verdadera tecla debe mostrar si es una tecla del teclado numerico
     Dim RealKeyCode As Integer
     'ver si es o no numpad
@@ -382,18 +380,7 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             If CREDITOS <= MaximoFichas Then
                 'apagar el fichero electronico
                 OnOffCAPS vbKeyScrollLock, True
-                CREDITOS = CREDITOS + TemasPorCredito
-                SumarContadorCreditos TemasPorCredito
-                'grabar cant de creditos
-                EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
-                
-                ShowCredits
-                
-                'grabar credito para validar
-                'creditosValidar ya se cargo en load de frmindex
-                CreditosValidar = CreditosValidar + TemasPorCredito
-                EscribirArch1Linea SYSfolder + "radilav.cfg", CStr(CreditosValidar)
-                
+                VarCreditos CSng(TemasPorCredito)
             Else
                 'apagar el fichero electronico
                 OnOffCAPS vbKeyScrollLock, False
@@ -414,7 +401,7 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             End If
             temaElegido = MTXtop(PuestoElegido + 1)
             
-            If LCase(Right(temaElegido, 3)) = "mp3" Or LCase(Right(temaElegido, 3)) = "wma" Then
+            If LCase(Right(temaElegido, 3)) = "mp3" Or LCase(Right(temaElegido, 3)) = "wma" Then ''' Or LCase(Right(temaElegido, 3)) = "mp4" Then
                 PideVideo = False
             Else
                 PideVideo = True
@@ -422,22 +409,19 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             'ver si puede pagar lo que pide!!!
             'que joyita papa!!!. Parece que supieras programar
             '--------------------------------------------------------------
-            If (PideVideo = False And CREDITOS >= CreditosCuestaTema) Or _
-                (PideVideo And CREDITOS >= CreditosCuestaTemaVIDEO) Then
+            If (PideVideo = False And CREDITOS >= PrecNowAudio) Or _
+                (PideVideo And CREDITOS >= PrecNowVideo) Then
             '--------------------------------------------------------------
+            'siempre que se ejecute un credito estaremos por debajo de maximo
+                OnOffCAPS vbKeyScrollLock, True
+                                
                 'restar lo que corresponde!!!
                 If PideVideo Then
-                    CREDITOS = CREDITOS - CreditosCuestaTemaVIDEO
+                    VarCreditos -PrecNowVideo
                 Else
-                    CREDITOS = CREDITOS - CreditosCuestaTema
+                    VarCreditos -PrecNowAudio
                 End If
-                'siempre que se ejecute un credito estaremos por debajo de maximo
-                OnOffCAPS vbKeyScrollLock, True
-                
-                EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
-                
-                ShowCredits
-                
+                                
                 'si esta ejecutando pasa a la lista de reproducción
                 If frmIndex.MP3.IsPlaying And CORTAR_TEMA = False Then
                     'pasar a la lista de reproducción
@@ -479,7 +463,7 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub Form_Load()
-    
+    YaInicio = 0
     Image1.Picture = LoadPicture(SYSfolder + "f61.dlw")
     'si es SL cambiar
     If K.LICENCIA = HSuperLicencia Then

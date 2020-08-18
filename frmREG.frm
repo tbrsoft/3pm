@@ -7,6 +7,7 @@ Begin VB.Form frmREG
    ClientLeft      =   45
    ClientTop       =   285
    ClientWidth     =   11910
+   KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
@@ -15,6 +16,25 @@ Begin VB.Form frmREG
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    WindowState     =   2  'Maximized
+   Begin VB.CommandButton Command6 
+      BackColor       =   &H00C0E0FF&
+      Caption         =   "Recuperar Licencia, ya estaba cargada (tecla Izquierda 6 veces)"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   1065
+      Left            =   9960
+      Style           =   1  'Graphical
+      TabIndex        =   22
+      Top             =   7080
+      Width           =   1905
+   End
    Begin VB.CommandButton Command5 
       BackColor       =   &H0080C0FF&
       Cancel          =   -1  'True
@@ -467,7 +487,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Dim GGG As String
-
+Dim LastTeclas As String
 Dim CarpetaSys As String
 
 Private Sub Check1_Click()
@@ -486,8 +506,9 @@ Private Sub Command1_Click()
         Exit Sub
     End If
     
-   'dar ingreso a la clave
-    K.IngresaClave CodigoUnido
+   'dar ingreso a la clave y la grabo solo aqui
+    Dim zz
+    zz = K.IngresaClave(CodigoUnido, True)
         
     If K.LICENCIA = aSinCargar Then
         Dim TXTmsg As String
@@ -537,17 +558,37 @@ Private Sub Command5_Click()
     frmCompraYA.Show 1
 End Sub
 
+Private Sub Command6_Click()
+    A = Shell(AP + "repair.exe", vbNormalFocus)
+    'MsgBox A
+    Unload Me
+    End
+End Sub
+
+Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
+    LastTeclas = LastTeclas + Chr(KeyCode)
+    LastTeclas = Right(LastTeclas, 6)
+    Dim YoBusco As String
+    YoBusco = String(6, Chr(TeclaIZQ))
+    If UCase(LastTeclas) = UCase(YoBusco) Then
+        Command6_Click
+    End If
+End Sub
+
 Private Sub Form_Load()
+    LastTeclas = "??????"
        
     If FSO.FileExists(SYSfolder + "oddtb.jut") = False Then
         'ESCRIBIRLO!!!
         EscribirArch1Linea SYSfolder + "oddtb.jut", AP + "discos"
     End If
     
-    Dim tORIG As String
-    tORIG = LeerArch1Linea(SYSfolder + "oddtb.jut")
+    'para que lo leo??? lo saque 31/05/06
+    'Dim tORIG As String
+    'tORIG = LeerArch1Linea(SYSfolder + "oddtb.jut")
     
-    
+    'para recuperaciones
+    TeclaIZQ = Val(LeerConfig("TeclaIzquierda", "90"))
     IDIOMA = LeerConfig("Idioma", "Español")
     'descomprimir el pakage de imágenes siemrpe que se inicia para evitar
     'violaciones. La version exclusiva puede ser un paquete generado especialmente
@@ -589,12 +630,6 @@ Private Sub Form_Load()
     Set JuSe = Nothing
     
     Image1.Picture = LoadPicture(SYSfolder + "f61.dlw")
-    'si es SL cambiar
-    If K.LICENCIA = HSuperLicencia Then
-        If FSO.FileExists(WINfolder + "SL\indexchi.tbr") Then
-            Image1.Picture = LoadPicture(WINfolder + "SL\indexchi.tbr")
-        End If
-    End If
     
     '------------------------------------------------------
     'dejar cragado el frmVideo
@@ -893,6 +928,9 @@ YaEstaIMG:
     End If
     
     If K.LICENCIA = HSuperLicencia Then
+        If FSO.FileExists(WINfolder + "SL\indexchi.tbr") Then
+            Image1.Picture = LoadPicture(WINfolder + "SL\indexchi.tbr")
+        End If
         If ClaveAdmin = "demo" Then
             'o ha crakeado o todavia no ha instalado la actualizacion
             'que correspónde que le envie si compro

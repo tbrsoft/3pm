@@ -41,9 +41,9 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
     frmIndex.lblTemaSonando2 = QuitarNumeroDeTema(nombreTEMA) + " / " + nombreDISCO
     
     tERR.Anotar "003-0009"
-    If UCase(FSO.GetExtensionName(tema)) <> "MP3" And UCase(FSO.GetExtensionName(tema)) <> "WMA" Then
+    If UCase(FSO.GetExtensionName(tema)) <> "MP3" And UCase(FSO.GetExtensionName(tema)) <> "WMA" Then '''And UCase(FSO.GetExtensionName(tema)) <> "MP4" Then
         EsVideo = True
-        tERR.Anotar "003-0010"
+        tERR.Anotar "003-0010", vidFullScreen, Salida2, HabilitarVUMetro, Is3pmExclusivo
         'cerrar el protector si estaba activo
         Unload frmProtect
         'acomodar los controles en modo video
@@ -204,11 +204,11 @@ NoLeerOtros:
     tERR.Anotar "003-0042"
     frmIndex.lblPuesto = "Calculando..."
     frmIndex.lblPuesto2 = "Calculando..."
-    tERR.Anotar "003-0043"
+    tERR.Anotar "003-0043", tema, nombreTEMA, nombreDISCO
     'contabilizar para el ranking solo si lo pide
     If SumaRanking Then TOP10 tema, nombreTEMA, nombreDISCO
     'mostrar el puesto que esta en el ranking
-    tERR.Anotar "003-0044"
+    tERR.Anotar "003-0044", tema
     frmIndex.lblPuesto = "Rank # " + PuestoN(tema)
     frmIndex.lblPuesto2 = "Rank # " + PuestoN(tema)
     
@@ -216,7 +216,7 @@ NoLeerOtros:
     With frmIndex.MP3
         tERR.Anotar "003-0046"
         .FileName = tema
-        tERR.Anotar "003-0047"
+        tERR.Anotar "003-0047", EsVideo, Salida2
         If EsVideo Then
             If Salida2 Then
                 'ESCONDER LAS PUBLICIDADES EN LA SALIDA DE tv!!!!!
@@ -230,6 +230,10 @@ NoLeerOtros:
                 tERR.Anotar "003-0048"
                 .DoOpenVideo "child", frmIndex.picVideo.hwnd, 0, 0, _
                     (frmIndex.picVideo.Width / 15), (frmIndex.picVideo.Height / 15)
+                '**************************************************
+                'overlapped me saca como una ventana nueva
+                'popup es como overlapped pero sin barra de titulo
+                '**************************************************
                 frmIndex.picVideo.Visible = True
             End If
         Else
@@ -272,7 +276,7 @@ ErrEjecutarTema:
     Exit Sub
     
 ErrorPavo:
-    tERR.AppendLog tERR.ErrToTXT(Err), "MpAnd.BAS.SetFocus" + ".acpr"
+    'tERR.AppendLog tERR.ErrToTXT(Err), "MpAnd.BAS.SetFocus" + ".acpr"
     'WriteTBRLog "ERROR EN EJECUTAR VIDEO SETFOCUS. ERROR OMITIDO. Descripcion: " + vbCrLf + _
         Err.Description + frmIndex.MP3.FileName, True
     Resume Next
@@ -280,7 +284,7 @@ End Sub
 
 Public Sub EMPEZAR_SIGUIENTE()
     On Local Error GoTo ErrEmpSig
-    tERR.Anotar "003-0054"
+    tERR.Anotar "003-0054", UBound(MATRIZ_LISTA)
     With frmIndex
         'generar el endplay si o si
         'si hay algun elemento en la lista ejecutarlo
@@ -375,7 +379,7 @@ End Sub
 Public Sub TOP10(nameARCH As String, nameTEMA As String, nameDISCO As String)
     'On Error GoTo notop
     'ver si existe ranking.tbr
-    tERR.Anotar "003-0078"
+    tERR.Anotar "003-0078", nameARCH
     If FSO.FileExists(AP + "ranking.tbr") = False Then
         tERR.Anotar "003-0079"
         FSO.CreateTextFile AP + "ranking.tbr", True
@@ -402,19 +406,19 @@ Public Sub TOP10(nameARCH As String, nameTEMA As String, nameDISCO As String)
         'cada linea es "puntos,arch,nombretema,nombredisco"
         tERR.Anotar "003-0084"
         TT = TE.ReadLine
-        tERR.Anotar "003-0085"
+        tERR.Anotar "003-0085", TT
         If TT <> "" Then
             tERR.Anotar "003-0086"
             z = z + 1
-            tERR.Anotar "003-0087"
+            tERR.Anotar "003-0087", z
             ThisPTS = Val(txtInLista(TT, 0, ","))
-            tERR.Anotar "003-0088"
+            tERR.Anotar "003-0088", ThisPTS
             ThisArch = txtInLista(TT, 1, ",")
-            tERR.Anotar "003-0089"
+            tERR.Anotar "003-0089", ThisArch
             ThisTEMA = txtInLista(TT, 2, ",")
-            tERR.Anotar "003-0090"
+            tERR.Anotar "003-0090", ThisTEMA
             ThisDISCO = txtInLista(TT, 3, ",")
-            tERR.Anotar "003-0091"
+            tERR.Anotar "003-0091", ThisDISCO
             ReDim Preserve mtxTOP10(z)
             'comparar este tema con el elegido actual
             tERR.Anotar "003-0092"
@@ -470,11 +474,11 @@ Public Sub TOP10(nameARCH As String, nameTEMA As String, nameDISCO As String)
     VarMTX = 0
     tERR.Anotar "003-0111"
     For mtx = 1 To UBound(mtxTOP10)
-        tERR.Anotar "003-0112"
+        tERR.Anotar "003-0112", mtx
         ReDim Preserve MTXsort(mtx + 1)
         tERR.Anotar "003-0113"
         PTactual = txtInLista(mtxTOP10(mtx), 0, ",")
-        tERR.Anotar "003-0114"
+        tERR.Anotar "003-0114", PTactual, PTnuevo
         If PTactual = PTnuevo And YaSeEscribioDatoNuevo = False Then
             tERR.Anotar "003-0115"
             MTXsort(mtx) = DatoNuevoFull

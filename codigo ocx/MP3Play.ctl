@@ -145,20 +145,30 @@ Public Function IsPlaying() As Boolean
     Else
         tERR.Anotar "002-0029"
         Static s As String * 30
-        tERR.Anotar "002-0030"
+        tERR.Anotar "002-0030", HabilitarVUMetro, NoVumVID
         Ret = mciSendString("status MP3Play mode", s, Len(s), 0)
-        tERR.Anotar "002-0031"
+        tERR.Anotar "002-0031", Ret
         If Ret <> 0 And Ret <> 263 Then '263 es cuando no ha abierto nada
             LogErrorMCI Ret
             'no se pudo modificar el volumen
             tERR.AppendLog "ERR IsPlaying=Status:" + CStr(Ret)
             'WriteLog "No se pudo definir el estado de ejecucion." + ". Tema: " + m_FileName + " Function IsPlaying", False
         End If
-        tERR.Anotar "002-0034"
-        IsPlaying = (Mid$(s, 1, 7) = "playing")
+        'EN ESTE CASO ES NULO O ALGO ASI
+        'YA QUE MCI NO TIENE LA CAPACIDAD DE STATUS!!!
+        If Ret = 274 Then
+            tERR.Anotar "002-0034b"
+            IsPlaying = True
+        Else
+            tERR.Anotar "002-0034", s
+            IsPlaying = (Mid(s, 1, 7) = "playing")
+        End If
+        
+        IsPlaying = (Mid(s, 1, 7) = "playing")
     End If
     Exit Function
 ERmp3:
+    tERR.Anotar "002-0034b"
     tERR.AppendLog tERR.ErrToTXT(Err), "MpPlayCtl" + ".acpx"
     Resume Next
 End Function
@@ -192,7 +202,7 @@ Public Function DoOpen()
     lenShort = GetShortPathName(m_FileName, TMP, 255)
     'la funcion transforma todo a 8.3 por que con espacioes
     'el reproductor no anda. JOYA JOYA JOYA
-    tERR.Anotar "002-0045"
+    tERR.Anotar "002-0045", m_FileName
     FileNameSHORT = Left$(TMP, lenShort)
     tERR.Anotar "002-0046"
     glo_hWnd = hwnd
@@ -242,7 +252,7 @@ Public Function DoOpenVideo(Style As String, HWind As Long, _
     Dim Ret As String * 128
     tERR.Anotar "002-0059"
     Ret = mciSendString("Close MP3Play", 0, 0, 0)
-    tERR.Anotar "002-0060"
+    tERR.Anotar "002-0060", Ret
     If Ret <> 0 And Ret <> 263 Then '263 es cuando no ha abierto nada
         LogErrorMCI Ret
         'no se pudo modificar el volumen
@@ -250,13 +260,12 @@ Public Function DoOpenVideo(Style As String, HWind As Long, _
     End If
     tERR.Anotar "002-0063"
     Dim cmdToDo As String * 255
-
-    tERR.Anotar "002-0064"
     Dim TMP As String * 255
     Dim lenShort As Long
     Dim FileNameSHORT As String
     tERR.Anotar "002-0065"
     If Dir(m_FileName) = "" Then
+        tERR.Anotar "002-0065b"
         tERR.AppendLog "NoExist.DoOpenVid.acqh", m_FileName
         Exit Function
     End If
@@ -264,29 +273,44 @@ Public Function DoOpenVideo(Style As String, HWind As Long, _
     lenShort = GetShortPathName(m_FileName, TMP, 255)
     'la funcion transforma todo a 8.3 por que con espacioes
     'el reproductor no anda. JOYA JOYA JOYA
-    tERR.Anotar "002-0069"
+    tERR.Anotar "002-0069", m_FileName
     'volu = mciGetDeviceID(lenShort)
     FileNameSHORT = Left$(TMP, lenShort)
-    tERR.Anotar "002-0070"
+    tERR.Anotar "002-0070", FileNameSHORT
     glo_hWnd = hwnd
-    tERR.Anotar "002-0071"
-    cmdToDo = "open " & FileNameSHORT & " type MPEGVideo Alias MP3Play style " + Style + " parent " + CStr(HWind)
-    tERR.Anotar "002-0072"
+    tERR.Anotar "002-0071", HabilitarVUMetro, NoVumVID, HWind
+    cmdToDo = "open " & FileNameSHORT & " type MPEGVideo Alias MP3Play style " + _
+        Style + " parent " + CStr(HWind)
+    tERR.Anotar "002-0072", cmdToDo '                         xxxxxx
     dwReturn = mciSendString(cmdToDo, 0&, 0&, 0&)
-    tERR.Anotar "002-0073"
+    tERR.Anotar "002-0073", dwReturn, Salida2, Style, HWind
     If dwReturn <> 0 Then
         LogErrorMCI dwReturn
         'no se pudo modificar el volumen
         tERR.AppendLog "MpPlay.DoOpenVid.acqh." + CStr(dwReturn), m_FileName
     End If
-    tERR.Anotar "002-0076"
-    cmdToDo = "put MP3Play window at " + CStr(X1) + " " + CStr(Y1) + " " + CStr(X2) + " " + CStr(Y2) + " "
-    tERR.Anotar "002-0077"
+    tERR.Anotar "002-0076", X1, X2, Y1, Y2
+    cmdToDo = "put MP3Play window at " + CStr(X1) + " " + CStr(Y1) + _
+        " " + CStr(X2) + " " + CStr(Y2) + " "
+    tERR.Anotar "002-0077", Salida2, Style, HWind
     dwReturn = mciSendString(cmdToDo, 0&, 0&, 0&)
+    'lo uso para ver info de los videos que andan bien tambien
+    'tERR.AppendLog "ADD77:" + CStr(dwReturn), m_FileName
     If dwReturn <> 0 Then
-        LogErrorMCI dwReturn
-        'no se pudo modificar el volumen
-        tERR.AppendLog "MpPlay.DoOpenVid.WindowAt.acqi." + CStr(dwReturn), m_FileName
+        '********************
+        'si es 346 es que no tiene ventana de presentacion (base+90=MCIERR_NO_WINDOW)
+        '¿¿¿¿¿????????
+        'probe con style popup y overlapped y no sirven ni solucionan
+        If dwReturn = 346 Then
+            tERR.AppendLog "MCIERR_NO_WINDOW=346. No hay ventana de presentacion!!!" + CStr(dwReturn), m_FileName
+            'pasa con videos con codecs nuevos que al cargarse si funciona en
+            'WMP pero no en 3PM!!!!!!!!!!!!!!!!!!!
+        '********************
+        Else
+            LogErrorMCI dwReturn
+            'no se pudo modificar el volumen
+            tERR.AppendLog "MpPlay.DoOpenVid.WindowAt.acqi." + CStr(dwReturn), m_FileName
+        End If
     End If
     
     'Dim s As String
@@ -313,7 +337,7 @@ End Function
 
 Public Function DoPlay(Optional FullScreen As Boolean = False)
     On Error GoTo ERmp3
-    tERR.Anotar "002-0082"
+    tERR.Anotar "002-0082", CStr(FullScreen)
     If FullScreen Then
         dwReturn = mciSendString("play MP3Play fullscreen", 0, 0, 0)
     Else
@@ -479,9 +503,9 @@ Public Function Falta() As String
     Dim MINS As Long, SEC As Long
     tERR.Anotar "002-0131"
     SEC = FaltaInSec
-    tERR.Anotar "002-0132"
+    tERR.Anotar "002-0132", SEC
     If SEC < 60 Then Falta = "0:" & Format(SEC, "00")
-    tERR.Anotar "002-0133"
+    tERR.Anotar "002-0133", SEC
     If SEC > 59 Then
         tERR.Anotar "002-0134"
         MINS = Int(SEC / 60)
@@ -501,12 +525,16 @@ Public Function LengthInSec()
     
     On Local Error GoTo ErrFunc
     Static s As String * 30
-    tERR.Anotar "002-0138"
+    tERR.Anotar "002-0138b", m_FileName
     dwReturn = mciSendString("status MP3Play length", s, Len(s), 0)
     If dwReturn <> 0 Then
+        tERR.Anotar "MpPlayCtl.LengthInSec.Len." + m_FileName, ".acqw"
+        
+        tERR.AppendLog "MpPlayCtl.LengthInSec.Len." + m_FileName, ".acqw"
+        
         LogErrorMCI dwReturn
         'no se pudo modificar el volumen
-        tERR.AppendLog "MpPlayCtl.LengthInSec.Len." + m_FileName, ".acqw"
+        
     End If
     tERR.Anotar "002-0141"
     'esta funcion anda joya!!!!

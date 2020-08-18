@@ -1,6 +1,6 @@
 VERSION 5.00
 Begin VB.Form frmVIDEO 
-   BackColor       =   &H00800000&
+   BackColor       =   &H00400000&
    BorderStyle     =   0  'None
    Caption         =   "Form1"
    ClientHeight    =   5820

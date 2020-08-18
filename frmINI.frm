@@ -58,7 +58,7 @@ Begin VB.Form frmINI
       Height          =   90
       Left            =   1320
       TabIndex        =   2
-      Top             =   8070
+      Top             =   8160
       Width           =   435
    End
    Begin VB.Label lblINI 
@@ -66,10 +66,10 @@ Begin VB.Form frmINI
       BackStyle       =   0  'Transparent
       Caption         =   "Contando Discos: 00"
       BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   8.25
+         Name            =   "Courier New"
+         Size            =   14.25
          Charset         =   0
-         Weight          =   400
+         Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -78,8 +78,8 @@ Begin VB.Form frmINI
       Height          =   285
       Left            =   1350
       TabIndex        =   1
-      Top             =   7470
-      Width           =   4620
+      Top             =   7440
+      Width           =   8970
    End
    Begin VB.Label lblProces 
       Alignment       =   2  'Center
@@ -87,10 +87,10 @@ Begin VB.Form frmINI
       BorderStyle     =   1  'Fixed Single
       Caption         =   "Buscando discos"
       BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   8.25
+         Name            =   "Courier New"
+         Size            =   12
          Charset         =   0
-         Weight          =   400
+         Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -101,7 +101,7 @@ Begin VB.Form frmINI
       TabIndex        =   0
       Top             =   7710
       UseMnemonic     =   0   'False
-      Width           =   6660
+      Width           =   9030
    End
    Begin VB.Image Image1 
       Height          =   6825
@@ -124,11 +124,25 @@ Private Sub Form_Load()
     VVV = "3PM v " + Trim(Str(App.Major)) + "." + Trim(Str(App.Minor)) + "." + Trim(Str(App.Revision))
     '--------
     'cargar los previstos
-    Image1.Picture = LoadPicture(SYSfolder + "f52.dlw")
+    
+    
     tERR.Anotar "acmz", K.LICENCIA
     If K.LICENCIA = HSuperLicencia Then
-        If FSO.FileExists(WINfolder + "SL\imgbig.tbr") Then Image1.Picture = LoadPicture(WINfolder + "SL\imgbig.tbr")
+        If FSO.FileExists(WINfolder + "SL\imgbig.tbr") Then
+            Image1.Picture = LoadPicture(WINfolder + "SL\imgbig.tbr")
+            frmVIDEO.picBigImg = LoadPicture(WINfolder + "SL\imgbig.tbr")
+        Else
+            Image1.Picture = LoadPicture(SYSfolder + "f52.dlw")
+            frmVIDEO.picBigImg = LoadPicture(SYSfolder + "f52.dlw")
+        End If
+    Else
+        Image1.Picture = LoadPicture(SYSfolder + "f52.dlw")
+        frmVIDEO.picBigImg = LoadPicture(SYSfolder + "f52.dlw")
     End If
+    frmVIDEO.picBigImg.Top = frmVIDEO.Height / 2 - frmVIDEO.picBigImg.Height / 2
+    frmVIDEO.picBigImg.Left = frmVIDEO.Width / 2 - frmVIDEO.picBigImg.Width / 2
+    frmVIDEO.picBigImg.Visible = True
+    frmVIDEO.picBigImg.Refresh
     '--------
     Select Case K.LICENCIA
         Case HSuperLicencia
@@ -173,20 +187,35 @@ Private Sub Form_Load()
     ReINI = LeerConfig("ReINI", "LISTA")
     tERR.Anotar "acnd"
     VolumenIni = CLng(LeerConfig("Volumen", "50"))
+    tERR.Anotar "acnd2", VolumenIni
     VolumenIni2 = CLng(LeerConfig("Volumen2", "50"))
+    tERR.Anotar "acnd3", VolumenIni2
     EsperaTecla = Val(LeerConfig("EsperaTecla", "900"))
+    tERR.Anotar "acnd4", EsperaTecla
     PorcentajeTEMA = Val(LeerConfig("PorcentajeTema", "60"))
+    tERR.Anotar "acnd5", PorcentajeTEMA
     FASTini = LeerConfig("FastIni", "1")
+    tERR.Anotar "acnd6", FASTini
     HabilitarVUMetro = LeerConfig("HabilitarVUMetro", "1")
+    tERR.Anotar "acnd7", HabilitarVUMetro
     vidFullScreen = LeerConfig("VidFullScreen", "1")
+    tERR.Anotar "acnd8", vidFullScreen
     Salida2 = LeerConfig("Salida2", "0")
+    tERR.Anotar "acnd9", Salida2
     NoVumVID = LeerConfig("NoVumVid", "0")
+    tERR.Anotar "acnd10", NoVumVID
     OutTemasWhenSel = LeerConfig("OutTemasWhenSel", "0")
+    tERR.Anotar "acnd11", OutTemasWhenSel
     BloquearMusicaElegida = LeerConfig("BloquearMusicaElegida", "1")
+    tERR.Anotar "acnd12", BloquearMusicaElegida
     TapasMostradasH = Val(LeerConfig("DiscosH", "3"))
+    tERR.Anotar "acnd13", TapasMostradasH
     TapasMostradasV = Val(LeerConfig("DiscosV", "2"))
+    tERR.Anotar "acnd14", TapasMostradasV
     PasarHoja = LeerConfig("Pasarhoja", "1")
+    tERR.Anotar "acnd15", PasarHoja
     DistorcionarTapas = LeerConfig("DistorcionarTapas", "0")
+    tERR.Anotar "acnd16", DistorcionarTapas
     Protector = LeerConfig("Protector", "1")
     tERR.Anotar "acne"
     CargarDuracionTemas = LeerConfig("CargarDuracionTemas", "0")
@@ -195,8 +224,17 @@ Private Sub Form_Load()
     DuracionProtect = LeerConfig("DuracionProtect", "180")
     RankToPeople = LeerConfig("RankToPeople", "1")
     TemasPorCredito = LeerConfig("TemasPorCredito", "1")
-    CreditosCuestaTema = LeerConfig("CreditosCuestaTema", "1")
-    CreditosCuestaTemaVIDEO = LeerConfig("CreditosCuestaTemaVIDEO", "2")
+    CreditosBilletes = LeerConfig("CreditosBilletes", "10")
+    PrecioBase = CSng(LeerConfig("PrecioBase", "0,50"))
+    CreditosCuestaTema(0) = LeerConfig("CreditosCuestaTema", "1")
+    CreditosCuestaTema(1) = LeerConfig("CreditosCuestaTema2", "2")
+    CreditosCuestaTema(2) = LeerConfig("CreditosCuestaTema3", "3")
+    'inicializar los precios
+    PrecNowAudio = CreditosCuestaTema(0)
+    CreditosCuestaTemaVIDEO(0) = LeerConfig("CreditosCuestaTemaVIDEO", "2")
+    CreditosCuestaTemaVIDEO(1) = LeerConfig("CreditosCuestaTemaVIDEO2", "3")
+    CreditosCuestaTemaVIDEO(2) = LeerConfig("CreditosCuestaTemaVIDEO3", "4")
+    PrecNowVideo = CreditosCuestaTemaVIDEO(0)
     textoUsuario = LeerConfig("TextoUsuario", "Cargue los datos de su empresa aqui")
     tERR.Anotar "acnf"
     'publicidad
@@ -238,25 +276,30 @@ Private Sub Form_Load()
     tERR.Anotar "acni"
     'ver si ya estaba cargado
     If App.PrevInstance Then MsgBox "No se pueden abrir dos instancias de 3pm": End
-        
+    
     'ASEGURARSE QUE EXISTA la carpeta del ranking y la imagen que le corresponde
     If FSO.FolderExists(AP + "discos") = False Then
         FSO.CreateFolder AP + "discos"
     End If
+    tERR.Anotar "acni2"
     If FSO.FolderExists(AP + "discos\01- Los mas escuchados") = False Then
         FSO.CreateFolder AP + "discos\01- Los mas escuchados"
      End If
+     tERR.Anotar "acni3", HabilitarVUMetro, NoVumVID
     'siempre copiarlo, si es el SL con prioridad
     If FSO.FileExists(SYSfolder + "f9yaSL.nam") Then
         'aqui hay un error de acceso denegado si es de solo lectura!!!!!
         'se corrige así.
+        tERR.Anotar "acni4"
         FSO.CopyFile SYSfolder + "f9yaSL.nam", AP + "discos\01- Los mas escuchados\tapa.jpg", True
     Else
         If FSO.FileExists(SYSfolder + "f54.dlw") Then
+            tERR.Anotar "acni5"
             'aqui hay un error de acceso denegado si es de solo lectura!!!!!
             'se corrige así.
             FSO.CopyFile SYSfolder + "f54.dlw", AP + "discos\01- Los mas escuchados\tapa.jpg", True
         Else
+            tERR.Anotar "acni6"
             MsgBox "No se encuentra el archivo de imagen del Ranking!. La instalacion de 3PM no es corecta!"
             End
         End If

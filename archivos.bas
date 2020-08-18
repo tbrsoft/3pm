@@ -52,7 +52,7 @@ Public Sub MostrarCursor(Mostrar As Boolean)
     
     'si estoy en el IDE NOLO HAGO!
     'necesito el mouse para depurar!
-    If LCase(AP) = "h:\ahora\3pmv65 kabalin\" Then Exit Sub
+    If LCase(AP) = "d:\dev\3pm\" Then Exit Sub
 
     tERR.Anotar "001-0002"
     Dim A As Long
@@ -230,12 +230,25 @@ Function ObtenerDir(ruta As String) As String()
             NewName = QuitarCaracter(NombreDir, ".")
             tERR.Anotar "001-0054"
             If NombreDir <> NewName Then
-                tERR.Anotar "001-0055"
+            
+                tERR.Anotar "001-0055", Ruta2 + NombreDir, Ruta2 + NewName
+                'si la carpeta de destino ya exista da un error!!!
+                If FSO.FolderExists(Ruta2 + NewName) Then
+                    Dim BB As Long, tmpNewName As String
+                    'busco un numero que al ponerlo al final no este duplicado
+                    For BB = 2 To 1000
+                        tmpNewName = NewName + CStr(BB)
+                        If FSO.FolderExists(Ruta2 + tmpNewName) = False Then
+                            NewName = tmpNewName
+                            Exit For
+                        End If
+                    Next BB
+                    NewName = tmpNewName
+                End If
+            
                 FSO.MoveFolder Ruta2 + NombreDir, Ruta2 + NewName
-                tERR.Anotar "001-0056"
-                'WriteTBRLog "Se corrigio el nombre de la carpeta " + NombreDir + _
-                    " por " + NewName, True
-                tERR.Anotar "001-0057"
+
+                tERR.Anotar "001-0057", NewName
                 NombreDir = NewName
             End If
             tERR.Anotar "001-0058"
@@ -386,9 +399,16 @@ EntreAlPedo:
             End If
             tERR.Anotar "001-0114"
             If FSO.FileExists(ArchTapa) Then
-                tERR.Anotar "001-0115"
+                tERR.Anotar "001-0115", ArchTapa
+                'XXXX
+                'VERIFICAR EL ERROR 481 DE IMAGEN NO VALIDA!!!!
+                If FileLen(ArchTapa) > 50000 Then
+                    tERR.Anotar "acgf3", ArchTapa, CStr(FileLen(ArchTapa))
+                    GoTo TAPADEF
+                End If
                 frmIndex.TapaCD(nTAPAcd).Picture = LoadPicture(ArchTapa)
             Else
+TAPADEF:
                 tERR.Anotar "001-0116"
                 'ver si hay SuperLicencia!!!
                 If FSO.FileExists(WINfolder + "SL\indexCHI.tbr") Then
@@ -769,6 +789,7 @@ End Function
 
 Public Function LeerArch1Linea(Arch As String) As String
     On Error GoTo MiErr
+    
     tERR.Anotar "001-0205", Arch
     If FSO.FileExists(Arch) = False Then
         tERR.Anotar "001-0206"
@@ -800,10 +821,11 @@ Public Sub EscribirArch1Linea(Arch As String, TXT As String)
 End Sub
 
 Public Function ObtenerArchMM(Carpeta As String) As String()
-    'devuelve "Carpeta + NombreArchivo + "," + NombreArchivo"
+    'devuelve "Carpeta + NombreArchivo + "#" + NombreArchivo"
     'devuelve PathFull,SoloNombre
 
     'ADEMÁS DEBO ASEGURARME QUE NO HAYA COMAS EN LOS NOMBRES
+    On Error GoTo ErrObtMM
     tERR.Anotar "001-0214"
     If Right(Carpeta, 1) <> "\" Then Carpeta = Carpeta + "\"
     tERR.Anotar "001-0215"
@@ -827,9 +849,6 @@ Public Function ObtenerArchMM(Carpeta As String) As String()
                 tERR.Anotar "001-0221"
                 FSO.MoveFile Carpeta + NombreArchivo, Carpeta + NewName
                 tERR.Anotar "001-0222"
-                'WriteTBRLog "Se corrigio el nombre de tema " + NombreArchivo + _
-                    " por " + NewName + " en la carpeta " + Carpeta, True
-                    tERR.Anotar "001-0223"
                 NombreArchivo = NewName
             End If
         End If
@@ -837,10 +856,39 @@ Public Function ObtenerArchMM(Carpeta As String) As String()
         ContadorArch = ContadorArch + 1
         ReDim Preserve TMPmatriz(ContadorArch)
         tERR.Anotar "001-0225"
-        TMPmatriz(ContadorArch) = Carpeta + NombreArchivo + "," + NombreArchivo
+        TMPmatriz(ContadorArch) = Carpeta + NombreArchivo + "#" + NombreArchivo
         tERR.Anotar "001-0226"
         NombreArchivo = Dir$
     Loop
+    
+'    '''MP4
+'    tERR.Anotar "001-0216b"
+'    NombreArchivo = Dir$(Carpeta + "*.mp4")
+'    tERR.Anotar "001-0217b"
+'    Do While Len(NombreArchivo)
+'        'corregir el nombre del tema
+'        tERR.Anotar "001-0218b", NombreArchivo
+'        NewName = QuitarCaracter(NombreArchivo, ",")
+'        tERR.Anotar "001-0219b"
+'        If NombreArchivo <> NewName Then
+'            'no se puede corregir si es un CD. Solo corrige si es disco duro
+'            'esta funcion se usa para leer CDs debo prevenir
+'            tERR.Anotar "001-0220b"
+'            If FSO.Drives(Left(Carpeta, 1)).DriveType = Fixed Then
+'                tERR.Anotar "001-0221b"
+'                FSO.MoveFile Carpeta + NombreArchivo, Carpeta + NewName
+'                tERR.Anotar "001-0222b"
+'                NombreArchivo = NewName
+'            End If
+'        End If
+'        tERR.Anotar "001-0224b"
+'        ContadorArch = ContadorArch + 1
+'        ReDim Preserve TMPmatriz(ContadorArch)
+'        tERR.Anotar "001-0225b"
+'        TMPmatriz(ContadorArch) = Carpeta + NombreArchivo + "#" + NombreArchivo
+'        tERR.Anotar "001-0226b"
+'        NombreArchivo = Dir$
+'    Loop
     
     'WMA
     tERR.Anotar "001-0216b"
@@ -859,9 +907,6 @@ Public Function ObtenerArchMM(Carpeta As String) As String()
                 tERR.Anotar "001-0221"
                 FSO.MoveFile Carpeta + NombreArchivo, Carpeta + NewName
                 tERR.Anotar "001-0222"
-                'WriteTBRLog "Se corrigio el nombre de tema " + NombreArchivo + _
-                    " por " + NewName + " en la carpeta " + Carpeta, True
-                    tERR.Anotar "001-0223"
                 NombreArchivo = NewName
             End If
         End If
@@ -869,7 +914,7 @@ Public Function ObtenerArchMM(Carpeta As String) As String()
         ContadorArch = ContadorArch + 1
         ReDim Preserve TMPmatriz(ContadorArch)
         tERR.Anotar "001-0225"
-        TMPmatriz(ContadorArch) = Carpeta + NombreArchivo + "," + NombreArchivo
+        TMPmatriz(ContadorArch) = Carpeta + NombreArchivo + "#" + NombreArchivo
         tERR.Anotar "001-0226"
         NombreArchivo = Dir$
     Loop
@@ -895,7 +940,7 @@ Public Function ObtenerArchMM(Carpeta As String) As String()
         ContadorArch = ContadorArch + 1
         ReDim Preserve TMPmatriz(ContadorArch)
         tERR.Anotar "001-0234"
-        TMPmatriz(ContadorArch) = Carpeta + NombreArchivo + "," + NombreArchivo
+        TMPmatriz(ContadorArch) = Carpeta + NombreArchivo + "#" + NombreArchivo
         tERR.Anotar "001-0235"
         NombreArchivo = Dir$
     Loop
@@ -922,7 +967,7 @@ Public Function ObtenerArchMM(Carpeta As String) As String()
         ContadorArch = ContadorArch + 1
         ReDim Preserve TMPmatriz(ContadorArch)
         tERR.Anotar "001-0244"
-        TMPmatriz(ContadorArch) = Carpeta + NombreArchivo + "," + NombreArchivo
+        TMPmatriz(ContadorArch) = Carpeta + NombreArchivo + "#" + NombreArchivo
         tERR.Anotar "001-0245"
         NombreArchivo = Dir$
     Loop
@@ -949,7 +994,7 @@ Public Function ObtenerArchMM(Carpeta As String) As String()
         ContadorArch = ContadorArch + 1
         ReDim Preserve TMPmatriz(ContadorArch)
         tERR.Anotar "001-0254"
-        TMPmatriz(ContadorArch) = Carpeta + NombreArchivo + "," + NombreArchivo
+        TMPmatriz(ContadorArch) = Carpeta + NombreArchivo + "#" + NombreArchivo
         tERR.Anotar "001-0255"
         NombreArchivo = Dir$
     Loop
@@ -976,7 +1021,7 @@ Public Function ObtenerArchMM(Carpeta As String) As String()
         ContadorArch = ContadorArch + 1
         ReDim Preserve TMPmatriz(ContadorArch)
         tERR.Anotar "001-0254"
-        TMPmatriz(ContadorArch) = Carpeta + NombreArchivo + "," + NombreArchivo
+        TMPmatriz(ContadorArch) = Carpeta + NombreArchivo + "#" + NombreArchivo
         tERR.Anotar "001-0255"
         NombreArchivo = Dir$
     Loop
@@ -1003,13 +1048,19 @@ Public Function ObtenerArchMM(Carpeta As String) As String()
         ContadorArch = ContadorArch + 1
         ReDim Preserve TMPmatriz(ContadorArch)
         tERR.Anotar "001-0254"
-        TMPmatriz(ContadorArch) = Carpeta + NombreArchivo + "," + NombreArchivo
+        TMPmatriz(ContadorArch) = Carpeta + NombreArchivo + "#" + NombreArchivo
         tERR.Anotar "001-0255"
         NombreArchivo = Dir$
     Loop
     
     tERR.Anotar "001-0256"
     ObtenerArchMM = TMPmatriz
+    
+    Exit Function
+ErrObtMM:
+    tERR.AppendLog tERR.ErrToTXT(Err), "Archivos.bas" + ".acpk4"
+    Resume Next
+    
 End Function
 
 Public Function QuitarCaracter(FileOrFolder As String, _

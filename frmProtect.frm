@@ -170,17 +170,7 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
         'si ya hay 9 cargados se traga las fichas
         If CREDITOS <= MaximoFichas Then
             OnOffCAPS vbKeyScrollLock, True
-            CREDITOS = CREDITOS + TemasPorCredito
-            SumarContadorCreditos TemasPorCredito
-            'grabar cant de creditos
-            EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
-            ShowCredits
-            
-            'grabar credito para validar
-            'creditosValidar ya se cargo en load de frmindex
-            CreditosValidar = CreditosValidar + TemasPorCredito
-            EscribirArch1Linea SYSfolder + "radilav.cfg", CStr(CreditosValidar)
-            
+            VarCreditos CSng(TemasPorCredito)
         Else
             'apagar el fichero electronico
             OnOffCAPS vbKeyScrollLock, False

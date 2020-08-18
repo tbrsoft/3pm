@@ -11,7 +11,6 @@ Begin VB.Form frmIndex
    Icon            =   "frmINDEX.frx":0000
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
-   LockControls    =   -1  'True
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   9000
@@ -40,9 +39,9 @@ Begin VB.Form frmIndex
       _ExtentY        =   2249
       Begin tbr3pm.tbrProgressCircle Prog 
          Height          =   465
-         Left            =   765
+         Left            =   600
          TabIndex        =   42
-         Top             =   540
+         Top             =   780
          Width           =   600
          _ExtentX        =   1058
          _ExtentY        =   820
@@ -69,20 +68,20 @@ Begin VB.Form frmIndex
          BorderStyle     =   1  'Fixed Single
          Caption         =   "1 coin = 8 creditos / 8 creditos = 1 tema / 8 creditos = 1 VIDEO"
          BeginProperty Font 
-            Name            =   "Verdana"
+            Name            =   "Arial"
             Size            =   8.25
             Charset         =   0
-            Weight          =   400
+            Weight          =   700
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00FFFFFF&
          Height          =   255
-         Left            =   1440
+         Left            =   1200
          TabIndex        =   41
          Top             =   900
-         Width           =   6855
+         Width           =   10125
       End
       Begin VB.Label lblPuesto2 
          Alignment       =   2  'Center
@@ -151,11 +150,10 @@ Begin VB.Form frmIndex
       Begin VB.Label lblCreditos2 
          Alignment       =   2  'Center
          BackStyle       =   0  'Transparent
-         BorderStyle     =   1  'Fixed Single
          Caption         =   "Creditos 00"
          BeginProperty Font 
             Name            =   "Verdana"
-            Size            =   21.75
+            Size            =   14.25
             Charset         =   0
             Weight          =   700
             Underline       =   0   'False
@@ -163,11 +161,11 @@ Begin VB.Form frmIndex
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00FFFFFF&
-         Height          =   1110
-         Left            =   8325
+         Height          =   705
+         Left            =   8400
          TabIndex        =   37
-         Top             =   45
-         Width           =   2175
+         Top             =   90
+         Width           =   2265
       End
    End
    Begin VB.Frame frDISCOS 
@@ -261,7 +259,7 @@ Begin VB.Form frmIndex
    End
    Begin VB.PictureBox picFondo 
       AutoSize        =   -1  'True
-      BackColor       =   &H00FFFFFF&
+      BackColor       =   &H00404040&
       Height          =   4290
       Left            =   0
       ScaleHeight     =   4230
@@ -269,14 +267,24 @@ Begin VB.Form frmIndex
       TabIndex        =   13
       Top             =   6930
       Width           =   15420
+      Begin VB.PictureBox p1 
+         Height          =   285
+         Left            =   0
+         ScaleHeight     =   225
+         ScaleWidth      =   2685
+         TabIndex        =   43
+         Top             =   1710
+         Visible         =   0   'False
+         Width           =   2745
+      End
       Begin tbr3pm.tbrPassImg tbrPassImg1 
-         Height          =   1965
+         Height          =   1575
          Left            =   60
          TabIndex        =   33
-         Top             =   30
+         Top             =   420
          Width           =   2640
          _ExtentX        =   4657
-         _ExtentY        =   3466
+         _ExtentY        =   2778
          Begin VB.Label Label1 
             Alignment       =   2  'Center
             BackColor       =   &H00000080&
@@ -385,6 +393,27 @@ Begin VB.Form frmIndex
             Width           =   1875
          End
       End
+      Begin VB.Label lblCreditos 
+         Alignment       =   2  'Center
+         Appearance      =   0  'Flat
+         BackColor       =   &H00000000&
+         Caption         =   "Credito $ 15000,00"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   14.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H0000FFFF&
+         Height          =   345
+         Left            =   30
+         TabIndex        =   23
+         Top             =   30
+         Width           =   2565
+      End
       Begin VB.Label lblTemaSonando 
          Alignment       =   2  'Center
          Appearance      =   0  'Flat
@@ -402,11 +431,11 @@ Begin VB.Form frmIndex
          EndProperty
          ForeColor       =   &H000000FF&
          Height          =   315
-         Left            =   2730
+         Left            =   2670
          TabIndex        =   24
          Top             =   30
          UseMnemonic     =   0   'False
-         Width           =   7395
+         Width           =   7455
       End
       Begin VB.Label lblV 
          Alignment       =   1  'Right Justify
@@ -436,7 +465,7 @@ Begin VB.Form frmIndex
          Caption         =   "Software desarrollado por tbrSoft www.tbrsoft.com - info@tbrsoft.com"
          BeginProperty Font 
             Name            =   "Arial"
-            Size            =   9.75
+            Size            =   8.25
             Charset         =   0
             Weight          =   700
             Underline       =   0   'False
@@ -444,11 +473,11 @@ Begin VB.Form frmIndex
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00000000&
-         Height          =   255
-         Left            =   2775
+         Height          =   225
+         Left            =   2790
          TabIndex        =   29
-         Top             =   1470
-         Width           =   7350
+         Top             =   1560
+         Width           =   7320
       End
       Begin VB.Label lblDEMO 
          Alignment       =   2  'Center
@@ -464,10 +493,10 @@ Begin VB.Form frmIndex
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H0000FFFF&
-         Height          =   270
+         Height          =   240
          Left            =   2790
          TabIndex        =   28
-         Top             =   1755
+         Top             =   1800
          UseMnemonic     =   0   'False
          Width           =   7350
       End
@@ -537,48 +566,26 @@ Begin VB.Form frmIndex
          Top             =   360
          Width           =   1980
       End
-      Begin VB.Label lblCreditos 
-         Alignment       =   2  'Center
-         Appearance      =   0  'Flat
-         BackColor       =   &H00000000&
-         Caption         =   "Creditos: 00"
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   14.25
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00C0FFFF&
-         Height          =   375
-         Left            =   2730
-         TabIndex        =   23
-         Top             =   360
-         Width           =   2025
-      End
       Begin VB.Label lblPrecios 
-         Alignment       =   2  'Center
          Appearance      =   0  'Flat
          BackColor       =   &H00FFC0C0&
          BackStyle       =   0  'Transparent
-         Caption         =   "1 coin=3 creditos  2 creditos= 1 tema 3 creditos= 1 VIDEO"
+         Caption         =   "1 cancion $1500,00 1 video   $1700,00 1 cancion $1500,00 1 video   $1700,001 cancion $1500,00 1 video   $1700,00"
          BeginProperty Font 
-            Name            =   "Verdana"
+            Name            =   "Courier New"
             Size            =   8.25
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00E0E0E0&
-         Height          =   615
+         Height          =   1275
          Left            =   2730
          TabIndex        =   22
-         Top             =   810
-         Width           =   2040
+         Top             =   330
+         Width           =   2175
       End
       Begin VB.Label lblPuesto 
          Alignment       =   2  'Center
@@ -624,7 +631,6 @@ Begin VB.Form frmIndex
          Width           =   3255
       End
       Begin VB.Label lstProximos 
-         Alignment       =   2  'Center
          Appearance      =   0  'Flat
          BackColor       =   &H00FF8080&
          BackStyle       =   0  'Transparent
@@ -641,11 +647,11 @@ Begin VB.Form frmIndex
          EndProperty
          ForeColor       =   &H00E0E0E0&
          Height          =   795
-         Left            =   4800
+         Left            =   4920
          TabIndex        =   31
          Top             =   630
          UseMnemonic     =   0   'False
-         Width           =   5325
+         Width           =   5205
       End
    End
    Begin VB.Frame frModoVideo 
@@ -917,47 +923,43 @@ Private Sub Form_Activate()
     'actualizar los precios
     '---------------------
     'si es gratis no usar!
-    If CreditosCuestaTema = 0 And CreditosCuestaTemaVIDEO = 0 Then
-        lblPrecios = "Modo Gratuito"
-        lblPrecios2 = "Modo Gratuito"
+    If CreditosCuestaTema(0) = 0 Then
+        lblPrecios = "Musica Gratis"
+        lblPrecios2 = "Musica Gratis"
     Else
-        If TemasPorCredito = 1 Then
-            lblPrecios = "1 coin = " + CStr(TemasPorCredito) + " credito"
-            lblPrecios2 = "1 coin = " + CStr(TemasPorCredito) + " credito"
-        Else
-            lblPrecios = "1 coin = " + CStr(TemasPorCredito) + " creditos"
-            lblPrecios2 = "1 coin = " + CStr(TemasPorCredito) + " creditos"
+        lblPrecios = "1 cancion   = " + CStr(FormatCurrency((PrecioBase / TemasPorCredito) * CreditosCuestaTema(0), , , , vbFalse))
+        lblPrecios2 = "1 cancion=" + CStr(FormatCurrency((PrecioBase / TemasPorCredito) * CreditosCuestaTema(0), , , , vbFalse))
+        
+        If CreditosCuestaTema(1) > 0 Then
+            lblPrecios = lblPrecios + vbCrLf + "2 canciones = " + CStr(FormatCurrency((PrecioBase / TemasPorCredito) * CreditosCuestaTema(1), , , , vbFalse))
+            lblPrecios2 = lblPrecios2 + " 2 canciones=" + CStr(FormatCurrency((PrecioBase / TemasPorCredito) * CreditosCuestaTema(1), , , , vbFalse))
         End If
-    End If
-    '-------------------------
-    If CreditosCuestaTema = 1 Then
-        lblPrecios = lblPrecios + vbCrLf + "1 credito = 1 tema"
-        lblPrecios2 = lblPrecios2 + " / " + "1 credito = 1 tema"
-    Else
-        If CreditosCuestaTema = 0 Then
-            lblPrecios = lblPrecios + vbCrLf + "1 tema = GRATIS!"
-            lblPrecios2 = lblPrecios2 + " / " + " 1 tema = GRATIS!"
-        Else
-            lblPrecios = lblPrecios + vbCrLf + CStr(CreditosCuestaTema) + " creditos = 1 tema"
-            lblPrecios2 = lblPrecios2 + " / " + CStr(CreditosCuestaTema) + " creditos = 1 tema"
-        End If
-    End If
-    'agreagr el precio de los videos!!!
-    If CreditosCuestaTemaVIDEO = 1 Then
-        lblPrecios = lblPrecios + vbCrLf + "1 credito = 1 VIDEO"
-        lblPrecios2 = lblPrecios2 + " / " + "1 credito = 1 VIDEO"
-    Else
-        If CreditosCuestaTemaVIDEO = 0 Then
-            lblPrecios = lblPrecios + vbCrLf + "1 VIDEO = GRATIS!"
-            lblPrecios2 = lblPrecios2 + " / " + " 1 VIDEO = GRATIS!"
-        Else
-            lblPrecios = lblPrecios + vbCrLf + CStr(CreditosCuestaTemaVIDEO) + " creditos = 1 VIDEO"
-            lblPrecios2 = lblPrecios2 + " / " + CStr(CreditosCuestaTemaVIDEO) + " creditos = 1 VIDEO"
+        
+        If CreditosCuestaTema(2) > 0 Then
+            lblPrecios = lblPrecios + vbCrLf + "3 canciones = " + CStr(FormatCurrency((PrecioBase / TemasPorCredito) * CreditosCuestaTema(2), , , , vbFalse))
+            lblPrecios2 = lblPrecios2 + " 3 canciones=" + CStr(FormatCurrency((PrecioBase / TemasPorCredito) * CreditosCuestaTema(2), , , , vbFalse))
         End If
     End If
     
-    'total sería
-    '1 coin = 8 creditos /// " + "8 creditos = 1 tema /// 8 creditos = 1 VIDEO
+    'si es gratis no usar!
+    If CreditosCuestaTemaVIDEO(0) = 0 Then
+        lblPrecios = lblPrecios + vbCrLf + "Videos Gratis"
+        lblPrecios2 = lblPrecios2 + " / Videos Gratis"
+    Else
+        lblPrecios = lblPrecios + vbCrLf + "1 video     = " + CStr(FormatCurrency(CreditosCuestaTemaVIDEO(0) * (PrecioBase / TemasPorCredito), , , , vbFalse))
+        lblPrecios2 = lblPrecios2 + " 1 video=" + CStr(FormatCurrency(CreditosCuestaTemaVIDEO(0) * (PrecioBase / TemasPorCredito), , , , vbFalse))
+        
+        If CreditosCuestaTemaVIDEO(1) > 0 Then
+            lblPrecios = lblPrecios + vbCrLf + "2 videos    = " + CStr(FormatCurrency(CreditosCuestaTemaVIDEO(1) * (PrecioBase / TemasPorCredito), , , , vbFalse))
+            lblPrecios2 = lblPrecios2 + " 2 videos=" + CStr(FormatCurrency(CreditosCuestaTemaVIDEO(1) * (PrecioBase / TemasPorCredito), , , , vbFalse))
+        End If
+        
+        If CreditosCuestaTemaVIDEO(2) > 0 Then
+            lblPrecios = lblPrecios + vbCrLf + "3 videos    = " + CStr(FormatCurrency((PrecioBase / TemasPorCredito) * CreditosCuestaTemaVIDEO(2), , , , vbFalse))
+            lblPrecios2 = lblPrecios2 + " 3 videos=" + CStr(FormatCurrency((PrecioBase / TemasPorCredito) * CreditosCuestaTemaVIDEO(2), , , , vbFalse))
+        End If
+    End If
+    
     If HabilitarVUMetro Then
         If Is3pmExclusivo Then
             tERR.Anotar "acaq"
@@ -1450,9 +1452,9 @@ Mod46:
                     'MP3 O VIDEO!!!!!!
                     Dim temaElegido As String
                     'lstext es una lista oculta  con datos completos
-                    temaElegido = txtInLista(MATRIZ_TEMAS(TemaElegidoModoVideo), 0, ",")
+                    temaElegido = txtInLista(MATRIZ_TEMAS(TemaElegidoModoVideo), 0, "#")
                     tERR.Anotar "accx", temaElegido, CREDITOS
-                    If LCase(Right(temaElegido, 3)) = "mp3" Or LCase(Right(temaElegido, 3)) = "wma" Then
+                    If LCase(Right(temaElegido, 3)) = "mp3" Or LCase(Right(temaElegido, 3)) = "wma" Then '''Or LCase(Right(temaElegido, 3)) = "mp4" Then
                         PideVideo = False
                     Else
                         PideVideo = True
@@ -1461,24 +1463,18 @@ Mod46:
                     'ver si puede pagar lo que pide!!!
                     'que joyita papa!!!. Parece que supieras programar
                     '--------------------------------------------------------------
-                    If (PideVideo = False And CREDITOS >= CreditosCuestaTema) Or _
-                        (PideVideo And CREDITOS >= CreditosCuestaTemaVIDEO) Then
+                    If (PideVideo = False And CREDITOS >= PrecNowAudio) Or _
+                        (PideVideo And CREDITOS >= PrecNowVideo) Then
                     '--------------------------------------------------------------
-                        'restar lo que corresponde!!!
-                        If PideVideo Then
-                            CREDITOS = CREDITOS - CreditosCuestaTemaVIDEO
-                        Else
-                            CREDITOS = CREDITOS - CreditosCuestaTema
-                        End If
                         'siempre que se ejecute un credito estaremos por debajo de maximo
                         OnOffCAPS vbKeyScrollLock, True
-                        'grabar cant de creditos
-                        EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
-                        ShowCredits
-                        'grabar credito para validar
-                        'creditosValidar ya se cargo en load de frmindex
-                        CreditosValidar = CreditosValidar + TemasPorCredito
-                        EscribirArch1Linea SYSfolder + "radilav.cfg", CStr(CreditosValidar)
+                        
+                        'restar lo que corresponde!!!
+                        If PideVideo Then
+                            VarCreditos -PrecNowVideo
+                        Else
+                            VarCreditos -PrecNowAudio
+                        End If
                         
                         tERR.Anotar "accy"
                         'si esta ejecutando pasa a la lista de reproducción
@@ -1565,7 +1561,7 @@ Mod46:
                     For AA = 1 To UBound(MATRIZ_TEMAS)
                         tERR.Anotar "acdk", AA, MATRIZ_TEMAS(AA)
                         Load T(AA)
-                        T(AA) = FSO.GetBaseName(txtInLista(MATRIZ_TEMAS(AA), 1, ","))
+                        T(AA) = FSO.GetBaseName(txtInLista(MATRIZ_TEMAS(AA), 1, "#"))
                         T(AA).Top = T(AA - 1).Top + T(AA - 1).Height
                         T(AA).Left = T(AA - 1).Left
                         T(AA).Visible = True
@@ -1644,19 +1640,11 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
     tERR.Anotar "acdt", KeyCode, RealKeyCode
     
     If RealKeyCode = TeclaNewFicha Then
+        
         'si ya hay 9 cargados se traga las fichas
         If CREDITOS <= MaximoFichas Then
             OnOffCAPS vbKeyScrollLock, True
-            CREDITOS = CREDITOS + TemasPorCredito
-            SumarContadorCreditos TemasPorCredito
-            'grabar cant de creditos
-            EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
-            tERR.Anotar "acei", CreditosValidar, CREDITOS
-            ShowCredits
-            'grabar credito para validar
-            'creditosValidar ya se cargo en load de frmindex
-            CreditosValidar = CreditosValidar + TemasPorCredito
-            EscribirArch1Linea SYSfolder + "radilav.cfg", CStr(CreditosValidar)
+            VarCreditos CSng(TemasPorCredito)
         Else
             'apagar el fichero electronico
             OnOffCAPS vbKeyScrollLock, False
@@ -1907,7 +1895,7 @@ Private Sub Form_Load()
     lblV = "versión " + Trim(Str(App.Major)) + "." + Trim(Str(App.Minor)) + "." + Trim(Str(App.Revision))
     lblTiempoRestante = "Falta: " + "00:00"
     'ocultar las etiquetas
-    
+    tERR.Anotar "acfa2", lblV.Caption
     Me.AutoRedraw = AutoReDibuj
     Me.Left = Screen.Width / 2 - Me.Width / 2
     Me.Top = Screen.Height / 2 - Me.Height / 2
@@ -2274,9 +2262,17 @@ Public Function CargarDiscos(numDiscoIniciar As Long, SelPrimero As Boolean, DeQ
                 If Right(ArchTapa, 1) <> "\" Then ArchTapa = ArchTapa + "\"
                 ArchTapa = ArchTapa + "tapa.jpg"
                 If FSO.FileExists(ArchTapa) Then
+                    'si la tapa es demasiado grande
+                    'no colocarla
+                    'xxxx
+                    If FileLen(ArchTapa) > 50000 Then
+                        tERR.Anotar "acgf2", NDR, ArchTapa, CStr(FileLen(ArchTapa))
+                        GoTo TAPADEF
+                    End If
                     tERR.Anotar "acgf", NDR
                     TapaCD(NDR).Picture = LoadPicture(ArchTapa)
                 Else
+TAPADEF:
                     tERR.Anotar "acgg", NDR
                     TapaCD(NDR).Picture = LoadPicture(SYSfolder + "f61.dlw")
                 End If
@@ -2488,6 +2484,7 @@ Private Sub MP3_EndPlay()
     ModoVideoSelTema = False
     'termino una cancion
     tERR.Anotar "acgu", EsVideo
+    
     If EsVideo Then MP3.DoClose
     'lo destapo al terminar de acomodar todos los controles en otro lado
     'picVideo.Visible = False
@@ -2505,7 +2502,9 @@ End Sub
 
 Private Sub MP3_Played(SecondsPlayed As Long)
     On Error GoTo MiErr
+    
     tERR.Anotar "acgv", SecondsPlayed
+    
     lblREP.Caption = "Reproduciendo:"
     If SecondsPlayed / 2 = SecondsPlayed \ 2 Then
         lblREP.BackStyle = 1
@@ -2520,7 +2519,9 @@ Private Sub MP3_Played(SecondsPlayed As Long)
     Dim sRest As Long
     sRest = MP3.FaltaInSec
     PorcEjecutado = MP3.PercentPlay
+    
     tERR.Anotar "acgw", SecondsPlayed, PorcEjecutado, PorcentajeTEMA
+    
     If PorcEjecutado > PorcentajeTEMA And CORTAR_TEMA Then
         VolBajando = VolBajando - 5 'baja 1 por segundo
         lblTemaSonando = "Cerrando " + QuitarNumeroDeTema(FSO.GetBaseName(TEMA_REPRODUCIENDO))
@@ -2528,22 +2529,28 @@ Private Sub MP3_Played(SecondsPlayed As Long)
         If VolBajando > 0 Then
             MP3.Volumen = VolBajando
         Else
+            tERR.Anotar "acgw2"
             MP3.DoStop
             'EL DOSTOP DESENCADENA UN END PLAY QUE REALIZA UN EMPEZAR SIGUINETE
             'EMPEZAR_SIGUIENTE
         End If
     End If
+    
+    tERR.Anotar "acgw3"
+    
     lblTiempoRestante = "Falta: " + MP3.Falta
     Prog.DibujarCirculo CDbl(SecondsPlayed)
     wi = Ancho - Variacion * (SecondsPlayed - 2)
     '=====================================
     If K.LICENCIA = aSinCargar And SecondsPlayed > 126 And SecondsPlayed < TotalTema - 5 Then
+        tERR.Anotar "acgw4"
         lblTemaSonando = "Tema Truncado. Version DEMO"
         lblTemaSonando2 = "Tema Truncado. Version DEMO"
         MP3.DoStop
     End If
     'cotar tambin en el gratuito
     If K.LICENCIA = CGratuita And SecondsPlayed > 126 And SecondsPlayed < TotalTema - 5 Then
+        tERR.Anotar "acgw5"
         lblTemaSonando = "Tema Truncado. Version DEMO"
         lblTemaSonando2 = "Tema Truncado. Version DEMO"
         MP3.DoStop

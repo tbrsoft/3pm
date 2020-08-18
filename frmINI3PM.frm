@@ -9,7 +9,6 @@ Begin VB.Form frmINI3PM
    ClientWidth     =   11880
    Icon            =   "frmINI3PM.frx":0000
    LinkTopic       =   "Form1"
-   LockControls    =   -1  'True
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   8100
@@ -272,7 +271,7 @@ Begin VB.Form frmINI3PM
       Height          =   2625
       Left            =   150
       TabIndex        =   11
-      Top             =   2400
+      Top             =   2130
       Width           =   5805
       Begin VB.OptionButton Option2 
          BackColor       =   &H00400000&
@@ -521,11 +520,11 @@ Begin VB.Form frmINI3PM
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00C0FFFF&
-      Height          =   1065
+      Height          =   1245
       Index           =   4
       Left            =   900
       TabIndex        =   26
-      Top             =   990
+      Top             =   720
       Width           =   4635
    End
    Begin VB.Label Label1 
@@ -733,6 +732,7 @@ Private Sub Command1_Click()
         c = c + 1
     Loop
     TE.Close
+    
     If Option6 Then TodoSystem(UbicShell) = "Shell=explorer.exe"
     If Option2 Then TodoSystem(UbicShell) = "Shell=progman.exe"
     'volver a escribir el archivo
@@ -776,18 +776,7 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
         'si ya hay 9 cargados se traga las fichas
         If CREDITOS <= MaximoFichas Then
             OnOffCAPS vbKeyScrollLock, True
-            CREDITOS = CREDITOS + TemasPorCredito
-            SumarContadorCreditos TemasPorCredito
-            'grabar cant de creditos
-            EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
-            
-            ShowCredits
-            
-            'grabar credito para validar
-            'creditosValidar ya se cargo en load de frmindex
-            CreditosValidar = CreditosValidar + TemasPorCredito
-            EscribirArch1Linea SYSfolder + "radilav.cfg", CStr(CreditosValidar)
-            
+            VarCreditos CSng(TemasPorCredito)
         Else
             'apagar el fichero electronico
             OnOffCAPS vbKeyScrollLock, False

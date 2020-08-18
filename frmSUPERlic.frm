@@ -742,7 +742,6 @@ Private Sub Command4_Click()
     'borrar eñl archivo!
     If FSO.FileExists(WINfolder + "SL\imgbig.tbr") Then _
         FSO.DeleteFile WINfolder + "SL\imgbig.tbr", True
-    
     'mostrar el original
     imgPRESp.Picture = LoadPicture(SYSfolder + "f52.dlw")
 End Sub

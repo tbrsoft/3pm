@@ -700,7 +700,7 @@ Private Sub cmdKillArch_Click()
             
             If lstTEMAS.Selected(AA) Then
                 'en la matriz empieza en 1 y lst empieza en 0
-                FileSel = txtInLista(MTXfiles(AA + 1), 0, ",")
+                FileSel = txtInLista(MTXfiles(AA + 1), 0, "#")
                 FSO.DeleteFile FileSel, True
                 tERR.Anotar "acka", AA, TotSel, FileSel
             End If
@@ -865,7 +865,10 @@ Public Sub CargarCarpetas()
             lstCarpetasShow.AddItem txtInLista(MATRIZ_DISCOS(A), 1, ",")
         End If
     Next
-    lstCarpetasShow.Selected(0) = True
+    'arreglado 27/2 no se fijaba si había indices
+    If lstCarpetasShow.ListCount > 0 Then
+        lstCarpetasShow.Selected(0) = True
+    End If
     
     Exit Sub
 MiErr:
@@ -1350,17 +1353,7 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
         'si ya hay 9 cargados se traga las fichas
         If CREDITOS <= MaximoFichas Then
             OnOffCAPS vbKeyScrollLock, True
-            CREDITOS = CREDITOS + TemasPorCredito
-            SumarContadorCreditos TemasPorCredito
-            'grabar cant de creditos
-            EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
-            ShowCredits
-            
-            'grabar credito para validar
-            'creditosValidar ya se cargo en load de frmindex
-            CreditosValidar = CreditosValidar + TemasPorCredito
-            EscribirArch1Linea SYSfolder + "radilav.cfg", CStr(CreditosValidar)
-            
+            VarCreditos CSng(TemasPorCredito)
         Else
             'apagar el fichero electronico
             OnOffCAPS vbKeyScrollLock, False
@@ -1449,7 +1442,7 @@ Private Sub lstCarpetas_Click()
         Else
             For A = 1 To UBound(MTXfiles)
                 tERR.Anotar "aclc", A, UBound(MTXfiles)
-                lstTEMAS.AddItem txtInLista(MTXfiles(A), 1, ",")
+                lstTEMAS.AddItem txtInLista(MTXfiles(A), 1, "#")
                 lstTEMAS.Enabled = True
             Next
         End If
