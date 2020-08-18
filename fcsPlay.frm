@@ -205,6 +205,7 @@ Private Sub ActiveMovie1_PlayStateChange(ByVal OldState As Long, ByVal NewState 
         m_Terminado = False
     Case Else
         m_Terminado = True
+        EMPEZAR_SIGUIENTE
     End Select
     
 '    If m_EstadoActual = ecsStopped Then

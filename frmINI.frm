@@ -36,7 +36,7 @@ Private Sub Form_Load()
     Do While Timer < t + 2
         DoEvents
     Loop
-    'transformarse en fondo negro
+    'transformarse en fondo negro y maximizarlo para dejarlo como fondo
     Me.Hide
     Me.Picture = LoadPicture
     Me.WindowState = vbMaximized

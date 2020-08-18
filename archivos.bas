@@ -1,4 +1,5 @@
 Attribute VB_Name = "Archivos"
+Option Compare Text
 '---------------------------------------------------------
 ' BIBLIOTECA DE RUTINAS DE PROGRAMACIÓN VB6 - (C) Francesco Balena
 '
@@ -125,7 +126,44 @@ Function ObtenerDir(Ruta As String) As String()
         TOTAL_DISCOS = ContadorCarp
         ' proporciona el array resultante
         ReDim Preserve resultado(Contador) As String
-        ObtenerDir = resultado
+        
+        'tomar la matriz (con valores separador) y ordenala en base a la columna indicada.
+        'en este caso el separador es "," y la columna es 0.
+        'seria los mismo que tomara 1 ya que todos tienen el mismo path
+        Dim MinSTR As String 'comparacoin de cadenas. Empiezo con el máximo
+        Dim ubicMIN As Long 'indice en la matriz del menor encontrado cada vuelta
+        MinSTR = "zzzzzzzzzzzzzzzz"
+        Dim c As Long, MTX As Long, ValComp As String
+        c = 0 'cantidad de minimos encontrados
+        Dim Ordenados() As Long 'matriz con los indices ordenados
+        Do
+            For MTX = LBound(resultado) + 1 To UBound(resultado)
+                ValComp = txtInLista(resultado(MTX), 0, ",")
+                If ValComp < MinSTR Then
+                    MinSTR = ValComp
+                    ubicMIN = MTX
+                End If
+            Next
+            resultado(ubicMIN) = "zzzzzzzzzz," + resultado(ubicMIN)
+            c = c + 1
+            ReDim Preserve Ordenados(c)
+            Ordenados(c) = ubicMIN
+            If c >= UBound(resultado) Then Exit Do
+            MinSTR = "zzzzzzzzzz"
+        Loop
+        'cargar todos y sacar la primera columna de las zetas
+        Dim MTXsort() As String
+        frmProces.pBar.Max = ContadorCarp + 2
+        frmProces.pBar = 0
+        For MTX = LBound(resultado) + 1 To UBound(resultado)
+            ReDim Preserve MTXsort(MTX)
+            MTXsort(MTX) = txtInLista(resultado(Ordenados(MTX)), 1, ",") + "," + txtInLista(resultado(Ordenados(MTX)), 2, ",")
+            frmProces.lblProces = txtInLista(resultado(Ordenados(MTX)), 2, ",")
+            frmProces.lblProces.Refresh
+            frmProces.pBar = frmProces.pBar + 1
+        Next
+        
+        ObtenerDir = MTXsort
 End Function
 
 'cuenta los archivos de determinada extension contenidos en una carpeta
@@ -387,3 +425,9 @@ Function EsperarPorProceso(taskId As Long, Optional msecs As Long = -1) _
 End Function
 
 
+Public Sub OrdenarMatriz(MTX As Variant, Columna As Long, Separador As String)
+    
+    
+
+
+End Sub

@@ -17,14 +17,14 @@ Begin VB.Form frmINDEX
    ShowInTaskbar   =   0   'False
    StartUpPosition =   3  'Windows Default
    Begin VB.Timer Timer1 
-      Left            =   7320
-      Top             =   3180
+      Left            =   7890
+      Top             =   3420
    End
    Begin MSComctlLib.Slider SLvolumen 
       Height          =   240
-      Left            =   10770
+      Left            =   90
       TabIndex        =   13
-      Top             =   60
+      Top             =   8730
       Width           =   1185
       _ExtentX        =   2090
       _ExtentY        =   423
@@ -155,9 +155,9 @@ Begin VB.Form frmINDEX
       BackStyle       =   0  'Transparent
       Caption         =   "Titulo"
       BeginProperty Font 
-         Name            =   "Terminal"
+         Name            =   "Trebuchet MS"
          Size            =   9
-         Charset         =   255
+         Charset         =   0
          Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
@@ -169,6 +169,7 @@ Begin VB.Form frmINDEX
       Left            =   8130
       TabIndex        =   12
       Top             =   6990
+      UseMnemonic     =   0   'False
       Visible         =   0   'False
       Width           =   3885
    End
@@ -177,9 +178,9 @@ Begin VB.Form frmINDEX
       BackStyle       =   0  'Transparent
       Caption         =   "Titulo"
       BeginProperty Font 
-         Name            =   "Terminal"
+         Name            =   "Trebuchet MS"
          Size            =   9
-         Charset         =   255
+         Charset         =   0
          Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
@@ -191,6 +192,7 @@ Begin VB.Form frmINDEX
       Left            =   8130
       TabIndex        =   11
       Top             =   3330
+      UseMnemonic     =   0   'False
       Visible         =   0   'False
       Width           =   3885
    End
@@ -199,9 +201,9 @@ Begin VB.Form frmINDEX
       BackStyle       =   0  'Transparent
       Caption         =   "Titulo"
       BeginProperty Font 
-         Name            =   "Terminal"
+         Name            =   "Trebuchet MS"
          Size            =   9
-         Charset         =   255
+         Charset         =   0
          Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
@@ -213,6 +215,7 @@ Begin VB.Form frmINDEX
       Left            =   4170
       TabIndex        =   10
       Top             =   6990
+      UseMnemonic     =   0   'False
       Visible         =   0   'False
       Width           =   3885
    End
@@ -221,9 +224,9 @@ Begin VB.Form frmINDEX
       BackStyle       =   0  'Transparent
       Caption         =   "Titulo"
       BeginProperty Font 
-         Name            =   "Terminal"
+         Name            =   "Trebuchet MS"
          Size            =   9
-         Charset         =   255
+         Charset         =   0
          Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
@@ -235,6 +238,7 @@ Begin VB.Form frmINDEX
       Left            =   4170
       TabIndex        =   9
       Top             =   3330
+      UseMnemonic     =   0   'False
       Visible         =   0   'False
       Width           =   3885
    End
@@ -243,9 +247,9 @@ Begin VB.Form frmINDEX
       BackStyle       =   0  'Transparent
       Caption         =   "Titulo"
       BeginProperty Font 
-         Name            =   "Terminal"
+         Name            =   "Trebuchet MS"
          Size            =   9
-         Charset         =   255
+         Charset         =   0
          Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
@@ -257,6 +261,7 @@ Begin VB.Form frmINDEX
       Left            =   210
       TabIndex        =   8
       Top             =   6990
+      UseMnemonic     =   0   'False
       Visible         =   0   'False
       Width           =   3885
    End
@@ -265,9 +270,9 @@ Begin VB.Form frmINDEX
       BackStyle       =   0  'Transparent
       Caption         =   "Titulo"
       BeginProperty Font 
-         Name            =   "Terminal"
+         Name            =   "Trebuchet MS"
          Size            =   9
-         Charset         =   255
+         Charset         =   0
          Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
@@ -276,9 +281,10 @@ Begin VB.Form frmINDEX
       ForeColor       =   &H00FFFFFF&
       Height          =   345
       Index           =   0
-      Left            =   210
+      Left            =   120
       TabIndex        =   7
       Top             =   3300
+      UseMnemonic     =   0   'False
       Visible         =   0   'False
       Width           =   3885
    End
@@ -496,9 +502,16 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Dim nDiscoSEL As Long 'del 0 al 5
 Dim nDiscoGral As Long ' del 0 a total_discos
+
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     'aqui se regsitran las presiones de las teclas elegidas
     Select Case KeyCode
+        Case vbKeyQ
+            'si ya hay 9 cargados se traga las fichas
+            If CREDITOS < 9 Then
+                CREDITOS = CREDITOS + 1
+                lblCreditos = "Creditos: 0" + Str(CREDITOS)
+            End If
         Case vbKeyZ
             If ESTOY = 0 Then 'si estoy en los discos
                 'no ir a -1
@@ -558,7 +571,9 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                 frmTemasDeDisco.Show 1
             End If
         Case vbKeyEscape
-            If ESTOY = 0 Then If MsgBox("salir?", vbYesNo) = vbYes Then End
+            If ESTOY = 0 Then
+                If MsgBox("salir?", vbYesNo) = vbYes Then End
+            End If
             ''nunca va a detectar en estoy=1 ya que es otro formulario el que recibe la tecla
             'If ESTOY = 1 Then
             '    Unload frmTemasDeDisco
@@ -576,7 +591,6 @@ Private Sub Form_Load()
     'cargar las variables globales
     ESTOY = 0 'aparece viendo los CDS
     CREDITOS = 0
-    TEMAS = 0
     TEMA_REPRODUCIENDO = "Sin reproducción actual"
     TEMA_SIGUIENTE = "No hay proximo tema"
     TEMAS_EN_LISTA = 0
@@ -584,10 +598,10 @@ Private Sub Form_Load()
     'buscar discos = todas las carpetas en AP\discos\*.*
     'y meterlos en la matriz
     MATRIZ_DISCOS() = ObtenerDir(AP + "discos")
-    'leer los temas de cada carpeta de la matriz anterior
-    'y generar una nueva matriz con path, duracion
-    ''borrar matriz_total
-    'ReDim MATRIZ_TOTAL(0, 0)
+    ''leer los temas de cada carpeta de la matriz anterior
+    ''y generar una nueva matriz con path, duracion
+    ''NO SE HACE PORE AHORA
+    
     Dim CarpActual As String
     Dim MP3 As cPlayWMP, pathTema As String, DuracionTema As String, NombreTema As String
     Set MP3 = New cPlayWMP
@@ -706,8 +720,6 @@ Private Sub SLvolumen_Change()
 End Sub
 
 Private Sub Timer1_Timer()
-    WAIT_EMPIEZA = WAIT_EMPIEZA - 1
-    
     Dim m As Long, s As Long, tt As String
     Dim sRest As Long
     'sRest = m_csplay.Duration - m_csplay.CurrentPosition
@@ -719,36 +731,5 @@ Private Sub Timer1_Timer()
         lblTiempoRestante = "Restante " + Str(m) + ":0" + Trim(Str(s))
     Else
         lblTiempoRestante = "Restante " + Str(m) + ":" + Trim(Str(s))
-    End If
-    
-    If m = 0 And s <= 1 And WAIT_EMPIEZA < 0 Then
-        Timer1.Interval = 0
-        lblTiempoRestante = "Restante 0:00"
-        TEMA_REPRODUCIENDO = "Sin reproduccion actual"
-        ESTOY_REPRODUCIENDO = False
-        'si hay algun elemento en la lista ejecutarlo
-        If UBound(MATRIZ_LISTA) > 0 Then
-            Dim TemaDeMatriz As String
-            TemaDeMatriz = txtInLista(MATRIZ_LISTA(1), 1, ",")
-            'reacomodar la matriz para quitar el primer elemento
-            For c = 1 To UBound(MATRIZ_LISTA)
-                
-                If c < UBound(MATRIZ_LISTA) Then
-                    'cuando sea cualquiera menos el ultimo
-                    MATRIZ_LISTA(c) = MATRIZ_LISTA(c + 1)
-                Else
-                    'cuando sea el ultimo
-                    'redefinir la matriz con un indice menos
-                    ReDim Preserve MATRIZ_LISTA(c - 1)
-                End If
-            
-            Next
-            EjecutarTema TemaDeMatriz
-            CargarProximosTemas
-            'un tema no puede durar menos de 5 segundo
-            'terminado se debe dar cinco vueltas para esperar si esta empezando otro
-            WAIT_EMPIEZA = 5
-        End If
-
     End If
 End Sub

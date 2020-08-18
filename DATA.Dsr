@@ -3,8 +3,8 @@ Begin {C0E45035-5775-11D0-B388-00A0C9055D8E} DATA
    ClientHeight    =   13485
    ClientLeft      =   0
    ClientTop       =   0
-   ClientWidth     =   14040
-   _ExtentX        =   24765
+   ClientWidth     =   12240
+   _ExtentX        =   21590
    _ExtentY        =   23786
    FolderFlags     =   1
    TypeLibGuid     =   "{9FCF0DBE-A8B2-11D6-AD72-EA6E727A5E65}"

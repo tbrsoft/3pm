@@ -1,8 +1,12 @@
 Attribute VB_Name = "Globales"
+'para el teclado
+Private Declare Function GetKeyboardState Lib "user32" (pbKeyState As Byte) As Long
+Private Declare Function SetKeyboardState Lib "user32" (lppbKeyState As Byte) As Long
+
+
 Public FSO As New Scripting.FileSystemObject
 Public AP As String
-Public CREDITOS As Long ' fichas cargadas
-Public TEMAS As Long 'temas restantes a cargar es igual a creditos si cada ficha es un tema
+Public CREDITOS As Long ' fichas cargadas (o temas habilitados para cargar)
 Public TEMA_REPRODUCIENDO As String 'tema actual. Para poder mostrar el texto
 'si no hay nada el valor es "sin reproduccion actual"
 Public TEMA_SIGUIENTE As String 'tema actual. Para poder mostrar el texto
@@ -57,4 +61,19 @@ Public Sub CargarProximosTemas()
     TotTemas = UBound(MATRIZ_LISTA)
     frmINDEX.lblTemasEnLista = "En lista: " + Trim(Str(TotTemas))
 
+End Sub
+
+Public Sub OnOffCAPS(vKey As KeyCodeConstants, PRENDER As Boolean)
+    Dim keys(255) As Byte
+    ' leer el estado actual del teclado
+    GetKeyboardState keys(0)
+    ' invertir el bit 0 de la tecla virtual en la que estamos interesados
+    ' keys(vKey) = keys(vKey) Xor 1
+    If PRENDER Then
+        keys(vKey) = 1
+    Else
+        keys(vKey) = 0
+    End If
+    ' forzar el nuevo estado del teclado
+    SetKeyboardState keys(0)
 End Sub
