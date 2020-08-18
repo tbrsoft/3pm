@@ -322,7 +322,7 @@ Begin VB.Form frmINDEX
       BorderStyle     =   1  'Fixed Single
       Height          =   3300
       Index           =   2
-      Left            =   4380
+      Left            =   4410
       Stretch         =   -1  'True
       Top             =   0
       Visible         =   0   'False
@@ -506,13 +506,15 @@ Dim nDiscoGral As Long ' del 0 a total_discos
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     'aqui se regsitran las presiones de las teclas elegidas
     Select Case KeyCode
-        Case vbKeyQ
+        Case vbKeyC
+            frmConfig.Show 1
+        Case vbKeyW
             'si ya hay 9 cargados se traga las fichas
             If CREDITOS < 9 Then
                 CREDITOS = CREDITOS + 1
                 lblCreditos = "Creditos: 0" + Str(CREDITOS)
             End If
-        Case vbKeyZ
+        Case vbKeyU
             If ESTOY = 0 Then 'si estoy en los discos
                 'no ir a -1
                 If nDiscoSEL = 0 Then
@@ -523,7 +525,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                     SelDisco nDiscoSEL - 1
                 End If
             End If
-        Case vbKeyX
+        Case vbKeyI
             If ESTOY = 0 Then 'si estoy en los discos
                 If nDiscoSEL = 5 Then
                     If nDiscoGral + 1 < TOTAL_DISCOS Then CargarDiscos nDiscoGral + 1, True
@@ -535,7 +537,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                     End If
                 End If
             End If
-        Case vbKeyReturn
+        Case vbKeyP
             If ESTOY = 0 Then
                 'si estoy mostrando discos debo mostrar temas
                 'se cargan los temas en una matriz con ubic archivo,nombreTema
@@ -570,7 +572,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                 frmTemasDeDisco.lstTemas.ListIndex = 0
                 frmTemasDeDisco.Show 1
             End If
-        Case vbKeyEscape
+        Case vbKeyE
             If ESTOY = 0 Then
                 If MsgBox("salir?", vbYesNo) = vbYes Then End
             End If
@@ -609,7 +611,7 @@ Private Sub Form_Load()
     frmProces.Show
     frmProces.pBar = 0
     frmProces.pBar.Max = UBound(MATRIZ_DISCOS) * 15 'mas o menos 15 temas por disco
-    ReDim Preserve MATRIZ_TOTAL(150, 30)
+    ReDim Preserve MATRIZ_TOTAL(did150, 30)
     'On Error GoTo ErrMP3
     'For c = 1 To UBound(MATRIZ_DISCOS)
         'encontar todos los temas grabar su duracion
@@ -683,22 +685,32 @@ Public Function CargarDiscos(numDiscoIniciar As Long, SelPrimero As Boolean) As 
     NDR = 0
     NDI = numDiscoIniciar
     ''si llegue al final empiezo de vuelta
-    'If NDI >= UBound(MATRIZ_DISCOS) Then NDI = 0
-    
+    ''If NDI >= UBound(MATRIZ_DISCOS) Then NDI = 0
+    Dim ArchTapa As String
     Do While NDI < numDiscoIniciar + 6
         'ver si existe si hay disco con este n°
         If NDI < UBound(MATRIZ_DISCOS) Then
-            'ver si hay tapa
-            Dim ArchTapa As String
-            ArchTapa = txtInLista(MATRIZ_DISCOS(NDI + 1), 0, ",")
-            If Right(ArchTapa, 1) <> "\" Then ArchTapa = ArchTapa + "\"
-            ArchTapa = ArchTapa + "tapa.jpg"
-            If FSO.FileExists(ArchTapa) Then
-                TapaCD(NDR).Picture = LoadPicture(ArchTapa)
+            '''las tapas se cargan al inicio-------------------
+            '''ver si hay tapa
+            ''ArchTapa = txtInLista(MATRIZ_DISCOS(NDI + 1), 0, ",")
+            ''If Right(ArchTapa, 1) <> "\" Then ArchTapa = ArchTapa + "\"
+            ''ArchTapa = ArchTapa + "tapa.jpg"
+            ''If FSO.FileExists(ArchTapa) Then
+            ''    TapaCD(NDR).Picture = LoadPicture(ArchTapa)
+            ''Else
+            ''    TapaCD(NDR).Picture = LoadPicture(AP + "tapa.jpg")
+            ''End If
+            'si voy para adelante
+            If SelPrimero Then
+                'ver que no sea al iniciop del sistema en la primera hoja
+                If NDI > 6 Then TapaCD(NDI - 6).Visible = False
             Else
-                TapaCD(NDR).Picture = LoadPicture(AP + "tapa.jpg")
+              'ver que no se pase de los elementos que hay en la matriz
+                If NDI + 6 < UBound(MATRIZ_DISCOS) Then TapaCD(NDI + 6).Visible = False
             End If
-            TapaCD(NDR).Visible = True
+            TapaCD(NDI).Visible = True
+            TapaCD(NDI).ZOrder
+            ''TapaCD(NDR).Visible = True
             lblDisco(NDR) = txtInLista(MATRIZ_DISCOS(NDI + 1), 1, ",")
             lblDisco(NDR).Visible = True
         End If

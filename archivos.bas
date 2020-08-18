@@ -155,12 +155,32 @@ Function ObtenerDir(Ruta As String) As String()
         Dim MTXsort() As String
         frmProces.pBar.Max = ContadorCarp + 2
         frmProces.pBar = 0
+        
+        Dim nTAPAcd As Long
+        nTAPAcd = 0
         For MTX = LBound(resultado) + 1 To UBound(resultado)
             ReDim Preserve MTXsort(MTX)
             MTXsort(MTX) = txtInLista(resultado(Ordenados(MTX)), 1, ",") + "," + txtInLista(resultado(Ordenados(MTX)), 2, ",")
             frmProces.lblProces = txtInLista(resultado(Ordenados(MTX)), 2, ",")
             frmProces.lblProces.Refresh
+            UbicDiscoActual = txtInLista(resultado(Ordenados(MTX)), 1, ",")
+            'caragar las imágenes en diferentes IMGs para que no se cargen despues
+            Dim ArchTapa As String
+            ArchTapa = UbicDiscoActual + "\tapa.jpg"
+            'arranca con 5 ya cargados
+            If nTAPAcd > 5 Then
+                Load frmINDEX.TapaCD(nTAPAcd)
+                frmINDEX.TapaCD(nTAPAcd).Left = frmINDEX.TapaCD(nTAPAcd - 6).Left
+                frmINDEX.TapaCD(nTAPAcd).Top = frmINDEX.TapaCD(nTAPAcd - 6).Top
+            End If
+            
+            If FSO.FileExists(ArchTapa) Then
+                frmINDEX.TapaCD(nTAPAcd).Picture = LoadPicture(ArchTapa)
+            Else
+                frmINDEX.TapaCD(nTAPAcd).Picture = LoadPicture(AP + "tapa.jpg")
+            End If
             frmProces.pBar = frmProces.pBar + 1
+            nTAPAcd = nTAPAcd + 1
         Next
         
         ObtenerDir = MTXsort

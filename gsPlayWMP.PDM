@@ -1,10 +1,21 @@
 [Root]
 Most Recent Package=Paquete de instalación estándar 1
 
+[Package|Paquete de instalación estándar 1|IconGroups]
+Group0=$(Start Menu)
+PrivateGroup0=Verdadero
+Parent0=
+
+[Package|Paquete de instalación estándar 1|$(Start Menu)]
+Icon1=3pm.exe
+Title1=Icon3
+StartIn1=$(AppPath)
+Key1=Icon3
+
 
 [Package|Paquete de instalación estándar 1|Root]
 SubWizProgID=PDWizard.SetupPkgSubWiz
-BuildFolder=D:\Laburos\Por guita\reproductor mp3\3pm\instalador
+BuildFolder=D:\Laburos\Por guita\reproductor mp3\3pm\i2
 
 [Package|Paquete de instalación estándar 1|Configure DAO ISAMs]
 Applicable=No
@@ -91,23 +102,12 @@ Type=single
 Size=
 Title=3pm
 
-[Package|Paquete de instalación estándar 1|IconGroups]
-Group0=$(Start Menu)
-PrivateGroup0=Verdadero
-Parent0=
-
-[Package|Paquete de instalación estándar 1|$(Start Menu)]
-Icon1=3pm.exe
-Title1=Icon3
-StartIn1=$(AppPath)
-Key1=Icon3
-
 [Package|Paquete de instalación estándar 1|Package]
-PackageFolder=D:\Laburos\Por guita\reproductor mp3\3pm\instalador
+PackageFolder=D:\Laburos\Por guita\reproductor mp3\3pm\i2
 ProjectFolder=D:\Laburos\Por guita\reproductor mp3\3pm
 ServerSideCab=
-File1=D:\Laburos\Por guita\reproductor mp3\3pm\instalador\setup.exe
-File2=D:\Laburos\Por guita\reproductor mp3\3pm\instalador\Setup.Lst
-File3=D:\Laburos\Por guita\reproductor mp3\3pm\instalador\3pm.CAB
+File1=D:\Laburos\Por guita\reproductor mp3\3pm\i2\setup.exe
+File2=D:\Laburos\Por guita\reproductor mp3\3pm\i2\Setup.Lst
+File3=D:\Laburos\Por guita\reproductor mp3\3pm\i2\3pm.CAB
 Handler1=PDWizard.FolderDplySubWiz
 Handler2=PDWizard.WebPostDplySubWiz

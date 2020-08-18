@@ -159,16 +159,16 @@ Attribute VB_Exposed = False
 
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     Select Case KeyCode
-        Case vbKeyQ
+        Case vbKeyW
             'si ya hay 9 cargados se traga las fichas
             If CREDITOS < 9 Then
                 CREDITOS = CREDITOS + 1
                 frmINDEX.lblCreditos = "Creditos: 0" + Str(CREDITOS)
             End If
-        Case vbKeyEscape
+        Case vbKeyE
             ESTOY = 0
             Unload Me
-        Case vbKeyReturn
+        Case vbKeyP
             'ver si esta habilitado
             If CREDITOS > 0 Then
                 CREDITOS = CREDITOS - 1
@@ -195,10 +195,10 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                 Unload Me
             End If
         
-        Case vbKeyX
+        Case vbKeyI
             If lstTemas.ListIndex < lstTemas.ListCount - 1 Then lstTemas.ListIndex = lstTemas.ListIndex + 1
         
-        Case vbKeyZ
+        Case vbKeyU
             If lstTemas.ListIndex > 0 Then lstTemas.ListIndex = lstTemas.ListIndex - 1
     End Select
 End Sub

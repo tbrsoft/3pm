@@ -13,6 +13,25 @@ Begin VB.Form frmINI
    ScaleWidth      =   7500
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Label lblV 
+      BackColor       =   &H00000000&
+      Caption         =   "v 8.88"
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   21.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H0000FFFF&
+      Height          =   555
+      Left            =   4680
+      TabIndex        =   0
+      Top             =   3450
+      Width           =   1395
+   End
 End
 Attribute VB_Name = "frmINI"
 Attribute VB_GlobalNameSpace = False
@@ -22,6 +41,7 @@ Attribute VB_Exposed = False
 Private Sub Form_Load()
     Me.Show
     Me.Refresh
+    lblV = "V" + Trim(Str(App.Major)) + "." + Trim(Str(App.Revision))
     AP = App.Path
     If Right(AP, 1) <> "\" Then AP = AP + "\"
     'ver si ya estaba cargado
