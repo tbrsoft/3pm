@@ -10,6 +10,7 @@ Begin VB.UserControl VUMeter
    ScaleHeight     =   1560
    ScaleWidth      =   2505
    Begin VB.Shape P2 
+      BackColor       =   &H00800000&
       BackStyle       =   1  'Opaque
       Height          =   250
       Index           =   5
@@ -19,6 +20,7 @@ Begin VB.UserControl VUMeter
       Width           =   735
    End
    Begin VB.Shape P 
+      BackColor       =   &H00800000&
       BackStyle       =   1  'Opaque
       Height          =   250
       Index           =   5
@@ -28,6 +30,7 @@ Begin VB.UserControl VUMeter
       Width           =   735
    End
    Begin VB.Shape P2 
+      BackColor       =   &H00800000&
       BackStyle       =   1  'Opaque
       Height          =   250
       Index           =   4
@@ -37,6 +40,7 @@ Begin VB.UserControl VUMeter
       Width           =   735
    End
    Begin VB.Shape P 
+      BackColor       =   &H00800000&
       BackStyle       =   1  'Opaque
       Height          =   250
       Index           =   4
@@ -46,6 +50,7 @@ Begin VB.UserControl VUMeter
       Width           =   735
    End
    Begin VB.Shape P2 
+      BackColor       =   &H00800000&
       BackStyle       =   1  'Opaque
       Height          =   250
       Index           =   3
@@ -55,6 +60,7 @@ Begin VB.UserControl VUMeter
       Width           =   735
    End
    Begin VB.Shape P 
+      BackColor       =   &H00800000&
       BackStyle       =   1  'Opaque
       Height          =   250
       Index           =   3
@@ -64,6 +70,7 @@ Begin VB.UserControl VUMeter
       Width           =   735
    End
    Begin VB.Shape P2 
+      BackColor       =   &H00800000&
       BackStyle       =   1  'Opaque
       Height          =   250
       Index           =   2
@@ -73,6 +80,7 @@ Begin VB.UserControl VUMeter
       Width           =   735
    End
    Begin VB.Shape P 
+      BackColor       =   &H00800000&
       BackStyle       =   1  'Opaque
       Height          =   250
       Index           =   2
@@ -82,6 +90,7 @@ Begin VB.UserControl VUMeter
       Width           =   735
    End
    Begin VB.Shape P2 
+      BackColor       =   &H00800000&
       BackStyle       =   1  'Opaque
       Height          =   250
       Index           =   1
@@ -91,6 +100,7 @@ Begin VB.UserControl VUMeter
       Width           =   735
    End
    Begin VB.Shape P 
+      BackColor       =   &H00800000&
       BackStyle       =   1  'Opaque
       Height          =   250
       Index           =   1
@@ -100,6 +110,7 @@ Begin VB.UserControl VUMeter
       Width           =   735
    End
    Begin VB.Shape P2 
+      BackColor       =   &H00800000&
       BackStyle       =   1  'Opaque
       Height          =   250
       Index           =   0
@@ -109,6 +120,7 @@ Begin VB.UserControl VUMeter
       Width           =   735
    End
    Begin VB.Shape P 
+      BackColor       =   &H00800000&
       BackStyle       =   1  'Opaque
       Height          =   250
       Index           =   0
@@ -254,7 +266,7 @@ Dim ContTopVU As Long
 
 Public Property Get AnchoBarra() As Long
     'Valor del ancho de las barras. Sirve para saber que zona esta libre
-    AnchoBarra = P(c).Width
+    AnchoBarra = P(C).Width
 End Property
 
 Private Sub UserControl_Initialize()
@@ -332,11 +344,11 @@ Property Let Borde(new_Borde As Long)
     If new_Borde > 1 Then new_Borde = 1
     If new_Borde < 0 Then new_Borde = 0
     m_Borde = new_Borde
-    c = 0
-    Do While c < BarrasEnVUmeter
-        P(c).BorderStyle = Val(m_Borde)
-        P2(c).BorderStyle = Val(m_Borde)
-        c = c + 1
+    C = 0
+    Do While C < BarrasEnVUmeter
+        P(C).BorderStyle = Val(m_Borde)
+        P2(C).BorderStyle = Val(m_Borde)
+        C = C + 1
     Loop
     PropertyChanged "Borde"
 End Property
@@ -421,11 +433,11 @@ Private Sub DrawData()
         'BarrasEnVUmeter es el numero de barras
         PorcBarrasPintadasON = contVu / BarrasEnVUmeter * 100
         'verde
-        If PorcBarrasPintadasON <= 20 And PorcBarrasPintadasON >= 0 Then ColorOn = &HFF00&: coloroff = &H8000&
+        If PorcBarrasPintadasON <= 20 And PorcBarrasPintadasON >= 0 Then ColorOn = &HFF00&: ColorOff = &H8000&
         'amarillo
-        If PorcBarrasPintadasON <= 75 And PorcBarrasPintadasON > 20 Then: ColorOn = &HFFFF&: coloroff = &H8080&
+        If PorcBarrasPintadasON <= 75 And PorcBarrasPintadasON > 20 Then: ColorOn = &HFFFF&: ColorOff = &H8080&
         'rojo
-        If PorcBarrasPintadasON <= 100 And PorcBarrasPintadasON > 75 Then: ColorOn = &HFF&: coloroff = &H80&
+        If PorcBarrasPintadasON <= 100 And PorcBarrasPintadasON > 75 Then: ColorOn = &HFF&: ColorOff = &H80&
         
         P(contVu).BackColor = ColorOn
         P2(contVu).BackColor = ColorOn
@@ -440,14 +452,14 @@ Private Sub DrawData()
         
         PorcBarrasPintadasOff = contVuOff / BarrasEnVUmeter * 100
         'verde
-        If PorcBarrasPintadasOff <= 20 And PorcBarrasPintadasOff >= 0 Then ColorOn = &HFF00&: coloroff = &H8000&
+        If PorcBarrasPintadasOff <= 20 And PorcBarrasPintadasOff >= 0 Then ColorOn = &HFF00&: ColorOff = &H8000&
         'amarillo
-        If PorcBarrasPintadasOff <= 75 And PorcBarrasPintadasOff > 20 Then: ColorOn = &HFFFF&: coloroff = &H8080&
+        If PorcBarrasPintadasOff <= 75 And PorcBarrasPintadasOff > 20 Then: ColorOn = &HFFFF&: ColorOff = &H8080&
         'rojo
-        If PorcBarrasPintadasOff <= 100 And PorcBarrasPintadasOff > 75 Then: ColorOn = &HFF&: coloroff = &H80&
+        If PorcBarrasPintadasOff <= 100 And PorcBarrasPintadasOff > 75 Then: ColorOn = &HFF&: ColorOff = &H80&
         
-        P(contVuOff).BackColor = coloroff
-        P2(contVuOff).BackColor = coloroff
+        P(contVuOff).BackColor = ColorOff
+        P2(contVuOff).BackColor = ColorOff
         
         contVu = contVu + 1
         If contVu = BarrasEnVUmeter Then contVu = 0
@@ -459,7 +471,7 @@ Private Sub DrawData()
         Dim TopeVU As Long 'maximo al que supongo que llegará
         TopeVU = 150
         'BarrasEnVUmeter es el numero de barras
-        contVu = 0: A = 0: b = 0
+        contVu = 0: A = 0: B = 0
         ContTopVU = ContTopVU + 1
         'cada 18 vuelta se fija el tope de vuelta
         If ContTopVU > 18 Then
@@ -471,11 +483,11 @@ Private Sub DrawData()
         Do While contVu < BarrasEnVUmeter
             PorcBarrasPintadas = contVu / BarrasEnVUmeter * 100
             'verde
-            If PorcBarrasPintadas <= 20 And PorcBarrasPintadas >= 0 Then ColorOn = &HFF00&: coloroff = &H8000&
+            If PorcBarrasPintadas <= 20 And PorcBarrasPintadas >= 0 Then ColorOn = &HFF00&: ColorOff = &H8000&
             'amarillo
-            If PorcBarrasPintadas <= 75 And PorcBarrasPintadas > 20 Then: ColorOn = &HFFFF&: coloroff = &H8080&
+            If PorcBarrasPintadas <= 75 And PorcBarrasPintadas > 20 Then: ColorOn = &HFFFF&: ColorOff = &H8080&
             'rojo
-            If PorcBarrasPintadas <= 100 And PorcBarrasPintadas > 75 Then: ColorOn = &HFF&: coloroff = &H80&
+            If PorcBarrasPintadas <= 100 And PorcBarrasPintadas > 75 Then: ColorOn = &HFF&: ColorOff = &H80&
 
             If contVu = MaxLH Then GoTo SiguienteRh 'que no repinte la ubicacion del tope
             
@@ -492,7 +504,7 @@ Private Sub DrawData()
                     End If
                     A = A + 1
                 Else
-                    P(contVu).BackColor = coloroff
+                    P(contVu).BackColor = ColorOff
                 End If
             End If
 SiguienteRh:
@@ -500,7 +512,7 @@ SiguienteRh:
             If RH > TopeVU / BarrasEnVUmeter * (contVu + 1) Then
                 P2(contVu).BackColor = ColorOn
             Else
-                If b = 0 Then
+                If B = 0 Then
                     If contVu >= MaxRH Then
                         MaxRH = contVu
                         P2(contVu).BackColor = vbBlack
@@ -508,9 +520,9 @@ SiguienteRh:
                         MaxRH = MaxRH - 1
                         P2(MaxRH).BackColor = vbBlack
                     End If
-                    b = b + 1
+                    B = B + 1
                 Else
-                    P2(contVu).BackColor = coloroff
+                    P2(contVu).BackColor = ColorOff
                 End If
             End If
 SIGUIENTE:
@@ -566,45 +578,45 @@ Private Sub UserControl_Resize()
         Loop
     End If
     'reubicar todas las barras
-    c = 0
-    Do While c < BarrasEnVUmeter
-        If c = 0 Then
-            P(c).Top = UserControl.Height - P(c).Height - m_EspacioEntreBarras
+    C = 0
+    Do While C < BarrasEnVUmeter
+        If C = 0 Then
+            P(C).Top = UserControl.Height - P(C).Height - m_EspacioEntreBarras
         Else
-            P(c).Top = P(c - 1).Top - P(c).Height - m_EspacioEntreBarras
-            P(c).Left = P(0).Left
+            P(C).Top = P(C - 1).Top - P(C).Height - m_EspacioEntreBarras
+            P(C).Left = P(0).Left
         End If
-        c = c + 1
+        C = C + 1
     Loop
     'darles a todos el mimo ancho
-    c = 0
-    Do While c < BarrasEnVUmeter
+    C = 0
+    Do While C < BarrasEnVUmeter
         'P(c).Width = (UserControl.Width - 150) / 2
-        c = c + 1
+        C = C + 1
     Loop
     'acomodar los P2
-    c = 0
-    Do While c < BarrasEnVUmeter
-        P2(c).Width = P(c).Width
-        P2(c).Height = P(c).Height
-        P2(c).Left = UserControl.Width - P2(c).Width 'P(c).Left + P(c).Width + 20
-        P2(c).Top = P(c).Top
-        c = c + 1
+    C = 0
+    Do While C < BarrasEnVUmeter
+        P2(C).Width = P(C).Width
+        P2(C).Height = P(C).Height
+        P2(C).Left = UserControl.Width - P2(C).Width 'P(c).Left + P(c).Width + 20
+        P2(C).Top = P(C).Top
+        C = C + 1
     Loop
     
     
 End Sub
 
-Private Sub WriteFile(ARCH As String, Texto As String)
+Private Sub WriteFile(Arch As String, Texto As String)
     libre = FreeFile
-    Open ARCH For Output As libre
+    Open Arch For Output As libre
         Write #libre, Texto
     Close libre
 End Sub
 
-Private Function ReadFile(ARCH As String) As String
+Private Function ReadFile(Arch As String) As String
     libre = FreeFile
-    Open ARCH For Input As libre
+    Open Arch For Input As libre
         Input #libre, Texto
     Close libre
     ReadFile = Texto

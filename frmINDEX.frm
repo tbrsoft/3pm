@@ -172,11 +172,11 @@ Begin VB.Form frmIndex
    Begin VB.Frame frDISCOS 
       BackColor       =   &H00000000&
       BorderStyle     =   0  'None
-      Height          =   4230
+      Height          =   4950
       Left            =   3510
       TabIndex        =   11
       Top             =   90
-      Width           =   4815
+      Width           =   5295
       Begin VB.Timer Timer1 
          Left            =   180
          Top             =   2610
@@ -1618,20 +1618,20 @@ Private Sub Form_Load()
     Dim ImgFondo As String
     ImgFondo = Trim(LeerConfig("ImgFondo", "NO"))
     If ImgFondo = "NO" Then
-        picFondoDisco.Picture = LoadPicture(SYSfolder + "f3ya.nam")
+        picFondoDisco.Picture = LoadPicture(SYSfolder + "f53.dlw")
     Else
         If FSO.FileExists(ImgFondo) Then
             picFondoDisco.Picture = LoadPicture(ImgFondo)
         Else
-            picFondoDisco.Picture = LoadPicture(SYSfolder + "f3ya.nam")
+            picFondoDisco.Picture = LoadPicture(SYSfolder + "f53.dlw")
         End If
     End If
-    picFondo.Picture = LoadPicture(SYSfolder + "f4ya.nam")
-    tbrPassImg1.Picture SYSfolder + "f8ya.nam"
-    TapaEjecutando.Picture = LoadPicture(SYSfolder + "f8ya.nam")
+    picFondo.Picture = LoadPicture(SYSfolder + "f55.dlw")
+    tbrPassImg1.Picture SYSfolder + "f61.dlw"
+    TapaEjecutando.Picture = LoadPicture(SYSfolder + "f61.dlw")
     'la imagen chiquita del exclusivo es la misma!!
-    Image1.Picture = LoadPicture(SYSfolder + "f8ya.nam")
-    VU21.Picture SYSfolder + "f4ya.nam"
+    Image1.Picture = LoadPicture(SYSfolder + "f61.dlw")
+    VU21.Picture SYSfolder + "f55.dlw"
     
     If Is3pmExclusivo Then
         'poner el picfondo.top a la altura del VU21 ya que todo esta basado en ese top!!!
@@ -2286,7 +2286,7 @@ Public Function CargarDiscos(numDiscoIniciar As Long, SelPrimero As Boolean, DeQ
                     TapaCD(NDR).Picture = LoadPicture(ArchTapa)
                 Else
                     LineaError = "000-0414"
-                    TapaCD(NDR).Picture = LoadPicture(SYSfolder + "f8ya.nam")
+                    TapaCD(NDR).Picture = LoadPicture(SYSfolder + "f61.dlw")
                 End If
                 LineaError = "000-0415"
                 TapaCD(NDR).Visible = True
@@ -2399,7 +2399,7 @@ Private Sub MP3_BeginPlay()
     If FSO.FileExists(Tapa) Then
         TapaEjecutando.Picture = LoadPicture(Tapa)
     Else
-        TapaEjecutando.Picture = LoadPicture(SYSfolder + "f8ya.nam")
+        TapaEjecutando.Picture = LoadPicture(SYSfolder + "f61.dlw")
     End If
     LineaError = "000-0428"
     TotalTema = MP3.LengthInSec
@@ -2426,7 +2426,7 @@ End Sub
 
 Private Sub MP3_EndPlay()
     EstoyEnModoVideoMiniSelDisco = False
-    frmIndex.TapaEjecutando.Picture = LoadPicture(SYSfolder + "f8ya.nam")
+    frmIndex.TapaEjecutando.Picture = LoadPicture(SYSfolder + "f61.dlw")
     'volver a PasarHoja a su estado original3
     LineaError = "000-0435"
     PasarHoja = LeerConfig("PasarHoja", "1")

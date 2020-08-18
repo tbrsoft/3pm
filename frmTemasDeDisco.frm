@@ -473,10 +473,10 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         Case TeclaDER
             'si esta en el modo 5 debe salir!!!
             If IsMod46Teclas = 46 Then
-                If lstTEMAS.ListIndex < lstTEMAS.ListCount - 1 Then
-                    lstTEMAS.ListIndex = lstTEMAS.ListIndex + 1
+                If lstTemas.ListIndex < lstTemas.ListCount - 1 Then
+                    lstTemas.ListIndex = lstTemas.ListIndex + 1
                 Else
-                    lstTEMAS.ListIndex = 0
+                    lstTemas.ListIndex = 0
                 End If
                 SaltarEspaciosLstTemas True
             End If
@@ -494,10 +494,10 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         Case TeclaIZQ
             
             If IsMod46Teclas = 46 Then
-                If lstTEMAS.ListIndex > 0 Then
-                    lstTEMAS.ListIndex = lstTEMAS.ListIndex - 1
+                If lstTemas.ListIndex > 0 Then
+                    lstTemas.ListIndex = lstTemas.ListIndex - 1
                 Else
-                    lstTEMAS.ListIndex = lstTEMAS.ListCount - 1
+                    lstTemas.ListIndex = lstTemas.ListCount - 1
                 End If
                 SaltarEspaciosLstTemas False
             End If
@@ -518,10 +518,10 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         Case TeclaPagAd
             If IsMod46Teclas = 5 Then
                 'igual que el boton adelante!!
-                If lstTEMAS.ListIndex < lstTEMAS.ListCount - 1 Then
-                    lstTEMAS.ListIndex = lstTEMAS.ListIndex + 1
+                If lstTemas.ListIndex < lstTemas.ListCount - 1 Then
+                    lstTemas.ListIndex = lstTemas.ListIndex + 1
                 Else
-                    lstTEMAS.ListIndex = 0
+                    lstTemas.ListIndex = 0
                 End If
                 SaltarEspaciosLstTemas True
             End If
@@ -531,10 +531,10 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         Case TeclaPagAt
             If IsMod46Teclas = 5 Then
                 'igual que el boton atras!!
-                If lstTEMAS.ListIndex > 0 Then
-                    lstTEMAS.ListIndex = lstTEMAS.ListIndex - 1
+                If lstTemas.ListIndex > 0 Then
+                    lstTemas.ListIndex = lstTemas.ListIndex - 1
                 Else
-                    lstTEMAS.ListIndex = lstTEMAS.ListCount - 1
+                    lstTemas.ListIndex = lstTemas.ListCount - 1
                 End If
                 SaltarEspaciosLstTemas False
             End If
@@ -595,7 +595,7 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             'MP3 O VIDEO!!!!!!
             Dim temaElegido As String
             'lstext es una lista oculta  con datos completos
-            temaElegido = lstEXT.List(lstTEMAS.ListIndex) ' UbicDiscoActual + "\" + lstTemas + "." + EXTs(lstTemas.ListIndex)
+            temaElegido = lstEXT.List(lstTemas.ListIndex) ' UbicDiscoActual + "\" + lstTemas + "." + EXTs(lstTemas.ListIndex)
             
             If LCase(Right(temaElegido, 3)) = "mp3" Then
                 PideVideo = False
@@ -636,20 +636,20 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
                     NewIndLista = UBound(MATRIZ_LISTA)
                     ReDim Preserve MATRIZ_LISTA(NewIndLista + 1)
                     'se graba en Matriz_Listas como patah, nombre(sin .mp3)
-                    MATRIZ_LISTA(NewIndLista + 1) = temaElegido + "," + lstTEMAS + " / " + FSO.GetBaseName(UbicDiscoActual)
+                    MATRIZ_LISTA(NewIndLista + 1) = temaElegido + "," + lstTemas + " / " + FSO.GetBaseName(UbicDiscoActual)
                     CargarProximosTemas
                     'graba en reini.tbr los datos que correspondan por si se corta la luz
                     CargarArchReini UCase(ReINI) 'POR LAS DUDAS que no este en mayusculas
                     'AHORA DEBE MARCARLO COMO EJECUTADO Y SALIR PARA ELIJA OTRO
-                    lstAgregados = lstAgregados + lstTEMAS.List(lstTEMAS.ListIndex) + " / "
+                    lstAgregados = lstAgregados + lstTemas.List(lstTemas.ListIndex) + " / "
                     
                     If BloquearMusicaElegida Then
-                        lstTEMAS.List(lstTEMAS.ListIndex) = "----------"
+                        lstTemas.List(lstTemas.ListIndex) = "----------"
                         lstTIME.List(lstTIME.ListIndex) = "---"
                     End If
                         
                     lstAgregados.Visible = True
-                    lstTEMAS.Height = lstAgregados.Top - lstTEMAS.Top
+                    lstTemas.Height = lstAgregados.Top - lstTemas.Top
                     lstTIME.Height = lstAgregados.Top - lstTIME.Top
                     SaltarEspaciosLstTemas True
                 Else
@@ -670,15 +670,15 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
                     ''----------------------
                     ''----------------------
                     'AHORA DEBE MARCARLO COMO EJECUTADO Y SALIR PARA ELIJA OTRO
-                    lstAgregados = lstAgregados + lstTEMAS.List(lstTEMAS.ListIndex) + " / "
+                    lstAgregados = lstAgregados + lstTemas.List(lstTemas.ListIndex) + " / "
                     
                     If BloquearMusicaElegida Then
-                        lstTEMAS.List(lstTEMAS.ListIndex) = "----------"
+                        lstTemas.List(lstTemas.ListIndex) = "----------"
                         lstTIME.List(lstTIME.ListIndex) = "---"
                     End If
                     
                     lstAgregados.Visible = True
-                    lstTEMAS.Height = lstAgregados.Top - lstTEMAS.Top
+                    lstTemas.Height = lstAgregados.Top - lstTemas.Top
                     lstTIME.Height = lstAgregados.Top - lstTIME.Top
                     SaltarEspaciosLstTemas True
                     CORTAR_TEMA = False 'este tema va entero ya que lo eligio el usuario
@@ -701,9 +701,9 @@ End Sub
 Private Sub Form_Load()
     YaInicio = 0
     If Is3pmExclusivo Then
-        lstTEMAS.BackColor = vbBlack
+        lstTemas.BackColor = vbBlack
         lstTIME.BackColor = vbBlack
-        lstTEMAS.ForeColor = vbYellow
+        lstTemas.ForeColor = vbYellow
         lstTIME.ForeColor = vbYellow
         Frame1.BackColor = &H404000
         lblDataDisco.Visible = False
@@ -739,8 +739,8 @@ Private Sub Form_Load()
     'ocultar ahora
     If CargarDuracionTemas = False Then
         lstTIME.Visible = False
-        lstTEMAS.Left = 50
-        lstTEMAS.Width = lblNoEjecuta.Left - 150
+        lstTemas.Left = 50
+        lstTemas.Width = lblNoEjecuta.Left - 150
     End If
     SegSinTecla = 0
     RelojTDD.Enabled = True
@@ -752,7 +752,7 @@ Private Sub Form_Load()
     If FSO.FileExists(ArchTapa) Then
         TapaCD.Picture = LoadPicture(ArchTapa)
     Else
-        TapaCD.Picture = LoadPicture(SYSfolder + "f8ya.nam")
+        TapaCD.Picture = LoadPicture(SYSfolder + "f61.dlw")
     End If
     TapaCD.Refresh
     lblDisco = FSO.GetBaseName(UbicDiscoActual)
@@ -772,8 +772,8 @@ Private Sub Form_Load()
     Dim pathTema As String
     lstEXT.Clear
     If NoHayTemasEnDisco Then
-        lstTEMAS.AddItem "No hay temas en este disco"
-        lstTEMAS.Enabled = False
+        lstTemas.AddItem "No hay temas en este disco"
+        lstTemas.Enabled = False
         lstTIME.Enabled = False
         WriteTBRLog "No hay temas en el disco: " + UbicDiscoActual, True
         Exit Sub
@@ -784,8 +784,8 @@ Private Sub Form_Load()
         nombreTemas = txtInLista(MATRIZ_TEMAS(C), 1, ",")
         'quitar el molesto .mp3 o lo que fuera
         nombreTemas = FSO.GetBaseName(nombreTemas)
-        lstTEMAS.AddItem nombreTemas
-        lstTEMAS.Refresh
+        lstTemas.AddItem nombreTemas
+        lstTemas.Refresh
         lstEXT.AddItem pathTema
         C = C + 1
     Loop
@@ -809,8 +809,8 @@ Private Sub Form_Load()
                     NoCargoDuracion = NoCargoDuracion + 1
                     If NoCargoDuracion > 3 Then
                         lstTIME.Visible = False
-                        lstTEMAS.Left = 50
-                        lstTEMAS.Width = lblNoEjecuta.Left - 50
+                        lstTemas.Left = 50
+                        lstTemas.Width = lblNoEjecuta.Left - 50
                     End If
                 End If
             End If
@@ -821,8 +821,8 @@ Private Sub Form_Load()
         Set MP3tmp = Nothing
         lstTIME.Enabled = True
     End If
-    lstTEMAS.Enabled = True
-    lstTEMAS.ListIndex = 0
+    lstTemas.Enabled = True
+    lstTemas.ListIndex = 0
     Label1 = "Temas de este disco"
     
     
@@ -830,7 +830,7 @@ End Sub
 
 Private Sub lstTemas_Click()
     On Local Error Resume Next
-    If CargarDuracionTemas Then lstTIME.ListIndex = lstTEMAS.ListIndex
+    If CargarDuracionTemas Then lstTIME.ListIndex = lstTemas.ListIndex
 End Sub
 
 Private Sub RelojTDD_Timer()
@@ -850,12 +850,12 @@ Private Sub SaltarEspaciosLstTemas(HaciaAdelante As Boolean)
     Dim A As Long
     Dim CC As Long
     Dim Ahora As Long
-    Ahora = lstTEMAS.ListIndex
+    Ahora = lstTemas.ListIndex
     
     Dim nINI As Long, nFin As Long, StepMio As Long
     If HaciaAdelante Then
         nINI = Ahora
-        nFin = lstTEMAS.ListCount - 1
+        nFin = lstTemas.ListCount - 1
         StepMio = 1
     Else
         nINI = Ahora
@@ -872,10 +872,10 @@ ReiniLST:
         Exit Sub
     End If
     For A = nINI To nFin Step StepMio
-        If lstTEMAS.List(A) <> "----------" Then
+        If lstTemas.List(A) <> "----------" Then
             'ya esta lo encontro!!!!!!!
             'ir ahi!!!
-            lstTEMAS.ListIndex = A
+            lstTemas.ListIndex = A
             Exit For
         Else
             'si es el ultimo......!!
@@ -888,7 +888,7 @@ ReiniLST:
             Else
                 If A = nFin Then 'este es 0
                     'voy al ultimo
-                    nINI = lstTEMAS.ListCount - 1
+                    nINI = lstTemas.ListCount - 1
                     GoTo ReiniLST
                 End If
             End If

@@ -540,7 +540,7 @@ Private Sub cmdKillTapa_Click()
     If MsgBox(msg, vbYesNo + vbCritical) = vbNo Then Exit Sub
     FSO.DeleteFile lstCarpetas + "\tapa.jpg", True
     'refrescar la imagen
-    TapaCD.Picture = LoadPicture(SYSfolder + "f8ya.nam")
+    TapaCD.Picture = LoadPicture(SYSfolder + "f61.dlw")
     cmdKillTapa.Enabled = False
 End Sub
 
@@ -1010,7 +1010,7 @@ Private Sub lstCarpetas_Click()
         TamTapa = Round(TamTapa / 1024, 2)
         lblKB = CStr(TamTapa) + " KB"
     Else
-        TapaCD.Picture = LoadPicture(SYSfolder + "f8ya.nam")
+        TapaCD.Picture = LoadPicture(SYSfolder + "f61.dlw")
         cmdKillTapa.Enabled = False
         lblKB = "8 KB"
     End If

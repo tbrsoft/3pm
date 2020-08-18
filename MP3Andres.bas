@@ -311,7 +311,7 @@ Public Sub EMPEZAR_SIGUIENTE()
             SecSinUso = 0
             'si no hay temas mostrar la leyenda que lo indica
             LineaError = "003-0067"
-            .lblTiempoRestante = "FALTA: " + "00:00"
+            .lblTiempoRestante = "Falta: " + "00:00"
             LineaError = "003-0068"
             OnOffCAPS vbKeyCapital, False
             LineaError = "003-0069"
@@ -326,10 +326,10 @@ Public Sub EMPEZAR_SIGUIENTE()
             LineaError = "003-0071"
             .lstProximos = "No hay próximo tema"
             LineaError = "003-0072"
-            .lblTiempoRestante = "FALTA: " + "00:00"
+            .lblTiempoRestante = "Falta: " + "00:00"
             LineaError = "003-0073"
-            .LBLpORCtEMA.Width = .lblTemaSonando.Width
-            LineaError = "003-0074"
+            
+            
             TEMA_REPRODUCIENDO = "Sin reproduccion actual"
             LineaError = "003-0075"
             If HabilitarVUMetro Then
@@ -627,5 +627,5 @@ Public Function PuestoN(TemaBuscado As String) As String
     LineaError = "003-0175"
     TE.Close
     LineaError = "003-0176"
-    PuestoN = "No Rank"
+    PuestoN = "000" 'era no rank
 End Function

@@ -131,9 +131,9 @@ Function ObtenerDir(ruta As String) As String()
         Dim NewName As String 'nuevo nombre si hay que corregir puntos metidos en el nombre de la carpeta
         Dim MaxPBAR As Long
         LineaError = "001-0030"
-        MaxPBAR = frmINI.PBar.Width
+        MaxPBAR = frmINI.pBar.Width
         LineaError = "001-0031"
-        frmINI.PBar.Width = 0
+        frmINI.pBar.Width = 0
         LineaError = "001-0032"
         frmINI.lblProces = "Iniciando busqueda"
         LineaError = "001-0033"
@@ -185,7 +185,7 @@ Function ObtenerDir(ruta As String) As String()
                     ReDim Preserve Resultado(ContadorArch + ALLOC_CHUNK) As String
                 End If
                 LineaError = "001-0050"
-                frmINI.PBar.Width = frmINI.PBar.Width + 100
+                frmINI.pBar.Width = frmINI.pBar.Width + 100
                 'si me hacerco al max de pbar lo hago inalcanzable
                 LineaError = "001-0051"
                 frmINI.lblProces = NombreDir
@@ -247,7 +247,7 @@ NextCarp:
         Loop
 Solo12: 'solo los 12 primeros
         LineaError = "001-0067"
-        frmINI.PBar.Width = MaxPBAR
+        frmINI.pBar.Width = MaxPBAR
         LineaError = "001-0068"
         TOTAL_DISCOS = ContadorCarp
         ' proporciona el array resultante
@@ -311,7 +311,7 @@ EntreAlPedo:
         Dim nTAPAcd As Integer
         nTAPAcd = 0
         LineaError = "001-0088"
-        frmINI.PBar.Width = 0
+        frmINI.pBar.Width = 0
         LineaError = "001-0089"
         For mtx = LBound(Resultado) + 1 To UBound(Resultado)
             LineaError = "001-0090"
@@ -334,18 +334,14 @@ EntreAlPedo:
                 ArchTapa = UbicDiscoActual + "\tapa.jpg"
                 'arranca con 5 ya cargados
                 
-                'INICIO RAPIDO fastini
-                'si hay, mostrar la tapa
-                LineaError = "001-0104"
-                If FASTini = False And FSO.FileExists(ArchTapa) Then frmINI.TapaCD.Picture = LoadPicture(ArchTapa)
                 LineaError = "001-0105"
                 frmINI.lblINI = "Ordenando Discos: " + Trim(Str(mtx))
                 LineaError = "001-0106"
                 frmINI.lblINI.Refresh
                 LineaError = "001-0107"
-                frmINI.PBar.Width = frmINI.PBar.Width + 100
+                frmINI.pBar.Width = frmINI.pBar.Width + 100
                 LineaError = "001-0108"
-                frmINI.PBar.Refresh
+                frmINI.pBar.Refresh
                 LineaError = "001-0109"
                 If nTAPAcd > ((TapasMostradasH * TapasMostradasV) - 1) Then
                     LineaError = "001-0110"
@@ -366,7 +362,7 @@ EntreAlPedo:
                     If FSO.FileExists(WINfolder + "SL\indexCHI.tbr") Then
                         frmIndex.TapaCD(nTAPAcd).Picture = LoadPicture(WINfolder + "SL\indexCHI.tbr")
                     Else
-                        frmIndex.TapaCD(nTAPAcd).Picture = LoadPicture(SYSfolder + "f8ya.nam")
+                        frmIndex.TapaCD(nTAPAcd).Picture = LoadPicture(SYSfolder + "f61.dlw")
                     End If
                 End If
                 LineaError = "001-0117"
@@ -393,7 +389,7 @@ EntreAlPedo:
         LineaError = "001-0119"
         frmINI.lblINI.Refresh
         LineaError = "001-0120"
-        frmINI.PBar.Width = MaxPBAR
+        frmINI.pBar.Width = MaxPBAR
         LineaError = "001-0121"
         ObtenerDir = MTXsort
 End Function

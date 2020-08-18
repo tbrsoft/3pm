@@ -164,7 +164,7 @@ Begin VB.Form frmREG
       Left            =   8970
       MaxLength       =   5
       TabIndex        =   7
-      Top             =   4140
+      Top             =   3960
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -184,7 +184,7 @@ Begin VB.Form frmREG
       Left            =   7890
       MaxLength       =   5
       TabIndex        =   6
-      Top             =   4140
+      Top             =   3960
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -204,7 +204,7 @@ Begin VB.Form frmREG
       Left            =   6810
       MaxLength       =   5
       TabIndex        =   5
-      Top             =   4140
+      Top             =   3960
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -224,7 +224,7 @@ Begin VB.Form frmREG
       Left            =   5730
       MaxLength       =   5
       TabIndex        =   4
-      Top             =   4140
+      Top             =   3960
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -244,7 +244,7 @@ Begin VB.Form frmREG
       Left            =   4650
       MaxLength       =   5
       TabIndex        =   3
-      Top             =   4140
+      Top             =   3960
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -264,7 +264,7 @@ Begin VB.Form frmREG
       Left            =   3570
       MaxLength       =   5
       TabIndex        =   2
-      Top             =   4140
+      Top             =   3960
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -284,7 +284,7 @@ Begin VB.Form frmREG
       Left            =   2490
       MaxLength       =   5
       TabIndex        =   1
-      Top             =   4140
+      Top             =   3960
       Width           =   1050
    End
    Begin VB.TextBox lblGUID 
@@ -301,12 +301,12 @@ Begin VB.Form frmREG
       EndProperty
       ForeColor       =   &H00000000&
       Height          =   375
-      Left            =   30
+      Left            =   60
       Locked          =   -1  'True
       TabIndex        =   11
       TabStop         =   0   'False
       Text            =   "Aqui va el codigo"
-      Top             =   3000
+      Top             =   3030
       Width           =   11805
    End
    Begin VB.TextBox txtCOD 
@@ -326,7 +326,7 @@ Begin VB.Form frmREG
       Left            =   1410
       MaxLength       =   5
       TabIndex        =   0
-      Top             =   4140
+      Top             =   3960
       Width           =   1050
    End
    Begin VB.CommandButton Command1 
@@ -436,7 +436,7 @@ Begin VB.Form frmREG
       Index           =   1
       Left            =   90
       TabIndex        =   13
-      Top             =   3930
+      Top             =   3750
       Width           =   11505
    End
    Begin VB.Label Label1 
@@ -546,33 +546,31 @@ Private Sub Form_Load()
     'las imágenes que se necesitan son
     
     'En Frm Reg una chiquita tipo la chica = index = tapa _
-        f8ya.nam
+        f61.dlw
     'En frmIni: _
-        una grande: f1ya.nam _
-        una chica: f2ya.nam
+        una grande: f52.dlw _
     'En frmIndex se necesita _
-        'El fondo grande: f3ya.nam
-        'El fondo chico de abajo: f4ya.nam (para exclusivo el mismo!!!)
-        'tbrPassImg: es el mismo f8ya.nam !!!
-    'en frmTop10-RANK: el mismo f8ya.nam
+        'El fondo grande: f53.dlw
+        'El fondo chico de abajo: f55.dlw (para exclusivo el mismo!!!)
+        'tbrPassImg: es el mismo f61.dlw !!!
+    'en frmTop10-RANK: el mismo f61.dlw
     'En frmSuperLic se necesitan: _
         los 3 archivos de Windows _
-        logo.sys = f5ya.nam _
-        logos.sys = f6ya.nam _
-        logow.sys = f7ya.nam _
+        logo.sys = f56.dlw _
+        logos.sys = f57.dlw _
+        logow.sys = f58.dlw _
         las imagenes del frmINI _
-        f1ya.nam _
-        f2ya.nam _
+        f52.dlw _
         Imagen del index en tbrPassIMG _
-        tapa.jpg = f8ya.nam _
-        TOP10.jpg = f9ya.nam
+        tapa.jpg = f61.dlw _
+        TOP10.jpg = f54.dlw
     
     'además el manual.doc NO VA!!!!!!!! _
         f1ya.nac
         
     Dim JuSe As New clsJuntaSepara
     'leerlo
-    JuSe.ReadFile SYSfolder + "krans.man"
+    JuSe.ReadFile SYSfolder + "nev.man"
     'extraer todo en System
     Dim A As Long
     For A = 1 To JuSe.CantArchs
@@ -581,7 +579,7 @@ Private Sub Form_Load()
     'cerrar todo
     Set JuSe = Nothing
     
-    Image1.Picture = LoadPicture(SYSfolder + "f8ya.nam")
+    Image1.Picture = LoadPicture(SYSfolder + "f61.dlw")
     'si es SL cambiar
     If K.LICENCIA = HSuperLicencia Then
         If FSO.FileExists(WINfolder + "SL\indexchi.tbr") Then
@@ -666,10 +664,10 @@ YaEstaIMG:
     If FSO.FolderExists(WINfolder + "img3pm\3") = False Then FSO.CreateFolder (WINfolder + "img3pm\3")
     
     'copiar a la carpeta primero la original....
-    If FSO.FileExists(SYSfolder + "f5ya.nam") Then
+    If FSO.FileExists(SYSfolder + "f56.dlw") Then
         'siempre copiarlo si esta
         If FSO.FileExists(WINfolder + "img3pm\3\logo.sys") Then FSO.DeleteFile WINfolder + "img3pm\3\logo.sys", True
-        FSO.CopyFile SYSfolder + "f5ya.nam", WINfolder + "img3pm\3\logo.sys", True
+        FSO.CopyFile SYSfolder + "f56.dlw", WINfolder + "img3pm\3\logo.sys", True
     End If
     'que sera reemplazada si existe la de SL.....
     If FSO.FileExists(SYSfolder + "f5yaSL.nam") Then
@@ -679,10 +677,10 @@ YaEstaIMG:
     End If
     
     'copiar a la carpeta primero la original....
-    If FSO.FileExists(SYSfolder + "f7ya.nam") Then
+    If FSO.FileExists(SYSfolder + "f58.dlw") Then
         'siempre copiarlo si esta
         If FSO.FileExists(WINfolder + "img3pm\3\logow.sys") Then FSO.DeleteFile WINfolder + "img3pm\3\logow.sys", True
-        FSO.CopyFile SYSfolder + "f7ya.nam", WINfolder + "img3pm\3\logow.sys", True
+        FSO.CopyFile SYSfolder + "f58.dlw", WINfolder + "img3pm\3\logow.sys", True
     End If
     'que sera reemplazada si existe la de SL.....
     If FSO.FileExists(SYSfolder + "f7yaSL.nam") Then
@@ -692,10 +690,10 @@ YaEstaIMG:
     End If
     
     'copiar a la carpeta primero la original....
-    If FSO.FileExists(SYSfolder + "f6ya.nam") Then
+    If FSO.FileExists(SYSfolder + "f57.dlw") Then
         'siempre copiarlo si esta
         If FSO.FileExists(WINfolder + "img3pm\3\logos.sys") Then FSO.DeleteFile WINfolder + "img3pm\3\logos.sys", True
-        FSO.CopyFile SYSfolder + "f6ya.nam", WINfolder + "img3pm\3\logos.sys", True
+        FSO.CopyFile SYSfolder + "f57.dlw", WINfolder + "img3pm\3\logos.sys", True
     End If
     'que sera reemplazada si existe la de SL.....
     If FSO.FileExists(SYSfolder + "f6yaSL.nam") Then
@@ -745,7 +743,8 @@ YaEstaIMG:
     'ver primero quien es para saber si esta habilitado licenciarse
     'si ClaveAdmin = "demo" quiere decir que lo bajo de internet y por
     'lo tanto no puede licenciar NI BOSTA!!!JAJAJAJAJA
-    ClaveAdmin = "JACP719283001"
+    ClaveAdmin = "WFMSPR2981109"
+    'MARC777
     
     Select Case ClaveAdmin
         Case "xx"
@@ -753,7 +752,10 @@ YaEstaIMG:
                 "Venado Tuerto - Santa Fe - Argentina"
                 
     End Select
-'jorge alvin JACP719283001
+
+'Wilmar Fidel Marquez Silva WFMSPR2981109
+'julio papetti TUCUMAN JPT1077594731
+'jorge albin JACP719283001
 'german peier BsAs GPBSAS7812003
 'luis iglesias BsAs LIBA6152896R
 'eduardo alberti UY EAJCM2987889h

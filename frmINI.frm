@@ -17,7 +17,8 @@ Begin VB.Form frmINI
    Begin VB.Label lblTipoLIC 
       Alignment       =   2  'Center
       BackColor       =   &H00404040&
-      Caption         =   "Iniciando 3PM. Licencia Full"
+      BackStyle       =   0  'Transparent
+      Caption         =   "Iniciando SUPERLICENCIA"
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   9.75
@@ -27,28 +28,20 @@ Begin VB.Form frmINI
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00E0E0E0&
-      Height          =   645
-      Left            =   7500
+      ForeColor       =   &H00404040&
+      Height          =   285
+      Left            =   7020
       TabIndex        =   3
-      Top             =   60
-      Width           =   4440
-   End
-   Begin VB.Image Image2 
-      BorderStyle     =   1  'Fixed Single
-      Height          =   1095
-      Left            =   3900
-      Stretch         =   -1  'True
-      Top             =   7605
-      Width           =   3570
+      Top             =   7080
+      Width           =   3270
    End
    Begin VB.Label pBar 
-      BackColor       =   &H0000FFFF&
-      Height          =   240
-      Left            =   45
+      BackColor       =   &H000000FF&
+      Height          =   90
+      Left            =   1320
       TabIndex        =   2
-      Top             =   7290
-      Width           =   11850
+      Top             =   8070
+      Width           =   435
    End
    Begin VB.Label lblINI 
       BackColor       =   &H00000080&
@@ -56,19 +49,19 @@ Begin VB.Form frmINI
       Caption         =   "Contando Discos: 00"
       BeginProperty Font 
          Name            =   "Verdana"
-         Size            =   9
+         Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00C0FFFF&
       Height          =   285
-      Left            =   45
+      Left            =   8040
       TabIndex        =   1
-      Top             =   7605
-      Width           =   11820
+      Top             =   7740
+      Width           =   2280
    End
    Begin VB.Label lblProces 
       Alignment       =   2  'Center
@@ -77,34 +70,27 @@ Begin VB.Form frmINI
       Caption         =   "Buscando discos"
       BeginProperty Font 
          Name            =   "Verdana"
-         Size            =   9.75
+         Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H0000FFFF&
       Height          =   315
-      Left            =   50
+      Left            =   1320
       TabIndex        =   0
-      Top             =   6930
+      Top             =   7710
       UseMnemonic     =   0   'False
-      Width           =   11850
-   End
-   Begin VB.Image TapaCD 
-      Height          =   3405
-      Left            =   7650
-      Stretch         =   -1  'True
-      Top             =   765
-      Width           =   4230
+      Width           =   6660
    End
    Begin VB.Image Image1 
-      Height          =   4455
-      Left            =   1710
+      Height          =   6825
+      Left            =   1320
       Stretch         =   -1  'True
-      Top             =   1215
-      Width           =   3750
+      Top             =   540
+      Width           =   9000
    End
 End
 Attribute VB_Name = "frmINI"
@@ -118,22 +104,20 @@ Private Sub Form_Load()
     'VVV = "v " + Trim(Str(App.Major)) + "." + Trim(Str(App.Minor)) + "." + Trim(Str(App.Revision))
     '--------
     'cargar los previstos
-    Image1.Picture = LoadPicture(SYSfolder + "f1ya.nam")
-    Image2.Picture = LoadPicture(SYSfolder + "f2ya.nam")
+    Image1.Picture = LoadPicture(SYSfolder + "f52.dlw")
     If K.LICENCIA = HSuperLicencia Then
         If FSO.FileExists(WINfolder + "SL\imgbig.tbr") Then Image1.Picture = LoadPicture(WINfolder + "SL\imgbig.tbr")
-        If FSO.FileExists(WINfolder + "SL\imgtbr.tbr") Then Image2.Picture = LoadPicture(WINfolder + "SL\imgtbr.tbr")
     End If
     '--------
     Select Case K.LICENCIA
         Case HSuperLicencia
             lblTipoLIC = "Iniciando SUPERLICENCIA"
         Case GFull
-            lblTipoLIC = "Iniciando 3PM. Licencia Full"
+            lblTipoLIC = "Iniciando Licencia Full"
         Case CGratuita
             lblTipoLIC = "Iniciando Demo gratuito"
         Case aSinCargar
-            lblTipoLIC = "Iniciando demo 3PM"
+            lblTipoLIC = "Iniciando Demo 3PM"
     End Select
     lblTipoLIC.Refresh
             
@@ -234,16 +218,16 @@ Private Sub Form_Load()
         'se corrige así.
         FSO.CopyFile SYSfolder + "f9yaSL.nam", AP + "discos\01- Los mas escuchados\tapa.jpg", True
     Else
-        If FSO.FileExists(SYSfolder + "f9ya.nam") Then
+        If FSO.FileExists(SYSfolder + "f54.dlw") Then
             'aqui hay un error de acceso denegado si es de solo lectura!!!!!
             'se corrige así.
-            FSO.CopyFile SYSfolder + "f9ya.nam", AP + "discos\01- Los mas escuchados\tapa.jpg", True
+            FSO.CopyFile SYSfolder + "f54.dlw", AP + "discos\01- Los mas escuchados\tapa.jpg", True
         Else
             MsgBox "No se encuentra el archivo de imagen del Ranking!. La instalacion de 3PM no es corecta!"
             End
         End If
     End If
-    If FSO.FileExists(SYSfolder + "f8ya.nam") = False Then
+    If FSO.FileExists(SYSfolder + "f61.dlw") = False Then
         MsgBox "No se encuentra el archivo de imagen de las portadas predeterminadas!. La instalacion de 3PM no es corecta!"
         End
     End If
@@ -271,9 +255,9 @@ Private Sub Form_Load()
     LineaError = "000A-00904"
     lblINI.Refresh
     LineaError = "000A-00905"
-    pBar.Width = 0
+    PBar.Width = 0
     LineaError = "000A-00906"
-    pBar.Refresh
+    PBar.Refresh
     LineaError = "000A-00907"
     Dim TT As String
     Dim mtxTOP10() As String, z As Integer
@@ -300,7 +284,8 @@ Private Sub Form_Load()
             LineaError = "000A-00913"
             z = z + 1
             LineaError = "000A-00914"
-            pBar.Width = z * 10
+            PBar.Width = z * 10
+            If PBar.Width > lblProces.Width Then PBar.Width = 100
             LineaError = "000A-00915"
             ThisPTS = Val(txtInLista(TT, 0, ","))
             LineaError = "000A-00916"
@@ -329,11 +314,11 @@ Private Sub Form_Load()
     C = 0 'cantidad de minimos encontrados
     Dim Ordenados() As Long 'matriz con los indices ordenados
     LineaError = "000A-00923"
-    pBar.Width = 0
-    pBar.Refresh
+    PBar.Width = 0
+    PBar.Refresh
     LineaError = "000A-00924"
     Do
-        pBar.Width = C * 10
+        PBar.Width = C * 10
         LineaError = "000A-00925"
         For mtx = 1 To UBound(mtxTOP10)
             'se compara por los puntos
@@ -360,8 +345,8 @@ Private Sub Form_Load()
     Loop
     'cargar todos y sacar la primera columna de las zetas
     LineaError = "000A-00932"
-    pBar.Width = 0
-    pBar.Refresh
+    PBar.Width = 0
+    PBar.Refresh
     LineaError = "000A-00933"
     Dim MTXsort() As String
     'cambie opentextfile por createtextfile por un error que suele dar
@@ -384,7 +369,7 @@ Private Sub Form_Load()
                 txtInLista(mtxTOP10(Ordenados(mtx)), 4, ",")
             LineaError = "000A-00938"
             TeRank.WriteLine MTXsort(mtx)
-            pBar.Width = mtx * 10
+            PBar.Width = mtx * 10
             RankWrite = RankWrite + 1
         Else
             LineaError = "000A-00937"

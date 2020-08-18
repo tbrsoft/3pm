@@ -4,7 +4,7 @@ Most Recent Package=Paquete de instalación estándar 1
 
 [Package|Paquete de instalación estándar 1|Root]
 SubWizProgID=PDWizard.SetupPkgSubWiz
-BuildFolder=e:\AHORA\3PMv6\3PM Alvin\para Wme-Xp
+BuildFolder=e:\AHORA\3PMv65 Kabalin\i1
 
 [Package|Paquete de instalación estándar 1|Configure DAO ISAMs]
 Applicable=No
@@ -16,6 +16,7 @@ ODBCDirect=
 [Package|Paquete de instalación estándar 1|Files Found]
 INI.EXE=E:\AHORA\3PMv6\INI.EXE
 LEER.TXT=E:\AHORA\3PMv6\PUB\LEER.TXT
+MANUAL.DOC=E:\AHORA\3PMv6\MANUAL.DOC
 
 [Package|Paquete de instalación estándar 1|Missing Dependency Information]
 C:\WINDOWS\system32\wbem\wbemdisp.tlb=
@@ -31,11 +32,12 @@ C:\WINDOWS\system32\scrrun.dll=
 C:\LINUX3\SYSTEM\scrrun.dll=
 
 [Package|Paquete de instalación estándar 1|Files Added]
-ini.exe=
-manual.doc=
-repair.exe=
+e:\ahora\3pmv6\ini.exe=
+e:\ahora\3pmv6\manual.doc=
+e:\ahora\3pmv6\repair.exe=
 e:\ahora\3pmv6\pub\leer.txt=
-krans.man=
+e:\ahora\3pmv6\krans.man=
+E:\ahora\3PMv65 Kabalin\Nev.man=
 
 [Package|Paquete de instalación estándar 1|Files Removed]
 c:\windows\system32\msvcrt.dll=
@@ -44,35 +46,38 @@ c:\windows\system32\oleaut32.dll=
 c:\windows\system32\olepro32.dll=
 c:\windows\system32\asycfilt.dll=
 c:\windows\system32\stdole2.tlb=
-c:\archivos de programa\microsoft visual studio\vb98\wizards\pdwizard\redist\comcat.dll=
+c:\linux3\system\msvcrt.dll=
 c:\linux3\system\msvbvm60.dll=
 c:\linux3\system\oleaut32.dll=
 c:\linux3\system\olepro32.dll=
 c:\linux3\system\asycfilt.dll=
 c:\linux3\system\stdole2.tlb=
+c:\archivos de programa\microsoft visual studio\vb98\wizards\pdwizard\redist\comcat.dll=
+e:\ahora\3pmv6\krans.man=
 
 [Package|Paquete de instalación estándar 1|Files In Project]
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=No
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
-E:\AHORA\3PMv6\3PM.EXE=Yes
-C:\LINUX3\SYSTEM\msvbvm60.dll=No
-C:\LINUX3\SYSTEM\OLEAUT32.DLL=No
-C:\LINUX3\SYSTEM\OLEPRO32.DLL=No
-C:\LINUX3\SYSTEM\ASYCFILT.DLL=No
-C:\LINUX3\SYSTEM\STDOLE2.TLB=No
-C:\LINUX3\SYSTEM\VB6ES.DLL=Yes
-C:\LINUX3\SYSTEM\scrrun.dll=Yes
-C:\LINUX3\SYSTEM\MSVCRT.DLL=Yes
-C:\LINUX3\SYSTEM\scrrnes.dll=Yes
-C:\LINUX3\SYSTEM\WBEMDISP.TLB=Yes
-C:\LINUX3\SYSTEM\VB6STKIT.DLL=Yes
 E:\AHORA\3PMv6\INI.EXE=Yes
 E:\AHORA\3PMv6\MANUAL.DOC=Yes
 E:\AHORA\3PMv6\REPAIR.EXE=Yes
 E:\AHORA\3PMv6\PUB\LEER.TXT=Yes
-C:\LINUX3\SYSTEM\krans.man=Yes
+E:\AHORA\3PMv6\krans.man=No
+E:\ahora\3PMv65 Kabalin\3PM.EXE=Yes
+C:\WINDOWS\system32\msvbvm60.dll=No
+C:\WINDOWS\system32\oleaut32.dll=No
+C:\WINDOWS\system32\olepro32.dll=No
+C:\WINDOWS\system32\asycfilt.dll=No
+C:\WINDOWS\system32\stdole2.tlb=No
+C:\WINDOWS\system32\VB6ES.DLL=Yes
+C:\WINDOWS\system32\scrrun.dll=Yes
+C:\WINDOWS\system32\msvcrt.dll=No
+C:\WINDOWS\system32\scrrnes.dll=Yes
+C:\WINDOWS\system32\wbemdisp.tlb=Yes
+C:\WINDOWS\system32\VB6STKIT.DLL=Yes
+E:\ahora\3PMv65 Kabalin\Nev.man=Yes
 
 [Package|Paquete de instalación estándar 1|Configure Registry Files]
 Applicable=No
@@ -85,23 +90,6 @@ C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\system32\VB6ES.DLL=$(WinSysPath)
-C:\WINDOWS\system32\scrrun.dll=$(WinSysPath)
-C:\WINDOWS\system32\scrrnes.dll=$(WinSysPath)
-C:\WINDOWS\system32\wbem\wbemdisp.tlb=$(WinSysPath)
-C:\WINDOWS\system32\VB6STKIT.DLL=$(WinSysPathSysFile)
-C:\ahora\3PMv6\3pm.exe=$(AppPath)
-C:\WINDOWS\system32\WBEMDISP.TLB=$(WinSysPath)
-C:\ahora\3PMv6\ini.exe=$(AppPath)
-C:\ahora\3PMv6\manual.doc=$(AppPath)
-C:\ahora\3PMv6\repair.exe=$(AppPath)
-C:\ahora\3PMv6\pub\LEER.txt=$(AppPath)\pub
-C:\ahora\3PMv6\krans.man=$(WinSysPath)
-C:\WINDOWS\system32\msvbvm60.dll=$(WinSysPathSysFile)
-C:\WINDOWS\system32\oleaut32.dll=$(WinSysPathSysFile)
-C:\WINDOWS\system32\olepro32.dll=$(WinSysPathSysFile)
-C:\WINDOWS\system32\asycfilt.dll=$(WinSysPathSysFile)
-C:\WINDOWS\system32\stdole2.tlb=$(WinSysPathSysFile)
 E:\AHORA\3PMv6\3PM.EXE=$(AppPath)
 C:\LINUX3\SYSTEM\msvbvm60.dll=$(WinSysPathSysFile)
 C:\LINUX3\SYSTEM\OLEAUT32.DLL=$(WinSysPathSysFile)
@@ -118,29 +106,29 @@ E:\AHORA\3PMv6\INI.EXE=$(AppPath)
 E:\AHORA\3PMv6\MANUAL.DOC=$(AppPath)
 E:\AHORA\3PMv6\REPAIR.EXE=$(AppPath)
 E:\AHORA\3PMv6\PUB\LEER.TXT=$(AppPath)\pub
-E:\AHORA\3PMv6\KRANS.MAN=$(AppPath)
-C:\LINUX3\SYSTEM\krans.man=$(AppPath)
+E:\AHORA\3PMv6\KRANS.MAN=$(WinSysPath)
+E:\ahora\3PMv65 Kabalin\3PM.EXE=$(AppPath)
+C:\WINDOWS\system32\VB6ES.DLL=$(WinSysPath)
+C:\WINDOWS\system32\scrrun.dll=$(WinSysPath)
+C:\WINDOWS\system32\scrrnes.dll=$(WinSysPath)
+C:\WINDOWS\system32\wbemdisp.tlb=$(WinSysPath)
+C:\WINDOWS\system32\VB6STKIT.DLL=$(WinSysPathSysFile)
+E:\ahora\3PMv65 Kabalin\Nev.man=$(WinSysPath)
 
 [Package|Paquete de instalación estándar 1|Configure Shared Files]
 Applicable=Yes
-C:\ahora\3PMv6\3pm.exe=No
-C:\ahora\3PMv6\ini.exe=No
-C:\ahora\3PMv6\manual.doc=No
-C:\ahora\3PMv6\repair.exe=No
-C:\ahora\3PMv6\pub\LEER.txt=No
-C:\ahora\3PMv6\krans.man=No
 E:\AHORA\3PMv6\3PM.EXE=No
 E:\AHORA\3PMv6\INI.EXE=No
 E:\AHORA\3PMv6\MANUAL.DOC=No
 E:\AHORA\3PMv6\REPAIR.EXE=No
 E:\AHORA\3PMv6\PUB\LEER.TXT=No
 E:\AHORA\3PMv6\KRANS.MAN=No
-C:\LINUX3\SYSTEM\krans.man=No
+E:\ahora\3PMv65 Kabalin\3PM.EXE=No
 
 [Package|Paquete de instalación estándar 1|Distribution]
 Type=single
 Size=
-Title=3pm v6
+Title=3pm KABALIN v6.5
 
 [Package|Paquete de instalación estándar 1|Files Released]
 
@@ -164,11 +152,11 @@ StartIn3=$(AppPath)
 Key3=Icon3
 
 [Package|Paquete de instalación estándar 1|Package]
-PackageFolder=e:\AHORA\3PMv6\3PM Alvin\para Wme-Xp
-ProjectFolder=E:\AHORA\3PMv6
+PackageFolder=e:\AHORA\3PMv65 Kabalin\i1
+ProjectFolder=E:\ahora\3PMv65 Kabalin
 ServerSideCab=
-File1=e:\AHORA\3PMv6\3PM Alvin\para Wme-Xp\setup.exe
-File2=e:\AHORA\3PMv6\3PM Alvin\para Wme-Xp\Setup.Lst
-File3=e:\AHORA\3PMv6\3PM Alvin\para Wme-Xp\3pm.CAB
+File1=e:\AHORA\3PMv65 Kabalin\i1\setup.exe
+File2=e:\AHORA\3PMv65 Kabalin\i1\Setup.Lst
+File3=e:\AHORA\3PMv65 Kabalin\i1\3pm.CAB
 Handler1=PDWizard.FolderDplySubWiz
 Handler2=PDWizard.WebPostDplySubWiz

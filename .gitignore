@@ -1,7 +1,12 @@
 *.TMP
 *.exe
+*.EXE
 *.dll
+*.DLL
 *.oca
+*.OCA
+*.ocx
+*.OCX
 creditos.tbr
 *.log
 log.txt
@@ -43,3 +48,5 @@ pub/*.jpeg
 pub/*.gif
 pub/*.GIF
 *.kar
+nev.man
+*.dlw

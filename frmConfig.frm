@@ -10,7 +10,6 @@ Begin VB.Form frmConfig
    Icon            =   "frmConfig.frx":0000
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
-   LockControls    =   -1  'True
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   13365
@@ -2039,9 +2038,9 @@ Begin VB.Form frmConfig
       EndProperty
       ForeColor       =   &H00FFFFFF&
       Height          =   3405
-      Left            =   12090
+      Left            =   12120
       TabIndex        =   73
-      Top             =   2670
+      Top             =   2490
       Visible         =   0   'False
       Width           =   4485
       Begin VB.ComboBox cmbIDIOMA 
@@ -2077,19 +2076,19 @@ Begin VB.Form frmConfig
             Strikethrough   =   0   'False
          EndProperty
          Height          =   315
-         Left            =   3330
+         Left            =   3210
          TabIndex        =   96
          TabStop         =   0   'False
          Text            =   "0"
          Top             =   2010
-         Width           =   600
+         Width           =   720
       End
       Begin VB.VScrollBar VSSegEspera 
          Height          =   330
          LargeChange     =   10
          Left            =   3960
          Max             =   30
-         Min             =   1200
+         Min             =   3600
          SmallChange     =   10
          TabIndex        =   95
          Top             =   2010
@@ -2275,7 +2274,7 @@ Begin VB.Form frmConfig
          ForeColor       =   &H00FFFFFF&
          Height          =   285
          Index           =   9
-         Left            =   150
+         Left            =   90
          TabIndex        =   98
          Top             =   2070
          Width           =   3075

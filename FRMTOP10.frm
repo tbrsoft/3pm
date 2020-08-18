@@ -325,7 +325,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                     CargarArchReini UCase(ReINI) 'POR LAS DUDAS que no este en mayusculas
                 Else
                     'ocultar el rank y mostrar lblWAIT
-                    lblWait = "CARGANDO TEMA" + vbCrLf + "ESPERE..."
+                    lblWAIT = "CARGANDO TEMA" + vbCrLf + "ESPERE..."
                     Dim cRank As Integer
                     cRank = 0
                     Do While cRank < MaxTop
@@ -333,8 +333,8 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                         'lblPuestos(cRank).Refresh
                         cRank = cRank + 1
                     Loop
-                    lblWait.Visible = True
-                    lblWait.Refresh
+                    lblWAIT.Visible = True
+                    lblWAIT.Refresh
                     'TEMA_REPRODUCIENDO y mp3.isplayin se cargan en ejecutartema
                     CORTAR_TEMA = False 'este tema va entero ya que lo eligio el usuario
                     EjecutarTema temaElegido, True
@@ -427,7 +427,7 @@ End Sub
 
 Private Sub Form_Load()
     
-    Image1.Picture = LoadPicture(SYSfolder + "f8ya.nam")
+    Image1.Picture = LoadPicture(SYSfolder + "f61.dlw")
     'si es SL cambiar
     If K.LICENCIA = HSuperLicencia Then
         If FSO.FileExists(WINfolder + "SL\indexchi.tbr") Then
