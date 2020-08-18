@@ -5,13 +5,54 @@ Attribute VB_Name = "modValidar"
 Private txtClaves As String
 
 Public Sub CrearNuevoCodigoValidar()
-    'cuando carga OK una clave se genera el proximo codigo a pedir
-    'esto debe ser al azar si son siempre la misma serie de codigos un
-    'tipo con varis máquinas solo pide las clavs una vez
-    Dim A As Long
-    Randomize Timer
-    A = Int(Rnd * 1000000) '1 millon
-    EscribirArch1Linea GPF("clavevalid"), CStr(A)
+    'tiene que ser de la lista de codigos que se pueden pedir!!!!
+    'si no fuera asi no encontraría nunca el pedido para responder
+    'XXXXX
+    
+    Dim TX As String
+    Dim TE As TextStream
+    
+    Set TE = FSO.OpenTextFile(GPF("dalivmp2")) 'archivo encriptado con las claves
+        TX = TE.ReadAll
+    TE.Close
+    
+    Dim Pos As Long 'posicion del archivo que voy leyendo
+    Pos = 1
+    Pos = Pos + 16
+    'los siguentes 2 digitos especifican el largo del texto
+    Dim LN As Long, LN2 As Long, LN3 As Long 'temporales
+    TP = Mid(TX, Pos, 2)
+    LN = CLng(TP)
+    Pos = Pos + 2
+    Pos = Pos + (LN * 4)
+    'listo ahora solo los numeros. cada 16 hay 2 grupos de 8 encriptados
+    
+    Dim AZAR As Long, Limite As Long
+    
+    Randomize
+    Limite = CLng(Rnd * 200)
+    
+    Dim Pedir As String
+    
+    For LN = (Pos - 1) To (Len(TX) - 16) Step 16
+        
+        TP = Mid(TX, LN + 2, 1) + Mid(TX, LN + 15, 1) + Mid(TX, LN + 11, 1) + Mid(TX, LN + 16, 1) + _
+             Mid(TX, LN + 6, 1) + Mid(TX, LN + 4, 1) + Mid(TX, LN + 14, 1) + Mid(TX, LN + 10, 1)
+        
+        Pedir = TP 'por si llega al final de todo y no eligio nada
+        
+        TP2 = Mid(TX, LN + 3, 1) + Mid(TX, LN + 5, 1) + Mid(TX, LN + 9, 1) + Mid(TX, LN + 1, 1) + _
+             Mid(TX, LN + 7, 1) + Mid(TX, LN + 8, 1) + Mid(TX, LN + 13, 1) + Mid(TX, LN + 12, 1)
+
+        Randomize
+        AZAR = AZAR + CLng(Rnd * 8)
+        If AZAR > Limite Then
+            Pedir = TP
+            Exit For
+        End If
+    Next LN
+    
+    EscribirArch1Linea GPF("clavevalid"), Pedir
 End Sub
 
 
@@ -27,63 +68,6 @@ Public Function CodigoParaClaveActual() As String
     
 End Function
 
-Public Function ClaveParaValidar(CodigoSolicitado As String) ' es siempre un numero del 1 al 1 millon
-    txtClaves = "hfhefy487rgh8dX88734grefvberhg8y3487yfeg8hjYJWEGFWUGWVUXHWHJE3FVB8CM8XJD8FYHWUXUX"
-    txtClaves = txtClaves + "HGHFGDFGGyqye76462763674838e8dghfvvGW6263GFBVXVCZFADQRgay2738rXgopgj"
-    txtClaves = txtClaves + "dhdbdgGQ6327498R09FD83YDBHGDH3626EHDB8Y71637r9d0dujcbdte535detr8wfw68"
-    txtClaves = txtClaves + "GDGFCYYW62739FRJXBy17387dhdh38438759fhdbxvzbnxmxcm8hjwu274eg8g727376D"
-    txtClaves = txtClaves + "6374HFDBDGHg173849rufcbsvzgytwy37egcy364yfgdvxbv8uy3743yt8g7273HFHXBVV"
-    txtClaves = txtClaves + "CXCBNCNXMGDGD652163ydbxnzj8uXe726475859d8098ghdgYEWY3YDHDYW273HRHJDJ"
-    txtClaves = txtClaves + "SHCGBEY26153748772737degdb2u74374gdbv8y273ytdgdg32736degdv2636regfg8g26"
-    txtClave8 = txtClaves + "cvxcg8ywuywu8jau1837437772737EHDGDH3HDH8JHJQXQOOP8K3MVACg8agd8y6wehd"
-    txtClaves = txtClaves + "vcvxbnzmajwX3837dytdg8twq62763gd8gh8jaka3aowqu8bnahGQ5265373828283737646"
-    txtClaves = txtClaves + "23098732097094327569263576573432643556325643275684327568326554363284534"
-    txtClaves = txtClaves + "1907309874986214987698732648648632432487567465032465065508716508DF8D8D"
-    txtClaves = txtClaves + "vxbcnvshdfuwetruywtuXdsygfhj8dfahjfahjfdwquXyetfaghjdfghj8adfghj3476586358fe87a"
-    txtClaves = txtClaves + "8djhgXutr726354765w876ftu8dahgfhjd8agf13764532187645876w5f76dtfuXt276547621"
-    txtClaves = txtClaves + "297346987qwdfthjd8agfchjd8GA7X2165R9762FTDGUYWGFDHJAg8f762refuytfdc376r23"
-    txtClaves = txtClaves + "8cnbv8adfhgd8ahjgdvuyqtruywetuyuXqXqXXoqwXuoX8afdhjk8adgfka7a36816448787tfyaaa"
-    txtClaves = txtClaves + "wer8769876trywetgfuhd8agf87t4r9t2f76wgfuywgfeug92167gf916gf9763gf976ewgfuy"
-    txtClaves = txtClaves + "weuyrwXuerghhjkgd88768752354WE87TD8GT8DUFHG218RT987TGFUY8GDF7632TR732"
-    txtClaves = txtClaves + "DWFGD8F7326T76ATD76T76T76t76t76rR5DF865d65de6D865d865D8865D865DuytdUY"
-    txtClaves = txtClaves + "vdcbvxbvcxghjfdUYDUye65RE65eufdJHGHJFDhjgfXTrXfrKFGHJfghjFHGFGHJfghfghFDHJTR"
-    txtClaves = txtClaves + "ghfghjkfaxghjdf8ad76UYTRY486548654765465E65EDUYTedytrdeuyrdytrDUYTRDUYTdutr"
-    txtClaves = txtClaves + "rm3vf200328177891k3j8fh8aoXduyuXUXYTUYXTRUTFYTERTEUTRDUYfXruyfDYTRDErdXduyrDX"
-    txtClaves = txtClaves + "276543321759832745983276987659875217645321764321493246543253245324656666"
-    txtClaves = txtClaves + "190730987498ghjg76579873264864863gt524875gt56503246gt55508716508DF8D8D"
-    txtClaves = txtClaves + "weuyrwXuerghhgt5d887687523gt5E87TD8GT8DUgt5218RT987Tgt5Y8GDF7632TR732"
-    
-    Dim Cod As Long
-    Cod = CLng(CodigoSolicitado)
-    'la clave debe tener tambien algo personalizado para que cada licenciatario tenga sus propias claves
-    'la forma mejor es utilizar su clave de administrador. Esta se repite para todas las licencias de un mismo tipo.
-    Cod = Cod + SumaCHRtxt(ClaveAdmin)
-    Dim Largo As Long
-    Largo = Len(txtClaves)
-    A = Cod \ Largo 'resultado entero
-    Dim Resto As Long
-    Resto = Cod - (A * Largo)
-    If Resto < 0 Then Resto = -Resto
-    'asegurarme que este dentro del txclaves
-    Do While Resto > Largo - 20
-        Resto = Resto - 20
-    Loop
-    
-    'una clave con 4 valores posibles debe ser de 15 caracteres
-    'para que haya 1000 millones de claves posibles
-    
-    'si coloco una clave con texto el que alquila debera tener un teclado!!!!
-    'no debe funcionar así!!!!!
-    
-    'transformo entonces la clave en algo que el tipo pueda escribir
-    'no puedo usar ni el enter ni el escape!
-    'me quedan cuatro
-    'IZQ DER PagAd y PagAt
-    Dim ClaveIntermedia As String
-    ClaveIntermedia = Mid(txtClaves, Resto, 15)
-    ClaveParaValidar = PasarStrToClave4Teclas(ClaveIntermedia)
-End Function
-
 Public Sub RegistroDiario()
     'registra cada inicio de 3PM y el numero que indica el contador
     Dim TE As TextStream
@@ -91,6 +75,7 @@ Public Sub RegistroDiario()
         SumarContadorCreditos 0 'me aseguro que se carge la variable contador
         TE.WriteLine CStr(Date) + " - " + CStr(time) + " Contador R en: " + CStr(CONTADOR) + " Contador H en: " + CStr(CONTADOR2)
     TE.Close
+    
     If FileLen(GPF("rdcday")) > 50000 Then
         'si es muy grande achicarlo.
         Dim TE431 As String
@@ -112,12 +97,9 @@ Public Function PasarStrToClave4Teclas(TXT As String)
     'se para una cadena (clave) y se transforma en una clave con las 4 teclas de desplazamiento
     Dim ButonIzq As String
     Dim ButonDer As String
-    Dim ButonPagAd As String
-    Dim ButonPagAt As String
+    
     ButonIzq = Chr(TeclaIZQ)
     ButonDer = Chr(TeclaDER)
-    ButonPagAd = Chr(TeclaPagAd)
-    ButonPagAt = Chr(TeclaPagAt)
     
     Dim Largo As Long, CC As Long
     Largo = Len(TXT)
@@ -127,15 +109,16 @@ Public Function PasarStrToClave4Teclas(TXT As String)
     Dim nLetraNew As Long
     Do While CC <= Largo
         Letra = Mid(TXT, CC, 1)
-        ' a cada letra le divido su ASC por cuatro y segun el resto le asigno cada una de las 4 posibilidades
+        ' a cada letra le divido su ASC por cuatro y _
+            segun el resto le asigno cada una de las 4 posibilidades
         nLetraNew = Asc(Letra) - (4 * (Asc(Letra) \ 4))
         Select Case nLetraNew
             Case 0: LetraNew = ButonIzq
             Case 1: LetraNew = ButonDer
-            Case 2: LetraNew = ButonPagAd
-            Case 3: LetraNew = ButonPagAt
+            Case 2: LetraNew = ButonIzq
+            Case 3: LetraNew = ButonDer
             'no debe pasar NUNCA!!!
-            Case Else: LetraNew = ButonPagAt
+            Case Else: LetraNew = ButonDer
         End Select
         ClaveNew = ClaveNew + LetraNew
         CC = CC + 1
@@ -144,7 +127,123 @@ Public Function PasarStrToClave4Teclas(TXT As String)
     
 End Function
 
+Public Function NumToTec(nS As String) As String
+    
+    Dim LL As Long
+    LL = Len(nS)
+    Dim J As Long, Res As String, Letra As String
+    Res = ""
+    For J = 1 To LL
+        Letra = Mid(nS, J, 1)
+        Select Case Letra
+            Case "0": Letra = "IZQ"
+            Case "1": Letra = "DER"
+            Case "2": Letra = "DER"
+            Case "3": Letra = "IZQ"
+            Case "4": Letra = "DER"
+            Case "5": Letra = "DER"
+            Case "6": Letra = "IZQ"
+            Case "7": Letra = "IZQ"
+            Case "8": Letra = "IZQ"
+            Case "9": Letra = "DER"
+        End Select
+        
+        Res = Res + Letra
+        If J < LL Then Res = Res + " - "
+        
+    Next J
+    
+    NumToTec = Res
+End Function
 
+Public Function TexToTec(nS As String) As String
+    
+    Dim LL As Long
+    LL = Len(nS)
+    Dim J As Long, Res As String, Letra As String
+    Res = ""
+    For J = 1 To LL
+        Letra = Mid(nS, J, 1)
+        Select Case Asc(Letra)
+            Case TeclaIZQ: Letra = "IZQ"
+            Case TeclaDER: Letra = "DER"
+            Case Else: Letra = "NO"
+        End Select
+        
+        Res = Res + Letra
+        If J < LL Then Res = Res + " - "
+        
+    Next J
+    
+    TexToTec = Res
+End Function
 
+Public Function ClaveParaValidar(CodigoSolicitado As String, _
+                                 Optional ByRef Usos As Long, _
+                                 Optional ByRef PreAviso As Long, _
+                                 Optional ByRef RecPC As String) As String
+
+    ClaveParaValidar = 0
+
+    Dim TX As String
+    Dim TE As TextStream
+    
+    Set TE = FSO.OpenTextFile(GPF("dalivmp2")) 'archivo encriptado con las claves
+        TX = TE.ReadAll
+    TE.Close
+    
+    Dim Pos As Long 'posicion del archivo que voy leyendo
+    Pos = 1
+    'las primeras 16 son dos numeros de 8 mezclados que informan de cuantos creditos
+    'se valida y con que preaviso
+    Dim TP As String, TP2 As String, TP3 As String 'temporales
+    
+    TP = Mid(TX, Pos, 16)
+    TP2 = Mid(TP, 3, 1) + Mid(TP, 15, 1) + Mid(TP, 9, 1) + Mid(TP, 1, 1) + _
+          Mid(TP, 13, 1) + Mid(TP, 7, 1) + Mid(TP, 11, 1) + Mid(TP, 5, 1)
+          
+    Usos = CLng(TP2 / 8)
+          
+    TP2 = Mid(TP, 4, 1) + Mid(TP, 6, 1) + Mid(TP, 8, 1) + Mid(TP, 12, 1) + _
+          Mid(TP, 10, 1) + Mid(TP, 14, 1) + Mid(TP, 16, 1) + Mid(TP, 2, 1)
+          
+    PreAviso = CLng(TP2 / 6)
+    
+    Pos = Pos + 16
+    
+    'los siguentes 2 digitos especifican el largo del texto
+    
+    Dim LN As Long, LN2 As Long, LN3 As Long 'temporales
+    
+    TP = Mid(TX, Pos, 2)
+    LN = CLng(TP)
+    Pos = Pos + 2
+    For LN2 = 0 To LN - 1 'cuatro numeros cada letra
+        LN3 = CLng(Mid(TX, Pos + (LN2 * 4), 4)) / (LN2 + 1)
+        TP2 = Chr(LN3)
+        RecPC = RecPC + TP2
+    Next LN2
+      
+    Pos = Pos + (LN * 4)
+    'listo ahora solo los numeros. cada 16 hay 2 grupos de 8 encriptados
+    
+    For LN = Pos - 1 To (Len(TX) - 16) Step 16
+        TP = Mid(TX, LN + 2, 1) + Mid(TX, LN + 15, 1) + Mid(TX, LN + 11, 1) + Mid(TX, LN + 16, 1) + _
+             Mid(TX, LN + 6, 1) + Mid(TX, LN + 4, 1) + Mid(TX, LN + 14, 1) + Mid(TX, LN + 10, 1)
+        TP2 = Mid(TX, LN + 3, 1) + Mid(TX, LN + 5, 1) + Mid(TX, LN + 9, 1) + Mid(TX, LN + 1, 1) + _
+             Mid(TX, LN + 7, 1) + Mid(TX, LN + 8, 1) + Mid(TX, LN + 13, 1) + Mid(TX, LN + 12, 1)
+            
+        TP3 = NumToTec(TP2)
+        
+        If CLng(CodigoSolicitado) = CLng(TP) Then
+            'este es el que pidio!"
+            ClaveParaValidar = TP2 'devuelvo string para que no olvide los ceros de _
+                                    adelante que si cuentan!
+            Exit For
+        End If
+
+    Next LN
+    
+End Function
 
 

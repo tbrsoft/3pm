@@ -3,14 +3,13 @@ Begin VB.Form frmCLAVE
    BackColor       =   &H00000000&
    BorderStyle     =   0  'None
    Caption         =   "Form1"
-   ClientHeight    =   4125
+   ClientHeight    =   5505
    ClientLeft      =   0
    ClientTop       =   0
-   ClientWidth     =   4455
+   ClientWidth     =   6105
    LinkTopic       =   "Form1"
-   LockControls    =   -1  'True
-   ScaleHeight     =   4125
-   ScaleWidth      =   4455
+   ScaleHeight     =   5505
+   ScaleWidth      =   6105
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    Begin VB.CommandButton Command1 
@@ -26,9 +25,9 @@ Begin VB.Form frmCLAVE
          Strikethrough   =   0   'False
       EndProperty
       Height          =   495
-      Left            =   1140
+      Left            =   1890
       TabIndex        =   2
-      Top             =   1350
+      Top             =   3090
       Width           =   2145
    End
    Begin VB.TextBox txtPSW 
@@ -43,31 +42,36 @@ Begin VB.Form frmCLAVE
       EndProperty
       Height          =   405
       IMEMode         =   3  'DISABLE
-      Left            =   1110
+      Left            =   540
       PasswordChar    =   "*"
       TabIndex        =   0
-      Top             =   780
-      Width           =   2115
+      Top             =   2580
+      Width           =   5145
    End
-   Begin VB.Shape Shape1 
-      BorderColor     =   &H00FFFFFF&
-      BorderWidth     =   3
-      Height          =   3855
-      Left            =   150
-      Top             =   120
-      Width           =   4215
-   End
-   Begin VB.Image Image1 
-      Height          =   1635
-      Left            =   1380
-      Picture         =   "frmCLAVE.frx":0000
-      Top             =   2130
-      Width           =   1500
-   End
-   Begin VB.Label Label1 
+   Begin VB.Label Label3 
       Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
-      Caption         =   "Ingrese su clave de administrador"
+      Caption         =   "Ingrese su clave para continuar"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00C0FFFF&
+      Height          =   1725
+      Left            =   240
+      TabIndex        =   4
+      Top             =   180
+      Width           =   5655
+   End
+   Begin VB.Label Label2 
+      Alignment       =   2  'Center
+      BackStyle       =   0  'Transparent
+      Caption         =   "SEGUN CODIGO:"
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   9.75
@@ -78,11 +82,46 @@ Begin VB.Form frmCLAVE
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   465
-      Left            =   720
+      Height          =   285
+      Left            =   870
+      TabIndex        =   3
+      Top             =   2280
+      Width           =   4395
+   End
+   Begin VB.Shape Shape1 
+      BorderColor     =   &H00FFFFFF&
+      BorderWidth     =   3
+      Height          =   5265
+      Left            =   150
+      Top             =   120
+      Width           =   5805
+   End
+   Begin VB.Image Image1 
+      Height          =   1635
+      Left            =   2220
+      Picture         =   "frmCLAVE.frx":0000
+      Top             =   3660
+      Width           =   1500
+   End
+   Begin VB.Label Label1 
+      Alignment       =   2  'Center
+      BackStyle       =   0  'Transparent
+      Caption         =   "Ingrese su clave para continuar"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FFFFFF&
+      Height          =   285
+      Left            =   870
       TabIndex        =   1
-      Top             =   270
-      Width           =   3045
+      Top             =   2010
+      Width           =   4395
    End
 End
 Attribute VB_Name = "frmCLAVE"
@@ -102,7 +141,6 @@ Private Sub Form_Activate()
             Label1 = "Ingrese su clave de administrador"
             Command1.Caption = "OK"
         Case "English"
-            
             Command1.Caption = "OK"
         Case "Francois"
         Case "Italiano"
@@ -111,8 +149,26 @@ End Sub
 
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     Select Case KeyCode
-        
         Case TeclaCerrarSistema
             YaCerrar3PM
     End Select
+End Sub
+
+Private Sub Form_Load()
+    MostrarCursor True
+    Label2.Caption = "SEGUN CODIGO: " + CodigoParaClaveActual
+    
+    tERR.Anotar "acfk"
+    Dim QuedanC As Long
+    QuedanC = ValidarCada - CreditosValidar
+    If QuedanC > 0 Then
+        'CodigoParaClaveActual busca el archivo con el numero que corresponde validar en este periodo de control
+        Label3.Caption = "Ingrese a continuacion su clave para continuar utilizando 3PM. " + vbCrLf + _
+            "Debe enviar la administrador el codigo: " + vbCrLf + _
+            CodigoParaClaveActual + vbCrLf + _
+            "Puede todavia omitir esta clave. Solo le quedan " + CStr(QuedanC) + " creditos hasta que 3PM se inhabilite"
+    Else
+        Label3.Caption = "De no ingresar la clave correspondiente 3PM no podra continuar. Ha llegado al limite de creditos posibles"
+    End If
+    
 End Sub

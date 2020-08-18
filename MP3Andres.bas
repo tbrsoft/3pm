@@ -4,7 +4,76 @@ Public CONTADOR As Long
 Public CONTADOR2 As Long
 Public EsVideo As Boolean 'saber si el tema en ejecucion es video
 
-Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
+Public Function TrataEjecutarTema(TEMA As String) As Long
+    
+    'devuelve 0 si todo ok
+    '1 no alcanza el credito
+    '-1 no llega por error!
+    '2 ya esta ejecutando
+    
+    On Local Error GoTo ErrTrata
+    
+    If LCase(Right(TEMA, 3)) = "mp3" Or LCase(Right(TEMA, 3)) = "wma" Then '''Or LCase(Right(temaElegido, 3)) = "mp4" Then
+        PideVideo = False
+    Else
+        PideVideo = True
+    End If
+                      
+    TrataEjecutarTema = -1 'valor predeterminado
+              
+    'ver si puede pagar lo que pide!!!
+    'que joyita papa!!!. Parece que supieras programar
+    '--------------------------------------------------------------
+    If (PideVideo = False And CREDITOS < PrecNowAudio) Or _
+        (PideVideo And CREDITOS < PrecNowVideo) Then
+        
+        TrataEjecutarTema = 1 'no alcanza el credito
+    Else
+    '--------------------------------------------------------------
+        'siempre que se ejecute un credito estaremos por debajo de maximo
+        SetKeyState vbKeyScrollLock, True
+        
+        'restar lo que corresponde!!!
+        If PideVideo Then
+            VarCreditos -PrecNowVideo
+        Else
+            VarCreditos -PrecNowAudio
+        End If
+        
+        tERR.Anotar "accy"
+        'si esta ejecutando pasa a la lista de reproducción
+        If frmIndex.MP3.IsPlaying(0) Or frmIndex.MP3.IsPlaying(1) Then
+            TrataEjecutarTema = 2
+            'pasar a la lista de reproducción
+            tLST.ListaAdd TEMA
+            tERR.Anotar "accz", TEMA, tLST.GetLastIndex
+            CargarProximosTemas
+            'graba en reini.tbr los datos que correspondan por si se corta la luz
+            CargarArchReini UCase(ReINI) 'POR LAS DUDAS que no este en mayusculas
+        Else
+            
+            TrataEjecutarTema = 0 'se larga ya
+            If PideVideo Then TrataEjecutarTema = 3 'especial por si es un video
+            'NUNCA ENTRARA AQUI si esta en modo de video para los otros si sirve!
+            tERR.Anotar "acdc", TEMA
+            CORTAR_TEMA(IAANext) = False 'este tema va entero ya que lo eligio el usuario
+            EjecutarTema TEMA, True
+        End If
+    End If
+    'dejar programada un publicidad si corresponde!
+    VerSiTocaPUB
+
+    Exit Function
+
+ErrTrata:
+    tERR.AppendLog "TRATA_TM", tERR.ErrToTXT(Err)
+    Resume Next
+End Function
+
+Public Sub EjecutarTema(TEMA As String, SumaRanking As Boolean)
+
+    On Local Error GoTo ErrEjecutarTema
+
     EstoyEnModoVideoMiniSelDisco = False
     'volver a PasarHoja a su estado original3
     PasarHoja = LeerConfig("PasarHoja", "1")
@@ -12,7 +81,7 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
     'si el tema es una publicidad then descuenta de la lista de temas pendientes
     'ademas no va al ranking
     Dim Carp As String
-    Carp = txtInLista(tema, 99998, "\")
+    Carp = txtInLista(TEMA, 99998, "\")
     If LCase(Carp) = "pub" Then
         PUBs.PubsEnLista = PUBs.PubsEnLista - 1
         'tampoco sumar al ranking!!!!
@@ -22,41 +91,55 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
     If LCase(Carp) = "pubmute" Then SumaRanking = False
     
     tERR.Anotar "003-0001"
-    If FSO.FileExists(tema) = False Then
+    If FSO.FileExists(TEMA) = False Then
         tERR.Anotar "003-0002"
-        frmIndex.lblTemaSonando = "No se encontro el tema"
-        frmIndex.lblTemaSonando2 = "No se encontro el tema"
+        frmIndex.RollSONG.ReplaceIndex 0, "No se encontro" + vbCrLf + "la seleccion"
         tERR.Anotar "003-0003"
         EMPEZAR_SIGUIENTE 4
+    End If
+    
+    Dim p1 As String
+    
+    p1 = GetPuestoN(1)
+    tERR.Anotar "003-0003b"
+    If FSO.FileExists(PL) Then
+        frmIndex.RollSONG.ReplaceIndex 2, "el mas escuchado" + vbCrLf + _
+                                      FSO.GetBaseName(p1) + vbCrLf + _
+                                      "del disco" + vbCrLf + _
+                                      FSO.GetFolder(FSO.GetParentFolderName(p1)).Name
+    Else 'si el rank no se inicio no exitse!!!!!!!!
+        frmIndex.RollSONG.ReplaceIndex 2, "disfrute" + vbCrLf + "su música"
     End If
     tERR.Anotar "003-0004"
      SetKeyState vbKeyCapital, True
     ' Tocar el fichero
-    On Local Error GoTo ErrEjecutarTema
+    
     ' El valor de cada paso del HScrollPos
     tERR.Anotar "003-0005"
-    TEMA_REPRODUCIENDO = tema
+    TEMA_REPRODUCIENDO = TEMA
     Dim nombreTEMA As String, nombreDISCO As String
     tERR.Anotar "003-0006"
-    nombreTEMA = FSO.GetBaseName(tema)
+    nombreTEMA = FSO.GetBaseName(TEMA)
     tERR.Anotar "003-0007"
-    nombreDISCO = FSO.GetBaseName(FSO.GetParentFolderName(tema))
+    nombreDISCO = FSO.GetBaseName(FSO.GetParentFolderName(TEMA))
     tERR.Anotar "003-0008"
-    frmIndex.lblTemaSonando = QuitarNumeroDeTema(nombreTEMA) + " / " + nombreDISCO
-    frmIndex.lblTemaSonando2 = QuitarNumeroDeTema(nombreTEMA) + " / " + nombreDISCO
+    frmIndex.RollSONG.ReplaceIndex 0, "Estas escuchando" + vbCrLf + _
+                                      QuitarNumeroDeTema(nombreTEMA) + vbCrLf + _
+                                      "del disco" + vbCrLf + nombreDISCO + vbCrLf + _
+                                      "Rank # " + PuestoN(tLST.GetElementListaPath(1))
     
     tERR.Anotar "003-0009"
-    If UCase(FSO.GetExtensionName(tema)) <> "MP3" And UCase(FSO.GetExtensionName(tema)) <> "WMA" Then '''And UCase(FSO.GetExtensionName(tema)) <> "MP4" Then
+    If UCase(FSO.GetExtensionName(TEMA)) <> "MP3" And UCase(FSO.GetExtensionName(TEMA)) <> "WMA" Then '''And UCase(FSO.GetExtensionName(tema)) <> "MP4" Then
         EsVideo = True
-        tERR.Anotar "003-0010", vidFullScreen, Salida2, HabilitarVUMetro, Is3pmExclusivo
+        tERR.Anotar "003-0010", vidFullScreen, Salida2, HabilitarVUMetro
         'cerrar el protector si estaba activo
         Unload frmProtect
         'acomodar los controles en modo video
         'modo texto pata elegir los discos
         
         'ver si esta en el modo de listas de texto !!
-        If vidFullScreen = False And Salida2 = False Then EstoyEnModoVideoMiniSelDisco = True
-            
+        EstoyEnModoVideoMiniSelDisco = (vidFullScreen = False And Salida2 = False)
+        
         frmIndex.UpdateVista
          
         frmIndex.picVideo(IAANext).Visible = True
@@ -89,7 +172,7 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
     'reiniciar reloj de tiempo sin uso
     frmIndex.Timer1.Interval = 0
     tERR.Anotar "003-0039"
-    frmIndex.lblNoUSO = "0"
+    
     SecSinUso = 0
     'lo pongo al ultimo para que tenga tiempo de cargar el tema encargado
     'si lo pongo a donde estaba pasa un pedazito del tema anterior
@@ -97,24 +180,16 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
     'ya no se cierra!!!
     'para juan carlos BsAs
     'Unload frmTemasDeDisco
-    tERR.Anotar "003-0041"
-    frmIndex.Refresh
-    
-    tERR.Anotar "003-0042"
-    frmIndex.lblPuesto = "Calculando..."
-    frmIndex.lblPuesto2 = "Calculando..."
-    tERR.Anotar "003-0043", tema, nombreTEMA, nombreDISCO
+    tERR.Anotar "003-0043", TEMA, nombreTEMA, nombreDISCO
     'contabilizar para el ranking solo si lo pide
-    If SumaRanking Then TOP10 tema, nombreTEMA, nombreDISCO
+    If SumaRanking Then TOP10 TEMA, nombreTEMA, nombreDISCO
     'mostrar el puesto que esta en el ranking
-    tERR.Anotar "003-0044", tema
-    frmIndex.lblPuesto = "Rank # " + PuestoN(tema)
-    frmIndex.lblPuesto2 = "Rank # " + PuestoN(tema)
+    tERR.Anotar "003-0044", TEMA
     
     tERR.Anotar "003-0045"
     With frmIndex.MP3
         tERR.Anotar "003-0046"
-        .FileName(IAANext) = tema
+        .FileName(IAANext) = TEMA
         tERR.Anotar "003-0047", EsVideo, Salida2
         If EsVideo Then
             If Salida2 Then
@@ -150,6 +225,8 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
                         "Notifique a tbrSoft de esto para más detalles"
                 Case 3 'mci dio error
                     tERR.AppendLog "guyaby"
+                    'PASAR AL QUE SIGUE!
+                    EMPEZAR_SIGUIENTE 4
             End Select
         End If
         'apenas se abre lo mido
@@ -160,7 +237,7 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
         
         tERR.Anotar "003-0050"
         .Volumen(IAANext) = 0 'sube si o si en los primeros segundos
-        tERR.Anotar "003-0051"
+        tERR.Anotar "003-0051", IAANext
         R = .DoPlay(IAANext)
         If R = 1 Then
             EMPEZAR_SIGUIENTE 4 'MsgBox "falla play!"
@@ -222,8 +299,10 @@ Public Function EMPEZAR_SIGUIENTE(DesdeDonde As Long) As Long
     '*******************************************************
     'en caso desde la "B" debo poner como tiempo de finalizacion del actual _
         para que no siga (si esperaria hasta el final para terminar normalmente)
-    If DesdeDonde = 2 Or DesdeDonde = 6 Then
-        TotalTema(IAA) = frmIndex.MP3.PositionInSec(IAA) + SegFade + 1
+    If DesdeDonde = 2 Then ' Or DesdeDonde = 6 Then
+        ThisFade = SegFadeB 'que pase rapido por esta vez, despues se acomoda
+        TotalTema(IAA) = frmIndex.MP3.PositionInSec(IAA) + ThisFade
+        'ponen en la variable hastatema lo que dice en totaltema
         UpdateHastaTema IAA 'AQUI SIIII
         EMPEZAR_SIGUIENTE = 1
         frmIndex.List1.List(17) = "EmpezarSig(" + CStr(DesdeDonde) + ")=1 = " + CStr(ContEmpezSig)
@@ -235,7 +314,7 @@ Public Function EMPEZAR_SIGUIENTE(DesdeDonde As Long) As Long
         Dim TMP As Long: TMP = IAANext: IAANext = IAA: IAA = TMP
     End If
     
-    tERR.Anotar "003-0054b", DesdeDonde, IAA, TotalTema(IAA), SegFade
+    tERR.Anotar "003-0054b", DesdeDonde, IAA, TotalTema(IAA), ThisFade
     
     'CMP
     'si ya hay uno ejecutandose que seria lo normal antes de que termine
@@ -276,14 +355,17 @@ Public Function EMPEZAR_SIGUIENTE(DesdeDonde As Long) As Long
         'si hay algun elemento en la lista ejecutarlo
         If tLST.GetLastIndex > 0 Then
             tERR.Anotar "003-0055"
-            .lblTemaSonando = "Cargando Proximo Tema...": .lblTemaSonando2 = "Cargando Proximo Tema..."
-            .lblTemaSonando.Refresh: .lblTemaSonando2.Refresh
+            .RollSONG.ReplaceIndex 0, "Cargando Proximo Tema..."
+            
+            
             Dim TemaDeMatriz As String
             tERR.Anotar "003-0057"
             TemaDeMatriz = tLST.GetElementListaPath(1) 'el proximo que sigue!
             'reacomodar la matriz para quitar el primer elemento y ver si no hay mas
             tERR.Anotar "003-0058"
-            If tLST.ListaKillElement = 0 Then .lstProximos = "No hay próximo tema"
+            If tLST.ListaKillElement = 0 Then
+                .RollSONG.ReplaceIndex 1, "No hay " + vbCrLf + "mas selecciones"
+            End If
             
             tERR.Anotar "003-0063"
             CORTAR_TEMA(IAANext) = False 'este tema va entero ya que lo eligio el usuario
@@ -312,29 +394,20 @@ Public Function EMPEZAR_SIGUIENTE(DesdeDonde As Long) As Long
         Else 'no hay nada en la lista
             EMPEZAR_SIGUIENTE = 6
             frmIndex.List1.List(17) = "EmpezarSig(" + CStr(DesdeDonde) + ")=6 = " + CStr(ContEmpezSig)
-            .lblREP = ""
             'frmINDEX.MP3.SongName = "" 'no sirve
             tERR.Anotar "003-0066"
             .Timer1.Interval = 3000
             SecSinUso = 0
             'si no hay temas mostrar la leyenda que lo indica
-            tERR.Anotar "003-0067"
-            .lblTiempoRestante = "Falta: " + "00:00"
+            'tERR.Anotar "003-0067"
+            '.lblTiempoRestante = "Falta: " + "00:00"
             tERR.Anotar "003-0068"
             SetKeyState vbKeyCapital, False
             tERR.Anotar "003-0069"
-            .lblTemaSonando = "Sin reproduccion actual"
-            .lblTemaSonando2 = "Sin reproduccion actual"
+            .RollSONG.ReplaceIndex 0, "Sin reproduccion actual"
             
-            tERR.Anotar "003-0070"
-            .lblPuesto = "No Rank"
-            .lblPuesto2 = "No Rank"
-            '.lstProximos.Clear
-            '.lstProximos.AddItem "No hay próximo tema"
             tERR.Anotar "003-0071"
-            .lstProximos = "No hay próximo tema"
-            tERR.Anotar "003-0072"
-            .lblTiempoRestante = "Falta: " + "00:00"
+            .RollSONG.ReplaceIndex 1, "No hay" + vbCrLf + "mas selecciones"
             tERR.Anotar "003-0073"
             
             
@@ -394,13 +467,10 @@ Public Sub TOP10(nameARCH As String, nameTEMA As String, nameDISCO As String)
             z = z + 1
             tERR.Anotar "003-0087", z
             ThisPTS = Val(txtInLista(TT, 0, ","))
-            tERR.Anotar "003-0088", ThisPTS
             ThisArch = txtInLista(TT, 1, ",")
-            tERR.Anotar "003-0089", ThisArch
             ThisTEMA = txtInLista(TT, 2, ",")
-            tERR.Anotar "003-0090", ThisTEMA
             ThisDISCO = txtInLista(TT, 3, ",")
-            tERR.Anotar "003-0091", ThisDISCO
+            tERR.Anotar "003-0091", ThisDISCO, ThisArch
             ReDim Preserve mtxTOP10(z)
             'comparar este tema con el elegido actual
             tERR.Anotar "003-0092"
@@ -608,6 +678,30 @@ Private Sub PutNumberArchCredit(Arch As String, Valor As Long)
     tERR.Anotar "003-0155"
 End Sub
 
+Public Function GetPuestoN(nOrden As Long) As String
+    'leer ranking.tbr y buscar el tema
+    Dim tmpTema As String
+    tmpTema = ""
+    tERR.Anotar "003-0159b", nOrden
+    If FSO.FileExists(GPF("rd3_444")) Then
+        Dim TE661 As TextStream
+        Set TE661 = FSO.OpenTextFile(GPF("rd3_444"), ForReading, False)
+            If TE661.AtEndOfStream Then GoTo fin661
+            tmpTema = TE661.ReadLine
+            tmpTema = txtInLista(tmpTema, 1, ",")
+'            tERR.Anotar "003-0169"
+'            ThisTEMA = txtInLista(TT, 2, ",")
+'            tERR.Anotar "003-0170"
+'            ThisDISCO = txtInLista(TT, 3, ",")
+'            tERR.Anotar "003-0171"
+        TE661.Close
+        Set TE661 = Nothing
+    End If
+fin661:
+    tERR.Anotar "003-0163b", tmpTema
+    GetPuestoN = tmpTema
+End Function
+
 Public Function PuestoN(TemaBuscado As String) As String
     'leer ranking.tbr y buscar el tema
     tERR.Anotar "003-0159"
@@ -635,19 +729,19 @@ Public Function PuestoN(TemaBuscado As String) As String
     Do While Not TE.AtEndOfStream
         tERR.Anotar "003-0166"
         TT = TE.ReadLine
-        tERR.Anotar "003-0167"
+        tERR.Anotar "003-0167", TT
         ThisPTS = Val(txtInLista(TT, 0, ","))
-        tERR.Anotar "003-0168"
+        tERR.Anotar "003-0168", ThisPTS
         ThisArch = txtInLista(TT, 1, ",")
-        tERR.Anotar "003-0169"
+        tERR.Anotar "003-0169", ThisArch
         ThisTEMA = txtInLista(TT, 2, ",")
-        tERR.Anotar "003-0170"
+        tERR.Anotar "003-0170", ThisTEMA
         ThisDISCO = txtInLista(TT, 3, ",")
-        tERR.Anotar "003-0171"
+        tERR.Anotar "003-0171", ThisDISCO
         If FSO.FileExists(ThisArch) Then
             tERR.Anotar "003-0172"
             PuestoActual = PuestoActual + 1
-            tERR.Anotar "003-0173"
+            tERR.Anotar "003-0173", PuestoActual
             If UCase(ThisArch) = UCase(TemaBuscado) Then
                 tERR.Anotar "003-0174"
                 PuestoN = Trim(CStr(PuestoActual))

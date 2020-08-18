@@ -276,9 +276,17 @@ Private Sub Command3_Click()
     Set nFSO = Nothing
     
     MsgBox "El detalle se grabo OK con formato W15. Envie ahora los archivos mencionados"
+    
+    'empaquetar todo para mandarlo por el servidor
+    'son todos los w15
+    'el reg3pm.log
+    'el archivo de configuracion (que deberá incluir la versión)
+    
 End Sub
 
 Private Sub Form_Load()
+    MostrarCursor True
+    
     Text1 = "  1- Ingrese a la configuración de 3PM" + vbCrLf + _
         "  2- Ingrese a la seccion 'OTRAS OPCIONES'" + vbCrLf + _
         "  3- Active la casilla 'ACTIVAR REGISTRO DE ERROR PERMANENETE'" + vbCrLf + _

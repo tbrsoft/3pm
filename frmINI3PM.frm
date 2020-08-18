@@ -738,8 +738,8 @@ Private Sub Command1_Click()
     'volver a escribir el archivo
     If FSO.FileExists(AP + "system.ini") Then FSO.DeleteFile AP + "system.ini", True
     Set TE = FSO.CreateTextFile(AP + "system.ini", True)
-    For A = 1 To UBound(TodoSystem)
-        TE.WriteLine TodoSystem(A)
+    For a = 1 To UBound(TodoSystem)
+        TE.WriteLine TodoSystem(a)
     Next
     TE.Close
     If FSO.FileExists(WINfolder + "OLDsystem.ini") Then FSO.DeleteFile WINfolder + "OLDsystem.ini", True

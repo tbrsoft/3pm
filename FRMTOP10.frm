@@ -353,7 +353,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     End Select
     VerClaves TECLAS_PRES
     SecSinTecla = 0
-    frmIndex.lblNoTecla = 0
+    
 End Sub
 
 Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
@@ -404,10 +404,12 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             'primero que pide!!!
             Dim temaElegido As String
             If PuestoElegido >= UBound(MTXtop) Then
-                MsgBox "No hay tema elegido!!"
+                'MsgBox "No hay tema elegido!!"
                 Exit Sub
             End If
             temaElegido = MTXtop(PuestoElegido + 1)
+            
+            TrataEjecutarTema temaElegido
             
             If LCase(Right(temaElegido, 3)) = "mp3" Or LCase(Right(temaElegido, 3)) = "wma" Then ''' Or LCase(Right(temaElegido, 3)) = "mp4" Then
                 PideVideo = False
@@ -439,7 +441,7 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
                     CargarArchReini UCase(ReINI) 'POR LAS DUDAS que no este en mayusculas
                 Else
                     'ocultar el rank y mostrar lblWAIT
-                    lblWait = "CARGANDO TEMA" + vbCrLf + "ESPERE..."
+                    lblWAIT = "CARGANDO TEMA" + vbCrLf + "ESPERE..."
                     Dim cRank As Integer
                     cRank = 0
                     Do While cRank < MaxTop
@@ -447,8 +449,8 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
                         'lblPuestos(cRank).Refresh
                         cRank = cRank + 1
                     Loop
-                    lblWait.Visible = True
-                    lblWait.Refresh
+                    lblWAIT.Visible = True
+                    lblWAIT.Refresh
                     'TEMA_REPRODUCIENDO y mp3.isplayin se cargan en ejecutartema
                     CORTAR_TEMA(IAANext) = False 'este tema va entero ya que lo eligio el usuario
                     EjecutarTema temaElegido, True
@@ -468,13 +470,9 @@ End Sub
 
 Private Sub Form_Load()
     YaInicio = 0
-    Image1.Picture = LoadPicture(GPF("extr233_61"))
-    'si es SL cambiar
-    If K.LICENCIA = HSuperLicencia Then
-        If FSO.FileExists(GPF("61conf")) Then
-            Image1.Picture = LoadPicture(GPF("61conf"))
-        End If
-    End If
+    imF = ExtraData.GetImagePath("tapapredeterminada")
+    Image1.Picture = LoadPicture(imF)
+    
     If MostrarTouch = False Then
         Frame2.Visible = False        'frame del touch
     Else
@@ -520,6 +518,12 @@ Private Sub Form_Load()
     Loop
     
     'leer ranking.tbr y cargar los temas que haya
+    'los renglones son asi:
+    
+    'Puntos,pathFull,base name,discoContenedor
+    '43,D:\musica\Cuartetazo\videos\Mis Videos y Discos.mpg,Mis Videos y Discos,videos
+    '29,D:\musica\Cuartetazo\videos\02-Beautiful life.mpg,02-Beautiful life,videos
+    '15,D:\musica\Cuartetazo\Ignacio Copani - Igual Que Vos\06 - Ignacio Copani - Cumplan.Mp3,06 - Ignacio Copani - Cumplan,Ignacio Copani - Igual Que Vos
     
     If FSO.FileExists(GPF("rd3_444")) = False Then
         FSO.CreateTextFile GPF("rd3_444"), True
@@ -549,12 +553,9 @@ Private Sub Form_Load()
             lblPuestos(c).Refresh
             
             c = c + 1
-            ReDim Preserve MTXtop(c)
-            MTXtop(c) = ThisArch
-            ReDim Preserve MTXtemas(c)
-            MTXtemas(c) = ThisTEMA
-            ReDim Preserve MTXdiscos(c)
-            MTXdiscos(c) = ThisDISCO
+            ReDim Preserve MTXtop(c):            MTXtop(c) = ThisArch
+            ReDim Preserve MTXtemas(c):          MTXtemas(c) = ThisTEMA
+            ReDim Preserve MTXdiscos(c):         MTXdiscos(c) = ThisDISCO
         End If
     Loop
     TE.Close
@@ -589,4 +590,3 @@ End Sub
 Private Sub Command1_Click()
     Form_KeyDown TeclaOK, 0
 End Sub
-

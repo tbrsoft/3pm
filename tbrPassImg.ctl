@@ -1,6 +1,7 @@
 VERSION 5.00
 Begin VB.UserControl tbrPassImg 
    BackColor       =   &H00000000&
+   BorderStyle     =   1  'Fixed Single
    ClientHeight    =   2460
    ClientLeft      =   0
    ClientTop       =   0
@@ -25,17 +26,17 @@ Begin VB.UserControl tbrPassImg
          Strikethrough   =   0   'False
       EndProperty
       Height          =   915
-      Left            =   150
+      Left            =   120
       TabIndex        =   0
-      Top             =   810
+      Top             =   840
       Visible         =   0   'False
       Width           =   2175
    End
    Begin VB.Image IMG 
       Height          =   2250
-      Left            =   120
+      Left            =   90
       Stretch         =   -1  'True
-      Top             =   90
+      Top             =   120
       Width           =   2250
    End
 End

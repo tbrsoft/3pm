@@ -1,43 +1,20 @@
 VERSION 5.00
 Begin VB.UserControl txtRolling 
-   BackColor       =   &H00000080&
-   ClientHeight    =   315
+   BackColor       =   &H00000000&
+   ClientHeight    =   1665
    ClientLeft      =   0
    ClientTop       =   0
    ClientWidth     =   4800
-   ScaleHeight     =   315
+   ScaleHeight     =   1665
    ScaleWidth      =   4800
-   Begin VB.Timer Reloj 
-      Left            =   2340
-      Top             =   150
-   End
-   Begin VB.Label lblROLL2 
-      AutoSize        =   -1  'True
-      BackStyle       =   0  'Transparent
-      Caption         =   "txtRolling2"
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H0000FFFF&
-      Height          =   195
-      Left            =   1140
-      TabIndex        =   1
-      Top             =   60
-      Width           =   1050
-   End
    Begin VB.Label lblROLL1 
+      Alignment       =   2  'Center
       AutoSize        =   -1  'True
       BackStyle       =   0  'Transparent
       Caption         =   "txtRolling"
       BeginProperty Font 
          Name            =   "Verdana"
-         Size            =   8.25
+         Size            =   26.25
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -45,11 +22,11 @@ Begin VB.UserControl txtRolling
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H0000FFFF&
-      Height          =   195
-      Left            =   90
+      Height          =   630
+      Left            =   930
       TabIndex        =   0
-      Top             =   60
-      Width           =   930
+      Top             =   540
+      Width           =   2865
    End
 End
 Attribute VB_Name = "txtRolling"
@@ -57,42 +34,253 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-Private m_txtToRoll As String
+Private WithEvents TimerMR As tbrTimer.clsTimer 'ModoRoll4
+Attribute TimerMR.VB_VarHelpID = -1
 
-Public Property Let txtToRoll(newTXT As String)
-    m_txtToRoll = newTXT
+'estetica de los dos textos
+Private mFont As New StdFont
+Private mForeColor1() As OLE_COLOR 'uno distinto para cada elemento
+
+Private DirColor As Integer
+'es 1 si va de forecolor a backcolor (camino de ida)
+'es 2 si va de backcolor a forecolor (camino de vuelta)
+
+Private Textos() As String 'cola de datos a mostrar cero es siempre el actual
+Private nTextoActual As Long
+
+Dim tRGB As New tbrRGB
+Private mInterval As Long
+Private mVarColor As Byte
+
+Private mMaxlargoRenglon As Long 'si esta en cero es libre
+
+Public Property Let MaxlargoRenglon(MLR As Long)
+    mMaxlargoRenglon = MLR
 End Property
 
-Public Sub ToRoll()
-    lblROLL1 = m_txtToRoll
-    lblROLL2 = m_txtToRoll
-    UserControl_Resize
-    Reloj.Interval = 250 'dos veces por segundo
+Public Property Get MaxlargoRenglon() As Long
+    MaxlargoRenglon = mMaxlargoRenglon
+End Property
+
+Public Sub TextoACola(sTXT As String, lColor As OLE_COLOR)
+
+    'ver que no sean renglones muy largos!
+    sTXT = CortarTextos(sTXT)
+
+    'ver si el el primero de los primeros
+    Dim UB As Long
+    UB = UBound(Textos) + 1
+    If UB = 1 And Textos(0) = "" Then
+        'voy a escribir en el primero!
+        Textos(0) = sTXT
+    Else
+        ReDim Preserve Textos(UB): Textos(UB) = sTXT
+        ReDim Preserve mForeColor1(UB): mForeColor1(UB) = lColor
+    End If
 End Sub
 
-Public Sub ToStop()
-    Reloj.Interval = 0
+Public Sub SetVarColor(NewVar As Byte)
+    mVarColor = NewVar
+End Sub
+
+Public Sub SetInterval(NewInterval As Long)
+    mInterval = NewInterval
+End Sub
+
+Public Sub INI()
+    
+    'dejar cargados los colores!
+    'lblROLL1.Visible = False 'solo para medir!
+    Set lblROLL1.Font = mFont
+    lblROLL1 = Textos(0)
+    lblROLL1.ForeColor = mForeColor1(0)
+    
+    'que elija el primero con tamaño y todo
+    nTextoActual = UBound(Textos) 'ntextoActual queda en cero
+    lblROLL1.Caption = TextoQueSigue
+    
+    lblROLL1.Top = UserControl.Height / 2 - lblROLL1.Height / 2
+    lblROLL1.Left = UserControl.Width / 2 - lblROLL1.Width / 2
+
+    DirColor = 1
+    'arranca siempre mal!
+    CalzarTexto
+    
+    TimerMR.Interval = mInterval
+    TimerMR.Enabled = True
+End Sub
+
+Public Sub STOP_Roll()
+    TimerMR.Enabled = False
+End Sub
+
+Public Sub Continue_Roll()
+    TimerMR.Enabled = True
+End Sub
+
+Private Sub TimerMR_Timer()
+    
+    Dim NewCOLOR As Long
+    
+    If DirColor = 1 Then
+        'acerco el color y veo si llegue
+        NewCOLOR = tRGB.AcercarColores(lblROLL1.ForeColor, UserControl.BackColor, mVarColor)
+        lblROLL1.ForeColor = NewCOLOR
+        If NewCOLOR = UserControl.BackColor Then
+            'llego a esconderse!
+            lblROLL1.Caption = TextoQueSigue
+            CalzarTexto 'acomodarlo para que se vea siempre centrado
+            DirColor = 2
+        End If
+    Else 'esta empezando a mostrar
+        'acerco el color y veo si llegue
+        NewCOLOR = tRGB.AcercarColores(lblROLL1.ForeColor, mForeColor1(nTextoActual), mVarColor)
+        lblROLL1.ForeColor = NewCOLOR
+        If NewCOLOR = mForeColor1(nTextoActual) Then
+            'llego a esconderse!
+            DirColor = 1
+        End If
+    End If
+    
+    'lblROLL1.Refresh
+End Sub
+
+Private Function TextoQueSigue() As String
+    nTextoActual = nTextoActual + 1
+    If nTextoActual > UBound(Textos) Then nTextoActual = 0
+    TextoQueSigue = Textos(nTextoActual)
+End Function
+
+Private Sub CalzarTexto()
+    'el label rool ya se escribio pero se debe agrandar o achicar segun corresponda!
+    
+    'si lo pasa en ancho o alto lo voy achicando
+    If lblROLL1.Height > UserControl.Height Or lblROLL1.Width > UserControl.Width Then
+        Do While mFont.Size > 5 'me aseguro que no genere un fakin error
+            mFont.Size = mFont.Size - 1
+            'tiene autosize, se acomoda solo!
+            If lblROLL1.Height < UserControl.Height And lblROLL1.Width < UserControl.Width Then
+                Exit Do 'llegue a un punto joia
+            End If
+        Loop
+    Else 'es mas chico, lo puedo agrandar
+        Do While mFont.Size < 90 'me aseguro que no genere un fakin error
+            mFont.Size = mFont.Size + 1
+            'tiene autosize, se acomoda solo!
+            If lblROLL1.Height > UserControl.Height Or lblROLL1.Width > UserControl.Width Then
+                mFont.Size = mFont.Size - 1 'vuelvo al ultimo punto joia
+                Exit Do
+            End If
+        Loop
+    End If
+    
+    lblROLL1.Top = UserControl.Height / 2 - lblROLL1.Height / 2
+    lblROLL1.Left = UserControl.Width / 2 - lblROLL1.Width / 2
+    
+End Sub
+
+Public Sub SetFont1(SF1 As StdFont)
+    Set mFont = SF1
+    Set lblROLL1.Font = mFont
+End Sub
+
+Public Sub SetForeColor1(FC1 As OLE_COLOR, i As Long)
+    mForeColor1(i) = FC1
+    'lblROLL1.ForeColor = mForeColor1
 End Sub
 
 Public Sub Clear()
     lblROLL1 = ""
-    lblROLL2 = ""
 End Sub
 
-Private Sub Reloj_Timer()
-    lblROLL1.Left = lblROLL1.Left - 75
-    lblROLL2.Left = lblROLL2.Left - 75
-    If lblROLL1.Left < 0 Then lblROLL2.Left = lblROLL1.Left + lblROLL1.Width
-    If lblROLL2.Left < 0 Then lblROLL1.Left = lblROLL2.Left + lblROLL2.Width
+Private Sub UserControl_Click()
+    INI
 End Sub
+
+Private Sub UserControl_Initialize()
+    'valores predeterminados
+    mFont.Bold = True
+    mFont.Name = "Tahoma"
+    mFont.Size = 8
+    ReDim mForeColor1(0)
+    mForeColor1(0) = vbYellow
+    mVarColor = 10
+    mInterval = 70
+    Set TimerMR = New tbrTimer.clsTimer
+    TimerMR.Interval = 0: TimerMR.Enabled = False
+    
+    ClearTextos
+    
+'    TextoACola "primera"
+'    TextoACola "prueba que puede ser muuuuy pero muuuuuuuuuy larga - larga"
+'    TextoACola "de tbrRoll" + vbCrLf + "en" + vbCrLf + "muchos" + vbCrLf + "renglones" + vbCrLf + "renglones" + vbCrLf + "renglones" + vbCrLf + "renglones"
+'    TextoACola "se ven " + vbCrLf + "2 renglones?"
+'
+End Sub
+
+Public Sub ClearTextos()
+    'si esta leyendo lo paro!!!
+    TimerMR.Enabled = False
+    ReDim Textos(0)
+End Sub
+
+'en casos de que la matriz es fija por que muestra especificamente X textos se puede hacer
+Public Sub ReplaceIndex(i As Long, newText As String)
+
+    'ver que no sean renglones muy largos!
+    newText = CortarTextos(newText)
+
+    If i > UBound(Textos) Then ReDim Preserve Textos(i)
+    Textos(i) = newText
+End Sub
+
+Private Function CortarTextos(T1 As String) As String
+    'es encesario ver que todos los renglones tengan un maximo X de caracteres si fuera necesario
+    'segun la ubicación del objeto
+    CortarTextos = T1
+    'si es cero no queria nada
+    If mMaxlargoRenglon = 0 Then Exit Function
+    
+    Dim MatrizFinal() As String, c As Long
+    c = 0
+    Dim SP() As String
+    SP = Split(T1, vbCrLf)
+    Dim a As Long
+    For a = 0 To UBound(SP)
+        If Len(SP(a)) > mMaxlargoRenglon Then
+            'buscar un espacio para cortar por palabras
+            Dim B As Long
+            For B = mMaxlargoRenglon To 1 Step -1
+                If Mid(SP(a), B, 1) = " " Then
+                                    
+                    'el renglon esta ok
+                    ReDim Preserve MatrizFinal(c)
+                    MatrizFinal(c) = Mid(SP(a), 1, B)
+                    c = c + 1
+                    
+                    ReDim Preserve MatrizFinal(c)
+                    MatrizFinal(c) = Mid(SP(a), B + 1, Len(SP(a)) - B)
+                    c = c + 1
+                    Exit For
+                    'ver que lo que queda no se pase!
+                    'XXXX
+                End If
+            Next B
+        Else
+            'el renglon esta ok
+            ReDim Preserve MatrizFinal(c)
+            MatrizFinal(c) = SP(a)
+            c = c + 1
+        End If
+    Next a
+    CortarTextos = ""
+    For a = 0 To UBound(MatrizFinal)
+        CortarTextos = CortarTextos + MatrizFinal(a)
+        If a < UBound(MatrizFinal) Then CortarTextos = CortarTextos + vbCrLf
+    Next a
+End Function
 
 Private Sub UserControl_Resize()
-    'reubicar los controles
-    'el uno visible...
-    'no debo definir he y wi ya que son autosize
-    lblROLL1.Top = 0
-    lblROLL1.Left = 0
-    ' y el dos justo por detras
-    lblROLL2.Top = lblROLL1.Top
-    lblROLL2.Left = lblROLL1.Left + lblROLL1.Width
+    'durante la ejecuciion puede cambiar de tamaño y dejar el texto regalado!
+    CalzarTexto
 End Sub

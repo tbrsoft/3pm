@@ -751,7 +751,18 @@ Private Sub cmdKillTapa_Click()
     FSO.DeleteFile lstCarpetas + "\tapa.jpg", True
     tERR.Anotar "ackc", lstCarpetas
     'refrescar la imagen
-    TapaCD.Picture = LoadPicture(GPF("extr233_61"))
+    'ver si es superlicencia y usa otra tapa predeterminada
+    If K.LICENCIA = HSuperLicencia Then
+        If FSO.FileExists(GPF("tddp322")) Then
+            imF = GPF("tddp322")
+        Else
+            imF = ExtraData.GetImagePath("tapapredeterminada")
+        End If
+    Else
+        imF = ExtraData.GetImagePath("tapapredeterminada")
+    End If
+    
+    TapaCD.Picture = LoadPicture(imF)
     cmdKillTapa.Enabled = False
     
     Exit Sub
@@ -808,7 +819,7 @@ Private Sub Command1_Click()
                 'CarpSel = txtInLista(MATRIZ_DISCOS(AA + 1), 0, ",")
                 CarpSel = lstCarpetas.List(AA)
                 tERR.Anotar "ackg", AA, CarpSel
-                If Right(CarpSel, 22) = "01- Los mas escuchados" Then
+                If Right(CarpSel, 22) = "_Los mas escuchados" Then
                     Select Case IDIOMA
                         Case "Español"
                             MsgBox "No se puede borrar la carpeta del ranking"
@@ -855,14 +866,15 @@ End Sub
 Public Sub CargarCarpetas()
     On Error GoTo MiErr
     lstCarpetas.Clear 'si no se duplican todos
-    For A = 0 To UBound(MATRIZ_DISCOS)
+    For a = 0 To UBound(MATRIZ_DISCOS)
         Dim ThisFolder As String, TamTapa As Double
-        ThisFolder = txtInLista(MATRIZ_DISCOS(A), 0, ",")
-        tERR.Anotar "ackh", A, UBound(MATRIZ_DISCOS), ThisFolder
+        ThisFolder = txtInLista(MATRIZ_DISCOS(a), 0, ",")
+        tERR.Anotar "ackh", a, UBound(MATRIZ_DISCOS), ThisFolder
         'ver si existen o se borraron
-        If FSO.FolderExists(ThisFolder) And ThisFolder <> AP + "discos\01- Los mas escuchados" Then
-            lstCarpetas.AddItem txtInLista(MATRIZ_DISCOS(A), 0, ",")
-            lstCarpetasShow.AddItem txtInLista(MATRIZ_DISCOS(A), 1, ",")
+        'If FSO.FolderExists(ThisFolder) And ThisFolder <> AP + "discos\01- Los mas escuchados" Then
+        If FSO.FolderExists(ThisFolder) Then
+            lstCarpetas.AddItem txtInLista(MATRIZ_DISCOS(a), 0, ",")
+            lstCarpetasShow.AddItem txtInLista(MATRIZ_DISCOS(a), 1, ",")
         End If
     Next
     'arreglado 27/2 no se fijaba si había indices
@@ -899,14 +911,14 @@ End Sub
 Private Sub Command12_Click()
     Dim TMPs As String
     TMPs = ""
-    For A = 0 To lstOrigenes.ListCount - 1
+    For a = 0 To lstOrigenes.ListCount - 1
         'al ultimo no pongo asterisco para que al dividir no quede uno vacio al ultimo!
-        If A < lstOrigenes.ListCount - 1 Then
-            TMPs = TMPs + lstOrigenes.List(A) + "*"
+        If a < lstOrigenes.ListCount - 1 Then
+            TMPs = TMPs + lstOrigenes.List(a) + "*"
         Else
-            TMPs = TMPs + lstOrigenes.List(A)
+            TMPs = TMPs + lstOrigenes.List(a)
         End If
-    Next A
+    Next a
     EscribirArch1Linea GPF("origs"), TMPs
     MsgBox "Los cambios se han grabado satisfactoriamente"
 End Sub
@@ -968,21 +980,22 @@ Private Sub Command15_Click()
     TE121.WriteLine "-------------------------"
     TE121.WriteLine "Cantidad Reproducciones: DISCO"
     Dim ThisFolder As String
-    Dim Carp As String, A As Long
+    Dim Carp As String, a As Long
     lstTODO.Clear
-    For A = 0 To UBound(MATRIZ_DISCOS)
-        Carp = txtInLista(MATRIZ_DISCOS(A), 1, ",")
-        ThisFolder = txtInLista(MATRIZ_DISCOS(A), 0, ",")
-        tERR.Anotar "ackp2", A, UBound(MATRIZ_DISCOS), Carp, ThisFolder
+    For a = 0 To UBound(MATRIZ_DISCOS)
+        Carp = txtInLista(MATRIZ_DISCOS(a), 1, ",")
+        ThisFolder = txtInLista(MATRIZ_DISCOS(a), 0, ",")
+        tERR.Anotar "ackp2", a, UBound(MATRIZ_DISCOS), Carp, ThisFolder
         'ver si existen o se borraron
-        If FSO.FolderExists(ThisFolder) And ThisFolder <> AP + "discos\01- Los mas escuchados" Then
+        'If FSO.FolderExists(ThisFolder) And ThisFolder <> AP + "discos\01- Los mas escuchados" Then
+        If FSO.FolderExists(ThisFolder) Then
             lstTODO.AddItem STRceros(ContarLisen(Carp), 4) + ": " + Carp
         End If
-    Next A
+    Next a
     
-    For A = 0 To lstTODO.ListCount - 1
-        TE121.WriteLine lstTODO.List(A)
-    Next A
+    For a = 0 To lstTODO.ListCount - 1
+        TE121.WriteLine lstTODO.List(a)
+    Next a
     
     'GRABAR RANK DE CANCION
     TE121.WriteLine "-------------------------"
@@ -1159,12 +1172,13 @@ Private Sub Command6_Click()
         'pasar por todos los discos y medir de cada uno las escuchadas
         Dim ThisFolder As String
         Dim Carp As String
-        For A = 0 To UBound(MATRIZ_DISCOS)
-            Carp = txtInLista(MATRIZ_DISCOS(A), 1, ",")
-            ThisFolder = txtInLista(MATRIZ_DISCOS(A), 0, ",")
-            tERR.Anotar "ackp", A, UBound(MATRIZ_DISCOS), Carp, ThisFolder
+        For a = 0 To UBound(MATRIZ_DISCOS)
+            Carp = txtInLista(MATRIZ_DISCOS(a), 1, ",")
+            ThisFolder = txtInLista(MATRIZ_DISCOS(a), 0, ",")
+            tERR.Anotar "ackp", a, UBound(MATRIZ_DISCOS), Carp, ThisFolder
             'ver si existen o se borraron
-            If FSO.FolderExists(ThisFolder) And ThisFolder <> AP + "discos\01- Los mas escuchados" Then
+            'If FSO.FolderExists(ThisFolder) And ThisFolder <> AP + "discos\01- Los mas escuchados" Then
+            If FSO.FolderExists(ThisFolder) Then
                 lstTODO.AddItem STRceros(ContarLisen(Carp), 4) + ": " + Carp
             End If
             lstTODO.Visible = True
@@ -1203,9 +1217,9 @@ Private Sub Command7_Click()
     Dim TapasGrandes As Long, TapasMuyGrandes As Long
     TapasGrandes = 0: TapasMuyGrandes = 0
         
-    For A = 0 To UBound(MATRIZ_DISCOS)
-        ThisFolder = txtInLista(MATRIZ_DISCOS(A), 0, ",")
-        tERR.Anotar "ackq", A, UBound(MATRIZ_DISCOS), ThisFolder
+    For a = 0 To UBound(MATRIZ_DISCOS)
+        ThisFolder = txtInLista(MATRIZ_DISCOS(a), 0, ",")
+        tERR.Anotar "ackq", a, UBound(MATRIZ_DISCOS), ThisFolder
         If FSO.FileExists(ThisFolder + "\tapa.jpg") Then
             TamTapa = FileLen(ThisFolder + "\tapa.jpg")
             TamTapa = Round(TamTapa / 1024, 2)
@@ -1367,11 +1381,12 @@ Private Sub Form_Load()
     tERR.Anotar "ackx"
     AjustarFRM Me, 12000
     
-    'mostrar los origenes
-    Dim Origenes As String
-    Origenes = LeerArch1Linea(GPF("origs"))
-    Dim PartOrigenes() As String
-    PartOrigenes = Split(Origenes, "*")
+'    'mostrar los origenes
+'    Dim Origenes As String
+'    Origenes = LeerArch1Linea(GPF("origs"))
+'
+'    PartOrigenes = Split(Origenes, "*")
+    'es publico !! ya se carga en el load
     
     lstOrigenes.Clear
     Dim AAA As Long
@@ -1436,9 +1451,9 @@ Private Sub lstCarpetas_Click()
             
             lstTEMAS.Enabled = False
         Else
-            For A = 1 To UBound(MTXfiles)
-                tERR.Anotar "aclc", A, UBound(MTXfiles)
-                lstTEMAS.AddItem txtInLista(MTXfiles(A), 1, "#")
+            For a = 1 To UBound(MTXfiles)
+                tERR.Anotar "aclc", a, UBound(MTXfiles)
+                lstTEMAS.AddItem txtInLista(MTXfiles(a), 1, "#")
                 lstTEMAS.Enabled = True
             Next
         End If
@@ -1458,7 +1473,18 @@ Private Sub lstCarpetas_Click()
         lblKB = CStr(TamTapa) + " KB"
     Else
         tERR.Anotar "aclf"
-        TapaCD.Picture = LoadPicture(GPF("extr233_61"))
+        'ver si es superlicencia y usa otra tapa predeterminada
+        If K.LICENCIA = HSuperLicencia Then
+            If FSO.FileExists(GPF("tddp322")) Then
+                imF = GPF("tddp322")
+            Else
+                imF = ExtraData.GetImagePath("tapapredeterminada")
+            End If
+        Else
+            imF = ExtraData.GetImagePath("tapapredeterminada")
+        End If
+                
+        TapaCD.Picture = LoadPicture(imF)
         cmdKillTapa.Enabled = False
         lblKB = "8 KB"
     End If

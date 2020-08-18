@@ -105,14 +105,11 @@ Private Sub Form_Load()
                 "programa es propiedad de Andres Vazquez Flexes (Argentino, DNI n° 26.453.653) quien es titular unico de los mismos." + vbCrLf + " La instalacion de 3PM y las consecuentes modificaciones" + _
                 " que este software provoca en el sistema son responsabilidad exclusiva de quien instala este software y no de tbrSoft. tbrSoft no se hace responsable" + _
                 " por las consecuencias de ningun tipo derivadas de la instalacion de 3PM." + vbCrLf + "tbrSoft se reserva el derecho a modificar este contrarto en el futuro. Las licencias de este software" + _
-                " son validas solo para un equipo, se hace referecia a equipo por su microprocesador y su placa base " + _
-                "(motherboard). Po lo tanto si se reemplaza uno de estos componentes la licencia perdera valor ya que el equipo" + _
+                " son validas solo para un equipo, se hace referecia a equipo por su microprocesador, su placa base (motherboard) y su/s disco/s rígidos." + _
+                " Por lo tanto si se reemplaza uno de estos componentes la licencia perdera valor ya que el equipo" + _
                 " no sera el mismo" + vbCrLf + "La licencia de 3PM perderá valor si fuera utilizada fuera del pais o zona" + _
-                " habilitada para el distribuidor que le haya vendido a usted su licencia. En este momento existen 4" + _
-                " distribuidores:" + vbCrLf + "  - tbrSoft. Propietario y distribuidor internacional salvo los paises en los que se" + _
-                " ha cedido los derechos de venta." + vbCrLf + "  - Rockolas Digitale de Centoamérica. Autorizado a ditribuir " + _
-                "en Centroamérica (no incluye Mexico). Solo tendran validez estas licencias dento de los paises que se incluyen en la zona indicada y no tendrán validez legal fuera de esta" + vbCrLf + _
-                "  - Guricity: Distribuidor Exclusivo en Argentina, Uruguay y Chile. De igual forma estas licencias solo serán validas para estos paises" + vbCrLf + "  - Tomas Nuñez Gonzalez en todo el territorio Mexicano"
+                " habilitada para el distribuidor que le haya vendido a usted su licencia." + vbCrLf + vbCrLf + " El codigo fuente de 3PM no es parte de la licencia que se ofrece, esta es solo de uso de los binarios derivados del codigo. " + _
+                "Las modificaciones hechas al sistema se ofrecen sin cargo mas tbrSoft se reserva el derecho de cobrar por el agregado de funcionalidades adicionales a las que obtuvo al adquirir este software."
         Case "English"
         Case "Francois"
         Case "Italiano"

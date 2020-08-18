@@ -16,6 +16,8 @@ Private nFOt As New tbrDATA.clsTODO
 
 'tipos de licencia que se pueden cargar
 Public Enum TypeLic
+    ArchivoNoValidoComoLic = -3
+    ParaOtraPC = -2 'no fue hecha para este equipo
     a_SinLeer = -1
     aSinCargar = 0 'todavia no puso nada
     BErronea = 1 'cuando ya erro 3 o mas veces
@@ -41,18 +43,12 @@ Private Sub Class_Initialize()
     LICENCIA
 End Sub
 
-''sacar despues!
-'Public Sub CrearClave()
-'    Dim S6 As String 'es la clave de la licencia 2004 2006
-'    nFOt.CK GPF("cd4pm"), 6, "c:\de.L37", S6
-'End Sub
-
 Public Sub SetFileLic(pARCH As String)
     'recibo el archivo de respuesta
     'ponerlo en la ubicacion deseada!
-    FSO.CopyFile pARCH, GPF("cd5pm")
+    FSO.CopyFile pARCH, GPF("cd7pm")
     'le hago copia de seguridad
-    FSO.CopyFile GPF("cd5pm"), GPF("cd6pm")
+    FSO.CopyFile GPF("cd7pm"), GPF("cd8pm")
 End Sub
 
 Public Function LICENCIA() As TypeLic
@@ -64,39 +60,78 @@ End Function
 
 Public Sub IngresaClave()
     'ingresa archivo de licencia y devuelve el tipo esperado
-    
+    tERR.Anotar "IC01"
     Dim TmpLic As TypeLic
     mLicencia = aSinCargar
     
     'si no cargo el archivo no leer nada
-    If FSO.FileExists(GPF("cd5pm")) = False Then
+    If FSO.FileExists(GPF("cd7pm")) = False Then
+        tERR.Anotar "IC02"
         'a ver si esta la copia!!
-        If FSO.FileExists(GPF("cd6pm")) = False Then
+        If FSO.FileExists(GPF("cd8pm")) = False Then
+            tERR.Anotar "IC03"
             Exit Sub
         Else 'restaurar al original la copia
-            FSO.CopyFile GPF("cd6pm"), GPF("cd5pm"), True
+            tERR.Anotar "IC04"
+            FSO.CopyFile GPF("cd8pm"), GPF("cd7pm"), True
         End If
     End If
     Dim TEZ As String 'lista "FINAL:" original
     Dim mNR As Long
-    mNR = nFOt.GetNR(GPF("cd5pm"), TEZ)
-    Select Case mNR
-        Case 2
-            TmpLic = CGratuita
-        Case 3
-            TmpLic = DMinima
-        Case 4
-            TmpLic = EComun
-        Case 5
-            TmpLic = FPremium
-        Case 6
-            TmpLic = GFull
-        Case 7
-            TmpLic = HSuperLicencia
-        Case Else
-            TmpLic = BErronea
-    End Select
-                
+    mNR = nFOt.GetNR(GPF("cd7pm"), TEZ)  'el tez queda en ni bosta!!!
+    tERR.Anotar "IC05", mNR
+    'si mnr es <0 no sirve el archivo !!!
+    If mNR < 0 Then
+        TmpLic = ArchivoNoValidoComoLic
+        tERR.AppendLog "IC09"
+        GoTo FIM
+    End If
+
+    TEZ = Trim(UCase(TEZ))
+    tERR.Anotar "IC06", TEZ
+    
+    Dim FFdeLaClave As String
+    FFdeLaClave = nFOt.GetRF 'da ok el de esta misma PC
+    
+    FFdeLaClave = Trim(UCase(FFdeLaClave))
+    tERR.Anotar "IC07", FFdeLaClave
+    
+'    'lo escribo por las dudas
+'    Dim POP4 As TextStream
+'    Set POP4 = FSO.OpenTextFile(AP + "sf\fur.ia", ForWriting, True)
+'        POP4.WriteLine TEZ
+'        POP4.WriteLine FFdeLaClave
+'    POP4.Close
+    
+    If TEZ <> FFdeLaClave Then
+        TmpLic = ParaOtraPC
+        tERR.AppendLog "IC08"
+    Else 'el archivo fue hecho para esta PC
+        tERR.Anotar "IC09", mNR
+        Select Case mNR
+            Case Is < 0
+                TmpLic = ArchivoNoValidoComoLic
+                tERR.AppendLog "IC09"
+            Case 10, 19, 81
+                TmpLic = CGratuita
+            Case 30, 69, 82
+                TmpLic = DMinima
+            Case 40, 44, 55, 22
+                TmpLic = EComun
+            Case 50, 2, 9, 65
+                TmpLic = FPremium
+            Case 60, 67, 66, 98, 11
+                TmpLic = GFull
+            Case 70, 71, 72, 3, 5, 7, 8, 9, 42
+                TmpLic = HSuperLicencia
+            Case Else
+                TmpLic = BErronea
+                tERR.AppendLog "IC10"
+        End Select
+        
+    End If
+    
+FIM:
     '**********************
     mLicencia = TmpLic
     '**********************

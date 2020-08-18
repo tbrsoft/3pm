@@ -598,25 +598,25 @@ Public Sub BuscarCarpetasMM()
     lstCarConMM.Clear
     TotCarpMM = 0
     tERR.Anotar "acih", TotF
-    For A = 1 To TotF
+    For a = 1 To TotF
         Select Case IDIOMA
             Case "Español"
-                lblBAR = "Buscando en " + CarpsConMM(A)
+                lblBAR = "Buscando en " + CarpsConMM(a)
             Case "English"
             Case "Francois"
             Case "Italiano"
         End Select
         
-        PBar.Width = P.Width / TotF * A
+        PBar.Width = P.Width / TotF * a
         PBar.Refresh
-        TMPfilesMM = ObtenerArchMM(CarpsConMM(A))
+        TMPfilesMM = ObtenerArchMM(CarpsConMM(a))
         If UBound(TMPfilesMM) > 0 Then
             TotalArchMM = TotalArchMM + UBound(TMPfilesMM)
             Select Case IDIOMA
                 Case "Español"
-                    lstCarConMM.AddItem CarpsConMM(A) + "# " + CStr(UBound(TMPfilesMM)) + " archivos"
+                    lstCarConMM.AddItem CarpsConMM(a) + "# " + CStr(UBound(TMPfilesMM)) + " archivos"
                 Case "English"
-                    lstCarConMM.AddItem CarpsConMM(A) + "# " + CStr(UBound(TMPfilesMM)) + " files"
+                    lstCarConMM.AddItem CarpsConMM(a) + "# " + CStr(UBound(TMPfilesMM)) + " files"
                 Case "Francois"
                 Case "Italiano"
             End Select
@@ -689,19 +689,19 @@ Private Sub Command4_Click()
     Dim TotalACopiar As Long 'no cuenta los que no son multimedia
     TotalACopiar = 0
     tERR.Anotar "acij", lstCarConMM.ListCount
-    For A = 0 To lstCarConMM.ListCount - 1
-        If lstCarConMM.Selected(A) Then
-            TotMM = Val(txtInLista(lstCarConMM.List(A), 1, "#"))
+    For a = 0 To lstCarConMM.ListCount - 1
+        If lstCarConMM.Selected(a) Then
+            TotMM = Val(txtInLista(lstCarConMM.List(a), 1, "#"))
             TotalACopiar = TotalACopiar + TotMM
-            tERR.Anotar "acik", A, lstCarConMM.List(A)
+            tERR.Anotar "acik", a, lstCarConMM.List(a)
         End If
     Next
     
-    For A = 0 To lstCarConMM.ListCount - 1
-        If lstCarConMM.Selected(A) Then
-            TotMM = Val(txtInLista(lstCarConMM.List(A), 1, "#"))
+    For a = 0 To lstCarConMM.ListCount - 1
+        If lstCarConMM.Selected(a) Then
+            TotMM = Val(txtInLista(lstCarConMM.List(a), 1, "#"))
             'ubic es la ubicacion en origen
-            Ubic = txtInLista(lstCarConMM.List(A), 0, "#")
+            Ubic = txtInLista(lstCarConMM.List(a), 0, "#")
             If Right(Ubic, 1) <> "\" Then Ubic = Ubic + "\"
             'hay que copiar solo los archivos MM
             SoloCarp = txtInLista(Ubic, 99998, "\") '99998 es el anteultimo
@@ -716,7 +716,7 @@ Private Sub Command4_Click()
             
             'crear la carpeta si no esta
             NewCarp = Replace(NewCarp, ",", "")
-            tERR.Anotar "acil", A, NewCarp, TotMM
+            tERR.Anotar "acil", a, NewCarp, TotMM
             If FSO.FolderExists(NewCarp) = False Then FSO.CreateFolder NewCarp
             
             'NO OLVIDARSE DE TAPA.JPG Y DATA.TXT
@@ -861,8 +861,8 @@ Private Sub Command5_Click()
     End If
     If ContCDs > 0 Then
         Set DS = FSO.GetDrive(CDsDisponibles(ContCDs))
-        For A = 0 To ContCDs
-            Set DS = FSO.GetDrive(CDsDisponibles(A))
+        For a = 0 To ContCDs
+            Set DS = FSO.GetDrive(CDsDisponibles(a))
             'muestra un mensaje completo si esta listo y si no solo la letra
             If DS.IsReady Then
                 Select Case IDIOMA
@@ -979,12 +979,12 @@ Public Function FindCarpsConMM(Carp As String) As String()
             ReDim Preserve FindCarpsConMM(0)
             Exit Function
         End If
-        For A = LastIni To LastFin
+        For a = LastIni To LastFin
             ContTotal = ContTotal + 1
             ReDim Preserve TodasLasCarpetas(ContTotal)
-            TodasLasCarpetas(ContTotal) = CarpetasEnQueBuscar(A)
-            Nivel2 = GetFolders(CarpetasEnQueBuscar(A)) 'el cero no existe
-            tERR.Anotar "acja", A, ContTotal, UBound(Nivel2)
+            TodasLasCarpetas(ContTotal) = CarpetasEnQueBuscar(a)
+            Nivel2 = GetFolders(CarpetasEnQueBuscar(a)) 'el cero no existe
+            tERR.Anotar "acja", a, ContTotal, UBound(Nivel2)
             If UBound(Nivel2) > 0 Then
                 Dim LastCBuscar
                 LastCBuscar = UBound(CarpetasEnQueBuscar)
@@ -998,7 +998,7 @@ Public Function FindCarpsConMM(Carp As String) As String()
             Else
                 tERR.Anotar "acjc", LastFin, UBound(CarpetasEnQueBuscar)
                 If LastFin = UBound(CarpetasEnQueBuscar) Then
-                    If A = LastFin Then
+                    If a = LastFin Then
                         'no tiene y es el ultimo
                         Exit Do
                     Else
@@ -1165,13 +1165,13 @@ End Sub
 Private Sub Form_Load()
     AjustarFRM Me, 12000
     
-    Dim MtxTmpOrigenes() As String
-    Dim Origenes As String
-    Origenes = LeerArch1Linea(GPF("origs"))
-    
-    Dim PartOrigenes() As String
-    PartOrigenes = Split(Origenes, "*")
-    
+'    Dim MtxTmpOrigenes() As String
+'    Dim Origenes As String
+'    Origenes = LeerArch1Linea(GPF("origs"))
+'
+'    PartOrigenes = Split(Origenes, "*")
+'       ya es publico se carga en index load
+'
     Dim AAA As Long: lstOrigenes.Clear
     For AAA = 0 To UBound(PartOrigenes)
         lstOrigenes.AddItem PartOrigenes(AAA)

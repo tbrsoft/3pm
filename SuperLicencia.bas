@@ -46,15 +46,15 @@ Public Function GetGuidSL() As String
         ArchUniqueAzar = GPF("rempres44")
         'ver si ya se genero el archivo para esta formateada
         If FSO.FileExists(ArchUniqueAzar) = False Then
-            Dim A As Long
+            Dim a As Long
             Randomize Timer
-            A = Int(Rnd * 10000)
-            A = 111000000 + A
+            a = Int(Rnd * 10000)
+            a = 111000000 + a
             
             Set TE = FSO.CreateTextFile(ArchUniqueAzar, True)
-            TE.WriteLine CStr(A)
+            TE.WriteLine CStr(a)
             TE.Close
-            RSV = CStr(A)
+            RSV = CStr(a)
         End If
         'leer el archivo
         Dim UnicoAzar  As String

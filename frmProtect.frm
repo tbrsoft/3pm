@@ -152,7 +152,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             YaCerrar3PM
     End Select
     SecSinTecla = 0
-    frmIndex.lblNoTecla = 0
+    
     Unload Me
 End Sub
 
@@ -333,13 +333,13 @@ Private Sub Timer1_Timer()
     B = lblDISCO.Top - PicProtec(IndPicVisible).Height
     If B < 150 Then B = 150 '150 es el tope del frmae
     tERR.Anotar "acpe"
-    A = Int(Rnd * B)
-    PicProtec(IndPicVisible).Top = A
+    a = Int(Rnd * B)
+    PicProtec(IndPicVisible).Top = a
     
     Randomize Timer
     B = lblTIT.Left - PicProtec(IndPicVisible).Width
-    A = Int(Rnd * B)
-    PicProtec(IndPicVisible).Left = A
+    a = Int(Rnd * B)
+    PicProtec(IndPicVisible).Left = a
     
     PicProtec(IndPicVisible).Visible = True
     tERR.Anotar "acpf"
