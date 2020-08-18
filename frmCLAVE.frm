@@ -90,7 +90,31 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+
 Private Sub Command1_Click()
     ClaveIngresada = txtPSW
     Unload Me
 End Sub
+
+Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
+    Select Case KeyCode
+        Case TeclaNewFicha
+            'si ya hay 9 cargados se traga las fichas
+            If CREDITOS <= MaximoFichas Then
+                OnOffCAPS vbKeyScrollLock, True
+                CREDITOS = CREDITOS + TemasPorCredito
+                SumarContadorCreditos TemasPorCredito
+                'grabar cant de creditos
+                EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
+                If CREDITOS >= 10 Then
+                    frmINDEX.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+                Else
+                    frmINDEX.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+                End If
+            Else
+                'apagar el fichero electronico
+                OnOffCAPS vbKeyScrollLock, False
+            End If
+    End Select
+End Sub
+

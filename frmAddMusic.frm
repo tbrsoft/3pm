@@ -8,7 +8,6 @@ Begin VB.Form frmAddMusic
    ClientTop       =   285
    ClientWidth     =   11910
    LinkTopic       =   "Form1"
-   LockControls    =   -1  'True
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   7875
@@ -24,7 +23,7 @@ Begin VB.Form frmAddMusic
       ScaleHeight     =   165
       ScaleWidth      =   15
       TabIndex        =   18
-      Top             =   6660
+      Top             =   6780
       Width           =   15
    End
    Begin VB.CommandButton Command4 
@@ -291,10 +290,10 @@ Begin VB.Form frmAddMusic
       ForeColor       =   &H00C0FFFF&
       Height          =   765
       Index           =   1
-      Left            =   5610
+      Left            =   5490
       TabIndex        =   17
-      Top             =   4920
-      Width           =   6225
+      Top             =   4950
+      Width           =   6345
    End
    Begin VB.Label lblWait 
       Alignment       =   2  'Center
@@ -333,10 +332,10 @@ Begin VB.Form frmAddMusic
       ForeColor       =   &H00C0FFFF&
       Height          =   525
       Index           =   0
-      Left            =   7080
+      Left            =   6480
       TabIndex        =   15
       Top             =   6180
-      Width           =   3705
+      Width           =   4725
    End
    Begin VB.Label lblTOT 
       Alignment       =   2  'Center
@@ -784,6 +783,28 @@ Sub ShowDriveList()
         s = s & n & "Tipo: " & T & vbCrLf
     Next
     MsgBox s
+End Sub
+
+Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
+    Select Case KeyCode
+        Case TeclaNewFicha
+            'si ya hay 9 cargados se traga las fichas
+            If CREDITOS <= MaximoFichas Then
+                OnOffCAPS vbKeyScrollLock, True
+                CREDITOS = CREDITOS + TemasPorCredito
+                SumarContadorCreditos TemasPorCredito
+                'grabar cant de creditos
+                EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
+                If CREDITOS >= 10 Then
+                    frmINDEX.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+                Else
+                    frmINDEX.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+                End If
+            Else
+                'apagar el fichero electronico
+                OnOffCAPS vbKeyScrollLock, False
+            End If
+    End Select
 End Sub
 
 Private Sub Form_Load()

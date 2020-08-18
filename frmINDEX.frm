@@ -277,7 +277,7 @@ Begin VB.Form frmINDEX
       Height          =   345
       Left            =   7290
       TabIndex        =   11
-      Top             =   8445
+      Top             =   8415
       Width           =   1800
    End
    Begin VB.Label lblTiempoRestante 
@@ -298,7 +298,7 @@ Begin VB.Form frmINDEX
       Height          =   345
       Left            =   0
       TabIndex        =   1
-      Top             =   8445
+      Top             =   8415
       Width           =   1800
    End
    Begin VB.Label LBLpORCtEMA 
@@ -402,7 +402,7 @@ Begin VB.Form frmINDEX
       Height          =   345
       Left            =   5490
       TabIndex        =   5
-      Top             =   8445
+      Top             =   8415
       Width           =   1800
    End
    Begin VB.Label lblCreditos 
@@ -423,7 +423,7 @@ Begin VB.Form frmINDEX
       Height          =   345
       Left            =   3660
       TabIndex        =   3
-      Top             =   8445
+      Top             =   8415
       Width           =   1800
    End
    Begin VB.Label lblTemasEnLista 
@@ -444,7 +444,7 @@ Begin VB.Form frmINDEX
       Height          =   345
       Left            =   1830
       TabIndex        =   2
-      Top             =   8445
+      Top             =   8415
       Width           =   1800
    End
    Begin VB.Label lblTemaSonando 
@@ -527,11 +527,11 @@ Begin VB.Form frmINDEX
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   195
+      Height          =   210
       Left            =   0
       TabIndex        =   25
-      Top             =   8790
-      Width           =   10600
+      Top             =   8760
+      Width           =   10605
    End
 End
 Attribute VB_Name = "frmINDEX"
@@ -577,6 +577,9 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                 lblTOTdiscos = "Disco " + CStr(PrimeroDeLaPaginaQueSigue + 1) + " de " + CStr(TOTAL_DISCOS)
                 nDiscoSEL = 0
                 nDiscoSEL = 0
+                TECLAS_PRES = TECLAS_PRES + "5"
+                TECLAS_PRES = Right(TECLAS_PRES, 20)
+                lblTECLAS = TECLAS_PRES
             End If
         Case TeclaPagAt
             PagNum = nDiscoGral \ (TapasMostradasH * TapasMostradasV)
@@ -586,8 +589,9 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                 If nDiscoSEL <> 0 Then UnSelDisco nDiscoSEL
                 DiscosEnPagina = CargarDiscos(PrimeroDeLaPaginaQueAnterior, False)
                 lblTOTdiscos = "Disco " + CStr(PrimeroDeLaPaginaQueAnterior + 1) + " de " + CStr(TOTAL_DISCOS)
-                'SelDisco 0
-                'nDiscoSEL = 0
+                TECLAS_PRES = TECLAS_PRES + "6"
+                TECLAS_PRES = Right(TECLAS_PRES, 20)
+                lblTECLAS = TECLAS_PRES
             End If
         Case TeclaConfig
             frmConfig.Show 1
@@ -595,8 +599,8 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             'si ya hay 9 cargados se traga las fichas
             If CREDITOS <= MaximoFichas Then
                 OnOffCAPS vbKeyScrollLock, True
-                CREDITOS = CREDITOS + 1
-                SumarContadorCreditos 1
+                CREDITOS = CREDITOS + TemasPorCredito
+                SumarContadorCreditos TemasPorCredito
                 'grabar cant de creditos
                 EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
                 If CREDITOS >= 10 Then
@@ -826,10 +830,10 @@ TOP10Show:
 End Sub
 
 Private Sub Form_Load()
-    lblDEMO.Visible = (TypeVersion = "DEMO")
-    lblDEMO = "Solicite la version definitiva a info@tbrsoft.com / avazquez@cpcipc.org"
     AjustarFRM Me, 12000
     VU1.Visible = HabilitarVUMetro
+    lblDEMO.Visible = (TypeVersion = "DEMO")
+    lblDEMO = "Solicite la version definitiva a info@tbrsoft.com / avazquez@cpcipc.org"
     'cargar la cantidad de tapas que corresponda
     'SE CARGAN EN ini YA ES configurable
     'TapasMostradasH = 4: TapasMostradasV = 3
@@ -846,7 +850,6 @@ Private Sub Form_Load()
         Image1.Left = frDISCOS.Width - Image1.Width
         lblV.Left = lblTemaSonando.Width - lblV.Width
         lblProximoTema.Width = Image1.Left - lblProximoTema.Left
-        
     Else
         frDISCOS.Left = 0
         frDISCOS.Width = VU1.Left

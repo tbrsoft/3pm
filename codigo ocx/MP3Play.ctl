@@ -30,6 +30,7 @@ Const m_def_FileName = ""
 'Property Variables:
 Dim m_FileName As String
 Dim m_Volumen As Long
+Dim dwReturn As Long
 
 Event Played(SecondsPlayed As Long)
 Event BeginPlay()
@@ -132,7 +133,7 @@ Public Function DoOpen()
     End If
     
     Dim cmdToDo As String * 255
-    Dim dwReturn As Long
+    
     
     
     Dim TMP As String * 255
@@ -181,7 +182,7 @@ Public Function DoOpenVideo(Style As String, HWind As Long, X1 As Long, Y1 As Lo
     End If
     
     Dim cmdToDo As String * 255
-    Dim dwReturn As Long
+    
     
     
     Dim TMP As String * 255
@@ -235,7 +236,7 @@ Public Function DoOpenVideo(Style As String, HWind As Long, X1 As Long, Y1 As Lo
 End Function
 
 Public Function DoPlay()
-    Dim dwReturn As Long
+    
     dwReturn = mciSendString("play MP3Play", 0, 0, 0)
     If dwReturn <> 0 Then
         LogErrorMCI dwReturn
@@ -357,13 +358,13 @@ Public Function LengthInSec()
         'no se pudo modificar el volumen
         WriteLog "No se pudo establecer la duracion." + m_FileName + " Function LengthInSec", False
     End If
-    LengthInSec = Int(Mid$(s, 1, Len(s)) / 1000)
+    LengthInSec = Int(Trim(Mid$(s, 1, Len(s)) / 1000))
     Exit Function
 ErrFunc:
     On Local Error GoTo ErrFunc2
     WriteLog "El Valor devuelto por MCI para Length no es válido." + ". Tema: " + m_FileName + " Valor= " + s, True
     'el error puede ser que el primer caracter de S no sea valido
-    LengthInSec = Int(Mid$(s, 2, Len(s)) / 1000)
+    LengthInSec = Int(Trim(Mid$(s, 2, Len(s)) / 1000))
     Resume 'volver a ver que pasa
     Exit Function
 ErrFunc2:
@@ -399,7 +400,7 @@ Public Function SeekTo(Second)
 End Function
 
 Function Record()
-    Dim dwReturn As Long
+    
     dwReturn = mciSendString("Close MP3rec", 0, 0, 0)
     If dwReturn <> 0 And dwReturn <> 263 Then '263 es cuando no hay nada abierto
         LogErrorMCI dwReturn
@@ -430,7 +431,7 @@ End Function
 
 Function StopRecord()
     Dim cmdToDo As String * 255
-    Dim dwReturn As Long
+    
     'parar nuevo
     cmdToDo = "stop MP3rec"
     dwReturn = mciSendString(cmdToDo, 0&, 0&, 0&)
@@ -506,7 +507,7 @@ Public Function QuickLargoDeTema(TemaQuick As String) As String
     End If
     '------------abrir--------------
     Dim cmdToDo As String * 255
-    Dim dwReturn As Long
+    
     
     Dim TMP As String * 255
     Dim lenShort As Long

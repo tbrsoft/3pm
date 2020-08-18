@@ -25,14 +25,14 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
         'acomodar los controles en modo video
         'modo texto pata elegir los discos
         With frmINDEX
-            .frModoVideo.Left = .Width - .frModoVideo.Width
-            .frTEMAS.Left = .Width - .frTEMAS.Width
+            .frModoVideo.Left = Screen.Width - .frModoVideo.Width
+            .frTEMAS.Left = Screen.Width - .frTEMAS.Width
             .frModoVideo.Height = .frDISCOS.Height - .lblModoVideo.Height
             .frModoVideo.Visible = True
             .lblModoVideo.Visible = True
-            .frDISCOS.Width = .Width - .frModoVideo.Width
+            .frDISCOS.Width = Screen.Width - .frModoVideo.Width
             .VU1.Top = .frDISCOS.Height
-            .VU1.Height = .Height - .frDISCOS.Height
+            .VU1.Height = Screen.Height - .frDISCOS.Height
             .picVideo.Top = 0
             .picVideo.Left = 0
             .picVideo.Width = .frDISCOS.Width
@@ -50,7 +50,7 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
             If HabilitarVUMetro Then
                 .frDISCOS.Width = .VU1.Left
                 .VU1.Top = 0
-                .VU1.Height = .Height
+                .VU1.Height = Screen.Height
             Else
                 .frDISCOS.Width = .Width
             End If
@@ -241,7 +241,7 @@ notop:
     
 End Sub
 
-Public Sub SumarContadorCreditos(valorSUMAR As Integer)
+Public Sub SumarContadorCreditos(valorSUMAR As Long)
     Dim ARCHcont As String
     
     

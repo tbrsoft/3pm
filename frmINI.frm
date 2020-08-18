@@ -164,6 +164,7 @@ Private Sub Form_Load()
     RotulosArriba = LeerConfig("RotulosArriba", "0")
     DuracionProtect = LeerConfig("DuracionProtect", "180")
     RankToPeople = LeerConfig("RankToPeople", "1")
+    TemasPorCredito = LeerConfig("TemasPorCredito", "1")
     
     'cargar variables de claves
     Set TE = FSO.OpenTextFile(WINfolder + "\sevalc.dll", ForReading, False)
@@ -188,7 +189,16 @@ Private Sub Form_Load()
         FSO.CreateFolder AP + "discos\01- Los mas escuchados"
      End If
     If FSO.FileExists(AP + "discos\01- Los mas escuchados\tapa.jpg") = False Then
-        FSO.CopyFile AP + "top10.jpg", AP + "discos\01- Los mas escuchados\tapa.jpg", True
+        If FSO.FileExists(AP + "top10.jpg") Then
+            FSO.CopyFile AP + "top10.jpg", AP + "discos\01- Los mas escuchados\tapa.jpg", True
+        Else
+            MsgBox "No se encuentra el archivo de imagen del Ranking!. No se puede continuar"
+            End
+        End If
+        If FSO.FileExists(AP + "tapa.jpg") = False Then
+            MsgBox "No se encuentra el archivo de imagen del Ranking!. No se puede continuar"
+            End
+        End If
     End If
     'carpeta del protector
     If FSO.FolderExists(AP + "fotos") = False Then
@@ -205,7 +215,7 @@ Private Sub Form_Load()
     TECLAS_PRES = "11111222223333344444" 'arranca con 20 pulsaciones
     
     
-    '===================ORDENRA EL RANKING================================
+    '===================ORDENAR EL RANKING================================
     On Error GoTo notop
     'ver si existe ranking.tbr
     If FSO.FileExists(AP + "ranking.tbr") = False Then

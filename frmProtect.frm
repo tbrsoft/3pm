@@ -146,25 +146,25 @@ Dim MTXtapas() As String
 Dim IndMtxTapaVisible As Long
 
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
-    'y si no es una ficha la que se esta cargando
-    If KeyCode = TeclaNewFicha Then
-        'si ya hay cargados al maximo se traga las fichas
-        If CREDITOS <= MaximoFichas Then
-            OnOffCAPS vbKeyScrollLock, True
-            CREDITOS = CREDITOS + 1
-            SumarContadorCreditos 1
-            'grabar cant de creditos
-            EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
-            If CREDITOS >= 10 Then
-                lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+    Select Case KeyCode
+        Case TeclaNewFicha
+            'si ya hay 9 cargados se traga las fichas
+            If CREDITOS <= MaximoFichas Then
+                OnOffCAPS vbKeyScrollLock, True
+                CREDITOS = CREDITOS + TemasPorCredito
+                SumarContadorCreditos TemasPorCredito
+                'grabar cant de creditos
+                EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
+                If CREDITOS >= 10 Then
+                    frmINDEX.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+                Else
+                    frmINDEX.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+                End If
             Else
-                lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+                'apagar el fichero electronico
+                OnOffCAPS vbKeyScrollLock, False
             End If
-        Else
-            'apagar el fichero electronico
-            OnOffCAPS vbKeyScrollLock, False
-        End If
-    End If
+    End Select
     SecSinTecla = 0
     frmINDEX.lblNoTecla = 0
     Unload Me
@@ -185,7 +185,7 @@ Private Sub Form_Load()
     PicProtec(3).Stretch = ProtectOriginal
     PicProtec(4).Stretch = ProtectOriginal
     PicProtec(5).Stretch = ProtectOriginal
-    lblDISCO.Visible = ProtectOriginal
+    lblDisco.Visible = ProtectOriginal
     'VER POR QUE NUMERO DE FOTO IVA
     NumFotoIni = Val(ReadSimpleFile)
     If ProtectOriginal Then
@@ -263,7 +263,7 @@ Private Sub Timer1_Timer()
         Dim DISCO As String
         DISCO = Left(MTXtapas(IndMtxTapaVisible), Len(MTXtapas(IndMtxTapaVisible)) - 9)
         DISCO = FSO.GetBaseName(DISCO)
-        lblDISCO = DISCO
+        lblDisco = DISCO
         PicProtec(IndPicVisible).Stretch = True
     Else
         'si es muy grande
@@ -291,7 +291,7 @@ Private Sub Timer1_Timer()
     End If
     
     Randomize Timer
-    b = lblDISCO.Top - PicProtec(IndPicVisible).Height
+    b = lblDisco.Top - PicProtec(IndPicVisible).Height
     If b < 150 Then b = 150 '150 es el tope del frmae
         
     a = Int(Rnd * b)

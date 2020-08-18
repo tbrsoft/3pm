@@ -1,4 +1,6 @@
 Attribute VB_Name = "Globales"
+Public TemasPorCredito As Long
+
 Public TE As TextStream
 'claves para entrar a config, dar creditos y cerrar el sistema
 Public ClaveConfig As String
@@ -9,7 +11,7 @@ Public SYSfolder As String
 Public WINfolder As String
 
 Public RankToPeople As Boolean 'expone o no el reank a los usuarios
-Public LicenciadoA As String 'aquien corresponde esta licencia
+
 
 'para obtener info del procesador
 Public Declare Sub GetSystemInfo Lib "kernel32" (lpSystemInfo As SYSTEM_INFO)

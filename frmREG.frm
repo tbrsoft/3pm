@@ -27,9 +27,9 @@ Begin VB.Form frmREG
          Strikethrough   =   0   'False
       EndProperty
       Height          =   405
-      Left            =   2430
-      TabIndex        =   27
-      Top             =   6480
+      Left            =   2460
+      TabIndex        =   26
+      Top             =   6660
       Width           =   6915
    End
    Begin VB.Frame frFull 
@@ -39,9 +39,28 @@ Begin VB.Form frmREG
       Height          =   3135
       Left            =   0
       TabIndex        =   15
-      Top             =   -30
+      Top             =   -60
       Visible         =   0   'False
-      Width           =   4545
+      Width           =   6915
+      Begin VB.TextBox txtEmpezarEnCaracter 
+         Alignment       =   2  'Center
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   9
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00800000&
+         Height          =   345
+         Left            =   4530
+         TabIndex        =   27
+         TabStop         =   0   'False
+         Top             =   900
+         Width           =   2265
+      End
       Begin VB.ListBox lstArchReg 
          Height          =   1425
          Left            =   120
@@ -153,7 +172,7 @@ Begin VB.Form frmREG
       Height          =   375
       Left            =   1950
       TabIndex        =   25
-      Top             =   5340
+      Top             =   5430
       Value           =   1  'Checked
       Width           =   8655
    End
@@ -172,7 +191,7 @@ Begin VB.Form frmREG
       Height          =   435
       Left            =   4770
       TabIndex        =   24
-      Top             =   5730
+      Top             =   5820
       Width           =   1785
    End
    Begin VB.TextBox LBL 
@@ -428,29 +447,10 @@ Begin VB.Form frmREG
          Strikethrough   =   0   'False
       EndProperty
       Height          =   435
-      Left            =   3810
+      Left            =   3840
       TabIndex        =   9
       Top             =   7380
       Width           =   1785
-   End
-   Begin VB.Label lblLIC 
-      BackStyle       =   0  'Transparent
-      Caption         =   "Licencia perteneciente a"
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00C0FFFF&
-      Height          =   345
-      Left            =   3780
-      TabIndex        =   26
-      Top             =   7830
-      Width           =   7155
    End
    Begin VB.Label Label1 
       BackStyle       =   0  'Transparent
@@ -582,7 +582,7 @@ Private Sub Command1_Click()
         frFull.Visible = True
         'poner el codigo terminado en las casillas
         Dim CF As String
-        CF = GenerarCodigo(lblGUID, False)
+       CF = GenerarCodigo(lblGUID, False)
         txtCOD(0) = Mid(CF, 1, 5)
         txtCOD(1) = Mid(CF, 6, 5)
         txtCOD(2) = Mid(CF, 11, 5)
@@ -645,7 +645,7 @@ Private Sub Command1_Click()
         
         If UsosDemo > 40 Then
             'no se puede iniciar mas de 20 veces como demo
-            MsgBox "No se puede utilizar mas de 20 veces como demo. 3PM se cerrara"
+            MsgBox "No se puede utilizar mas de 40 veces como demo. 3PM se cerrara"
             End
         End If
         
@@ -757,15 +757,14 @@ Private Sub Form_Load()
         GoTo YaEstaIMG
         MsgBox "Ya esta imgini.tbr"
     Else
-        
         Set TE = FSO.CreateTextFile(ArchImgIni, True)
+        If FSO.FolderExists(WINfolder + "\img3PM") = False Then FSO.CreateFolder WINfolder + "\img3PM"
+        If FSO.FolderExists(WINfolder + "\img3PM\w") = False Then FSO.CreateFolder WINfolder + "\img3pm\w"
         'ver imagen de inicio
         If FSO.FileExists("c:\logo.sys") Then
             TE.WriteLine "ImgIni=1"
             'copiar el archivo a un lugar seguro para
             'despues administrar los cambios
-            If FSO.FolderExists(WINfolder + "\img3PM") = False Then FSO.CreateFolder WINfolder + "\img3PM"
-            If FSO.FolderExists(WINfolder + "\img3PM\w") = False Then FSO.CreateFolder WINfolder + "\img3pm\w"
             FSO.CopyFile "c:\logo.sys", WINfolder + "\img3pm\w\logo.sys", True
         Else
             TE.WriteLine "ImgIni=0"
@@ -776,8 +775,6 @@ Private Sub Form_Load()
             TE.WriteLine "ImgCerrando=1"
             'copiar el archivo a un lugar seguro para
             'despues administrar los cambios
-            If FSO.FolderExists(WINfolder + "\img3pm") = False Then FSO.CreateFolder WINfolder + "\img3pm"
-            If FSO.FolderExists(WINfolder + "\img3pm\w") = False Then FSO.CreateFolder WINfolder + "\img3pm\w"
             FSO.CopyFile WINfolder + "\logow.sys", WINfolder + "\img3pm\w\logow.sys", True
         Else
             TE.WriteLine "ImgCerrando=0"
@@ -788,8 +785,6 @@ Private Sub Form_Load()
             TE.WriteLine "ImgApagar=1"
             'copiar el archivo a un lugar seguro para
             'despues administrar los cambios
-            If FSO.FolderExists(WINfolder + "\img3pm") = False Then FSO.CreateFolder WINfolder + "\img3pm"
-            If FSO.FolderExists(WINfolder + "\img3pm\w") = False Then FSO.CreateFolder WINfolder + "\img3pm\w"
             FSO.CopyFile WINfolder + "\logos.sys", WINfolder + "\img3pm\w\logos.sys", True
         Else
             TE.WriteLine "ImgApagar=0"
@@ -816,8 +811,7 @@ YaEstaIMG:
         If FSO.FileExists(WINfolder + "\img3pm\3\logos.sys") = False Then FSO.CopyFile AP + "logos.sys", WINfolder + "\img3pm\3\logos.sys", True
     End If
     
-    LicenciadoA = "DEMO PUBLICO"
-    lblLIC = "Licencia perteneciente a " + LicenciadoA
+    
     AjustarFRM Me, 12000
     'SACAR los 0 y las O por la confusion (igual con las l (eles))
 STRconCodigos = "87dfsdfw897564fghererh56424dfg23d4fge89r7e89rgWER7W9E8F7SD54s5d6f4sd56fw4e4w" + _
@@ -1064,7 +1058,7 @@ FUCK:
     TE.Close
     MsgBox "Existe un archivo de registro de 3PM con datos no validos." + vbCrLf + _
     "Debe solicitar una licencia para este equipo. Solicitela a tbrSoft " + _
-    "Argentina (tbrsoft@hotmail.com / avazquez@cpcipc.org) una contraseña " + _
+    "Argentina (info@tbrsoft.com / avazquez@cpcipc.org) una contraseña " + _
     "de acceso en esta PC como se indica en la página que sigue"
 End Sub
 
@@ -1086,7 +1080,7 @@ Public Function GenerarCodigo(GUID As String, EsCorto As Boolean) As String
     Dim LargoCadena As Long
     LargoCadena = Len(STRconCodigos)
     
-    'el largo es 2416
+    'el largo es 2417
     'una letra original, una letra trucha
     Dim CC As Long, Letra As String, SUMA As Long, NewTxt As String
     CC = 0
@@ -1114,7 +1108,9 @@ Public Function GenerarCodigo(GUID As String, EsCorto As Boolean) As String
     
     Dim EmpezarEnCaracter As Long
     EmpezarEnCaracter = ValORIG - (ValORIG \ LargoCadena) * LargoCadena
+    txtEmpezarEnCaracter = "Emp: " + CStr(EmpezarEnCaracter)
     If EmpezarEnCaracter <= 0 Then EmpezarEnCaracter = -EmpezarEnCaracter + 1
+    txtEmpezarEnCaracter = txtEmpezarEnCaracter + "EmpCorreg: " + CStr(EmpezarEnCaracter)
     
     GenerarCodigo = Mid(STRconCodigos, EmpezarEnCaracter, 40)
 End Function
@@ -1149,6 +1145,8 @@ Private Sub txtCOD_GotFocus(Index As Integer)
 End Sub
 
 Public Function GetGUID() As String
+    'prueba de otra PC
+    'GetGUID = "673710141": Exit Function
     Dim INFO As SYSTEM_INFO
     GetSystemInfo INFO
     

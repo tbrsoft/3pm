@@ -1,6 +1,6 @@
 VERSION 5.00
 Begin VB.Form frmClaves 
-   BackColor       =   &H008080FF&
+   BackColor       =   &H0080C0FF&
    BorderStyle     =   4  'Fixed ToolWindow
    Caption         =   "Claves personales de 3PM"
    ClientHeight    =   4755
@@ -160,7 +160,7 @@ Begin VB.Form frmClaves
       BackColor       =   &H00400000&
       BeginProperty Font 
          Name            =   "Verdana"
-         Size            =   8.25
+         Size            =   9.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -282,6 +282,28 @@ Private Sub Command8_Click()
     Unload Me
 End Sub
 
+Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
+    Select Case KeyCode
+        Case TeclaNewFicha
+            'si ya hay 9 cargados se traga las fichas
+            If CREDITOS <= MaximoFichas Then
+                OnOffCAPS vbKeyScrollLock, True
+                CREDITOS = CREDITOS + TemasPorCredito
+                SumarContadorCreditos TemasPorCredito
+                'grabar cant de creditos
+                EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
+                If CREDITOS >= 10 Then
+                    frmINDEX.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+                Else
+                    frmINDEX.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+                End If
+            Else
+                'apagar el fichero electronico
+                OnOffCAPS vbKeyScrollLock, False
+            End If
+    End Select
+End Sub
+
 Private Sub Form_Load()
     If FSO.FileExists(WINfolder + "\sevalc.dll") = False Then
         MsgBox "No esta presente el archivo de claves. Reinicie 3PM"
@@ -294,7 +316,7 @@ Private Sub Form_Load()
     txtClaveCredit = txtInLista(TE.ReadLine, 1, ":")
     TE.Close
     
-    lblIDteclas = "Identificacion de teclas" + vbCrLf + _
+    lblIDteclas = "Identificacion de teclas" + vbCrLf + vbCrLf + _
         "1- Izquierda" + vbCrLf + _
         "2- Derecha" + vbCrLf + _
         "3- OK" + vbCrLf + _

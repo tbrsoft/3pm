@@ -888,7 +888,7 @@ Handler2=PDWizard.WebPostDplySubWiz
 
 [Package|3pm 3.4|Root]
 SubWizProgID=PDWizard.SetupPkgSubWiz
-BuildFolder=D:\ahora\3pm\i march 2003
+BuildFolder=D:\ahora\3pm\iabril
 
 [Package|3pm 3.4|Configure DAO ISAMs]
 Applicable=No
@@ -1007,11 +1007,11 @@ StartIn1=$(AppPath)
 Key1=Icon1
 
 [Package|3pm 3.4|Package]
-PackageFolder=D:\ahora\3pm\i march 2003
+PackageFolder=D:\ahora\3pm\iabril
 ProjectFolder=D:\ahora\3pm
 ServerSideCab=
-File1=D:\ahora\3pm\i march 2003\setup.exe
-File2=D:\ahora\3pm\i march 2003\Setup.Lst
-File3=D:\ahora\3pm\i march 2003\3pm.CAB
+File1=D:\ahora\3pm\iabril\setup.exe
+File2=D:\ahora\3pm\iabril\Setup.Lst
+File3=D:\ahora\3pm\iabril\3pm.CAB
 Handler1=PDWizard.FolderDplySubWiz
 Handler2=PDWizard.WebPostDplySubWiz

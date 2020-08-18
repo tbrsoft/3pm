@@ -13,82 +13,82 @@ Begin VB.Form Form1
    WindowState     =   2  'Maximized
    Begin VB.TextBox Text3 
       Height          =   555
-      Left            =   2430
+      Left            =   2280
       MultiLine       =   -1  'True
       ScrollBars      =   2  'Vertical
       TabIndex        =   10
       Text            =   "Form1.frx":0442
-      Top             =   5100
+      Top             =   7020
       Width           =   6225
    End
    Begin VB.TextBox Text2 
       Height          =   1425
-      Left            =   2400
+      Left            =   2310
       MultiLine       =   -1  'True
       ScrollBars      =   2  'Vertical
       TabIndex        =   9
       Text            =   "Form1.frx":0448
-      Top             =   3600
+      Top             =   5520
       Width           =   6195
    End
    Begin VB.ListBox List2 
       Columns         =   3
-      Height          =   1230
-      Left            =   2400
+      Height          =   1815
+      Left            =   2310
       TabIndex        =   8
-      Top             =   2280
+      Top             =   3660
       Width           =   6165
    End
    Begin VB.CommandButton Command6 
       Caption         =   "TODOS"
       Height          =   405
-      Left            =   90
+      Left            =   0
       TabIndex        =   7
-      Top             =   5730
+      Top             =   7650
       Width           =   2145
    End
    Begin VB.CommandButton Command5 
       Caption         =   "Pais e idioma"
       Height          =   405
-      Left            =   180
+      Left            =   30
       TabIndex        =   6
-      Top             =   5160
+      Top             =   7080
       Width           =   2145
    End
    Begin VB.CommandButton Command4 
       Caption         =   "Registro"
       Height          =   405
-      Left            =   90
+      Left            =   0
       TabIndex        =   5
-      Top             =   3840
+      Top             =   5760
       Width           =   2145
    End
    Begin VB.CommandButton Command3 
       Caption         =   "GetSystemInfo"
       Height          =   405
-      Left            =   180
+      Left            =   90
       TabIndex        =   4
-      Top             =   2250
+      Top             =   3630
       Width           =   2145
    End
    Begin VB.ListBox List1 
       Columns         =   3
-      Height          =   1425
-      Left            =   2400
+      Height          =   2595
+      Left            =   2340
       TabIndex        =   3
-      Top             =   810
+      Top             =   1050
       Width           =   6225
    End
    Begin VB.CommandButton Command2 
       Caption         =   "WBem"
       Height          =   405
-      Left            =   150
+      Left            =   120
       TabIndex        =   2
-      Top             =   840
+      Top             =   1530
       Width           =   2145
    End
    Begin VB.TextBox Text1 
-      Height          =   735
+      Height          =   945
       Left            =   2430
       MultiLine       =   -1  'True
       ScrollBars      =   2  'Vertical

@@ -165,8 +165,8 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             If CREDITOS <= MaximoFichas Then
                 'apagar el fichero electronico
                 OnOffCAPS vbKeyScrollLock, True
-                CREDITOS = CREDITOS + 1
-                SumarContadorCreditos 1
+                CREDITOS = CREDITOS + TemasPorCredito
+                SumarContadorCreditos TemasPorCredito
                 'grabar cant de creditos
                 EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
                 If CREDITOS >= 10 Then
@@ -273,8 +273,15 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             frmINDEX.MP3.DoClose
             MostrarCursor True
             If ApagarAlCierre Then APAGAR_PC
-            
             End
+        Case TeclaPagAd
+            TECLAS_PRES = TECLAS_PRES + "5"
+            TECLAS_PRES = Right(TECLAS_PRES, 20)
+            frmINDEX.lblTECLAS = TECLAS_PRES
+        Case TeclaPagAt
+            TECLAS_PRES = TECLAS_PRES + "6"
+            TECLAS_PRES = Right(TECLAS_PRES, 20)
+            frmINDEX.lblTECLAS = TECLAS_PRES
     End Select
     VerClaves TECLAS_PRES
     SecSinTecla = 0

@@ -62,30 +62,49 @@ Private Sub Command1_Click()
     Unload Me
 End Sub
 
+Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
+    Select Case KeyCode
+        Case TeclaNewFicha
+            'si ya hay 9 cargados se traga las fichas
+            If CREDITOS <= MaximoFichas Then
+                OnOffCAPS vbKeyScrollLock, True
+                CREDITOS = CREDITOS + TemasPorCredito
+                SumarContadorCreditos TemasPorCredito
+                'grabar cant de creditos
+                EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
+                If CREDITOS >= 10 Then
+                    frmINDEX.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+                Else
+                    frmINDEX.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+                End If
+            Else
+                'apagar el fichero electronico
+                OnOffCAPS vbKeyScrollLock, False
+            End If
+    End Select
+End Sub
+
 Private Sub Form_Load()
     Text1.Text = "CLUF - Contrato de licencia de usuario final." + vbCrLf + vbCrLf + _
-        "Antes de adquirir y utilizar 3PM deberá estar de acuerdo y aceptar las" + _
-        " siguientes condiciones." + vbCrLf + vbCrLf + _
-        " TbrSoft de ninguna manera será responsable por el uso dado al sistema" + _
-        " por los usuarios finales. La licencia para uso de 3PM será revocada" + _
-        " inmediatamente si algún usuario violara las leyes vigentes (respectivas al" + _
-        " país en que se utilice) respecto a los derechos de los autores de las" + _
-        " composiciones reproducidas por 3PM. En todos los casos se deberá" + _
-        " obtener una autorización para la reproducción de todos los ficheros mp3 " + _
-        "que se incluyan." + vbCrLf + _
-        " El costo estipulado por las instituciones y/o asociaciones de autores no" + _
-        " es responsabilidad de tbrSoft si no de los usuarios de 3PM." + vbCrLf + _
-        " La adquisición de 3PM no implica derechos de reventa de copias" + _
-        " ilegales de este software ni la instalación en más de un equipo " + _
-        "(salvo que la licencia adquirida asi lo indique)." + _
-        " En caso de disponer de varios equipos" + _
-        " deberán solicitar igual cantidad de copias de 3PM." + vbCrLf + _
-        " En ningun caso podra someter a 3PM a metodos de decompilación y" + _
-        " similares. El codigo fuente de este programa es propiedad de Andres Vazquez" + _
-        " Flexes (Argentino, DNI n° 26.453.653) quien es titular unico de los mismos." + vbCrLf + _
-        " La instalacion de 3PM y las consecuentes modificaciones" + _
-        " que este software provoca en el sistema son responsabilidad exclusiva de" + _
-        " quien instala este software y no de tbrSoft. tbrSoft no se hace responsable" + _
-        " por las consecuencias de ningun tipo derivadas de la instalacion de 3PM."
+    "Antes de adquirir y utilizar 3PM deberá estar de acuerdo y aceptar las siguientes condiciones." + vbCrLf + vbCrLf + _
+    " TbrSoft de ninguna manera será responsable por el uso dado al sistema por los usuarios finales. La " + _
+    "licencia para uso de 3PM será revocada inmediatamente si algún usuario violara las leyes vigentes " + _
+    "(respectivas al país en que se utilice) respecto a los derechos de los autores de las composiciones " + _
+    "reproducidas por 3PM. En todos los casos se deberá obtener una autorización para la reproducción de " + _
+    "todos los ficheros mp3 que se incluyan." + vbCrLf + "El costo estipulado por las instituciones y/o " + _
+    "asociaciones de autores no es responsabilidad de tbrSoft si no de los usuarios de 3PM." + vbCrLf + _
+    "La adquisición de 3PM no implica derechos de reventa de copias ilegales de este software ni la " + _
+    "instalación en más de un equipo (salvo que la licencia adquirida asi lo indique). En caso de disponer " + _
+    "de varios equipos deberán solicitar igual cantidad de copias de 3PM." + vbCrLf + _
+    "En ningun caso podra someter a 3PM a metodos de decompilación y similares. El codigo fuente de este " + _
+    "programa es propiedad de Andres Vazquez Flexes (Argentino, DNI n° 26.453.653) quien es titular unico de " + _
+    "los mismos." + vbCrLf + " La instalacion de 3PM y las consecuentes modificaciones" + _
+    " que este software provoca en el sistema son responsabilidad exclusiva de" + _
+    " quien instala este software y no de tbrSoft. tbrSoft no se hace responsable" + _
+    " por las consecuencias de ningun tipo derivadas de la instalacion de 3PM." + vbCrLf + _
+    "tbrSoft se reserva el derecho a modificar este contrarto en el futuro. Las licencias de este software" + _
+    " son validas solo para un equipo, se hace referecia a equipo por su microprocesador y su placa base " + _
+    "(motherboard). Po lo tanto si se reemplaza uno de estos componentes la licencia perdera valor ya que el equipo" + _
+    " no sera el mismo"
         
 End Sub
