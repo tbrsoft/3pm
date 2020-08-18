@@ -596,27 +596,27 @@ Private Sub Form_Load()
     frmProces.pBar = 0
     frmProces.pBar.Max = UBound(MATRIZ_DISCOS) * 15 'mas o menos 15 temas por disco
     ReDim Preserve MATRIZ_TOTAL(150, 30)
-    On Error GoTo ErrMP3
-    For c = 1 To UBound(MATRIZ_DISCOS)
+    'On Error GoTo ErrMP3
+    'For c = 1 To UBound(MATRIZ_DISCOS)
         'encontar todos los temas grabar su duracion
-        CarpActual = txtInLista(MATRIZ_DISCOS(c + 1), 0, ",")
-        frmProces.lblProces = "Buscando en Disco " + CarpActual
-        frmProces.lblProces.Refresh
-        MATRIZ_TEMAS = ObtenerArchivos(CarpActual, "*.mp3")
-        For d = 1 To UBound(MATRIZ_TEMAS)
-            pathTema = txtInLista(MATRIZ_TEMAS(d), 0, ",")
-            NombreTema = txtInLista(MATRIZ_TEMAS(d), 1, ",")
-            
-            MP3.FileName = pathTema
-            DuracionTema = MP3.TiempoTotal
-            
-            MATRIZ_TOTAL(c, d) = CarpActual + "," + NombreTema + "," + DuracionTema
-            frmProces.lblProces = "Tema encontrado " + NombreTema + " = " + DuracionTema
-            frmProces.lblProces.Refresh
-            If frmProces.pBar + 1 = frmProces.pBar.Max Then frmProces.pBar.Max = frmProces.pBar.Max + 1
-            frmProces.pBar = frmProces.pBar + 1
-        Next
-    Next
+   '     CarpActual = txtInLista(MATRIZ_DISCOS(c + 1), 0, ",")
+   '     frmProces.lblProces = "Buscando en Disco " + CarpActual
+   '     frmProces.lblProces.Refresh
+   '     MATRIZ_TEMAS = ObtenerArchivos(CarpActual, "*.mp3")
+   '     For d = 1 To UBound(MATRIZ_TEMAS)
+   '         pathTema = txtInLista(MATRIZ_TEMAS(d), 0, ",")
+   '         NombreTema = txtInLista(MATRIZ_TEMAS(d), 1, ",")
+   '
+   '         MP3.FileName = pathTema
+   '         DuracionTema = MP3.TiempoTotal
+   '
+   '         MATRIZ_TOTAL(c, d) = CarpActual + "," + NombreTema + "," + DuracionTema
+   '         frmProces.lblProces = "Tema encontrado " + NombreTema + " = " + DuracionTema
+   '         frmProces.lblProces.Refresh
+   '         If frmProces.pBar + 1 = frmProces.pBar.Max Then frmProces.pBar.Max = frmProces.pBar.Max + 1
+   '         frmProces.pBar = frmProces.pBar + 1
+   '     Next
+    'Next
     'ahora cargarlos en pantalla
     'ret devuelve la cantidadd de discos cargados
     Ret = CargarDiscos(0, True)
