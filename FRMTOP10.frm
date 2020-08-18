@@ -444,6 +444,7 @@ Private Sub Form_Load()
             MTXdiscos(c) = ThisDISCO
         End If
     Loop
+    TE.Close
     'élegir el primero
     lblPuestos(0).BackColor = ColorSel
     AjustarFRM Me, 12000

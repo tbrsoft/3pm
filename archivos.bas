@@ -164,7 +164,7 @@ NextCarp:
                     "de " + Trim(Str(MD)) + " discos." + vbCrLf + _
                     "Para conseguir la versión sin límite de discos y con el manual " + _
                     "completo envie un e-mail a tbrsoft@hotmail.com o a " + _
-                    "avazquez@cpcipc.org. Solo se cargaran los " + Trim(Str(MD)) + " primeros discos"
+                    "tbrsoft@cpcipc.org. Solo se cargaran los " + Trim(Str(MD)) + " primeros discos"
                     GoTo Solo12
                 End If
                 If TypeVersion = "DEMO2" And ContadorArch > MD Then
@@ -173,7 +173,7 @@ NextCarp:
                     "de " + Trim(Str(MD)) + " discos." + vbCrLf + _
                     "Para conseguir la versión sin límite de discos y con el manual " + _
                     "completo envie un e-mail a tbrsoft@hotmail.com o a " + _
-                    "avazquez@cpcipc.org. Solo se cargaran los " + Trim(Str(MD)) + " primeros discos"
+                    "tbrsoft@cpcipc.org. Solo se cargaran los " + Trim(Str(MD)) + " primeros discos"
                     GoTo Solo12
                 End If
                 '=============================================================================

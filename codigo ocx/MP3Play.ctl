@@ -1,14 +1,14 @@
 VERSION 5.00
 Begin VB.UserControl MP3Play 
+   BackColor       =   &H00FF00FF&
    ClientHeight    =   1620
    ClientLeft      =   0
    ClientTop       =   0
    ClientWidth     =   1500
-   Picture         =   "MP3Play.ctx":0000
-   PropertyPages   =   "MP3Play.ctx":2AFB
+   PropertyPages   =   "MP3Play.ctx":0000
    ScaleHeight     =   1620
    ScaleWidth      =   1500
-   ToolboxBitmap   =   "MP3Play.ctx":2B0C
+   ToolboxBitmap   =   "MP3Play.ctx":0011
    Begin VB.Timer Reloj 
       Left            =   570
       Top             =   570

@@ -70,8 +70,7 @@ Public VolumenIni As Long
 Public PorcentajeTEMA As Integer 'del 0 al 100 para ver que parte se ejecuta de las muestras
 Public CORTAR_TEMA As Boolean 'indica si el tema que se esta ejecutando se debe cortar
 'esto puede ser porque es una version demo o por que el tema que se ejecuta es uno
-'al azar que no se pasa entero
-Public ProtectOriginal As Boolean 'true carga el protector de pantalla original. False es alguna carpeta con fotos
+Public Protector As Long '0=inhabilitado 1=Original 2=Carpeta Fotos 3= Video FullScreen
 Public TECLAS_PRES As String 'las ultimas 20 teclas presionadas
 Public ExtActual As String 'extencion del ultimo archivo elegido
 'para el teclado
@@ -142,16 +141,20 @@ Public Sub CargarProximosTemas()
     'cargar lstProximos
     Dim strProximos As String, TotTemas As Integer
     If UBound(MATRIZ_LISTA) = 0 Then
-        frmIndex.lstProximos.Clear
-        frmIndex.lstProximos.AddItem "No hay próximo tema"
+        'frmIndex.lstProximos.Clear
+        'frmIndex.lstProximos.AddItem "No hay próximo tema"
+        frmIndex.lstProximos = "No hay proximo tema"
     Else
         TotTemas = UBound(MATRIZ_LISTA)
-        frmIndex.lstProximos.Clear
-        frmIndex.lstProximos.AddItem "TEMAS PENDIENTES (" + CStr(TotTemas) + ")"
+        'frmIndex.lstProximos.Clear
+        'frmIndex.lstProximos.AddItem "TEMAS PENDIENTES (" + CStr(TotTemas) + ")"
+        frmIndex.lstProximos = "TEMAS PENDIENTES (" + CStr(TotTemas) + ")" + vbCrLf
+        
         For c = 1 To UBound(MATRIZ_LISTA)
             'el indice 0 no existe ni existira por eso el C=1
             strProximos = QuitarNumeroDeTema(txtInLista(MATRIZ_LISTA(c), 1, ","))
-            frmIndex.lstProximos.AddItem CStr(c) + "- " + strProximos
+            'frmIndex.lstProximos.AddItem CStr(c) + "- " + strProximos
+            frmIndex.lstProximos = frmIndex.lstProximos + CStr(c) + "- " + strProximos + vbCrLf
         Next
     End If
     Exit Sub

@@ -4,7 +4,8 @@ Private txtClaves As String
 
 Public Sub CrearNuevoCodigoValidar()
     'cuando carga OK una clave se genera el proximo codigo a pedir
-    'esto debe ser al azar si son siempre la misma serie de codigos un tipo con varis máquinas solo pide las clavs una vez
+    'esto debe ser al azar si son siempre la misma serie de codigos un
+    'tipo con varis máquinas solo pide las clavs una vez
     Dim A As Long
     Randomize Timer
     A = Int(Rnd * 1000000) '1 millon

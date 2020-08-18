@@ -597,17 +597,57 @@ Private Sub Command5_Click()
     Dim DRs As Drives, DS As Drive
     Set DRs = FSO.Drives
     CarpetaDesdeCargar = "NO"
+    Dim CDsDisponibles() As String, ContCDs As Long
+    ContCDs = -1
     For Each DS In DRs
         If DS.DriveType = 4 Then '4 es CDROM
-            If DS.IsReady Then
-                CarpetaDesdeCargar = DS.DriveLetter + ":\"
-            Else
-                MsgBox "El disco " + DS.DriveLetter + " no esta " + _
-                "listo. Inserte un CD y reintente"
-                Exit Sub
-            End If
+            'ver cuantos hay disponibles!!!!
+            ContCDs = ContCDs + 1
+            ReDim Preserve CDsDisponibles(ContCDs)
+            CDsDisponibles(ContCDs) = DS.DriveLetter
         End If
     Next
+    'Que el tipo eliga la unidad que desea si es que hay mas de una
+    If ContCDs = -1 Then
+        MsgBox "No hay unidades de CD en su PC!"
+        Exit Sub
+    End If
+    If ContCDs = 0 Then
+        'no hay nada que legir
+        Set DS = FSO.GetDrive(CDsDisponibles(0))
+        GoTo ElegidoCD
+    End If
+    If ContCDs > 0 Then
+        Set DS = FSO.GetDrive(CDsDisponibles(ContCDs))
+        For A = 0 To ContCDs
+            Set DS = FSO.GetDrive(CDsDisponibles(A))
+            'muestra un mensaje completo si esta listo y si no solo la letra
+            If DS.IsReady Then
+                msg = "Desea bucar en la unidad de CD:" + vbCrLf + _
+                            DS.DriveLetter + "-" + DS.VolumeName + vbCrLf + _
+                            "No = Unidad Siguiente"
+            Else
+                msg = "Desea bucar en la unidad de CD:" + vbCrLf + _
+                            DS.DriveLetter + " (no esta listo)" + vbCrLf + _
+                            "No = Unidad Siguiente"
+            End If
+            If MsgBox(msg, vbYesNo) = vbYes Then GoTo ElegidoCD
+            
+        Next
+        'si llego hasta aca y no eligio se caga por boludo
+        Exit Sub
+    End If
+    
+ElegidoCD:
+
+    If DS.IsReady Then
+        CarpetaDesdeCargar = DS.DriveLetter + ":\"
+    Else
+        MsgBox "El disco " + DS.DriveLetter + " no esta " + _
+        "listo. Inserte un CD y reintente"
+        Exit Sub
+    End If
+    
     If CarpetaDesdeCargar = "NO" Then
         MsgBox "No se encontro unidad de CD"
         Exit Sub
@@ -616,8 +656,8 @@ Private Sub Command5_Click()
     lblWait.Refresh
     'buscar carpetas de multimedia
     CarpsConMM = FindCarpsConMM(CarpetaDesdeCargar)
-    lblTOT = "Carpetas encontradas el la ubicacion elegida: " + CStr(UBound(CarpsConMM))
-    lblTOT.Refresh
+    lblWait = "Carpetas encontradas el la ubicacion elegida: " + CStr(UBound(CarpsConMM))
+    lblWait.Refresh
     'ver cuales tienen multimedia
     BuscarCarpetasMM
     
@@ -710,11 +750,11 @@ End Function
 
 Sub ShowDriveList()
     On Local Error Resume Next
-    Dim fs, d, dc, S, n
+    Dim fs, d, dc, s, n
     Set fs = CreateObject("Scripting.FileSystemObject")
     Set dc = fs.Drives
     For Each d In dc
-        S = S & d.DriveLetter & " - "
+        s = s & d.DriveLetter & " - "
         Select Case d.DriveType
             Case 0: T = "Desconocido"
             Case 1: T = "Separable"
@@ -728,9 +768,9 @@ Sub ShowDriveList()
         Else
             n = d.VolumeName
         End If
-        S = S & n & "Tipo: " & T & vbCrLf
+        s = s & n & "Tipo: " & T & vbCrLf
     Next
-    MsgBox S
+    MsgBox s
 End Sub
 
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)

@@ -258,7 +258,7 @@ Private Sub Form_Load()
     "Telefono: 54-3543-489271" + vbCrLf + _
     "Celular: 54-3543-15530400" + vbCrLf + _
     "DNI: 26.453.653 (Documento Nacional de Identidad)" + vbCrLf + vbCrLf + _
-    "Luego envie un email a info@tbrsoft y a avazquez@cpcipc.org con el código de la " + _
+    "Luego envie un email a info@tbrsoft y a tbrsoft@cpcipc.org con el código de la " + _
     "transferencia y el codigo de su/s equipo/s. Recibira inmediatamente via email " + _
     "la clave para habilitar su equipo. Si adquiere más de una licencia quedará " + _
     "habilitado para solicitar una por una las claves para los " + _

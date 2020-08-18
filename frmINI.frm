@@ -67,9 +67,9 @@ Begin VB.Form frmINI
       EndProperty
       ForeColor       =   &H0000FFFF&
       Height          =   420
-      Left            =   990
+      Left            =   1740
       TabIndex        =   0
-      Top             =   1020
+      Top             =   2070
       Width           =   2460
    End
    Begin VB.Label lblINI 
@@ -123,12 +123,12 @@ Begin VB.Form frmINI
    End
    Begin VB.Image Image1 
       BorderStyle     =   1  'Fixed Single
-      Height          =   6300
-      Left            =   -30
+      Height          =   4020
+      Left            =   1710
       Picture         =   "frmINI.frx":1EB0
       Stretch         =   -1  'True
-      Top             =   -30
-      Width           =   7500
+      Top             =   1410
+      Width           =   4710
    End
 End
 Attribute VB_Name = "frmINI"
@@ -139,7 +139,7 @@ Attribute VB_Exposed = False
 
 Private Sub Form_Load()
     MostrarCursor False
-    ClaveAdmin = "CBA7111levi09"
+    ClaveAdmin = "ERO77701192FF"
     VVV = "v " + Trim(Str(App.Major)) + "." + Trim(Str(App.Minor)) + "." + Trim(Str(App.Revision))
     '--------
     If TypeVersion = "SL" Then
@@ -187,7 +187,7 @@ Private Sub Form_Load()
     TapasMostradasV = Val(LeerConfig("DiscosV", "2"))
     PasarHoja = LeerConfig("Pasarhoja", "1")
     DistorcionarTapas = LeerConfig("DistorcionarTapas", "0")
-    ProtectOriginal = LeerConfig("ProtectOriginal", "1")
+    Protector = LeerConfig("Protector", "1")
     CargarDuracionTemas = LeerConfig("CargarDuracionTemas", "0")
     MostrarRotulos = LeerConfig("MostrarRotulos", "1")
     RotulosArriba = LeerConfig("RotulosArriba", "0")
@@ -290,7 +290,7 @@ Private Sub Form_Load()
             mtxTOP10(z) = TT
         End If
     Loop
-     TE.Close
+    TE.Close
     'ordenar la matriz
     'tomar la matriz (con valores separador) y ordenala en base a la
     'columna indicada. en este caso el separador es "," y la columna es 0.

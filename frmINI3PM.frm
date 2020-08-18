@@ -825,6 +825,7 @@ Private Sub Form_Load()
        Ls(c) = TE.ReadLine
        c = c + 1
     Loop
+    TE.Close
     Dim LoadImgIni As String
     LoadImgIni = txtInLista(Ls(4), 1, "=")
     Dim LoadImgCerrando As String
@@ -860,6 +861,7 @@ Private Sub Form_Load()
         End If
         c = c + 1
     Loop
+    TE.Close
     If UCase(ActualShell) = "EXPLORER.EXE" Then Option6 = True
     If UCase(ActualShell) = "PROGMAN.EXE" Then Option2 = True
     

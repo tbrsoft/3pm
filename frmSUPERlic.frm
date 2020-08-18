@@ -8,6 +8,7 @@ Begin VB.Form frmSUPERlic
    ClientTop       =   0
    ClientWidth     =   11880
    LinkTopic       =   "Form1"
+   LockControls    =   -1  'True
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   8595
@@ -312,7 +313,6 @@ Begin VB.Form frmSUPERlic
    Begin VB.Image TapaRank 
       Height          =   1245
       Left            =   5040
-      Picture         =   "frmSUPERlic.frx":00A5
       Stretch         =   -1  'True
       Top             =   6870
       Width           =   1320
@@ -320,7 +320,6 @@ Begin VB.Form frmSUPERlic
    Begin VB.Image TapaCD 
       Height          =   1245
       Left            =   3660
-      Picture         =   "frmSUPERlic.frx":9226
       Stretch         =   -1  'True
       Top             =   6870
       Width           =   1320
@@ -328,7 +327,7 @@ Begin VB.Form frmSUPERlic
    Begin VB.Label Label1 
       BackStyle       =   0  'Transparent
       BorderStyle     =   1  'Fixed Single
-      Caption         =   $"frmSUPERlic.frx":12239
+      Caption         =   $"frmSUPERlic.frx":00A5
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
@@ -393,7 +392,7 @@ Begin VB.Form frmSUPERlic
    Begin VB.Label Label1 
       BackStyle       =   0  'Transparent
       BorderStyle     =   1  'Fixed Single
-      Caption         =   $"frmSUPERlic.frx":12300
+      Caption         =   $"frmSUPERlic.frx":016C
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
@@ -415,7 +414,7 @@ Begin VB.Form frmSUPERlic
       BorderStyle     =   1  'Fixed Single
       Height          =   1260
       Left            =   30
-      Picture         =   "frmSUPERlic.frx":123C7
+      Picture         =   "frmSUPERlic.frx":0233
       Stretch         =   -1  'True
       Top             =   5610
       Width           =   1230
@@ -424,7 +423,7 @@ Begin VB.Form frmSUPERlic
       BorderStyle     =   1  'Fixed Single
       Height          =   690
       Left            =   9570
-      Picture         =   "frmSUPERlic.frx":1649E
+      Picture         =   "frmSUPERlic.frx":153B
       Stretch         =   -1  'True
       Top             =   2760
       Width           =   2280
@@ -432,8 +431,8 @@ Begin VB.Form frmSUPERlic
    Begin VB.Image imgPRESp 
       BorderStyle     =   1  'Fixed Single
       Height          =   1890
-      Left            =   7290
-      Picture         =   "frmSUPERlic.frx":17F0C
+      Left            =   7320
+      Picture         =   "frmSUPERlic.frx":2FA9
       Stretch         =   -1  'True
       Top             =   1920
       Width           =   2250
@@ -463,7 +462,7 @@ Begin VB.Form frmSUPERlic
    Begin VB.Label Label1 
       BackStyle       =   0  'Transparent
       BorderStyle     =   1  'Fixed Single
-      Caption         =   $"frmSUPERlic.frx":3774E
+      Caption         =   $"frmSUPERlic.frx":4A73
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
@@ -508,7 +507,7 @@ Begin VB.Form frmSUPERlic
    Begin VB.Label Label1 
       BackStyle       =   0  'Transparent
       BorderStyle     =   1  'Fixed Single
-      Caption         =   $"frmSUPERlic.frx":37851
+      Caption         =   $"frmSUPERlic.frx":4B76
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
@@ -694,7 +693,7 @@ Private Sub Form_Load()
         lblTBR = TE.ReadAll
         TE.Close
     Else
-        lblTBR = "Software desarrollado por tbrSoft www.tbrsoft.com - info@tbrsoft.com - avazquez@cpcipc.org."
+        lblTBR = "Software desarrollado por tbrSoft www.tbrsoft.com - info@tbrsoft.com - tbrsoft@cpcipc.org."
     End If
     
 End Sub

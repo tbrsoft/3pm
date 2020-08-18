@@ -197,16 +197,17 @@ Private Sub Form_Load()
     IndPicVisible = 0
     IndMtxTapaVisible = 0
     Dim NombreDir As String, ContadorArch As Long
-    PicProtec(0).Stretch = ProtectOriginal
-    PicProtec(1).Stretch = ProtectOriginal
-    PicProtec(2).Stretch = ProtectOriginal
-    PicProtec(3).Stretch = ProtectOriginal
-    PicProtec(4).Stretch = ProtectOriginal
-    PicProtec(5).Stretch = ProtectOriginal
-    lblDisco.Visible = ProtectOriginal
+    PicProtec(0).Stretch = (Protector = 1)
+    PicProtec(1).Stretch = (Protector = 1)
+    PicProtec(2).Stretch = (Protector = 1)
+    PicProtec(3).Stretch = (Protector = 1)
+    PicProtec(4).Stretch = (Protector = 1)
+    PicProtec(5).Stretch = (Protector = 1)
+    lblDISCO.Visible = (Protector = 1)
     'VER POR QUE NUMERO DE FOTO IVA
     NumFotoIni = Val(ReadSimpleFile)
-    If ProtectOriginal Then
+    If (Protector = 1) Then
+        ContadorArch = 0
         'hacer una lista de las tapas disponibles
         ruta = AP + "discos\"
         NombreDir = Dir$(ruta & "*.*", vbDirectory)
@@ -225,7 +226,9 @@ Private Sub Form_Load()
             End If
             NombreDir = Dir$
         Loop
-    Else
+    End If
+    If (Protector = 2) Then
+        ContadorArch = 0
         'hacer una lista de las fotos disponibles
         ruta = AP + "fotos\"
         NombreDir = Dir$(ruta & "*.jpg")
@@ -243,9 +246,15 @@ Private Sub Form_Load()
             NombreDir = Dir$
         Loop
     End If
-    TiempoEnProtect = 0
-    Timer1.Interval = Intervalo * 1000
-    IndMtxTapaVisible = NumFotoIni
+    'si no hay archivos en fotos da error!!!!
+    If ContadorArch = 0 Then
+        lblDISCO = "!!!!!!No hay fotos para mostrar!!!!"
+        lblDISCO.Visible = True
+    Else
+        TiempoEnProtect = 0
+        Timer1.Interval = Intervalo * 1000
+        IndMtxTapaVisible = NumFotoIni
+    End If
 End Sub
 
 Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
@@ -274,16 +283,17 @@ Private Sub Timer1_Timer()
     'ver que no se pase del total de fotos
     If IndMtxTapaVisible > UBound(MTXtapas) Then IndMtxTapaVisible = 1
     
-    PicProtec(IndPicVisible).Stretch = ProtectOriginal
+    PicProtec(IndPicVisible).Stretch = (Protector = 1)
     PicProtec(IndPicVisible).Picture = LoadPicture(MTXtapas(IndMtxTapaVisible))
     PROP = PicProtec(IndPicVisible).Height / PicProtec(IndPicVisible).Width
-    If ProtectOriginal Then
+    If (Protector = 1) Then
         Dim DISCO As String
         DISCO = Left(MTXtapas(IndMtxTapaVisible), Len(MTXtapas(IndMtxTapaVisible)) - 9)
         DISCO = FSO.GetBaseName(DISCO)
-        lblDisco = DISCO
+        lblDISCO = DISCO
         PicProtec(IndPicVisible).Stretch = True
-    Else
+    End If
+    If (Protector = 2) Then
         'si es muy grande
         If PicProtec(IndPicVisible).Height > FR.Height * 0.8 Or PicProtec(IndPicVisible).Width > FR.Width * 0.8 Then
             'llevar a un tamaño decente
@@ -309,7 +319,7 @@ Private Sub Timer1_Timer()
     End If
     
     Randomize Timer
-    b = lblDisco.Top - PicProtec(IndPicVisible).Height
+    b = lblDISCO.Top - PicProtec(IndPicVisible).Height
     If b < 150 Then b = 150 '150 es el tope del frmae
         
     A = Int(Rnd * b)

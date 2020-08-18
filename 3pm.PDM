@@ -1,10 +1,153 @@
 [Root]
-Most Recent Package=3pm 3.5
+Most Recent Package=Paquete de instalación estándar 1
+
+
+[Package|Paquete de actualizacion MsComm|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=D:\ahora\3pm\iVera35400
+
+[Package|Paquete de actualizacion MsComm|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Paquete de actualizacion MsComm|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Paquete de actualizacion MsComm|Files Found]
+
+[Package|Paquete de actualizacion MsComm|Files Released]
+
+[Package|Paquete de actualizacion MsComm|Missing Dependency Information]
+D:\ahora\3pm\ini.exe=
+
+[Package|Paquete de actualizacion MsComm|Out-of-Date Dependency Information]
+C:\TBRWIN\SYSTEM\scrrun.dll=
+
+[Package|Paquete de actualizacion MsComm|Files Added]
+d:\ahora\3pm\ini.exe=
+d:\ahora\3pm\logo.sys=
+d:\ahora\3pm\logos.sys=
+d:\ahora\3pm\logow.sys=
+d:\ahora\3pm\manual.doc=
+d:\ahora\3pm\tapa.jpg=
+d:\ahora\3pm\top10.jpg=
+
+[Package|Paquete de actualizacion MsComm|Files Removed]
+c:\tbrwin\system\msvcrt.dll=
+c:\tbrwin\system\msvbvm60.dll=
+c:\tbrwin\system\oleaut32.dll=
+c:\tbrwin\system\olepro32.dll=
+c:\tbrwin\system\asycfilt.dll=
+c:\tbrwin\system\stdole2.tlb=
+c:\archivos de programa\microsoft visual studio\vb98\wizards\pdwizard\redist\comcat.dll=
+c:\tbrwin\system\scrrnes.dll=
+c:\tbrwin\system\scrrun.dll=
+d:\ahora\3pm\top10.jpg=
+d:\ahora\3pm\tapa.jpg=
+d:\ahora\3pm\ini.exe=
+d:\ahora\3pm\logos.sys=
+d:\ahora\3pm\logo.sys=
+d:\ahora\3pm\logow.sys=
+
+[Package|Paquete de actualizacion MsComm|Files In Project]
+D:\ahora\3pm\3pm.exe=Yes
+C:\TBRWIN\SYSTEM\msvbvm60.dll=No
+C:\TBRWIN\SYSTEM\OLEAUT32.DLL=No
+C:\TBRWIN\SYSTEM\OLEPRO32.DLL=No
+C:\TBRWIN\SYSTEM\ASYCFILT.DLL=No
+C:\TBRWIN\SYSTEM\STDOLE2.TLB=No
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=No
+C:\TBRWIN\SYSTEM\VB6ES.DLL=Yes
+C:\TBRWIN\SYSTEM\scrrun.dll=No
+C:\TBRWIN\SYSTEM\MSVCRT.DLL=No
+C:\TBRWIN\SYSTEM\scrrnes.dll=No
+C:\TBRWIN\SYSTEM\MSCOMM32.OCX=Yes
+C:\TBRWIN\SYSTEM\MSCOMES.DLL=Yes
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\TBRWIN\SYSTEM\VB6STKIT.DLL=Yes
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+D:\ahora\3pm\ini.exe=No
+D:\ahora\3pm\logo.sys=No
+D:\ahora\3pm\LOGOS.SYS=No
+D:\ahora\3pm\logow.sys=No
+D:\ahora\3pm\manual.doc=Yes
+D:\ahora\3pm\tapa.jpg=No
+D:\ahora\3pm\top10.jpg=No
+
+[Package|Paquete de actualizacion MsComm|Configure Registry Files]
+Applicable=No
+
+[Package|Paquete de actualizacion MsComm|Configure Remote Servers]
+Applicable=No
+
+[Package|Paquete de actualizacion MsComm|Install Locations]
+D:\ahora\3pm\3pm.exe=$(AppPath)
+C:\TBRWIN\SYSTEM\VB6ES.DLL=$(WinSysPath)
+C:\TBRWIN\SYSTEM\scrrun.dll=$(WinSysPath)
+C:\TBRWIN\SYSTEM\MSVCRT.DLL=$(WinSysPathSysFile)
+C:\TBRWIN\SYSTEM\scrrnes.dll=$(WinSysPath)
+C:\TBRWIN\SYSTEM\MSCOMM32.OCX=$(WinSysPath)
+C:\TBRWIN\SYSTEM\MSCOMES.DLL=$(WinSysPath)
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\TBRWIN\SYSTEM\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+D:\ahora\3pm\ini.exe=$(AppPath)
+D:\ahora\3pm\logo.sys=$(AppPath)
+D:\ahora\3pm\LOGOS.SYS=$(AppPath)
+D:\ahora\3pm\logow.sys=$(AppPath)
+D:\ahora\3pm\manual.doc=$(AppPath)
+D:\ahora\3pm\tapa.jpg=$(AppPath)
+D:\ahora\3pm\top10.jpg=$(AppPath)
+C:\TBRWIN\SYSTEM\msvbvm60.dll=$(WinSysPathSysFile)
+C:\TBRWIN\SYSTEM\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\TBRWIN\SYSTEM\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\TBRWIN\SYSTEM\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\TBRWIN\SYSTEM\STDOLE2.TLB=$(WinSysPathSysFile)
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+
+[Package|Paquete de actualizacion MsComm|Configure Shared Files]
+Applicable=Yes
+D:\ahora\3pm\3pm.exe=No
+D:\ahora\3pm\ini.exe=No
+D:\ahora\3pm\logo.sys=No
+D:\ahora\3pm\LOGOS.SYS=No
+D:\ahora\3pm\logow.sys=No
+D:\ahora\3pm\manual.doc=No
+D:\ahora\3pm\tapa.jpg=No
+D:\ahora\3pm\top10.jpg=No
+
+[Package|Paquete de actualizacion MsComm|Distribution]
+Type=single
+Size=
+Title=3pm de tbrSoft
+
+[Package|Paquete de actualizacion MsComm|IconGroups]
+Group0=3pm
+PrivateGroup0=Falso
+Parent0=$(Programs)
+
+[Package|Paquete de actualizacion MsComm|3pm]
+Icon1=3pm.exe
+Title1=3pm
+StartIn1=$(AppPath)
+Key1=Icon1
+
+[Package|Paquete de actualizacion MsComm|Package]
+PackageFolder=D:\ahora\3pm\iVera35400
+ProjectFolder=D:\ahora\3pm
+ServerSideCab=
+File1=D:\ahora\3pm\iVera35400\setup.exe
+File2=D:\ahora\3pm\iVera35400\Setup.Lst
+File3=D:\ahora\3pm\iVera35400\3pm.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz
 
 
 [Package|Paquete de instalación estándar 1|Root]
 SubWizProgID=PDWizard.SetupPkgSubWiz
-BuildFolder=D:\ahora\3pm\i
+BuildFolder=D:\ahora\3pm\3PM Windows ME
 
 [Package|Paquete de instalación estándar 1|Configure DAO ISAMs]
 Applicable=No
@@ -18,52 +161,54 @@ ODBCDirect=
 [Package|Paquete de instalación estándar 1|Files Released]
 
 [Package|Paquete de instalación estándar 1|Missing Dependency Information]
-C:\ROCKITO\SYSTEM\VFmp3player.ocx=
-C:\Archivos de programa\Archivos comunes\SYSTEM\ADO\msado20.tlb=
+D:\ahora\3pm\ini.exe=
 
 [Package|Paquete de instalación estándar 1|Out-of-Date Dependency Information]
-C:\ROCKITO\SYSTEM\Comdlg32.ocx=
-C:\ROCKITO\SYSTEM\mscomctl.ocx=
-C:\ROCKITO\SYSTEM\SCRRUN.DLL=
+C:\TBRWIN\SYSTEM\scrrun.dll=
 
 [Package|Paquete de instalación estándar 1|Files Added]
-d:\ahora\3pm\config.tbr=
+d:\ahora\3pm\ini.exe=
+d:\ahora\3pm\logo.sys=
+d:\ahora\3pm\logos.sys=
+d:\ahora\3pm\logow.sys=
 d:\ahora\3pm\manual.doc=
 d:\ahora\3pm\tapa.jpg=
 d:\ahora\3pm\top10.jpg=
-d:\ahora\3pm\silens.mp3=
 
 [Package|Paquete de instalación estándar 1|Files Removed]
+c:\tbrwin\system\msvcrt.dll=
+c:\tbrwin\system\msvbvm60.dll=
+c:\tbrwin\system\oleaut32.dll=
+c:\tbrwin\system\olepro32.dll=
+c:\tbrwin\system\asycfilt.dll=
+c:\tbrwin\system\stdole2.tlb=
+c:\archivos de programa\microsoft visual studio\vb98\wizards\pdwizard\redist\comcat.dll=
 
 [Package|Paquete de instalación estándar 1|Files In Project]
 D:\ahora\3pm\3pm.exe=Yes
-C:\ROCKITO\SYSTEM\MSVBVM60.DLL=Yes
-C:\ROCKITO\SYSTEM\OLEAUT32.DLL=Yes
-C:\ROCKITO\SYSTEM\OLEPRO32.DLL=Yes
-C:\ROCKITO\SYSTEM\ASYCFILT.DLL=Yes
-C:\ROCKITO\SYSTEM\STDOLE2.TLB=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
-C:\ROCKITO\SYSTEM\VB6ES.DLL=Yes
-C:\Archivos de programa\Archivos comunes\designer\MSDERUN.DLL=Yes
-C:\Archivos de programa\Archivos comunes\SYSTEM\ADO\msado20.tlb=Yes
-C:\ROCKITO\SYSTEM\SCRRUN.DLL=Yes
-C:\ROCKITO\SYSTEM\MSVCRT.DLL=Yes
-C:\ROCKITO\SYSTEM\scrrnes.dll=Yes
-C:\ROCKITO\SYSTEM\mscomctl.ocx=Yes
-C:\ROCKITO\SYSTEM\MSCMCES.DLL=Yes
-C:\ROCKITO\SYSTEM\VFmp3player.ocx=Yes
-C:\ROCKITO\SYSTEM\Comdlg32.ocx=Yes
-C:\ROCKITO\SYSTEM\CMDLGES.DLL=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=Yes
+C:\TBRWIN\SYSTEM\msvbvm60.dll=No
+C:\TBRWIN\SYSTEM\OLEAUT32.DLL=No
+C:\TBRWIN\SYSTEM\OLEPRO32.DLL=No
+C:\TBRWIN\SYSTEM\ASYCFILT.DLL=No
+C:\TBRWIN\SYSTEM\STDOLE2.TLB=No
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=No
+C:\TBRWIN\SYSTEM\VB6ES.DLL=Yes
+C:\TBRWIN\SYSTEM\scrrun.dll=Yes
+C:\TBRWIN\SYSTEM\MSVCRT.DLL=No
+C:\TBRWIN\SYSTEM\scrrnes.dll=Yes
+C:\TBRWIN\SYSTEM\MSCOMM32.OCX=Yes
+C:\TBRWIN\SYSTEM\MSCOMES.DLL=Yes
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
-C:\ROCKITO\SYSTEM\VB6STKIT.DLL=Yes
+C:\TBRWIN\SYSTEM\VB6STKIT.DLL=Yes
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
-D:\ahora\3pm\config.tbr=Yes
-D:\ahora\3pm\Manual.doc=Yes
+D:\ahora\3pm\ini.exe=Yes
+D:\ahora\3pm\logo.sys=Yes
+D:\ahora\3pm\LOGOS.SYS=Yes
+D:\ahora\3pm\logow.sys=Yes
+D:\ahora\3pm\manual.doc=Yes
 D:\ahora\3pm\tapa.jpg=Yes
 D:\ahora\3pm\top10.jpg=Yes
-D:\ahora\3pm\silens.mp3=Yes
 
 [Package|Paquete de instalación estándar 1|Configure Registry Files]
 Applicable=No
@@ -73,58 +218,45 @@ Applicable=No
 
 [Package|Paquete de instalación estándar 1|Install Locations]
 D:\ahora\3pm\3pm.exe=$(AppPath)
-C:\ROCKITO\SYSTEM\MSVBVM60.DLL=$(WinSysPathSysFile)
-C:\ROCKITO\SYSTEM\OLEAUT32.DLL=$(WinSysPathSysFile)
-C:\ROCKITO\SYSTEM\OLEPRO32.DLL=$(WinSysPathSysFile)
-C:\ROCKITO\SYSTEM\ASYCFILT.DLL=$(WinSysPathSysFile)
-C:\ROCKITO\SYSTEM\STDOLE2.TLB=$(WinSysPathSysFile)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
-C:\ROCKITO\SYSTEM\VB6ES.DLL=$(WinSysPath)
-C:\Archivos de programa\Archivos comunes\designer\MSDERUN.DLL=$(CommonFiles)\designer
-C:\Archivos de programa\Archivos comunes\SYSTEM\ADO\msado20.tlb=$(WinSysPath)
-C:\ROCKITO\SYSTEM\SCRRUN.DLL=$(WinSysPath)
-C:\ROCKITO\SYSTEM\MSVCRT.DLL=$(WinSysPathSysFile)
-C:\ROCKITO\SYSTEM\scrrnes.dll=$(WinSysPath)
-C:\ROCKITO\SYSTEM\mscomctl.ocx=$(WinSysPath)
-C:\ROCKITO\SYSTEM\MSCMCES.DLL=$(WinSysPath)
-C:\ROCKITO\SYSTEM\VFmp3player.ocx=$(WinSysPath)
-C:\ROCKITO\SYSTEM\Comdlg32.ocx=$(WinSysPath)
-C:\ROCKITO\SYSTEM\CMDLGES.DLL=$(WinSysPath)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=$(AppPath)
+C:\TBRWIN\SYSTEM\VB6ES.DLL=$(WinSysPath)
+C:\TBRWIN\SYSTEM\scrrun.dll=$(WinSysPath)
+C:\TBRWIN\SYSTEM\MSVCRT.DLL=$(WinSysPathSysFile)
+C:\TBRWIN\SYSTEM\scrrnes.dll=$(WinSysPath)
+C:\TBRWIN\SYSTEM\MSCOMM32.OCX=$(WinSysPath)
+C:\TBRWIN\SYSTEM\MSCOMES.DLL=$(WinSysPath)
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
-C:\ROCKITO\SYSTEM\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\TBRWIN\SYSTEM\VB6STKIT.DLL=$(WinSysPathSysFile)
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
-D:\ahora\3pm\config.tbr=$(AppPath)
-D:\ahora\3pm\Manual.doc=$(AppPath)
+D:\ahora\3pm\ini.exe=$(AppPath)
+D:\ahora\3pm\logo.sys=$(AppPath)
+D:\ahora\3pm\LOGOS.SYS=$(AppPath)
+D:\ahora\3pm\logow.sys=$(AppPath)
+D:\ahora\3pm\manual.doc=$(AppPath)
 D:\ahora\3pm\tapa.jpg=$(AppPath)
 D:\ahora\3pm\top10.jpg=$(AppPath)
-D:\ahora\3pm\silens.mp3=$(AppPath)
+C:\TBRWIN\SYSTEM\msvbvm60.dll=$(WinSysPathSysFile)
+C:\TBRWIN\SYSTEM\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\TBRWIN\SYSTEM\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\TBRWIN\SYSTEM\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\TBRWIN\SYSTEM\STDOLE2.TLB=$(WinSysPathSysFile)
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
 
 [Package|Paquete de instalación estándar 1|Configure Shared Files]
 Applicable=Yes
 D:\ahora\3pm\3pm.exe=No
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=No
-D:\ahora\3pm\config.tbr=No
-D:\ahora\3pm\Manual.doc=No
+D:\ahora\3pm\ini.exe=No
+D:\ahora\3pm\logo.sys=No
+D:\ahora\3pm\LOGOS.SYS=No
+D:\ahora\3pm\logow.sys=No
+D:\ahora\3pm\manual.doc=No
 D:\ahora\3pm\tapa.jpg=No
 D:\ahora\3pm\top10.jpg=No
-D:\ahora\3pm\silens.mp3=No
 
 [Package|Paquete de instalación estándar 1|Distribution]
 Type=single
 Size=
-Title=3pm
-
-[Package|Paquete de instalación estándar 1|Package]
-PackageFolder=D:\ahora\3pm\i
-ProjectFolder=D:\ahora\3pm
-ServerSideCab=
-File1=D:\ahora\3pm\i\setup.exe
-File2=D:\ahora\3pm\i\Setup.Lst
-File3=D:\ahora\3pm\i\3pm.CAB
-Handler1=PDWizard.FolderDplySubWiz
-Handler2=PDWizard.WebPostDplySubWiz
+Title=3pm de tbrSoft
 
 [Package|Paquete de instalación estándar 1|IconGroups]
 Group0=3pm
@@ -137,1080 +269,12 @@ Title1=3pm
 StartIn1=$(AppPath)
 Key1=Icon1
 
-
-[Package|Paquete de instalación estándar 2|Root]
-SubWizProgID=PDWizard.SetupPkgSubWiz
-BuildFolder=D:\ahora\3pm\demo chile
-
-[Package|Paquete de instalación estándar 2|Configure DAO ISAMs]
-Applicable=No
-
-[Package|Paquete de instalación estándar 2|Configure DAO ODBC]
-JetWorkspace=
-ODBCDirect=
-
-[Package|Paquete de instalación estándar 2|Files Found]
-
-[Package|Paquete de instalación estándar 2|Files Released]
-silens.mp3=
-
-[Package|Paquete de instalación estándar 2|Missing Dependency Information]
-C:\ROCKITO\SYSTEM\VFmp3player.ocx=
-
-[Package|Paquete de instalación estándar 2|Out-of-Date Dependency Information]
-C:\ROCKITO\SYSTEM\SCRRUN.DLL=
-
-[Package|Paquete de instalación estándar 2|Files Added]
-d:\ahora\3pm\config.tbr=
-d:\ahora\3pm\tapa.jpg=
-d:\ahora\3pm\top10.jpg=
-silens.mp3=
-d:\ahora\3pm\cluf.doc=
-d:\ahora\3pm\manual.doc=
-
-[Package|Paquete de instalación estándar 2|Files Removed]
-c:\rockito\system\msvcrt.dll=
-d:\ahora\3pm\silens.mp3=
-
-[Package|Paquete de instalación estándar 2|Files In Project]
-D:\ahora\3pm\3pm.exe=Yes
-C:\ROCKITO\SYSTEM\MSVBVM60.DLL=Yes
-C:\ROCKITO\SYSTEM\OLEAUT32.DLL=Yes
-C:\ROCKITO\SYSTEM\OLEPRO32.DLL=Yes
-C:\ROCKITO\SYSTEM\ASYCFILT.DLL=Yes
-C:\ROCKITO\SYSTEM\STDOLE2.TLB=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
-C:\ROCKITO\SYSTEM\VB6ES.DLL=Yes
-C:\ROCKITO\SYSTEM\SCRRUN.DLL=Yes
-C:\ROCKITO\SYSTEM\MSVCRT.DLL=No
-C:\ROCKITO\SYSTEM\scrrnes.dll=Yes
-C:\ROCKITO\SYSTEM\VFmp3player.ocx=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
-C:\ROCKITO\SYSTEM\VB6STKIT.DLL=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
-D:\ahora\3pm\config.tbr=Yes
-D:\ahora\3pm\tapa.jpg=Yes
-D:\ahora\3pm\top10.jpg=Yes
-D:\ahora\3pm\CLUF.doc=Yes
-D:\ahora\3pm\Manual.doc=Yes
-
-[Package|Paquete de instalación estándar 2|Configure Registry Files]
-Applicable=No
-
-[Package|Paquete de instalación estándar 2|Configure Remote Servers]
-Applicable=No
-
-[Package|Paquete de instalación estándar 2|Install Locations]
-D:\ahora\3pm\3pm.exe=$(AppPath)
-C:\ROCKITO\SYSTEM\MSVBVM60.DLL=$(WinSysPathSysFile)
-C:\ROCKITO\SYSTEM\OLEAUT32.DLL=$(WinSysPathSysFile)
-C:\ROCKITO\SYSTEM\OLEPRO32.DLL=$(WinSysPathSysFile)
-C:\ROCKITO\SYSTEM\ASYCFILT.DLL=$(WinSysPathSysFile)
-C:\ROCKITO\SYSTEM\STDOLE2.TLB=$(WinSysPathSysFile)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
-C:\ROCKITO\SYSTEM\VB6ES.DLL=$(WinSysPath)
-C:\ROCKITO\SYSTEM\SCRRUN.DLL=$(WinSysPath)
-C:\ROCKITO\SYSTEM\scrrnes.dll=$(WinSysPath)
-C:\ROCKITO\SYSTEM\VFmp3player.ocx=$(WinSysPath)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
-C:\ROCKITO\SYSTEM\VB6STKIT.DLL=$(WinSysPathSysFile)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
-D:\ahora\3pm\config.tbr=$(AppPath)
-D:\ahora\3pm\tapa.jpg=$(AppPath)
-D:\ahora\3pm\top10.jpg=$(AppPath)
-D:\ahora\3pm\silens.mp3=$(AppPath)
-D:\ahora\3pm\CLUF.doc=$(AppPath)
-D:\ahora\3pm\Manual.doc=$(AppPath)
-
-[Package|Paquete de instalación estándar 2|Configure Shared Files]
-Applicable=Yes
-D:\ahora\3pm\3pm.exe=No
-D:\ahora\3pm\config.tbr=No
-D:\ahora\3pm\tapa.jpg=No
-D:\ahora\3pm\top10.jpg=No
-D:\ahora\3pm\silens.mp3=No
-D:\ahora\3pm\CLUF.doc=No
-D:\ahora\3pm\Manual.doc=No
-
-[Package|Paquete de instalación estándar 2|Distribution]
-Type=single
-Size=
-Title=3pm (Marcos Sepulvedai)
-
-[Package|Paquete de instalación estándar 2|IconGroups]
-Group0=3pm DEMO
-PrivateGroup0=Falso
-Parent0=$(Programs)
-
-[Package|Paquete de instalación estándar 2|3pm DEMO]
-Icon1=3pm.exe
-Title1=3pm DEMO
-StartIn1=$(AppPath)
-Key1=Icon1
-
-[Package|Paquete de instalación estándar 2|Package]
-PackageFolder=D:\ahora\3pm\demo chile
+[Package|Paquete de instalación estándar 1|Package]
+PackageFolder=D:\ahora\3pm\3PM Windows ME
 ProjectFolder=D:\ahora\3pm
 ServerSideCab=
-File1=D:\ahora\3pm\demo chile\setup.exe
-File2=D:\ahora\3pm\demo chile\Setup.Lst
-File3=D:\ahora\3pm\demo chile\3pm.CAB
-Handler1=PDWizard.FolderDplySubWiz
-Handler2=PDWizard.WebPostDplySubWiz
-
-
-[Package|Paquete de instalación estándar 3|Root]
-SubWizProgID=PDWizard.SetupPkgSubWiz
-BuildFolder=D:\ahora\3pm MCI\i
-
-[Package|Paquete de instalación estándar 3|Configure DAO ISAMs]
-Applicable=No
-
-[Package|Paquete de instalación estándar 3|Configure DAO ODBC]
-JetWorkspace=
-ODBCDirect=
-
-[Package|Paquete de instalación estándar 3|Files Found]
-
-[Package|Paquete de instalación estándar 3|Files Released]
-
-[Package|Paquete de instalación estándar 3|Missing Dependency Information]
-
-[Package|Paquete de instalación estándar 3|Out-of-Date Dependency Information]
-C:\WINDOWS\SYSTEM\scrrun.dll=
-
-[Package|Paquete de instalación estándar 3|Files Added]
-
-[Package|Paquete de instalación estándar 3|Files Removed]
-c:\windows\system\msvcrt.dll=
-
-[Package|Paquete de instalación estándar 3|Files In Project]
-D:\ahora\3pm MCI\3pm.exe=Yes
-C:\WINDOWS\SYSTEM\MSVBVM60.DLL=Yes
-C:\WINDOWS\SYSTEM\OLEAUT32.DLL=Yes
-C:\WINDOWS\SYSTEM\OLEPRO32.DLL=Yes
-C:\WINDOWS\SYSTEM\ASYCFILT.DLL=Yes
-C:\WINDOWS\SYSTEM\STDOLE2.TLB=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
-C:\WINDOWS\SYSTEM\VB6ES.DLL=Yes
-C:\WINDOWS\SYSTEM\scrrun.dll=Yes
-C:\WINDOWS\SYSTEM\MSVCRT.DLL=No
-C:\WINDOWS\SYSTEM\scrrnes.dll=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
-C:\WINDOWS\SYSTEM\VB6STKIT.DLL=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
-
-[Package|Paquete de instalación estándar 3|Configure Registry Files]
-Applicable=No
-
-[Package|Paquete de instalación estándar 3|Configure Remote Servers]
-Applicable=No
-
-[Package|Paquete de instalación estándar 3|Install Locations]
-D:\ahora\3pm MCI\3pm.exe=$(AppPath)
-C:\WINDOWS\SYSTEM\MSVBVM60.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\OLEAUT32.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\OLEPRO32.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\ASYCFILT.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\STDOLE2.TLB=$(WinSysPathSysFile)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\VB6ES.DLL=$(WinSysPath)
-C:\WINDOWS\SYSTEM\scrrun.dll=$(WinSysPath)
-C:\WINDOWS\SYSTEM\scrrnes.dll=$(WinSysPath)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
-C:\WINDOWS\SYSTEM\VB6STKIT.DLL=$(WinSysPathSysFile)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
-
-[Package|Paquete de instalación estándar 3|Configure Shared Files]
-Applicable=Yes
-D:\ahora\3pm MCI\3pm.exe=No
-
-[Package|Paquete de instalación estándar 3|Distribution]
-Type=single
-Size=
-Title=3pm
-
-[Package|Paquete de instalación estándar 3|IconGroups]
-Group0=3pm
-PrivateGroup0=Verdadero
-Parent0=$(Programs)
-
-[Package|Paquete de instalación estándar 3|3pm]
-Icon1=3pm.exe
-Title1=3pm
-StartIn1=$(AppPath)
-Key1=Icon1
-
-[Package|Paquete de instalación estándar 3|Package]
-PackageFolder=D:\ahora\3pm MCI\i
-ProjectFolder=D:\ahora\3pm MCI
-ServerSideCab=
-File1=D:\ahora\3pm MCI\i\setup.exe
-File2=D:\ahora\3pm MCI\i\Setup.Lst
-File3=D:\ahora\3pm MCI\i\3pm.CAB
-Handler1=PDWizard.FolderDplySubWiz
-Handler2=PDWizard.WebPostDplySubWiz
-
-
-[Package|mci 3pm sin runtimes|Root]
-SubWizProgID=PDWizard.SetupPkgSubWiz
-BuildFolder=D:\ahora\3pm MCI\i sin runtimes
-
-[Package|mci 3pm sin runtimes|Configure DAO ISAMs]
-Applicable=No
-
-[Package|mci 3pm sin runtimes|Configure DAO ODBC]
-JetWorkspace=
-ODBCDirect=
-
-[Package|mci 3pm sin runtimes|Files Found]
-
-[Package|mci 3pm sin runtimes|Files Released]
-
-[Package|mci 3pm sin runtimes|Missing Dependency Information]
-
-[Package|mci 3pm sin runtimes|Out-of-Date Dependency Information]
-C:\WINDOWS\SYSTEM\scrrun.dll=
-
-[Package|mci 3pm sin runtimes|Files Added]
-
-[Package|mci 3pm sin runtimes|Files Removed]
-c:\windows\system\msvcrt.dll=
-c:\windows\system\msvbvm60.dll=
-c:\windows\system\oleaut32.dll=
-c:\windows\system\olepro32.dll=
-c:\windows\system\asycfilt.dll=
-c:\windows\system\stdole2.tlb=
-c:\archivos de programa\microsoft visual studio\vb98\wizards\pdwizard\redist\comcat.dll=
-
-[Package|mci 3pm sin runtimes|Files In Project]
-D:\ahora\3pm MCI\3pm.exe=Yes
-C:\WINDOWS\SYSTEM\MSVBVM60.DLL=No
-C:\WINDOWS\SYSTEM\OLEAUT32.DLL=No
-C:\WINDOWS\SYSTEM\OLEPRO32.DLL=No
-C:\WINDOWS\SYSTEM\ASYCFILT.DLL=No
-C:\WINDOWS\SYSTEM\STDOLE2.TLB=No
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=No
-C:\WINDOWS\SYSTEM\VB6ES.DLL=Yes
-C:\WINDOWS\SYSTEM\scrrun.dll=Yes
-C:\WINDOWS\SYSTEM\MSVCRT.DLL=No
-C:\WINDOWS\SYSTEM\scrrnes.dll=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
-C:\WINDOWS\SYSTEM\VB6STKIT.DLL=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
-
-[Package|mci 3pm sin runtimes|Configure Registry Files]
-Applicable=No
-
-[Package|mci 3pm sin runtimes|Configure Remote Servers]
-Applicable=No
-
-[Package|mci 3pm sin runtimes|Install Locations]
-D:\ahora\3pm MCI\3pm.exe=$(AppPath)
-C:\WINDOWS\SYSTEM\VB6ES.DLL=$(WinSysPath)
-C:\WINDOWS\SYSTEM\scrrun.dll=$(WinSysPath)
-C:\WINDOWS\SYSTEM\scrrnes.dll=$(WinSysPath)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
-C:\WINDOWS\SYSTEM\VB6STKIT.DLL=$(WinSysPathSysFile)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
-
-[Package|mci 3pm sin runtimes|Configure Shared Files]
-Applicable=Yes
-D:\ahora\3pm MCI\3pm.exe=No
-
-[Package|mci 3pm sin runtimes|Distribution]
-Type=single
-Size=
-Title=3pm
-
-[Package|mci 3pm sin runtimes|IconGroups]
-Group0=3pm
-PrivateGroup0=Verdadero
-Parent0=$(Programs)
-
-[Package|mci 3pm sin runtimes|3pm]
-Icon1=3pm.exe
-Title1=3pm
-StartIn1=$(AppPath)
-Key1=Icon1
-
-[Package|mci 3pm sin runtimes|Package]
-PackageFolder=D:\ahora\3pm MCI\i sin runtimes
-ProjectFolder=D:\ahora\3pm MCI
-ServerSideCab=
-File1=D:\ahora\3pm MCI\i sin runtimes\setup.exe
-File2=D:\ahora\3pm MCI\i sin runtimes\Setup.Lst
-File3=D:\ahora\3pm MCI\i sin runtimes\3pm.CAB
-Handler1=PDWizard.FolderDplySubWiz
-Handler2=PDWizard.WebPostDplySubWiz
-
-
-[Package|Paquete de instalación estándar 4|Root]
-SubWizProgID=PDWizard.SetupPkgSubWiz
-BuildFolder=D:\ahora\3pm MCI\i486
-
-[Package|Paquete de instalación estándar 4|Configure DAO ISAMs]
-Applicable=No
-
-[Package|Paquete de instalación estándar 4|Configure DAO ODBC]
-JetWorkspace=
-ODBCDirect=
-
-[Package|Paquete de instalación estándar 4|Files Found]
-
-[Package|Paquete de instalación estándar 4|Files Released]
-
-[Package|Paquete de instalación estándar 4|Missing Dependency Information]
-
-[Package|Paquete de instalación estándar 4|Out-of-Date Dependency Information]
-C:\WINDOWS\SYSTEM\scrrun.dll=
-
-[Package|Paquete de instalación estándar 4|Files Added]
-
-[Package|Paquete de instalación estándar 4|Files Removed]
-
-[Package|Paquete de instalación estándar 4|Files In Project]
-D:\ahora\3pm MCI\3pm.exe=Yes
-C:\WINDOWS\SYSTEM\MSVBVM60.DLL=Yes
-C:\WINDOWS\SYSTEM\OLEAUT32.DLL=Yes
-C:\WINDOWS\SYSTEM\OLEPRO32.DLL=Yes
-C:\WINDOWS\SYSTEM\ASYCFILT.DLL=Yes
-C:\WINDOWS\SYSTEM\STDOLE2.TLB=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
-C:\WINDOWS\SYSTEM\VB6ES.DLL=Yes
-C:\WINDOWS\SYSTEM\scrrun.dll=Yes
-C:\WINDOWS\SYSTEM\MSVCRT.DLL=Yes
-C:\WINDOWS\SYSTEM\scrrnes.dll=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
-C:\WINDOWS\SYSTEM\VB6STKIT.DLL=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
-
-[Package|Paquete de instalación estándar 4|Configure Registry Files]
-Applicable=No
-
-[Package|Paquete de instalación estándar 4|Configure Remote Servers]
-Applicable=No
-
-[Package|Paquete de instalación estándar 4|Install Locations]
-D:\ahora\3pm MCI\3pm.exe=$(AppPath)
-C:\WINDOWS\SYSTEM\MSVBVM60.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\OLEAUT32.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\OLEPRO32.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\ASYCFILT.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\STDOLE2.TLB=$(WinSysPathSysFile)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\VB6ES.DLL=$(WinSysPath)
-C:\WINDOWS\SYSTEM\scrrun.dll=$(WinSysPath)
-C:\WINDOWS\SYSTEM\MSVCRT.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\scrrnes.dll=$(WinSysPath)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
-C:\WINDOWS\SYSTEM\VB6STKIT.DLL=$(WinSysPathSysFile)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
-
-[Package|Paquete de instalación estándar 4|Configure Shared Files]
-Applicable=Yes
-D:\ahora\3pm MCI\3pm.exe=No
-
-[Package|Paquete de instalación estándar 4|Distribution]
-Type=single
-Size=
-Title=3pm
-
-[Package|Paquete de instalación estándar 4|IconGroups]
-Group0=3pm
-PrivateGroup0=Verdadero
-Parent0=$(Programs)
-
-[Package|Paquete de instalación estándar 4|3pm]
-Icon1=3pm.exe
-Title1=3pm
-StartIn1=$(AppPath)
-Key1=Icon1
-
-[Package|Paquete de instalación estándar 4|Package]
-PackageFolder=D:\ahora\3pm MCI\i486
-ProjectFolder=D:\ahora\3pm MCI
-ServerSideCab=
-File1=D:\ahora\3pm MCI\i486\setup.exe
-File2=D:\ahora\3pm MCI\i486\Setup.Lst
-File3=D:\ahora\3pm MCI\i486\3pm.CAB
-Handler1=PDWizard.FolderDplySubWiz
-Handler2=PDWizard.WebPostDplySubWiz
-
-
-[Package|3pm MCI|Root]
-SubWizProgID=PDWizard.SetupPkgSubWiz
-BuildFolder=D:\ahora\3pm\i
-
-[Package|3pm MCI|Configure DAO ISAMs]
-Applicable=No
-
-[Package|3pm MCI|Configure DAO ODBC]
-JetWorkspace=
-ODBCDirect=
-
-[Package|3pm MCI|Files Found]
-CLUF.doc=E:\ahora\3pm vfm\CLUF.doc
-Manual.doc=D:\ahora\3pm\Manual.doc
-
-[Package|3pm MCI|Files Released]
-
-[Package|3pm MCI|Missing Dependency Information]
-
-[Package|3pm MCI|Out-of-Date Dependency Information]
-C:\WINDOWS\SYSTEM\scrrun.dll=
-
-[Package|3pm MCI|Files Added]
-d:\ahora\3pm\config.tbr=
-d:\ahora\3pm\cluf.doc=
-manual.doc=
-d:\ahora\3pm\tapa.jpg=
-d:\ahora\3pm\top10.jpg=
-
-[Package|3pm MCI|Files Removed]
-c:\windows\system\msvcrt.dll=
-
-[Package|3pm MCI|Files In Project]
-C:\WINDOWS\SYSTEM\MSVBVM60.DLL=Yes
-C:\WINDOWS\SYSTEM\OLEAUT32.DLL=Yes
-C:\WINDOWS\SYSTEM\OLEPRO32.DLL=Yes
-C:\WINDOWS\SYSTEM\ASYCFILT.DLL=Yes
-C:\WINDOWS\SYSTEM\STDOLE2.TLB=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
-C:\WINDOWS\SYSTEM\VB6ES.DLL=Yes
-C:\WINDOWS\SYSTEM\scrrun.dll=Yes
-C:\WINDOWS\SYSTEM\MSVCRT.DLL=No
-C:\WINDOWS\SYSTEM\scrrnes.dll=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
-C:\WINDOWS\SYSTEM\VB6STKIT.DLL=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
-D:\ahora\3pm\3pm.exe=Yes
-D:\ahora\3pm\config.tbr=Yes
-D:\ahora\3pm\CLUF.doc=Yes
-D:\ahora\3pm\Manual.doc=Yes
-D:\ahora\3pm\tapa.jpg=Yes
-D:\ahora\3pm\top10.jpg=Yes
-
-[Package|3pm MCI|Configure Registry Files]
-Applicable=No
-
-[Package|3pm MCI|Configure Remote Servers]
-Applicable=No
-
-[Package|3pm MCI|Install Locations]
-D:\ahora\3pm MCI\3pm.exe=$(AppPath)
-C:\WINDOWS\SYSTEM\MSVBVM60.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\OLEAUT32.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\OLEPRO32.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\ASYCFILT.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\STDOLE2.TLB=$(WinSysPathSysFile)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\VB6ES.DLL=$(WinSysPath)
-C:\WINDOWS\SYSTEM\scrrun.dll=$(WinSysPath)
-C:\WINDOWS\SYSTEM\scrrnes.dll=$(WinSysPath)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
-C:\WINDOWS\SYSTEM\VB6STKIT.DLL=$(WinSysPathSysFile)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
-D:\ahora\3pm\config.tbr=$(AppPath)
-D:\ahora\3pm\CLUF.doc=$(AppPath)
-D:\ahora\3pm\Manual.doc=$(AppPath)
-D:\ahora\3pm\tapa.jpg=$(AppPath)
-D:\ahora\3pm\top10.jpg=$(AppPath)
-E:\ahora\3pm\3pm.exe=$(AppPath)
-E:\ahora\3pm vfm\config.tbr=$(AppPath)
-E:\ahora\3pm vfm\CLUF.doc=$(AppPath)
-E:\ahora\3pm vfm\Manual.doc=$(AppPath)
-E:\ahora\3pm vfm\tapa.jpg=$(AppPath)
-E:\ahora\3pm vfm\top10.jpg=$(AppPath)
-D:\ahora\3pm\3pm.exe=$(AppPath)
-
-[Package|3pm MCI|Configure Shared Files]
-Applicable=Yes
-D:\ahora\3pm MCI\3pm.exe=No
-D:\ahora\3pm\config.tbr=No
-D:\ahora\3pm\CLUF.doc=No
-D:\ahora\3pm\Manual.doc=No
-D:\ahora\3pm\tapa.jpg=No
-D:\ahora\3pm\top10.jpg=No
-E:\ahora\3pm\3pm.exe=No
-E:\ahora\3pm vfm\config.tbr=No
-E:\ahora\3pm vfm\CLUF.doc=No
-E:\ahora\3pm vfm\Manual.doc=No
-E:\ahora\3pm vfm\tapa.jpg=No
-E:\ahora\3pm vfm\top10.jpg=No
-D:\ahora\3pm\3pm.exe=No
-
-[Package|3pm MCI|Distribution]
-Type=single
-Size=
-Title=3pm
-
-[Package|3pm MCI|IconGroups]
-Group0=3pm
-PrivateGroup0=Falso
-Parent0=$(Programs)
-
-[Package|3pm MCI|3pm]
-Icon1=3pm.exe
-Title1=3pm
-StartIn1=$(AppPath)
-Key1=Icon1
-
-[Package|3pm MCI|Package]
-PackageFolder=D:\ahora\3pm\i
-ProjectFolder=D:\ahora\3pm
-ServerSideCab=
-File1=D:\ahora\3pm\i\setup.exe
-File2=D:\ahora\3pm\i\Setup.Lst
-File3=D:\ahora\3pm\i\3pm.CAB
-Handler1=PDWizard.FolderDplySubWiz
-Handler2=PDWizard.WebPostDplySubWiz
-
-
-[Package|3pm mci dx7|Root]
-SubWizProgID=PDWizard.SetupPkgSubWiz
-BuildFolder=D:\ahora\3pm\i mci dx7
-
-[Package|3pm mci dx7|Configure DAO ISAMs]
-Applicable=No
-
-[Package|3pm mci dx7|Configure DAO ODBC]
-JetWorkspace=
-ODBCDirect=
-
-[Package|3pm mci dx7|Files Found]
-
-[Package|3pm mci dx7|Files Released]
-
-[Package|3pm mci dx7|Missing Dependency Information]
-C:\WINDOWS\SYSTEM\dx7vb.dll=
-
-[Package|3pm mci dx7|Out-of-Date Dependency Information]
-C:\WINDOWS\SYSTEM\scrrun.dll=
-
-[Package|3pm mci dx7|Files Added]
-
-[Package|3pm mci dx7|Files Removed]
-c:\windows\system\msvcrt.dll=
-
-[Package|3pm mci dx7|Files In Project]
-D:\ahora\3pm\3pm.exe=Yes
-C:\WINDOWS\SYSTEM\MSVBVM60.DLL=Yes
-C:\WINDOWS\SYSTEM\OLEAUT32.DLL=Yes
-C:\WINDOWS\SYSTEM\OLEPRO32.DLL=Yes
-C:\WINDOWS\SYSTEM\ASYCFILT.DLL=Yes
-C:\WINDOWS\SYSTEM\STDOLE2.TLB=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
-C:\WINDOWS\SYSTEM\VB6ES.DLL=Yes
-C:\WINDOWS\SYSTEM\scrrun.dll=Yes
-C:\WINDOWS\SYSTEM\MSVCRT.DLL=No
-C:\WINDOWS\SYSTEM\scrrnes.dll=Yes
-C:\WINDOWS\SYSTEM\dx7vb.dll=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
-C:\WINDOWS\SYSTEM\VB6STKIT.DLL=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
-
-[Package|3pm mci dx7|Configure Registry Files]
-Applicable=No
-
-[Package|3pm mci dx7|Configure Remote Servers]
-Applicable=No
-
-[Package|3pm mci dx7|Install Locations]
-D:\ahora\3pm\3pm.exe=$(AppPath)
-C:\WINDOWS\SYSTEM\MSVBVM60.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\OLEAUT32.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\OLEPRO32.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\ASYCFILT.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\STDOLE2.TLB=$(WinSysPathSysFile)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\VB6ES.DLL=$(WinSysPath)
-C:\WINDOWS\SYSTEM\scrrun.dll=$(WinSysPath)
-C:\WINDOWS\SYSTEM\scrrnes.dll=$(WinSysPath)
-C:\WINDOWS\SYSTEM\dx7vb.dll=$(WinSysPath)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
-C:\WINDOWS\SYSTEM\VB6STKIT.DLL=$(WinSysPathSysFile)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
-
-[Package|3pm mci dx7|Configure Shared Files]
-Applicable=Yes
-D:\ahora\3pm\3pm.exe=No
-
-[Package|3pm mci dx7|Distribution]
-Type=single
-Size=
-Title=3pm
-
-[Package|3pm mci dx7|IconGroups]
-Group0=3pm
-PrivateGroup0=Verdadero
-Parent0=$(Programs)
-
-[Package|3pm mci dx7|3pm]
-Icon1=3pm.exe
-Title1=3pm
-StartIn1=$(AppPath)
-Key1=Icon1
-
-[Package|3pm mci dx7|Package]
-PackageFolder=D:\ahora\3pm\i mci dx7
-ProjectFolder=D:\ahora\3pm
-ServerSideCab=
-File1=D:\ahora\3pm\i mci dx7\setup.exe
-File2=D:\ahora\3pm\i mci dx7\Setup.Lst
-File3=D:\ahora\3pm\i mci dx7\3pm.CAB
-Handler1=PDWizard.FolderDplySubWiz
-Handler2=PDWizard.WebPostDplySubWiz
-
-
-[Package|3pm mci 3.4|Root]
-SubWizProgID=PDWizard.SetupPkgSubWiz
-BuildFolder=D:\ahora\3pm\i
-
-[Package|3pm mci 3.4|Configure DAO ISAMs]
-Applicable=No
-
-[Package|3pm mci 3.4|Configure DAO ODBC]
-JetWorkspace=
-ODBCDirect=
-
-[Package|3pm mci 3.4|Files Found]
-
-[Package|3pm mci 3.4|Files Released]
-
-[Package|3pm mci 3.4|Missing Dependency Information]
-
-[Package|3pm mci 3.4|Out-of-Date Dependency Information]
-C:\WINDOWS\SYSTEM\scrrun.dll=
-
-[Package|3pm mci 3.4|Files Added]
-D:\ahora\3pm\config.tbr=
-D:\ahora\3pm\Manual.doc=
-D:\ahora\3pm\tapa.jpg=
-D:\ahora\3pm\top10.jpg=
-
-[Package|3pm mci 3.4|Files Removed]
-c:\windows\system\msvcrt.dll=
-
-[Package|3pm mci 3.4|Files In Project]
-D:\ahora\3pm\3pm.exe=Yes
-C:\WINDOWS\SYSTEM\MSVBVM60.DLL=Yes
-C:\WINDOWS\SYSTEM\OLEAUT32.DLL=Yes
-C:\WINDOWS\SYSTEM\OLEPRO32.DLL=Yes
-C:\WINDOWS\SYSTEM\ASYCFILT.DLL=Yes
-C:\WINDOWS\SYSTEM\STDOLE2.TLB=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
-C:\WINDOWS\SYSTEM\VB6ES.DLL=Yes
-C:\WINDOWS\SYSTEM\scrrun.dll=Yes
-C:\WINDOWS\SYSTEM\MSVCRT.DLL=No
-C:\WINDOWS\SYSTEM\scrrnes.dll=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
-C:\WINDOWS\SYSTEM\VB6STKIT.DLL=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
-D:\ahora\3pm\config.tbr=Yes
-D:\ahora\3pm\Manual.doc=Yes
-D:\ahora\3pm\tapa.jpg=Yes
-D:\ahora\3pm\top10.jpg=Yes
-
-[Package|3pm mci 3.4|Configure Registry Files]
-Applicable=No
-
-[Package|3pm mci 3.4|Configure Remote Servers]
-Applicable=No
-
-[Package|3pm mci 3.4|Install Locations]
-D:\ahora\3pm\3pm.exe=$(AppPath)
-C:\WINDOWS\SYSTEM\MSVBVM60.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\OLEAUT32.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\OLEPRO32.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\ASYCFILT.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\STDOLE2.TLB=$(WinSysPathSysFile)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\VB6ES.DLL=$(WinSysPath)
-C:\WINDOWS\SYSTEM\scrrun.dll=$(WinSysPath)
-C:\WINDOWS\SYSTEM\scrrnes.dll=$(WinSysPath)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
-C:\WINDOWS\SYSTEM\VB6STKIT.DLL=$(WinSysPathSysFile)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
-D:\ahora\3pm\config.tbr=$(AppPath)
-D:\ahora\3pm\Manual.doc=$(AppPath)
-D:\ahora\3pm\tapa.jpg=$(AppPath)
-D:\ahora\3pm\top10.jpg=$(AppPath)
-
-[Package|3pm mci 3.4|Configure Shared Files]
-Applicable=Yes
-D:\ahora\3pm\3pm.exe=No
-D:\ahora\3pm\config.tbr=No
-D:\ahora\3pm\Manual.doc=No
-D:\ahora\3pm\tapa.jpg=No
-D:\ahora\3pm\top10.jpg=No
-
-[Package|3pm mci 3.4|Distribution]
-Type=single
-Size=
-Title=3pm
-
-[Package|3pm mci 3.4|IconGroups]
-Group0=3pm
-PrivateGroup0=Verdadero
-Parent0=$(Programs)
-
-[Package|3pm mci 3.4|3pm]
-Icon1=3pm.exe
-Title1=3pm
-StartIn1=$(AppPath)
-Key1=Icon1
-
-[Package|3pm mci 3.4|Package]
-PackageFolder=D:\ahora\3pm\i
-ProjectFolder=D:\ahora\3pm
-ServerSideCab=
-File1=D:\ahora\3pm\i\setup.exe
-File2=D:\ahora\3pm\i\Setup.Lst
-File3=D:\ahora\3pm\i\3pm.CAB
-Handler1=PDWizard.FolderDplySubWiz
-Handler2=PDWizard.WebPostDplySubWiz
-
-
-[Package|3pm 3.4|Root]
-SubWizProgID=PDWizard.SetupPkgSubWiz
-BuildFolder=d:\ahora\3pm\iii
-
-[Package|3pm 3.4|Configure DAO ISAMs]
-Applicable=No
-
-[Package|3pm 3.4|Configure DAO ODBC]
-JetWorkspace=
-ODBCDirect=
-
-[Package|3pm 3.4|Files Found]
-config.tbr=D:\ahora\3pm\config.tbr
-logo.sys=D:\ahora\3pm\imgINI\3pm\logo.sys
-
-[Package|3pm 3.4|Files Released]
-inicio.grp=
-
-[Package|3pm 3.4|Missing Dependency Information]
-D:\ahora\3pm\ini.exe=
-E:\ahora\3pm\ini.exe=
-
-[Package|3pm 3.4|Out-of-Date Dependency Information]
-C:\WINDOWS\SYSTEM\scrrun.dll=
-
-[Package|3pm 3.4|Files Added]
-d:\ahora\3pm\config.tbr=
-d:\ahora\3pm\manual.doc=
-d:\ahora\3pm\tapa.jpg=
-d:\ahora\3pm\top10.jpg=
-d:\ahora\3pm\imgini\3pm\logow.sys=
-d:\ahora\3pm\imgini\3pm\logos.sys=
-logo.sys=
-d:\ahora\3pm\ini.exe=
-
-[Package|3pm 3.4|Files Removed]
-c:\windows\system\msvcrt.dll=
-d:\ahora\3pm\imgini\inicio.grp=
-d:\ahora\3pm\config.tbr=
-e:\ahora\3pm\config.tbr=
-c:\logo.sys=
-c:\windows\logos.sys=
-c:\windows\logow.sys=
-
-[Package|3pm 3.4|Files In Project]
-C:\WINDOWS\SYSTEM\MSVBVM60.DLL=Yes
-C:\WINDOWS\SYSTEM\OLEAUT32.DLL=Yes
-C:\WINDOWS\SYSTEM\OLEPRO32.DLL=Yes
-C:\WINDOWS\SYSTEM\ASYCFILT.DLL=Yes
-C:\WINDOWS\SYSTEM\STDOLE2.TLB=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
-C:\WINDOWS\SYSTEM\VB6ES.DLL=Yes
-C:\WINDOWS\SYSTEM\scrrun.dll=Yes
-C:\WINDOWS\SYSTEM\MSVCRT.DLL=No
-C:\WINDOWS\SYSTEM\scrrnes.dll=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
-C:\WINDOWS\SYSTEM\VB6STKIT.DLL=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
-D:\ahora\3pm\3pm.exe=Yes
-D:\ahora\3pm\config.tbr=No
-D:\ahora\3pm\manual.doc=Yes
-D:\ahora\3pm\tapa.jpg=Yes
-D:\ahora\3pm\top10.jpg=Yes
-D:\ahora\3pm\ini.exe=Yes
-D:\ahora\3pm\imgINI\3pm\logow.sys=Yes
-D:\ahora\3pm\imgINI\3pm\LOGOS.SYS=Yes
-D:\ahora\3pm\imgINI\3pm\logo.sys=Yes
-
-[Package|3pm 3.4|Configure Registry Files]
-Applicable=No
-
-[Package|3pm 3.4|Configure Remote Servers]
-Applicable=No
-
-[Package|3pm 3.4|Install Locations]
-D:\ahora\3pm\3pm.exe=$(AppPath)
-C:\WINDOWS\SYSTEM\MSVBVM60.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\OLEAUT32.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\OLEPRO32.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\ASYCFILT.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\STDOLE2.TLB=$(WinSysPathSysFile)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\VB6ES.DLL=$(WinSysPath)
-C:\WINDOWS\SYSTEM\scrrun.dll=$(WinSysPath)
-C:\WINDOWS\SYSTEM\scrrnes.dll=$(WinSysPath)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
-C:\WINDOWS\SYSTEM\VB6STKIT.DLL=$(WinSysPathSysFile)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
-D:\ahora\3pm\config.tbr=$(AppPath)
-D:\ahora\3pm\Manual.doc=$(AppPath)
-D:\ahora\3pm\tapa.jpg=$(AppPath)
-D:\ahora\3pm\top10.jpg=$(AppPath)
-D:\ahora\3pm\imgINI\3pm\logow.sys=$(AppPath)
-D:\ahora\3pm\imgINI\3pm\logos.sys=$(AppPath)
-D:\ahora\3pm\imgINI\3pm\logo.sys=$(AppPath)
-D:\ahora\3pm\imgINI\INICIO.GRP=$(WinPath)
-D:\ahora\3pm\ini.exe=$(AppPath)
-E:\ahora\3pm\3pm.exe=$(AppPath)
-E:\ahora\3pm\manual.doc=$(AppPath)
-E:\ahora\3pm\tapa.jpg=$(AppPath)
-E:\ahora\3pm\top10.jpg=$(AppPath)
-C:\WINDOWS\logow.sys=$(WinSysPathSysFile)
-C:\WINDOWS\logos.sys=$(WinSysPathSysFile)
-E:\ahora\3pm\logo.sys=$(AppPath)
-E:\ahora\3pm\ini.exe=$(AppPath)
-
-[Package|3pm 3.4|Configure Shared Files]
-Applicable=Yes
-D:\ahora\3pm\3pm.exe=No
-D:\ahora\3pm\config.tbr=No
-D:\ahora\3pm\Manual.doc=No
-D:\ahora\3pm\tapa.jpg=No
-D:\ahora\3pm\top10.jpg=No
-D:\ahora\3pm\imgINI\3pm\logow.sys=No
-D:\ahora\3pm\imgINI\3pm\logos.sys=No
-D:\ahora\3pm\imgINI\3pm\logo.sys=No
-D:\ahora\3pm\ini.exe=No
-E:\ahora\3pm\3pm.exe=No
-E:\ahora\3pm\manual.doc=No
-E:\ahora\3pm\tapa.jpg=No
-E:\ahora\3pm\top10.jpg=No
-E:\ahora\3pm\logo.sys=No
-E:\ahora\3pm\ini.exe=No
-
-[Package|3pm 3.4|Distribution]
-Type=single
-Size=720 KB
-Title=3pm
-
-[Package|3pm 3.4|IconGroups]
-Group0=3pm
-PrivateGroup0=Falso
-Parent0=$(Programs)
-
-[Package|3pm 3.4|3pm]
-Icon1=3pm.exe
-Title1=3pm
-StartIn1=$(AppPath)
-Key1=Icon1
-
-[Package|3pm 3.4|Package]
-PackageFolder=d:\ahora\3pm\iii
-ProjectFolder=D:\ahora\3pm
-ServerSideCab=
-File1=d:\ahora\3pm\iii\setup.exe
-File2=d:\ahora\3pm\iii\Setup.Lst
-File3=d:\ahora\3pm\iii\3pm.CAB
-Handler1=PDWizard.FolderDplySubWiz
-Handler2=PDWizard.WebPostDplySubWiz
-
-
-[Package|3pm 3.5|Root]
-SubWizProgID=PDWizard.SetupPkgSubWiz
-BuildFolder=d:\3PM for Windows ME
-
-[Package|3pm 3.5|Configure DAO ISAMs]
-Applicable=No
-
-[Package|3pm 3.5|Configure DAO ODBC]
-JetWorkspace=
-ODBCDirect=
-
-[Package|3pm 3.5|Files Found]
-config.tbr=E:\ahora\3pm\config.tbr
-
-[Package|3pm 3.5|Files Released]
-inicio.grp=
-
-[Package|3pm 3.5|Missing Dependency Information]
-D:\ahora\3pm\ini.exe=
-E:\ahora\3pm\ini.exe=
-
-[Package|3pm 3.5|Out-of-Date Dependency Information]
-C:\WINDOWS\SYSTEM\scrrun.dll=
-C:\TBRWIN\SYSTEM\scrrun.dll=
-
-[Package|3pm 3.5|Files Added]
-e:\ahora\3pm\config.tbr=
-e:\ahora\3pm\manual.doc=
-e:\ahora\3pm\tapa.jpg=
-e:\ahora\3pm\top10.jpg=
-e:\ahora\3pm\logow.sys=
-e:\ahora\3pm\logos.sys=
-e:\ahora\3pm\logo.sys=
-e:\ahora\3pm\ini.exe=
-
-[Package|3pm 3.5|Files Removed]
-c:\windows\system\msvcrt.dll=
-d:\ahora\3pm\imgini\inicio.grp=
-d:\ahora\3pm\config.tbr=
-e:\ahora\3pm\config.tbr=
-c:\logo.sys=
-c:\windows\logos.sys=
-c:\windows\logow.sys=
-c:\tbrwin\system\msvcrt.dll=
-c:\tbrwin\system\msvbvm60.dll=
-c:\tbrwin\system\oleaut32.dll=
-c:\tbrwin\system\olepro32.dll=
-c:\tbrwin\system\asycfilt.dll=
-c:\tbrwin\system\stdole2.tlb=
-c:\archivos de programa\microsoft visual studio\vb98\wizards\pdwizard\redist\comcat.dll=
-
-[Package|3pm 3.5|Files In Project]
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=No
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
-C:\TBRWIN\SYSTEM\MSVBVM60.DLL=No
-C:\TBRWIN\SYSTEM\OLEAUT32.DLL=No
-C:\TBRWIN\SYSTEM\OLEPRO32.DLL=No
-C:\TBRWIN\SYSTEM\ASYCFILT.DLL=No
-C:\TBRWIN\SYSTEM\STDOLE2.TLB=No
-C:\TBRWIN\SYSTEM\VB6ES.DLL=Yes
-C:\TBRWIN\SYSTEM\scrrun.dll=Yes
-C:\TBRWIN\SYSTEM\MSVCRT.DLL=No
-C:\TBRWIN\SYSTEM\scrrnes.dll=Yes
-C:\TBRWIN\SYSTEM\MSCOMM32.OCX=Yes
-C:\TBRWIN\SYSTEM\MSCOMES.DLL=Yes
-C:\TBRWIN\SYSTEM\VB6STKIT.DLL=Yes
-E:\ahora\3pm\3pm.exe=Yes
-E:\ahora\3pm\config.tbr=No
-E:\ahora\3pm\manual.doc=Yes
-E:\ahora\3pm\tapa.jpg=Yes
-E:\ahora\3pm\top10.jpg=Yes
-E:\ahora\3pm\logow.sys=Yes
-E:\ahora\3pm\LOGOS.SYS=Yes
-E:\ahora\3pm\logo.sys=Yes
-E:\ahora\3pm\ini.exe=Yes
-
-[Package|3pm 3.5|Configure Registry Files]
-Applicable=No
-
-[Package|3pm 3.5|Configure Remote Servers]
-Applicable=No
-
-[Package|3pm 3.5|Install Locations]
-D:\ahora\3pm\3pm.exe=$(AppPath)
-C:\WINDOWS\SYSTEM\MSVBVM60.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\OLEAUT32.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\OLEPRO32.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\ASYCFILT.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\STDOLE2.TLB=$(WinSysPathSysFile)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
-C:\WINDOWS\SYSTEM\VB6ES.DLL=$(WinSysPath)
-C:\WINDOWS\SYSTEM\scrrun.dll=$(WinSysPath)
-C:\WINDOWS\SYSTEM\scrrnes.dll=$(WinSysPath)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
-C:\WINDOWS\SYSTEM\VB6STKIT.DLL=$(WinSysPathSysFile)
-C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
-D:\ahora\3pm\config.tbr=$(AppPath)
-D:\ahora\3pm\Manual.doc=$(AppPath)
-D:\ahora\3pm\tapa.jpg=$(AppPath)
-D:\ahora\3pm\top10.jpg=$(AppPath)
-D:\ahora\3pm\imgINI\3pm\logow.sys=$(AppPath)
-D:\ahora\3pm\imgINI\3pm\logos.sys=$(AppPath)
-D:\ahora\3pm\imgINI\3pm\logo.sys=$(AppPath)
-D:\ahora\3pm\imgINI\INICIO.GRP=$(WinPath)
-D:\ahora\3pm\ini.exe=$(AppPath)
-E:\ahora\3pm\3pm.exe=$(AppPath)
-E:\ahora\3pm\manual.doc=$(AppPath)
-E:\ahora\3pm\tapa.jpg=$(AppPath)
-E:\ahora\3pm\top10.jpg=$(AppPath)
-C:\WINDOWS\logow.sys=$(WinSysPathSysFile)
-C:\WINDOWS\logos.sys=$(WinSysPathSysFile)
-E:\ahora\3pm\logo.sys=$(AppPath)
-E:\ahora\3pm\ini.exe=$(AppPath)
-C:\TBRWIN\SYSTEM\VB6ES.DLL=$(WinSysPath)
-C:\TBRWIN\SYSTEM\scrrun.dll=$(WinSysPath)
-C:\TBRWIN\SYSTEM\scrrnes.dll=$(WinSysPath)
-C:\TBRWIN\SYSTEM\MSCOMM32.OCX=$(WinSysPath)
-C:\TBRWIN\SYSTEM\MSCOMES.DLL=$(WinSysPath)
-C:\TBRWIN\SYSTEM\VB6STKIT.DLL=$(WinSysPathSysFile)
-C:\TBRWIN\SYSTEM\MSVBVM60.DLL=$(WinSysPathSysFile)
-C:\TBRWIN\SYSTEM\OLEAUT32.DLL=$(WinSysPathSysFile)
-C:\TBRWIN\SYSTEM\OLEPRO32.DLL=$(WinSysPathSysFile)
-C:\TBRWIN\SYSTEM\ASYCFILT.DLL=$(WinSysPathSysFile)
-C:\TBRWIN\SYSTEM\STDOLE2.TLB=$(WinSysPathSysFile)
-E:\ahora\3pm\config.tbr=$(AppPath)
-E:\ahora\3pm\logow.sys=$(WinSysPathSysFile)
-E:\ahora\3pm\LOGOS.SYS=$(WinSysPathSysFile)
-
-[Package|3pm 3.5|Configure Shared Files]
-Applicable=Yes
-D:\ahora\3pm\3pm.exe=No
-D:\ahora\3pm\config.tbr=No
-D:\ahora\3pm\Manual.doc=No
-D:\ahora\3pm\tapa.jpg=No
-D:\ahora\3pm\top10.jpg=No
-D:\ahora\3pm\imgINI\3pm\logow.sys=No
-D:\ahora\3pm\imgINI\3pm\logos.sys=No
-D:\ahora\3pm\imgINI\3pm\logo.sys=No
-D:\ahora\3pm\ini.exe=No
-E:\ahora\3pm\3pm.exe=No
-E:\ahora\3pm\manual.doc=No
-E:\ahora\3pm\tapa.jpg=No
-E:\ahora\3pm\top10.jpg=No
-E:\ahora\3pm\logo.sys=No
-E:\ahora\3pm\ini.exe=No
-E:\ahora\3pm\config.tbr=No
-
-[Package|3pm 3.5|Distribution]
-Type=single
-Size=720 KB
-Title=3pm 3.5 de tbrSoft
-
-[Package|3pm 3.5|IconGroups]
-Group0=3pm
-PrivateGroup0=Falso
-Parent0=$(Programs)
-
-[Package|3pm 3.5|3pm]
-Icon1=3pm.exe
-Title1=3pm
-StartIn1=$(AppPath)
-Key1=Icon1
-
-[Package|3pm 3.5|Package]
-PackageFolder=d:\3PM for Windows ME
-ProjectFolder=E:\ahora\3pm
-ServerSideCab=
-File1=d:\3PM for Windows ME\setup.exe
-File2=d:\3PM for Windows ME\Setup.Lst
-File3=d:\3PM for Windows ME\3pm.CAB
+File1=D:\ahora\3pm\3PM Windows ME\setup.exe
+File2=D:\ahora\3pm\3PM Windows ME\Setup.Lst
+File3=D:\ahora\3pm\3PM Windows ME\3pm.CAB
 Handler1=PDWizard.FolderDplySubWiz
 Handler2=PDWizard.WebPostDplySubWiz

@@ -50,7 +50,7 @@ Public Function GetGuidSL() As String
             Randomize Timer
             A = Int(Rnd * 10000)
             A = 111000000 + A
-            Dim TE As TextStream
+            
             Set TE = FSO.CreateTextFile(ArchUniqueAzar, True)
             TE.WriteLine CStr(A)
             TE.Close

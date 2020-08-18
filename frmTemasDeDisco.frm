@@ -226,7 +226,7 @@ Begin VB.Form frmTemasDeDisco
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00FFFFFF&
-         Height          =   3585
+         Height          =   3225
          Left            =   7200
          TabIndex        =   4
          Top             =   4200
@@ -310,7 +310,7 @@ Private Sub Form_Activate()
         TapaCD.Picture = LoadPicture(AP + "tapa.jpg")
     End If
     TapaCD.Refresh
-    lblDisco = FSO.GetBaseName(UbicDiscoActual)
+    lblDISCO = FSO.GetBaseName(UbicDiscoActual)
     Dim ArchDaTa As String
     ArchDaTa = UbicDiscoActual + "data.txt"
     If FSO.FileExists(ArchDaTa) Then

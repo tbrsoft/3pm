@@ -37,6 +37,12 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
             Else
                 .frDISCOS.Width = .VU1.Width ' Screen.Width - .frModoVideo.Width
             End If
+            
+            .picFondoDisco.Height = .frDISCOS.Height
+            .picFondoDisco.Width = .frDISCOS.Width
+            .picFondoDisco.Top = 0
+            .picFondoDisco.Left = 0
+            
             'vu ahora no se cambia        .VU1.Top = .frDISCOS.Height            '.VU1.Height = Screen.Height - .frDISCOS.Height
             .picVideo.Top = 0
             .picVideo.Left = 0
@@ -63,6 +69,12 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
                 .frDISCOS.Width = .VU1.Width ' Screen.Width
                 .frDISCOS.Left = 0
             End If
+            
+            .picFondoDisco.Height = .frDISCOS.Height
+            .picFondoDisco.Width = .frDISCOS.Width
+            .picFondoDisco.Top = 0
+            .picFondoDisco.Left = 0
+            
             .frModoVideo.Visible = False
             .lblModoVideo.Visible = False
             .frTEMAS.Visible = False
@@ -94,7 +106,7 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
     With frmIndex.MP3
         .FileName = tema
         If EsVideo Then
-            .DoOpenVideo "child", frmIndex.picVideo.hWnd, 0, 0, (frmIndex.frDISCOS.Width / 15), (frmIndex.lblTemaSonando.Top / 15)
+            .DoOpenVideo "child", frmIndex.picVideo.hWnd, 0, 0, (frmIndex.frDISCOS.Width / 15), (frmIndex.picFondo.Top / 15)
         Else
             .DoOpen
         End If
@@ -130,8 +142,9 @@ Public Sub EMPEZAR_SIGUIENTE()
                     'cuando sea el ultimo
                     'redefinir la matriz con un indice menos
                     ReDim Preserve MATRIZ_LISTA(c - 1)
-                    .lstProximos.Clear
-                    .lstProximos.AddItem "No hay próximo tema"
+                    '.lstProximos.Clear
+                    '.lstProximos.AddItem "No hay próximo tema"
+                    .lstProximos = "No hay próximo tema"
                 End If
             Next
             CORTAR_TEMA = False 'este tema va entero ya que lo eligio el usuario
@@ -146,8 +159,9 @@ Public Sub EMPEZAR_SIGUIENTE()
             OnOffCAPS vbKeyCapital, False
             .lblTemaSonando = "Sin reproduccion actual"
             .lblPuesto = "No Rank"
-            .lstProximos.Clear
-            .lstProximos.AddItem "No hay próximo tema"
+            '.lstProximos.Clear
+            '.lstProximos.AddItem "No hay próximo tema"
+            .lstProximos = "No hay próximo tema"
             .lblTiempoRestante = "FALTA: " + "00:00"
             .LBLpORCtEMA.Width = .lblTemaSonando.Width
             TEMA_REPRODUCIENDO = "Sin reproduccion actual"
@@ -206,7 +220,7 @@ Public Sub TOP10(nameARCH As String, nameTEMA As String, nameDISCO As String)
             mtxTOP10(z) = TT
         End If
     Loop
-     TE.Close
+    TE.Close
     'ver si el archivo habia sido votado
     If Encontrado = False Then
         TT = "1," + Trim(nameARCH) + "," + Trim(nameTEMA) + "," + Trim(nameDISCO)
@@ -345,5 +359,6 @@ Public Function PuestoN(TemaBuscado As String) As String
             End If
         End If
     Loop
+    TE.Close
     PuestoN = "No Rank"
 End Function

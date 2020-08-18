@@ -3,7 +3,7 @@ Begin VB.Form Form1
    BackColor       =   &H00000000&
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "3pm Update"
-   ClientHeight    =   3375
+   ClientHeight    =   1230
    ClientLeft      =   45
    ClientTop       =   330
    ClientWidth     =   4680
@@ -11,7 +11,7 @@ Begin VB.Form Form1
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   3375
+   ScaleHeight     =   1230
    ScaleWidth      =   4680
    ShowInTaskbar   =   0   'False
    StartUpPosition =   3  'Windows Default
@@ -27,9 +27,9 @@ Begin VB.Form Form1
          Strikethrough   =   0   'False
       EndProperty
       Height          =   405
-      Left            =   1680
-      TabIndex        =   4
-      Top             =   2760
+      Left            =   1650
+      TabIndex        =   2
+      Top             =   780
       Width           =   1215
    End
    Begin VB.TextBox lblGUID 
@@ -46,12 +46,12 @@ Begin VB.Form Form1
       EndProperty
       ForeColor       =   &H00C0FFFF&
       Height          =   375
-      Left            =   630
+      Left            =   570
       Locked          =   -1  'True
-      TabIndex        =   2
+      TabIndex        =   0
       TabStop         =   0   'False
       Text            =   "Aqui va el codigo"
-      Top             =   2040
+      Top             =   300
       Width           =   3555
    End
    Begin VB.Label Label1 
@@ -69,48 +69,8 @@ Begin VB.Form Form1
       ForeColor       =   &H00C0FFFF&
       Height          =   225
       Index           =   2
-      Left            =   180
-      TabIndex        =   3
-      Top             =   1800
-      Width           =   4365
-   End
-   Begin VB.Label Label1 
-      BackStyle       =   0  'Transparent
-      Caption         =   $"Form1.frx":08CA
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00C0FFFF&
-      Height          =   1245
-      Index           =   1
-      Left            =   180
+      Left            =   120
       TabIndex        =   1
-      Top             =   360
-      Width           =   4365
-   End
-   Begin VB.Label Label1 
-      BackStyle       =   0  'Transparent
-      Caption         =   "Cambio del sistema de claves de 3PM"
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00C0FFFF&
-      Height          =   225
-      Index           =   0
-      Left            =   150
-      TabIndex        =   0
       Top             =   60
       Width           =   4365
    End

@@ -32,7 +32,7 @@ Begin VB.Form frmREG
       Left            =   3840
       Style           =   1  'Graphical
       TabIndex        =   26
-      Top             =   7470
+      Top             =   7590
       Width           =   3720
    End
    Begin VB.CommandButton Command3 
@@ -49,7 +49,7 @@ Begin VB.Form frmREG
       Height          =   405
       Left            =   2460
       TabIndex        =   24
-      Top             =   6360
+      Top             =   6480
       Width           =   6915
    End
    Begin VB.Frame frFull 
@@ -300,7 +300,7 @@ Begin VB.Form frmREG
       Height          =   375
       Left            =   1950
       TabIndex        =   23
-      Top             =   5430
+      Top             =   5550
       Value           =   1  'Checked
       Width           =   8655
    End
@@ -318,7 +318,7 @@ Begin VB.Form frmREG
       Height          =   435
       Left            =   4770
       TabIndex        =   22
-      Top             =   5820
+      Top             =   5940
       Width           =   1785
    End
    Begin VB.TextBox LBL 
@@ -358,7 +358,7 @@ Begin VB.Form frmREG
       Height          =   435
       Left            =   5760
       TabIndex        =   10
-      Top             =   6930
+      Top             =   7050
       Width           =   1785
    End
    Begin VB.ComboBox cmbCountry 
@@ -376,7 +376,7 @@ Begin VB.Form frmREG
       Sorted          =   -1  'True
       Style           =   2  'Dropdown List
       TabIndex        =   8
-      Top             =   4890
+      Top             =   5010
       Width           =   2805
    End
    Begin VB.TextBox txtCOD 
@@ -396,7 +396,7 @@ Begin VB.Form frmREG
       Left            =   8970
       MaxLength       =   5
       TabIndex        =   7
-      Top             =   3600
+      Top             =   3720
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -416,7 +416,7 @@ Begin VB.Form frmREG
       Left            =   7890
       MaxLength       =   5
       TabIndex        =   6
-      Top             =   3600
+      Top             =   3720
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -436,7 +436,7 @@ Begin VB.Form frmREG
       Left            =   6810
       MaxLength       =   5
       TabIndex        =   5
-      Top             =   3600
+      Top             =   3720
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -456,7 +456,7 @@ Begin VB.Form frmREG
       Left            =   5730
       MaxLength       =   5
       TabIndex        =   4
-      Top             =   3600
+      Top             =   3720
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -476,7 +476,7 @@ Begin VB.Form frmREG
       Left            =   4650
       MaxLength       =   5
       TabIndex        =   3
-      Top             =   3600
+      Top             =   3720
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -496,7 +496,7 @@ Begin VB.Form frmREG
       Left            =   3570
       MaxLength       =   5
       TabIndex        =   2
-      Top             =   3600
+      Top             =   3720
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -516,7 +516,7 @@ Begin VB.Form frmREG
       Left            =   2490
       MaxLength       =   5
       TabIndex        =   1
-      Top             =   3600
+      Top             =   3720
       Width           =   1050
    End
    Begin VB.TextBox lblGUID 
@@ -524,7 +524,7 @@ Begin VB.Form frmREG
       BackColor       =   &H00808080&
       BeginProperty Font 
          Name            =   "Verdana"
-         Size            =   12
+         Size            =   15.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -532,14 +532,14 @@ Begin VB.Form frmREG
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00C0FFFF&
-      Height          =   375
-      Left            =   150
+      Height          =   495
+      Left            =   3630
       Locked          =   -1  'True
       TabIndex        =   11
       TabStop         =   0   'False
       Text            =   "Aqui va el codigo"
-      Top             =   2700
-      Width           =   11535
+      Top             =   2940
+      Width           =   4575
    End
    Begin VB.TextBox txtCOD 
       Alignment       =   2  'Center
@@ -558,7 +558,7 @@ Begin VB.Form frmREG
       Left            =   1410
       MaxLength       =   5
       TabIndex        =   0
-      Top             =   3600
+      Top             =   3720
       Width           =   1050
    End
    Begin VB.CommandButton Command1 
@@ -576,7 +576,7 @@ Begin VB.Form frmREG
       Height          =   435
       Left            =   3840
       TabIndex        =   9
-      Top             =   6930
+      Top             =   7050
       Width           =   1785
    End
    Begin VB.Label Label1 
@@ -597,7 +597,7 @@ Begin VB.Form frmREG
       Index           =   3
       Left            =   480
       TabIndex        =   20
-      Top             =   3990
+      Top             =   4110
       Width           =   10605
    End
    Begin VB.Image Image1 
@@ -625,7 +625,7 @@ Begin VB.Form frmREG
       Index           =   2
       Left            =   4440
       TabIndex        =   14
-      Top             =   4680
+      Top             =   4800
       Width           =   2985
    End
    Begin VB.Label Label1 
@@ -644,18 +644,18 @@ Begin VB.Form frmREG
       ForeColor       =   &H00C0FFFF&
       Height          =   255
       Index           =   1
-      Left            =   150
+      Left            =   90
       TabIndex        =   13
-      Top             =   3360
+      Top             =   3510
       Width           =   11505
    End
    Begin VB.Label Label1 
       Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
-      Caption         =   "Codigo a enviar a tbrSoft. Valor unico para esta PC"
+      Caption         =   $"frmREG.frx":2B97
       BeginProperty Font 
          Name            =   "Verdana"
-         Size            =   8.25
+         Size            =   9.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -663,12 +663,12 @@ Begin VB.Form frmREG
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H0000FFFF&
-      Height          =   315
+      Height          =   525
       Index           =   0
-      Left            =   1890
+      Left            =   300
       TabIndex        =   12
       Top             =   2400
-      Width           =   8355
+      Width           =   11475
    End
 End
 Attribute VB_Name = "frmREG"
@@ -706,36 +706,36 @@ Private Sub Command1_Click()
     CodigoUnido = txtCOD(0) + txtCOD(1) + txtCOD(2) + txtCOD(3) + txtCOD(4) + txtCOD(5) + txtCOD(6) + txtCOD(7)
 
     'hay un codigo personal (mas corto) que habilita la funcion de creado de claves
-    Dim CF As String
+    'Dim CF As String
     'If CodigoUnido = "FULL" Then
     '    frFull.Visible = True
-    '   'poner el codigo terminado en las casillas
+       'poner el codigo terminado en las casillas
     '    CF = GenerarCodigo(lblGUID)
     '    txtCOD(0) = Mid(CF, 1, 5): txtCOD(1) = Mid(CF, 6, 5): txtCOD(2) = Mid(CF, 11, 5)
     '    txtCOD(3) = Mid(CF, 16, 5): txtCOD(4) = Mid(CF, 21, 5): txtCOD(5) = Mid(CF, 26, 5)
     '    txtCOD(6) = Mid(CF, 31, 5): txtCOD(7) = Mid(CF, 36, 5)
     '    Exit Sub
     'End If
-    ''
-    'if CodigoUnido = "SL" Then
+    '
+    'If CodigoUnido = "SL" Then
     '   frFull.Visible = True
     '    'poner el codigo terminado en las casillas
     '    CF = GenerarCodigoSL(lblGUID)
-    ''    txtCOD(0) = Mid(CF, 1, 5): txtCOD(1) = Mid(CF, 6, 5): txtCOD(2) = Mid(CF, 11, 5)
-    '    txtCOD(3) = Mid(CF, 16, 5): txtCOD(4) = Mid(CF, 21, 5): txtCOD(5) = Mid(CF, 26, 5)
-    '    txtCOD(6) = Mid(CF, 31, 5): txtCOD(7) = Mid(CF, 36, 5)
-    '    Exit Sub
-    'End If
-    '''
-    'If CodigoUnido = "DEMO2" Then
-    '    frFull.Visible = True
-    '    'poner el codigo terminado en las casillas
-    '    CF = GenerarCodigoDemo(lblGUID)
     '    txtCOD(0) = Mid(CF, 1, 5): txtCOD(1) = Mid(CF, 6, 5): txtCOD(2) = Mid(CF, 11, 5)
     '    txtCOD(3) = Mid(CF, 16, 5): txtCOD(4) = Mid(CF, 21, 5): txtCOD(5) = Mid(CF, 26, 5)
     '    txtCOD(6) = Mid(CF, 31, 5): txtCOD(7) = Mid(CF, 36, 5)
     '    Exit Sub
     'End If
+    '
+    If CodigoUnido = "DEMO2" Then
+        frFull.Visible = True
+        'poner el codigo terminado en las casillas
+        CF = GenerarCodigoDemo(lblGUID)
+        txtCOD(0) = Mid(CF, 1, 5): txtCOD(1) = Mid(CF, 6, 5): txtCOD(2) = Mid(CF, 11, 5)
+        txtCOD(3) = Mid(CF, 16, 5): txtCOD(4) = Mid(CF, 21, 5): txtCOD(5) = Mid(CF, 26, 5)
+        txtCOD(6) = Mid(CF, 31, 5): txtCOD(7) = Mid(CF, 36, 5)
+        Exit Sub
+    End If
     '
     If cmbCountry = "(SELECCIONE PAIS)" Then MsgBox "Debe cargar el pais de residencia": Exit Sub
     
@@ -1062,7 +1062,7 @@ STRconCodigos = STRconCodigos + "zsmkxjkLsiLc95uu8489fndefjL349845789f89w89" + _
     "solo usted tendra una copia LEGAL si compra este software a " + _
     "tbrSoft Argentina." + vbCrLf + _
     "Para adquirir la version definitiva deberá solicitarlo a tbrSoft " + _
-    "via email a info@tbrsoft.com o a avazquez@cpcipc.org"
+    "via email a info@tbrsoft.com o a tbrsoft@cpcipc.org"
     
     LBL = TXT
     
@@ -1112,6 +1112,7 @@ STRconCodigos = STRconCodigos + "zsmkxjkLsiLc95uu8489fndefjL349845789f89w89" + _
             'ver si hay que parar
             If Usado > 100000 Then '1.000.000 son 550 años (5 usos por dia)
                 MsgBox "Ha pasado los usos habilitados. Esta no es una version definitiva"
+                TE.Close
                 End
             End If
             
@@ -1220,7 +1221,7 @@ FUCK:
     TE.Close
     MsgBox "Existe un archivo de registro de 3PM con datos no validos." + vbCrLf + _
     "Debe solicitar una licencia para este equipo. Solicitela a tbrSoft " + _
-    "Argentina (info@tbrsoft.com / avazquez@cpcipc.org) una contraseña " + _
+    "Argentina (info@tbrsoft.com / tbrsoft@cpcipc.org) una contraseña " + _
     "de acceso en esta PC como se indica en la página que sigue"
 End Sub
 
