@@ -1,155 +1,158 @@
 VERSION 5.00
 Begin VB.UserControl VUMeter 
    BackColor       =   &H00000000&
-   ClientHeight    =   1245
+   ClientHeight    =   2160
    ClientLeft      =   0
    ClientTop       =   0
-   ClientWidth     =   1380
-   ScaleHeight     =   1245
-   ScaleWidth      =   1380
+   ClientWidth     =   2505
+   ClipControls    =   0   'False
+   ControlContainer=   -1  'True
+   ScaleHeight     =   2160
+   ScaleWidth      =   2505
    Begin VB.PictureBox P2 
       BackColor       =   &H00004080&
       BorderStyle     =   0  'None
-      Height          =   150
+      HasDC           =   0   'False
+      Height          =   320
       Index           =   0
-      Left            =   720
-      ScaleHeight     =   150
-      ScaleWidth      =   600
+      Left            =   1650
+      ScaleHeight     =   315
+      ScaleWidth      =   795
       TabIndex        =   11
-      Top             =   990
-      Width           =   600
+      Top             =   1740
+      Width           =   800
    End
    Begin VB.PictureBox P2 
       BackColor       =   &H00004080&
       BorderStyle     =   0  'None
-      Height          =   150
+      Height          =   320
       Index           =   1
-      Left            =   720
-      ScaleHeight     =   150
-      ScaleWidth      =   600
+      Left            =   1650
+      ScaleHeight     =   315
+      ScaleWidth      =   795
       TabIndex        =   10
-      Top             =   780
-      Width           =   600
+      Top             =   1380
+      Width           =   800
    End
    Begin VB.PictureBox P2 
       BackColor       =   &H00004080&
       BorderStyle     =   0  'None
-      Height          =   150
+      Height          =   320
       Index           =   5
-      Left            =   720
-      ScaleHeight     =   150
-      ScaleWidth      =   600
+      Left            =   1650
+      ScaleHeight     =   315
+      ScaleWidth      =   795
       TabIndex        =   9
-      Top             =   600
-      Width           =   600
+      Top             =   1050
+      Width           =   800
    End
    Begin VB.PictureBox P2 
       BackColor       =   &H00004080&
       BorderStyle     =   0  'None
-      Height          =   150
+      Height          =   320
       Index           =   4
-      Left            =   720
-      ScaleHeight     =   150
-      ScaleWidth      =   600
+      Left            =   1650
+      ScaleHeight     =   315
+      ScaleWidth      =   795
       TabIndex        =   8
-      Top             =   420
-      Width           =   600
+      Top             =   720
+      Width           =   800
    End
    Begin VB.PictureBox P2 
       BackColor       =   &H00004080&
       BorderStyle     =   0  'None
-      Height          =   150
+      Height          =   320
       Index           =   3
-      Left            =   720
-      ScaleHeight     =   150
-      ScaleWidth      =   600
+      Left            =   1650
+      ScaleHeight     =   315
+      ScaleWidth      =   795
       TabIndex        =   7
-      Top             =   240
-      Width           =   600
+      Top             =   390
+      Width           =   800
    End
    Begin VB.PictureBox P2 
       BackColor       =   &H00004080&
       BorderStyle     =   0  'None
-      Height          =   150
+      Height          =   320
       Index           =   2
-      Left            =   720
-      ScaleHeight     =   150
-      ScaleWidth      =   600
+      Left            =   1650
+      ScaleHeight     =   315
+      ScaleWidth      =   795
       TabIndex        =   6
       Top             =   60
-      Width           =   600
+      Width           =   800
    End
    Begin VB.PictureBox P 
       BackColor       =   &H00004080&
       BorderStyle     =   0  'None
-      Height          =   150
+      Height          =   320
       Index           =   5
-      Left            =   45
-      ScaleHeight     =   150
-      ScaleWidth      =   600
+      Left            =   0
+      ScaleHeight     =   315
+      ScaleWidth      =   795
       TabIndex        =   5
-      Top             =   60
-      Width           =   600
+      Top             =   90
+      Width           =   800
    End
    Begin VB.PictureBox P 
       BackColor       =   &H00004080&
       BorderStyle     =   0  'None
-      Height          =   150
+      Height          =   320
       Index           =   4
-      Left            =   45
-      ScaleHeight     =   150
-      ScaleWidth      =   600
+      Left            =   0
+      ScaleHeight     =   315
+      ScaleWidth      =   795
       TabIndex        =   4
-      Top             =   240
-      Width           =   600
-   End
-   Begin VB.PictureBox P 
-      BackColor       =   &H00004080&
-      BorderStyle     =   0  'None
-      Height          =   150
-      Index           =   3
-      Left            =   45
-      ScaleHeight     =   150
-      ScaleWidth      =   600
-      TabIndex        =   3
       Top             =   420
-      Width           =   600
+      Width           =   800
    End
    Begin VB.PictureBox P 
       BackColor       =   &H00004080&
       BorderStyle     =   0  'None
-      Height          =   150
+      Height          =   320
+      Index           =   3
+      Left            =   0
+      ScaleHeight     =   315
+      ScaleWidth      =   795
+      TabIndex        =   3
+      Top             =   750
+      Width           =   800
+   End
+   Begin VB.PictureBox P 
+      BackColor       =   &H00004080&
+      BorderStyle     =   0  'None
+      Height          =   320
       Index           =   2
-      Left            =   45
-      ScaleHeight     =   150
-      ScaleWidth      =   600
+      Left            =   0
+      ScaleHeight     =   315
+      ScaleWidth      =   795
       TabIndex        =   2
-      Top             =   600
-      Width           =   600
+      Top             =   1080
+      Width           =   800
    End
    Begin VB.PictureBox P 
       BackColor       =   &H00004080&
       BorderStyle     =   0  'None
-      Height          =   150
+      Height          =   320
       Index           =   1
-      Left            =   45
-      ScaleHeight     =   150
-      ScaleWidth      =   600
+      Left            =   0
+      ScaleHeight     =   315
+      ScaleWidth      =   795
       TabIndex        =   1
-      Top             =   780
-      Width           =   600
+      Top             =   1410
+      Width           =   800
    End
    Begin VB.PictureBox P 
       BackColor       =   &H00004080&
       BorderStyle     =   0  'None
-      Height          =   150
+      Height          =   320
       Index           =   0
-      Left            =   45
-      ScaleHeight     =   150
-      ScaleWidth      =   600
+      Left            =   0
+      ScaleHeight     =   315
+      ScaleWidth      =   795
       TabIndex        =   0
-      Top             =   990
-      Width           =   600
+      Top             =   1740
+      Width           =   800
    End
 End
 Attribute VB_Name = "VUMeter"
@@ -285,14 +288,17 @@ Dim contVuOff As Long
 Dim MaxLH As Long, MaxRH As Long
 Dim ContTopVU As Long
 
-'Dim EsSecundario As Boolean
+Public Property Get AnchoBarra() As Long
+    'Valor del ancho de las barras. Sirve para saber que zona esta libre
+    AnchoBarra = P(c).Width
+End Property
 
 Private Sub UserControl_Initialize()
     'esto se inicia solo cuando se carga el control en ejecucuion
     'inicializar los dispositivos
     m_CarFantastic = False
     m_Borde = False
-    m_EspacioEntreBarras = 20
+    m_EspacioEntreBarras = 25
     m_Dispositivos = Dispositivos
     BarrasEnVUmeter = 6
     VerdeOFF = &H808000
@@ -449,11 +455,11 @@ Private Sub DrawData()
         'BarrasEnVUmeter es el numero de barras
         PorcBarrasPintadasON = contVu / BarrasEnVUmeter * 100
         'verde
-        If PorcBarrasPintadasON <= 20 And PorcBarrasPintadasON >= 0 Then ColorOn = &HFF00&: ColorOff = &H8000&
+        If PorcBarrasPintadasON <= 20 And PorcBarrasPintadasON >= 0 Then ColorOn = &HFF00&: coloroff = &H8000&
         'amarillo
-        If PorcBarrasPintadasON <= 75 And PorcBarrasPintadasON > 20 Then: ColorOn = &HFFFF&: ColorOff = &H8080&
+        If PorcBarrasPintadasON <= 75 And PorcBarrasPintadasON > 20 Then: ColorOn = &HFFFF&: coloroff = &H8080&
         'rojo
-        If PorcBarrasPintadasON <= 100 And PorcBarrasPintadasON > 75 Then: ColorOn = &HFF&: ColorOff = &H80&
+        If PorcBarrasPintadasON <= 100 And PorcBarrasPintadasON > 75 Then: ColorOn = &HFF&: coloroff = &H80&
         
         P(contVu).BackColor = ColorOn
         P2(contVu).BackColor = ColorOn
@@ -468,14 +474,14 @@ Private Sub DrawData()
         
         PorcBarrasPintadasOff = contVuOff / BarrasEnVUmeter * 100
         'verde
-        If PorcBarrasPintadasOff <= 20 And PorcBarrasPintadasOff >= 0 Then ColorOn = &HFF00&: ColorOff = &H8000&
+        If PorcBarrasPintadasOff <= 20 And PorcBarrasPintadasOff >= 0 Then ColorOn = &HFF00&: coloroff = &H8000&
         'amarillo
-        If PorcBarrasPintadasOff <= 75 And PorcBarrasPintadasOff > 20 Then: ColorOn = &HFFFF&: ColorOff = &H8080&
+        If PorcBarrasPintadasOff <= 75 And PorcBarrasPintadasOff > 20 Then: ColorOn = &HFFFF&: coloroff = &H8080&
         'rojo
-        If PorcBarrasPintadasOff <= 100 And PorcBarrasPintadasOff > 75 Then: ColorOn = &HFF&: ColorOff = &H80&
+        If PorcBarrasPintadasOff <= 100 And PorcBarrasPintadasOff > 75 Then: ColorOn = &HFF&: coloroff = &H80&
         
-        P(contVuOff).BackColor = ColorOff
-        P2(contVuOff).BackColor = ColorOff
+        P(contVuOff).BackColor = coloroff
+        P2(contVuOff).BackColor = coloroff
         
         contVu = contVu + 1
         If contVu = BarrasEnVUmeter Then contVu = 0
@@ -487,8 +493,9 @@ Private Sub DrawData()
         Dim TopeVU As Long 'maximo al que supongo que llegará
         TopeVU = 150
         'BarrasEnVUmeter es el numero de barras
-        contVu = 0: a = 0: b = 0
+        contVu = 0: A = 0: b = 0
         ContTopVU = ContTopVU + 1
+        'cada 18 vuelta se fija el tope de vuelta
         If ContTopVU > 18 Then
             MaxLH = 0
             MaxRH = 0
@@ -498,35 +505,49 @@ Private Sub DrawData()
         Do While contVu < BarrasEnVUmeter
             PorcBarrasPintadas = contVu / BarrasEnVUmeter * 100
             'verde
-            If PorcBarrasPintadas <= 20 And PorcBarrasPintadas >= 0 Then ColorOn = &HFF00&: ColorOff = &H8000&
+            If PorcBarrasPintadas <= 20 And PorcBarrasPintadas >= 0 Then ColorOn = &HFF00&: coloroff = &H8000&
             'amarillo
-            If PorcBarrasPintadas <= 75 And PorcBarrasPintadas > 20 Then: ColorOn = &HFFFF&: ColorOff = &H8080&
+            If PorcBarrasPintadas <= 75 And PorcBarrasPintadas > 20 Then: ColorOn = &HFFFF&: coloroff = &H8080&
             'rojo
-            If PorcBarrasPintadas <= 100 And PorcBarrasPintadas > 75 Then: ColorOn = &HFF&: ColorOff = &H80&
+            If PorcBarrasPintadas <= 100 And PorcBarrasPintadas > 75 Then: ColorOn = &HFF&: coloroff = &H80&
+
+            If contVu = MaxLH Then GoTo SiguienteRh 'que no repinte la ubicacion del tope
             
             If LH > TopeVU / BarrasEnVUmeter * (contVu + 1) Then
                 P(contVu).BackColor = ColorOn
             Else
-                If a = 0 And contVu >= MaxLH Then
-                    MaxLH = contVu
-                    P(contVu).BackColor = vbBlack
-                    a = a + 1
+                If A = 0 Then
+                    If contVu >= MaxLH Then
+                        MaxLH = contVu
+                        P(contVu).BackColor = vbBlack
+                    Else
+                        MaxLH = MaxLH - 1
+                        P(MaxLH).BackColor = vbBlack
+                    End If
+                    A = A + 1
                 Else
-                    P(contVu).BackColor = ColorOff
+                    P(contVu).BackColor = coloroff
                 End If
             End If
-            
+SiguienteRh:
+            If contVu = MaxRH Then GoTo SIGUIENTE
             If RH > TopeVU / BarrasEnVUmeter * (contVu + 1) Then
                 P2(contVu).BackColor = ColorOn
             Else
-                If b = 0 And contVu >= MaxRH Then
-                    MaxRH = contVu
-                    P2(contVu).BackColor = vbBlack
+                If b = 0 Then
+                    If contVu >= MaxRH Then
+                        MaxRH = contVu
+                        P2(contVu).BackColor = vbBlack
+                    Else
+                        MaxRH = MaxRH - 1
+                        P2(MaxRH).BackColor = vbBlack
+                    End If
                     b = b + 1
                 Else
-                    P2(contVu).BackColor = ColorOff
+                    P2(contVu).BackColor = coloroff
                 End If
             End If
+SIGUIENTE:
             contVu = contVu + 1
         Loop
     End If
@@ -591,7 +612,7 @@ Private Sub UserControl_Resize()
     'darles a todos el mimo ancho
     c = 0
     Do While c < BarrasEnVUmeter
-        P(c).Width = (UserControl.Width - 150) / 2
+        'P(c).Width = (UserControl.Width - 150) / 2
         c = c + 1
     Loop
     'acomodar los P2
@@ -599,10 +620,11 @@ Private Sub UserControl_Resize()
     Do While c < BarrasEnVUmeter
         P2(c).Width = P(c).Width
         P2(c).Height = P(c).Height
-        P2(c).Left = P(c).Left + P(c).Width + 20
+        P2(c).Left = UserControl.Width - P2(c).Width 'P(c).Left + P(c).Width + 20
         P2(c).Top = P(c).Top
         c = c + 1
     Loop
+    
     
 End Sub
 

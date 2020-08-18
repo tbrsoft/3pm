@@ -10,7 +10,6 @@ Begin VB.Form frmTemasDeDisco
    ClientWidth     =   12000
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
-   LockControls    =   -1  'True
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   9000
@@ -22,9 +21,91 @@ Begin VB.Form frmTemasDeDisco
       BackColor       =   &H00000000&
       Height          =   8985
       Left            =   150
-      TabIndex        =   0
-      Top             =   0
+      TabIndex        =   1
+      Top             =   30
       Width           =   11805
+      Begin VB.Frame Frame2 
+         BackColor       =   &H00000000&
+         Caption         =   "Touch"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   1305
+         Left            =   7200
+         TabIndex        =   9
+         Top             =   7620
+         Width           =   4515
+         Begin VB.CommandButton Command1 
+            BackColor       =   &H00C0C0C0&
+            Caption         =   "OK"
+            Default         =   -1  'True
+            BeginProperty Font 
+               Name            =   "Verdana"
+               Size            =   9.75
+               Charset         =   0
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   950
+            Left            =   2280
+            Style           =   1  'Graphical
+            TabIndex        =   0
+            Top             =   240
+            Width           =   1050
+         End
+         Begin VB.CommandButton cmdDiscoAd 
+            BackColor       =   &H00C0C0C0&
+            DownPicture     =   "frmTemasDeDisco.frx":0000
+            Height          =   950
+            Left            =   1200
+            Picture         =   "frmTemasDeDisco.frx":0CFD
+            Style           =   1  'Graphical
+            TabIndex        =   12
+            TabStop         =   0   'False
+            Top             =   240
+            Width           =   1050
+         End
+         Begin VB.CommandButton cmdDiscoAt 
+            BackColor       =   &H00C0C0C0&
+            DownPicture     =   "frmTemasDeDisco.frx":15D5
+            Height          =   950
+            Left            =   120
+            Picture         =   "frmTemasDeDisco.frx":2347
+            Style           =   1  'Graphical
+            TabIndex        =   11
+            TabStop         =   0   'False
+            Top             =   240
+            Width           =   1050
+         End
+         Begin VB.CommandButton Command2 
+            BackColor       =   &H00C0C0C0&
+            Caption         =   "SALIR"
+            BeginProperty Font 
+               Name            =   "Verdana"
+               Size            =   9.75
+               Charset         =   0
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   950
+            Left            =   3360
+            Style           =   1  'Graphical
+            TabIndex        =   10
+            Top             =   240
+            Width           =   1050
+         End
+      End
       Begin VB.ListBox lstEXT 
          BackColor       =   &H00404080&
          Enabled         =   0   'False
@@ -38,12 +119,13 @@ Begin VB.Form frmTemasDeDisco
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00C0E0FF&
-         Height          =   4740
-         ItemData        =   "frmTemasDeDisco.frx":0000
+         Height          =   4620
+         IntegralHeight  =   0   'False
+         ItemData        =   "frmTemasDeDisco.frx":2C8A
          Left            =   180
-         List            =   "frmTemasDeDisco.frx":0013
+         List            =   "frmTemasDeDisco.frx":2C9D
          Sorted          =   -1  'True
-         TabIndex        =   7
+         TabIndex        =   8
          Top             =   3960
          Visible         =   0   'False
          Width           =   6345
@@ -53,7 +135,7 @@ Begin VB.Form frmTemasDeDisco
          Enabled         =   0   'False
          BeginProperty Font 
             Name            =   "Verdana"
-            Size            =   9.75
+            Size            =   14.25
             Charset         =   0
             Weight          =   700
             Underline       =   0   'False
@@ -61,36 +143,16 @@ Begin VB.Form frmTemasDeDisco
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00C0E0FF&
-         Height          =   8220
+         Height          =   8350
+         IntegralHeight  =   0   'False
          Left            =   45
-         TabIndex        =   4
+         TabIndex        =   5
          Top             =   480
-         Width           =   735
+         Width           =   1185
       End
       Begin VB.ListBox lstTemas 
          BackColor       =   &H00404080&
          Enabled         =   0   'False
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00C0E0FF&
-         Height          =   8220
-         Left            =   780
-         Sorted          =   -1  'True
-         TabIndex        =   1
-         Top             =   480
-         Width           =   6315
-      End
-      Begin VB.Label lblNoEjecuta 
-         Alignment       =   2  'Center
-         BackColor       =   &H0000FFFF&
-         Caption         =   "INGRESE FICHA PARA EJECUTAR MUSICA"
          BeginProperty Font 
             Name            =   "Verdana"
             Size            =   14.25
@@ -100,14 +162,36 @@ Begin VB.Form frmTemasDeDisco
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
+         ForeColor       =   &H00C0E0FF&
+         Height          =   8350
+         IntegralHeight  =   0   'False
+         Left            =   1230
+         Sorted          =   -1  'True
+         TabIndex        =   2
+         Top             =   480
+         Width           =   5865
+      End
+      Begin VB.Label lblNoEjecuta 
+         Alignment       =   2  'Center
+         BackColor       =   &H0000FFFF&
+         Caption         =   "NO HAY CREDITO PARA EJECUTAR"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   15.75
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
          ForeColor       =   &H000000FF&
          Height          =   795
          Left            =   7200
-         TabIndex        =   6
-         Top             =   8010
+         TabIndex        =   7
+         Top             =   6840
          UseMnemonic     =   0   'False
          Visible         =   0   'False
-         Width           =   4545
+         Width           =   4515
       End
       Begin VB.Label Label1 
          Alignment       =   2  'Center
@@ -124,7 +208,7 @@ Begin VB.Form frmTemasDeDisco
          EndProperty
          Height          =   255
          Left            =   60
-         TabIndex        =   5
+         TabIndex        =   6
          Top             =   180
          Width           =   7065
       End
@@ -142,12 +226,12 @@ Begin VB.Form frmTemasDeDisco
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00FFFFFF&
-         Height          =   3465
+         Height          =   3585
          Left            =   7200
-         TabIndex        =   3
-         Top             =   4500
+         TabIndex        =   4
+         Top             =   4200
          UseMnemonic     =   0   'False
-         Width           =   4545
+         Width           =   4500
       End
       Begin VB.Label lblDisco 
          Alignment       =   2  'Center
@@ -164,9 +248,9 @@ Begin VB.Form frmTemasDeDisco
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00FFFFFF&
-         Height          =   795
+         Height          =   495
          Left            =   7200
-         TabIndex        =   2
+         TabIndex        =   3
          Top             =   3660
          UseMnemonic     =   0   'False
          Width           =   4545
@@ -189,6 +273,32 @@ Attribute VB_Exposed = False
 Dim NoHayTemasEnDisco As Boolean
 Dim DuracionTema As String
 
+Private Sub cmdDiscoAd_Click()
+    Form_KeyDown TeclaDER, 0
+    Command1.SetFocus
+End Sub
+
+Private Sub cmdDiscoAd_KeyDown(KeyCode As Integer, Shift As Integer)
+    Form_KeyDown KeyCode, Shift
+End Sub
+
+Private Sub cmdDiscoAt_Click()
+    Form_KeyDown TeclaIZQ, 0
+    Command1.SetFocus
+End Sub
+
+Private Sub cmdDiscoAt_KeyDown(KeyCode As Integer, Shift As Integer)
+    Form_KeyDown KeyCode, Shift
+End Sub
+
+Private Sub Command1_Click()
+    Form_KeyDown TeclaOK, 0
+End Sub
+
+Private Sub Command2_Click()
+    Form_KeyDown TeclaESC, 0
+End Sub
+
 Private Sub Form_Activate()
     Me.Refresh
     Label1 = "Buscando Temas de este disco..."
@@ -200,13 +310,13 @@ Private Sub Form_Activate()
         TapaCD.Picture = LoadPicture(AP + "tapa.jpg")
     End If
     TapaCD.Refresh
-    lblDISCO = FSO.GetBaseName(UbicDiscoActual)
+    lblDisco = FSO.GetBaseName(UbicDiscoActual)
     Dim ArchDaTa As String
     ArchDaTa = UbicDiscoActual + "data.txt"
     If FSO.FileExists(ArchDaTa) Then
-        Dim a As TextStream
-        Set a = FSO.OpenTextFile(ArchDaTa, ForReading, False)
-        lblDataDisco = a.ReadAll
+        Dim A As TextStream
+        Set A = FSO.OpenTextFile(ArchDaTa, ForReading, False)
+        lblDataDisco = A.ReadAll
     Else
         lblDataDisco = "No hay datos adicionales de este disco"
     End If
@@ -239,22 +349,31 @@ Private Sub Form_Activate()
         Dim NoCargoDuracion As Long
         NoCargoDuracion = 0
         c = 1
+        Dim MP3tmp As New MP3Info
         Do While c <= UBound(MATRIZ_TEMAS)
             pathTema = lstEXT.List(c - 1)
-            'mostrar duracion
-            DuracionTema = frmIndex.MP3.QuickLargoDeTema(pathTema)
-            If DuracionTema = "N/S" Then
-                NoCargoDuracion = NoCargoDuracion + 1
-                If NoCargoDuracion > 3 Then
-                    lstTIME.Visible = False
-                    lstTEMAS.Left = 50
-                    lstTEMAS.Width = lblNoEjecuta.Left - 50
+            'si es mp3 usar el rápido, si no usar el viejo
+            If UCase(Right(pathTema, 3)) = "MP3" Then
+                MP3tmp.FileName = pathTema
+                DuracionTema = MP3tmp.DurationSTR
+            Else
+                'en caso de que sea video el clsMp3 no anda!!
+                'mostrar duracion VIEJO FORMATO
+                DuracionTema = frmIndex.MP3.QuickLargoDeTema(pathTema)
+                If DuracionTema = "N/S" Then
+                    NoCargoDuracion = NoCargoDuracion + 1
+                    If NoCargoDuracion > 3 Then
+                        lstTIME.Visible = False
+                        lstTEMAS.Left = 50
+                        lstTEMAS.Width = lblNoEjecuta.Left - 50
+                    End If
                 End If
             End If
             lstTIME.AddItem DuracionTema
             lstTIME.Refresh
             c = c + 1
         Loop
+        Set MP3tmp = Nothing
         lstTIME.Enabled = True
     End If
     lstTEMAS.Enabled = True
@@ -263,6 +382,7 @@ Private Sub Form_Activate()
 End Sub
 
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
+    On Error GoTo Errores
     'y si no es una ficha la que se esta cargando
     lblNoEjecuta.Visible = False
     Select Case KeyCode
@@ -274,21 +394,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             frmIndex.MP3.DoClose
             If ApagarAlCierre Then APAGAR_PC
             End
-        Case TeclaNewFicha
-            If CREDITOS <= MaximoFichas Then
-                'apagar el fichero electronico
-                OnOffCAPS vbKeyScrollLock, True
-                CREDITOS = CREDITOS + TemasPorCredito
-                SumarContadorCreditos TemasPorCredito
-                If CREDITOS >= 10 Then
-                    frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
-                Else
-                    frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
-                End If
-            Else
-                'apagar el fichero electronico
-                OnOffCAPS vbKeyScrollLock, False
-            End If
+        
         Case TeclaESC
             TECLAS_PRES = TECLAS_PRES + "4"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
@@ -307,6 +413,12 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                 EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
                 If CREDITOS < 10 Then frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
                 If CREDITOS >= 10 Then frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+                
+                'grabar credito para validar
+                'creditosValidar ya se cargo en load de frmindex
+                CreditosValidar = CreditosValidar + TemasPorCredito
+                EscribirArch1Linea SYSfolder + "\radilav.cfg", CStr(CreditosValidar)
+                
                 Dim temaElegido As String
                 'lstext es una lista oculta  con datos completos
                 temaElegido = lstEXT.List(lstTEMAS.ListIndex) ' UbicDiscoActual + "\" + lstTemas + "." + EXTs(lstTemas.ListIndex)
@@ -373,12 +485,39 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     VerClaves TECLAS_PRES
     SecSinTecla = 0
     frmIndex.lblNoTecla = 0
+    
+    Exit Sub
+Errores:
+    WriteTBRLog "Error en temasDisco_KeyDown: " + Err.Description + " (" + CStr(Err.Number) + "). Se continua...", True
+    Resume Next
+    
+End Sub
+
+Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
+    If KeyCode = TeclaNewFicha Then
+        If CREDITOS <= MaximoFichas Then
+            'apagar el fichero electronico
+            OnOffCAPS vbKeyScrollLock, True
+            CREDITOS = CREDITOS + TemasPorCredito
+            SumarContadorCreditos TemasPorCredito
+            If CREDITOS >= 10 Then
+                frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+            Else
+                frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+            End If
+        Else
+            'apagar el fichero electronico
+            OnOffCAPS vbKeyScrollLock, False
+        End If
+    End If
 End Sub
 
 Private Sub Form_Load()
     AjustarFRM Me, 12000
     Frame1.Left = Screen.Width / 2 - Frame1.Width / 2
     Frame1.Top = Screen.Height / 2 - Frame1.Height / 2
+
+    If MostrarTouch = False Then Frame2.Visible = False        'frame del touch
 
     ReDim MATRIZ_TEMAS(0) 'matriz en blanco
     'es una matriz global
@@ -399,7 +538,7 @@ Private Sub Form_Load()
     If CargarDuracionTemas = False Then
         lstTIME.Visible = False
         lstTEMAS.Left = 50
-        lstTEMAS.Width = lblNoEjecuta.Left - 50
+        lstTEMAS.Width = lblNoEjecuta.Left - 150
     End If
     
 End Sub

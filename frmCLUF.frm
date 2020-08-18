@@ -64,23 +64,7 @@ End Sub
 
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     Select Case KeyCode
-        Case TeclaNewFicha
-            'si ya hay 9 cargados se traga las fichas
-            If CREDITOS <= MaximoFichas Then
-                OnOffCAPS vbKeyScrollLock, True
-                CREDITOS = CREDITOS + TemasPorCredito
-                SumarContadorCreditos TemasPorCredito
-                'grabar cant de creditos
-                EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
-                If CREDITOS >= 10 Then
-                    frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
-                Else
-                    frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
-                End If
-            Else
-                'apagar el fichero electronico
-                OnOffCAPS vbKeyScrollLock, False
-            End If
+        
         Case TeclaCerrarSistema
             OnOffCAPS vbKeyCapital, False
             If ApagarAlCierre Then APAGAR_PC
@@ -89,6 +73,33 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             frmIndex.MP3.DoClose
             End
     End Select
+End Sub
+
+Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
+    If KeyCode = TeclaNewFicha Then
+        'si ya hay 9 cargados se traga las fichas
+        If CREDITOS <= MaximoFichas Then
+            OnOffCAPS vbKeyScrollLock, True
+            CREDITOS = CREDITOS + TemasPorCredito
+            SumarContadorCreditos TemasPorCredito
+            'grabar cant de creditos
+            EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
+            If CREDITOS >= 10 Then
+                frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+            Else
+                frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+            End If
+            
+            'grabar credito para validar
+            'creditosValidar ya se cargo en load de frmindex
+            CreditosValidar = CreditosValidar + TemasPorCredito
+            EscribirArch1Linea SYSfolder + "\radilav.cfg", CStr(CreditosValidar)
+            
+        Else
+            'apagar el fichero electronico
+            OnOffCAPS vbKeyScrollLock, False
+        End If
+    End If
 End Sub
 
 Private Sub Form_Load()

@@ -37,12 +37,14 @@ Event BeginPlay()
 Event EndPlay()
 
 Private Sub Reloj_Timer()
-    RaiseEvent Played(PositionInSec)
-    'ver si ermina el tema
+    'primero ver si ermina el tema
     If IsPlaying = False Then
         Reloj.Interval = 0
         RaiseEvent EndPlay
+        Exit Sub 'ESTO NO ESTABA!!!!!!!, seguia mandando el evento!!!!!!!!!!
     End If
+    'y SOLO si no termino largar el evento. Antes estaba alreves!!!!!!!!!
+    RaiseEvent Played(PositionInSec)
 End Sub
 
 Private Sub UserControl_Resize()
@@ -154,8 +156,18 @@ Public Function DoOpen()
     cmdToDo = "open " & FileNameSHORT & " type MPEGVideo Alias MP3Play style child"
     dwReturn = mciSendString(cmdToDo, 0&, 0&, 0&)
     If dwReturn <> 0 Then
+        If dwReturn = 263 Then
+            'si da el error 263 es probable que la máquina no tenga MCI, lo que le paso a Mauro con W98 PE y a efren con ME
+            WriteLog "WINDOWS NO REPRODUCE MP3!!!. INSTALE EL REPRODUCTOR CORESPONDIENTE " + _
+                "A SU VERSION DE WINDOWS", True
+            MsgBox "No se ha podido abrir el fichero debido a un problema existente en Windows. " + vbCrLf + _
+                "Revise que el reproductor multimedia de Windows este instalado y funcione correctamente." + _
+                "Notifique a tbrSoft de esto para más detalles"
+                
+        End If
+        
         LogErrorMCI dwReturn
-        'no se pudo modificar el volumen
+        'no se puedo abrir!!!
         WriteLog "No se pudo abrir un fichero mp3." + ". Tema: " + m_FileName + " Function DoOpen", False
     End If
     
@@ -265,7 +277,6 @@ Public Function DoStop() As String
         'no se pudo modificar el volumen
         WriteLog "No se pudo parar un fichero." + m_FileName + " Function DoStop", False
     End If
-    
     Reloj.Interval = 0
     RaiseEvent EndPlay
 End Function
@@ -276,6 +287,8 @@ Public Function DoClose() As String
         LogErrorMCI dwReturn
         WriteLog "No se pudo cerrar MCI." + ". Tema: " + m_FileName + " Function DoClose", False
     End If
+    'SI SIGUE EL RELOJ SE MARCAN 1000 errores!!!!!!!!!!
+    Reloj.Interval = 0
 End Function
 
 Public Function PercentPlay()

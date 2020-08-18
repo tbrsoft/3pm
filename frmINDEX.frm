@@ -1,4 +1,5 @@
 VERSION 5.00
+Object = "{648A5603-2C6E-101B-82B6-000000000014}#1.1#0"; "MSCOMM32.OCX"
 Begin VB.Form frmIndex 
    BackColor       =   &H00000000&
    BorderStyle     =   0  'None
@@ -17,21 +18,21 @@ Begin VB.Form frmIndex
    StartUpPosition =   3  'Windows Default
    WindowState     =   2  'Maximized
    Begin VB.Frame frDISCOS 
-      BackColor       =   &H00000080&
+      BackColor       =   &H00404000&
       BorderStyle     =   0  'None
       Height          =   3495
-      Left            =   240
-      TabIndex        =   13
-      Top             =   150
+      Left            =   930
+      TabIndex        =   29
+      Top             =   60
       Width           =   4020
       Begin VB.PictureBox picVideo 
          BackColor       =   &H00000000&
          Height          =   495
-         Left            =   90
+         Left            =   570
          ScaleHeight     =   435
          ScaleWidth      =   915
-         TabIndex        =   21
-         Top             =   90
+         TabIndex        =   30
+         Top             =   0
          Visible         =   0   'False
          Width           =   975
       End
@@ -46,9 +47,9 @@ Begin VB.Form frmIndex
       End
       Begin tbr3pm.MP3Play MP3 
          Height          =   1620
-         Left            =   2400
-         TabIndex        =   14
-         Top             =   900
+         Left            =   3270
+         TabIndex        =   31
+         Top             =   450
          Visible         =   0   'False
          Width           =   1500
          _ExtentX        =   2646
@@ -57,7 +58,7 @@ Begin VB.Form frmIndex
       Begin VB.Image TapaCD 
          Height          =   2505
          Index           =   0
-         Left            =   540
+         Left            =   570
          Picture         =   "frmINDEX.frx":0000
          Stretch         =   -1  'True
          Top             =   210
@@ -81,7 +82,7 @@ Begin VB.Form frmIndex
          Height          =   435
          Index           =   0
          Left            =   540
-         TabIndex        =   15
+         TabIndex        =   32
          Top             =   2730
          UseMnemonic     =   0   'False
          Visible         =   0   'False
@@ -89,29 +90,145 @@ Begin VB.Form frmIndex
       End
       Begin VB.Shape lblSel 
          BorderColor     =   &H0000FFFF&
-         BorderWidth     =   5
+         BorderWidth     =   3
          Height          =   555
-         Left            =   0
-         Top             =   450
+         Left            =   60
+         Shape           =   4  'Rounded Rectangle
+         Top             =   810
          Width           =   435
       End
+   End
+   Begin tbr3pm.VUMeter VU1 
+      Height          =   4425
+      Left            =   5550
+      TabIndex        =   24
+      Top             =   1110
+      Width           =   3405
+      _ExtentX        =   6006
+      _ExtentY        =   7805
+   End
+   Begin VB.Frame Frame1 
+      BackColor       =   &H00404000&
+      Caption         =   "Touch"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FFFFFF&
+      Height          =   2135
+      Left            =   9780
+      TabIndex        =   17
+      Top             =   6840
+      Width           =   2200
+      Begin VB.CommandButton Command1 
+         BackColor       =   &H00C0C0C0&
+         Caption         =   "OK"
+         Default         =   -1  'True
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   525
+         Left            =   90
+         Style           =   1  'Graphical
+         TabIndex        =   22
+         Top             =   210
+         Width           =   2030
+      End
+      Begin VB.CommandButton cmdPagAt 
+         BackColor       =   &H00C0C0C0&
+         DownPicture     =   "frmINDEX.frx":9013
+         Height          =   650
+         Left            =   90
+         Picture         =   "frmINDEX.frx":A072
+         Style           =   1  'Graphical
+         TabIndex        =   21
+         TabStop         =   0   'False
+         Top             =   1425
+         Width           =   1000
+      End
+      Begin VB.CommandButton cmdDiscoAt 
+         BackColor       =   &H00C0C0C0&
+         DownPicture     =   "frmINDEX.frx":AB23
+         Height          =   650
+         Left            =   90
+         Picture         =   "frmINDEX.frx":B895
+         Style           =   1  'Graphical
+         TabIndex        =   20
+         TabStop         =   0   'False
+         Top             =   750
+         Width           =   1000
+      End
+      Begin VB.CommandButton cmdDiscoAd 
+         BackColor       =   &H00C0C0C0&
+         DownPicture     =   "frmINDEX.frx":C1D8
+         Height          =   650
+         Left            =   1110
+         Picture         =   "frmINDEX.frx":CED5
+         Style           =   1  'Graphical
+         TabIndex        =   19
+         TabStop         =   0   'False
+         Top             =   750
+         Width           =   1000
+      End
+      Begin VB.CommandButton cmdPagAd 
+         BackColor       =   &H00C0C0C0&
+         DownPicture     =   "frmINDEX.frx":D7AD
+         Height          =   650
+         Left            =   1110
+         Picture         =   "frmINDEX.frx":E76E
+         Style           =   1  'Graphical
+         TabIndex        =   18
+         TabStop         =   0   'False
+         Top             =   1425
+         Width           =   1000
+      End
+   End
+   Begin VB.ListBox lstProximos 
+      BackColor       =   &H00404000&
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   6.75
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FFFFFF&
+      Height          =   1095
+      IntegralHeight  =   0   'False
+      Left            =   3570
+      TabIndex        =   16
+      Top             =   7320
+      Width           =   6195
    End
    Begin VB.Frame frModoVideo 
       BackColor       =   &H00404040&
       BorderStyle     =   0  'None
       ForeColor       =   &H00FFFFFF&
       Height          =   1365
-      Left            =   9450
-      TabIndex        =   18
-      Top             =   210
+      Left            =   10290
+      TabIndex        =   9
+      Top             =   420
       Visible         =   0   'False
-      Width           =   2505
+      Width           =   1715
       Begin VB.Label L 
          BackColor       =   &H00FFFFFF&
          Caption         =   "Nombre del artista - nombre del disco"
          BeginProperty Font 
             Name            =   "Arial Narrow"
-            Size            =   9.75
+            Size            =   8.25
             Charset         =   0
             Weight          =   700
             Underline       =   0   'False
@@ -120,10 +237,10 @@ Begin VB.Form frmIndex
          EndProperty
          Height          =   240
          Index           =   0
-         Left            =   30
-         TabIndex        =   19
+         Left            =   0
+         TabIndex        =   10
          Top             =   0
-         Width           =   2445
+         Width           =   1700
       End
    End
    Begin VB.Frame frTEMAS 
@@ -131,17 +248,17 @@ Begin VB.Form frmIndex
       BorderStyle     =   0  'None
       ForeColor       =   &H00FFFFFF&
       Height          =   1365
-      Left            =   9450
-      TabIndex        =   22
-      Top             =   1830
+      Left            =   10290
+      TabIndex        =   12
+      Top             =   2280
       Visible         =   0   'False
-      Width           =   2505
+      Width           =   1715
       Begin VB.Label T 
          BackColor       =   &H0080FFFF&
          Caption         =   "Nombre del TEMA"
          BeginProperty Font 
             Name            =   "Arial Narrow"
-            Size            =   9.75
+            Size            =   8.25
             Charset         =   0
             Weight          =   700
             Underline       =   0   'False
@@ -151,91 +268,29 @@ Begin VB.Form frmIndex
          ForeColor       =   &H00000000&
          Height          =   240
          Index           =   0
-         Left            =   30
-         TabIndex        =   23
+         Left            =   0
+         TabIndex        =   13
          Top             =   0
-         Width           =   2445
+         Width           =   1700
       End
    End
-   Begin tbr3pm.VUMeter VU1 
-      Height          =   8925
-      Left            =   10650
-      TabIndex        =   12
-      Top             =   60
-      Width           =   1395
-      _ExtentX        =   2461
-      _ExtentY        =   15743
+   Begin MSCommLib.MSComm COMM1 
+      Left            =   1350
+      Top             =   510
+      _ExtentX        =   1005
+      _ExtentY        =   1005
+      _Version        =   393216
+      DTREnable       =   -1  'True
+      Handshaking     =   1
+      RThreshold      =   1
+      SThreshold      =   1
    End
-   Begin VB.Label lblTEMAS 
+   Begin VB.Label lblTECLAS 
       Alignment       =   2  'Center
       BackColor       =   &H00000000&
-      Caption         =   "Temas del disco elegido"
+      Caption         =   "11111222223333344444"
       BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00FFFFFF&
-      Height          =   225
-      Left            =   9420
-      TabIndex        =   24
-      Top             =   1590
-      Visible         =   0   'False
-      Width           =   2595
-   End
-   Begin VB.Label lblModoVideo 
-      Alignment       =   2  'Center
-      BackColor       =   &H00000000&
-      Caption         =   "Discos en Modo Video"
-      BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00FFFFFF&
-      Height          =   225
-      Left            =   9420
-      TabIndex        =   20
-      Top             =   0
-      Visible         =   0   'False
-      Width           =   2565
-   End
-   Begin VB.Label lblPag 
-      Alignment       =   2  'Center
-      BackColor       =   &H00000000&
-      BorderStyle     =   1  'Fixed Single
-      Caption         =   "Pagina 88 de 88"
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00FFFFFF&
-      Height          =   270
-      Left            =   7755
-      TabIndex        =   16
-      Top             =   7920
-      Width           =   1665
-   End
-   Begin VB.Label lblV 
-      Alignment       =   1  'Right Justify
-      BackColor       =   &H000040C0&
-      BackStyle       =   0  'Transparent
-      Caption         =   "version 8.88"
-      BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "Arial Narrow"
          Size            =   6.75
          Charset         =   0
          Weight          =   400
@@ -243,103 +298,13 @@ Begin VB.Form frmIndex
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H0000FFFF&
-      Height          =   285
-      Left            =   9450
-      TabIndex        =   8
-      Top             =   8220
-      Width           =   1155
-   End
-   Begin VB.Image Image1 
-      BorderStyle     =   1  'Fixed Single
-      Height          =   1260
-      Left            =   9420
-      Picture         =   "frmINDEX.frx":9013
-      Stretch         =   -1  'True
-      Top             =   7200
-      Width           =   1230
-   End
-   Begin VB.Label lblPuesto 
-      Alignment       =   2  'Center
-      BackColor       =   &H00000000&
-      BorderStyle     =   1  'Fixed Single
-      Caption         =   "Rank #0"
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00FFFFFF&
-      Height          =   270
-      Left            =   15
-      TabIndex        =   11
-      Top             =   7920
-      Width           =   1665
-   End
-   Begin VB.Label lblTiempoRestante 
-      Alignment       =   2  'Center
-      BackColor       =   &H00000000&
-      BorderStyle     =   1  'Fixed Single
-      Caption         =   "Falta: 00:00"
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00FFFFFF&
-      Height          =   270
-      Left            =   7755
-      TabIndex        =   1
-      Top             =   7650
-      Width           =   1665
-   End
-   Begin VB.Label LBLpORCtEMA 
-      BackColor       =   &H00C0FFFF&
-      BeginProperty Font 
-         Name            =   "Times New Roman"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00000000&
-      Height          =   90
-      Left            =   -30
-      TabIndex        =   6
-      Top             =   7560
-      Width           =   9435
-   End
-   Begin VB.Label lblNoUSO 
-      Alignment       =   2  'Center
-      BackColor       =   &H00000000&
-      BorderStyle     =   1  'Fixed Single
-      Caption         =   "0"
-      BeginProperty Font 
-         Name            =   "Times New Roman"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00E0E0E0&
-      Height          =   240
-      Left            =   1470
-      TabIndex        =   7
-      Top             =   4005
+      ForeColor       =   &H0080FFFF&
+      Height          =   195
+      Left            =   10530
+      TabIndex        =   28
+      Top             =   6495
       Visible         =   0   'False
-      Width           =   705
+      Width           =   1440
    End
    Begin VB.Label lblNoTecla 
       Alignment       =   2  'Center
@@ -357,38 +322,60 @@ Begin VB.Form frmIndex
       EndProperty
       ForeColor       =   &H00E0E0E0&
       Height          =   240
-      Left            =   765
-      TabIndex        =   10
-      Top             =   4005
+      Left            =   10530
+      TabIndex        =   27
+      Top             =   6270
       Visible         =   0   'False
       Width           =   705
    End
-   Begin VB.Label lblTECLAS 
+   Begin VB.Label lblNoUSO 
       Alignment       =   2  'Center
       BackColor       =   &H00000000&
-      Caption         =   "11111222223333344444"
+      BorderStyle     =   1  'Fixed Single
+      Caption         =   "0"
+      BeginProperty Font 
+         Name            =   "Times New Roman"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00E0E0E0&
+      Height          =   240
+      Left            =   11235
+      TabIndex        =   26
+      Top             =   6270
+      Visible         =   0   'False
+      Width           =   705
+   End
+   Begin VB.Label lblValidar 
+      Alignment       =   2  'Center
+      BackColor       =   &H00000000&
+      Caption         =   "Validar"
       BeginProperty Font 
          Name            =   "Arial Narrow"
-         Size            =   6.75
+         Size            =   8.25
          Charset         =   0
          Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H0080FFFF&
+      ForeColor       =   &H00E0E0E0&
       Height          =   195
-      Left            =   765
-      TabIndex        =   9
-      Top             =   4230
+      Left            =   6300
+      TabIndex        =   25
+      Top             =   7110
       Visible         =   0   'False
-      Width           =   1440
+      Width           =   3435
    End
-   Begin VB.Label lblTOTdiscos 
+   Begin VB.Label lblPuesto 
       Alignment       =   2  'Center
-      BackColor       =   &H00000000&
+      BackColor       =   &H00404000&
       BorderStyle     =   1  'Fixed Single
-      Caption         =   "Discos 888"
+      Caption         =   "Rank #888"
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
@@ -398,16 +385,37 @@ Begin VB.Form frmIndex
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00FFFFFF&
-      Height          =   270
-      Left            =   7755
-      TabIndex        =   5
-      Top             =   8190
-      Width           =   1665
+      ForeColor       =   &H00C0FFFF&
+      Height          =   255
+      Left            =   30
+      TabIndex        =   6
+      Top             =   6840
+      Width           =   1440
+   End
+   Begin VB.Label lblPrecios 
+      Alignment       =   2  'Center
+      BackColor       =   &H00000000&
+      BorderStyle     =   1  'Fixed Single
+      Caption         =   "1 coin = 3 creditos  2 creditos = 1 tema"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00E0E0E0&
+      Height          =   495
+      Left            =   1500
+      TabIndex        =   23
+      Top             =   7920
+      Width           =   2055
    End
    Begin VB.Label lblCreditos 
       Alignment       =   2  'Center
-      BackColor       =   &H00000000&
+      BackColor       =   &H00404000&
       BorderStyle     =   1  'Fixed Single
       Caption         =   "Creditos 00"
       BeginProperty Font 
@@ -419,42 +427,21 @@ Begin VB.Form frmIndex
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00FFFFFF&
-      Height          =   270
-      Left            =   15
-      TabIndex        =   3
-      Top             =   7650
-      Width           =   1665
-   End
-   Begin VB.Label lblTemasEnLista 
-      Alignment       =   2  'Center
-      BackColor       =   &H00000000&
-      BorderStyle     =   1  'Fixed Single
-      Caption         =   "Pendientes: 00"
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00FFFFFF&
-      Height          =   270
-      Left            =   15
+      ForeColor       =   &H00C0FFFF&
+      Height          =   255
+      Left            =   30
       TabIndex        =   2
-      Top             =   8190
-      Width           =   1665
+      Top             =   7320
+      Width           =   1440
    End
    Begin VB.Label lblTemaSonando 
       Alignment       =   2  'Center
-      BackColor       =   &H00000000&
+      BackColor       =   &H00404000&
       BorderStyle     =   1  'Fixed Single
       Caption         =   "Sin Reproducción actual"
       BeginProperty Font 
          Name            =   "Verdana"
-         Size            =   12
+         Size            =   9.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -462,39 +449,17 @@ Begin VB.Form frmIndex
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00C0FFFF&
-      Height          =   360
-      Left            =   0
+      Height          =   315
+      Left            =   1500
       TabIndex        =   0
-      Top             =   7200
+      Top             =   6840
       UseMnemonic     =   0   'False
-      Width           =   9435
+      Width           =   8265
    End
-   Begin VB.Label lblDEMO 
+   Begin VB.Label lblTEMAS 
       Alignment       =   2  'Center
       BackColor       =   &H00000000&
-      BorderStyle     =   1  'Fixed Single
-      Caption         =   "Solicite la version definitiva a info@tbrsoft.com / avazquez@cpcipc.org"
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   11.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00C0FFFF&
-      Height          =   330
-      Left            =   0
-      TabIndex        =   17
-      Top             =   8670
-      UseMnemonic     =   0   'False
-      Width           =   10650
-   End
-   Begin VB.Label lblProximoTema 
-      BackColor       =   &H00000040&
-      BorderStyle     =   1  'Fixed Single
-      Caption         =   "No hay próximo tema"
+      Caption         =   "Temas del disco elegido"
       BeginProperty Font 
          Name            =   "Arial"
          Size            =   8.25
@@ -505,16 +470,161 @@ Begin VB.Form frmIndex
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   810
-      Left            =   1680
+      Height          =   465
+      Left            =   10260
+      TabIndex        =   14
+      Top             =   1800
+      Visible         =   0   'False
+      Width           =   1710
+   End
+   Begin VB.Label lblModoVideo 
+      Alignment       =   2  'Center
+      BackColor       =   &H00000000&
+      Caption         =   "Discos en Modo Video"
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FFFFFF&
+      Height          =   435
+      Left            =   10260
+      TabIndex        =   11
+      Top             =   0
+      Visible         =   0   'False
+      Width           =   1740
+   End
+   Begin VB.Label lblPag 
+      Alignment       =   2  'Center
+      BackColor       =   &H00000000&
+      BorderStyle     =   1  'Fixed Single
+      Caption         =   "Pagina 88 de 88"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00E0E0E0&
+      Height          =   270
+      Left            =   1500
+      TabIndex        =   7
+      Top             =   7620
+      Width           =   2055
+   End
+   Begin VB.Label lblV 
+      Alignment       =   1  'Right Justify
+      BackColor       =   &H000040C0&
+      BackStyle       =   0  'Transparent
+      Caption         =   "version 8.88.888"
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H0000FFFF&
+      Height          =   285
+      Left            =   90
+      TabIndex        =   5
+      Top             =   8700
+      Width           =   1335
+   End
+   Begin VB.Label lblTiempoRestante 
+      Alignment       =   2  'Center
+      BackColor       =   &H00404000&
+      BorderStyle     =   1  'Fixed Single
+      Caption         =   "Falta: 00:00"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00C0FFFF&
+      Height          =   255
+      Left            =   30
+      TabIndex        =   1
+      Top             =   7080
+      Width           =   1440
+   End
+   Begin VB.Label LBLpORCtEMA 
+      BackColor       =   &H00C0C000&
+      BeginProperty Font 
+         Name            =   "Times New Roman"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00000000&
+      Height          =   135
+      Left            =   1500
       TabIndex        =   4
-      Top             =   7650
+      Top             =   7170
+      Width           =   8265
+   End
+   Begin VB.Label lblTOTdiscos 
+      Alignment       =   2  'Center
+      BackColor       =   &H00000000&
+      BorderStyle     =   1  'Fixed Single
+      Caption         =   "Disco 188 de 188"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00E0E0E0&
+      Height          =   270
+      Left            =   1500
+      TabIndex        =   3
+      Top             =   7320
+      Width           =   2055
+   End
+   Begin VB.Label lblDEMO 
+      Alignment       =   2  'Center
+      BackColor       =   &H00000000&
+      BorderStyle     =   1  'Fixed Single
+      Caption         =   "Solicite la version definitiva a info@tbrsoft.com / avazquez@cpcipc.org"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   9
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00C0FFFF&
+      Height          =   300
+      Left            =   1500
+      TabIndex        =   8
+      Top             =   8670
       UseMnemonic     =   0   'False
-      Width           =   6075
+      Width           =   8280
    End
    Begin VB.Label lblTBR 
       Alignment       =   2  'Center
-      BackColor       =   &H00C0FFFF&
+      BackColor       =   &H00808000&
       Caption         =   "Software desarrollado por tbrSoft www.tbrsoft.com - info@tbrsoft.com - avazquez@cpcipc.org."
       BeginProperty Font 
          Name            =   "Verdana"
@@ -525,11 +635,21 @@ Begin VB.Form frmIndex
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   210
-      Left            =   0
-      TabIndex        =   25
-      Top             =   8460
-      Width           =   10650
+      ForeColor       =   &H00000000&
+      Height          =   195
+      Left            =   1485
+      TabIndex        =   15
+      Top             =   8430
+      Width           =   8280
+   End
+   Begin VB.Image Image1 
+      BorderStyle     =   1  'Fixed Single
+      Height          =   1350
+      Left            =   30
+      Picture         =   "frmINDEX.frx":F17B
+      Stretch         =   -1  'True
+      Top             =   7620
+      Width           =   1440
    End
 End
 Attribute VB_Name = "frmIndex"
@@ -553,11 +673,92 @@ Public DuracionTema As Long 'duracion de todos los tenmas de un disco
 Dim TotalTema As Long 'duracion total
 Dim nDiscoSEL As Long 'del 0 al 5
 
+Private Sub cmdDiscoAd_Click()
+    Form_KeyDown TeclaDER, 0
+    Command1.SetFocus
+End Sub
+
+Private Sub cmdDiscoAd_KeyDown(KeyCode As Integer, Shift As Integer)
+    Form_KeyDown KeyCode, Shift
+End Sub
+
+Private Sub cmdDiscoAt_Click()
+    Form_KeyDown TeclaIZQ, 0
+    Command1.SetFocus
+End Sub
+
+Private Sub cmdDiscoAt_KeyDown(KeyCode As Integer, Shift As Integer)
+    Form_KeyDown KeyCode, Shift
+End Sub
+
+Private Sub cmdPagAd_Click()
+    Form_KeyDown TeclaPagAd, 0
+    Command1.SetFocus
+End Sub
+
+Private Sub cmdPagAd_KeyDown(KeyCode As Integer, Shift As Integer)
+    Form_KeyDown KeyCode, Shift
+End Sub
+
+Private Sub cmdPagAt_Click()
+    Form_KeyDown TeclaPagAt, 0
+    Command1.SetFocus
+End Sub
+
+Private Sub cmdPagAt_KeyDown(KeyCode As Integer, Shift As Integer)
+    Form_KeyDown KeyCode, Shift
+End Sub
+
+Private Sub COMM1_OnComm()
+    'identificar la señal
+    Select Case CStr(COMM1.CommEvent)
+        Case "3" 'cargar un credito
+            Form_KeyUp 81, 0
+        Case "4" 'subir volumen
+            Form_KeyDown 69, 0
+        Case "5" 'bajar volumen
+            Form_KeyDown 68, 0
+        Case "1001" 'terminar "W"
+            Form_KeyDown 87, 0
+    End Select
+    'una vez que carga uno debe parar todo un segundo para no tomar las repeticiones
+    COMM1.RThreshold = 0: COMM1.SThreshold = 0
+    'se deshabilito la recepcion de señal
+    
+    'espero un segundo
+    CC = Timer
+    Do While Timer < CC + 1
+        DoEvents
+    Loop
+    
+    'habilito de vuelta
+    COMM1.RThreshold = 1: COMM1.SThreshold = 1
+    
+    
+End Sub
+
+Private Sub Command1_Click()
+    Form_KeyDown TeclaOK, 0
+End Sub
+
 Private Sub Form_Activate()
     MostrarCursor False
+    'actualizar los precios
+    If TemasPorCredito = 1 Then
+        lblPrecios = "1 coin = " + CStr(TemasPorCredito) + " credito"
+    Else
+        lblPrecios = "1 coin = " + CStr(TemasPorCredito) + " creditos"
+    End If
+    If CreditosCuestaTema = 1 Then
+        lblPrecios = lblPrecios + vbCrLf + "1 credito = 1 tema"
+    Else
+        lblPrecios = lblPrecios + vbCrLf + CStr(CreditosCuestaTema) + " creditos = 1 tema"
+    End If
+        
     If HabilitarVUMetro Then
         If VU1.inHabilitado = False Then VU1.DoStart
     End If
+    
 End Sub
 
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
@@ -565,7 +766,28 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     'aqui se regsitran las presiones de las teclas elegidas
     Dim PagNum As Long
     Select Case KeyCode
-        Case 66
+        'subir o bajar volumen
+        Case 68 'es la D y baja el volumen
+            If frmIndex.MP3.IsPlaying Then
+                If VolumenIni <= 5 Then
+                    frmIndex.MP3.Volumen = 0
+                Else
+                    frmIndex.MP3.Volumen = VolumenIni - 5
+                End If
+                VolumenIni = frmIndex.MP3.Volumen
+            End If
+        Case 69 'es la E y sube el volumen
+            If frmIndex.MP3.IsPlaying Then
+                If VolumenIni >= 95 Then
+                    frmIndex.MP3.Volumen = 100
+                Else
+                    frmIndex.MP3.Volumen = VolumenIni + 5
+                End If
+                VolumenIni = frmIndex.MP3.Volumen
+            End If
+        Case 66 ' es la b y pasa al siguiente tema
+            'si es video ocultar la pantalla de video
+            If EsVideo Then picVideo.Visible = False
             EMPEZAR_SIGUIENTE
         Case TeclaPagAd
             PagNum = nDiscoGral \ (TapasMostradasH * TapasMostradasV)
@@ -594,25 +816,13 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                 lblTECLAS = TECLAS_PRES
             End If
         Case TeclaConfig
-            frmConfig.Show 1
-        Case TeclaNewFicha
-            'si ya hay 9 cargados se traga las fichas
-            If CREDITOS <= MaximoFichas Then
-                OnOffCAPS vbKeyScrollLock, True
-                CREDITOS = CREDITOS + TemasPorCredito
-                SumarContadorCreditos TemasPorCredito
-                'grabar cant de creditos
-                EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
-                If CREDITOS >= 10 Then
-                    lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
-                Else
-                    lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
-                End If
-            Else
-                'apagar el fichero electronico
-                OnOffCAPS vbKeyScrollLock, False
-            End If
+            
+            
+            
+             frmConfig.Show 1
+        
         Case TeclaIZQ
+            'BotonTouch2.Flash
             'ver si desplazo temas en modo video
             If ModoVideoSelTema Then
                 If TemaElegidoModoVideo > 0 Then
@@ -662,7 +872,6 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                     OrdenarListaTemaVideo
                 End If
             Else
-            
                 If nDiscoSEL = DiscosEnPagina - 1 Then
                     'ver si hay que pasar hojas
                     If PasarHoja Then
@@ -716,6 +925,12 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                         EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
                         If CREDITOS < 10 Then frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
                         If CREDITOS >= 10 Then frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+                        
+                        'grabar credito para validar
+                        'creditosValidar ya se cargo en load de frmindex
+                        CreditosValidar = CreditosValidar + TemasPorCredito
+                        EscribirArch1Linea SYSfolder + "\radilav.cfg", CStr(CreditosValidar)
+                        
                         Dim temaElegido As String
                         'lstext es una lista oculta  con datos completos
                         temaElegido = txtInLista(MATRIZ_TEMAS(TemaElegidoModoVideo), 0, ",")
@@ -830,14 +1045,40 @@ TOP10Show:
     FRMTOP10.Show 1
 End Sub
 
+Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
+    If KeyCode = TeclaNewFicha Then
+        'si ya hay 9 cargados se traga las fichas
+        If CREDITOS <= MaximoFichas Then
+            OnOffCAPS vbKeyScrollLock, True
+            CREDITOS = CREDITOS + TemasPorCredito
+            SumarContadorCreditos TemasPorCredito
+            'grabar cant de creditos
+            EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
+            If CREDITOS >= 10 Then
+                lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+            Else
+                lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+            End If
+            'grabar credito para validar
+            'creditosValidar ya se cargo en load de frmindex
+            CreditosValidar = CreditosValidar + TemasPorCredito
+            EscribirArch1Linea SYSfolder + "\radilav.cfg", CStr(CreditosValidar)
+        Else
+            'apagar el fichero electronico
+            OnOffCAPS vbKeyScrollLock, False
+        End If
+    End If
+End Sub
+
 Private Sub Form_Load()
+     RegistroDiario 'anota la fecha, hora y numero del contador
      '--------
-    If TypeVersion = "SUPERLICENCIA" Then
+    If TypeVersion = "SL" Then
         If FSO.FileExists(WINfolder + "\SL\indexchi.tbr") Then Image1.Picture = LoadPicture(WINfolder + "\SL\indexchi.tbr")
     End If
     '--------
     AjustarFRM Me, 12000
-    VU1.Visible = HabilitarVUMetro
+    'VU1.Visible = HabilitarVUMetro
     If TypeVersion = "DEMO" Then
         lblDEMO = "Este espacio sera suyo cuando adquiera la version full de 3PM"
     Else
@@ -847,11 +1088,9 @@ Private Sub Form_Load()
     'SE CARGAN EN ini YA ES configurable
     'TapasMostradasH = 4: TapasMostradasV = 3
     
-    'si no se ve el vumetro debo desplazar los controles
-    frDISCOS.Top = 0
-    frDISCOS.Left = 0
+    
     '-----------------
-    If TypeVersion = "SUPERLICENCIA" Then
+    If TypeVersion = "SL" Then
         If FSO.FileExists(WINfolder + "\SL\txtIDX.tbr") Then
             Set TE = FSO.OpenTextFile(WINfolder + "\SL\txtIDX.tbr", ForReading, False)
             Dim NewT As String
@@ -865,32 +1104,37 @@ Private Sub Form_Load()
         lblTBR = "Software desarrollado por tbrSoft www.tbrsoft.com - info@tbrsoft.com - avazquez@cpcipc.org."
     End If
     '-----------------
-    
-    If HabilitarVUMetro = False Then
-        frDISCOS.Width = VU1.Left + VU1.Width
-        lblTemaSonando.Width = lblTemaSonando.Width + VU1.Width
-        LBLpORCtEMA.Width = LBLpORCtEMA.Width + VU1.Width
-        Image1.Left = frDISCOS.Width - Image1.Width
-        lblV.Left = Image1.Left
-        lblProximoTema.Width = lblProximoTema.Width + VU1.Width
-        lblTOTdiscos.Left = lblTOTdiscos.Left + VU1.Width
-        lblTiempoRestante.Left = lblTiempoRestante.Left + VU1.Width
-        lblPag.Left = lblPag.Left + VU1.Width
-        lblTBR.Width = Image1.Left + Image1.Width
-        lblDEMO.Width = Image1.Left + Image1.Width
+    VU1.Width = Screen.Width
+    VU1.Left = 0: VU1.Top = 0
+    VU1.Height = lblTemaSonando.Top - 25
+    If HabilitarVUMetro Then
+        'que entre en el control
+        frDISCOS.Width = VU1.Width - (VU1.AnchoBarra * 2) - 50 'Screen.Width
+        frDISCOS.Left = VU1.AnchoBarra + 25 '0
     Else
-        frDISCOS.Left = 0
-        frDISCOS.Width = VU1.Left
-    End If
         
+        frDISCOS.Left = 0 ' tapa a las barras que no se usan 'VU1.Left + VU1.Width
+        frDISCOS.Width = VU1.Width ' Screen.Width - VU1.Width
+    End If
+    frDISCOS.Top = 0
     frDISCOS.Height = lblTemaSonando.Top
+    'ver si hay que mostrar el touch
+    MostrarTouch = LeerConfig("MostrarTouch", "0")
+    If MostrarTouch = False Then
+        Frame1.Visible = False 'frame del touch
+        lblTemaSonando.Width = lblTemaSonando.Width + Frame1.Width
+        LBLpORCtEMA.Width = LBLpORCtEMA.Width + Frame1.Width
+        lstProximos.Width = lstProximos.Width + Frame1.Width
+        lblTBR.Width = lblTBR.Width + Frame1.Width
+        lblDEMO.Width = lblDEMO.Width + Frame1.Width
+    End If
     'frDISCOS contiene los discos a mostrar
     'se debera calcualr el tamaño de cada discos asi como cantidad horizontal y vertical
     Dim AnchoTapaDisco As Long
     Dim AltoTapaDisco As Long
     'el alto de estos incluye tambien el lbldisco
     
-    AnchoTapaDisco = (frDISCOS.Width * 0.97 / TapasMostradasH)
+    AnchoTapaDisco = (frDISCOS.Width * 0.98 / TapasMostradasH)
     AltoTapaDisco = (frDISCOS.Height * 0.97 / TapasMostradasV)
     'ver cual es mayor para no permitir mucha distorsion
     'lo que se ajuste se agranda del espacio entrediscos
@@ -995,7 +1239,6 @@ Private Sub Form_Load()
     OnOffCAPS vbKeyScrollLock, True
     lblV = "versión " + Trim(Str(App.Major)) + "." + Trim(Str(App.Minor)) + "." + Trim(Str(App.Revision))
     lblTiempoRestante = "FALTA: " + "00:00"
-    lblTemasEnLista = "Pendientes: 0"
     'ocultar las etiquetas
     Me.AutoRedraw = AutoReDibuj
     Me.Left = Screen.Width / 2 - Me.Width / 2
@@ -1039,13 +1282,13 @@ Private Sub Form_Load()
             If FSO.FileExists(AP + "reini.tbr") Then
                 Set TE = FSO.OpenTextFile(AP + "reini.tbr", ForReading, False)
                 Dim TT As String 'cada tema
-                Dim Z As Integer 'contador de temas en lista anterior
-                Z = 1
+                Dim z As Integer 'contador de temas en lista anterior
+                z = 1
                 Do While Not TE.AtEndOfStream
                     TT = TE.ReadLine
-                    ReDim Preserve MATRIZ_LISTA(Z)
-                    MATRIZ_LISTA(Z) = TT
-                    Z = Z + 1
+                    ReDim Preserve MATRIZ_LISTA(z)
+                    MATRIZ_LISTA(z) = TT
+                    z = z + 1
                 Loop
                 TE.Close
             End If
@@ -1057,6 +1300,70 @@ Private Sub Form_Load()
             Timer1.Interval = 10000
     End Select
     Unload frmINI
+    
+    'ver si hay validacion por creditos
+    Validar = LeerConfig("Validar", "0")
+    If Validar Then
+        'ver si existe el archivo Creditos Validar
+        If FSO.FileExists(SYSfolder + "\radilav.cfg") Then
+            'leer el archivo de creditos vaildados
+            CreditosValidar = CLng(LeerArch1Linea(SYSfolder + "\radilav.cfg"))
+            'CodigoParaClaveActual busca el archivo con el numero que corresponde validar en este periodo de control
+        Else
+            EscribirArch1Linea SYSfolder + "\radilav.cfg", "0"
+            CreditosValidar = 0
+            CrearNuevoCodigoValidar 'graba el archivo con un numero al azar
+            'lo mantiene hasta que se genera uno nuevo al terminar el periodo de control
+        End If
+        'ver cual es el máximo y si hay que avisar
+        ValidarCada = LeerConfig("ValidarCada", "500")
+        AvisarAntes = LeerConfig("AvisarAntes", "50")
+        If CreditosValidar > ValidarCada - AvisarAntes Then
+            'solicitar una clave
+            'se podra saltear solo si todavia no llego al limite
+            
+            'uso el frmClave que tiene la variable publica ClaveIngresada
+            Dim ClaveCorrespondiente As String
+            ClaveCorrespondiente = ClaveParaValidar(CodigoParaClaveActual)
+            Dim QuedanC As Long
+            QuedanC = ValidarCada - CreditosValidar
+            If QuedanC > 0 Then
+                'CodigoParaClaveActual busca el archivo con el numero que corresponde validar en este periodo de control
+                MsgBox "Ingrese a continuacion su clave para continuar utilizando 3PM. " + vbCrLf + _
+                    "Debe enviar la administrador el codigo: " + vbCrLf + _
+                    CodigoParaClaveActual + vbCrLf + _
+                    "Puede todavia omitir esta clave. Solo le quedan " + CStr(QuedanC) + " creditos hasta que 3PM se inhabilite"
+            Else
+                MsgBox "De no ingresar la clave correspondiente 3PM no podra continuar. Ha llegado al limite de creditos posibles"
+            End If
+            
+            frmCLAVE.Show 1
+            If UCase(ClaveIngresada) <> UCase(ClaveCorrespondiente) Then
+                If QuedanC > 0 Then
+                    MsgBox "La clave es erronea!" + vbCrLf + _
+                        "Le quedan " + CStr(QuedanC) + " creditos por cargar antes que se inhabilite 3PM"
+                Else
+                    MsgBox "No podra seguir utilizando 3PM hasta que valide con la clave correspondiente"
+                    End
+                End If
+            Else
+                'todo OK. Cargo bien la clave
+                CreditosValidar = 0
+                EscribirArch1Linea SYSfolder + "\radilav.cfg", "0"
+                'empezar un nuevo periodo
+                CrearNuevoCodigoValidar 'graba el archivo con un numero al azar
+            End If
+        End If
+        lblValidar = "Val=" + CStr(ValidarCada) + "-Qued=" + CStr(ValidarCada - CreditosValidar) + "Actual=" + CStr(CreditosValidar) + " Codigo: " + CodigoParaClaveActual
+    
+    End If
+    On Error GoTo NoPort1
+    If COMM1.PortOpen = False Then COMM1.PortOpen = True
+    On Error GoTo 0
+    Exit Sub
+NoPort1:
+    
+    On Error GoTo 0
     Exit Sub
 ErrMP3:
     MsgBox Err.Description + " N°: " + Str(Err.Number)
@@ -1082,6 +1389,13 @@ Public Sub SelDisco(nDisco As Long)
     L(nDiscoGral).ForeColor = vbWhite
     L(nDiscoGral).BackColor = vbBlack
     LastDiscoSel = nDiscoGral 'para saber cual desactivar en unsel
+    TapaCD(nDiscoGral).BorderStyle = 1
+    'imgARROW.Top = TapaCD(nDiscoGral).Top + TapaCD(nDiscoGral).Height - imgARROW.Height
+    'imgArrow2.Top = TapaCD(nDiscoGral).Top + TapaCD(nDiscoGral).Height - imgArrow2.Height
+    'imgARROW.Left = TapaCD(nDiscoGral).Left
+    'imgArrow2.Left = TapaCD(nDiscoGral).Left + TapaCD(nDiscoGral).Width - imgARROW.Width
+    'imgARROW.ZOrder
+    'imgArrow2.ZOrder
     If EsVideo Then OrdenarListaModoVideo
     
 End Sub
@@ -1094,6 +1408,8 @@ Public Sub UnSelDisco(nDisco As Long)
     'seleccionar de la lista de solo video
     L(LastDiscoSel).ForeColor = vbBlack
     L(LastDiscoSel).BackColor = vbWhite
+    TapaCD(LastDiscoSel).BorderStyle = 0
+    
     If EsVideo Then OrdenarListaModoVideo
 End Sub
 
@@ -1190,6 +1506,7 @@ End Function
 
 Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
     MostrarCursor True
+    COMM1.PortOpen = False
     MP3.DoStop
     MP3.DoClose
     VU1.DoStop
@@ -1212,12 +1529,14 @@ End Sub
 Private Sub MP3_EndPlay()
     'volver a PasarHoja a su estado original
     PasarHoja = LeerConfig("PasarHoja", "1")
+    VU1.Width = Screen.Width
     If HabilitarVUMetro Then
-        frDISCOS.Width = VU1.Left
-        VU1.Top = 0
-        VU1.Height = Me.Height
+        frDISCOS.Width = VU1.Width - (VU1.AnchoBarra * 2) - 50 'Screen.Width - VU1.Width
+        frDISCOS.Left = VU1.AnchoBarra + 25 ' VU1.Width
+        'vu no se mueve si termina un video        'VU1.Top = 0        'VU1.Height = Me.Height
     Else
-        frDISCOS.Width = Me.Width
+        frDISCOS.Width = VU1.Width ' Screen.Width
+        frDISCOS.Left = 0
     End If
     frModoVideo.Visible = False
     lblModoVideo.Visible = False
@@ -1251,12 +1570,46 @@ Private Sub MP3_Played(SecondsPlayed As Long)
     wi = Ancho - Variacion * (SecondsPlayed - 2)
     If wi > 0 Then LBLpORCtEMA.Width = wi
     '=====================================
-    'poner en rem si es definitivo
     If TypeVersion = "DEMO" And SecondsPlayed > 126 And SecondsPlayed < TotalTema - 5 Then
         lblTemaSonando = "Tema Truncado. Version DEMO"
         MP3.DoStop
     End If
+    'cotar tambin en el gratuito
+    If TypeVersion = "DEMO2" And SecondsPlayed > 126 And SecondsPlayed < TotalTema - 5 Then
+        lblTemaSonando = "Tema Truncado. Version DEMO"
+        MP3.DoStop
+    End If
     '=====================================
+End Sub
+
+Private Sub MSComm1_OnComm()
+
+End Sub
+
+Private Sub TapaCD_Click(Index As Integer)
+    'nunca hay que pasar hojas
+    'nDiscoGral = nDiscoGral + (Index - nDiscoSEL)
+    nDiscoGral = Index 'si se cargan todas las imágenes al inicio index=nDiscoGral
+    
+    If nDiscoGral + 1 >= TOTAL_DISCOS Then
+        MsgBox "No existe el disco elegido!!. " + vbCrLf + _
+            "Carge discos desde el ADMINISTRADOR DE DISCOS en la " + vbCrLf + _
+            "página de configuracion (presionando la tecla 'C')"
+        Exit Sub
+    End If
+    
+    UnSelDisco nDiscoSEL
+    
+    Dim PagNum As Long
+    PagNum = nDiscoGral \ (TapasMostradasH * TapasMostradasV)
+    nDiscoSEL = Index - (PagNum * (TapasMostradasH * TapasMostradasV))
+    
+    SelDisco nDiscoSEL
+    
+    lblTOTdiscos = "Disco " + CStr(nDiscoGral + 1) + " de " + CStr(TOTAL_DISCOS)
+    
+    'totar la tecla de enar a disco
+    Form_KeyDown TeclaOK, 0
 End Sub
 
 Private Sub Timer1_Timer()
@@ -1274,8 +1627,8 @@ Private Sub Timer1_Timer()
             TemasDisponibles = TemasEnRank(0) 'todos los que se escucharon
         End If
         Randomize Timer
-        Z = Int(Rnd * TemasDisponibles)
-        Z = Z + 1
+        z = Int(Rnd * TemasDisponibles)
+        z = z + 1
         CC = 0
         If FSO.FileExists(AP + "ranking.tbr") = False Then
             FSO.CreateTextFile AP + "ranking.tbr", True
@@ -1290,7 +1643,7 @@ Private Sub Timer1_Timer()
         Do While Not TE.AtEndOfStream
             CC = CC + 1
             TT = TE.ReadLine
-            If CC = Z Then
+            If CC = z Then
                 Dim TemaAzar As String
                 TemaAzar = txtInLista(TT, 1, ",")
                 'si tuve los discos cargados en una unidad o una ubicación distinta a la que aparece
@@ -1325,8 +1678,8 @@ AZAR:
 BuscaMP3:
                     'siempre cae en el primer tema del primer directorio habilitado
                     Randomize Timer
-                    Dim a As Integer, ContA As Integer
-                    a = Int(Rnd * 1000) + 1
+                    Dim A As Integer, ContA As Integer
+                    A = Int(Rnd * 1000) + 1
                     Dim NombreMP3 As String: zz = 0
                     Dim temaMP As String
                     Do While zz < UBound(MTX10)
@@ -1338,7 +1691,7 @@ BuscaMP3:
                             temaMP = MTX10(zz) & "\" & NombreMP3
                             If FSO.FileExists(temaMP) Then
                                 ContA = ContA + 1
-                                If ContA >= a Then
+                                If ContA >= A Then
                                     CORTAR_TEMA = True 'este tema va cortado ya que es de 3PM para que haga ruido
                                     EjecutarTema temaMP, False
                                     'solo sale cueando encuentra un tema valido

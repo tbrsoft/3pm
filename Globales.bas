@@ -1,6 +1,13 @@
 Attribute VB_Name = "Globales"
-Public SUPERLICENCIA As Boolean 'permite cargar textos e imágenes personalizados
-
+Public MostrarTouch As Boolean
+Public ClaveAdmin As String
+'validar con clave cada x creditos
+Public Validar As Boolean
+Public ValidarCada As Long
+Public AvisarAntes As Long
+Public CreditosValidar As Long
+'--------------------------
+Public ArchREG As String 'archivo con los datos del registro
 Public textoUsuario As String
 
 Public CreditosCuestaTema As Long
@@ -16,22 +23,6 @@ Public SYSfolder As String
 Public WINfolder As String
 
 Public RankToPeople As Boolean 'expone o no el reank a los usuarios
-
-
-'para obtener info del procesador
-Public Declare Sub GetSystemInfo Lib "kernel32" (lpSystemInfo As SYSTEM_INFO)
-
-Public Type SYSTEM_INFO
-        dwOemID As Long
-        dwPageSize As Long
-        lpMinimumApplicationAddress As Long
-        lpMaximumApplicationAddress As Long
-        dwActiveProcessorMask As Long
-        dwNumberOrfProcessors As Long
-        dwProcessorType As Long
-        dwAllocationGranularity As Long
-        dwReserved As Long
-End Type
 
 
 Public TypeVersion As String
@@ -62,8 +53,8 @@ Public CargarIMGinicio As Boolean
 Public AutoReDibuj As Boolean
 Public TeclaDER As Integer 'integer es keycode en eventos del teclado
 Public TeclaIZQ As Integer
-Public TeclaPagAd As Long
-Public TeclaPagAt As Long
+Public TeclaPagAd As Integer
+Public TeclaPagAt As Integer
 Public TeclaOK As Integer
 Public TeclaESC As Integer
 Public TeclaNewFicha As Integer
@@ -147,25 +138,26 @@ Public Function txtInLista(lista As String, Orden As Long, Separador As String) 
 End Function
 
 Public Sub CargarProximosTemas()
-    'cargar lblProximoTema
+    On Error GoTo Errores
+    'cargar lstProximos
     Dim strProximos As String, TotTemas As Integer
     If UBound(MATRIZ_LISTA) = 0 Then
-        frmIndex.lblProximoTema = "No hay próximo tema"
+        frmIndex.lstProximos.Clear
+        frmIndex.lstProximos.AddItem "No hay próximo tema"
     Else
+        TotTemas = UBound(MATRIZ_LISTA)
+        frmIndex.lstProximos.Clear
+        frmIndex.lstProximos.AddItem "TEMAS PENDIENTES (" + CStr(TotTemas) + ")"
         For c = 1 To UBound(MATRIZ_LISTA)
-            'el indice 0 no existe ni existira por eso el C+1
-            strProximos = strProximos + QuitarNumeroDeTema(txtInLista(MATRIZ_LISTA(c), 1, ","))
-            If c = UBound(MATRIZ_LISTA) Then
-                strProximos = strProximos + " ////"
-            Else
-                strProximos = strProximos + " => " 'vbCrLf
-            End If
+            'el indice 0 no existe ni existira por eso el C=1
+            strProximos = QuitarNumeroDeTema(txtInLista(MATRIZ_LISTA(c), 1, ","))
+            frmIndex.lstProximos.AddItem CStr(c) + "- " + strProximos
         Next
-        'frmIndex.lblProximoTema = "TEMAS PENDIENTES:" + vbCrLf + strProximos
-        frmIndex.lblProximoTema = "TEMAS PENDIENTES => " + strProximos
     End If
-    TotTemas = UBound(MATRIZ_LISTA)
-    frmIndex.lblTemasEnLista = "Pendientes: " + Trim(Str(TotTemas))
+    Exit Sub
+Errores:
+    WriteTBRLog "Error en Sub_CargarProximosTemas: " + Err.Description + " (" + CStr(Err.Number) + "). Se continua...", True
+    Resume Next
 End Sub
 
 Public Sub OnOffCAPS(vKey As KeyCodeConstants, PRENDER As Boolean)
@@ -276,7 +268,7 @@ End Function
 
 
 Public Sub CargarArchReini(ModoReini As String)
-    
+    On Error GoTo Errores
     Set TE = FSO.CreateTextFile(AP + "reini.tbr", True)
     Select Case ModoReini
         Case "FULL" 'tema actual + lista posterior
@@ -299,6 +291,10 @@ Public Sub CargarArchReini(ModoReini As String)
             TE.WriteLine ""
             TE.Close
     End Select
+    Exit Sub
+Errores:
+    WriteTBRLog "Error en CargarArchReIni: " + Err.Description + " (" + CStr(Err.Number) + "). Se continua...", True
+    Resume Next
 End Sub
 
 Public Function STRceros(n As Variant, Cifras As Integer) As String
@@ -354,6 +350,7 @@ Public Sub VerClaves(CLAVE As String)
         Else
             frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
         End If
+        
         CLAVE = "11111222223333344444" 'anular para que no se siga cargando
     End If
 End Sub
@@ -384,30 +381,106 @@ Public Sub AjustarFRM(FRM As Form, HechoParaTwipsHoriz)
 End Sub
 
 Public Function LeerConfig(Conf As String, ValDefault As String) As String
-    ''usar desde el registro
-    'LeerConfig = GetSetting("3PM", "Config", Conf, ValDefault)
     
     'leer el archivo de configuracion y devolver valor
     LeerConfig = "NO EXISTE"
     
     Dim TXT As String, CFG As String, RST As String
-    If FSO.FileExists(AP + "config.tbr") Then
-        Set TE = FSO.OpenTextFile(AP + "config.tbr", ForReading, False)
-        Do While Not TE.AtEndOfStream
-            TXT = TE.ReadLine
-            CFG = Trim(txtInLista(TXT, 0, "=")) 'la configuracion
-            If UCase(CFG) = UCase(Conf) Then
-                RST = Trim(txtInLista(TXT, 1, "=")) 'el valor
-                LeerConfig = RST
-                Exit Do
-            End If
-        Loop
+    If FSO.FileExists(SYSfolder + "\3pmcfg.tbr") Then
+        Set TE = FSO.OpenTextFile(SYSfolder + "\3pmcfg.tbr", ForReading, False)
+            Dim FullConfig As String
+            FullConfig = TE.ReadAll
+        TE.Close
+        'desencriptar
+        FullConfig = Encriptar(FullConfig, True)
+        'escribir un temporal desencriptado
+        Set TE = FSO.CreateTextFile(AP + "tmp.tbr", True)
+            TE.Write FullConfig
+        TE.Close
+        Set TE = FSO.OpenTextFile(AP + "tmp.tbr", ForReading, False)
+            Do While Not TE.AtEndOfStream
+                TXT = TE.ReadLine
+                CFG = Trim(txtInLista(TXT, 0, "=")) 'la configuracion
+                If UCase(CFG) = UCase(Conf) Then
+                    RST = Trim(txtInLista(TXT, 1, "=")) 'el valor
+                    LeerConfig = RST
+                    Exit Do
+                End If
+            Loop
+        TE.Close
+        'borrar el temporal
+        FSO.DeleteFile AP + "tmp.tbr", True
     End If
     If LeerConfig = "NO EXISTE" Then
         'cargar el valor por defecto
         LeerConfig = ValDefault
     End If
         
+End Function
+
+Public Function Encriptar(Valor, UnEncrypt As Boolean) As String
+    'con esta funcion se puede encriptar y desencriptar
+    'la uso para el SYSfolder + "3pmcfg.tbr"
+    
+    'para saber si estoy leyendo algo encrytado le pongo algo identificativo
+    Dim IdEstaEncryptado As String
+    IdEstaEncryptado = "RMLVF"
+    'encripta cualquier cosa y la transforma en string
+    Dim ToEncrypt As String
+    ToEncrypt = CStr(Valor)
+    
+    Dim Largo As Long, IND As Long, Letra As String, LetraE As String
+    Dim FullE As String 'resultado de la encryptacion
+    'ver si lo que se ingreso ya esta encrptado
+    If UCase(Left(ToEncrypt, Len(IdEstaEncryptado))) = IdEstaEncryptado Then
+        'ya esta encriptado
+        If UnEncrypt Then
+            'DESNCRIPTAR!!!
+            'cambiar uno por uno los codigos
+            Largo = Len(ToEncrypt)
+            'empeiza despues del marcador
+            For IND = Len(IdEstaEncryptado) + 1 To Largo
+                Letra = Mid(ToEncrypt, IND, 1)
+                'pasar todo a una letra distinta. Los saltos de carro no usarlos
+                Select Case Letra
+                    Case "0"
+                        LetraE = vbCrLf
+                    Case Else
+                        LetraE = Chr(Asc(Letra) - 10)
+                End Select
+                FullE = FullE + LetraE
+            Next
+            Encriptar = FullE
+        Else
+            'no se puede encyprtar lo encryptado
+            Encriptar = ToEncrypt
+            Exit Function
+        End If
+    Else
+        If UnEncrypt Then
+            'no se puede desdencryptar lo desencryptado
+            Encriptar = ToEncrypt
+            Exit Function
+        Else
+            'Encriptar!!!!
+            'cambiar uno por uno los codigos
+            Largo = Len(ToEncrypt)
+            For IND = 1 To Largo
+                Letra = Mid(ToEncrypt, IND, 1)
+                'pasar todo a una letra distinta. Los saltos de carro no usarlos
+                Select Case Letra
+                    Case vbCrLf ' Or vbCr
+                        LetraE = "0"
+                    Case Else
+                        LetraE = Chr(Asc(Letra) + 10)
+                End Select
+                FullE = FullE + LetraE
+            Next
+            Encriptar = IdEstaEncryptado + FullE
+        End If
+        
+    End If
+    
 End Function
 
 Public Sub WriteTBRLog(TXT As String, PonerFecha As Boolean)

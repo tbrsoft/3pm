@@ -27,12 +27,17 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
         With frmIndex
             .frModoVideo.Left = Screen.Width - .frModoVideo.Width
             .frTEMAS.Left = Screen.Width - .frTEMAS.Width
+            'en principio los discos ocupan todo
             .frModoVideo.Height = .frDISCOS.Height - .lblModoVideo.Height
             .frModoVideo.Visible = True
             .lblModoVideo.Visible = True
-            .frDISCOS.Width = Screen.Width - .frModoVideo.Width
-            .VU1.Top = .frDISCOS.Height
-            .VU1.Height = Screen.Height - .frDISCOS.Height
+            .VU1.Width = Screen.Width - .frModoVideo.Width
+            If HabilitarVUMetro Then
+                .frDISCOS.Width = .VU1.Width - (.VU1.AnchoBarra * 2) - 50
+            Else
+                .frDISCOS.Width = .VU1.Width ' Screen.Width - .frModoVideo.Width
+            End If
+            'vu ahora no se cambia        .VU1.Top = .frDISCOS.Height            '.VU1.Height = Screen.Height - .frDISCOS.Height
             .picVideo.Top = 0
             .picVideo.Left = 0
             .picVideo.Width = .frDISCOS.Width
@@ -47,12 +52,16 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
         EsVideo = False
         'acomodar los controles en modo normal
         With frmIndex
+            .VU1.Width = Screen.Width
             If HabilitarVUMetro Then
-                .frDISCOS.Width = .VU1.Left
-                .VU1.Top = 0
-                .VU1.Height = Screen.Height
+                .frDISCOS.Left = .VU1.AnchoBarra + 25 ' .VU1.Width
+                .frDISCOS.Width = .VU1.Width - (.VU1.AnchoBarra * 2) - 50
+                '.frDISCOS.Width = Screen.Width - .VU1.Width
+                'vu no se mueve         .VU1.Top = 0                '.VU1.Height = Screen.Height
             Else
-                .frDISCOS.Width = .Width
+                'si viene de un video se tiene que ensanchar
+                .frDISCOS.Width = .VU1.Width ' Screen.Width
+                .frDISCOS.Left = 0
             End If
             .frModoVideo.Visible = False
             .lblModoVideo.Visible = False
@@ -121,7 +130,8 @@ Public Sub EMPEZAR_SIGUIENTE()
                     'cuando sea el ultimo
                     'redefinir la matriz con un indice menos
                     ReDim Preserve MATRIZ_LISTA(c - 1)
-                    .lblProximoTema = "No hay próximo tema"
+                    .lstProximos.Clear
+                    .lstProximos.AddItem "No hay próximo tema"
                 End If
             Next
             CORTAR_TEMA = False 'este tema va entero ya que lo eligio el usuario
@@ -136,12 +146,14 @@ Public Sub EMPEZAR_SIGUIENTE()
             OnOffCAPS vbKeyCapital, False
             .lblTemaSonando = "Sin reproduccion actual"
             .lblPuesto = "No Rank"
-            .lblProximoTema = "No hay próximo tema"
+            .lstProximos.Clear
+            .lstProximos.AddItem "No hay próximo tema"
             .lblTiempoRestante = "FALTA: " + "00:00"
             .LBLpORCtEMA.Width = .lblTemaSonando.Width
             TEMA_REPRODUCIENDO = "Sin reproduccion actual"
             If HabilitarVUMetro Then frmIndex.VU1.CarFantastic = True
             EsVideo = False 'no estamos rep video
+            frmIndex.MP3.DoClose
         End If
     End With
 End Sub
@@ -154,7 +166,7 @@ Public Sub TOP10(nameARCH As String, nameTEMA As String, nameDISCO As String)
     End If
     
     Dim TT As String
-    Dim mtxTOP10() As String, Z As Integer
+    Dim mtxTOP10() As String, z As Integer
     Dim ThisArch As String
     Dim ThisTEMA As String
     Dim ThisDISCO As String
@@ -172,12 +184,12 @@ Public Sub TOP10(nameARCH As String, nameTEMA As String, nameDISCO As String)
         'cada linea es "puntos,arch,nombretema,nombredisco"
         TT = TE.ReadLine
         If TT <> "" Then
-            Z = Z + 1
+            z = z + 1
             ThisPTS = Val(txtInLista(TT, 0, ","))
             ThisArch = txtInLista(TT, 1, ",")
             ThisTEMA = txtInLista(TT, 2, ",")
             ThisDISCO = txtInLista(TT, 3, ",")
-            ReDim Preserve mtxTOP10(Z)
+            ReDim Preserve mtxTOP10(z)
             'comparar este tema con el elegido actual
             
             If UCase(Trim(nameARCH)) = UCase(Trim(ThisArch)) Then
@@ -191,15 +203,15 @@ Public Sub TOP10(nameARCH As String, nameTEMA As String, nameDISCO As String)
                 ArchivoNuevo = ThisArch
                 Encontrado = True
             End If
-            mtxTOP10(Z) = TT
+            mtxTOP10(z) = TT
         End If
     Loop
      TE.Close
     'ver si el archivo habia sido votado
     If Encontrado = False Then
         TT = "1," + Trim(nameARCH) + "," + Trim(nameTEMA) + "," + Trim(nameDISCO)
-        ReDim Preserve mtxTOP10(Z + 1)
-        mtxTOP10(Z + 1) = TT
+        ReDim Preserve mtxTOP10(z + 1)
+        mtxTOP10(z + 1) = TT
         PTnuevo = 1
         DatoNuevoFull = TT
         ArchivoNuevo = nameARCH
@@ -243,8 +255,6 @@ End Sub
 
 Public Sub SumarContadorCreditos(valorSUMAR As Long)
     Dim ARCHcont As String
-    
-    
     'ver el valor en win
     ARCHcont = WINfolder + "\nnr.dll"
     If FSO.FileExists(ARCHcont) Then

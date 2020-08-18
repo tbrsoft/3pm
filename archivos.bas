@@ -20,16 +20,16 @@ End Sub
 
 
 Public Sub MostrarCursor(Mostrar As Boolean)
-    Dim a As Long
+    Dim A As Long
     If Mostrar Then
-        a = 0
-        Do While a < 1
-            a = ShowCursor(1) 'suma uno
+        A = 0
+        Do While A < 1
+            A = ShowCursor(1) 'suma uno
         Loop
     Else
-        a = 1
-        Do While a >= 0
-            a = ShowCursor(0) 'suma uno
+        A = 1
+        Do While A >= 0
+            A = ShowCursor(0) 'suma uno
         Loop
     End If
 End Sub
@@ -59,22 +59,22 @@ Function ObtenerArchivos(path As String, EXT As String) As String()
         'devuelve path,nombrearchivo
         If Right(path, 1) <> "\" Then path = path + "\"
         Dim Resultado() As String
-        Dim NombreArchivo As String, CONTADOR As Long, Ruta2 As String
+        Dim NombreArchivo As String, ContadorArch As Long, Ruta2 As String
         Const ALLOC_CHUNK = 50
         ReDim Resultado(0 To ALLOC_CHUNK) As String
         NombreArchivo = Dir$(path + EXT)
         Do While Len(NombreArchivo)
-            CONTADOR = CONTADOR + 1
-            If CONTADOR > UBound(Resultado) Then
+            ContadorArch = ContadorArch + 1
+            If ContadorArch > UBound(Resultado) Then
                 ' cambia el tamaño del array resultado, si es necesario
-                ReDim Preserve Resultado(0 To CONTADOR + ALLOC_CHUNK) As String
+                ReDim Preserve Resultado(0 To ContadorArch + ALLOC_CHUNK) As String
             End If
-            Resultado(CONTADOR) = path + NombreArchivo + "," + NombreArchivo
+            Resultado(ContadorArch) = path + NombreArchivo + "," + NombreArchivo
             ' queda preparado para la siguiente iteración
             NombreArchivo = Dir$
         Loop
         'devuelve el array resultado
-        ReDim Preserve Resultado(0 To CONTADOR) As String
+        ReDim Preserve Resultado(0 To ContadorArch) As String
         ObtenerArchivos = Resultado
 End Function
 
@@ -109,7 +109,7 @@ Function ObtenerDir(ruta As String) As String()
         Dim ParaMatriz As String 'para generar cada elemento de la matriz
         Dim ContadorCarp As Long, CantMP3 As Long
         Dim Resultado() As String
-        Dim NombreDir As String, CONTADOR As Long, Ruta2 As String
+        Dim NombreDir As String, ContadorArch As Long, Ruta2 As String
         Const ALLOC_CHUNK = 50
         ReDim Resultado(ALLOC_CHUNK) As String
         ' genera el nombre de ruta + barra invertida
@@ -127,14 +127,14 @@ Function ObtenerDir(ruta As String) As String()
                     'pasar al que sigue
                     GoTo NextCarp
                 End If
-                CONTADOR = CONTADOR + 1
+                ContadorArch = ContadorArch + 1
                                 
-                frmINI.lblINI = "Contando Discos: " + Trim(Str(CONTADOR))
+                frmINI.lblINI = "Contando Discos: " + Trim(Str(ContadorArch))
                 frmINI.lblINI.Refresh
-                If CONTADOR > UBound(Resultado) Then
+                If ContadorArch > UBound(Resultado) Then
                     ' cambia el tamaño del array resultante, si
                     ' en necesario
-                    ReDim Preserve Resultado(CONTADOR + ALLOC_CHUNK) As String
+                    ReDim Preserve Resultado(ContadorArch + ALLOC_CHUNK) As String
                 End If
                 
                 frmINI.PBar.Width = frmINI.PBar.Width + 100
@@ -152,14 +152,22 @@ Function ObtenerDir(ruta As String) As String()
                 End If
                 ParaMatriz = Ruta2 & NombreDir + "," + NombreDir
                 
-                Resultado(CONTADOR) = ParaMatriz
+                Resultado(ContadorArch) = ParaMatriz
 NextCarp:
                 '=============================================================================
                 '=============================================================================
-                'poner en rem si es version sin limite de discos
                 Dim MD
                 MD = 12
-                If TypeVersion = "DEMO" And CONTADOR > MD Then
+                If TypeVersion = "DEMO" And ContadorArch > MD Then
+                    'limite de discos
+                    MsgBox "Esta es una version demo y no se pueden cargar más " + _
+                    "de " + Trim(Str(MD)) + " discos." + vbCrLf + _
+                    "Para conseguir la versión sin límite de discos y con el manual " + _
+                    "completo envie un e-mail a tbrsoft@hotmail.com o a " + _
+                    "avazquez@cpcipc.org. Solo se cargaran los " + Trim(Str(MD)) + " primeros discos"
+                    GoTo Solo12
+                End If
+                If TypeVersion = "DEMO2" And ContadorArch > MD Then
                     'limite de discos
                     MsgBox "Esta es una version demo y no se pueden cargar más " + _
                     "de " + Trim(Str(MD)) + " discos." + vbCrLf + _
@@ -178,7 +186,7 @@ Solo12: 'solo los 12 primeros
         frmINI.PBar.Width = MaxPBAR
         TOTAL_DISCOS = ContadorCarp
         ' proporciona el array resultante
-        ReDim Preserve Resultado(CONTADOR) As String
+        ReDim Preserve Resultado(ContadorArch) As String
         
         'tomar la matriz (con valores separador) y ordenala en base a la columna indicada.
         'en este caso el separador es "," y la columna es 0.
@@ -478,7 +486,7 @@ End Sub
 
 Function BuscarArchTexto(ruta As String, buscar As String) As Variant()
     Dim fil As Scripting.File, ts As Scripting.TextStream
-    Dim pos As Long, CONTADOR As Long
+    Dim pos As Long, ContadorArch As Long
     ReDim Resultado(50) As Variant
     ' buscar for all the TXT files in the directory
     For Each fil In FSO.GetFolder(ruta).Files
@@ -496,12 +504,12 @@ Function BuscarArchTexto(ruta As String, buscar As String) As Variant()
                 ' encuentra la cadena
                 ts.Skip pos - 1
                 ' llena el array resultado, hace sitio en caso necesario
-                CONTADOR = CONTADOR + 1
-                If CONTADOR > UBound(Resultado) Then
+                ContadorArch = ContadorArch + 1
+                If ContadorArch > UBound(Resultado) Then
                     ReDim Preserve Resultado(UBound(Resultado) + 50) As Variant
                 End If
                 ' cada array resultado tiene tres elementos
-                Resultado(CONTADOR) = Array(fil.path, ts.Line, ts.Column)
+                Resultado(ContadorArch) = Array(fil.path, ts.Line, ts.Column)
                 ' ahora podemos cerrar el TextStrem
                 ts.Close
             End If
@@ -509,7 +517,7 @@ Function BuscarArchTexto(ruta As String, buscar As String) As Variant()
     Next
     ' cambia el tamaño del array resultado para indicar el número de
     ' coincidencas
-    ReDim Preserve Resultado(0 To CONTADOR) As Variant
+    ReDim Preserve Resultado(0 To ContadorArch) As Variant
     BuscarArchTexto = Resultado
 End Function
 
@@ -539,7 +547,6 @@ Public Function LeerArch1Linea(Arch As String) As String
 End Function
 
 Public Sub EscribirArch1Linea(Arch As String, TXT As String)
-    
     Set TE = FSO.CreateTextFile(Arch, True)
     TE.WriteLine TXT
     TE.Close
@@ -555,7 +562,7 @@ Public Function ObtenerArchMM(Carpeta As String) As String()
     Dim TMPmatriz() As String
     ReDim Preserve TMPmatriz(0)
     'mp3
-    Dim NombreArchivo As String, CONTADOR As Long, NewName As String
+    Dim NombreArchivo As String, ContadorArch As Long, NewName As String
     NombreArchivo = Dir$(Carpeta + "*.mp3")
     Do While Len(NombreArchivo)
         'corregir el nombre del tema
@@ -570,9 +577,9 @@ Public Function ObtenerArchMM(Carpeta As String) As String()
                 NombreArchivo = NewName
             End If
         End If
-        CONTADOR = CONTADOR + 1
-        ReDim Preserve TMPmatriz(CONTADOR)
-        TMPmatriz(CONTADOR) = Carpeta + NombreArchivo + "," + NombreArchivo
+        ContadorArch = ContadorArch + 1
+        ReDim Preserve TMPmatriz(ContadorArch)
+        TMPmatriz(ContadorArch) = Carpeta + NombreArchivo + "," + NombreArchivo
         NombreArchivo = Dir$
     Loop
     
@@ -587,9 +594,9 @@ Public Function ObtenerArchMM(Carpeta As String) As String()
                 " por " + NewName + " en la carpeta " + Carpeta, True
             NombreArchivo = NewName
         End If
-        CONTADOR = CONTADOR + 1
-        ReDim Preserve TMPmatriz(CONTADOR)
-        TMPmatriz(CONTADOR) = Carpeta + NombreArchivo + "," + NombreArchivo
+        ContadorArch = ContadorArch + 1
+        ReDim Preserve TMPmatriz(ContadorArch)
+        TMPmatriz(ContadorArch) = Carpeta + NombreArchivo + "," + NombreArchivo
         NombreArchivo = Dir$
     Loop
     
@@ -604,9 +611,9 @@ Public Function ObtenerArchMM(Carpeta As String) As String()
                 " por " + NewName + " en la carpeta " + Carpeta, True
             NombreArchivo = NewName
         End If
-        CONTADOR = CONTADOR + 1
-        ReDim Preserve TMPmatriz(CONTADOR)
-        TMPmatriz(CONTADOR) = Carpeta + NombreArchivo + "," + NombreArchivo
+        ContadorArch = ContadorArch + 1
+        ReDim Preserve TMPmatriz(ContadorArch)
+        TMPmatriz(ContadorArch) = Carpeta + NombreArchivo + "," + NombreArchivo
         NombreArchivo = Dir$
     Loop
     
@@ -621,9 +628,9 @@ Public Function ObtenerArchMM(Carpeta As String) As String()
                 " por " + NewName + " en la carpeta " + Carpeta, True
             NombreArchivo = NewName
         End If
-        CONTADOR = CONTADOR + 1
-        ReDim Preserve TMPmatriz(CONTADOR)
-        TMPmatriz(CONTADOR) = Carpeta + NombreArchivo + "," + NombreArchivo
+        ContadorArch = ContadorArch + 1
+        ReDim Preserve TMPmatriz(ContadorArch)
+        TMPmatriz(ContadorArch) = Carpeta + NombreArchivo + "," + NombreArchivo
         NombreArchivo = Dir$
     Loop
     ObtenerArchMM = TMPmatriz

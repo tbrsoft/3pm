@@ -14,6 +14,26 @@ Begin VB.Form frmINI
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    WindowState     =   2  'Maximized
+   Begin VB.Label lblTipoLIC 
+      Alignment       =   2  'Center
+      BackColor       =   &H00000040&
+      Caption         =   "Iniciando 3PM. Licencia Full"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H000000C0&
+      Height          =   285
+      Left            =   7500
+      TabIndex        =   4
+      Top             =   60
+      Width           =   4440
+   End
    Begin VB.Image Image2 
       BorderStyle     =   1  'Fixed Single
       Height          =   1095
@@ -118,15 +138,30 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 
 Private Sub Form_Load()
+    MostrarCursor False
+    ClaveAdmin = "CBA7111levi09"
     VVV = "v " + Trim(Str(App.Major)) + "." + Trim(Str(App.Minor)) + "." + Trim(Str(App.Revision))
     '--------
-    If TypeVersion = "SUPERLICENCIA" Then
+    If TypeVersion = "SL" Then
         If FSO.FileExists(WINfolder + "\SL\imgbig.tbr") Then Image1.Picture = LoadPicture(WINfolder + "\SL\imgbig.tbr")
         If FSO.FileExists(WINfolder + "\SL\imgtbr.tbr") Then Image2.Picture = LoadPicture(WINfolder + "\SL\imgtbr.tbr")
+                
     End If
     '--------
+    Select Case TypeVersion
+        Case "SL"
+            lblTipoLIC = "Iniciando SUPERLICENCIA"
+        Case "FULL"
+            lblTipoLIC = "Iniciando 3PM. Licencia Full"
+        Case "DEMO2"
+            lblTipoLIC = "Iniciando Demo gratuito"
+        Case "DEMO"
+            lblTipoLIC = "Iniciando demo 3PM"
+    End Select
+    lblTipoLIC.Refresh
+            
     AjustarFRM Me, 12000
-    'leer el archivo de configuracion ap+"config.tbr"
+    'leer el archivo de configuracion SYSfolder + "3pmcfg.tbr"
     CargarIMGinicio = LeerConfig("CargarImagenInicio", "1")
     AutoReDibuj = LeerConfig("AutoReDraw", "1")
     TeclaDER = Val(LeerConfig("TeclaDerecha", "88"))
@@ -148,8 +183,8 @@ Private Sub Form_Load()
     PorcentajeTEMA = Val(LeerConfig("PorcentajeTema", "60"))
     FASTini = LeerConfig("FastIni", "1")
     HabilitarVUMetro = LeerConfig("HabilitarVUMetro", "1")
-    TapasMostradasH = Val(LeerConfig("DiscosH", "4"))
-    TapasMostradasV = Val(LeerConfig("DiscosV", "3"))
+    TapasMostradasH = Val(LeerConfig("DiscosH", "3"))
+    TapasMostradasV = Val(LeerConfig("DiscosV", "2"))
     PasarHoja = LeerConfig("Pasarhoja", "1")
     DistorcionarTapas = LeerConfig("DistorcionarTapas", "0")
     ProtectOriginal = LeerConfig("ProtectOriginal", "1")
@@ -197,12 +232,12 @@ Private Sub Form_Load()
         If FSO.FileExists(AP + "top10.jpg") Then
             FSO.CopyFile AP + "top10.jpg", AP + "discos\01- Los mas escuchados\tapa.jpg", True
         Else
-            MsgBox "No se encuentra el archivo de imagen del Ranking!. No se puede continuar"
+            MsgBox "No se encuentra el archivo de imagen del Ranking!. La instalacion de 3PM no es corecta!"
             End
         End If
     'End If
     If FSO.FileExists(AP + "tapa.jpg") = False Then
-        MsgBox "No se encuentra el archivo de imagen del Ranking!. No se puede continuar"
+        MsgBox "No se encuentra el archivo de imagen de las portadas predeterminadas!. La instalacion de 3PM no es corecta!"
         End
     End If
     'carpeta del protector
@@ -223,10 +258,10 @@ Private Sub Form_Load()
     End If
     lblINI = "Inicializando 3PM..."
     lblINI.Refresh
-    PBar.Width = 0
-    PBar.Refresh
+    pBar.Width = 0
+    pBar.Refresh
     Dim TT As String
-    Dim mtxTOP10() As String, Z As Integer
+    Dim mtxTOP10() As String, z As Integer
     Dim ThisArch As String
     Dim ThisTEMA As String
     Dim ThisDISCO As String
@@ -245,14 +280,14 @@ Private Sub Form_Load()
         'cada linea es "puntos,arch,nombretema,nombredisco"
         TT = TE.ReadLine
         If TT <> "" Then
-            Z = Z + 1
-            PBar.Width = Z * 10
+            z = z + 1
+            pBar.Width = z * 10
             ThisPTS = Val(txtInLista(TT, 0, ","))
             ThisArch = txtInLista(TT, 1, ",")
             ThisTEMA = txtInLista(TT, 2, ",")
             ThisDISCO = txtInLista(TT, 3, ",")
-            ReDim Preserve mtxTOP10(Z)
-            mtxTOP10(Z) = TT
+            ReDim Preserve mtxTOP10(z)
+            mtxTOP10(z) = TT
         End If
     Loop
      TE.Close
@@ -266,10 +301,10 @@ Private Sub Form_Load()
     Dim c As Long, mtx As Long, ValComp As Long
     c = 0 'cantidad de minimos encontrados
     Dim Ordenados() As Long 'matriz con los indices ordenados
-    PBar.Width = 0
-    PBar.Refresh
+    pBar.Width = 0
+    pBar.Refresh
     Do
-        PBar.Width = c * 10
+        pBar.Width = c * 10
         For mtx = 1 To UBound(mtxTOP10)
             'se compara por los puntos
             ValComp = Val(txtInLista(mtxTOP10(mtx), 0, ","))
@@ -288,8 +323,8 @@ Private Sub Form_Load()
         MaxPT = 0
     Loop
     'cargar todos y sacar la primera columna de las zetas
-    PBar.Width = 0
-    PBar.Refresh
+    pBar.Width = 0
+    pBar.Refresh
             
     Dim MTXsort() As String
     Set TE = FSO.CreateTextFile(AP + "ranking.tbr", True)
@@ -303,7 +338,7 @@ Private Sub Form_Load()
                 txtInLista(mtxTOP10(Ordenados(mtx)), 3, ",") + "," + _
                 txtInLista(mtxTOP10(Ordenados(mtx)), 4, ",")
             TE.WriteLine MTXsort(mtx)
-            PBar.Width = mtx * 10
+            pBar.Width = mtx * 10
         Else
             WriteTBRLog "limpiado del Rank: " + txtInLista(mtxTOP10(Ordenados(mtx)), 2, ","), False
             Limpiaron = Limpiaron + 1

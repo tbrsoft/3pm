@@ -1,5 +1,5 @@
 [Root]
-Most Recent Package=3pm 3.4
+Most Recent Package=3pm 3.5
 
 
 [Package|Paquete de instalación estándar 1|Root]
@@ -1035,5 +1035,182 @@ ServerSideCab=
 File1=d:\ahora\3pm\iii\setup.exe
 File2=d:\ahora\3pm\iii\Setup.Lst
 File3=d:\ahora\3pm\iii\3pm.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz
+
+
+[Package|3pm 3.5|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=d:\3PM for Windows ME
+
+[Package|3pm 3.5|Configure DAO ISAMs]
+Applicable=No
+
+[Package|3pm 3.5|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|3pm 3.5|Files Found]
+config.tbr=E:\ahora\3pm\config.tbr
+
+[Package|3pm 3.5|Files Released]
+inicio.grp=
+
+[Package|3pm 3.5|Missing Dependency Information]
+D:\ahora\3pm\ini.exe=
+E:\ahora\3pm\ini.exe=
+
+[Package|3pm 3.5|Out-of-Date Dependency Information]
+C:\WINDOWS\SYSTEM\scrrun.dll=
+C:\TBRWIN\SYSTEM\scrrun.dll=
+
+[Package|3pm 3.5|Files Added]
+e:\ahora\3pm\config.tbr=
+e:\ahora\3pm\manual.doc=
+e:\ahora\3pm\tapa.jpg=
+e:\ahora\3pm\top10.jpg=
+e:\ahora\3pm\logow.sys=
+e:\ahora\3pm\logos.sys=
+e:\ahora\3pm\logo.sys=
+e:\ahora\3pm\ini.exe=
+
+[Package|3pm 3.5|Files Removed]
+c:\windows\system\msvcrt.dll=
+d:\ahora\3pm\imgini\inicio.grp=
+d:\ahora\3pm\config.tbr=
+e:\ahora\3pm\config.tbr=
+c:\logo.sys=
+c:\windows\logos.sys=
+c:\windows\logow.sys=
+c:\tbrwin\system\msvcrt.dll=
+c:\tbrwin\system\msvbvm60.dll=
+c:\tbrwin\system\oleaut32.dll=
+c:\tbrwin\system\olepro32.dll=
+c:\tbrwin\system\asycfilt.dll=
+c:\tbrwin\system\stdole2.tlb=
+c:\archivos de programa\microsoft visual studio\vb98\wizards\pdwizard\redist\comcat.dll=
+
+[Package|3pm 3.5|Files In Project]
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=No
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+C:\TBRWIN\SYSTEM\MSVBVM60.DLL=No
+C:\TBRWIN\SYSTEM\OLEAUT32.DLL=No
+C:\TBRWIN\SYSTEM\OLEPRO32.DLL=No
+C:\TBRWIN\SYSTEM\ASYCFILT.DLL=No
+C:\TBRWIN\SYSTEM\STDOLE2.TLB=No
+C:\TBRWIN\SYSTEM\VB6ES.DLL=Yes
+C:\TBRWIN\SYSTEM\scrrun.dll=Yes
+C:\TBRWIN\SYSTEM\MSVCRT.DLL=No
+C:\TBRWIN\SYSTEM\scrrnes.dll=Yes
+C:\TBRWIN\SYSTEM\MSCOMM32.OCX=Yes
+C:\TBRWIN\SYSTEM\MSCOMES.DLL=Yes
+C:\TBRWIN\SYSTEM\VB6STKIT.DLL=Yes
+E:\ahora\3pm\3pm.exe=Yes
+E:\ahora\3pm\config.tbr=No
+E:\ahora\3pm\manual.doc=Yes
+E:\ahora\3pm\tapa.jpg=Yes
+E:\ahora\3pm\top10.jpg=Yes
+E:\ahora\3pm\logow.sys=Yes
+E:\ahora\3pm\LOGOS.SYS=Yes
+E:\ahora\3pm\logo.sys=Yes
+E:\ahora\3pm\ini.exe=Yes
+
+[Package|3pm 3.5|Configure Registry Files]
+Applicable=No
+
+[Package|3pm 3.5|Configure Remote Servers]
+Applicable=No
+
+[Package|3pm 3.5|Install Locations]
+D:\ahora\3pm\3pm.exe=$(AppPath)
+C:\WINDOWS\SYSTEM\MSVBVM60.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\STDOLE2.TLB=$(WinSysPathSysFile)
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\VB6ES.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM\scrrun.dll=$(WinSysPath)
+C:\WINDOWS\SYSTEM\scrrnes.dll=$(WinSysPath)
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINDOWS\SYSTEM\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+D:\ahora\3pm\config.tbr=$(AppPath)
+D:\ahora\3pm\Manual.doc=$(AppPath)
+D:\ahora\3pm\tapa.jpg=$(AppPath)
+D:\ahora\3pm\top10.jpg=$(AppPath)
+D:\ahora\3pm\imgINI\3pm\logow.sys=$(AppPath)
+D:\ahora\3pm\imgINI\3pm\logos.sys=$(AppPath)
+D:\ahora\3pm\imgINI\3pm\logo.sys=$(AppPath)
+D:\ahora\3pm\imgINI\INICIO.GRP=$(WinPath)
+D:\ahora\3pm\ini.exe=$(AppPath)
+E:\ahora\3pm\3pm.exe=$(AppPath)
+E:\ahora\3pm\manual.doc=$(AppPath)
+E:\ahora\3pm\tapa.jpg=$(AppPath)
+E:\ahora\3pm\top10.jpg=$(AppPath)
+C:\WINDOWS\logow.sys=$(WinSysPathSysFile)
+C:\WINDOWS\logos.sys=$(WinSysPathSysFile)
+E:\ahora\3pm\logo.sys=$(AppPath)
+E:\ahora\3pm\ini.exe=$(AppPath)
+C:\TBRWIN\SYSTEM\VB6ES.DLL=$(WinSysPath)
+C:\TBRWIN\SYSTEM\scrrun.dll=$(WinSysPath)
+C:\TBRWIN\SYSTEM\scrrnes.dll=$(WinSysPath)
+C:\TBRWIN\SYSTEM\MSCOMM32.OCX=$(WinSysPath)
+C:\TBRWIN\SYSTEM\MSCOMES.DLL=$(WinSysPath)
+C:\TBRWIN\SYSTEM\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\TBRWIN\SYSTEM\MSVBVM60.DLL=$(WinSysPathSysFile)
+C:\TBRWIN\SYSTEM\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\TBRWIN\SYSTEM\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\TBRWIN\SYSTEM\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\TBRWIN\SYSTEM\STDOLE2.TLB=$(WinSysPathSysFile)
+E:\ahora\3pm\config.tbr=$(AppPath)
+E:\ahora\3pm\logow.sys=$(WinSysPathSysFile)
+E:\ahora\3pm\LOGOS.SYS=$(WinSysPathSysFile)
+
+[Package|3pm 3.5|Configure Shared Files]
+Applicable=Yes
+D:\ahora\3pm\3pm.exe=No
+D:\ahora\3pm\config.tbr=No
+D:\ahora\3pm\Manual.doc=No
+D:\ahora\3pm\tapa.jpg=No
+D:\ahora\3pm\top10.jpg=No
+D:\ahora\3pm\imgINI\3pm\logow.sys=No
+D:\ahora\3pm\imgINI\3pm\logos.sys=No
+D:\ahora\3pm\imgINI\3pm\logo.sys=No
+D:\ahora\3pm\ini.exe=No
+E:\ahora\3pm\3pm.exe=No
+E:\ahora\3pm\manual.doc=No
+E:\ahora\3pm\tapa.jpg=No
+E:\ahora\3pm\top10.jpg=No
+E:\ahora\3pm\logo.sys=No
+E:\ahora\3pm\ini.exe=No
+E:\ahora\3pm\config.tbr=No
+
+[Package|3pm 3.5|Distribution]
+Type=single
+Size=720 KB
+Title=3pm 3.5 de tbrSoft
+
+[Package|3pm 3.5|IconGroups]
+Group0=3pm
+PrivateGroup0=Falso
+Parent0=$(Programs)
+
+[Package|3pm 3.5|3pm]
+Icon1=3pm.exe
+Title1=3pm
+StartIn1=$(AppPath)
+Key1=Icon1
+
+[Package|3pm 3.5|Package]
+PackageFolder=d:\3PM for Windows ME
+ProjectFolder=E:\ahora\3pm
+ServerSideCab=
+File1=d:\3PM for Windows ME\setup.exe
+File2=d:\3PM for Windows ME\Setup.Lst
+File3=d:\3PM for Windows ME\3pm.CAB
 Handler1=PDWizard.FolderDplySubWiz
 Handler2=PDWizard.WebPostDplySubWiz

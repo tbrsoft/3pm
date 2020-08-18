@@ -147,23 +147,7 @@ Dim IndMtxTapaVisible As Long
 
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     Select Case KeyCode
-        Case TeclaNewFicha
-            'si ya hay 9 cargados se traga las fichas
-            If CREDITOS <= MaximoFichas Then
-                OnOffCAPS vbKeyScrollLock, True
-                CREDITOS = CREDITOS + TemasPorCredito
-                SumarContadorCreditos TemasPorCredito
-                'grabar cant de creditos
-                EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
-                If CREDITOS >= 10 Then
-                    frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
-                Else
-                    frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
-                End If
-            Else
-                'apagar el fichero electronico
-                OnOffCAPS vbKeyScrollLock, False
-            End If
+        
         Case TeclaCerrarSistema
             OnOffCAPS vbKeyCapital, False
             If ApagarAlCierre Then APAGAR_PC
@@ -177,6 +161,33 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     Unload Me
 End Sub
 
+Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
+    If KeyCode = TeclaNewFicha Then
+        'si ya hay 9 cargados se traga las fichas
+        If CREDITOS <= MaximoFichas Then
+            OnOffCAPS vbKeyScrollLock, True
+            CREDITOS = CREDITOS + TemasPorCredito
+            SumarContadorCreditos TemasPorCredito
+            'grabar cant de creditos
+            EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
+            If CREDITOS >= 10 Then
+                frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+            Else
+                frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+            End If
+            
+            'grabar credito para validar
+            'creditosValidar ya se cargo en load de frmindex
+            CreditosValidar = CreditosValidar + TemasPorCredito
+            EscribirArch1Linea SYSfolder + "\radilav.cfg", CStr(CreditosValidar)
+            
+        Else
+            'apagar el fichero electronico
+            OnOffCAPS vbKeyScrollLock, False
+        End If
+    End If
+End Sub
+
 Private Sub Form_Load()
     Intervalo = 2
     AjustarFRM Me, 12000
@@ -185,14 +196,14 @@ Private Sub Form_Load()
     TopTit = 150: movTit = 40
     IndPicVisible = 0
     IndMtxTapaVisible = 0
-    Dim NombreDir As String, CONTADOR As Long
+    Dim NombreDir As String, ContadorArch As Long
     PicProtec(0).Stretch = ProtectOriginal
     PicProtec(1).Stretch = ProtectOriginal
     PicProtec(2).Stretch = ProtectOriginal
     PicProtec(3).Stretch = ProtectOriginal
     PicProtec(4).Stretch = ProtectOriginal
     PicProtec(5).Stretch = ProtectOriginal
-    lblDISCO.Visible = ProtectOriginal
+    lblDisco.Visible = ProtectOriginal
     'VER POR QUE NUMERO DE FOTO IVA
     NumFotoIni = Val(ReadSimpleFile)
     If ProtectOriginal Then
@@ -207,9 +218,9 @@ Private Sub Form_Load()
             Else
                 ' es un directorio
                 If FSO.FileExists(ruta & NombreDir + "\tapa.jpg") Then
-                    CONTADOR = CONTADOR + 1
-                    ReDim Preserve MTXtapas(CONTADOR) As String
-                    MTXtapas(CONTADOR) = ruta & NombreDir & "\tapa.jpg"
+                    ContadorArch = ContadorArch + 1
+                    ReDim Preserve MTXtapas(ContadorArch) As String
+                    MTXtapas(ContadorArch) = ruta & NombreDir & "\tapa.jpg"
                 End If
             End If
             NombreDir = Dir$
@@ -223,9 +234,9 @@ Private Sub Form_Load()
                 ' excluir las entradas "." y ".."
             ElseIf (GetAttr(ruta & NombreDir) And vbDirectory) = 0 Then
                 'este es un archivo normal
-                CONTADOR = CONTADOR + 1
-                ReDim Preserve MTXtapas(CONTADOR) As String
-                MTXtapas(CONTADOR) = ruta & NombreDir
+                ContadorArch = ContadorArch + 1
+                ReDim Preserve MTXtapas(ContadorArch) As String
+                MTXtapas(ContadorArch) = ruta & NombreDir
             Else
                 ' es un directorio
             End If
@@ -270,7 +281,7 @@ Private Sub Timer1_Timer()
         Dim DISCO As String
         DISCO = Left(MTXtapas(IndMtxTapaVisible), Len(MTXtapas(IndMtxTapaVisible)) - 9)
         DISCO = FSO.GetBaseName(DISCO)
-        lblDISCO = DISCO
+        lblDisco = DISCO
         PicProtec(IndPicVisible).Stretch = True
     Else
         'si es muy grande
@@ -298,16 +309,16 @@ Private Sub Timer1_Timer()
     End If
     
     Randomize Timer
-    b = lblDISCO.Top - PicProtec(IndPicVisible).Height
+    b = lblDisco.Top - PicProtec(IndPicVisible).Height
     If b < 150 Then b = 150 '150 es el tope del frmae
         
-    a = Int(Rnd * b)
-    PicProtec(IndPicVisible).Top = a
+    A = Int(Rnd * b)
+    PicProtec(IndPicVisible).Top = A
     
     Randomize Timer
     b = lblTIT.Left - PicProtec(IndPicVisible).Width
-    a = Int(Rnd * b)
-    PicProtec(IndPicVisible).Left = a
+    A = Int(Rnd * b)
+    PicProtec(IndPicVisible).Left = A
     
     PicProtec(IndPicVisible).Visible = True
 End Sub

@@ -555,13 +555,13 @@ End Sub
 Public Sub CargarCarpetas()
     lstCarpetas.Clear 'si no se duplican todos
     lstCarpetasShow.Clear
-    For a = 1 To UBound(MATRIZ_DISCOS)
+    For A = 1 To UBound(MATRIZ_DISCOS)
         Dim ThisFolder As String, TamTapa As Double
-        ThisFolder = txtInLista(MATRIZ_DISCOS(a), 0, ",")
+        ThisFolder = txtInLista(MATRIZ_DISCOS(A), 0, ",")
         'ver si existen o se borraron
         If FSO.FolderExists(ThisFolder) Then ' And ThisFolder <> AP + "discos\01- Los mas escuchados" Then
-            lstCarpetas.AddItem txtInLista(MATRIZ_DISCOS(a), 0, ",")
-            lstCarpetasShow.AddItem txtInLista(MATRIZ_DISCOS(a), 1, ",")
+            lstCarpetas.AddItem txtInLista(MATRIZ_DISCOS(A), 0, ",")
+            lstCarpetasShow.AddItem txtInLista(MATRIZ_DISCOS(A), 1, ",")
         End If
     Next
     lstCarpetasShow.Selected(0) = True
@@ -630,9 +630,9 @@ Private Sub Command6_Click()
         'pasar por todos los discos y medir de cada uno las escuchadas
         Dim ThisFolder As String
         Dim Carp As String
-        For a = 1 To UBound(MATRIZ_DISCOS)
-            Carp = txtInLista(MATRIZ_DISCOS(a), 1, ",")
-            ThisFolder = txtInLista(MATRIZ_DISCOS(a), 0, ",")
+        For A = 1 To UBound(MATRIZ_DISCOS)
+            Carp = txtInLista(MATRIZ_DISCOS(A), 1, ",")
+            ThisFolder = txtInLista(MATRIZ_DISCOS(A), 0, ",")
             'ver si existen o se borraron
             If FSO.FolderExists(ThisFolder) And ThisFolder <> AP + "discos\01- Los mas escuchados" Then
                 lstTODO.AddItem STRceros(ContarLisen(Carp), 4) + ": " + Carp
@@ -653,8 +653,8 @@ Private Sub Command7_Click()
     Dim TapasGrandes As Long, TapasMuyGrandes As Long
     TapasGrandes = 0: TapasMuyGrandes = 0
         
-    For a = 1 To UBound(MATRIZ_DISCOS)
-        ThisFolder = txtInLista(MATRIZ_DISCOS(a), 0, ",")
+    For A = 1 To UBound(MATRIZ_DISCOS)
+        ThisFolder = txtInLista(MATRIZ_DISCOS(A), 0, ",")
         If FSO.FileExists(ThisFolder + "\tapa.jpg") Then
             TamTapa = FileLen(ThisFolder + "\tapa.jpg")
             TamTapa = Round(TamTapa / 1024, 2)
@@ -698,23 +698,7 @@ End Sub
 
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     Select Case KeyCode
-        Case TeclaNewFicha
-            'si ya hay 9 cargados se traga las fichas
-            If CREDITOS <= MaximoFichas Then
-                OnOffCAPS vbKeyScrollLock, True
-                CREDITOS = CREDITOS + TemasPorCredito
-                SumarContadorCreditos TemasPorCredito
-                'grabar cant de creditos
-                EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
-                If CREDITOS >= 10 Then
-                    frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
-                Else
-                    frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
-                End If
-            Else
-                'apagar el fichero electronico
-                OnOffCAPS vbKeyScrollLock, False
-            End If
+        
         Case TeclaCerrarSistema
             OnOffCAPS vbKeyCapital, False
             If ApagarAlCierre Then APAGAR_PC
@@ -723,6 +707,33 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             frmIndex.MP3.DoClose
             End
     End Select
+End Sub
+
+Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
+    If KeyCode = TeclaNewFicha Then
+        'si ya hay 9 cargados se traga las fichas
+        If CREDITOS <= MaximoFichas Then
+            OnOffCAPS vbKeyScrollLock, True
+            CREDITOS = CREDITOS + TemasPorCredito
+            SumarContadorCreditos TemasPorCredito
+            'grabar cant de creditos
+            EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
+            If CREDITOS >= 10 Then
+                frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+            Else
+                frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+            End If
+            
+            'grabar credito para validar
+            'creditosValidar ya se cargo en load de frmindex
+            CreditosValidar = CreditosValidar + TemasPorCredito
+            EscribirArch1Linea SYSfolder + "\radilav.cfg", CStr(CreditosValidar)
+            
+        Else
+            'apagar el fichero electronico
+            OnOffCAPS vbKeyScrollLock, False
+        End If
+    End If
 End Sub
 
 Private Sub Form_Load()
@@ -747,8 +758,8 @@ Private Sub lstCarpetas_Click()
             lstTEMAS.AddItem "No hay temas multimedia en esta carpeta"
             lstTEMAS.Enabled = False
         Else
-            For a = 1 To UBound(MTXfiles)
-                lstTEMAS.AddItem txtInLista(MTXfiles(a), 1, ",")
+            For A = 1 To UBound(MTXfiles)
+                lstTEMAS.AddItem txtInLista(MTXfiles(A), 1, ",")
                 lstTEMAS.Enabled = True
             Next
         End If

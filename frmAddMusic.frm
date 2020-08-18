@@ -471,10 +471,6 @@ Private Sub Command1_Click()
     End If
 End Sub
 
-Private Sub Command2_Click()
-
-End Sub
-
 Private Sub Command3_Click()
     Unload Me
 End Sub
@@ -487,14 +483,14 @@ Public Sub BuscarCarpetasMM()
     Dim TMPfilesMM() As String
     lstCarConMM.Clear
     TotCarpMM = 0
-    For a = 1 To TotF
-        lblBAR = "Buscando en " + CarpsConMM(a)
-        PBar.Width = P.Width / TotF * a
+    For A = 1 To TotF
+        lblBAR = "Buscando en " + CarpsConMM(A)
+        PBar.Width = P.Width / TotF * A
         PBar.Refresh
-        TMPfilesMM = ObtenerArchMM(CarpsConMM(a))
+        TMPfilesMM = ObtenerArchMM(CarpsConMM(A))
         If UBound(TMPfilesMM) > 0 Then
             TotalArchMM = TotalArchMM + UBound(TMPfilesMM)
-            lstCarConMM.AddItem CarpsConMM(a) + ", " + CStr(UBound(TMPfilesMM)) + " archivos"
+            lstCarConMM.AddItem CarpsConMM(A) + ", " + CStr(UBound(TMPfilesMM)) + " archivos"
             lstCarConMM.Selected(TotCarpMM) = True
             TotCarpMM = TotCarpMM + 1
             Ltit = "Carpetas multimedia encontradas: " + CStr(TotCarpMM)
@@ -526,16 +522,16 @@ Private Sub Command4_Click()
     'ver cuantos archivos efectivamente se copiaran
     Dim TotalACopiar As Long 'no cuenta los que no son multimedia
     TotalACopiar = 0
-    For a = 0 To lstCarConMM.ListCount - 1
-        If lstCarConMM.Selected(a) Then
-            TotMM = Val(txtInLista(lstCarConMM.List(a), 1, ","))
+    For A = 0 To lstCarConMM.ListCount - 1
+        If lstCarConMM.Selected(A) Then
+            TotMM = Val(txtInLista(lstCarConMM.List(A), 1, ","))
             TotalACopiar = TotalACopiar + TotMM
         End If
     Next
-    For a = 0 To lstCarConMM.ListCount - 1
-        If lstCarConMM.Selected(a) Then
-            TotMM = Val(txtInLista(lstCarConMM.List(a), 1, ","))
-            Ubic = txtInLista(lstCarConMM.List(a), 0, ",")
+    For A = 0 To lstCarConMM.ListCount - 1
+        If lstCarConMM.Selected(A) Then
+            TotMM = Val(txtInLista(lstCarConMM.List(A), 1, ","))
+            Ubic = txtInLista(lstCarConMM.List(A), 0, ",")
             If Right(Ubic, 1) <> "\" Then Ubic = Ubic + "\"
             'hay que copiar solo los archivos MM
             SoloCarp = txtInLista(Ubic, 99998, "\") '99998 es el anteultimo
@@ -648,23 +644,23 @@ Public Function FindCarpsConMM(Carp As String) As String()
             ReDim Preserve FindCarpsConMM(0)
             Exit Function
         End If
-        For a = LastIni To LastFin
+        For A = LastIni To LastFin
             ContTotal = ContTotal + 1
             ReDim Preserve TodasLasCarpetas(ContTotal)
-            TodasLasCarpetas(ContTotal) = CarpetasEnQueBuscar(a)
-            Nivel2 = GetFolders(CarpetasEnQueBuscar(a)) 'el cero no existe
+            TodasLasCarpetas(ContTotal) = CarpetasEnQueBuscar(A)
+            Nivel2 = GetFolders(CarpetasEnQueBuscar(A)) 'el cero no existe
             If UBound(Nivel2) > 0 Then
                 Dim LastCBuscar
                 LastCBuscar = UBound(CarpetasEnQueBuscar)
-                For Z = 1 To UBound(Nivel2)
-                    ReDim Preserve CarpetasEnQueBuscar(LastCBuscar + Z)
-                    CarpetasEnQueBuscar(LastCBuscar + Z) = Nivel2(Z)
+                For z = 1 To UBound(Nivel2)
+                    ReDim Preserve CarpetasEnQueBuscar(LastCBuscar + z)
+                    CarpetasEnQueBuscar(LastCBuscar + z) = Nivel2(z)
                     AgregadosEnVuelta = AgregadosEnVuelta + 1
                 Next
                 GoTo NextMM
             Else
                 If LastFin = UBound(CarpetasEnQueBuscar) Then
-                    If a = LastFin Then
+                    If A = LastFin Then
                         'no tiene y es el ultimo
                         Exit Do
                     Else
@@ -684,7 +680,7 @@ End Function
 ' contenidos en una ruta
 Function GetFolders(ruta As String) As String()
         Dim Resultado() As String
-        Dim NombreDir As String, CONTADOR As Long
+        Dim NombreDir As String, ContadorArch As Long
         Dim Ruta2 As String
         ReDim Resultado(0) As String
         ' genera el nombre de ruta + barra invertida
@@ -698,27 +694,27 @@ Function GetFolders(ruta As String) As String()
                 ' este es un archivo normal
             Else
                 ' es un directorio
-                CONTADOR = CONTADOR + 1
-                ReDim Preserve Resultado(CONTADOR) As String
+                ContadorArch = ContadorArch + 1
+                ReDim Preserve Resultado(ContadorArch) As String
                 ' incluir la ruta si se pide
                 NombreDir = Ruta2 & NombreDir
-                Resultado(CONTADOR) = NombreDir
+                Resultado(ContadorArch) = NombreDir
             End If
             NombreDir = Dir$
         Loop
         
         ' proporciona el array resultante
-        ReDim Preserve Resultado(CONTADOR) As String
+        ReDim Preserve Resultado(ContadorArch) As String
         GetFolders = Resultado
 End Function
 
 Sub ShowDriveList()
     On Local Error Resume Next
-    Dim fs, d, dc, s, n
+    Dim fs, d, dc, S, n
     Set fs = CreateObject("Scripting.FileSystemObject")
     Set dc = fs.Drives
     For Each d In dc
-        s = s & d.DriveLetter & " - "
+        S = S & d.DriveLetter & " - "
         Select Case d.DriveType
             Case 0: T = "Desconocido"
             Case 1: T = "Separable"
@@ -732,30 +728,13 @@ Sub ShowDriveList()
         Else
             n = d.VolumeName
         End If
-        s = s & n & "Tipo: " & T & vbCrLf
+        S = S & n & "Tipo: " & T & vbCrLf
     Next
-    MsgBox s
+    MsgBox S
 End Sub
 
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     Select Case KeyCode
-        Case TeclaNewFicha
-            'si ya hay 9 cargados se traga las fichas
-            If CREDITOS <= MaximoFichas Then
-                OnOffCAPS vbKeyScrollLock, True
-                CREDITOS = CREDITOS + TemasPorCredito
-                SumarContadorCreditos TemasPorCredito
-                'grabar cant de creditos
-                EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
-                If CREDITOS >= 10 Then
-                    frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
-                Else
-                    frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
-                End If
-            Else
-                'apagar el fichero electronico
-                OnOffCAPS vbKeyScrollLock, False
-            End If
         Case TeclaCerrarSistema
             OnOffCAPS vbKeyCapital, False
             If ApagarAlCierre Then APAGAR_PC
@@ -764,6 +743,33 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             frmIndex.MP3.DoClose
             End
     End Select
+End Sub
+
+Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
+    If KeyCode = TeclaNewFicha Then
+        'si ya hay 9 cargados se traga las fichas
+        If CREDITOS <= MaximoFichas Then
+            OnOffCAPS vbKeyScrollLock, True
+            CREDITOS = CREDITOS + TemasPorCredito
+            SumarContadorCreditos TemasPorCredito
+            'grabar cant de creditos
+            EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
+            If CREDITOS >= 10 Then
+                frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+            Else
+                frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+            End If
+            
+            'grabar credito para validar
+            'creditosValidar ya se cargo en load de frmindex
+            CreditosValidar = CreditosValidar + TemasPorCredito
+            EscribirArch1Linea SYSfolder + "\radilav.cfg", CStr(CreditosValidar)
+            
+        Else
+            'apagar el fichero electronico
+            OnOffCAPS vbKeyScrollLock, False
+        End If
+    End If
 End Sub
 
 Private Sub Form_Load()

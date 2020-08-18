@@ -1,6 +1,6 @@
 VERSION 5.00
 Begin VB.Form frmREG 
-   BackColor       =   &H00000000&
+   BackColor       =   &H00404000&
    BorderStyle     =   4  'Fixed ToolWindow
    Caption         =   "Registro de 3PM"
    ClientHeight    =   8175
@@ -31,7 +31,7 @@ Begin VB.Form frmREG
       Height          =   435
       Left            =   3840
       Style           =   1  'Graphical
-      TabIndex        =   28
+      TabIndex        =   26
       Top             =   7470
       Width           =   3720
    End
@@ -48,7 +48,7 @@ Begin VB.Form frmREG
       EndProperty
       Height          =   405
       Left            =   2460
-      TabIndex        =   26
+      TabIndex        =   24
       Top             =   6360
       Width           =   6915
    End
@@ -56,13 +56,13 @@ Begin VB.Form frmREG
       BackColor       =   &H00404040&
       BorderStyle     =   0  'None
       Caption         =   "Frame1"
-      Height          =   3135
-      Left            =   30
+      Height          =   2385
+      Left            =   120
       TabIndex        =   15
       Top             =   60
       Visible         =   0   'False
-      Width           =   6915
-      Begin VB.TextBox txtEmpezarEnCaracter 
+      Width           =   11565
+      Begin VB.TextBox txtEmp3 
          Alignment       =   2  'Center
          BeginProperty Font 
             Name            =   "Arial"
@@ -74,41 +74,133 @@ Begin VB.Form frmREG
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00800000&
-         Height          =   345
-         Left            =   4530
-         TabIndex        =   27
+         Height          =   285
+         Left            =   4980
+         TabIndex        =   33
          TabStop         =   0   'False
-         Top             =   900
-         Width           =   2265
+         Top             =   840
+         Width           =   1665
       End
-      Begin VB.ListBox lstArchReg 
-         Height          =   1425
-         Left            =   120
-         TabIndex        =   21
-         Top             =   1650
-         Width           =   4395
+      Begin VB.TextBox txtEMP1 
+         Alignment       =   2  'Center
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   9
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00800000&
+         Height          =   285
+         Left            =   5010
+         TabIndex        =   32
+         TabStop         =   0   'False
+         Top             =   120
+         Width           =   1665
       End
-      Begin VB.TextBox txtCodigo 
+      Begin VB.TextBox txtGenCod 
          Alignment       =   2  'Center
          BeginProperty Font 
             Name            =   "Arial Narrow"
-            Size            =   9
+            Size            =   8.25
             Charset         =   0
             Weight          =   700
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         ForeColor       =   &H00800000&
-         Height          =   360
-         Left            =   120
+         ForeColor       =   &H000000C0&
+         Height          =   330
+         Left            =   90
          Locked          =   -1  'True
-         TabIndex        =   20
+         TabIndex        =   31
          TabStop         =   0   'False
-         Top             =   390
-         Width           =   4200
+         Top             =   810
+         Width           =   4800
       End
-      Begin VB.TextBox txtReserved 
+      Begin VB.TextBox txtGenCodSL 
+         Alignment       =   2  'Center
+         BeginProperty Font 
+            Name            =   "Arial Narrow"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H000000C0&
+         Height          =   330
+         Left            =   90
+         Locked          =   -1  'True
+         TabIndex        =   30
+         TabStop         =   0   'False
+         Top             =   1170
+         Width           =   4800
+      End
+      Begin VB.TextBox txtGenCodMIN 
+         Alignment       =   2  'Center
+         BeginProperty Font 
+            Name            =   "Arial Narrow"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H000000C0&
+         Height          =   330
+         Left            =   90
+         Locked          =   -1  'True
+         TabIndex        =   29
+         TabStop         =   0   'False
+         Top             =   450
+         Width           =   4800
+      End
+      Begin VB.TextBox TXTcODIGOminimo 
+         Alignment       =   2  'Center
+         BeginProperty Font 
+            Name            =   "Arial Narrow"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H000000C0&
+         Height          =   330
+         Left            =   6690
+         Locked          =   -1  'True
+         TabIndex        =   28
+         TabStop         =   0   'False
+         Top             =   90
+         Width           =   4800
+      End
+      Begin VB.TextBox txtCodSL 
+         Alignment       =   2  'Center
+         BeginProperty Font 
+            Name            =   "Arial Narrow"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H000000C0&
+         Height          =   330
+         Left            =   6690
+         Locked          =   -1  'True
+         TabIndex        =   27
+         TabStop         =   0   'False
+         Top             =   810
+         Width           =   4800
+      End
+      Begin VB.TextBox txtEmp2 
          Alignment       =   2  'Center
          BeginProperty Font 
             Name            =   "Arial"
@@ -120,13 +212,29 @@ Begin VB.Form frmREG
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00800000&
-         Height          =   315
-         Left            =   150
-         Locked          =   -1  'True
-         TabIndex        =   19
+         Height          =   285
+         Left            =   5010
+         TabIndex        =   25
          TabStop         =   0   'False
-         Top             =   60
-         Width           =   2655
+         Top             =   480
+         Width           =   1665
+      End
+      Begin VB.ListBox lstArchReg 
+         Columns         =   2
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   690
+         Left            =   150
+         TabIndex        =   19
+         Top             =   1530
+         Width           =   11235
       End
       Begin VB.TextBox txtCodToFind 
          Alignment       =   2  'Center
@@ -144,7 +252,7 @@ Begin VB.Form frmREG
          Left            =   120
          TabIndex        =   18
          TabStop         =   0   'False
-         Top             =   840
+         Top             =   60
          Width           =   3165
       End
       Begin VB.CommandButton cmdGENERATE 
@@ -152,32 +260,32 @@ Begin VB.Form frmREG
          Height          =   315
          Left            =   3330
          TabIndex        =   17
-         Top             =   900
+         Top             =   120
          Width           =   1095
       End
       Begin VB.TextBox txtCodGenerado 
          Alignment       =   2  'Center
          BeginProperty Font 
             Name            =   "Arial Narrow"
-            Size            =   9
+            Size            =   8.25
             Charset         =   0
             Weight          =   700
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         ForeColor       =   &H00800000&
-         Height          =   360
-         Left            =   90
+         ForeColor       =   &H000000C0&
+         Height          =   330
+         Left            =   6690
          Locked          =   -1  'True
          TabIndex        =   16
          TabStop         =   0   'False
-         Top             =   1230
-         Width           =   4200
+         Top             =   450
+         Width           =   4800
       End
    End
    Begin VB.CheckBox Check1 
-      BackColor       =   &H00000000&
+      BackColor       =   &H00404000&
       Caption         =   "He leido y estoy de acuerdo con el Contrato de Licencia de Usuario Final"
       BeginProperty Font 
          Name            =   "Verdana"
@@ -191,7 +299,7 @@ Begin VB.Form frmREG
       ForeColor       =   &H00C0FFFF&
       Height          =   375
       Left            =   1950
-      TabIndex        =   25
+      TabIndex        =   23
       Top             =   5430
       Value           =   1  'Checked
       Width           =   8655
@@ -209,7 +317,7 @@ Begin VB.Form frmREG
       EndProperty
       Height          =   435
       Left            =   4770
-      TabIndex        =   24
+      TabIndex        =   22
       Top             =   5820
       Width           =   1785
    End
@@ -231,7 +339,7 @@ Begin VB.Form frmREG
       Locked          =   -1  'True
       MultiLine       =   -1  'True
       ScrollBars      =   2  'Vertical
-      TabIndex        =   23
+      TabIndex        =   21
       Text            =   "frmREG.frx":0000
       Top             =   60
       Width           =   8295
@@ -285,10 +393,10 @@ Begin VB.Form frmREG
       ForeColor       =   &H00800000&
       Height          =   360
       Index           =   7
-      Left            =   9000
+      Left            =   8970
       MaxLength       =   5
       TabIndex        =   7
-      Top             =   3570
+      Top             =   3600
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -305,10 +413,10 @@ Begin VB.Form frmREG
       ForeColor       =   &H00800000&
       Height          =   360
       Index           =   6
-      Left            =   7920
+      Left            =   7890
       MaxLength       =   5
       TabIndex        =   6
-      Top             =   3570
+      Top             =   3600
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -325,10 +433,10 @@ Begin VB.Form frmREG
       ForeColor       =   &H00800000&
       Height          =   360
       Index           =   5
-      Left            =   6840
+      Left            =   6810
       MaxLength       =   5
       TabIndex        =   5
-      Top             =   3570
+      Top             =   3600
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -345,10 +453,10 @@ Begin VB.Form frmREG
       ForeColor       =   &H00800000&
       Height          =   360
       Index           =   4
-      Left            =   5760
+      Left            =   5730
       MaxLength       =   5
       TabIndex        =   4
-      Top             =   3570
+      Top             =   3600
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -365,10 +473,10 @@ Begin VB.Form frmREG
       ForeColor       =   &H00800000&
       Height          =   360
       Index           =   3
-      Left            =   4680
+      Left            =   4650
       MaxLength       =   5
       TabIndex        =   3
-      Top             =   3570
+      Top             =   3600
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -385,10 +493,10 @@ Begin VB.Form frmREG
       ForeColor       =   &H00800000&
       Height          =   360
       Index           =   2
-      Left            =   3600
+      Left            =   3570
       MaxLength       =   5
       TabIndex        =   2
-      Top             =   3570
+      Top             =   3600
       Width           =   1050
    End
    Begin VB.TextBox txtCOD 
@@ -405,10 +513,10 @@ Begin VB.Form frmREG
       ForeColor       =   &H00800000&
       Height          =   360
       Index           =   1
-      Left            =   2520
+      Left            =   2490
       MaxLength       =   5
       TabIndex        =   1
-      Top             =   3570
+      Top             =   3600
       Width           =   1050
    End
    Begin VB.TextBox lblGUID 
@@ -447,10 +555,10 @@ Begin VB.Form frmREG
       ForeColor       =   &H00800000&
       Height          =   360
       Index           =   0
-      Left            =   1440
+      Left            =   1410
       MaxLength       =   5
       TabIndex        =   0
-      Top             =   3570
+      Top             =   3600
       Width           =   1050
    End
    Begin VB.CommandButton Command1 
@@ -472,29 +580,30 @@ Begin VB.Form frmREG
       Width           =   1785
    End
    Begin VB.Label Label1 
+      Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
-      Caption         =   "Si aún no tiene el codigo puede dejarlo en blanco e iniciar una secion demostrativa"
+      Caption         =   $"frmREG.frx":0006
       BeginProperty Font 
          Name            =   "Verdana"
-         Size            =   8.25
+         Size            =   12
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00C0FFFF&
-      Height          =   255
+      ForeColor       =   &H0000FFFF&
+      Height          =   705
       Index           =   3
-      Left            =   1830
-      TabIndex        =   22
-      Top             =   3960
-      Width           =   9285
+      Left            =   480
+      TabIndex        =   20
+      Top             =   3990
+      Width           =   10605
    End
    Begin VB.Image Image1 
       Height          =   1635
       Left            =   10110
-      Picture         =   "frmREG.frx":0006
+      Picture         =   "frmREG.frx":009C
       Stretch         =   -1  'True
       Top             =   390
       Width           =   1500
@@ -535,15 +644,15 @@ Begin VB.Form frmREG
       ForeColor       =   &H00C0FFFF&
       Height          =   255
       Index           =   1
-      Left            =   180
+      Left            =   150
       TabIndex        =   13
-      Top             =   3330
+      Top             =   3360
       Width           =   11505
    End
    Begin VB.Label Label1 
       Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
-      Caption         =   "Codigo a enviar a tbrSoft. CAMBIA CADA VEZ PERO REPRESENTA UN CÓDIGO ÚNICO"
+      Caption         =   "Codigo a enviar a tbrSoft. Valor unico para esta PC"
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
@@ -553,12 +662,12 @@ Begin VB.Form frmREG
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00C0FFFF&
-      Height          =   255
+      ForeColor       =   &H0000FFFF&
+      Height          =   315
       Index           =   0
-      Left            =   1860
+      Left            =   1890
       TabIndex        =   12
-      Top             =   2430
+      Top             =   2400
       Width           =   8355
    End
 End
@@ -570,14 +679,12 @@ Attribute VB_Exposed = False
 Dim Errores As Long 'Veces que se erro la contraseña
 Dim UsosDemo As Long
 
-Dim CodigoGeneradoPorINFO As Boolean
 Dim STRconCodigos As String 'variable fundamental que contiene todos los codigos
 
-Dim A1 As String, A2 As String, A3 As String, A4 As String, A5 As String, A6 As String
+Dim A1 As String, A2 As String, A3 As String, A4 As String, A5 As String
 
 Dim GGG As String
 
-Dim ArchREG As String 'archivo con los datos del registro
 Dim ArchGUID As String 'archivo con el primer codigo que se le pidio al usuario
 Dim SysF As Folder 'ubicacion de la carpeta de Windows
 Dim CarpetaSys As String
@@ -589,30 +696,47 @@ End Sub
 
 Private Sub cmdGENERATE_Click()
     'para generar deno desencriptar y luego
-    txtCodGenerado = GenerarCodigo(txtCodToFind, False) ' este no es corto, es el que me mandan por mail
-    txtCodGenerado = MostraDeA5(txtCodGenerado)
+    txtGenCodMIN = "DEMO2: " + MostraDeA5(GenerarCodigoDemo(txtCodToFind))
+    txtGenCod = "FULL: " + MostraDeA5(GenerarCodigo(txtCodToFind))
+    txtGenCodSL = "SL: " + MostraDeA5(GenerarCodigoSL(txtCodToFind))
 End Sub
 
 Private Sub Command1_Click()
     Dim CodigoUnido As String
     CodigoUnido = txtCOD(0) + txtCOD(1) + txtCOD(2) + txtCOD(3) + txtCOD(4) + txtCOD(5) + txtCOD(6) + txtCOD(7)
 
-    'hay un codigo personal (mas corto) que habilita la funcion de creado de contraseñas
-    'If CodigoUnido = "26453653" Then
-   '     frFull.Visible = True
-  '      'poner el codigo terminado en las casillas
- '       Dim CF As String
-'        CF = GenerarCodigo(lblGUID, False)'
-   '     txtCOD(0) = Mid(CF, 1, 5)
-  '      txtCOD(1) = Mid(CF, 6, 5)
- '       txtCOD(2) = Mid(CF, 11, 5)
- '       txtCOD(3) = Mid(CF, 16, 5)
-'        txtCOD(4) = Mid(CF, 21, 5)
-'        txtCOD(5) = Mid(CF, 26, 5)
-'        txtCOD(6) = Mid(CF, 31, 5)
-'        txtCOD(7) = Mid(CF, 36, 5)
-'        Exit Sub
-'    End If
+    'hay un codigo personal (mas corto) que habilita la funcion de creado de claves
+    Dim CF As String
+    'If CodigoUnido = "FULL" Then
+    '    frFull.Visible = True
+    '   'poner el codigo terminado en las casillas
+    '    CF = GenerarCodigo(lblGUID)
+    '    txtCOD(0) = Mid(CF, 1, 5): txtCOD(1) = Mid(CF, 6, 5): txtCOD(2) = Mid(CF, 11, 5)
+    '    txtCOD(3) = Mid(CF, 16, 5): txtCOD(4) = Mid(CF, 21, 5): txtCOD(5) = Mid(CF, 26, 5)
+    '    txtCOD(6) = Mid(CF, 31, 5): txtCOD(7) = Mid(CF, 36, 5)
+    '    Exit Sub
+    'End If
+    ''
+    'if CodigoUnido = "SL" Then
+    '   frFull.Visible = True
+    '    'poner el codigo terminado en las casillas
+    '    CF = GenerarCodigoSL(lblGUID)
+    ''    txtCOD(0) = Mid(CF, 1, 5): txtCOD(1) = Mid(CF, 6, 5): txtCOD(2) = Mid(CF, 11, 5)
+    '    txtCOD(3) = Mid(CF, 16, 5): txtCOD(4) = Mid(CF, 21, 5): txtCOD(5) = Mid(CF, 26, 5)
+    '    txtCOD(6) = Mid(CF, 31, 5): txtCOD(7) = Mid(CF, 36, 5)
+    '    Exit Sub
+    'End If
+    '''
+    'If CodigoUnido = "DEMO2" Then
+    '    frFull.Visible = True
+    '    'poner el codigo terminado en las casillas
+    '    CF = GenerarCodigoDemo(lblGUID)
+    '    txtCOD(0) = Mid(CF, 1, 5): txtCOD(1) = Mid(CF, 6, 5): txtCOD(2) = Mid(CF, 11, 5)
+    '    txtCOD(3) = Mid(CF, 16, 5): txtCOD(4) = Mid(CF, 21, 5): txtCOD(5) = Mid(CF, 26, 5)
+    '    txtCOD(6) = Mid(CF, 31, 5): txtCOD(7) = Mid(CF, 36, 5)
+    '    Exit Sub
+    'End If
+    '
     If cmbCountry = "(SELECCIONE PAIS)" Then MsgBox "Debe cargar el pais de residencia": Exit Sub
     
     If CodigoUnido = "" Then
@@ -629,43 +753,44 @@ Private Sub Command1_Click()
             
             Set TE = FSO.OpenTextFile(ArchREG, ForReading, False)
             A1 = TE.ReadLine 'este es el guid
-            A2 = TE.ReadLine 'este es la clave enviada por tbrSoft
+            A2 = TE.ReadLine 'este es la clave enviada por tbrSoft (hay 3 distintas)
             A3 = TE.ReadLine 'ingresos demo
             A4 = TE.ReadLine 'estado actual del registro. Puede ser
                 '"DEMO" todavia no ingreso contraseña
                 '"FUCK". Intentos de crak
                 '"FUCK OFF"'ya jodio demasiado, esta bloqueado
-                '"OK". Ya lo puede usar, esta registrado OK
-            A5 = TE.ReadLine 'me dice si el codigo es original (o azar)
-            A6 = TE.ReadLine ' veces que se erro la contraseña
+                '"FULL". Ya lo puede usar, esta registrado OK
+            A5 = TE.ReadLine 'veces que se erro la contraseña
             
             TE.Close
             UsosDemo = Val(A3) + 1
         Else
-            A6 = "0"
+            A5 = "0"
         End If
         'cargar el archivo de registro como demo. De todas formas se debera volver a abrir esta pantalla
         'aqu se escribe por primera vez
         Set TE = FSO.CreateTextFile(ArchREG, True)
-            Dim GGG As String
-            GGG = GetGUID
+        Dim GGG As String
+        GGG = lblGUID
         TE.WriteLine GGG
         TE.WriteLine "00000"
         TE.WriteLine CStr(UsosDemo)
         TE.WriteLine "DEMO" 'estado actual del registro. Puede ser
             '"DEMO" todavia no ingreso contraseña
-            '"FUCK". Intentos de crak
-            '"OK". Ya lo puede usar, esta registrado OK
-        TE.WriteLine CStr(CodigoGeneradoPorINFO)  'me dice si el codigo es original
+            '"DEMO2" ingreso la contraseña gratuita
+            '"FUCK". Intentos de crack
+            '"FULL". Ya lo puede usar, esta registrado OK. Licencia comun
+            '"SL" es un superlicencia
         'si ya existia el archivo guarda la cantidad de errores que hubo
         'si no lo pone en 0
-        TE.WriteLine CStr(A6)
+        TE.WriteLine CStr(A5)
             
         TE.Close
         
         If UsosDemo > 40 Then
-            'no se puede iniciar mas de 20 veces como demo
-            MsgBox "No se puede utilizar mas de 40 veces como demo. 3PM se cerrara"
+            'no se puede iniciar infunitas demos
+            MsgBox "No se puede utilizar mas de 40 veces como demo. 3PM se cerrara. Solicite " + _
+                "su contraseña gratuita para seguir yusando la demo a info@tbrsoft.com"
             End
         End If
         
@@ -674,28 +799,39 @@ Private Sub Command1_Click()
     Else
         'ver si sirve el valor devuelto
         'lblGUID es un nuevo codigo generado o si se hizo al azar es un codigo grabado en un archivo
-        If CodigoUnido = GenerarCodigo(lblGUID, False) Then 'este no es corto es el que genera el sistema+los numeos aleatorios
+        Dim ClaveCargada As String
+        ClaveCargada = "FUCK" 'por defecto le erro
+        If CodigoUnido = GenerarCodigoDemo(lblGUID) Then
+            MsgBox "Clave gratuita de 3PM. Se desbloquea el limite de usos como demo"
+            ClaveCargada = "DEMO2"
+        End If
+        If CodigoUnido = GenerarCodigo(lblGUID) Then
             MsgBox "El codigo se ha cargado correctamente. Bienvenido a 3PM"
-            
+            ClaveCargada = "FULL"
+        End If
+        If CodigoUnido = GenerarCodigoSL(lblGUID) Then
+            MsgBox "SUPERLICENCIA de 3PM. El codigo de SuperLicencia se ha cargado correctamente. Bienvenido a Super3PM"
+            ClaveCargada = "SL"
+        End If
+        If ClaveCargada <> "FUCK" Then 'entro OK de alguna forma
             'cargar archivo de registro OK en esta PC
             Set TE = FSO.CreateTextFile(ArchREG, True)
             
-            GGG = GetGUID
+            GGG = lblGUID
             TE.WriteLine GGG
             TE.WriteLine CodigoUnido
             TE.WriteLine CStr(UsosDemo)
-            TE.WriteLine "OK"
+            TE.WriteLine ClaveCargada
             'estado actual del registro. Puede ser
                 '"DEMO" todavia no ingreso contraseña
                 '"FUCK". Intentos de crak
                 '"FUCK OFF". Inhabilitado
-                '"OK". Ya lo puede usar, esta registrado OK
-            TE.WriteLine CStr(CodigoGeneradoPorINFO)
+                '"FULL". Ya lo puede usar, esta registrado OK
             'ya no importa la cantidad de errores
             TE.WriteLine "0"
             
             TE.Close
-            TypeVersion = "FULL"
+            TypeVersion = ClaveCargada 'DEMO2, FULL o SL
             frmINI.Show 1
         Else
             Errores = 1
@@ -713,18 +849,17 @@ Private Sub Command1_Click()
                     '"DEMO" todavia no ingreso contraseña
                     '"FUCK". Intentos de crak
                     '"FUCK OFF"'ya jodio demasiado, esta bloqueado
-                    '"OK". Ya lo puede usar, esta registrado OK
-                A5 = TE.ReadLine 'me dice si el codigo es original
-                A6 = TE.ReadLine 'cantidad de veces que se erro la contraseña
+                    '"FULL". Ya lo puede usar, esta registrado OK
+                A5 = TE.ReadLine 'cantidad de veces que se erro la contraseña
                 TE.Close
-                Errores = Val(A6) + 1
+                Errores = Val(A5) + 1
                 
             End If
             
             'cargar el archivo de registro como demo. De todas formas se debera volver a abrir esta pantalla
             
             Set TE = FSO.CreateTextFile(ArchREG, True)
-                GGG = GetGUID
+                GGG = lblGUID
                 TE.WriteLine GGG
                 TE.WriteLine CodigoUnido 'el codigo malo que cargo
                 TE.WriteLine CStr(UsosDemo)
@@ -736,8 +871,7 @@ Private Sub Command1_Click()
                 'estado actual del registro. Puede ser
                     '"DEMO" todavia no ingreso contraseña
                     '"FUCK". Intentos de crak
-                    '"OK". Ya lo puede usar, esta registrado OK
-                TE.WriteLine CStr(CodigoGeneradoPorINFO)
+                    '"FULL". Ya lo puede usar, esta registrado OK
                 TE.WriteLine CStr(Errores)
             TE.Close
             End
@@ -860,7 +994,7 @@ STRconCodigos = STRconCodigos + "yehvndis782p6655S5DLCIEUDJXLSASpXSAAAAAAQ" + _
     "UE7ENCNMSLSLPDpF8EREDSDAQWp4655SDKDICKX8p643457gfh4567ghkskdncksppwpppwwkdmx" + _
     "qwLdaqL9e9dkkLx59ejk3me9j892DJDJE899DJSDLpSD99WE23KWD992JKLWE999jqwjqw99qwdqp" + _
     "h999EDMDPWE9DLXpAASDP9DCJCM995yDaiLidi99sd9Ss9dSDFKJDF99DMCMSJS9SD9S9JXSS9S9A" + _
-    "qdsjc9v,dLfyuwet2fgsh557hedfg3sgfhdfgf5yhyfhbpekefpLkefe9rjfje99e8rkefjLkd9e" + _
+    "qdsjc9vIdLfyuwet2fgsh557hedfg3sgfhdfgf5yhyfhbpekefpLkefe9rjfje99e8rkefjLkd9e" + _
     "QLWLDEMDKE9ELCK9E9FE9EFA9EFK4399DUWE99JVDA9IDvbdfgS6456456456234563634568457" + _
     "ASKLJSLs9d9sd98s6s78564s34s37s8s7cyv76x8durnngic8edfgdui4jjf9dj348djk389893a" + _
     "skjhd9999S8D99CMCMGLRJEU48RJFHG8HJR8GJE89EJC9E84HJF84Jdfg345gdf84NFJKSKDKFF5"
@@ -911,27 +1045,13 @@ STRconCodigos = STRconCodigos + "zsmkxjkLsiLc95uu8489fndefjL349845789f89w89" + _
     Set SysF = FSO.GetSpecialFolder(SystemFolder)
     CarpetaSys = SysF.path + "\"
     ArchREG = CarpetaSys + "rmlvf.dll"
-    ArchGUID = CarpetaSys + "rmlvf.tlb"
-    
-    ''para volver a habilitar a algun gil
-    ''If FSO.FileExists(ArchREG) Then FSO.DeleteFile ArchREG
-    ''If FSO.FileExists(ArchGUID) Then FSO.DeleteFile ArchGUID
-    ''
-    ''ArchREG = CarpetaSys + "armlvf.dll"
-    ''ArchGUID = CarpetaSys + "armlvf.tlb"
-    
-    Dim UniquePC As String, UniquePCToShow As String
-    'codigo unico de la PC
-    UniquePC = GetGUID
-    txtReserved = UniquePC
-    
-    'transformar en otro texto para que no se sepa que se saca del GUID
-    UniquePCToShow = ENCRIPTAR(UniquePC)
     
     'no se pone el primer componente por qyue este cambia con cada inicio
-    lblGUID = UniquePCToShow
-    txtCodigo = GenerarCodigo(UniquePCToShow, False) 'este no es corto es el valor a mostrar al usuario
-    txtCodigo = MostraDeA5(txtCodigo)
+    lblGUID = GetGuidSL
+    
+    txtCodSL = MostraDeA5(GenerarCodigoSL(lblGUID))
+    TXTcODIGOminimo = MostraDeA5(GenerarCodigoDemo(lblGUID))
+    txtCodGenerado = MostraDeA5(GenerarCodigo(lblGUID))
     
     'no se registrado o se ha perdido el archivo de registro
     TXT = "Bienvenido a 3PM. Gracias por confiar en tbrSoft Argentina" + vbCrLf + vbCrLf + _
@@ -945,12 +1065,7 @@ STRconCodigos = STRconCodigos + "zsmkxjkLsiLc95uu8489fndefjL349845789f89w89" + _
     "via email a info@tbrsoft.com o a avazquez@cpcipc.org"
     
     LBL = TXT
-    'mostrar si esta el archivo guid al azar
-    If FSO.FileExists(ArchGUID) = False Then
-        lstArchReg.AddItem "No existe el archivo de GUID"
-    Else
-        lstArchReg.AddItem "Archivo de GUID existe!!. Hay azar"
-    End If
+    
     'si esta registrada corroborar que no sea un registro de otra PC
     If FSO.FileExists(ArchREG) = False Then
         lstArchReg.AddItem "No existe el archivo de registro (ArchReg)"
@@ -958,8 +1073,6 @@ STRconCodigos = STRconCodigos + "zsmkxjkLsiLc95uu8489fndefjL349845789f89w89" + _
         'ver si el GUID de esta maquina coincide con el del
         'registro. Esto evita que se copie el registro de una
         'maquina a otra
-        Dim GUIDactual As String
-        GUIDactual = GetGUID
         
         Dim A1 As String, A2 As String, A3 As String, A4 As String
         
@@ -972,11 +1085,12 @@ STRconCodigos = STRconCodigos + "zsmkxjkLsiLc95uu8489fndefjL349845789f89w89" + _
         A3 = TE.ReadLine 'dias de demo
         A4 = TE.ReadLine 'estado actual del registro. Puede ser
             '"DEMO" todavia no ingreso contraseña
+            '"DEMO2" conraseña gratuita
             '"FUCK". Intentos de crak
             '"FUCK OFF". Inhabilitado
-            '"OK". Ya lo puede usar, esta registrado OK
-        A5 = TE.ReadLine
-        A6 = TE.ReadLine
+            '"FULL". Ya lo puede usar, esta registrado OK
+            '"SL" SUPERLICENCIA
+        A5 = TE.ReadLine 'veces que se erro la contraseña
             
         TE.Close
         lstArchReg.AddItem "Archivo de registro (ArchReg)"
@@ -985,72 +1099,96 @@ STRconCodigos = STRconCodigos + "zsmkxjkLsiLc95uu8489fndefjL349845789f89w89" + _
         lstArchReg.AddItem A3
         lstArchReg.AddItem A4
         lstArchReg.AddItem A5
-        lstArchReg.AddItem A6
         
-        If A1 = GUIDactual Then
+        'contar los usos
+        Dim ArchUsos As String
+        ArchUsos = WINfolder + "\slx98.dll"
+        
+        If FSO.FileExists(ArchUsos) Then
+            'ver cuanto hay
+            Set TE = FSO.OpenTextFile(ArchUsos, ForReading, False)
+            Dim Usado As Long
+            Usado = Val(TE.ReadLine)
+            'ver si hay que parar
+            If Usado > 100000 Then '1.000.000 son 550 años (5 usos por dia)
+                MsgBox "Ha pasado los usos habilitados. Esta no es una version definitiva"
+                End
+            End If
+            
+            Usado = Usado + 1
+            TE.Close
+            
+            'sumar uno
+            Set TE = FSO.CreateTextFile(ArchUsos, True)
+            TE.WriteLine Str(Usado)
+            TE.Close
+        Else
+            'es el primer uso legal
+            Set TE = FSO.CreateTextFile(ArchUsos, True)
+            TE.WriteLine "1"
+            TE.Close
+        End If
+        
+        If A1 = lblGUID Then
         'guid actual es el numero corto para (agrandar) y solicitar a tbrSoft
-            If A2 = GenerarCodigo(GUIDactual, True) Then
+            If A2 = GenerarCodigoDemo(lblGUID) Then
             'este si es corto. El sistema esta comprobando el valor directamente desde el numeo que le sirve como referencia
-                If A4 = "OK" Then
+                If A4 = "DEMO2" Then
                 'esta todo OK puede usar
-                    TypeVersion = "FULL"
-                    'contar los usos
-                    Dim ArchUsos As String
-                    ArchUsos = WINfolder + "\slx98.dll"
-                    
-                    If FSO.FileExists(ArchUsos) Then
-                        'ver cuanto hay
-                        Set TE = FSO.OpenTextFile(ArchUsos, ForReading, False)
-                        Dim Usado As Long
-                        Usado = Val(TE.ReadLine)
-                        'ver si hay que parar
-                        If Usado > 100000 Then '100.000 son 55 años (5 usos por dia)
-                            MsgBox "Ha pasado los usos habilitados. Esta no es una version definitiva"
-                            End
-                        End If
-                        
-                        Usado = Usado + 1
-                        TE.Close
-                        
-                        'sumar uno
-                        Set TE = FSO.CreateTextFile(ArchUsos, True)
-                        TE.WriteLine Str(Usado)
-                        TE.Close
-                    Else
-                        'es el primer uso legal
-                        Set TE = FSO.CreateTextFile(ArchUsos, True)
-                        TE.WriteLine "1"
-                        TE.Close
-                    End If
+                    TypeVersion = "DEMO2"
                     Unload Me
                     frmINI.Show 1
                 Else
-                    'crack que no sabe que debe poner OK
+                    'crack que no sabe que debe poner "DEMO2"
                     GoTo FUCK
-                End If
-            Else
-ESDEMO:
-                'ver si esta trabajando como demo
-                If A2 = "00000" Then
-                    If A4 = "DEMO" Then
-                        'permitir ver si carga la contraseña o
-                        'entra de nuevo como demo
-                    End If
-                Else
-                    'no es demo y no es codigo valido
-                    'intento de adivinacion de codigo
-                    If A4 = "FUCK" Or A4 = "OK" Then
-                        GoTo FUCK
-                    Else
-                    'cualquier otro valor (pueden haber borrado el FUCK OFF"
-                        MsgBox "3PM ha sido inhabilitado de este equipo, " + _
-                            "no podra ser usado nuevamente ya que se ha " + _
-                            "intentado usar ilegalmente"
-                        End
-                    End If
                 End If
             End If
             
+            If A2 = GenerarCodigo(lblGUID) Then
+            'este si es corto. El sistema esta comprobando el valor directamente desde el numeo que le sirve como referencia
+                If A4 = "FULL" Then
+                'esta todo OK puede usar
+                    TypeVersion = "FULL"
+                    Unload Me
+                    frmINI.Show 1
+                Else
+                    'crack que no sabe que debe poner "FULL"
+                    GoTo FUCK
+                End If
+            End If
+            
+            If A2 = GenerarCodigoSL(lblGUID) Then
+            'este si es corto. El sistema esta comprobando el valor directamente desde el numeo que le sirve como referencia
+                If A4 = "SL" Then
+                'esta todo OK puede usar
+                    TypeVersion = "SL"
+                    Unload Me
+                    frmINI.Show 1
+                Else
+                    'crack que no sabe que debe poner "FULL"
+                    GoTo FUCK
+                End If
+            End If
+ESDEMO:
+            'ver si esta trabajando como demo
+            If A2 = "00000" Then
+                If A4 = "DEMO" Then
+                    'permitir ver si carga la contraseña o
+                    'entra de nuevo como demo
+                End If
+            Else
+                'no es demo y no es codigo valido
+                'intento de adivinacion de codigo
+                If A4 = "FUCK" Or A4 = "FULL" Then
+                    GoTo FUCK
+                Else
+                'cualquier otro valor (pueden haber borrado el FUCK OFF"
+                    MsgBox "3PM ha sido inhabilitado de este equipo, " + _
+                        "no podra ser usado nuevamente ya que se ha " + _
+                        "intentado usar ilegalmente"
+                    End
+                End If
+            End If
         Else
             ' el codigo a solicitar debe ser el mismo. Ya sea al azar o no
             ' puede venir de otra PC
@@ -1069,17 +1207,15 @@ FUCK:
             '"DEMO" todavia no ingreso contraseña
             '"FUCK". Intentos de crak
             '"FUCK OFF"'ya jodio demasiado, esta bloqueado
-            '"OK". Ya lo puede usar, esta registrado OK
-        A5 = TE.ReadLine 'me dice si el codigo es original (o azar)
-        A6 = TE.ReadLine ' veces que se erro la contraseña
+            '"FULL". Ya lo puede usar, esta registrado OK
+        A5 = TE.ReadLine ' veces que se erro la contraseña
     TE.Close
-    Errores = Val(A6) + 1
+    Errores = Val(A5) + 1
     Set TE = FSO.CreateTextFile(ArchREG, True)
         TE.WriteLine A1
         TE.WriteLine A2
         TE.WriteLine A3
         TE.WriteLine A4
-        TE.WriteLine A5
         TE.WriteLine CStr(Errores)
     TE.Close
     MsgBox "Existe un archivo de registro de 3PM con datos no validos." + vbCrLf + _
@@ -1088,71 +1224,84 @@ FUCK:
     "de acceso en esta PC como se indica en la página que sigue"
 End Sub
 
-Public Function ENCRIPTAR(txtToEncript As String) As String
-    'una letra original, una letra trucha
-    Dim CC As Long, Letra As String, NewLetra As String, NewTxt As String
-    CC = 0
-    Do While CC < Len(txtToEncript)
-        Letra = Mid(txtToEncript, CC + 1, 1)
-        Randomize Timer
-        NewLetra = CStr(Int(Rnd * 9))
-        NewTxt = NewTxt + Letra + NewLetra
-        CC = CC + 1
-    Loop
-    ENCRIPTAR = NewTxt
-End Function
-
-Public Function GenerarCodigo(GUID As String, EsCorto As Boolean) As String
+Public Function GenerarCodigo(GUID As String) As String
     Dim LargoCadena As Long
+    
     LargoCadena = Len(STRconCodigos)
-    
     'el largo es 2417
-    'una letra original, una letra trucha
-    Dim CC As Long, Letra As String, SUMA As Long, NewTxt As String
-    CC = 0
-    NewTxt = ""
-    Do While CC < Len(GUID)
-        'si es el largo deo sacarle caracteres
-        If EsCorto = False Then
-            'toma solo los de posiciones impares
-            If CC / 2 = CC \ 2 Then
-                'una de cada dos letras sirve
-                Letra = Mid(GUID, CC + 1, 1)
-                NewTxt = NewTxt + Letra
-            End If
-        Else
-            'toma todos los numeros que le doy
-            Letra = Mid(GUID, CC + 1, 1)
-            NewTxt = NewTxt + Letra
-        End If
-        CC = CC + 1
-    Loop
+    Dim Parte1Cod As String, Parte2Cod As String
+    Parte1Cod = txtInLista(GUID, 0, "-")
+    Parte2Cod = txtInLista(GUID, 1, "-")
     
-    'newTXT se queda con el valor original
     Dim ValORIG As Long
-    ValORIG = Val(NewTxt)
+    ValORIG = Val(Parte1Cod) + Val(Parte2Cod)
     
     Dim EmpezarEnCaracter As Long
     EmpezarEnCaracter = ValORIG - (ValORIG \ LargoCadena) * LargoCadena
-    txtEmpezarEnCaracter = "Emp: " + CStr(EmpezarEnCaracter)
     If EmpezarEnCaracter <= 0 Then EmpezarEnCaracter = -EmpezarEnCaracter + 1
-    txtEmpezarEnCaracter = txtEmpezarEnCaracter + "EmpCorreg: " + CStr(EmpezarEnCaracter)
+    If EmpezarEnCaracter > LargoCadena - 120 Then EmpezarEnCaracter = EmpezarEnCaracter - 120
+    txtEmp2 = "nClave: " + CStr(EmpezarEnCaracter)
     
     GenerarCodigo = Mid(STRconCodigos, EmpezarEnCaracter, 40)
 End Function
 
+Public Function GenerarCodigoSL(GUID As String) As String
+    'generacion de codigos SUPELICENCIA
+    Dim LargoCadena As Long
+    
+    LargoCadena = Len(STRconCodigos)
+    'el largo es 2417
+    Dim Parte1Cod As String, Parte2Cod As String
+    Parte1Cod = txtInLista(GUID, 0, "-")
+    Parte2Cod = txtInLista(GUID, 1, "-")
+    
+    Dim ValORIG As Long
+    ValORIG = Val(Parte1Cod) + Val(Parte2Cod) + 40
+    
+    Dim EmpezarEnCaracter As Long
+    EmpezarEnCaracter = ValORIG - (ValORIG \ LargoCadena) * LargoCadena
+    If EmpezarEnCaracter <= 0 Then EmpezarEnCaracter = -EmpezarEnCaracter + 1
+    If EmpezarEnCaracter > LargoCadena - 120 Then EmpezarEnCaracter = EmpezarEnCaracter - 120
+    txtEmp3 = "nClave: " + CStr(EmpezarEnCaracter)
+    
+    GenerarCodigoSL = Mid(STRconCodigos, EmpezarEnCaracter, 40)
+End Function
+
+Public Function GenerarCodigoDemo(GUID As String) As String
+    'generacion de codigos que dan alguna validez minima adicional
+    Dim LargoCadena As Long
+    
+    LargoCadena = Len(STRconCodigos)
+    'el largo es 2417
+    Dim Parte1Cod As String, Parte2Cod As String
+    Parte1Cod = txtInLista(GUID, 0, "-")
+    Parte2Cod = txtInLista(GUID, 1, "-")
+    
+    Dim ValORIG As Long
+    ValORIG = Val(Parte1Cod) + Val(Parte2Cod) + 80
+    
+    Dim EmpezarEnCaracter As Long
+    EmpezarEnCaracter = ValORIG - (ValORIG \ LargoCadena) * LargoCadena
+    If EmpezarEnCaracter <= 0 Then EmpezarEnCaracter = -EmpezarEnCaracter + 1
+    If EmpezarEnCaracter > LargoCadena - 120 Then EmpezarEnCaracter = EmpezarEnCaracter - 120
+    txtEMP1 = "nClave: " + CStr(EmpezarEnCaracter)
+    
+    GenerarCodigoDemo = Mid(STRconCodigos, EmpezarEnCaracter, 40)
+End Function
+
+
+
 Public Function MostraDeA5(TXT As String)
-    Dim c As Long, Letra As String, NewTxt As String
+    Dim c As Long, Letra As String, newTXT As String
     c = 0
     Do While c < Len(TXT)
         Letra = Mid(TXT, c + 1, 5)
-        NewTxt = NewTxt + Letra
+        newTXT = newTXT + Letra
         c = c + 5
-        If c < Len(TXT) Then NewTxt = NewTxt + "-"
+        If c < Len(TXT) Then newTXT = newTXT + "-"
     Loop
-    MostraDeA5 = NewTxt
+    MostraDeA5 = newTXT
 End Function
-
 
 Private Sub txtCOD_Change(Index As Integer)
     If Index < 7 And Len(txtCOD(Index)) = 5 Then
@@ -1169,42 +1318,3 @@ Private Sub txtCOD_GotFocus(Index As Integer)
     txtCOD(Index).SelStart = 0
     txtCOD(Index).SelLength = Len(txtCOD(Index))
 End Sub
-
-Public Function GetGUID() As String
-    'prueba de otra PC
-    'GetGUID = "673710141": Exit Function
-    Dim INFO As SYSTEM_INFO
-    GetSystemInfo INFO
-    
-    Dim GUIDtmp As String 'no es guid, es un valor unico para cada PC
-    'este reserved es un numero entre 50.000.000 y 70.000.000 (por lo menos en las dos primera pruebas)
-    GUIDtmp = CStr(INFO.dwReserved)
-    CodigoGeneradoPorINFO = True 'se corrige si entra abajo
-    If Len(GUIDtmp) < 3 Then
-        'no es compatible en esta PC
-        
-        'ver si ya habiamos entrado aqui
-        If FSO.FileExists(ArchGUID) Then
-            'leer el valor y salir. No hacer otro aleatorio
-            Set TE = FSO.OpenTextFile(ArchGUID, ForReading, False)
-                A1 = TE.ReadLine
-                A2 = TE.ReadLine
-                'a1 esta el valor a usar
-                GUIDtmp = A1
-            TE.Close
-            GoTo FINguid
-        End If
-        'obtener un codigo aleatorio
-        GUIDtmp = CStr(Int(Rnd * 30000000))
-        GUIDtmp = CStr(Val(GUIDtmp) + 40000000)
-        CodigoGeneradoPorINFO = False
-        'escribir en algun archivo de texto este valor que debe permanecer
-        Set TE = FSO.CreateTextFile(ArchGUID, True)
-        TE.WriteLine GUIDtmp
-        TE.WriteLine "CodigoGeneradoPorINFO = FALSE"
-        End If
-FINguid:
-    Dim LastDigit As Long
-    LastDigit = CStr(Abs(CodigoGeneradoPorINFO))
-    GetGUID = GUIDtmp & LastDigit
-End Function
