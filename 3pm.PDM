@@ -147,7 +147,7 @@ Handler2=PDWizard.WebPostDplySubWiz
 
 [Package|Paquete de instalación estándar 1|Root]
 SubWizProgID=PDWizard.SetupPkgSubWiz
-BuildFolder=D:\ahora\3pm\3PM Windows ME
+BuildFolder=D:\ahora\3pm\Is\Juan Serrano\WMe
 
 [Package|Paquete de instalación estándar 1|Configure DAO ISAMs]
 Applicable=No
@@ -174,6 +174,7 @@ d:\ahora\3pm\logow.sys=
 d:\ahora\3pm\manual.doc=
 d:\ahora\3pm\tapa.jpg=
 d:\ahora\3pm\top10.jpg=
+d:\ahora\3pm\pub\leer.txt=
 
 [Package|Paquete de instalación estándar 1|Files Removed]
 c:\tbrwin\system\msvcrt.dll=
@@ -196,8 +197,6 @@ C:\TBRWIN\SYSTEM\VB6ES.DLL=Yes
 C:\TBRWIN\SYSTEM\scrrun.dll=Yes
 C:\TBRWIN\SYSTEM\MSVCRT.DLL=No
 C:\TBRWIN\SYSTEM\scrrnes.dll=Yes
-C:\TBRWIN\SYSTEM\MSCOMM32.OCX=Yes
-C:\TBRWIN\SYSTEM\MSCOMES.DLL=Yes
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
 C:\TBRWIN\SYSTEM\VB6STKIT.DLL=Yes
@@ -209,6 +208,7 @@ D:\ahora\3pm\logow.sys=Yes
 D:\ahora\3pm\manual.doc=Yes
 D:\ahora\3pm\tapa.jpg=Yes
 D:\ahora\3pm\top10.jpg=Yes
+D:\ahora\3pm\pub\LEER.txt=Yes
 
 [Package|Paquete de instalación estándar 1|Configure Registry Files]
 Applicable=No
@@ -241,6 +241,7 @@ C:\TBRWIN\SYSTEM\OLEPRO32.DLL=$(WinSysPathSysFile)
 C:\TBRWIN\SYSTEM\ASYCFILT.DLL=$(WinSysPathSysFile)
 C:\TBRWIN\SYSTEM\STDOLE2.TLB=$(WinSysPathSysFile)
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+D:\ahora\3pm\pub\LEER.txt=$(AppPath)\PUB
 
 [Package|Paquete de instalación estándar 1|Configure Shared Files]
 Applicable=Yes
@@ -252,6 +253,7 @@ D:\ahora\3pm\logow.sys=No
 D:\ahora\3pm\manual.doc=No
 D:\ahora\3pm\tapa.jpg=No
 D:\ahora\3pm\top10.jpg=No
+D:\ahora\3pm\pub\LEER.txt=No
 
 [Package|Paquete de instalación estándar 1|Distribution]
 Type=single
@@ -270,11 +272,11 @@ StartIn1=$(AppPath)
 Key1=Icon1
 
 [Package|Paquete de instalación estándar 1|Package]
-PackageFolder=D:\ahora\3pm\3PM Windows ME
+PackageFolder=D:\ahora\3pm\Is\Juan Serrano\WMe
 ProjectFolder=D:\ahora\3pm
 ServerSideCab=
-File1=D:\ahora\3pm\3PM Windows ME\setup.exe
-File2=D:\ahora\3pm\3PM Windows ME\Setup.Lst
-File3=D:\ahora\3pm\3PM Windows ME\3pm.CAB
+File1=D:\ahora\3pm\Is\Juan Serrano\WMe\setup.exe
+File2=D:\ahora\3pm\Is\Juan Serrano\WMe\Setup.Lst
+File3=D:\ahora\3pm\Is\Juan Serrano\WMe\3pm.CAB
 Handler1=PDWizard.FolderDplySubWiz
 Handler2=PDWizard.WebPostDplySubWiz

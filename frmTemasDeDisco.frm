@@ -17,6 +17,11 @@ Begin VB.Form frmTemasDeDisco
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    WindowState     =   2  'Maximized
+   Begin VB.Timer RelojTDD 
+      Enabled         =   0   'False
+      Left            =   30
+      Top             =   60
+   End
    Begin VB.Frame Frame1 
       BackColor       =   &H00000000&
       Height          =   8985
@@ -143,7 +148,7 @@ Begin VB.Form frmTemasDeDisco
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00C0E0FF&
-         Height          =   8350
+         Height          =   8115
          IntegralHeight  =   0   'False
          Left            =   45
          TabIndex        =   5
@@ -163,13 +168,54 @@ Begin VB.Form frmTemasDeDisco
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00C0E0FF&
-         Height          =   8350
+         Height          =   8055
          IntegralHeight  =   0   'False
          Left            =   1230
          Sorted          =   -1  'True
          TabIndex        =   2
          Top             =   480
          Width           =   5865
+      End
+      Begin VB.Label Label2 
+         Alignment       =   2  'Center
+         BackColor       =   &H0000FFFF&
+         Caption         =   "00"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   285
+         Left            =   7980
+         TabIndex        =   14
+         Top             =   3090
+         Visible         =   0   'False
+         Width           =   345
+      End
+      Begin VB.Label lblPrecios 
+         Alignment       =   2  'Center
+         Appearance      =   0  'Flat
+         BackColor       =   &H0080FFFF&
+         Caption         =   "1 coin = 8 creditos / 8 creditos = 1 tema / 8 creditos = 1 VIDEO"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000080&
+         Height          =   255
+         Left            =   30
+         TabIndex        =   13
+         Top             =   8580
+         Width           =   6840
       End
       Begin VB.Label lblNoEjecuta 
          Alignment       =   2  'Center
@@ -270,6 +316,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Dim SegSinTecla As Long
 Dim NoHayTemasEnDisco As Boolean
 Dim DuracionTema As String
 
@@ -301,6 +348,38 @@ End Sub
 
 Private Sub Form_Activate()
     Me.Refresh
+    '
+    'ver los precios!!!
+    LineaError = "000-0024"
+    MostrarCursor False
+    'actualizar los precios
+    LineaError = "000-0025"
+    If TemasPorCredito = 1 Then
+        LineaError = "000-0026"
+        lblPrecios = "1 coin = 1 credito"
+    Else
+        LineaError = "000-0027"
+        lblPrecios = "1 coin = " + CStr(TemasPorCredito) + " creditos"
+    End If
+    LineaError = "000-0028"
+    If CreditosCuestaTema = 1 Then
+        LineaError = "000-0029"
+        lblPrecios = lblPrecios + " // " + "1 credito = 1 tema"
+    Else
+        LineaError = "000-0030"
+        lblPrecios = lblPrecios + " // " + CStr(CreditosCuestaTema) + " creditos = 1 tema"
+    End If
+    'agreagr el precio de los videos!!!
+    If CreditosCuestaTemaVIDEO = 1 Then
+        LineaError = "000-0029"
+        lblPrecios = lblPrecios + " // " + "1 credito = 1 VIDEO"
+    Else
+        LineaError = "000-0030"
+        lblPrecios = lblPrecios + " // " + CStr(CreditosCuestaTemaVIDEO) + " creditos = 1 VIDEO"
+    End If
+     
+    
+    
     Label1 = "Buscando Temas de este disco..."
     Dim ArchTapa As String
     ArchTapa = UbicDiscoActual + "\tapa.jpg"
@@ -310,7 +389,7 @@ Private Sub Form_Activate()
         TapaCD.Picture = LoadPicture(AP + "tapa.jpg")
     End If
     TapaCD.Refresh
-    lblDISCO = FSO.GetBaseName(UbicDiscoActual)
+    lblDisco = FSO.GetBaseName(UbicDiscoActual)
     Dim ArchDaTa As String
     ArchDaTa = UbicDiscoActual + "data.txt"
     If FSO.FileExists(ArchDaTa) Then
@@ -327,8 +406,8 @@ Private Sub Form_Activate()
     Dim pathTema As String
     lstEXT.Clear
     If NoHayTemasEnDisco Then
-        lstTEMAS.AddItem "No hay temas en este disco"
-        lstTEMAS.Enabled = False
+        lstTemas.AddItem "No hay temas en este disco"
+        lstTemas.Enabled = False
         lstTIME.Enabled = False
         WriteTBRLog "No hay temas en el disco: " + UbicDiscoActual, True
         Exit Sub
@@ -339,8 +418,8 @@ Private Sub Form_Activate()
         nombreTemas = txtInLista(MATRIZ_TEMAS(c), 1, ",")
         'quitar el molesto .mp3 o lo que fuera
         nombreTemas = FSO.GetBaseName(nombreTemas)
-        lstTEMAS.AddItem nombreTemas
-        lstTEMAS.Refresh
+        lstTemas.AddItem nombreTemas
+        lstTemas.Refresh
         lstEXT.AddItem pathTema
         c = c + 1
     Loop
@@ -364,8 +443,8 @@ Private Sub Form_Activate()
                     NoCargoDuracion = NoCargoDuracion + 1
                     If NoCargoDuracion > 3 Then
                         lstTIME.Visible = False
-                        lstTEMAS.Left = 50
-                        lstTEMAS.Width = lblNoEjecuta.Left - 50
+                        lstTemas.Left = 50
+                        lstTemas.Width = lblNoEjecuta.Left - 50
                     End If
                 End If
             End If
@@ -376,8 +455,8 @@ Private Sub Form_Activate()
         Set MP3tmp = Nothing
         lstTIME.Enabled = True
     End If
-    lstTEMAS.Enabled = True
-    lstTEMAS.ListIndex = 0
+    lstTemas.Enabled = True
+    lstTemas.ListIndex = 0
     Label1 = "Temas de este disco"
 End Sub
 
@@ -400,13 +479,38 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             TECLAS_PRES = Right(TECLAS_PRES, 20)
             frmIndex.lblTECLAS = TECLAS_PRES
             Unload Me
+            Exit Sub
         Case TeclaOK
             'ver si esta habilitado
             TECLAS_PRES = TECLAS_PRES + "3"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
             frmIndex.lblTECLAS = TECLAS_PRES
-            If CREDITOS >= CreditosCuestaTema Then
-                CREDITOS = CREDITOS - CreditosCuestaTema
+            
+            'ANTES DE VER CUANTOS CREDITOS NECESITA TENGO QUE SABER SI QUIERE EJECUTAR
+            'MP3 O VIDEO!!!!!!
+            Dim temaElegido As String
+            'lstext es una lista oculta  con datos completos
+            temaElegido = lstEXT.List(lstTemas.ListIndex) ' UbicDiscoActual + "\" + lstTemas + "." + EXTs(lstTemas.ListIndex)
+            
+            If LCase(Right(temaElegido, 3)) = "mp3" Then
+                PideVideo = False
+            Else
+                PideVideo = True
+            End If
+            
+            'ver si puede pagar lo que pide!!!
+            'que joyita papa!!!. Parece que supieras programar
+            '--------------------------------------------------------------
+            If (PideVideo = False And CREDITOS >= CreditosCuestaTema) Or _
+                (PideVideo And CREDITOS >= CreditosCuestaTemaVIDEO) Then
+            '--------------------------------------------------------------
+                'restar lo que corresponde!!!
+                If PideVideo Then
+                    CREDITOS = CREDITOS - CreditosCuestaTemaVIDEO
+                Else
+                    CREDITOS = CREDITOS - CreditosCuestaTema
+                End If
+                
                 'siempre que se ejecute un credito estaremos por debajo de maximo
                 OnOffCAPS vbKeyScrollLock, True
                 'grabar cant de creditos
@@ -419,36 +523,35 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                 CreditosValidar = CreditosValidar + TemasPorCredito
                 EscribirArch1Linea SYSfolder + "\radilav.cfg", CStr(CreditosValidar)
                 
-                Dim temaElegido As String
-                'lstext es una lista oculta  con datos completos
-                temaElegido = lstEXT.List(lstTEMAS.ListIndex) ' UbicDiscoActual + "\" + lstTemas + "." + EXTs(lstTemas.ListIndex)
-                
                 'si esta ejecutando pasa a la lista de reproducción
-                If frmIndex.MP3.IsPlaying Then
+                'si esta ejecutando una prueba SACARLA!!!
+                If frmIndex.MP3.IsPlaying And CORTAR_TEMA = False Then
                     'pasar a la lista de reproducción
                     Dim NewIndLista As Long
                     NewIndLista = UBound(MATRIZ_LISTA)
                     ReDim Preserve MATRIZ_LISTA(NewIndLista + 1)
                     'se graba en Matriz_Listas como patah, nombre(sin .mp3)
-                    MATRIZ_LISTA(NewIndLista + 1) = temaElegido + "," + lstTEMAS + " / " + FSO.GetBaseName(UbicDiscoActual)
+                    MATRIZ_LISTA(NewIndLista + 1) = temaElegido + "," + lstTemas + " / " + FSO.GetBaseName(UbicDiscoActual)
                     CargarProximosTemas
                     'graba en reini.tbr los datos que correspondan por si se corta la luz
                     CargarArchReini UCase(ReINI) 'POR LAS DUDAS que no este en mayusculas
                 Else
                     'TEMA_REPRODUCIENDO y mp3.isplayin se cargan en ejecutartema
                     'paciencia
-                    lstTEMAS.Enabled = False: lstTIME.Enabled = False
-                    lstTEMAS.BackColor = vbBlack: lstTIME.BackColor = vbBlack
-                    lstTEMAS.ForeColor = vbYellow
+                    lstTemas.Enabled = False: lstTIME.Enabled = False
+                    lstTemas.BackColor = vbBlack: lstTIME.BackColor = vbBlack
+                    lstTemas.ForeColor = vbYellow
                     'lstTemas.Font.Size = 22 esto hace que parezca mas de un lstbox
-                    lstTEMAS.Clear: lstTIME.Clear
-                    lstTEMAS.AddItem "CARGANDO TEMA"
-                    lstTEMAS.AddItem "ESPERE..."
-                    lstTEMAS.Refresh: lstTIME.Refresh
+                    lstTemas.Clear: lstTIME.Clear
+                    lstTemas.AddItem "CARGANDO TEMA"
+                    lstTemas.AddItem "ESPERE..."
+                    lstTemas.Refresh: lstTIME.Refresh
                     CORTAR_TEMA = False 'este tema va entero ya que lo eligio el usuario
                     EjecutarTema temaElegido, True
                 End If
                 'pase lo que pase me vuelvo a los discos y cierro ventana actual
+                
+                VerSiTocaPUB
                 
                 Unload Me
             Else
@@ -459,19 +562,19 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             TECLAS_PRES = TECLAS_PRES + "2"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
             frmIndex.lblTECLAS = TECLAS_PRES
-            If lstTEMAS.ListIndex < lstTEMAS.ListCount - 1 Then
-                lstTEMAS.ListIndex = lstTEMAS.ListIndex + 1
+            If lstTemas.ListIndex < lstTemas.ListCount - 1 Then
+                lstTemas.ListIndex = lstTemas.ListIndex + 1
             Else
-                lstTEMAS.ListIndex = 0
+                lstTemas.ListIndex = 0
             End If
         Case TeclaIZQ
             TECLAS_PRES = TECLAS_PRES + "1"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
             frmIndex.lblTECLAS = TECLAS_PRES
-            If lstTEMAS.ListIndex > 0 Then
-                lstTEMAS.ListIndex = lstTEMAS.ListIndex - 1
+            If lstTemas.ListIndex > 0 Then
+                lstTemas.ListIndex = lstTemas.ListIndex - 1
             Else
-                lstTEMAS.ListIndex = lstTEMAS.ListCount - 1
+                lstTemas.ListIndex = lstTemas.ListCount - 1
             End If
         Case TeclaPagAd
             TECLAS_PRES = TECLAS_PRES + "5"
@@ -482,8 +585,9 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             TECLAS_PRES = Right(TECLAS_PRES, 20)
             frmIndex.lblTECLAS = TECLAS_PRES
     End Select
+    SegSinTecla = 0 'protector para salir de esta frm
     VerClaves TECLAS_PRES
-    SecSinTecla = 0
+    SecSinTecla = 0 'preteccion global de pantalla
     frmIndex.lblNoTecla = 0
     
     Exit Sub
@@ -537,14 +641,26 @@ Private Sub Form_Load()
     'ocultar ahora
     If CargarDuracionTemas = False Then
         lstTIME.Visible = False
-        lstTEMAS.Left = 50
-        lstTEMAS.Width = lblNoEjecuta.Left - 150
+        lstTemas.Left = 50
+        lstTemas.Width = lblNoEjecuta.Left - 150
     End If
-    
+    SegSinTecla = 0
+    RelojTDD.Enabled = True
+    RelojTDD.Interval = 1000
 End Sub
 
 Private Sub lstTemas_Click()
     On Local Error Resume Next
-    If CargarDuracionTemas Then lstTIME.ListIndex = lstTEMAS.ListIndex
+    If CargarDuracionTemas Then lstTIME.ListIndex = lstTemas.ListIndex
 End Sub
 
+Private Sub RelojTDD_Timer()
+    'relojTemasDeDisco
+    SegSinTecla = SegSinTecla + 1
+    Label2 = SegSinTecla
+    If SegSinTecla = 10 Then
+        RelojTDD.Enabled = False
+        Unload Me
+    End If
+    
+End Sub

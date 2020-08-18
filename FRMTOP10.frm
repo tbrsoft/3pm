@@ -266,22 +266,38 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             TECLAS_PRES = TECLAS_PRES + "3"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
             frmIndex.lblTECLAS = TECLAS_PRES
-            'ver si esta habilitado
-            If CREDITOS >= CreditosCuestaTema Then
-                CREDITOS = CREDITOS - CreditosCuestaTema
+            'primero que pide!!!
+            Dim temaElegido As String
+            If PuestoElegido >= UBound(MTXtop) Then
+                MsgBox "No hay tema elegido!!"
+                Exit Sub
+            End If
+            temaElegido = MTXtop(PuestoElegido + 1)
+            
+            If LCase(Right(temaElegido, 3)) = "mp3" Then
+                PideVideo = False
+            Else
+                PideVideo = True
+            End If
+            'ver si puede pagar lo que pide!!!
+            'que joyita papa!!!. Parece que supieras programar
+            '--------------------------------------------------------------
+            If (PideVideo = False And CREDITOS >= CreditosCuestaTema) Or _
+                (PideVideo And CREDITOS >= CreditosCuestaTemaVIDEO) Then
+            '--------------------------------------------------------------
+                'restar lo que corresponde!!!
+                If PideVideo Then
+                    CREDITOS = CREDITOS - CreditosCuestaTemaVIDEO
+                Else
+                    CREDITOS = CREDITOS - CreditosCuestaTema
+                End If
                 'siempre que se ejecute un credito estaremos por debajo de maximo
                 OnOffCAPS vbKeyScrollLock, True
                 If CREDITOS < 10 Then frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
                 If CREDITOS >= 10 Then frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
-                Dim temaElegido As String
-                If PuestoElegido >= UBound(MTXtop) Then
-                    MsgBox "No hay tema elegido!!"
-                    Exit Sub
-                End If
-                temaElegido = MTXtop(PuestoElegido + 1)
                 
                 'si esta ejecutando pasa a la lista de reproducción
-                If frmIndex.MP3.IsPlaying Then
+                If frmIndex.MP3.IsPlaying And CORTAR_TEMA = False Then
                     'pasar a la lista de reproducción
                     Dim NewIndLista As Long
                     NewIndLista = UBound(MATRIZ_LISTA)
@@ -307,6 +323,9 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                     CORTAR_TEMA = False 'este tema va entero ya que lo eligio el usuario
                     EjecutarTema temaElegido, True
                 End If
+                
+                VerSiTocaPUB
+                
                 'pase lo que pase me vuelvo a los discos y cierro ventana actual
                 
                 Unload Me

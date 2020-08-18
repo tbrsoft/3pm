@@ -1,13 +1,4 @@
 Attribute VB_Name = "Globales"
-Public PUBs As New clsPUB
-
-Public MostrarPUB As Boolean 'se reproducen Publicidades MP3 o video?
-Public PubliCada As Long 'cada cuantos temas la publicidad
-
-Public MostrarPUBIMG As Boolean 'se muestran Publicidades (imagen rotativa en index)?
-Public PubliIMGCada As Long 'cada cuantos segundos la publicidad
-
-Public LineaError As String 'linea de codigo para identificar error
 Public MostrarTouch As Boolean
 Public ClaveAdmin As String
 'validar con clave cada x creditos
@@ -20,8 +11,6 @@ Public ArchREG As String 'archivo con los datos del registro
 Public textoUsuario As String
 
 Public CreditosCuestaTema As Long
-Public CreditosCuestaTemaVIDEO As Long
-Public PideVideo As Boolean 'antes de ejecutar para saber que cobrar tengo que saber que pide
 Public TemasPorCredito As Long
 
 Public TE As TextStream
@@ -151,34 +140,22 @@ Public Sub CargarProximosTemas()
     On Error GoTo Errores
     'cargar lstProximos
     Dim strProximos As String, TotTemas As Integer
-    
     If UBound(MATRIZ_LISTA) = 0 Then
         'frmIndex.lstProximos.Clear
         'frmIndex.lstProximos.AddItem "No hay próximo tema"
         frmIndex.lstProximos = "No hay proximo tema"
     Else
-        frmIndex.lstProximos = ""
-        'volver a contar
-        PUBs.PubsEnLista = 0
-        'el indice 0 no existe ni existira por eso el C=1
+        TotTemas = UBound(MATRIZ_LISTA)
+        'frmIndex.lstProximos.Clear
+        'frmIndex.lstProximos.AddItem "TEMAS PENDIENTES (" + CStr(TotTemas) + ")"
+        frmIndex.lstProximos = "TEMAS PENDIENTES (" + CStr(TotTemas) + ")" + vbCrLf
+        
         For c = 1 To UBound(MATRIZ_LISTA)
-            'no cargar las publicidades
+            'el indice 0 no existe ni existira por eso el C=1
             strProximos = QuitarNumeroDeTema(txtInLista(MATRIZ_LISTA(c), 1, ","))
             'frmIndex.lstProximos.AddItem CStr(c) + "- " + strProximos
-            If strProximos = "Publicidad" Then
-                'contador de publicidades en lista
-                PUBs.PubsEnLista = PUBs.PubsEnLista + 1
-            Else
-                frmIndex.lstProximos = frmIndex.lstProximos + CStr(c - PUBs.PubsEnLista) + "- " + strProximos + vbCrLf
-            End If
+            frmIndex.lstProximos = frmIndex.lstProximos + CStr(c) + "- " + strProximos + vbCrLf
         Next
-        'primero se escribe la lista y despues la primera linea
-        'esto para que sepa cuantas son publicidades!!!!
-        TotTemas = UBound(MATRIZ_LISTA)
-        'tengo que descontar as publicidades!!!!
-        frmIndex.lstProximos = "TEMAS PENDIENTES (" + _
-            CStr(TotTemas - PUBs.PubsEnLista) + ")" + vbCrLf + frmIndex.lstProximos
-        
     End If
     Exit Sub
 Errores:
@@ -511,7 +488,6 @@ End Function
 
 Public Sub WriteTBRLog(TXT As String, PonerFecha As Boolean)
 
-    TXT = "Linea: " + LineaError + vbCrLf + TXT
     If FSO.FileExists(AP + "TBRlog.txt") = False Then
         Set TE = FSO.CreateTextFile(AP + "TBRlog.txt", False)
         TE.Close
@@ -548,19 +524,9 @@ Public Function QuitarNumeroDeTema(TemaFull As String) As String
     If NumersoAlInicio > 0 Then
         TMPtema = Trim(Right(TemaFull, Len(TemaFull) - 3))
         'ver si quedo con esto
-        For A = 1 To 4
-            If Mid(TMPtema, A, 1) = "-" _
-                Or Mid(TMPtema, A, 1) = "_" _
-                Or Mid(TMPtema, A, 1) = "/" _
-                Or Mid(TMPtema, A, 1) = "@" _
-                Or Mid(TMPtema, A, 1) = "[" _
-                Or Mid(TMPtema, A, 1) = "]" _
-                Or Mid(TMPtema, A, 1) = "(" _
-                Or Mid(TMPtema, A, 1) = ")" Then
-                TMPtema = Trim(Right(TMPtema, Len(TMPtema) - 1))
-            End If
-        Next
-        
+        If Mid(TMPtema, 1, 1) = "-" Or Mid(TMPtema, 1, 1) = "_" Or Mid(TMPtema, 1, 1) = "/" Or Mid(TMPtema, 1, 1) = "@" Then
+            TMPtema = Trim(Right(TMPtema, Len(TMPtema) - 1))
+        End If
     End If
     QuitarNumeroDeTema = TMPtema
 End Function
@@ -583,49 +549,5 @@ Public Sub InfoDisco(LBL As Label)
     "Total disco: " + CStr(TotDisco) + " MB" + vbCrLf + _
     "Total Disponible: " + CStr(TotFree1) + " MB" + vbCrLf + _
     "Porcentaje libre: " + CStr(PorcLibre) + "%"
-End Sub
-
-Public Sub VerSiTocaPUB()
-    'despues de ejecutar un tema desde Temas de Disco, index o Top10
-    'toca saber si se agrega una pub a la lista!!
-    'pasar a la lista de reproducción
-    'SOLO SI HAY PUBLICIDADES
-    'NO VA A FALTAR ALGUN IDIOTA QUE HABILITE Y NO COLOQUE PUBS!!!!
-    If PUBs.HabilitarPublicidades And PUBs.TotalPUBs > 0 Then
-        'indicarle al PUB que paso otro tema
-        PUBs.ContadorTemas = PUBs.ContadorTemas + 1
-        'ver si ya corresponde
-        If PUBs.SonarPublicidadesCada <= PUBs.ContadorTemas Then
-            'poner en cero el contador
-            PUBs.ContadorTemas = 0
-            
-            'mandar a la lista!!!
-            PUBs.UltimaReproducida = PUBs.UltimaReproducida + 1
-            'si termino que empieze de vuelta. Siempre empieza en el 1
-            'el cero esta en blanco!!!
-            If PUBs.UltimaReproducida >= PUBs.TotalPUBs Then PUBs.UltimaReproducida = 1
-            
-            'INDICAR CUAL SE EJECUTA
-            Dim ArchPub As String
-            ArchPub = PUBs.ArchsPubs(PUBs.UltimaReproducida)
-            
-            'otra seguridad mas
-            If FSO.FileExists(ArchPub) Then
-                'pasar a la lista de reproducción
-                Dim NewInd As Long
-                NewInd = UBound(MATRIZ_LISTA) + 1
-                ReDim Preserve MATRIZ_LISTA(NewInd)
-                'se graba en Matriz_Listas como patah, nombre(sin .mp3)
-                MATRIZ_LISTA(NewInd) = ArchPub + "," + "Publicidad"
-                'escribir la lista en pantalla
-                'si no lo hago, no se actualiza los numeros de los que falta!!!!
-                'aqui se fija cuantos temas quedas y resta la publicidad!!!!
-                CargarProximosTemas
-                'creo que no hace falta
-                'graba en reini.tbr los datos que correspondan por si se corta la luz
-                CargarArchReini UCase(ReINI) 'POR LAS DUDAS que no este en mayusculas
-            End If
-        End If
-    End If
 End Sub
 

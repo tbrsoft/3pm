@@ -1,118 +1,132 @@
 VERSION 5.00
 Begin VB.UserControl VUMeter 
    BackColor       =   &H00000000&
-   ClientHeight    =   1560
+   ClientHeight    =   5085
    ClientLeft      =   0
    ClientTop       =   0
-   ClientWidth     =   2505
+   ClientWidth     =   7740
    ClipControls    =   0   'False
    ControlContainer=   -1  'True
-   ScaleHeight     =   1560
-   ScaleWidth      =   2505
-   Begin VB.Shape P2 
-      BackStyle       =   1  'Opaque
-      Height          =   250
-      Index           =   5
-      Left            =   1620
-      Shape           =   4  'Rounded Rectangle
-      Top             =   1260
-      Width           =   735
-   End
-   Begin VB.Shape P 
-      BackStyle       =   1  'Opaque
-      Height          =   250
-      Index           =   5
-      Left            =   90
-      Shape           =   4  'Rounded Rectangle
-      Top             =   1260
-      Width           =   735
-   End
-   Begin VB.Shape P2 
-      BackStyle       =   1  'Opaque
-      Height          =   250
-      Index           =   4
-      Left            =   1590
-      Shape           =   4  'Rounded Rectangle
-      Top             =   1020
-      Width           =   735
-   End
-   Begin VB.Shape P 
-      BackStyle       =   1  'Opaque
-      Height          =   250
-      Index           =   4
-      Left            =   90
-      Shape           =   4  'Rounded Rectangle
-      Top             =   1020
-      Width           =   735
-   End
-   Begin VB.Shape P2 
-      BackStyle       =   1  'Opaque
-      Height          =   250
-      Index           =   3
-      Left            =   1590
-      Shape           =   4  'Rounded Rectangle
-      Top             =   780
-      Width           =   735
-   End
-   Begin VB.Shape P 
-      BackStyle       =   1  'Opaque
-      Height          =   250
-      Index           =   3
-      Left            =   90
-      Shape           =   4  'Rounded Rectangle
-      Top             =   780
-      Width           =   735
-   End
-   Begin VB.Shape P2 
-      BackStyle       =   1  'Opaque
-      Height          =   250
-      Index           =   2
-      Left            =   1590
-      Shape           =   4  'Rounded Rectangle
-      Top             =   540
-      Width           =   735
-   End
-   Begin VB.Shape P 
-      BackStyle       =   1  'Opaque
-      Height          =   250
-      Index           =   2
-      Left            =   90
-      Shape           =   4  'Rounded Rectangle
-      Top             =   540
-      Width           =   735
-   End
-   Begin VB.Shape P2 
-      BackStyle       =   1  'Opaque
-      Height          =   250
-      Index           =   1
-      Left            =   1590
-      Shape           =   4  'Rounded Rectangle
-      Top             =   300
-      Width           =   735
-   End
-   Begin VB.Shape P 
-      BackStyle       =   1  'Opaque
-      Height          =   250
-      Index           =   1
-      Left            =   90
-      Shape           =   4  'Rounded Rectangle
-      Top             =   300
-      Width           =   735
-   End
-   Begin VB.Shape P2 
-      BackStyle       =   1  'Opaque
-      Height          =   250
-      Index           =   0
-      Left            =   1560
-      Shape           =   4  'Rounded Rectangle
+   ScaleHeight     =   5085
+   ScaleWidth      =   7740
+   Begin VB.PictureBox picWMP 
+      AutoRedraw      =   -1  'True
+      BackColor       =   &H00404000&
+      DrawWidth       =   4
+      FillColor       =   &H0000FFFF&
+      FillStyle       =   0  'Solid
+      Height          =   4935
+      Left            =   810
+      ScaleHeight     =   4875
+      ScaleWidth      =   6075
+      TabIndex        =   0
       Top             =   60
+      Width           =   6135
+   End
+   Begin VB.Shape P2 
+      BackStyle       =   1  'Opaque
+      Height          =   255
+      Index           =   5
+      Left            =   6960
+      Shape           =   4  'Rounded Rectangle
+      Top             =   1230
+      Width           =   735
+   End
+   Begin VB.Shape P 
+      BackStyle       =   1  'Opaque
+      Height          =   250
+      Index           =   5
+      Left            =   50
+      Shape           =   4  'Rounded Rectangle
+      Top             =   1260
+      Width           =   735
+   End
+   Begin VB.Shape P2 
+      BackStyle       =   1  'Opaque
+      Height          =   255
+      Index           =   4
+      Left            =   6960
+      Shape           =   4  'Rounded Rectangle
+      Top             =   990
+      Width           =   735
+   End
+   Begin VB.Shape P 
+      BackStyle       =   1  'Opaque
+      Height          =   250
+      Index           =   4
+      Left            =   50
+      Shape           =   4  'Rounded Rectangle
+      Top             =   1020
+      Width           =   735
+   End
+   Begin VB.Shape P2 
+      BackStyle       =   1  'Opaque
+      Height          =   255
+      Index           =   3
+      Left            =   6960
+      Shape           =   4  'Rounded Rectangle
+      Top             =   750
+      Width           =   735
+   End
+   Begin VB.Shape P 
+      BackStyle       =   1  'Opaque
+      Height          =   250
+      Index           =   3
+      Left            =   50
+      Shape           =   4  'Rounded Rectangle
+      Top             =   780
+      Width           =   735
+   End
+   Begin VB.Shape P2 
+      BackStyle       =   1  'Opaque
+      Height          =   255
+      Index           =   2
+      Left            =   6960
+      Shape           =   4  'Rounded Rectangle
+      Top             =   510
+      Width           =   735
+   End
+   Begin VB.Shape P 
+      BackStyle       =   1  'Opaque
+      Height          =   250
+      Index           =   2
+      Left            =   50
+      Shape           =   4  'Rounded Rectangle
+      Top             =   540
+      Width           =   735
+   End
+   Begin VB.Shape P2 
+      BackStyle       =   1  'Opaque
+      Height          =   255
+      Index           =   1
+      Left            =   6960
+      Shape           =   4  'Rounded Rectangle
+      Top             =   270
+      Width           =   735
+   End
+   Begin VB.Shape P 
+      BackStyle       =   1  'Opaque
+      Height          =   250
+      Index           =   1
+      Left            =   50
+      Shape           =   4  'Rounded Rectangle
+      Top             =   300
+      Width           =   735
+   End
+   Begin VB.Shape P2 
+      BackStyle       =   1  'Opaque
+      Height          =   255
+      Index           =   0
+      Left            =   6960
+      Shape           =   4  'Rounded Rectangle
+      Top             =   30
       Width           =   735
    End
    Begin VB.Shape P 
       BackStyle       =   1  'Opaque
       Height          =   250
       Index           =   0
-      Left            =   60
+      Left            =   50
       Shape           =   4  'Rounded Rectangle
       Top             =   60
       Width           =   735
@@ -421,11 +435,11 @@ Private Sub DrawData()
         'BarrasEnVUmeter es el numero de barras
         PorcBarrasPintadasON = contVu / BarrasEnVUmeter * 100
         'verde
-        If PorcBarrasPintadasON <= 20 And PorcBarrasPintadasON >= 0 Then ColorOn = &HFF00&: ColorOff = &H8000&
+        If PorcBarrasPintadasON <= 20 And PorcBarrasPintadasON >= 0 Then ColorOn = &HFF00&: coloroff = &H8000&
         'amarillo
-        If PorcBarrasPintadasON <= 75 And PorcBarrasPintadasON > 20 Then: ColorOn = &HFFFF&: ColorOff = &H8080&
+        If PorcBarrasPintadasON <= 75 And PorcBarrasPintadasON > 20 Then: ColorOn = &HFFFF&: coloroff = &H8080&
         'rojo
-        If PorcBarrasPintadasON <= 100 And PorcBarrasPintadasON > 75 Then: ColorOn = &HFF&: ColorOff = &H80&
+        If PorcBarrasPintadasON <= 100 And PorcBarrasPintadasON > 75 Then: ColorOn = &HFF&: coloroff = &H80&
         
         P(contVu).BackColor = ColorOn
         P2(contVu).BackColor = ColorOn
@@ -440,14 +454,14 @@ Private Sub DrawData()
         
         PorcBarrasPintadasOff = contVuOff / BarrasEnVUmeter * 100
         'verde
-        If PorcBarrasPintadasOff <= 20 And PorcBarrasPintadasOff >= 0 Then ColorOn = &HFF00&: ColorOff = &H8000&
+        If PorcBarrasPintadasOff <= 20 And PorcBarrasPintadasOff >= 0 Then ColorOn = &HFF00&: coloroff = &H8000&
         'amarillo
-        If PorcBarrasPintadasOff <= 75 And PorcBarrasPintadasOff > 20 Then: ColorOn = &HFFFF&: ColorOff = &H8080&
+        If PorcBarrasPintadasOff <= 75 And PorcBarrasPintadasOff > 20 Then: ColorOn = &HFFFF&: coloroff = &H8080&
         'rojo
-        If PorcBarrasPintadasOff <= 100 And PorcBarrasPintadasOff > 75 Then: ColorOn = &HFF&: ColorOff = &H80&
+        If PorcBarrasPintadasOff <= 100 And PorcBarrasPintadasOff > 75 Then: ColorOn = &HFF&: coloroff = &H80&
         
-        P(contVuOff).BackColor = ColorOff
-        P2(contVuOff).BackColor = ColorOff
+        P(contVuOff).BackColor = coloroff
+        P2(contVuOff).BackColor = coloroff
         
         contVu = contVu + 1
         If contVu = BarrasEnVUmeter Then contVu = 0
@@ -459,7 +473,7 @@ Private Sub DrawData()
         Dim TopeVU As Long 'maximo al que supongo que llegará
         TopeVU = 150
         'BarrasEnVUmeter es el numero de barras
-        contVu = 0: A = 0: b = 0
+        contVu = 0: a = 0: b = 0
         ContTopVU = ContTopVU + 1
         'cada 18 vuelta se fija el tope de vuelta
         If ContTopVU > 18 Then
@@ -467,22 +481,22 @@ Private Sub DrawData()
             MaxRH = 0
             ContTopVU = 0
         End If
-        'MaxLH = BarrasEnVUmeter: MaxRH = BarrasEnVUmeter esta en resize paraque no se cambien los valores
+        'MaxLH = BarrasEnVUmeter: MaxRH = BarrasEnVUmeter esta en resize para que no se cambien los valores
         Do While contVu < BarrasEnVUmeter
             PorcBarrasPintadas = contVu / BarrasEnVUmeter * 100
             'verde
-            If PorcBarrasPintadas <= 20 And PorcBarrasPintadas >= 0 Then ColorOn = &HFF00&: ColorOff = &H8000&
+            If PorcBarrasPintadas <= 20 And PorcBarrasPintadas >= 0 Then ColorOn = &HFF00&: coloroff = &H8000&
             'amarillo
-            If PorcBarrasPintadas <= 75 And PorcBarrasPintadas > 20 Then: ColorOn = &HFFFF&: ColorOff = &H8080&
+            If PorcBarrasPintadas <= 75 And PorcBarrasPintadas > 20 Then: ColorOn = &HFFFF&: coloroff = &H8080&
             'rojo
-            If PorcBarrasPintadas <= 100 And PorcBarrasPintadas > 75 Then: ColorOn = &HFF&: ColorOff = &H80&
+            If PorcBarrasPintadas <= 100 And PorcBarrasPintadas > 75 Then: ColorOn = &HFF&: coloroff = &H80&
 
             If contVu = MaxLH Then GoTo SiguienteRh 'que no repinte la ubicacion del tope
             
             If LH > TopeVU / BarrasEnVUmeter * (contVu + 1) Then
                 P(contVu).BackColor = ColorOn
             Else
-                If A = 0 Then
+                If a = 0 Then
                     If contVu >= MaxLH Then
                         MaxLH = contVu
                         P(contVu).BackColor = vbBlack
@@ -490,9 +504,9 @@ Private Sub DrawData()
                         MaxLH = MaxLH - 1
                         P(MaxLH).BackColor = vbBlack
                     End If
-                    A = A + 1
+                    a = a + 1
                 Else
-                    P(contVu).BackColor = ColorOff
+                    P(contVu).BackColor = coloroff
                 End If
             End If
 SiguienteRh:
@@ -510,10 +524,11 @@ SiguienteRh:
                     End If
                     b = b + 1
                 Else
-                    P2(contVu).BackColor = ColorOff
+                    P2(contVu).BackColor = coloroff
                 End If
             End If
 SIGUIENTE:
+            MostrarWMP RH, LH, contVu, 2
             contVu = contVu + 1
         Loop
     End If
@@ -595,16 +610,16 @@ Private Sub UserControl_Resize()
     
 End Sub
 
-Private Sub WriteFile(ARCH As String, Texto As String)
+Private Sub WriteFile(Arch As String, Texto As String)
     libre = FreeFile
-    Open ARCH For Output As libre
+    Open Arch For Output As libre
         Write #libre, Texto
     Close libre
 End Sub
 
-Private Function ReadFile(ARCH As String) As String
+Private Function ReadFile(Arch As String) As String
     libre = FreeFile
-    Open ARCH For Input As libre
+    Open Arch For Input As libre
         Input #libre, Texto
     Close libre
     ReadFile = Texto
@@ -617,3 +632,117 @@ End Sub
 Public Property Get IsPlaying() As Boolean
     IsPlaying = mIsPlaying
 End Property
+
+Public Sub MostrarWMP(R As Long, L As Long, Cont As Long, MODO As Long)
+    'se pasan los valores de los canales R y L
+    'de ahí tengo que inventar algo
+    'cada 18 vueltas se fija el topo, aprovecho ese numero para hace alguna cosa mas
+    If Cont = 0 Then
+        'limpiar
+        picWMP.Cls
+    End If
+    R = Abs(R)
+    L = Abs(L)
+    Select Case MODO
+        Case 1 ' 2 pelotas amarilla y roja
+            picWMP.FillColor = vbRed
+            picWMP.Circle (picWMP.Width / 2 + Int(Rnd * 1000), picWMP.Height / 2), Abs(R) * 10, vbRed
+            picWMP.FillColor = vbYellow
+            picWMP.Circle (picWMP.Width / 2 - Int(Rnd * 1000), picWMP.Height / 2), Abs(L) * 10, vbYellow
+        Case 2 ' 2 pelotas amarilla y roja
+            picWMP.BackColor = 1000000 + (R + L)
+            For a = 1 To 2
+                picWMP.FillColor = 1000000 + (R + L)
+                picWMP.Circle (Int(Rnd * picWMP.Width / 2), Int(Rnd * picWMP.Height)), R + L, 10000 + (R + L)
+                picWMP.Circle (picWMP.Width / 2 + Int(Rnd * picWMP.Width / 2), Int(Rnd * picWMP.Height)), R + L, 100000 + (R + L)
+            
+            Next
+            
+            
+        Case 3 ' 2 pelotas amarilla y roja
+            picWMP.FillColor = vbBlue
+            picWMP.Circle (0, 0), Abs(R) * 10, vbBlue
+            picWMP.FillColor = vbWhite
+            picWMP.Circle (picWMP.Width, picWMP.Height), Abs(L) * 10, vbWhite
+            picWMP.FillColor = vbBlue
+            picWMP.Circle (picWMP.Width / 2 + Int(Rnd * 1000), picWMP.Height / 2), Abs(R) * 10, vbBlue
+            picWMP.FillColor = vbWhite
+            picWMP.Circle (picWMP.Width / 2 - Int(Rnd * 1000), picWMP.Height / 2), Abs(L) * 10, vbWhite
+        Case 4 ' 2 pelotas amarilla y roja
+            picWMP.DrawWidth = 6
+            picWMP.FillColor = vbBlue
+            picWMP.Circle (0, 0), R * 30, vbBlue
+            picWMP.FillColor = vbWhite
+            picWMP.Circle (picWMP.Width, 0), L * 30, vbWhite
+            picWMP.ForeColor = vbBlue
+            picWMP.Line (R * 30, L * 30)-(L * 30, R * 30)
+            picWMP.ForeColor = vbWhite
+            picWMP.Line (picWMP.Width - R * 30, L * 30)-(picWMP.Width - L * 30, R * 30)
+        Case 5 ' 2 pelotas amarilla y roja
+            picWMP.DrawWidth = 3
+            picWMP.FillColor = vbBlue
+            picWMP.Circle (0, 0), R * 5, vbBlue
+            picWMP.FillColor = vbWhite
+            picWMP.Circle (picWMP.Width, 0), L * 5, vbWhite
+            
+            picWMP.FillColor = vbWhite
+            picWMP.Circle (R * 30, L * 30), L
+            
+            picWMP.FillColor = vbBlue
+            picWMP.Circle (L * 30, R * 30), L
+            
+            picWMP.FillColor = vbWhite
+            picWMP.Circle (L * 30, L * 30), L
+            
+            picWMP.FillColor = vbBlue
+            picWMP.Circle (R * 30, R * 30), L
+            
+            picWMP.FillColor = vbWhite
+            picWMP.Circle (R * 20, L * 20), L
+            
+            picWMP.FillColor = vbBlue
+            picWMP.Circle (L * 20, R * 20), L
+            
+        Case 6
+            picWMP.DrawWidth = 3
+            
+            'pelotitas de x,y fijos
+            picWMP.FillColor = 50 + R * 140
+            picWMP.Circle (picWMP.Width / 4, picWMP.Height / 4), R * 5, vbBlack
+            picWMP.FillColor = 5000000 + L * 140
+            picWMP.Circle (picWMP.Width * 0.75, picWMP.Height * 0.75), L * 5, vbBlack
+            
+            'picWMP.FillColor = R * 140
+            'picWMP.Circle (picWMP.Width / 5, picWMP.Height / 5), R, R * 140
+            'picWMP.FillColor = L * 140
+            'picWMP.Circle (picWMP.Width * 0.8, picWMP.Height * 0.8), L, L * 140
+            
+            'pelotitas de x,y variables
+            
+            'Randomize Timer
+            a = Int(Rnd * picWMP.Width / 4 + R * 10)
+            b = Int(Rnd * picWMP.Height / 4 + R * 10)
+            picWMP.FillColor = a + b
+            picWMP.Circle (a, b), R
+            
+            c = Int(Rnd * picWMP.Width / 4 + R * 10)
+            d = Int(Rnd * picWMP.Height / 4 + R * 10)
+            c = c + picWMP.Width * 0.5
+            d = d + picWMP.Height * 0.5
+            picWMP.FillColor = c + d
+            picWMP.Circle (c, d), R
+        Case 7
+            For a = 1 To 5
+                Dim AltoBarra As Long
+                AltoBarra = (picWMP.Height / 2) / 15
+                
+                picWMP.DrawWidth = AltoBarra - (R)
+                picWMP.ForeColor = Int(Rnd * R * 4)
+                picWMP.Line (0, Int(Rnd * (a * AltoBarra)))-(picWMP.Width, Int(Rnd * (a * AltoBarra)))
+                
+                picWMP.DrawWidth = AltoBarra - (L)
+                picWMP.ForeColor = Int(Rnd * L)
+                picWMP.Line (0, picWMP.Height - Int(Rnd * (a * AltoBarra)))-(picWMP.Width, picWMP.Height - Int(Rnd * (a * AltoBarra)))
+            Next
+    End Select
+End Sub

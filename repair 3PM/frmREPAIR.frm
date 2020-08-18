@@ -150,8 +150,8 @@ Private Sub Command1_Click()
     'borrar todos los archivos que no se instalaron y que forman parte de 3PM
     
     'primero RMLVF.DLL (indicador de licencia)
-    tbrDelete SysFolder + "\rmlvf.dll", 10, 0
-    tbrDelete SysFolder + "\rmlvf.tlb", 15, 1
+    'tbrDelete SysFolder + "\rmlvf.dll", 10, 0
+    'tbrDelete SysFolder + "\rmlvf.tlb", 15, 1
     'primero nnr.dll de win y de system (indicador de creditos)
     tbrDelete WinFolder + "\nnr.dll", 30, 2
     tbrDelete SysFolder + "\nnr.dll", 35, 3

@@ -691,7 +691,7 @@ Private Sub Command8_Click()
         '?????????真真真真真真
         
         
-        Name lstCarpetas As AP + "discos" + "\" + NewFolder
+        Name lstCarpetas As AP + "discos\" + NewFolder
         lstCarpetasShow.List(lstCarpetas.ListIndex) = NewFolder
     End If
 End Sub

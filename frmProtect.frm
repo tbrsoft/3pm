@@ -203,7 +203,7 @@ Private Sub Form_Load()
     PicProtec(3).Stretch = (Protector = 1)
     PicProtec(4).Stretch = (Protector = 1)
     PicProtec(5).Stretch = (Protector = 1)
-    lblDISCO.Visible = (Protector = 1)
+    lblDisco.Visible = (Protector = 1)
     'VER POR QUE NUMERO DE FOTO IVA
     NumFotoIni = Val(ReadSimpleFile)
     If (Protector = 1) Then
@@ -248,8 +248,8 @@ Private Sub Form_Load()
     End If
     'si no hay archivos en fotos da error!!!!
     If ContadorArch = 0 Then
-        lblDISCO = "!!!!!!No hay fotos para mostrar!!!!"
-        lblDISCO.Visible = True
+        lblDisco = "!!!!!!No hay fotos para mostrar!!!!"
+        lblDisco.Visible = True
     Else
         TiempoEnProtect = 0
         Timer1.Interval = Intervalo * 1000
@@ -290,7 +290,7 @@ Private Sub Timer1_Timer()
         Dim DISCO As String
         DISCO = Left(MTXtapas(IndMtxTapaVisible), Len(MTXtapas(IndMtxTapaVisible)) - 9)
         DISCO = FSO.GetBaseName(DISCO)
-        lblDISCO = DISCO
+        lblDisco = DISCO
         PicProtec(IndPicVisible).Stretch = True
     End If
     If (Protector = 2) Then
@@ -319,7 +319,7 @@ Private Sub Timer1_Timer()
     End If
     
     Randomize Timer
-    b = lblDISCO.Top - PicProtec(IndPicVisible).Height
+    b = lblDisco.Top - PicProtec(IndPicVisible).Height
     If b < 150 Then b = 150 '150 es el tope del frmae
         
     A = Int(Rnd * b)

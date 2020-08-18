@@ -1,0 +1,6 @@
+Para poder habilitar las publicidades de audio y video
+Agregue en esta carpeta ficheros MP3, AVI, MPG. 
+
+Para poder habilitar las publicidades rotativas de 150 x 150 pixeles
+en la página principal
+Agregue en esta carpeta ficheros JPG, BMP o GIF. 

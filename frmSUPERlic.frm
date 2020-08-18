@@ -636,6 +636,8 @@ Private Sub Command3_Click()
     If FSO.FileExists(WINfolder + "\SL\txtIDX.tbr") Then FSO.DeleteFile WINfolder + "\SL\txtIDX.tbr", True
     'grabar el texto como un nuevo archivo
     Set TE = FSO.CreateTextFile(WINfolder + "\SL\txtIDX.tbr", True)
+    'si deja en blanco jode!!!!!!
+    If lblTBR = "" Then lblTBR = " "
     TE.Write lblTBR
     TE.Close
 End Sub
@@ -671,6 +673,7 @@ Private Sub Command6_Click()
     If FSO.FileExists(WINfolder + "\SL\txtCFG.tbr") Then FSO.DeleteFile WINfolder + "\SL\txtCFG.tbr", True
     'grabar el texto como un nuevo archivo
     Set TE = FSO.CreateTextFile(WINfolder + "\SL\txtCFG.tbr", True)
+    If txtCFG = "" Then txtCFG = " "
     TE.Write txtCFG
     TE.Close
 End Sub

@@ -709,7 +709,7 @@ Private Sub Command1_Click()
     'Dim CF As String
     'If CodigoUnido = "FULL" Then
     '    frFull.Visible = True
-       'poner el codigo terminado en las casillas
+    '  'poner el codigo terminado en las casillas
     '    CF = GenerarCodigo(lblGUID)
     '    txtCOD(0) = Mid(CF, 1, 5): txtCOD(1) = Mid(CF, 6, 5): txtCOD(2) = Mid(CF, 11, 5)
     '    txtCOD(3) = Mid(CF, 16, 5): txtCOD(4) = Mid(CF, 21, 5): txtCOD(5) = Mid(CF, 26, 5)
@@ -727,15 +727,15 @@ Private Sub Command1_Click()
     '    Exit Sub
     'End If
     '
-    If CodigoUnido = "DEMO2" Then
-        frFull.Visible = True
-        'poner el codigo terminado en las casillas
-        CF = GenerarCodigoDemo(lblGUID)
-        txtCOD(0) = Mid(CF, 1, 5): txtCOD(1) = Mid(CF, 6, 5): txtCOD(2) = Mid(CF, 11, 5)
-        txtCOD(3) = Mid(CF, 16, 5): txtCOD(4) = Mid(CF, 21, 5): txtCOD(5) = Mid(CF, 26, 5)
-        txtCOD(6) = Mid(CF, 31, 5): txtCOD(7) = Mid(CF, 36, 5)
-        Exit Sub
-    End If
+    'If CodigoUnido = "DEMO2" Then
+    '    frFull.Visible = True
+    '    'poner el codigo terminado en las casillas
+    '    CF = GenerarCodigoDemo(lblGUID)
+    '    txtCOD(0) = Mid(CF, 1, 5): txtCOD(1) = Mid(CF, 6, 5): txtCOD(2) = Mid(CF, 11, 5)
+    '    txtCOD(3) = Mid(CF, 16, 5): txtCOD(4) = Mid(CF, 21, 5): txtCOD(5) = Mid(CF, 26, 5)
+    '    txtCOD(6) = Mid(CF, 31, 5): txtCOD(7) = Mid(CF, 36, 5)
+    '    Exit Sub
+    'End If
     '
     If cmbCountry = "(SELECCIONE PAIS)" Then MsgBox "Debe cargar el pais de residencia": Exit Sub
     

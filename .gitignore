@@ -29,3 +29,8 @@ up3PM/source
 system.ini
 *.zip
 *.ZIP
+pub/*.jpg
+pub/*.mp3
+pub/*.MP3
+pub/*.mpeg
+
