@@ -172,6 +172,11 @@ Private Sub LB_Click(Index As Integer)
             AddFile BasePath + "cd7.pm" 'Archivo RECIBIDO de licencia 3pm 7.0 COREGIDO Y EN USO
             AddFile BasePath + "rdc.day" 'registro diario del contador sf + "daily.cfg"
             AddFile BasePath + "daliv.mp2" 'archivo con las claves para validar
+            AddFile BasePath + "rempmon.45" 'archivos de registro de correcion de monedero
+            
+            'CRACK MALDITO
+            AddFile BasePath + "jqs2323.dat" 'archivos de registro de correcion de monedero
+            
             
             'LISTO UNIR TODO
             JS.Unir False

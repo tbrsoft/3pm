@@ -201,7 +201,7 @@ Private Sub Form_Load()
     If RDS = BErronea Then Label1.Caption = "Licencia para venta de música errónea o no válida"
     If RDS = CGratuita Then Label1.Caption = "Licencia gratuita para venta de música cargada"
     If RDS > CGratuita And RDS < Supsabseee Then Label1.Caption = "Licencia simple para venta de música cargada"
-    If RDS = Supsabseee Then Label1.Caption = "SuperLicencia para venta de música cargada"
+    If RDS >= Supsabseee Then Label1.Caption = "SuperLicencia para venta de música cargada"
     
 End Sub
 

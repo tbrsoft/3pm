@@ -149,7 +149,7 @@ Private Function SepararMN0(Archivo As String) As Long
                 Put #2, 1, Datoo
             Close #2
             Pdv = Pdv + Dqs(1) + 1
-            DoEvents
+            'DoEvents sacado 3 mar 2010 ya que jode al USB ILUS ... que cagadaaaaaaaaaaaaa
         Next R
     Close 'cierra todos, no solo el 1
     Terr.Anotar "1010"

@@ -515,6 +515,8 @@ Public Function DoPlay(iAlias As Long, Optional FullScreen As Boolean = False) A
     '0 ok
     '1 error mci
     
+    Terr.AppendSinHist "py_purple"
+    
     On Error GoTo ERmp3
     Terr.Anotar "002-0082", CStr(FullScreen), iAlias
     If FullScreen Then
@@ -927,11 +929,15 @@ Public Sub LogErrorMCI(CodeErrMCI)
     ErrTEXT = Trim(left(Buffer, Len(Buffer)))
     'en este writelog pongo la fecha y hora
     
-    RaiseEvent mmError("****ERRmmPlayer -M-C-I- ****" + vbCrLf + _
+    Dim txErr As String
+    txErr = "****ERRmmPlayer -M-C-I- ****" + vbCrLf + _
                         "N:" + Trim(CStr(CodeErrMCI)) + vbCrLf + _
                         ErrTEXT + vbCrLf + _
                         "HIST:" + vbCrLf + _
-                        Terr.LogAcumulado)
+                        Terr.LogAcumulado
+    
+    Terr.AppendLog txErr
+    RaiseEvent mmError(txErr)
 
     Exit Sub
 ERmp3:
@@ -1101,10 +1107,18 @@ Public Sub MiniInicVarMci(iAlias As Long)
     Terr.Anotar "iniMCI001", iAlias
     
     Dim Total As String * 128
-    dwReturn = mciSendString("set " & Alias(iAlias) & " time format frames", Total, 128, 0&)
+    Dim coMh As String
+    coMh = "set " + Alias(iAlias) + " time format frames"
+    dwReturn = mciSendString(coMh, Total, 128, 0&)
     
-    'VER QUE DA!!!
-    'xxxx
+'    'agregado en feb 2010, despues de años de funcionar se murio ...
+'    If dwReturn <> 0 And dwReturn <> 263 Then '263 es cuando no ha abierto nada
+'        LogErrorMCI dwReturn
+'        RaiseEvent mmError("****ERRmmPlayer****" + vbCrLf + _
+'                        "Comando:" + coMh + vbCrLf + _
+'                        "HIST:" + vbCrLf + _
+'                        Terr.LogAcumulado)
+'    End If
     
     'llenar las variables basicas para no usar de nuevo mciSend
     GetTotalframes iAlias 'aqui se carga mTotalFrames

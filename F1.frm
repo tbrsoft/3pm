@@ -406,7 +406,7 @@ Private Function Comparar(v1 As String, V2 As String, v3 As String, v4 As String
         'de este saco dispositivo + origen + disco + canción
         
         Dim sDev As String
-        Dim PTh As String
+        Dim PTH As String
         Dim PTs() As String 'partes del path
         Dim fNAME As String 'filename
         Dim sDisk As String
@@ -424,8 +424,8 @@ Private Function Comparar(v1 As String, V2 As String, v3 As String, v4 As String
         
         Platilla = SepAst(1) ' Mid(t(1), 3, Len(t(1)) - 2) de antes cuando era "PV precio" sin tema
         
-        PTh = Mid(SepAst(0), 2, Len(SepAst(0)) - 1)
-        PTs = Split(PTh, "\")
+        PTH = Mid(SepAst(0), 2, Len(SepAst(0)) - 1)
+        PTs = Split(PTH, "\")
         fNAME = PTs(UBound(PTs))
         sDisk = PTs(UBound(PTs) - 1)
         sOrig = PTs(UBound(PTs) - 2)

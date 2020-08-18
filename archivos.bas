@@ -480,7 +480,7 @@ Function ObtenerDir(ruta As String) As String()
         Else
             ' es un directorio
             tERR.Anotar "001-0044"
-            If RankToPeople = False And NombreDir = "_Los mas escuchados" Then
+            If RankToPeople = False And NombreDir = "_" + TopListen Then
                 'pasar al que sigue
                 tERR.Anotar "001-0045"
                 GoTo NextCarp
@@ -1614,7 +1614,7 @@ End Function
 
 Public Function GetTpPred() As String
     Dim iMf2 As String
-    If K.sabseee(dcr("1Vx0YVGhEoIisHPLAZMHXw==")) = Supsabseee Then
+    If K.sabseee(dcr("1Vx0YVGhEoIisHPLAZMHXw==")) >= Supsabseee Then
         If fso.FileExists(GPF("tddp322")) Then
             iMf2 = GPF("tddp322")
         Else

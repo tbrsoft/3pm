@@ -70,7 +70,7 @@ Begin VB.Form frmREG2
    End
    Begin tbrFaroButton.fBoton XxBoton2 
       Height          =   615
-      Left            =   7920
+      Left            =   7950
       TabIndex        =   9
       Top             =   2550
       Width           =   2865
@@ -514,6 +514,11 @@ Private Sub XxBoton2_Click()
     If K.sabseee(dcr("1Vx0YVGhEoIisHPLAZMHXw==")) = Supsabseee Then
         'El archivo es una SuperLicencia
         MsgBox dcr("HEadsdpypfdzGht8+ZzCB5Bw62EU/rhuFYigl6LUVy+pSWOwtbZ9ZPGPPVRUsNx6")
+    End If
+    
+    If K.sabseee(dcr("1Vx0YVGhEoIisHPLAZMHXw==")) > Supsabseee Then
+        'libertad al 3PM
+        MsgBox dcr("BE1s+L/UQcVFZoCB2K5uK1YXnVpNO+7xC0MVlRoELwVkAUAq+Gby/Q==")
     End If
     
     '3PM se cerrará ahora. Al iniciarlo nuevamente se usará su archivo de licencia

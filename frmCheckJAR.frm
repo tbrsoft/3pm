@@ -247,8 +247,8 @@ Private Function getBestImg(sFolder As String) As String
         IndMaxPtos = 1 'predeterminada
         For J = 1 To UBound(res)
             ThisPtos = 0
-            If InStr(FSO.GetBaseName(res(J)), "tapa") > 0 Then ThisPtos = ThisPtos + 500
-            If InStr(FSO.GetBaseName(res(J)), "frente") > 0 Then ThisPtos = ThisPtos + 500
+            If InStr(fso.GetBaseName(res(J)), "tapa") > 0 Then ThisPtos = ThisPtos + 500
+            If InStr(fso.GetBaseName(res(J)), "frente") > 0 Then ThisPtos = ThisPtos + 500
             ThisPtos = ThisPtos + CLng(FileLen(res(J)) / 1024) 'mas tamaño deberia ser mas calidad!
             
             If ThisPtos > MaxPTOS Then

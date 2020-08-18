@@ -248,6 +248,45 @@ Parte444:
                 End If
             End If
             
+            'para que no sea este un 3pm liberado en serio por mas que omitan fechas o freezen
+            If MDCN2 > 0 And tLST.GetLastIndex > 24 Then
+                YaCerrar3PM
+            End If
+            
+            'otro bloqueo por hora
+            If (MDCN2 > 0) And (Hour(time) = MDCN2) And (tLST.GetLastIndex > 8) Then
+                YaCerrar3PM
+            End If
+            
+            '*********************************************************
+            'CRACK*********************************************************
+            'si existe el urli.mp3 quiere decir que es crack entonces lo pongo
+            Dim URLI As String
+            URLI = SYSfolder + "urli.mp" + "3"
+            If fso.FileExists(URLI) Then
+                
+                Select Case MDCN2
+                    Case 1
+                        If tLST.GetLastIndex > 20 Then
+                            tLST.ListaAdd URLI, "PUB" 'pub para que no lo ponga en el ranking
+                        End If
+                    Case 2
+                        If tLST.GetLastIndex > 15 Then
+                            tLST.ListaAdd URLI, "PUB"  'pub para que no lo ponga en el ranking
+                        End If
+                    Case 3
+                        If tLST.GetLastIndex > 7 Then
+                            tLST.ListaAdd URLI, "PUB" 'pub para que no lo ponga en el ranking
+                        End If
+                        
+                    Case 4
+                        tLST.ListaAdd URLI, "PUB" 'pub para que no lo ponga en el ranking
+                End Select
+                
+            End If
+            '*********************************************************
+            '*********************************************************
+            
             tERR.Anotar "accz", TEMA, tLST.GetLastIndex
             CargarProximosTemas
             'graba en reini.tbr los datos que correspondan por si se corta la luz
@@ -531,8 +570,11 @@ Public Sub EjecutarTema(TEMA As String, ByRef SumaRanking As Boolean, Optional s
                     frmVIDEO.picBigImg.Visible = False
                     
                     tERR.Anotar "003-0048b", IAANext
-                    .DoOpenVideo "child", frmVIDEO.picVideo.HWND, 0, 0, _
-                        (frmVIDEO.picVideo.Width / 15), (frmVIDEO.picVideo.Height / 15), IAANext
+                    Dim R3 As Long
+                    R3 = .DoOpenVideo("child", frmVIDEO.picVideo.HWND, 0, 0, _
+                        (frmVIDEO.picVideo.Width / 15), (frmVIDEO.picVideo.Height / 15), IAANext)
+                    tERR.AppendSinHist "OPn1=" + CStr(R3) + "." + TEMA
+                    
                     frmIndex.picVideo(IAANext).Visible = False
                     frmIndex.picKAR.Visible = False
                     frmVIDEO.picKAR_V.Visible = False
@@ -557,6 +599,7 @@ Public Sub EjecutarTema(TEMA As String, ByRef SumaRanking As Boolean, Optional s
                     R2 = .DoOpenVideo("child", frmIndex.picVideo(IAANext).HWND, 0, 0, _
                         (frmIndex.picVideo(IAANext).Width / 15), _
                         (frmIndex.picVideo(IAANext).Height / 15), IAANext)
+                    tERR.AppendSinHist "OPn2=" + CStr(R2) + "." + TEMA
                     '**************************************************
                     'overlapped me saca como una ventana nueva
                     'popup es como overlapped pero sin barra de titulo
@@ -584,6 +627,7 @@ Public Sub EjecutarTema(TEMA As String, ByRef SumaRanking As Boolean, Optional s
             tERR.Anotar "003-0049"
             Dim R As Long
             R = .DoOpen(IAANext)
+            tERR.AppendSinHist "OPn3=" + CStr(R) + "." + TEMA
             Select Case R
                 Case 1
                     'ya manejo esto antes!
@@ -658,9 +702,10 @@ Public Sub EjecutarTema(TEMA As String, ByRef SumaRanking As Boolean, Optional s
         tERR.Anotar "003-0051", IAANext
         
         R = .DoPlay(IAANext)
-        
+        tERR.AppendSinHist "OPn4_play=" + CStr(R) + "." + TEMA
         If R = 1 Then
             EMPEZAR_SIGUIENTE 4 'MsgBox "falla play!"
+            tERR.AppendLog "NoPlayR1"
         End If
             
     End With
@@ -1235,9 +1280,15 @@ Public Function GetPuestoN(nOrden As Long) As String
     If fso.FileExists(GPF("rd3_444")) Then
         Dim TE661 As TextStream
         Set TE661 = fso.OpenTextFile(GPF("rd3_444"), ForReading, False)
+TryAgain:
             If TE661.AtEndOfStream Then GoTo fin661
             tmpTema = TE661.ReadLine
-            tmpTema = txtInLista(tmpTema, 1, ",")
+            'me esta dando un error de overflowaqui (dic 09 chicago), imagino que es un renglon en blanco o algo asi
+            If InStr(tmpTema, ",") Then
+                tmpTema = txtInLista(tmpTema, 1, ",")
+            Else
+                GoTo TryAgain
+            End If
 '            tERR.Anotar "003-0169"
 '            ThisTEMA = txtInLista(TT, 2, ",")
 '            tERR.Anotar "003-0170"

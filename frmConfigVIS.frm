@@ -358,7 +358,7 @@ Private Sub cmbSK_Click()
     imgTouchSel2.Picture = LoadPicture(IMF)
     
     'ver si es superlicencia y usa otra tapa predeterminada
-    If K.sabseee(dcr("q44KmdDBQ+IB8dTOX8F+VA==")) = Supsabseee Then
+    If K.sabseee(dcr("q44KmdDBQ+IB8dTOX8F+VA==")) >= Supsabseee Then
         If fso.FileExists(GPF("tddp323")) Then
             IMF = GPF("tddp323")
         Else

@@ -253,7 +253,7 @@ Private Function ShowElem(I As Long)
     Else
 TapaDef3:
         'ver si tiene programado una imagen de SL
-        If K.sabseee(dcr("1Vx0YVGhEoIisHPLAZMHXw==")) = Supsabseee Then
+        If K.sabseee(dcr("1Vx0YVGhEoIisHPLAZMHXw==")) >= Supsabseee Then
             If fso.FileExists(GPF("tddp322")) Then
                 IMF = GPF("tddp322")
                 tERR.Anotar "daas", IMF

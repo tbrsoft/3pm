@@ -157,15 +157,33 @@ Public Function Iniciar() As Long
     tERR.Anotar "bgaf", H
     
     If H >= 1 Then
-        
+            
+        tERR.Anotar "bgaf-3", H
         Set devices = New tbrBurner.clsDevices
         'Solo se hace la primera vez despues solo se pide DefaultDevice
-        devices.SetDefaultDevice devices.GetItem(0) 'meto la primera grabadora que haya
         
-        ''' Se deberia recorrer la coleccion de devices para saber cual elegir
-        Set device = devices.GetDefaultDevice()
+        'ver que sea un discpositivo que sirva para algo antes de asignarlo
+        'tERR.Anotar "bgaf-3b", devices.GetItem(0).Name 'SEGUIRAQUI SE VA TODO A LA MIERDA SI PIDO ESTO
+        
+        'tERR.Anotar "bgaf-3c", devices.GetItem(0).PathImageHardDrive
+        tERR.Anotar "bgaf-3d", devices.GetItem(0).ToString
+        
+        tERR.Anotar "bgaf-4"
+        devices.SetDefaultDevice devices.GetItem(0)  'meto la primera grabadora que haya
+        
+        tERR.Anotar "bgaf-5", TPr
+        '' Se deberia recorrer la coleccion de devices para saber cual elegir
+        
+        
+        'si funciona devices = clsdevices
+        'pero falla por error 430 device=clsdevice
+        
+        Set device = devices.GetDefaultDevice
+        
+        tERR.Anotar "bgaf-6"
         device.Initialize
         
+        tERR.Anotar "bgaf-7"
         Iniciar = 0 'todo ok
         Status = 0
     Else
@@ -174,6 +192,7 @@ Public Function Iniciar() As Long
         Status = -2 'se intento inicializar pero hay error
     End If
     
+    tERR.Anotar "bgaf-8"
     Exit Function
 
 NoIniCD:

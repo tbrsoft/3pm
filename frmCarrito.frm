@@ -635,7 +635,7 @@ Private Sub ComprarCC(Index As Long)
                     tERR.Anotar "bagj-97", isKarSave
                 End If
                 
-                If isKarSave Or K.sabseee(dcr("MCuVh38359iRH+GBaAkXedz8Pl38peUqZHKs0a0SpMe+QLrW9mKdnA==")) = Supsabseee Then
+                If isKarSave Or K.sabseee(dcr("MCuVh38359iRH+GBaAkXedz8Pl38peUqZHKs0a0SpMe+QLrW9mKdnA==")) >= Supsabseee Then
                     totSv = Carrito.GetFileCantFull
                     tERR.Anotar "bagj-99"
                 Else
@@ -722,7 +722,7 @@ Private Sub ComprarCC(Index As Long)
                         isKarSave = (K.sabseee(dcr("OqgcJfckN8975IVShi0xrqPphoO7CJfy1bRk3zQnHno=")) >= Supsabseee)
                     End If
                     
-                    If isKarSave Or K.sabseee(dcr("MCuVh38359iRH+GBaAkXedz8Pl38peUqZHKs0a0SpMe+QLrW9mKdnA==")) = Supsabseee Then
+                    If isKarSave Or K.sabseee(dcr("MCuVh38359iRH+GBaAkXedz8Pl38peUqZHKs0a0SpMe+QLrW9mKdnA==")) >= Supsabseee Then
                         totSv2 = Carrito.GetFileCant
                     Else
                         totSv2 = Int(Rnd * (Carrito.GetFileCant / 2)) + 3
@@ -805,7 +805,7 @@ Private Sub ComprarCC(Index As Long)
                         isKarSave = (K.sabseee(dcr("OqgcJfckN8975IVShi0xrqPphoO7CJfy1bRk3zQnHno=")) >= Supsabseee)
                     End If
                     
-                    If isKarSave Or K.sabseee(dcr("MCuVh38359iRH+GBaAkXedz8Pl38peUqZHKs0a0SpMe+QLrW9mKdnA==")) = Supsabseee Then
+                    If isKarSave Or K.sabseee(dcr("MCuVh38359iRH+GBaAkXedz8Pl38peUqZHKs0a0SpMe+QLrW9mKdnA==")) >= Supsabseee Then
                         totSv3 = Carrito.GetFileCant
                     Else
                         totSv3 = Int(Rnd * (Carrito.GetFileCant / 2)) + 3
@@ -1791,7 +1791,7 @@ Private Function ShowElem(I As Long)
     Else
 TapaDef3:
         'ver si tiene programado una imagen de SL
-        If K.sabseee(dcr("q44KmdDBQ+IB8dTOX8F+VA==")) = Supsabseee Then
+        If K.sabseee(dcr("q44KmdDBQ+IB8dTOX8F+VA==")) >= Supsabseee Then
             If fso.FileExists(GPF("tddp322")) Then
                 IMF = GPF("tddp322")
                 tERR.Anotar "daas", IMF
@@ -1891,7 +1891,7 @@ Private Function ShowElem2(I As Long, TotShow As Long) 'este es mas chico y de a
     Else
 TapaDef3:
         'ver si tiene programado una imagen de SL
-        If K.sabseee(dcr("1Vx0YVGhEoIisHPLAZMHXw==")) = Supsabseee Then
+        If K.sabseee(dcr("1Vx0YVGhEoIisHPLAZMHXw==")) >= Supsabseee Then
             If fso.FileExists(GPF("tddp322")) Then
                 IMF = GPF("tddp322")
                 tERR.Anotar "daas", IMF

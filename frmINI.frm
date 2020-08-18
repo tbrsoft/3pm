@@ -107,7 +107,7 @@ Begin VB.Form frmINI
    End
    Begin VB.Image Image1 
       Height          =   1305
-      Left            =   3480
+      Left            =   3510
       Top             =   1350
       Width           =   1440
    End
@@ -128,7 +128,14 @@ Private Sub Form_Load()
     tERR.Anotar "acmy"
     MostrarCursor False
     
-    VVV = "3PM v " + CStr(App.Major) + "." + STRceros(App.Minor, 2) + "." + STRceros(App.Revision, 3)
+    
+    If MDCN2 > 0 Then
+        VVV.ForeColor = vbYellow
+    End If
+    
+    'VVV = "3PM v " + CStr(App.Major) + "." + STRceros(App.Minor, 2) + "." + STRceros(App.Revision, 3)
+    VVV = dcr("S/7qOI2TQKjGUTi9076V2/a/tnd6I+PA") + CStr(App.Major) + "." + STRceros(App.Minor, 2) + "." + STRceros(App.Revision, 3)
+    
     VVV.Left = Frame1.Width / 2 - VVV.Width / 2
     lblINI.Width = Frame1.Width - 300
     lblINI.Left = 150
@@ -243,7 +250,7 @@ Private Sub Form_Load()
     IMF = ExtraData.getDef.getImagePath("iniciasys")
     
     tERR.Anotar "acmz2", IMF
-    If K.sabseee(dcr("1Vx0YVGhEoIisHPLAZMHXw==")) = Supsabseee Then
+    If K.sabseee(dcr("1Vx0YVGhEoIisHPLAZMHXw==")) >= Supsabseee Then
         If fso.FileExists(GPF("iisl67")) Then
             tERR.Anotar "acmz3"
             Image1.Picture = LoadPicture(GPF("iisl67"))
@@ -445,7 +452,7 @@ Private Sub Form_Load()
     If GrabaKar > 0 Then
         Set TW10 = New tbrWRII.tbrWR2
         TW10.SetFileLog AP + "logWII.log"
-        tERR.AppendSinHist "tbrWII:"
+        tERR.AppendSinHist "tbrWII:INICIA"
         TW10.Dispositivo = 0 'elegir solo para que pueda hacer el log ok
         'registro para ver que placas tiene
         TW10.LogDispositivos
@@ -465,7 +472,32 @@ Private Sub Form_Load()
     'inicializar los precios (se hace en el vacreditos)
     'en este caso no se suma ni al contador ni a la validacion
     
-    textoUsuario = LeerConfig("TextoUsuario", "Cargue los datos de su empresa aqui")
+    Select Case MDCN2
+        Case 0 'sin crack!!
+            '"Cargue los datos de su empresa aqui"
+            textoUsuario = LeerConfig("TextoUsuario", dcr("5GjFL+wevJFr9DU1lnH/7nSaQCLVZw2otsEccz+r5aC76h8ofTCt3JRLLAfYLpMX"))
+        Case 1 'crack en dic 09
+            ''www.tbrsoft.com + _ + "Cargue los datos de su empresa aqui"
+            textoUsuario = dcr("IbsGyqFDkye5yuiUGhHbZuivOdq7zrNEfHLeIVdNTQg=") + vbCrLf + _
+                LeerConfig("TextoUsuario", dcr("5GjFL+wevJFr9DU1lnH/7nSaQCLVZw2otsEccz+r5aC76h8ofTCt3JRLLAfYLpMX"))
+                
+        Case 2 'crack en ene 10
+            'www.tbrsoft.com
+            textoUsuario = dcr("IbsGyqFDkye5yuiUGhHbZuivOdq7zrNEfHLeIVdNTQg=")
+            
+            'rockolas@peru.com
+            'textoUsuario = dcr("1Cb7nxQ9JnbzmNaUZr8iUueU4qQn8Te62N17nMcETKg=")
+            
+        Case 3 'crack en feb 10
+            'musica y video gratuitos !!!
+            textoUsuario = dcr("ExRo0fQ3SYU9tOSZ3T0CyLvKLe9WYKG0ortTb8Xr6MmjuG7ShLwmdA==")
+        
+        Case 4 'crack en marzo 09
+            'info@tbrsoft.com
+            textoUsuario = dcr("lDheXOYXh8HqejJ6XrxpIF+PISeSC0OOmXedRCZwBHc=")
+    End Select
+    
+    
     textoUsuario = Replace(textoUsuario, Chr(5), vbCrLf)
     
     lblINI.Caption = TR.Trad("Inicializando 3PM...%99%") + "04"
@@ -549,6 +581,8 @@ Private Sub Form_Load()
     
     'ordenar el ranking
     srtRNK
+    'borrale si esta crakeado
+    DelFrmRank
     '==================================================================
     my_MEM.SetMomento "0098"
     'se inicializa el contador para que la variable CONTADOR tenga el
@@ -645,7 +679,7 @@ Private Sub Form_Load()
     '1: Tapa de ranking predeterminada (si es SL puede ser una personal)
 
     F6 = "tddp323"
-    If K.sabseee(dcr("1Vx0YVGhEoIisHPLAZMHXw==")) = Supsabseee Then
+    If K.sabseee(dcr("1Vx0YVGhEoIisHPLAZMHXw==")) >= Supsabseee Then
         If fso.FileExists(GPF(F6)) Then
             IMF = GPF(F6)
         Else

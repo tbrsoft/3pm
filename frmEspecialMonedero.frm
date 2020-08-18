@@ -165,7 +165,7 @@ Begin VB.Form frmEspecialMonedero
       Index           =   1
       IntegralHeight  =   0   'False
       ItemData        =   "frmEspecialMonedero.frx":0000
-      Left            =   5280
+      Left            =   5310
       List            =   "frmEspecialMonedero.frx":0007
       TabIndex        =   2
       Top             =   330
@@ -386,7 +386,7 @@ Private Sub Form_Load()
     With frmConfig
         lstVals(0).Enabled = (.chkCS.Value = 1)
         lstVals(1).Enabled = (.chkCS.Value = 1)
-        command3.Enabled = (.chkCS.Value = 1)
+        Command3.Enabled = (.chkCS.Value = 1)
         Command4.Enabled = (.chkCS.Value = 1)
         Command5.Enabled = (.chkCS.Value = 1)
         Command6.Enabled = (.chkCS.Value = 1)

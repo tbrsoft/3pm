@@ -122,11 +122,11 @@ Begin VB.Form frmProtect
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00E0E0E0&
-         Height          =   2265
-         Left            =   10290
+         Height          =   2925
+         Left            =   9990
          TabIndex        =   1
          Top             =   210
-         Width           =   1545
+         Width           =   1845
       End
    End
 End
@@ -202,7 +202,7 @@ Private Sub Form_Load()
     PicProtec(3).Stretch = (Protector = 1)
     PicProtec(4).Stretch = (Protector = 1)
     PicProtec(5).Stretch = (Protector = 1)
-    lblDISCO.Visible = (Protector = 1)
+    lblDisco.Visible = (Protector = 1)
     'VER POR QUE NUMERO DE FOTO IVA
     NumFotoIni = Val(ReadSimpleFile)
     If (Protector = 1) Then
@@ -255,8 +255,8 @@ Private Sub Form_Load()
     'si no hay archivos en fotos da error!!!!
     tERR.Anotar "acov", ContadorArch
     If ContadorArch = 0 Then
-        lblDISCO = TR.Trad("!No hay fotos para mostrar!%99%")
-        lblDISCO.Visible = True
+        lblDisco = TR.Trad("!No hay fotos para mostrar!%99%")
+        lblDisco.Visible = True
     Else
         TiempoEnProtect = 0
         Timer1.Interval = Intervalo * 1000
@@ -321,7 +321,7 @@ Private Sub Timer1_Timer()
         Dim DISCO As String
         DISCO = Left(MTXtapas(IndMtxTapaVisible), Len(MTXtapas(IndMtxTapaVisible)) - 9)
         DISCO = fso.GetBaseName(DISCO)
-        lblDISCO = DISCO
+        lblDisco = DISCO
         PicProtec(IndPicVisible).Stretch = True
     End If
     If (Protector = 2) Then
@@ -351,7 +351,7 @@ Private Sub Timer1_Timer()
     End If
     
     Randomize Timer
-    B = lblDISCO.Top - PicProtec(IndPicVisible).Height
+    B = lblDisco.Top - PicProtec(IndPicVisible).Height
     If B < 150 Then B = 150 '150 es el tope del frmae
     tERR.Anotar "acpe"
     A = Int(Rnd * B)
@@ -404,6 +404,12 @@ End Function
 
 '-------Agregado por el complemento traductor------------
 Private Sub Traducir()
-    lblDISCO.Caption = TR.Trad("Protección de pantalla%99%")
-    lblTIT.Caption = TR.Trad("Se está protegiendo la pantalla. Presione cualquier tecla para continuar.")
+    
+    'lblDISCO.Caption = TR.Trad("Protección de pantalla%99%")
+    'lblTIT.Caption = TR.Trad("Se está protegiendo la pantalla. Presione cualquier tecla para continuar.")
+    
+    'seguiraqui
+    'Si se va a mantener esta version hacer la traduccion en el traductor como corresponde
+    lblDisco.Caption = TR.Trad("ScreenSaver%99%")
+    lblTIT.Caption = TR.Trad("Press any key to continue%99%")
 End Sub

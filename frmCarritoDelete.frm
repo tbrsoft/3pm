@@ -354,7 +354,7 @@ Private Sub Form_Load()
 
 End Sub
 
-Public Sub ShowDEV(PTh As String)
+Public Sub ShowDEV(PTH As String)
     
     On Local Error GoTo MER
     UpdateDisp
@@ -362,7 +362,7 @@ Public Sub ShowDEV(PTh As String)
 
     Dim pt As New tbrPaths.clsPATHS
     'hacer la base con tamaños incluidos!!!!
-    pt.LeerTodo PTh + ":\", False, False
+    pt.LeerTodo PTH + ":\", False, False
     pt.UpdateFolderSize 'pone los tamaños en las carpatas!
     
     tERR.Anotar "dabl"

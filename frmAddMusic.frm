@@ -117,7 +117,7 @@ Begin VB.Form frmAddMusic
    End
    Begin VB.ListBox lstCarConMM 
       BeginProperty Font 
-         Name            =   "Arial Narrow"
+         Name            =   "Arial"
          Size            =   8.25
          Charset         =   0
          Weight          =   400
@@ -125,7 +125,7 @@ Begin VB.Form frmAddMusic
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   4905
+      Height          =   4860
       Left            =   60
       Style           =   1  'Checkbox
       TabIndex        =   6
@@ -982,7 +982,7 @@ NextMM:
         Next
         LastIni = UBound(CarpetasEnQueBuscar) - AgregadosEnVuelta + 1
         LastFin = LastIni + AgregadosEnVuelta - 1
-        tERR.Anotar "acjd", LastIni, LastFin
+        tERR.Anotar "acjd-2", LastIni, LastFin
     Loop
     FindCarpsConMM = TodasLasCarpetas
     
@@ -1005,7 +1005,7 @@ Function GetFolders(ruta As String) As String()
     Ruta2 = ruta
     If Right$(Ruta2, 1) <> "\" Then Ruta2 = Ruta2 & "\"
     NombreDir = Dir$(Ruta2 & "*.*", vbDirectory)
-    tERR.Anotar "acjd", Ruta2, NombreDir
+    tERR.Anotar "acjd-1", Ruta2, NombreDir
     Do While Len(NombreDir)
         If NombreDir = "." Or NombreDir = ".." Then
             ' excluir las entradas "." y ".."
@@ -1074,7 +1074,7 @@ Private Sub Form_Activate()
     tERR.Anotar "acjg"
     Label1(3) = TR.Trad("Especificar ubicación de los nuevos discos%99%")
     Command6.Caption = TR.Trad("CD Audio%99%")
-    command5.Caption = TR.Trad("CD/DVD%99%")
+    Command5.Caption = TR.Trad("CD/DVD%99%")
     Command1.Caption = TR.Trad("Explorar%99%")
     Label1(7) = TR.Trad("Desde aquí podrá trandsformar un CD de audio en " + _
         "ficheros mp3.%99%")
@@ -1167,7 +1167,7 @@ Private Sub Traducir()
     Command4.Caption = TR.Trad("Agregar estos discos a mi fonola%99%")
     Command3.Caption = TR.Trad("SALIR%99%")
     Command1.Caption = TR.Trad("Explorar%99%")
-    command5.Caption = TR.Trad("CD/DVD%99%")
+    Command5.Caption = TR.Trad("CD/DVD%99%")
     lblP.Caption = TR.Trad("% libre%99%")
     Label2(0).Caption = TR.Trad("Indique a que origen de discos se copiará la " + _
         "música. Revise el espacio disponible en el disco a usar. NO SIGA " + _

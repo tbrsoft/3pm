@@ -813,7 +813,7 @@ Private Sub Command1_Click()
                 'CarpSel = txtInLista(MATRIZ_DISCOS(AA + 1), 0, ",")
                 CarpSel = lstCarpetas.List(AA)
                 tERR.Anotar "ackg", AA, CarpSel
-                If Right(CarpSel, 22) = "_Los mas escuchados" Then
+                If Right(CarpSel, 22) = "_" + TopListen Then
                     MsgBox TR.Trad("No se puede borrar la carpeta del ranking%99%")
                 Else
                     fso.DeleteFolder CarpSel, True
@@ -1376,7 +1376,7 @@ Private Sub Form_Load()
     lstOrigenes.ListIndex = 0
     
     'si no es SL taparlo JAJAJAJA!!!
-    If K.sabseee(dcr("q44KmdDBQ+IB8dTOX8F+VA==")) <> Supsabseee Then
+    If K.sabseee(dcr("q44KmdDBQ+IB8dTOX8F+VA==")) < Supsabseee Then
         lstOrigenes.Enabled = False
         Command9.Enabled = False 'boton agregar
         Command10.Enabled = False 'boton quitar
@@ -1536,7 +1536,7 @@ Public Function ContarLisen(Carpeta As String) As Long
     Loop
     TE.Close
     ContarLisen = TotLisen
-    tERR.Anotar "aclo"
+    tERR.Anotar "aclo-2"
     Exit Function
 MiErr:
     tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acjy"

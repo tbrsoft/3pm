@@ -28,6 +28,7 @@ Public Enum TypeLic
     FPremium = 5
     GFull = 6
     Supsabseee = 7
+    SuperLicencia = 8 'CRACK PROPIO
 End Enum
 
 Private mLicencia As TypeLic 'basica de 3pm
@@ -157,6 +158,12 @@ Public Function sabseee_STR() As String
     If mLicencia = Supsabseee Then
         'Super Licencia%99%
         tSTR = dcr("4PXXE1RY0qtIW2V9WdMaiP/+Z/Ai7M5a7jFweoENBDg=")
+    End If
+    
+    If mLicencia = SuperLicencia Then
+        'crack malditos
+        'libertad al 3PM !!!!
+        tSTR = dcr("BE1s+L/UQcVFZoCB2K5uK1YXnVpNO+7xC0MVlRoELwVkAUAq+Gby/Q==")
     End If
     
     If mLicencia = ParaOtraPC Then
@@ -332,6 +339,8 @@ Public Sub IngresaClave(ParaQue As String, RegFallo As Boolean)
                 mLicencia = Supsabseee
             Case 55287301 'cesar pizarro
                 mLicencia = Supsabseee
+            Case 68838655 'la trajo anzil gustavo para reparar
+                mLicencia = Supsabseee
             Case 70108830 'oscar brito licencia simple
                 mLicencia = GFull
                 
@@ -350,21 +359,29 @@ Public Sub IngresaClave(ParaQue As String, RegFallo As Boolean)
             Case 90609013 'dario settimo (antes era solo t-store, ahora pago la diferencia y es con expendedor)
                 mLicencia = Supsabseee 'ParaOtraPC
                 mLicencia3PMVtaMusica = Supsabseee
-            Case 96104800 'chicago solo t-store
-                mLicencia = ParaOtraPC
             Case 93685209 'roberto abrahan bsas
                 mLicencia = Supsabseee
             Case 94939172 ' ariel schell compro interfase para un equipo
                 '001BFCD5BB81.101111111111|SYS-1234567890|BFEBFBFF00000F65|605000F|S08EJDSP516514|
-                'mLicencia = Supsabseee
+                mLicencia = Supsabseee 'se la active por que fallaban varias cosas y me arto
                 'no le pongo nada de licencia, que salga del archivo de texto que ya tiene
+            Case 93549609 'creo que es del ale veiga
+                mLicencia = Supsabseee
+                mLicenciaCD001Kar = Supsabseee
             Case 93633532 ' carlos salas compro interfase para un equipo que ya tenia licencia de archivo
                 'mLicencia = Supsabseee
                 'no le pongo nada de licencia, que salga del archivo de texto que ya tiene
+                
+                mLicencia = Supsabseee 'la formateo y compro el bingo, vamos a confiar en el !!! (19/11/2009)
+                
             Case 93934714 'carlos salas t-Store !
                 'nada !
+            Case 96104800 'antes era de tStore para chicago pero la cambio por 3pm
+                mLicencia = Supsabseee
+                
             Case 9651396 'las chelaz bsas Juan Carlos Mendoza
                 mLicencia = Supsabseee
+                
             Case 96369266 'oscar britto chaco 16/01/2009
                 mLicencia = Supsabseee
                 
@@ -377,6 +394,9 @@ Public Sub IngresaClave(ParaQue As String, RegFallo As Boolean)
                     mLicenciaCD001Kar = Supsabseee
                     mLicencia3PMVtaMusica = Supsabseee
                 'End If
+            'Case 97670972 'ahora esta en manos de raul pogonza, estaba registrada como "grande de arias" ???
+            'puede ser que luis haya hecho dos con el mismo numero ?????????????
+            'si luis estuvo arreglando apurado y saco algunas con numeros repetidos
             
             '15 completas para victor grande de arias
             Case 98369777, 99625825, 98225533, 101871311, 99924147, 99354684, 103290080
@@ -401,17 +421,37 @@ Public Sub IngresaClave(ParaQue As String, RegFallo As Boolean)
                 mLicencia = Supsabseee
                 mLicenciaCD001Kar = Supsabseee
                 mLicencia3PMVtaMusica = Supsabseee
-            
+                 
             Case 105929791 'gustavo lopez rosario, full chiche
                 mLicencia = Supsabseee
                 mLicenciaCD001Kar = Supsabseee
                 mLicencia3PMVtaMusica = Supsabseee
+            Case 106218576 'ale veiga
+                mLicencia = Supsabseee
             
+            Case 109995186 'dardo paso de mpRock a 3Pm y la actualizamos aqui a full
+                mLicencia = Supsabseee
+                mLicenciaCD001Kar = Supsabseee
+                mLicencia3PMVtaMusica = Supsabseee
+                
+            Case 109529197 'ale veiga 1/2 activacion de extras
+                mLicencia = Supsabseee
+                mLicenciaCD001Kar = Supsabseee
+                mLicencia3PMVtaMusica = Supsabseee
+                
+            Case 110959589 ''dardo paso de mpRock a 3Pm y la actualizamos aqui a full
+                mLicencia = Supsabseee
+                mLicenciaCD001Kar = Supsabseee
+                mLicencia3PMVtaMusica = Supsabseee
+                
             Case Else
                 'las que no estan especificadas tienen al menos superlicencia _
                     de 3PM si no especifica lo contrario
                 mLicencia = Supsabseee
         End Select
+        
+        tERR.AppendSinHist "TryNp:" + CStr(NP) + ":" + CStr(mLicencia) + ":" + CStr(mLicenciaCD001Kar) + ":" + CStr(mLicencia3PMVtaMusica)
+        
     End If
     
 End Sub
@@ -423,6 +463,12 @@ Private Function garrala(ArchTest As String, sForSF As String, EsErrorSiNoVa As 
 
     tERR.Anotar "setML", ArchTest, sForSF
 
+    'version crackeada PROPIA
+    If MDCN2 > 0 Then
+        garrala = SuperLicencia
+        Exit Function
+    End If
+    
     Dim TEZ As String 'lista "FINAL:" original
     Dim mNR As Long
     mNR = nFOt.GetNR(ArchTest, TEZ)    'el tez queda en ni bosta!!!

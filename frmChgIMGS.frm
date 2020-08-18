@@ -297,7 +297,7 @@ End Function
 Private Sub Form_Load()
     Pintar_fBoton Me
     Traducir 'Agregado por el complemento traductor
-    XxBoton4.Enabled = (K.sabseee(dcr("q44KmdDBQ+IB8dTOX8F+VA==")) = Supsabseee)
+    XxBoton4.Enabled = (K.sabseee(dcr("q44KmdDBQ+IB8dTOX8F+VA==")) >= Supsabseee)
     Command22.Enabled = XxBoton4.Enabled
     
     XxBoton5.Enabled = XxBoton4.Enabled

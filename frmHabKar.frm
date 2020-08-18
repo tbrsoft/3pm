@@ -52,7 +52,7 @@ Begin VB.Form frmHabKar
       Height          =   645
       Left            =   930
       TabIndex        =   3
-      Top             =   1620
+      Top             =   1680
       Width           =   2715
       _ExtentX        =   4789
       _ExtentY        =   1138
@@ -198,7 +198,7 @@ Private Sub fBoton2_Click()
     
     Dim J As TypeLic
     J = K.sabseee(dcr("OqgcJfckN8975IVShi0xrqPphoO7CJfy1bRk3zQnHno="))
-    If J = Supsabseee Then
+    If J >= Supsabseee Then
         MsgBox TR.Trad("Se cargo la SuperLicencia de karaoke%99%")
     Else
         If J >= EComun Then

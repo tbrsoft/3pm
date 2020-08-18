@@ -42,7 +42,9 @@ End Sub
 Public Property Let Enabled(n_Enabled As Boolean)
     m_Enabled = n_Enabled
     If m_Enabled Then
-        Call StartTimer
+        If m_Interval > 0 Then 'agregado feb 2010
+            Call StartTimer
+        End If
     Else
         Call StopTimer
     End If

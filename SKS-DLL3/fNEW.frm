@@ -199,7 +199,7 @@ Begin VB.Form fNEW
    End
    Begin VB.TextBox tLOG 
       Appearance      =   0  'Flat
-      BackColor       =   &H00404040&
+      BackColor       =   &H00808000&
       BeginProperty Font 
          Name            =   "Trebuchet MS"
          Size            =   8.25
@@ -216,7 +216,7 @@ Begin VB.Form fNEW
       MultiLine       =   -1  'True
       ScrollBars      =   2  'Vertical
       TabIndex        =   0
-      Top             =   360
+      Top             =   390
       Width           =   2895
    End
    Begin tbrFaroButton.fBoton xBASE 
@@ -271,6 +271,8 @@ Private Sub Form_Load()
     Dim FSO As New Scripting.FileSystemObject
     SF = FSO.GetSpecialFolder(SystemFolder)
     If Right(SF, 1) <> "\" Then SF = SF + "\"
+    
+    Me.Caption = "Test H2k               Versión " + CStr(App.Major) + "." + CStr(App.Minor) + "." + CStr(App.Revision)
 End Sub
 
 Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
@@ -404,6 +406,8 @@ End Sub
 
 Private Sub xINI_Click()
     
+    On Local Error GoTo errTEST
+    
     If Not IsNumeric(txTimeOUT) Then
         MsgBox "Parametro TimeOut mal definido !!"
         Exit Sub
@@ -496,6 +500,16 @@ Private Sub xINI_Click()
         
     Next J
     
+    Exit Sub
+errTEST:
+    'si el tipo pone iniciar pruebas dos veces TE nunca se cerro
+    If Err.Number = 70 Then
+        TE.Close
+        Resume
+    Else
+        MsgBox "Error, reinicie esta aplicación (" + CStr(Err.Number) + ")" + vbCrLf + Err.Description
+        
+    End If
 End Sub
 
 Private Sub esperar(N As Single)
