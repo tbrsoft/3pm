@@ -627,19 +627,22 @@ Attribute VB_Exposed = False
 Dim MostrarMensajeWarning As Boolean
 
 Private Sub Command1_Click()
-    'leer el archivo de configuracion para guardar
-    'los datos
-    
+    On Error GoTo MiErr
+    'leer el archivo de configuracion para guardar los datos
+    tERR.Anotar "acnv"
     Set TE = FSO.OpenTextFile(AP + "imgini.tbr")
     Dim Ls() As String, c As Long
     c = 1
     Do While Not TE.AtEndOfStream
+       
        ReDim Preserve Ls(c)
        Ls(c) = TE.ReadLine
+       tERR.Anotar "acnw", c, Ls(c)
        c = c + 1
     Loop
     TE.Close
     If opIniWIN Then
+        tERR.Anotar "acnx"
         Ls(4) = "LoadImgIni=w"
         If FSO.FileExists("c:\logo.sys") Then FSO.DeleteFile "c:\logo.sys", True
         'ver si la imagen estaba
@@ -652,6 +655,7 @@ Private Sub Command1_Click()
     End If
     
     If OpIni3PM Then
+        tERR.Anotar "acny"
         Ls(4) = "LoadImgIni=3"
         If FSO.FileExists("c:\logo.sys") Then FSO.DeleteFile "c:\logo.sys", True
         'volver a cargarla
@@ -669,7 +673,7 @@ Private Sub Command1_Click()
             'como no estaba se queda sin imagen
         End If
     End If
-    
+    tERR.Anotar "acnz"
     If OpCerrando3PM Then
         Ls(5) = "LoadImgCerrando=3"
         If FSO.FileExists(WINfolder + "logow.sys") Then FSO.DeleteFile WINfolder + "logow.sys", True
@@ -679,6 +683,7 @@ Private Sub Command1_Click()
     
     If OpApagarWIN Then
         Ls(6) = "LoadImgApagar=w"
+        tERR.Anotar "acoa"
         If FSO.FileExists(WINfolder + "logos.sys") Then FSO.DeleteFile WINfolder + "logos.sys", True
         'ver si la imagen estaba
         If txtInLista(Ls(3), 1, "=") = "1" Then
@@ -707,6 +712,7 @@ Private Sub Command1_Click()
     TE.WriteLine Ls(6)
     TE.Close
     
+    tERR.Anotar "acob"
     'leer el system.ini y ver si estamos con PROGMAN o EXPLORER
     'copiarlo para no echar moco
     If FSO.FileExists(AP + "system.ini") Then FSO.DeleteFile AP + "system.ini", True
@@ -718,6 +724,7 @@ Private Sub Command1_Click()
     Do While Not TE.AtEndOfStream
         ReDim Preserve TodoSystem(c)
         TodoSystem(c) = TE.ReadLine
+        tERR.Anotar "acoc", c, TodoSystem(c)
         If LCase(txtInLista(TodoSystem(c), 0, "=")) = "shell" Then
             UbicShell = c
             ActualShell = txtInLista(TodoSystem(c), 1, "=")
@@ -738,8 +745,13 @@ Private Sub Command1_Click()
     If FSO.FileExists(WINfolder + "OLDsystem.ini") Then FSO.DeleteFile WINfolder + "OLDsystem.ini", True
     If FSO.FileExists(WINfolder + "system.ini") Then FSO.MoveFile WINfolder + "system.ini", WINfolder + "OLDsystem.ini"
     FSO.MoveFile AP + "system.ini", WINfolder + "system.ini"
-    
+    tERR.Anotar "acod"
     Unload Me
+    
+    Exit Sub
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acnu"
+    Resume Next
 End Sub
 
 Private Sub Command2_Click()
@@ -784,6 +796,8 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub Form_Load()
+    On Error GoTo MiErr
+    tERR.Anotar "acoe"
     MostrarMensajeWarning = False
     AjustarFRM Me, 12000
     
@@ -804,7 +818,7 @@ Private Sub Form_Load()
     Else
         lblNoImgCerrando.Visible = True
     End If
-    
+    tERR.Anotar "acof"
     If FSO.FileExists(WINfolder + "img3pm\w\logos.sys") Then
         imgApagarWIN.Picture = LoadPicture(WINfolder + "img3pm\w\logos.sys")
     Else
@@ -818,9 +832,10 @@ Private Sub Form_Load()
     Dim Ls() As String, c As Long
     c = 1
     Do While Not TE.AtEndOfStream
-       ReDim Preserve Ls(c)
-       Ls(c) = TE.ReadLine
-       c = c + 1
+        ReDim Preserve Ls(c)
+        Ls(c) = TE.ReadLine
+        tERR.Anotar "acog", c, Ls(c)
+        c = c + 1
     Loop
     TE.Close
     Dim LoadImgIni As String
@@ -829,7 +844,7 @@ Private Sub Form_Load()
     LoadImgCerrando = txtInLista(Ls(5), 1, "=")
     Dim LoadImgApagar As String
     LoadImgApagar = txtInLista(Ls(6), 1, "=")
-    
+    tERR.Anotar "acoh"
     If LoadImgIni = "w" Then opIniWIN = True
     If LoadImgIni = "3" Then OpIni3PM = True
     
@@ -851,6 +866,7 @@ Private Sub Form_Load()
     Do While Not TE.AtEndOfStream
         ReDim Preserve TodoSystem(c)
         TodoSystem(c) = TE.ReadLine
+        tERR.Anotar "acoi", c, TodoSystem(c)
         If LCase(txtInLista(TodoSystem(c), 0, "=")) = "shell" Then
             UbicShell = c
             ActualShell = txtInLista(TodoSystem(c), 1, "=")
@@ -861,8 +877,13 @@ Private Sub Form_Load()
     TE.Close
     If UCase(ActualShell) = "EXPLORER.EXE" Then Option6 = True
     If UCase(ActualShell) = "PROGMAN.EXE" Then Option2 = True
-    
+    tERR.Anotar "acoj"
     MostrarMensajeWarning = True
+    
+    Exit Sub
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acnt"
+    Resume Next
 End Sub
 
 Private Sub Option2_Click()

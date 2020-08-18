@@ -1,6 +1,4 @@
 Attribute VB_Name = "Globales"
-Public AcumCaminoError As String 'ultimos identificadores de camino
-
 Public EsModo5PeroLabura46 As Boolean 'para el caso de modo video
 Public vW As New clsWindowsVERSION
 Public EstoyEnModoVideoMiniSelDisco As Boolean
@@ -19,8 +17,6 @@ Public vidFullScreen As Boolean 'dice si el video es fullscreen o no
 Public NoVumVID As Boolean 'quitar el VUMetro de los videos
 Public OutTemasWhenSel As Boolean 'quitar el VUMetro de los videos
 
-Public K As New clsKEYS 'control de llaves y licencias
-
 Public PUBs As New clsPUB
 
 Public MostrarPUB As Boolean 'se reproducen Publicidades MP3 o video?
@@ -29,7 +25,6 @@ Public PubliCada As Long 'cada cuantos temas la publicidad
 Public MostrarPUBIMG As Boolean 'se muestran Publicidades (imagen rotativa en index)?
 Public PubliIMGCada As Long 'cada cuantos segundos la publicidad
 
-Public LineaError As String 'linea de codigo para identificar error
 Public MostrarTouch As Boolean
 Public ClaveAdmin As String
 'validar con clave cada x creditos
@@ -58,8 +53,6 @@ Public SYSfolder As String
 Public WINfolder As String
 
 Public RankToPeople As Boolean 'expone o no el reank a los usuarios
-
-Public ClaveIngresada As String
 
 Public DuracionProtect As Long
 Public MostrarRotulos As Boolean
@@ -103,6 +96,7 @@ Public TeclaNextMusic As Integer
 
 Public MaximoFichas As Integer
 Public ApagarAlCierre As Boolean
+Public ActivarERR As Boolean 'activar registro permannete de errores
 Public FASTini As Boolean 'comienzo con sin mostrar imágenes
 Public EsperaMinutos As Integer 'en realizadad es SEGUNDOS. Espera antes de que auto ejecute algun temas
 Public EsperaTecla As Integer '. Espera antes del protector de pantalla
@@ -141,6 +135,62 @@ Public TOTAL_DISCOS As Long ' total de discos
 Public UbicDiscoActual As String 'path del disco actual
 'sirve para no usar la MATRIZ_TEMAS y poder ordenar los temas de cada disco
 Public WAIT_EMPIEZA As Integer 'esperar 5 segundos por comienzo de tema
+Public K 'control de llaves y licencias
+Public tERR As New tbrErrores.clsTbrERR
+
+Public Sub Main()
+    On Error GoTo ErrINI
+    AP = App.path
+    If Right(AP, 1) <> "\" Then AP = AP + "\"
+    
+    SYSfolder = FSO.GetSpecialFolder(SystemFolder)
+    WINfolder = FSO.GetSpecialFolder(WindowsFolder)
+    If Right(WINfolder, 1) <> "\" Then WINfolder = WINfolder + "\"
+    If Right(SYSfolder, 1) <> "\" Then SYSfolder = SYSfolder + "\"
+    
+    
+    'antes que todo el registro de error
+    tERR.FileLog = AP + "reg3PM.log"
+    
+    tERR.LargoAcumula = 130
+    
+    tERR.Anotar "1111"
+    
+    '------------------------------------------------
+    'ver si hay que empezar con los errores a full!!!
+    ActivarERR = LeerConfig("ActivarERR", "0")
+    'graba todo siempre y en distintosa archivos
+    tERR.Anotar "acnc", ActivarERR
+    If ActivarERR Then
+        Dim n As String
+        n = CStr(Day(Date)) + "." + CStr(Month(Date)) + "." + CStr(Year(Date)) + _
+            "." + CStr(Hour(time)) + "." + CStr(Minute(time)) + "." + CStr(Second(time))
+        tERR.FileLogGrabaTodo = AP + "REG" + CStr(n) + ".W15"
+        tERR.ModoGrabaTodo = True
+        tERR.StartGrabaTodo
+    End If
+    
+    '------------------------------------------------
+    
+    Dim V As vWindows
+    'esta es la primera y lo calcula, despues solo lo lee de la _
+        propiedad version
+    'queda como global el vW
+    V = vW.GetVersion
+    
+    ReDim Preserve MATRIZ_DISCOS(0)
+    
+    Set K = New clsKEYS
+    K.ClaveDLL = "ashjdklahsJKLHASL65456456456"
+    
+    frmREG.Show 1
+    
+ErrINI:
+    
+    tERR.AppendLog tERR.ErrToTXT(Err), "MAIN.BAS" + ".acpi2"
+    Resume Next
+    
+End Sub
 
 
 Public Function txtInLista(lista As String, Orden As Long, Separador As String) As String
@@ -179,7 +229,7 @@ Public Function txtInLista(lista As String, Orden As Long, Separador As String) 
 End Function
 
 Public Sub CargarProximosTemas()
-    On Error GoTo Errores
+    On Error GoTo MiErr
     'cargar lstProximos
     Dim strProximos As String, TotTemas As Integer
     
@@ -212,9 +262,11 @@ Public Sub CargarProximosTemas()
         
     End If
     Exit Sub
-Errores:
-    WriteTBRLog "Error en Sub_CargarProximosTemas: " + Err.Description + " (" + CStr(Err.Number) + "). Se continua...", True
+    
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), "Globales.BAS" + ".acpi"
     Resume Next
+
 End Sub
 
 Public Sub OnOffCAPS(vKey As KeyCodeConstants, PRENDER As Boolean)
@@ -325,7 +377,7 @@ End Function
 
 
 Public Sub CargarArchReini(ModoReini As String)
-    On Error GoTo Errores
+    On Error GoTo MiErr
     Set TE = FSO.CreateTextFile(AP + "reini.tbr", True)
     Select Case ModoReini
         Case "FULL" 'tema actual + lista posterior
@@ -349,8 +401,9 @@ Public Sub CargarArchReini(ModoReini As String)
             TE.Close
     End Select
     Exit Sub
-Errores:
-    WriteTBRLog "Error en CargarArchReIni: " + Err.Description + " (" + CStr(Err.Number) + "). Se continua...", True
+    
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), "GLOBALES.bas" + ".acpj"
     Resume Next
 End Sub
 
@@ -374,7 +427,14 @@ Public Function STRceros(n As Variant, Cifras As Integer) As String
 End Function
 
 Public Sub APAGAR_PC()
-    Shell "rundll32 user.exe,exitwindows"
+    Dim V As vWindows
+    V = vW.GetVersion
+    Select Case V
+    Case Win98, Win98SE, WinME
+        Shell "rundll32 user.exe,exitwindows"
+    Case Win2000, WinNT4, WinXp, WinXP2
+        Shell "Shutdown -s -t 0"
+    End Select
 End Sub
 
 Public Sub VerClaves(CLAVE As String)
@@ -537,44 +597,44 @@ Public Function Encriptar(Valor, UnEncrypt As Boolean) As String
     
 End Function
 
-Public Sub WriteTBRLog(TXT As String, PonerFecha As Boolean)
-
-    TXT = vbCrLf + "Linea: " + LineaError + vbCrLf + TXT
-    If FSO.FileExists(AP + "TBRlog.txt") = False Then
-        Set TE = FSO.CreateTextFile(AP + "TBRlog.txt", False)
-        TE.Close
-    End If
-    'ver si no es demasiado grande
-    If FileLen(AP + "tbrlog.txt") > 100000 Then 'hasta 100 KB aguanto
-        'pasarlo a otro archivo y volver a vrearlo
-        If FSO.FileExists(AP + "OLDtbrlog.txt") Then FSO.DeleteFile AP + "OLDtbrlog.txt", True
-        FSO.MoveFile AP + "tbrlog.txt", AP + "OLDtbrlog.txt"
-        Set TE = FSO.CreateTextFile(AP + "TBRlog.txt", False)
-        TE.Close
-    End If
-    'finalmente escribir
-    Set TE = FSO.OpenTextFile(AP + "TBRlog.txt", ForAppending, False)
-    TE.WriteLine "" 'dejar un renglon en blanco
-    If PonerFecha Then
-        TE.WriteLine Trim(Str(Date)) + " / " + Trim(Str(time)) + vbCrLf + TXT
-    Else
-        TE.WriteLine TXT
-    End If
-    TE.Close
-    
-    If LCase(AP) = "d:\ahora\3pmv65 kabalin\" Then MsgBox TXT
-End Sub
+'Public Sub WriteTBRLog(TXT As String, PonerFecha As Boolean)
+'
+'    TXT = vbCrLf + "Linea: " + LineaError + vbCrLf + TXT
+'    If FSO.FileExists(AP + "TBRlog.txt") = False Then
+'        Set TE = FSO.CreateTextFile(AP + "TBRlog.txt", False)
+'        TE.Close
+'    End If
+'    'ver si no es demasiado grande
+'    If FileLen(AP + "tbrlog.txt") > 100000 Then 'hasta 100 KB aguanto
+'        'pasarlo a otro archivo y volver a vrearlo
+'        If FSO.FileExists(AP + "OLDtbrlog.txt") Then FSO.DeleteFile AP + "OLDtbrlog.txt", True
+'        FSO.MoveFile AP + "tbrlog.txt", AP + "OLDtbrlog.txt"
+'        Set TE = FSO.CreateTextFile(AP + "TBRlog.txt", False)
+'        TE.Close
+'    End If
+'    'finalmente escribir
+'    Set TE = FSO.OpenTextFile(AP + "TBRlog.txt", ForAppending, False)
+'    TE.WriteLine "" 'dejar un renglon en blanco
+'    If PonerFecha Then
+'        TE.WriteLine Trim(Str(Date)) + " / " + Trim(Str(time)) + vbCrLf + TXT
+'    Else
+'        TE.WriteLine TXT
+'    End If
+'    TE.Close
+'
+'    If LCase(AP) = "h:\ahora\3pmv65 kabalin\" Then MsgBox TXT
+'End Sub
 
 
 Public Function QuitarNumeroDeTema(TemaFull As String) As String
-    On Error GoTo ErrQuitaNum
+    On Error GoTo MiErr
     'si es un archivo corto ni lo toco!!!
     'en general es porque el nombre del tema es un número!!!
     If Len(TemaFull) <= 4 Then
         QuitarNumeroDeTema = TemaFull
         Exit Function
     End If
-    CaminoError "004-0001"
+    tERR.Anotar "004-0001"
     Dim TMPtema As String
     TMPtema = TemaFull
     'ver si hay numeros adelante y si hay quitarselos
@@ -583,7 +643,7 @@ Public Function QuitarNumeroDeTema(TemaFull As String) As String
     If IsNumeric(Mid(TemaFull, 1, 1)) Then NumersoAlInicio = NumersoAlInicio + 1
     If IsNumeric(Mid(TemaFull, 2, 1)) Then NumersoAlInicio = NumersoAlInicio + 1
     If IsNumeric(Mid(TemaFull, 3, 1)) Then NumersoAlInicio = NumersoAlInicio + 1
-    CaminoError "004-0002"
+    tERR.Anotar "004-0002"
     If NumersoAlInicio > 0 Then
         TMPtema = Trim(Right(TemaFull, Len(TemaFull) - 3))
         'ver si quedo con esto
@@ -601,14 +661,16 @@ Public Function QuitarNumeroDeTema(TemaFull As String) As String
         Next
         
     End If
-    CaminoError "004-0003"
+    tERR.Anotar "004-0003"
     QuitarNumeroDeTema = TMPtema
+    
+    
     Exit Function
-ErrQuitaNum:
-    WriteTBRLog "ERROR EN QuitarNumero TEMA. " + vbCrLf + _
-        "Arch: " + TemaFull + vbCrLf + _
-        "Descripcion: " + Err.Description, True
-    If frmIndex.MP3.IsPlaying = False Then EMPEZAR_SIGUIENTE
+    
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), "GLOBALES.bas" + ".acpl"
+    Resume Next
+    'If frmIndex.MP3.IsPlaying = False Then EMPEZAR_SIGUIENTE
 End Function
 Public Sub InfoDisco(LBL As Label)
     Dim TotDisco, TotFree1, TotFree2, Serial As String, VolName As String
@@ -676,24 +738,6 @@ Public Sub VerSiTocaPUB()
     End If
 End Sub
 
-Public Sub Main()
-    
-    Dim V As vWindows
-    'esta es la primera y lo calcula, despues solo lo lee de la _
-        propiedad version
-    'queda como global el vW
-    V = vW.GetVersion
-    
-    AP = App.path
-    If Right(AP, 1) <> "\" Then AP = AP + "\"
-
-    K.ClaveDLL = "ashjdklahsJKLHASL65456456456"
-    
-    ReDim Preserve MATRIZ_DISCOS(0)
-    
-    frmREG.Show 1
-    
-End Sub
 Public Sub ShowCredits()
     If CREDITOS >= 10 Then
         frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
@@ -747,29 +791,29 @@ Public Sub SumarMatriz(MatrizAcumuladora() As String, MatrizAgregada() As String
         '=============================================================================
         '=============================================================================
         Dim MD
-        MD = 12
-        CaminoError "001-0060"
+        MD = 25
+        tERR.Anotar "001-0060"
         If K.LICENCIA = aSinCargar And j > MD Then
             'limite de discos
-            CaminoError "001-0061"
+            tERR.Anotar "001-0061"
             MsgBox "Esta es una version demo y no se pueden cargar más " + _
             "de " + Trim(Str(MD)) + " discos." + vbCrLf + _
             "Para conseguir la versión sin límite de discos y con el manual " + _
             "completo envie un e-mail a tbrsoft@hotmail.com o a " + _
             "tbrsoft@cpcipc.org. Solo se cargaran los " + Trim(Str(MD)) + " primeros discos"
-            CaminoError "001-0062"
+            tERR.Anotar "001-0062"
             Exit For
         End If
-        CaminoError "001-0063"
+        tERR.Anotar "001-0063"
         If K.LICENCIA = CGratuita And j > MD Then
             'limite de discos
-            CaminoError "001-0064"
+            tERR.Anotar "001-0064"
             MsgBox "Esta es una version demo y no se pueden cargar más " + _
             "de " + Trim(Str(MD)) + " discos." + vbCrLf + _
             "Para conseguir la versión sin límite de discos y con el manual " + _
             "completo envie un e-mail a tbrsoft@hotmail.com o a " + _
             "tbrsoft@cpcipc.org. Solo se cargaran los " + Trim(Str(MD)) + " primeros discos"
-            CaminoError "001-0065"
+            tERR.Anotar "001-0065"
             Exit For
         End If
         '=============================================================================

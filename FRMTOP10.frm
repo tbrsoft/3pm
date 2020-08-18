@@ -68,7 +68,6 @@ Begin VB.Form FRMTOP10
          Begin VB.CommandButton Command1 
             BackColor       =   &H00C0C0C0&
             Caption         =   "OK"
-            Default         =   -1  'True
             BeginProperty Font 
                Name            =   "Verdana"
                Size            =   9.75
@@ -199,6 +198,9 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Dim TeclaBajo As Long 'tecla de keydown para usar en KeyUP
+Dim YaInicio As Long
+
 Dim pANT As Integer
 Dim MTXtop() As String
 Dim MTXtemas() As String
@@ -219,7 +221,26 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     
     'y si no es una ficha la que se esta cargando
     lblNoEjecuta.Visible = False
-    Select Case KeyCode
+    
+    
+    Dim RealKeyCode As Integer
+    'ver si es o no numpad
+    If IsKeyPad(Me) Then
+        'la falla reconocida por microsoft es de la tecla enter
+        'sea cual sea sale el keycode 13 por mas que sea la del keypad
+        'que es el 108
+        RealKeyCode = KeyCode
+        If KeyCode = 13 Then RealKeyCode = 108
+        'ademas si esta apretado el BLOQ NUM
+    Else
+        'de manera predeterminada son el mismo
+        'salvo los casos que se especifican
+        RealKeyCode = KeyCode
+    End If
+    
+    TeclaBajo = RealKeyCode
+    
+    Select Case RealKeyCode
         Case TeclaConfig
             frmConfig.Show 1
         
@@ -276,78 +297,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             
             Unload Me
             Exit Sub
-        Case TeclaOK
-            TECLAS_PRES = TECLAS_PRES + "3"
-            TECLAS_PRES = Right(TECLAS_PRES, 20)
-            frmIndex.lblTECLAS = TECLAS_PRES
-            'primero que pide!!!
-            Dim temaElegido As String
-            If PuestoElegido >= UBound(MTXtop) Then
-                MsgBox "No hay tema elegido!!"
-                Exit Sub
-            End If
-            temaElegido = MTXtop(PuestoElegido + 1)
-            
-            If LCase(Right(temaElegido, 3)) = "mp3" Or LCase(Right(temaElegido, 3)) = "wma" Then
-                PideVideo = False
-            Else
-                PideVideo = True
-            End If
-            'ver si puede pagar lo que pide!!!
-            'que joyita papa!!!. Parece que supieras programar
-            '--------------------------------------------------------------
-            If (PideVideo = False And CREDITOS >= CreditosCuestaTema) Or _
-                (PideVideo And CREDITOS >= CreditosCuestaTemaVIDEO) Then
-            '--------------------------------------------------------------
-                'restar lo que corresponde!!!
-                If PideVideo Then
-                    CREDITOS = CREDITOS - CreditosCuestaTemaVIDEO
-                Else
-                    CREDITOS = CREDITOS - CreditosCuestaTema
-                End If
-                'siempre que se ejecute un credito estaremos por debajo de maximo
-                OnOffCAPS vbKeyScrollLock, True
-                
-                EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
-                
-                ShowCredits
-                
-                'si esta ejecutando pasa a la lista de reproducción
-                If frmIndex.MP3.IsPlaying And CORTAR_TEMA = False Then
-                    'pasar a la lista de reproducción
-                    Dim NewIndLista As Long
-                    NewIndLista = UBound(MATRIZ_LISTA)
-                    ReDim Preserve MATRIZ_LISTA(NewIndLista + 1)
-                    'se graba en Matriz_Listas como patah, nombre(sin .mp3)
-                    MATRIZ_LISTA(NewIndLista + 1) = temaElegido + "," + MTXtemas(PuestoElegido + 1) + " / " + MTXdiscos(PuestoElegido + 1)
-                    CargarProximosTemas
-                    'graba en reini.tbr los datos que correspondan por si se corta la luz
-                    CargarArchReini UCase(ReINI) 'POR LAS DUDAS que no este en mayusculas
-                Else
-                    'ocultar el rank y mostrar lblWAIT
-                    lblWAIT = "CARGANDO TEMA" + vbCrLf + "ESPERE..."
-                    Dim cRank As Integer
-                    cRank = 0
-                    Do While cRank < MaxTop
-                        lblPuestos(cRank).Visible = False
-                        'lblPuestos(cRank).Refresh
-                        cRank = cRank + 1
-                    Loop
-                    lblWAIT.Visible = True
-                    lblWAIT.Refresh
-                    'TEMA_REPRODUCIENDO y mp3.isplayin se cargan en ejecutartema
-                    CORTAR_TEMA = False 'este tema va entero ya que lo eligio el usuario
-                    EjecutarTema temaElegido, True
-                End If
-                
-                VerSiTocaPUB
-                
-                'pase lo que pase me vuelvo a los discos y cierro ventana actual
-                
-                Unload Me
-            Else
-                lblNoEjecuta.Visible = True
-            End If
+        
                 
         Case TeclaCerrarSistema
             OnOffCAPS vbKeyCapital, False
@@ -401,28 +351,131 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
-    If KeyCode = TeclaNewFicha Then
-        'si ya hay 9 cargados se traga las fichas
-        If CREDITOS <= MaximoFichas Then
-            'apagar el fichero electronico
-            OnOffCAPS vbKeyScrollLock, True
-            CREDITOS = CREDITOS + TemasPorCredito
-            SumarContadorCreditos TemasPorCredito
-            'grabar cant de creditos
-            EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
-            
-            ShowCredits
-            
-            'grabar credito para validar
-            'creditosValidar ya se cargo en load de frmindex
-            CreditosValidar = CreditosValidar + TemasPorCredito
-            EscribirArch1Linea SYSfolder + "radilav.cfg", CStr(CreditosValidar)
-            
-        Else
-            'apagar el fichero electronico
-            OnOffCAPS vbKeyScrollLock, False
-        End If
+
+
+
+    'la verdadera tecla debe mostrar si es una tecla del teclado numerico
+    Dim RealKeyCode As Integer
+    'ver si es o no numpad
+    If IsKeyPad(Me) Then
+        'la falla reconocida por microsoft es de la tecla enter
+        'sea cual sea sale el keycode 13 por mas que sea la del keypad
+        'que es el 108
+        RealKeyCode = KeyCode
+        If KeyCode = 13 Then RealKeyCode = 108
+        'ademas si esta apretado el BLOQ NUM
+    Else
+        'de manera predeterminada son el mismo
+        'salvo los casos que se especifican
+        RealKeyCode = KeyCode
     End If
+    
+    If TeclaBajo = 108 Then RealKeyCode = 108
+    
+    'ver detalle mas abajo de que mierda es esto y en el gral de este frm
+    YaInicio = YaInicio + 1
+
+    Select Case RealKeyCode
+
+        Case TeclaNewFicha
+            'si ya hay 9 cargados se traga las fichas
+            If CREDITOS <= MaximoFichas Then
+                'apagar el fichero electronico
+                OnOffCAPS vbKeyScrollLock, True
+                CREDITOS = CREDITOS + TemasPorCredito
+                SumarContadorCreditos TemasPorCredito
+                'grabar cant de creditos
+                EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
+                
+                ShowCredits
+                
+                'grabar credito para validar
+                'creditosValidar ya se cargo en load de frmindex
+                CreditosValidar = CreditosValidar + TemasPorCredito
+                EscribirArch1Linea SYSfolder + "radilav.cfg", CStr(CreditosValidar)
+                
+            Else
+                'apagar el fichero electronico
+                OnOffCAPS vbKeyScrollLock, False
+            End If
+        
+        
+        Case TeclaOK
+            If YaInicio <= 1 Then Exit Sub
+            'ver si esta habilitado
+            TECLAS_PRES = TECLAS_PRES + "3"
+            TECLAS_PRES = Right(TECLAS_PRES, 20)
+            frmIndex.lblTECLAS = TECLAS_PRES
+            'primero que pide!!!
+            Dim temaElegido As String
+            If PuestoElegido >= UBound(MTXtop) Then
+                MsgBox "No hay tema elegido!!"
+                Exit Sub
+            End If
+            temaElegido = MTXtop(PuestoElegido + 1)
+            
+            If LCase(Right(temaElegido, 3)) = "mp3" Or LCase(Right(temaElegido, 3)) = "wma" Then
+                PideVideo = False
+            Else
+                PideVideo = True
+            End If
+            'ver si puede pagar lo que pide!!!
+            'que joyita papa!!!. Parece que supieras programar
+            '--------------------------------------------------------------
+            If (PideVideo = False And CREDITOS >= CreditosCuestaTema) Or _
+                (PideVideo And CREDITOS >= CreditosCuestaTemaVIDEO) Then
+            '--------------------------------------------------------------
+                'restar lo que corresponde!!!
+                If PideVideo Then
+                    CREDITOS = CREDITOS - CreditosCuestaTemaVIDEO
+                Else
+                    CREDITOS = CREDITOS - CreditosCuestaTema
+                End If
+                'siempre que se ejecute un credito estaremos por debajo de maximo
+                OnOffCAPS vbKeyScrollLock, True
+                
+                EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
+                
+                ShowCredits
+                
+                'si esta ejecutando pasa a la lista de reproducción
+                If frmIndex.MP3.IsPlaying And CORTAR_TEMA = False Then
+                    'pasar a la lista de reproducción
+                    Dim NewIndLista As Long
+                    NewIndLista = UBound(MATRIZ_LISTA)
+                    ReDim Preserve MATRIZ_LISTA(NewIndLista + 1)
+                    'se graba en Matriz_Listas como patah, nombre(sin .mp3)
+                    MATRIZ_LISTA(NewIndLista + 1) = temaElegido + "," + MTXtemas(PuestoElegido + 1) + " / " + MTXdiscos(PuestoElegido + 1)
+                    CargarProximosTemas
+                    'graba en reini.tbr los datos que correspondan por si se corta la luz
+                    CargarArchReini UCase(ReINI) 'POR LAS DUDAS que no este en mayusculas
+                Else
+                    'ocultar el rank y mostrar lblWAIT
+                    lblWait = "CARGANDO TEMA" + vbCrLf + "ESPERE..."
+                    Dim cRank As Integer
+                    cRank = 0
+                    Do While cRank < MaxTop
+                        lblPuestos(cRank).Visible = False
+                        'lblPuestos(cRank).Refresh
+                        cRank = cRank + 1
+                    Loop
+                    lblWait.Visible = True
+                    lblWait.Refresh
+                    'TEMA_REPRODUCIENDO y mp3.isplayin se cargan en ejecutartema
+                    CORTAR_TEMA = False 'este tema va entero ya que lo eligio el usuario
+                    EjecutarTema temaElegido, True
+                End If
+                
+                VerSiTocaPUB
+                
+                'pase lo que pase me vuelvo a los discos y cierro ventana actual
+                
+                Unload Me
+            Else
+                lblNoEjecuta.Visible = True
+            End If
+        
+    End Select
 End Sub
 
 Private Sub Form_Load()
@@ -434,8 +487,11 @@ Private Sub Form_Load()
             Image1.Picture = LoadPicture(WINfolder + "SL\indexchi.tbr")
         End If
     End If
-    If MostrarTouch = False Then Frame2.Visible = False        'frame del touch
-    
+    If MostrarTouch = False Then
+        Frame2.Visible = False        'frame del touch
+    Else
+        Command1.DEfault = True
+    End If
     ColorUnSel = 1
     ColorSel = vbRed
     ForeColorTop = vbYellow

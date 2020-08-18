@@ -162,6 +162,10 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
+
+    On Error GoTo MiErr
+    tERR.Anotar "acom", KeyCode, Shift
+    
     If KeyCode = TeclaNewFicha Then
         'si ya hay 9 cargados se traga las fichas
         If CREDITOS <= MaximoFichas Then
@@ -182,9 +186,16 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             OnOffCAPS vbKeyScrollLock, False
         End If
     End If
+    tERR.Anotar "acon"
+    Exit Sub
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acok"
+    Resume Next
 End Sub
 
 Private Sub Form_Load()
+    On Error GoTo MiErr
+    tERR.Anotar "acoo"
     Intervalo = 2
     AjustarFRM Me, 12000
     FR.Left = Screen.Width / 2 - FR.Width / 2
@@ -199,10 +210,11 @@ Private Sub Form_Load()
     PicProtec(3).Stretch = (Protector = 1)
     PicProtec(4).Stretch = (Protector = 1)
     PicProtec(5).Stretch = (Protector = 1)
-    lblDisco.Visible = (Protector = 1)
+    lblDISCO.Visible = (Protector = 1)
     'VER POR QUE NUMERO DE FOTO IVA
     NumFotoIni = Val(ReadSimpleFile)
     If (Protector = 1) Then
+        tERR.Anotar "acop"
         ContadorArch = 0
         'hacer una lista de las tapas disponibles
         ruta = AP + "discos\"
@@ -213,6 +225,7 @@ Private Sub Form_Load()
             ElseIf (GetAttr(ruta & NombreDir) And vbDirectory) = 0 Then
                 ' este es un archivo normal
             Else
+                tERR.Anotar "acoq", ruta + NombreDir
                 ' es un directorio
                 If FSO.FileExists(ruta & NombreDir + "\tapa.jpg") Then
                     ContadorArch = ContadorArch + 1
@@ -221,9 +234,11 @@ Private Sub Form_Load()
                 End If
             End If
             NombreDir = Dir$
+            tERR.Anotar "acor", NombreDir
         Loop
     End If
     If (Protector = 2) Then
+        tERR.Anotar "acos"
         ContadorArch = 0
         'hacer una lista de las fotos disponibles
         ruta = AP + "fotos\"
@@ -232,25 +247,34 @@ Private Sub Form_Load()
             If NombreDir = "." Or NombreDir = ".." Then
                 ' excluir las entradas "." y ".."
             ElseIf (GetAttr(ruta & NombreDir) And vbDirectory) = 0 Then
+                
                 'este es un archivo normal
                 ContadorArch = ContadorArch + 1
                 ReDim Preserve MTXtapas(ContadorArch) As String
                 MTXtapas(ContadorArch) = ruta & NombreDir
+                tERR.Anotar "acot", ContadorArch, MTXtapas(ContadorArch)
             Else
                 ' es un directorio
             End If
             NombreDir = Dir$
+            tERR.Anotar "acou", NombreDir
         Loop
     End If
     'si no hay archivos en fotos da error!!!!
+    tERR.Anotar "acov", ContadorArch
     If ContadorArch = 0 Then
-        lblDisco = "!!!!!!No hay fotos para mostrar!!!!"
-        lblDisco.Visible = True
+        lblDISCO = "!!!!!!No hay fotos para mostrar!!!!"
+        lblDISCO.Visible = True
     Else
         TiempoEnProtect = 0
         Timer1.Interval = Intervalo * 1000
         IndMtxTapaVisible = NumFotoIni
     End If
+    tERR.Anotar "acow"
+    Exit Sub
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acol"
+    Resume Next
 End Sub
 
 Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
@@ -259,9 +283,12 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
 End Sub
 
 Private Sub Timer1_Timer()
+    On Error GoTo MiErr
     TiempoEnProtect = TiempoEnProtect + (Intervalo * 1000)
+    tERR.Anotar "acoy", TiempoEnProtect
     If DuracionProtect > 0 Then 'si duuracion protect=0 no sale hasta que toquen tecla
         If TiempoEnProtect > DuracionProtect * 1000 Then
+            tERR.Anotar "acoz", TiempoEnProtect, DuracionProtect
             Timer1.Interval = 0
             Unload Me
         End If
@@ -271,7 +298,7 @@ Private Sub Timer1_Timer()
     lblTIT.Top = TopTit
     If TopTit > 5130 Then movTit = movTit * (-1)
     If TopTit < 100 Then movTit = movTit * (-1)
-    
+    tERR.Anotar "acpa"
     PicProtec(IndPicVisible).Visible = False
     IndPicVisible = IndPicVisible + 1
     IndMtxTapaVisible = IndMtxTapaVisible + 1
@@ -282,11 +309,12 @@ Private Sub Timer1_Timer()
     PicProtec(IndPicVisible).Stretch = (Protector = 1)
     PicProtec(IndPicVisible).Picture = LoadPicture(MTXtapas(IndMtxTapaVisible))
     PROP = PicProtec(IndPicVisible).Height / PicProtec(IndPicVisible).Width
+    tERR.Anotar "acpb", Protector
     If (Protector = 1) Then
         Dim DISCO As String
         DISCO = Left(MTXtapas(IndMtxTapaVisible), Len(MTXtapas(IndMtxTapaVisible)) - 9)
         DISCO = FSO.GetBaseName(DISCO)
-        lblDisco = DISCO
+        lblDISCO = DISCO
         PicProtec(IndPicVisible).Stretch = True
     End If
     If (Protector = 2) Then
@@ -294,7 +322,7 @@ Private Sub Timer1_Timer()
         If PicProtec(IndPicVisible).Height > FR.Height * 0.8 Or PicProtec(IndPicVisible).Width > FR.Width * 0.8 Then
             'llevar a un tamaño decente
             PicProtec(IndPicVisible).Stretch = True
-            
+            tERR.Anotar "acpc", PROP
             If PROP > 1 Then
                 'fr es menor al alto
                 PropAchicar = (FR.Height * 0.8) / PicProtec(IndPicVisible).Height
@@ -306,7 +334,9 @@ Private Sub Timer1_Timer()
             PicProtec(IndPicVisible).Width = PicProtec(IndPicVisible).Width * PropAchicar
             PROP2 = PicProtec(IndPicVisible).Height / PicProtec(IndPicVisible).Width
             If PROP - PROP2 > 0.1 Then
-                WriteTBRLog "La imagen del protect no se mostro correctamente. Foto:" + CStr(MTXtapas(IndMtxTapaVisible)), True
+                tERR.Anotar "acpd.NOSEVE=", MTXtapas(IndMtxTapaVisible)
+                'WriteTBRLog "La imagen del protect no se mostro correctamente. Foto:" + _
+                    CStr(MTXtapas(IndMtxTapaVisible)), True
             End If
             
         Else
@@ -315,9 +345,9 @@ Private Sub Timer1_Timer()
     End If
     
     Randomize Timer
-    B = lblDisco.Top - PicProtec(IndPicVisible).Height
+    B = lblDISCO.Top - PicProtec(IndPicVisible).Height
     If B < 150 Then B = 150 '150 es el tope del frmae
-        
+    tERR.Anotar "acpe"
     A = Int(Rnd * B)
     PicProtec(IndPicVisible).Top = A
     
@@ -327,6 +357,11 @@ Private Sub Timer1_Timer()
     PicProtec(IndPicVisible).Left = A
     
     PicProtec(IndPicVisible).Visible = True
+    tERR.Anotar "acpf"
+    Exit Sub
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acom"
+    Resume Next
 End Sub
 
 Private Sub WriteSimpleFile(TXT As String)

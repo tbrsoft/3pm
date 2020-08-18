@@ -151,9 +151,9 @@ Begin VB.Form frmAddRemoveMusic
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   7440
+      Height          =   7140
       IntegralHeight  =   0   'False
-      Left            =   7200
+      Left            =   7230
       MultiSelect     =   2  'Extended
       Sorted          =   -1  'True
       TabIndex        =   21
@@ -365,12 +365,12 @@ Begin VB.Form frmAddRemoveMusic
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   1125
+      Height          =   1455
       Left            =   10500
       Style           =   1  'Graphical
       TabIndex        =   5
-      Top             =   7530
-      Width           =   1335
+      Top             =   7200
+      Width           =   1365
    End
    Begin VB.CommandButton cmdKillArch 
       BackColor       =   &H00FFFFC0&
@@ -471,6 +471,25 @@ Begin VB.Form frmAddRemoveMusic
       TabIndex        =   23
       Top             =   540
       Width           =   7035
+   End
+   Begin VB.CommandButton Command15 
+      BackColor       =   &H00FFC0C0&
+      Caption         =   "Grabar estadisticas a disco"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   375
+      Left            =   7230
+      Style           =   1  'Graphical
+      TabIndex        =   32
+      Top             =   7200
+      Width           =   3255
    End
    Begin VB.Label Label1 
       BackStyle       =   0  'Transparent
@@ -595,7 +614,7 @@ Begin VB.Form frmAddRemoveMusic
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00C0FFFF&
-      Height          =   1185
+      Height          =   1005
       Left            =   7200
       TabIndex        =   7
       Top             =   6150
@@ -651,6 +670,9 @@ Dim MTXfiles() As String 'archivos en lstTEMAS , desde uno empieza
 Dim CmdLg As New CommonDialog
 
 Private Sub cmdKillArch_Click()
+    On Error GoTo MiErr
+    
+    tERR.Anotar "acjy"
     If lstTEMAS.SelCount = 0 Then
         Select Case IDIOMA
             Case "Español"
@@ -675,11 +697,12 @@ Private Sub cmdKillArch_Click()
         Dim TotSel As Long, FileSel As String
         TotSel = lstTEMAS.SelCount
         For AA = 0 To lstTEMAS.ListCount - 1
+            
             If lstTEMAS.Selected(AA) Then
                 'en la matriz empieza en 1 y lst empieza en 0
                 FileSel = txtInLista(MTXfiles(AA + 1), 0, ",")
                 FSO.DeleteFile FileSel, True
-                WriteTBRLog "Se borro el archivo " + FileSel, True
+                tERR.Anotar "acka", AA, TotSel, FileSel
             End If
         Next
         'actualizar todo
@@ -693,6 +716,7 @@ Private Sub cmdKillArch_Click()
         End Select
         
     End If
+    tERR.Anotar "ackb"
     InfoDisco lblInfoDisco
     Exit Sub
 NOBORRA:
@@ -705,9 +729,15 @@ NOBORRA:
         Case "Francois"
         Case "Italiano"
     End Select
+    
+    Exit Sub
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acji"
+    Resume Next
 End Sub
 
 Private Sub cmdKillTapa_Click()
+    On Error GoTo MiErr
     
     Select Case IDIOMA
         Case "Español"
@@ -719,12 +749,19 @@ Private Sub cmdKillTapa_Click()
 
     If MsgBox(MSG, vbYesNo + vbCritical) = vbNo Then Exit Sub
     FSO.DeleteFile lstCarpetas + "\tapa.jpg", True
+    tERR.Anotar "ackc", lstCarpetas
     'refrescar la imagen
     TapaCD.Picture = LoadPicture(SYSfolder + "f61.dlw")
     cmdKillTapa.Enabled = False
+    
+    Exit Sub
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acjj"
+    Resume Next
 End Sub
 
 Private Sub cmdKillTXT_Click()
+    On Error GoTo MiErr
     Select Case IDIOMA
         Case "Español"
             MSG = "¿Esta seguro que desea eliminar el texto elegido?"
@@ -733,12 +770,20 @@ Private Sub cmdKillTXT_Click()
         Case "Italiano"
     End Select
     If MsgBox(MSG, vbYesNo + vbCritical) = vbNo Then Exit Sub
+    tERR.Anotar "ackd", lstCarpetas
     FSO.DeleteFile lstCarpetas + "\data.txt", True
     cmdKillTXT.Enabled = False
     txtDataTXT = "NO EXISTE"
+    
+    Exit Sub
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acjk"
+    Resume Next
 End Sub
 
 Private Sub Command1_Click()
+    On Error GoTo MiErr
+    
     'si borro una vez esta todo OK
     ' si entro por segunda vez ya matriz_discos tiene distintos indices
     'con respecto a las listas!!!!!!!!!!!!
@@ -749,7 +794,9 @@ Private Sub Command1_Click()
         Case "Francois"
         Case "Italiano"
     End Select
+    tERR.Anotar "acke"
     If MsgBox(MSG, vbQuestion + vbYesNo) = vbYes Then
+        tERR.Anotar "ackf"
         On Local Error GoTo NOBORRA
         Dim TotSel As Long, CarpSel As String
         TotSel = lstCarpetasShow.SelCount
@@ -760,6 +807,7 @@ Private Sub Command1_Click()
                 ''en la matriz empieza en 1 y lst empieza en 0
                 'CarpSel = txtInLista(MATRIZ_DISCOS(AA + 1), 0, ",")
                 CarpSel = lstCarpetas.List(AA)
+                tERR.Anotar "ackg", AA, CarpSel
                 If Right(CarpSel, 22) = "01- Los mas escuchados" Then
                     Select Case IDIOMA
                         Case "Español"
@@ -770,7 +818,6 @@ Private Sub Command1_Click()
                     End Select
                 Else
                     FSO.DeleteFolder CarpSel, True
-                    WriteTBRLog "Se borro la carpeta " + CarpSel, True
                 End If
             End If
         Next
@@ -799,15 +846,19 @@ NOBORRA:
         Case "Italiano"
     End Select
 
+    Exit Sub
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acjk"
+    Resume Next
 End Sub
 
 Public Sub CargarCarpetas()
+    On Error GoTo MiErr
     lstCarpetas.Clear 'si no se duplican todos
-    lstCarpetasShow.Clear
-    On Error GoTo ErrCarp
     For A = 0 To UBound(MATRIZ_DISCOS)
         Dim ThisFolder As String, TamTapa As Double
         ThisFolder = txtInLista(MATRIZ_DISCOS(A), 0, ",")
+        tERR.Anotar "ackh", A, UBound(MATRIZ_DISCOS), ThisFolder
         'ver si existen o se borraron
         If FSO.FolderExists(ThisFolder) And ThisFolder <> AP + "discos\01- Los mas escuchados" Then
             lstCarpetas.AddItem txtInLista(MATRIZ_DISCOS(A), 0, ",")
@@ -816,10 +867,10 @@ Public Sub CargarCarpetas()
     Next
     lstCarpetasShow.Selected(0) = True
     
-ErrCarp:
-    WriteTBRLog "LINEA: " + LineaError + vbCrLf + Err.Description + " N°: " + Str(Err.Number), True
+    Exit Sub
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acjl"
     Resume Next
-
 End Sub
 
 Private Sub Command10_Click()
@@ -853,17 +904,18 @@ Private Sub Command12_Click()
             TMPs = TMPs + lstOrigenes.List(A)
         End If
     Next A
-    
     EscribirArch1Linea SYSfolder + "oddtb.jut", TMPs
     MsgBox "Los cambios se han grabado satisfactoriamente"
 End Sub
 
 Private Sub Command13_Click()
+    On Error GoTo MiErr
+    
     'poner el que esta elegido abajo -BAJAR-
     'si es el ultimo (X) o no hay elegido (-1) se va
     If lstOrigenes.ListIndex = (lstOrigenes.ListCount - 1) Then Exit Sub
     If lstOrigenes.ListIndex = -1 Then Exit Sub
-    
+    tERR.Anotar "acki", lstOrigenes.ListIndex, lstOrigenes.ListCount
     Dim TMPlst As String, NumSube As Long
     NumSube = lstOrigenes.ListIndex
     TMPlst = lstOrigenes.List(NumSube + 1)
@@ -871,9 +923,15 @@ Private Sub Command13_Click()
     lstOrigenes.List(NumSube + 1) = lstOrigenes
     lstOrigenes.List(NumSube) = TMPlst
     lstOrigenes.ListIndex = NumSube + 1
+    
+    Exit Sub
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acjm"
+    Resume Next
 End Sub
 
 Private Sub Command14_Click()
+    On Error GoTo MiErr
     'poner el que esta elegido arriba -SUBIR-
     'si es el primero (0) o no hay elegido (-1) se va
     If lstOrigenes.ListIndex < 1 Then Exit Sub
@@ -881,11 +939,64 @@ Private Sub Command14_Click()
     Dim TMPlst As String, NumSube As Long
     NumSube = lstOrigenes.ListIndex
     TMPlst = lstOrigenes.List(NumSube - 1)
+    tERR.Anotar "ackj", lstOrigenes.ListIndex, lstOrigenes.ListCount
     'el anterior se transforma en el que sube
     lstOrigenes.List(NumSube - 1) = lstOrigenes
     lstOrigenes.List(NumSube) = TMPlst
     lstOrigenes.ListIndex = NumSube - 1
     
+    Exit Sub
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acjn"
+    Resume Next
+End Sub
+
+Private Sub Command15_Click()
+    
+    'borra si existia
+    If FSO.FileExists("C:\STATS.TXT") Then FSO.DeleteFile "C:\STATS.TXT", True
+    
+    Dim TE121 As TextStream
+    
+    Set TE121 = FSO.OpenTextFile("C:\STATS.TXT", ForAppending, True)
+    
+    TE121.WriteLine "-------------------------"
+    TE121.WriteLine "ESTADISTICAS SEGUN DISCOS"
+    TE121.WriteLine "-------------------------"
+    TE121.WriteLine "Cantidad Reproducciones: DISCO"
+    Dim ThisFolder As String
+    Dim Carp As String, A As Long
+    lstTODO.Clear
+    For A = 0 To UBound(MATRIZ_DISCOS)
+        Carp = txtInLista(MATRIZ_DISCOS(A), 1, ",")
+        ThisFolder = txtInLista(MATRIZ_DISCOS(A), 0, ",")
+        tERR.Anotar "ackp2", A, UBound(MATRIZ_DISCOS), Carp, ThisFolder
+        'ver si existen o se borraron
+        If FSO.FolderExists(ThisFolder) And ThisFolder <> AP + "discos\01- Los mas escuchados" Then
+            lstTODO.AddItem STRceros(ContarLisen(Carp), 4) + ": " + Carp
+        End If
+    Next A
+    
+    For A = 0 To lstTODO.ListCount - 1
+        TE121.WriteLine lstTODO.List(A)
+    Next A
+    
+    'GRABAR RANK DE CANCION
+    TE121.WriteLine "-------------------------"
+    TE121.WriteLine "ESTADISTICAS SEGUN CANCIONES"
+    TE121.WriteLine "-------------------------"
+    TE121.WriteLine "Cantidad Reproducciones: CANCION"
+        'grabar en un txt las canciones
+        Dim TE120 As TextStream
+        Set TE120 = FSO.OpenTextFile(AP + "ranking.tbr", ForReading, True)
+            Do While Not TE120.AtEndOfStream
+                TE121.WriteLine TE120.ReadLine
+            Loop
+        TE120.Close
+        Set TE120 = Nothing
+    TE121.Close
+    Set TE121 = Nothing
+    MsgBox "Las estadisticas se han grabado sin problemas en C:\STATS.TXT"
 End Sub
 
 Private Sub Command2_Click()
@@ -897,6 +1008,8 @@ Private Sub Command3_Click()
 End Sub
 
 Private Sub Command4_Click()
+    On Error GoTo MiErr
+    
     Select Case IDIOMA
         Case "Español"
             CmdLg.DialogTitle = "Eliga la nueva imagen del disco elegido"
@@ -907,15 +1020,15 @@ Private Sub Command4_Click()
         Case "Francois"
         Case "Italiano"
     End Select
-    
+    tERR.Anotar "ackk"
     CmdLg.ShowOpen
     If CmdLg.FileName = "" Then Exit Sub
     'ver el tamaño!!!
     Dim TamTapa As Double
     TamTapa = FileLen(CmdLg.FileName)
     TamTapa = Round(TamTapa / 1024, 2) 'son KB
+    tERR.Anotar "ackl", TamTapa
     If TamTapa > 20 Then
-    
         Select Case IDIOMA
             Case "Español"
                 MSG = "tbrSoft recomienda imagenes no mayores a 8 KB, esta " + _
@@ -943,7 +1056,6 @@ Private Sub Command4_Click()
     End If
     
     If cmdKillTapa.Enabled Then
-    
         Select Case IDIOMA
             Case "Español"
                 MSG = "¿Esta seguro que desea reemplazar la imagen existente?"
@@ -951,16 +1063,23 @@ Private Sub Command4_Click()
             Case "Francois"
             Case "Italiano"
         End Select
-    
+        
         If MsgBox(MSG, vbYesNo + vbCritical) = vbNo Then Exit Sub
+        tERR.Anotar "ackm", lstCarpetas
         FSO.DeleteFile lstCarpetas + "\tapa.jpg", True
     End If
+    tERR.Anotar "ackn", CmdLg.FileName
     FSO.CopyFile CmdLg.FileName, lstCarpetas + "\tapa.jpg", True
     TapaCD.Picture = LoadPicture(lstCarpetas + "\tapa.jpg")
+    
+    Exit Sub
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acjp"
+    Resume Next
 End Sub
 
 Private Sub Command5_Click()
-    
+    On Error GoTo MiErr
     'ojo ARTIME que aqui el programa se guia por lo que esta escrito en el boton
     'o sea fijate en mayusculas y minusculas!!!
     
@@ -987,7 +1106,8 @@ Private Sub Command5_Click()
         
         'grabar el texto
         Set TE = FSO.CreateTextFile(lstCarpetas + "\data.txt", True)
-        TE.Write txtDataTXT
+            TE.Write txtDataTXT
+            tERR.Anotar "acko", txtDataTXT
         TE.Close
     Else
         txtDataTXT.BackColor = vbWhite '&H00E0E0E0&'color original
@@ -1005,10 +1125,14 @@ Private Sub Command5_Click()
         End Select
     End If
     
+    Exit Sub
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acjq"
+    Resume Next
 End Sub
 
 Private Sub Command6_Click()
-
+    On Error GoTo MiErr
     'ojo ARTIME que aqui el programa se guia por lo que esta escrito en el boton
     'o sea fijate en mayusculas y minusculas!!!
     Select Case IDIOMA
@@ -1035,6 +1159,7 @@ Private Sub Command6_Click()
         For A = 0 To UBound(MATRIZ_DISCOS)
             Carp = txtInLista(MATRIZ_DISCOS(A), 1, ",")
             ThisFolder = txtInLista(MATRIZ_DISCOS(A), 0, ",")
+            tERR.Anotar "ackp", A, UBound(MATRIZ_DISCOS), Carp, ThisFolder
             'ver si existen o se borraron
             If FSO.FolderExists(ThisFolder) And ThisFolder <> AP + "discos\01- Los mas escuchados" Then
                 lstTODO.AddItem STRceros(ContarLisen(Carp), 4) + ": " + Carp
@@ -1060,9 +1185,16 @@ Private Sub Command6_Click()
             Case "Italiano"
         End Select
     End If
+    
+    Exit Sub
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acjr"
+    Resume Next
 End Sub
 
 Private Sub Command7_Click()
+    On Error GoTo MiErr
+    
     Dim ThisFolder As String, TamTapa As Double
     Dim MasDe20Kb As String, MasDe300Kb As String
     Dim TapasGrandes As Long, TapasMuyGrandes As Long
@@ -1070,9 +1202,11 @@ Private Sub Command7_Click()
         
     For A = 0 To UBound(MATRIZ_DISCOS)
         ThisFolder = txtInLista(MATRIZ_DISCOS(A), 0, ",")
+        tERR.Anotar "ackq", A, UBound(MATRIZ_DISCOS), ThisFolder
         If FSO.FileExists(ThisFolder + "\tapa.jpg") Then
             TamTapa = FileLen(ThisFolder + "\tapa.jpg")
             TamTapa = Round(TamTapa / 1024, 2)
+            tERR.Anotar "ackq", TamTapa
             If TamTapa > 200 Then
                 MasDe300Kb = MasDe300Kb + FSO.GetBaseName(ThisFolder) + vbCrLf
                 TapasMuyGrandes = TapasMuyGrandes + 1
@@ -1096,7 +1230,7 @@ Private Sub Command7_Click()
         Case "Francois"
         Case "Italiano"
     End Select
-    
+    tERR.Anotar "acks", TapasGrandes, TapasMuyGrandes
     If TapasGrandes > 0 Then MsGrandes = MSG
     
     Select Case IDIOMA
@@ -1122,9 +1256,16 @@ Private Sub Command7_Click()
     Else
         MsgBox MSGfinal
     End If
+    
+    Exit Sub
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acjs"
+    Resume Next
 End Sub
 
 Private Sub Command8_Click()
+    On Error GoTo MiErr
+
     Dim NewFolder As String
     
     Select Case IDIOMA
@@ -1135,27 +1276,39 @@ Private Sub Command8_Click()
         Case "Francois"
         Case "Italiano"
     End Select
-    
+    tERR.Anotar "ackt", NewFolder
     If NewFolder <> "" Then
         'primero corregir y acomodar el ranking para no perder los votos!!
         '?????????¿¿¿¿¿¿¿¿¿¿¿¿
-        
         Name lstCarpetas As AP + "discos\" + NewFolder
         lstCarpetasShow.List(lstCarpetas.ListIndex) = NewFolder
     End If
+    
+    Exit Sub
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acjt"
+    Resume Next
 End Sub
 
 Private Sub Command9_Click()
+    On Error GoTo MiErr
+    tERR.Anotar "acku"
     Dim tNewFolder As String
-    CmdLg.InitDir = "C:\"
+    CmdLg.InitDir = "K:" 'si lo pongo en C: algunas PCs ponen SOLO el C: ¿?
+        'Si no pongo nada da error el ShowFolder. Entonces elegi esto
     CmdLg.ShowFolder
     
     If CmdLg.InitDir = "" Or CmdLg.InitDir = "C:\" Then Exit Sub
     
     tNewFolder = CmdLg.InitDir
-    
+    tERR.Anotar "ackv", tNewFolder
     lstOrigenes.AddItem tNewFolder
     lstOrigenes.ListIndex = lstOrigenes.ListCount - 1
+    
+    Exit Sub
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acju"
+    Resume Next
 End Sub
 
 Private Sub Form_Activate()
@@ -1180,7 +1333,6 @@ End Sub
 
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     Select Case KeyCode
-        
         Case TeclaCerrarSistema
             OnOffCAPS vbKeyCapital, False
             If ApagarAlCierre Then APAGAR_PC
@@ -1192,6 +1344,8 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
+    On Error GoTo MiErr
+    tERR.Anotar "ackw", KeyCode, Shift
     If KeyCode = TeclaNewFicha Then
         'si ya hay 9 cargados se traga las fichas
         If CREDITOS <= MaximoFichas Then
@@ -1212,9 +1366,16 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             OnOffCAPS vbKeyScrollLock, False
         End If
     End If
+    
+    Exit Sub
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acjv"
+    Resume Next
 End Sub
 
 Private Sub Form_Load()
+    On Error GoTo MiErr
+    tERR.Anotar "ackx"
     AjustarFRM Me, 12000
     
     'mostrar los origenes
@@ -1226,6 +1387,7 @@ Private Sub Form_Load()
     lstOrigenes.Clear
     Dim AAA As Long
     For AAA = 0 To UBound(PartOrigenes)
+        tERR.Anotar "acky", AA, PartOrigenes(AAA)
         lstOrigenes.AddItem PartOrigenes(AAA)
     Next AAA
     'siempre uno elegido!
@@ -1241,13 +1403,22 @@ Private Sub Form_Load()
         Command12.Enabled = False 'boton grabar
     End If
     'mostrar la lista de carpetas cargadas en 3PM
+    tERR.Anotar "ackz"
     CargarCarpetas
     InfoDisco lblInfoDisco
+    
+    Exit Sub
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acjw"
+    Resume Next
 End Sub
 
 Private Sub lstCarpetas_Click()
+    On Error GoTo MiErr
+    
     lstTEMAS.Clear
     'mostrar los temas de esta carpeta solo si hay una sola carpeta elegida
+    tERR.Anotar "acla", lstCarpetas.SelCount
     If lstCarpetas.SelCount > 1 Then
         Select Case IDIOMA
             Case "Español"
@@ -1264,6 +1435,7 @@ Private Sub lstCarpetas_Click()
         lstTEMAS.Enabled = True
         ReDim Preserve MTXfiles(0)
         MTXfiles = ObtenerArchMM(lstCarpetas)
+        tERR.Anotar "aclb", UBound(MTXfiles)
         If UBound(MTXfiles) = 0 Then
             Select Case IDIOMA
                 Case "Español"
@@ -1276,6 +1448,7 @@ Private Sub lstCarpetas_Click()
             lstTEMAS.Enabled = False
         Else
             For A = 1 To UBound(MTXfiles)
+                tERR.Anotar "aclc", A, UBound(MTXfiles)
                 lstTEMAS.AddItem txtInLista(MTXfiles(A), 1, ",")
                 lstTEMAS.Enabled = True
             Next
@@ -1285,14 +1458,17 @@ Private Sub lstCarpetas_Click()
     'mostrar la tapa si la tiene
     Dim TapaArch As String
     TapaArch = lstCarpetas + "\tapa.jpg"
+    tERR.Anotar "acld", TapaArch
     If FSO.FileExists(TapaArch) Then
         TapaCD.Picture = LoadPicture(TapaArch)
         cmdKillTapa.Enabled = True
         Dim TamTapa As Double
+        tERR.Anotar "acle", TamTapa
         TamTapa = FileLen(TapaArch)
         TamTapa = Round(TamTapa / 1024, 2)
         lblKB = CStr(TamTapa) + " KB"
     Else
+        tERR.Anotar "aclf"
         TapaCD.Picture = LoadPicture(SYSfolder + "f61.dlw")
         cmdKillTapa.Enabled = False
         lblKB = "8 KB"
@@ -1300,6 +1476,7 @@ Private Sub lstCarpetas_Click()
     'mostrar el texto si existe
     Dim DataTXT As String
     DataTXT = lstCarpetas + "\data.txt"
+    tERR.Anotar "aclg", DataTXT
     If FSO.FileExists(DataTXT) Then
         Dim TE2 As TextStream
         Set TE2 = FSO.OpenTextFile(DataTXT, ForReading, False)
@@ -1334,9 +1511,11 @@ Private Sub lstCarpetas_Click()
     Dim ThisLine As String, ThisDISCO As String, ThisTEMA As String, CantLisen As Long
     Dim TotLisen As Long, nPuesto As Long
     TotLisen = 0: nPuesto = 0
+    tERR.Anotar "aclh"
     Do While Not TE.AtEndOfStream
         nPuesto = nPuesto + 1
         ThisLine = TE.ReadLine
+        tERR.Anotar "acli", nPuesto, ThisLine
         'cantidad,pathfull,toShow(disco-tema),carpeta
         ThisDISCO = txtInLista(ThisLine, 3, ",")
         If ThisDISCO = lstCarpetasShow Then
@@ -1344,6 +1523,7 @@ Private Sub lstCarpetas_Click()
             ThisTEMA = txtInLista(FSO.GetFileName(txtInLista(ThisLine, 1, ",")), 0, ".")
             lstEstadisticas.AddItem ThisTEMA + ": " + CStr(CantLisen) + " (RANK: " + CStr(nPuesto) + ")"
             TotLisen = TotLisen + CantLisen
+            tERR.Anotar "aclj", CantLisen, ThisTEMA
         End If
     Loop
     If TotLisen = 0 Then
@@ -1366,6 +1546,11 @@ Private Sub lstCarpetas_Click()
         
     End If
     TE.Close
+    tERR.Anotar "aclk"
+    Exit Sub
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acjx"
+    Resume Next
 End Sub
 
 Private Sub lstCarpetasShow_Click()
@@ -1373,24 +1558,33 @@ Private Sub lstCarpetasShow_Click()
 End Sub
 
 Public Function ContarLisen(Carpeta As String) As Long
+    On Error GoTo MiErr
+    
     Set TE = FSO.OpenTextFile(AP + "ranking.tbr", ForReading, False)
     Dim ThisLine As String, ThisDISCO As String, ThisTEMA As String, CantLisen As Long
     Dim TotLisen As Long, nPuesto As Long
     TotLisen = 0: nPuesto = 0
+    tERR.Anotar "acll"
     Do While Not TE.AtEndOfStream
         nPuesto = nPuesto + 1
         ThisLine = TE.ReadLine
+        tERR.Anotar "aclm", nPuesto, ThisLine
         'cantidad,pathfull,toShow(disco-tema),carpeta
         ThisDISCO = txtInLista(ThisLine, 3, ",")
         If ThisDISCO = Carpeta Then
             CantLisen = Val(txtInLista(ThisLine, 0, ","))
             ThisTEMA = txtInLista(FSO.GetFileName(txtInLista(ThisLine, 1, ",")), 0, ".")
             TotLisen = TotLisen + CantLisen
+            tERR.Anotar "acln", CantLisen, ThisTEMA
         End If
     Loop
     TE.Close
     ContarLisen = TotLisen
-
+    tERR.Anotar "aclo"
+    Exit Function
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acjy"
+    Resume Next
 End Function
 
 Public Function STRceros(n As Variant, Cifras As Integer) As String
@@ -1411,4 +1605,3 @@ Public Function STRceros(n As Variant, Cifras As Integer) As String
     End If
     
 End Function
-

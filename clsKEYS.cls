@@ -53,8 +53,6 @@ Public Enum TypeLic
 End Enum
 
 Private FileWithDatosClave As String 'archivo de la clave ingresada
-Private SYSfolder As String 'carpeta de sistema
-Private WINfolder As String 'carpeta de Windows
 
 Private DllHabilitada As Boolean 'se puedo o no usar la DLL
 Private mAsig As String
@@ -75,23 +73,8 @@ Public Property Get FileData() As String
 End Property
 
 Private Sub Class_Initialize()
-    SYSfolder = FSO.GetSpecialFolder(SystemFolder)
-    WINfolder = FSO.GetSpecialFolder(WindowsFolder)
-    If Right(SYSfolder, 1) <> "\" Then SYSfolder = SYSfolder + "\"
-    If Right(WINfolder, 1) <> "\" Then WINfolder = WINfolder + "\"
         
     FileWithDatosClave = SYSfolder + "dciLib22.dll" 'DatosClaveIngresada.DLL
-        
-    'Dim N As Long
-    'Dim H As String
-    'Dim HtL As String
-    'N = Val(InputBox("Numero?:"))
-    'H = Hex(N)
-    'HtL = HEXtoLONG(H)
-    'MsgBox "N= " + CStr(N) + vbCrLf + _
-        "H= " + H + vbCrLf + _
-        "HtL= " + HtL
-    
     
 End Sub
 

@@ -53,6 +53,7 @@ Public Property Get Version() As vWindows
 End Property
 
 Public Function GetVersion() As vWindows
+    
     On Error GoTo errh
     'on the event of an erro jump to label errh
     Dim osvi As OSVERSIONINFO

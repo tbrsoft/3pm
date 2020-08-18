@@ -454,9 +454,12 @@ Dim CarpsConMM() As String
 Dim X As New CommonDialog
 Dim CarpetaDesdeCargar As String
 
+
 Private Sub Command1_Click()
+    On Error GoTo MiErr
     X.CancelError = False
     X.InitDir = "" 'para que muestre todo
+    tERR.Anotar "achx", IDIOMA
     Select Case IDIOMA
         Case "Español"
             X.DialogPrompt = "Elegir carpeta contenedora de los nuevos discos"
@@ -470,6 +473,7 @@ Private Sub Command1_Click()
     
     If Len(X.InitDir) Then
         CarpetaDesdeCargar = X.InitDir
+        tERR.Anotar "acig", CarpetaDesdeCargar
         lblWait.Visible = True
         lblWait.Refresh
         'buscar carpetas de multimedia
@@ -477,12 +481,19 @@ Private Sub Command1_Click()
         'ver cuales tienen multimedia
         BuscarCarpetasMM
     End If
+    
+    Exit Sub
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".achy"
+    Resume Next
 End Sub
 
 Private Sub Command3_Click()
     Unload Me
 End Sub
 Public Sub BuscarCarpetasMM()
+    On Error GoTo MiErr
+    
     TotalArchMM = 0 'inicializar el contador de archivosmm(no carpetas)
     Dim TotF As Long
     TotF = UBound(CarpsConMM)
@@ -491,6 +502,7 @@ Public Sub BuscarCarpetasMM()
     Dim TMPfilesMM() As String
     lstCarConMM.Clear
     TotCarpMM = 0
+    tERR.Anotar "acih", TotF
     For A = 1 To TotF
         Select Case IDIOMA
             Case "Español"
@@ -560,11 +572,15 @@ Public Sub BuscarCarpetasMM()
             Case "Italiano"
         End Select
     End If
+    
+    Exit Sub
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".achz"
+    Resume Next
 End Sub
 
 Private Sub Command4_Click()
-    On Error GoTo LogERROR
-    CaminoError "0005-2540"
+    On Error GoTo MiErr
     'TotArchMM sabe cuantos temas hay en total
     
     'grabar en AP+"discos" los nuevos datos multimedia
@@ -577,14 +593,15 @@ Private Sub Command4_Click()
     'ver cuantos archivos efectivamente se copiaran
     Dim TotalACopiar As Long 'no cuenta los que no son multimedia
     TotalACopiar = 0
-    CaminoError "0005-2541"
+    tERR.Anotar "acij", lstCarConMM.ListCount
     For A = 0 To lstCarConMM.ListCount - 1
         If lstCarConMM.Selected(A) Then
             TotMM = Val(txtInLista(lstCarConMM.List(A), 1, ","))
             TotalACopiar = TotalACopiar + TotMM
+            tERR.Anotar "acik", A, lstCarConMM.List(A)
         End If
     Next
-    CaminoError "0005-2542"
+    
     For A = 0 To lstCarConMM.ListCount - 1
         If lstCarConMM.Selected(A) Then
             TotMM = Val(txtInLista(lstCarConMM.List(A), 1, ","))
@@ -593,40 +610,38 @@ Private Sub Command4_Click()
             'hay que copiar solo los archivos MM
             SoloCarp = txtInLista(Ubic, 99998, "\") '99998 es el anteultimo
             NewCarp = AP + "discos\" + SoloCarp + "\"
-            CaminoError "0005-2543"
+            tERR.Anotar "acil", A, NewCarp, TotMM
             'crear la carpeta si no esta
             If FSO.FolderExists(NewCarp) = False Then FSO.CreateFolder NewCarp
             
             'NO OLVIDARSE DE TAPA.JPG Y DATA.TXT
             Dim ArchTapa As String
             ArchTapa = Ubic + "tapa.jpg"
-            CaminoError "0005-2544"
             If FSO.FileExists(ArchTapa) Then
                 'si existe ver los atributos
                 If FSO.FileExists(NewCarp + "tapa.jpg") Then
-                    CaminoError "0005-2545"
                     AAA = GetAttr(NewCarp + "tapa.jpg")
+                    tERR.Anotar "acim", AAA
                     If AAA = vbHidden Or AAA = vbReadOnly Then SetAttr NewCarp + "tapa.jpg", 0
                 End If
-                CaminoError "0005-2546"
+                tERR.Anotar "acin", ArchTapa, NewCarp
                 FSO.CopyFile ArchTapa, NewCarp + "tapa.jpg"
             End If
-            CaminoError "0005-2547"
+            
             Dim ArchDaTa As String
             ArchDaTa = Ubic + "data.txt"
             If FSO.FileExists(ArchDaTa) Then
-                CaminoError "0005-2548"
+                tERR.Anotar "acio"
                 'si existe ver los atributos
                 If FSO.FileExists(NewCarp + "data.txt") Then
-                    CaminoError "0005-2549"
                     AAA = GetAttr(NewCarp + "data.txt")
                     If AAA = vbHidden Or AAA = vbReadOnly Then SetAttr NewCarp + "data.txt", 0
                 End If
-                CaminoError "0005-2550"
+                tERR.Anotar "acip", ArchDaTa, NewCarp
                 FSO.CopyFile ArchDaTa, NewCarp + "data.txt"
             End If
-            CaminoError "0005-2551"
             TMPfiles = ObtenerArchMM(Ubic) 'deveuelve pathfull , solonombre
+            tERR.Anotar "aciq", Ubic
             c = 1
             Do While c <= TotMM 'se supone que es el total de esta carpeta
                 PathArch = txtInLista(TMPfiles(c), 0, ",")
@@ -642,21 +657,21 @@ Private Sub Command4_Click()
                 End Select
                 
                 lblBAR2.Refresh
-                CaminoError "0005-2552"
+                tERR.Anotar "acir", ArchCopiados
                 ArchCopiados = ArchCopiados + 1
                 PBar2.Width = P2.Width / TotalACopiar * ArchCopiados
                 PBar2.Refresh
                 'si existe ver los atributos
                 If FSO.FileExists(NewCarp + SoloArch) Then
-                    CaminoError "0005-2553"
+                    tERR.Anotar "acis", NewCarp + SoloArch
                     AAA = GetAttr(NewCarp + SoloArch)
                     If AAA = vbHidden Or AAA = vbReadOnly Then SetAttr NewCarp + SoloArch, 0
                 End If
-                CaminoError "0005-2554"
+                tERR.Anotar "acit", PathArch, NewCarp + SoloArch
                 FSO.CopyFile PathArch, NewCarp + SoloArch, True
                 c = c + 1
             Loop
-            CaminoError "0005-2555"
+            
             Select Case IDIOMA
                 Case "Español"
                     lblBAR2 = "Sin Tareas"
@@ -670,7 +685,7 @@ Private Sub Command4_Click()
             
         End If
     Next
-    CaminoError "0005-2556"
+    
     InfoDisco lblInfoDisco
     Select Case IDIOMA
         Case "Español"
@@ -682,18 +697,21 @@ Private Sub Command4_Click()
     End Select
     
     Exit Sub
-LogERROR:
-    WriteTBRLog "Error al cargar archivos MM. n° " + CStr(Err.Number) + " Descr: " + Err.Description, True
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acia"
     Resume Next
 End Sub
 
 Private Sub Command5_Click()
+    On Error GoTo MiErr
+    
     Dim DRs As Drives, DS As Drive
     Set DRs = FSO.Drives
     CarpetaDesdeCargar = "NO"
     Dim CDsDisponibles() As String, ContCDs As Long
     ContCDs = -1
     For Each DS In DRs
+        tERR.Anotar "aciu", DS.DriveType
         If DS.DriveType = 4 Then '4 es CDROM
             'ver cuantos hay disponibles!!!!
             ContCDs = ContCDs + 1
@@ -714,6 +732,7 @@ Private Sub Command5_Click()
         
         Exit Sub
     End If
+    tERR.Anotar "aciv", ContCDs
     If ContCDs = 0 Then
         'no hay nada que legir
         Set DS = FSO.GetDrive(CDsDisponibles(0))
@@ -753,7 +772,6 @@ Private Sub Command5_Click()
                 
             End If
             If MsgBox(MSG, vbYesNo) = vbYes Then GoTo ElegidoCD
-            
         Next
         'si llego hasta aca y no eligio se caga por boludo
         Exit Sub
@@ -763,6 +781,7 @@ ElegidoCD:
 
     If DS.IsReady Then
         CarpetaDesdeCargar = DS.DriveLetter + ":\"
+        tERR.Anotar "aciw", CarpetaDesdeCargar
     Else
         Select Case IDIOMA
             Case "Español"
@@ -797,11 +816,19 @@ ElegidoCD:
     lblWait = "Carpetas encontradas el la ubicacion elegida: " + CStr(UBound(CarpsConMM))
     lblWait.Refresh
     'ver cuales tienen multimedia
+    tERR.Anotar "acix"
     BuscarCarpetasMM
+    
+    Exit Sub
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acib"
+    Resume Next
     
 End Sub
 
 Public Function FindCarpsConMM(Carp As String) As String()
+    On Error GoTo MiErr
+    
     'devuelve una matriz con todas las carpetas que tengan multimedia
     Dim CarpetasEnQueBuscar() As String
     Dim Nivel2() As String
@@ -810,13 +837,14 @@ Public Function FindCarpsConMM(Carp As String) As String()
     CarpetasEnQueBuscar = GetFolders(Carp)
     LastIni = 1
     LastFin = UBound(CarpetasEnQueBuscar)
+    tERR.Anotar "aciy", LastFin
     Dim AgregadosEnVuelta
     Dim ContTotal As Long
     Do
         AgregadosEnVuelta = 0
         If LastIni = 1 And LastFin = 0 Then
             'es una carpeta sin subcarpetas
-            
+            tERR.Anotar "aciz"
             Select Case IDIOMA
                 Case "Español"
                     MsgBox "3PM no ha encontrado subcarpetas en la " + _
@@ -835,6 +863,7 @@ Public Function FindCarpsConMM(Carp As String) As String()
             ReDim Preserve TodasLasCarpetas(ContTotal)
             TodasLasCarpetas(ContTotal) = CarpetasEnQueBuscar(A)
             Nivel2 = GetFolders(CarpetasEnQueBuscar(A)) 'el cero no existe
+            tERR.Anotar "acja", A, ContTotal, UBound(Nivel2)
             If UBound(Nivel2) > 0 Then
                 Dim LastCBuscar
                 LastCBuscar = UBound(CarpetasEnQueBuscar)
@@ -842,9 +871,11 @@ Public Function FindCarpsConMM(Carp As String) As String()
                     ReDim Preserve CarpetasEnQueBuscar(LastCBuscar + z)
                     CarpetasEnQueBuscar(LastCBuscar + z) = Nivel2(z)
                     AgregadosEnVuelta = AgregadosEnVuelta + 1
+                    tERR.Anotar "acjb", z, AgregadosEnVuelta
                 Next
                 GoTo NextMM
             Else
+                tERR.Anotar "acjc", LastFin, UBound(CarpetasEnQueBuscar)
                 If LastFin = UBound(CarpetasEnQueBuscar) Then
                     If A = LastFin Then
                         'no tiene y es el ultimo
@@ -858,40 +889,55 @@ NextMM:
         Next
         LastIni = UBound(CarpetasEnQueBuscar) - AgregadosEnVuelta + 1
         LastFin = LastIni + AgregadosEnVuelta - 1
+        tERR.Anotar "acjd", LastIni, LastFin
     Loop
     FindCarpsConMM = TodasLasCarpetas
+    
+    Exit Function
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acic"
+    Resume Next
 End Function
 
 ' Devuelve un array de wcadenas que incluye todos los subdirectorios
 ' contenidos en una ruta
 Function GetFolders(ruta As String) As String()
-        Dim Resultado() As String
-        Dim NombreDir As String, ContadorArch As Long
-        Dim Ruta2 As String
-        ReDim Resultado(0) As String
-        ' genera el nombre de ruta + barra invertida
-        Ruta2 = ruta
-        If Right$(Ruta2, 1) <> "\" Then Ruta2 = Ruta2 & "\"
-        NombreDir = Dir$(Ruta2 & "*.*", vbDirectory)
-        Do While Len(NombreDir)
-            If NombreDir = "." Or NombreDir = ".." Then
-                ' excluir las entradas "." y ".."
-            ElseIf (GetAttr(Ruta2 & NombreDir) And vbDirectory) = 0 Then
-                ' este es un archivo normal
-            Else
-                ' es un directorio
-                ContadorArch = ContadorArch + 1
-                ReDim Preserve Resultado(ContadorArch) As String
-                ' incluir la ruta si se pide
-                NombreDir = Ruta2 & NombreDir
-                Resultado(ContadorArch) = NombreDir
-            End If
-            NombreDir = Dir$
-        Loop
-        
-        ' proporciona el array resultante
-        ReDim Preserve Resultado(ContadorArch) As String
-        GetFolders = Resultado
+    On Error GoTo MiErr
+    
+    Dim Resultado() As String
+    Dim NombreDir As String, ContadorArch As Long
+    Dim Ruta2 As String
+    ReDim Resultado(0) As String
+    ' genera el nombre de ruta + barra invertida
+    Ruta2 = ruta
+    If Right$(Ruta2, 1) <> "\" Then Ruta2 = Ruta2 & "\"
+    NombreDir = Dir$(Ruta2 & "*.*", vbDirectory)
+    tERR.Anotar "acjd", Ruta2, NombreDir
+    Do While Len(NombreDir)
+        If NombreDir = "." Or NombreDir = ".." Then
+            ' excluir las entradas "." y ".."
+        ElseIf (GetAttr(Ruta2 & NombreDir) And vbDirectory) = 0 Then
+            ' este es un archivo normal
+        Else
+            ' es un directorio
+            ContadorArch = ContadorArch + 1
+            ReDim Preserve Resultado(ContadorArch) As String
+            ' incluir la ruta si se pide
+            NombreDir = Ruta2 & NombreDir
+            Resultado(ContadorArch) = NombreDir
+        End If
+        NombreDir = Dir$
+    Loop
+    
+    ' proporciona el array resultante
+    ReDim Preserve Resultado(ContadorArch) As String
+    GetFolders = Resultado
+    tERR.Anotar "acje"
+    Exit Function
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acid"
+    Resume Next
+    
 End Function
 
 Sub ShowDriveList()
@@ -909,17 +955,21 @@ Sub ShowDriveList()
             Case 4: T = "CD-ROM"
             Case 5: T = "Disco RAM"
         End Select
+        
         If D.DriveType = 3 Then
             n = D.ShareName
         Else
             n = D.VolumeName
         End If
         s = s & n & "Tipo: " & T & vbCrLf
+        tERR.Anotar "acjf", s
     Next
     MsgBox s
 End Sub
 
 Private Sub Form_Activate()
+    On Error GoTo MiErr
+    tERR.Anotar "acjg"
     Select Case IDIOMA
         Case "Español"
             Label1(3) = "Especificar ubicacion de los nuevos discos"
@@ -957,7 +1007,10 @@ Private Sub Form_Activate()
         
     End Select
     
-    
+Exit Sub
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acie"
+    Resume Next
 End Sub
 
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
@@ -973,6 +1026,8 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
+    On Error GoTo MiErr
+    tERR.Anotar "acjh", KeyCode, Shift
     If KeyCode = TeclaNewFicha Then
         'si ya hay 9 cargados se traga las fichas
         If CREDITOS <= MaximoFichas Then
@@ -994,6 +1049,11 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             OnOffCAPS vbKeyScrollLock, False
         End If
     End If
+    
+    Exit Sub
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acif"
+    Resume Next
 End Sub
 
 Private Sub Form_Load()

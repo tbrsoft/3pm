@@ -26,7 +26,7 @@ Begin VB.Form frmTemasDeDisco
       BackColor       =   &H00000000&
       Height          =   8985
       Left            =   150
-      TabIndex        =   0
+      TabIndex        =   1
       Top             =   30
       Width           =   11805
       Begin VB.TextBox lstAgregados 
@@ -44,7 +44,7 @@ Begin VB.Form frmTemasDeDisco
          Height          =   960
          Left            =   45
          MultiLine       =   -1  'True
-         TabIndex        =   15
+         TabIndex        =   16
          Top             =   7290
          Width           =   7080
       End
@@ -63,7 +63,7 @@ Begin VB.Form frmTemasDeDisco
          ForeColor       =   &H00FFFFFF&
          Height          =   1305
          Left            =   7200
-         TabIndex        =   8
+         TabIndex        =   9
          Top             =   7620
          Width           =   4515
          Begin VB.CommandButton Command1 
@@ -81,7 +81,7 @@ Begin VB.Form frmTemasDeDisco
             Height          =   950
             Left            =   2280
             Style           =   1  'Graphical
-            TabIndex        =   5
+            TabIndex        =   6
             Top             =   240
             Width           =   1050
          End
@@ -92,7 +92,7 @@ Begin VB.Form frmTemasDeDisco
             Left            =   1200
             Picture         =   "frmTemasDeDisco.frx":0CFD
             Style           =   1  'Graphical
-            TabIndex        =   11
+            TabIndex        =   12
             TabStop         =   0   'False
             Top             =   240
             Width           =   1050
@@ -104,7 +104,7 @@ Begin VB.Form frmTemasDeDisco
             Left            =   120
             Picture         =   "frmTemasDeDisco.frx":2347
             Style           =   1  'Graphical
-            TabIndex        =   10
+            TabIndex        =   11
             TabStop         =   0   'False
             Top             =   240
             Width           =   1050
@@ -124,7 +124,7 @@ Begin VB.Form frmTemasDeDisco
             Height          =   950
             Left            =   3360
             Style           =   1  'Graphical
-            TabIndex        =   9
+            TabIndex        =   10
             Top             =   240
             Width           =   1050
          End
@@ -148,7 +148,7 @@ Begin VB.Form frmTemasDeDisco
          Left            =   8010
          List            =   "frmTemasDeDisco.frx":2C9D
          Sorted          =   -1  'True
-         TabIndex        =   7
+         TabIndex        =   8
          Top             =   4905
          Visible         =   0   'False
          Width           =   2610
@@ -169,7 +169,7 @@ Begin VB.Form frmTemasDeDisco
          Height          =   7750
          IntegralHeight  =   0   'False
          Left            =   45
-         TabIndex        =   3
+         TabIndex        =   4
          Top             =   480
          Width           =   1185
       End
@@ -190,7 +190,7 @@ Begin VB.Form frmTemasDeDisco
          IntegralHeight  =   0   'False
          Left            =   1260
          Sorted          =   -1  'True
-         TabIndex        =   16
+         TabIndex        =   0
          Top             =   480
          Width           =   5865
       End
@@ -211,7 +211,7 @@ Begin VB.Form frmTemasDeDisco
          ForeColor       =   &H0000FFFF&
          Height          =   255
          Left            =   30
-         TabIndex        =   14
+         TabIndex        =   15
          Top             =   8280
          Width           =   7065
       End
@@ -230,7 +230,7 @@ Begin VB.Form frmTemasDeDisco
          EndProperty
          Height          =   285
          Left            =   7980
-         TabIndex        =   13
+         TabIndex        =   14
          Top             =   3090
          Visible         =   0   'False
          Width           =   345
@@ -252,7 +252,7 @@ Begin VB.Form frmTemasDeDisco
          ForeColor       =   &H00000080&
          Height          =   255
          Left            =   30
-         TabIndex        =   12
+         TabIndex        =   13
          Top             =   8580
          Width           =   7070
       End
@@ -272,7 +272,7 @@ Begin VB.Form frmTemasDeDisco
          ForeColor       =   &H000000FF&
          Height          =   795
          Left            =   7200
-         TabIndex        =   6
+         TabIndex        =   7
          Top             =   6840
          UseMnemonic     =   0   'False
          Visible         =   0   'False
@@ -293,7 +293,7 @@ Begin VB.Form frmTemasDeDisco
          EndProperty
          Height          =   255
          Left            =   60
-         TabIndex        =   4
+         TabIndex        =   5
          Top             =   180
          Width           =   7065
       End
@@ -313,7 +313,7 @@ Begin VB.Form frmTemasDeDisco
          ForeColor       =   &H00FFFFFF&
          Height          =   3225
          Left            =   7200
-         TabIndex        =   2
+         TabIndex        =   3
          Top             =   4200
          UseMnemonic     =   0   'False
          Width           =   4500
@@ -335,7 +335,7 @@ Begin VB.Form frmTemasDeDisco
          ForeColor       =   &H00FFFFFF&
          Height          =   495
          Left            =   7200
-         TabIndex        =   1
+         TabIndex        =   2
          Top             =   3660
          UseMnemonic     =   0   'False
          Width           =   4545
@@ -355,6 +355,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Dim TeclaBajo As Long 'codigo de la tecla que se detecto en KDown para usar en KeyUP
 Dim SegSinTecla As Long
 Dim NoHayTemasEnDisco As Boolean
 Dim DuracionTema As String
@@ -430,7 +431,7 @@ Private Sub Form_Activate()
     Me.Refresh
     '
     'ver los precios!!!
-    CaminoError "000-0024"
+    tERR.Anotar "000-0024"
     MostrarCursor False
     'actualizar los precios
     
@@ -440,35 +441,35 @@ Private Sub Form_Activate()
         lblPrecios = "Modo Gratuito"
     Else
         If TemasPorCredito = 1 Then
-            CaminoError "000-0026"
+            tERR.Anotar "000-0026"
             lblPrecios = "1 coin = " + CStr(TemasPorCredito) + " credito"
         Else
-            CaminoError "000-0027"
+            tERR.Anotar "000-0027"
             lblPrecios = "1 coin = " + CStr(TemasPorCredito) + " creditos"
         End If
     End If
     '-------------------------
-    CaminoError "000-0028"
+    tERR.Anotar "000-0028"
     If CreditosCuestaTema = 1 Then
-        CaminoError "000-0029"
+        tERR.Anotar "000-0029"
         lblPrecios = lblPrecios + " / " + "1 credito = 1 tema"
     Else
         If CreditosCuestaTema = 0 Then
             lblPrecios = lblPrecios + " / " + " 1 tema = GRATIS!"
         Else
-            CaminoError "000-0030"
+            tERR.Anotar "000-0030"
             lblPrecios = lblPrecios + " / " + CStr(CreditosCuestaTema) + " creditos = 1 tema"
         End If
     End If
     'agreagr el precio de los videos!!!
     If CreditosCuestaTemaVIDEO = 1 Then
-        CaminoError "000-0029"
+        tERR.Anotar "000-0029"
         lblPrecios = lblPrecios + " / " + "1 credito = 1 VIDEO"
     Else
         If CreditosCuestaTemaVIDEO = 0 Then
             lblPrecios = lblPrecios + " / " + " 1 VIDEO = GRATIS!"
         Else
-            CaminoError "000-0030"
+            tERR.Anotar "000-0030"
             lblPrecios = lblPrecios + " / " + CStr(CreditosCuestaTemaVIDEO) + " creditos = 1 VIDEO"
         End If
     End If
@@ -495,9 +496,13 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         'lasa falla reconocida por microsoft es de la tecla enter
         'sea cual sea sale el keycode 13 por mas que sea la del keypad
         'que es el 108
-        If KeyCode = 13 Then RealKeyCode = 108
+        If KeyCode = 13 Then
+            RealKeyCode = 108
+        End If
         'ademas si esta apretado el BLOQ NUM
     End If
+    TeclaBajo = RealKeyCode 'en Kdown anda mejor   真真真真真porque?????
+    'lblCOMOSALIR = CStr(KeyCode) + "-" + CStr(RealKeyCode)
     
     Select Case RealKeyCode
         Case vbKeyF4
@@ -614,25 +619,37 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     
     Exit Sub
 Errores:
-    WriteTBRLog "Error en temasDisco_KeyDown: " + Err.Description + " (" + CStr(Err.Number) + "). Se continua...", True
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acps"
     Resume Next
     
 End Sub
 
 Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
+
+    On Local Error GoTo FallaKD
+    
+    'y si no es una ficha la que se esta cargando
+    'aqui se regsitran las presiones de las teclas elegidas
+    tERR.Anotar "000-0033"
+    
+
     'la verdadera tecla debe mostrar si es una tecla del teclado numerico
     Dim RealKeyCode As Integer
     'ver si es o no numpad
     If IsKeyPad(Me) Then
-        'las falla reconocida por microsoft es de la tecla enter
+        'la falla reconocida por microsoft es de la tecla enter
         'sea cual sea sale el keycode 13 por mas que sea la del keypad
         'que es el 108
+        RealKeyCode = KeyCode
         If KeyCode = 13 Then RealKeyCode = 108
+        'ademas si esta apretado el BLOQ NUM
     Else
         'de manera predeterminada son el mismo
         'salvo los casos que se especifican
         RealKeyCode = KeyCode
     End If
+    
+    If TeclaBajo = 108 Then RealKeyCode = 108
       
     'ver detalle mas abajo de que mierda es esto y en el gral de este frm
     YaInicio = YaInicio + 1
@@ -778,6 +795,13 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             End If
     End Select
     
+Exit Sub
+
+FallaKD:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acpt"
+    Resume Next
+    
+    
 End Sub
 
 Private Sub Form_Load()
@@ -803,7 +827,6 @@ Private Sub Form_Load()
 
     If MostrarTouch = False Then Frame2.Visible = False        'frame del touch
 
-    ReDim MATRIZ_TEMAS(0) 'matriz en blanco
     'es una matriz global
     UbicDiscoActual = txtInLista(MATRIZ_DISCOS(nDiscoGral), 0, ",")
     
@@ -837,7 +860,7 @@ Private Sub Form_Load()
         TapaCD.Picture = LoadPicture(SYSfolder + "f61.dlw")
     End If
     TapaCD.Refresh
-    lblDisco = FSO.GetBaseName(UbicDiscoActual)
+    lblDISCO = FSO.GetBaseName(UbicDiscoActual)
     Dim ArchDaTa As String
     ArchDaTa = UbicDiscoActual + "data.txt"
     If FSO.FileExists(ArchDaTa) Then
@@ -858,7 +881,7 @@ Private Sub Form_Load()
         lstTEMAS.AddItem "No hay temas en este disco"
         lstTEMAS.Enabled = False
         lstTIME.Enabled = False
-        WriteTBRLog "No hay temas en el disco: " + UbicDiscoActual, True
+        tERR.AppendLog "No hay temas en el disco: " + UbicDiscoActual + ".acpu"
         Exit Sub
     End If
     c = 1

@@ -1,31 +1,20 @@
 VERSION 5.00
 Begin VB.Form frmINDEX 
-   BackColor       =   &H00404040&
+   BackColor       =   &H00000080&
    BorderStyle     =   4  'Fixed ToolWindow
    Caption         =   "Actualizacion de 3PM"
-   ClientHeight    =   4755
+   ClientHeight    =   3360
    ClientLeft      =   45
    ClientTop       =   285
-   ClientWidth     =   5130
+   ClientWidth     =   5145
    Icon            =   "frmINDEX.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   4755
-   ScaleWidth      =   5130
+   ScaleHeight     =   3360
+   ScaleWidth      =   5145
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
-   Begin VB.PictureBox Picture2 
-      AutoSize        =   -1  'True
-      Height          =   1155
-      Left            =   90
-      Picture         =   "frmINDEX.frx":0442
-      ScaleHeight     =   1095
-      ScaleWidth      =   3570
-      TabIndex        =   7
-      Top             =   3540
-      Width           =   3630
-   End
    Begin VB.CommandButton Command2 
       Caption         =   "Reubicar..."
       BeginProperty Font 
@@ -40,7 +29,7 @@ Begin VB.Form frmINDEX
       Height          =   345
       Left            =   3780
       TabIndex        =   6
-      Top             =   2040
+      Top             =   2070
       Width           =   1305
    End
    Begin VB.TextBox txtUbic3PM 
@@ -58,7 +47,7 @@ Begin VB.Form frmINDEX
       MultiLine       =   -1  'True
       ScrollBars      =   2  'Vertical
       TabIndex        =   4
-      Text            =   "frmINDEX.frx":1EB0
+      Text            =   "frmINDEX.frx":0442
       Top             =   1290
       Width           =   5025
    End
@@ -82,7 +71,7 @@ Begin VB.Form frmINDEX
    End
    Begin VB.Label Label2 
       Alignment       =   2  'Center
-      BackColor       =   &H00000080&
+      BackColor       =   &H000000C0&
       Caption         =   "ASEGURESE QUE 3PM NO SE ESTE EJECUTANDO EN ESTE MOMENTO!!!"
       BeginProperty Font 
          Name            =   "Verdana"
@@ -97,9 +86,9 @@ Begin VB.Form frmINDEX
       Height          =   405
       Index           =   2
       Left            =   0
-      TabIndex        =   8
+      TabIndex        =   7
       Top             =   0
-      Width           =   4935
+      Width           =   5175
    End
    Begin VB.Label Label2 
       BackStyle       =   0  'Transparent
@@ -130,12 +119,12 @@ Begin VB.Form frmINDEX
       Width           =   285
    End
    Begin VB.Label lblTODOBar 
-      BackColor       =   &H00000080&
+      BackColor       =   &H000000C0&
       Height          =   225
       Left            =   1590
       TabIndex        =   1
       Top             =   2880
-      Width           =   2115
+      Width           =   3225
    End
    Begin VB.Label Label1 
       BackStyle       =   0  'Transparent

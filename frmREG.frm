@@ -468,7 +468,6 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Dim GGG As String
 
-Dim SysF As Folder 'ubicacion de la carpeta de Windows
 Dim CarpetaSys As String
 
 Private Sub Check1_Click()
@@ -514,6 +513,12 @@ Private Sub Command1_Click()
     Unload Me
     frmINI.Show 1
                     
+    tERR.Anotar "acpg"
+    Exit Sub
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acph"
+    Resume Next
+                    
 End Sub
 
 Private Sub Command2_Click()
@@ -533,12 +538,7 @@ Private Sub Command5_Click()
 End Sub
 
 Private Sub Form_Load()
-    
-    SYSfolder = FSO.GetSpecialFolder(SystemFolder)
-    WINfolder = FSO.GetSpecialFolder(WindowsFolder)
-    If Right(WINfolder, 1) <> "\" Then WINfolder = WINfolder + "\"
-    If Right(SYSfolder, 1) <> "\" Then SYSfolder = SYSfolder + "\"
-    
+       
     If FSO.FileExists(SYSfolder + "oddtb.jut") = False Then
         'ESCRIBIRLO!!!
         EscribirArch1Linea SYSfolder + "oddtb.jut", AP + "discos"
@@ -752,15 +752,26 @@ YaEstaIMG:
     'ver primero quien es para saber si esta habilitado licenciarse
     'si ClaveAdmin = "demo" quiere decir que lo bajo de internet y por
     'lo tanto no puede licenciar NI BOSTA!!!JAJAJAJAJA
-    ClaveAdmin = "MASH81090011y"
+    ClaveAdmin = LeerConfig("ClaveAdmin", "ADMIN")
+    'ClaveAdmin = "sncMEX098181y"
     'ERO77701192FF / MARC777
+    
     Select Case ClaveAdmin
         Case "xx"
             DatosLicencia = "Licencia propiedad de Miguel Angel Cozzi. " + vbCrLf + _
                 "Venado Tuerto - Santa Fe - Argentina"
                 
     End Select
-   
+
+'roberto cpaz   RCP888
+'diego antonio sanchez corr DASC717771090
+'Edgar Giovanni Valdez Hernandez GUAT HGVHG34771000
+'rio ceballos rioceballos88
+'Clifton Forde PANAMA CFP7118820192
+'Melina Gieco StaFe MGSF711905621
+'Caludia Sala BsAs MRCSR81172660
+'Andres Giamello AGBA718829540/AG31
+'Alejandro Maltez NICARAGUA AMN5102991732
 'Abraham Grenberg Valle Verde SA GUAT AGVVSA8177109
 'humberto segundo cruces CHI HSCC719288012
 'juan miguel RepDominic JMRD611885094
@@ -778,9 +789,11 @@ YaEstaIMG:
 'Alejandro Carmona Oliveros Chile ACOCH3217729
 'edison ariel caceres chile EACCH81032772
 'Daniel Martinez Chicago DMCE183745510
-'Wilmar Fidel Marquez Silva WFMSPR2981109
+'Wilmer Fidel Marquez Silva WFMSPR2981109
 'julio papetti TUCUMAN JPT1077594731
 'jorge albin JACP719283001 jorge albin FEDERICODANIEL
+'jorge albin RCP888
+'Dardo maidana DARDOMAIDANA
 'german peier BsAs GPBSAS7812003
 'luis iglesias BsAs LIBA6152896R
 'eduardo alberti UY EAJCM2987889h
@@ -904,12 +917,20 @@ YaEstaIMG:
     Me.Refresh
     Unload Me
     frmINI.Show 1
+    tERR.Anotar "acpi"
     
     Exit Sub
 noPuede:
-    WriteTBRLog "Error al ocultar el formulario de registro. La " + _
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acpp"
+    'WriteTBRLog "Error al ocultar el formulario de registro. La " + _
         "clave es correcta" + Err.Description + " (" + CStr(Err.Number) + "). Se continua...", True
     
+    Resume Next
+    
+    
+    Exit Sub
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acpj"
     Resume Next
     
 End Sub
