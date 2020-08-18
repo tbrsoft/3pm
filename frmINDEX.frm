@@ -8,6 +8,7 @@ Begin VB.Form frmIndex
    ClientLeft      =   0
    ClientTop       =   0
    ClientWidth     =   12000
+   Icon            =   "frmINDEX.frx":0000
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
@@ -17,15 +18,116 @@ Begin VB.Form frmIndex
    ShowInTaskbar   =   0   'False
    StartUpPosition =   3  'Windows Default
    WindowState     =   2  'Maximized
+   Begin VB.Frame frDISCOS 
+      BackColor       =   &H000000C0&
+      BorderStyle     =   0  'None
+      Height          =   5115
+      Left            =   390
+      TabIndex        =   11
+      Top             =   150
+      Width           =   5880
+      Begin VB.Timer Timer1 
+         Left            =   5040
+         Top             =   3390
+      End
+      Begin VB.Timer Timer3 
+         Interval        =   10000
+         Left            =   5220
+         Top             =   2820
+      End
+      Begin tbr3pm.MP3Play MP3 
+         Height          =   1620
+         Left            =   30
+         TabIndex        =   12
+         Top             =   60
+         Visible         =   0   'False
+         Width           =   1500
+         _ExtentX        =   2646
+         _ExtentY        =   2858
+      End
+      Begin VB.PictureBox picFondoDisco 
+         AutoRedraw      =   -1  'True
+         Height          =   3735
+         Left            =   690
+         Picture         =   "frmINDEX.frx":0442
+         ScaleHeight     =   3675
+         ScaleWidth      =   4245
+         TabIndex        =   0
+         Top             =   150
+         Width           =   4305
+         Begin VB.PictureBox picVideo 
+            BackColor       =   &H00000000&
+            Height          =   495
+            Left            =   60
+            ScaleHeight     =   435
+            ScaleWidth      =   915
+            TabIndex        =   33
+            Top             =   3120
+            Visible         =   0   'False
+            Width           =   975
+         End
+         Begin VB.Label lblDisco 
+            Alignment       =   2  'Center
+            BackColor       =   &H00000000&
+            Caption         =   "Complete al menos la primera hoja de discos cargados"
+            BeginProperty Font 
+               Name            =   "Verdana"
+               Size            =   8.25
+               Charset         =   0
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            ForeColor       =   &H00FFFFFF&
+            Height          =   435
+            Index           =   0
+            Left            =   1470
+            TabIndex        =   34
+            Top             =   3090
+            UseMnemonic     =   0   'False
+            Visible         =   0   'False
+            Width           =   2640
+         End
+         Begin VB.Image TapaCD 
+            Height          =   2505
+            Index           =   0
+            Left            =   1290
+            Picture         =   "frmINDEX.frx":E2B6
+            Stretch         =   -1  'True
+            Top             =   360
+            Visible         =   0   'False
+            Width           =   2640
+         End
+         Begin VB.Shape lblSel 
+            BorderColor     =   &H0000FFFF&
+            BorderWidth     =   6
+            Height          =   555
+            Left            =   390
+            Shape           =   4  'Rounded Rectangle
+            Top             =   1650
+            Width           =   435
+         End
+      End
+   End
+   Begin tbr3pm.VUMeter VU1 
+      Height          =   4425
+      Left            =   30
+      TabIndex        =   7
+      Top             =   2460
+      Width           =   3405
+      _ExtentX        =   6006
+      _ExtentY        =   7805
+   End
    Begin VB.PictureBox picFondo 
       AutoSize        =   -1  'True
       Height          =   3855
       Left            =   30
-      Picture         =   "frmINDEX.frx":0000
+      Picture         =   "frmINDEX.frx":172C9
       ScaleHeight     =   3795
       ScaleWidth      =   15360
       TabIndex        =   13
-      Top             =   6690
+      Top             =   6660
       Width           =   15420
       Begin tbr3pm.tbrPassImg tbrPassImg1 
          Height          =   2250
@@ -78,10 +180,10 @@ Begin VB.Form frmIndex
          Width           =   2200
          Begin VB.CommandButton cmdPagAd 
             BackColor       =   &H00C0C0C0&
-            DownPicture     =   "frmINDEX.frx":4AF4
+            DownPicture     =   "frmINDEX.frx":1BDBD
             Height          =   650
             Left            =   1140
-            Picture         =   "frmINDEX.frx":5AB5
+            Picture         =   "frmINDEX.frx":1CD7E
             Style           =   1  'Graphical
             TabIndex        =   19
             TabStop         =   0   'False
@@ -90,10 +192,10 @@ Begin VB.Form frmIndex
          End
          Begin VB.CommandButton cmdDiscoAd 
             BackColor       =   &H00C0C0C0&
-            DownPicture     =   "frmINDEX.frx":64C2
+            DownPicture     =   "frmINDEX.frx":1D78B
             Height          =   650
             Left            =   1110
-            Picture         =   "frmINDEX.frx":71BF
+            Picture         =   "frmINDEX.frx":1E488
             Style           =   1  'Graphical
             TabIndex        =   18
             TabStop         =   0   'False
@@ -102,10 +204,10 @@ Begin VB.Form frmIndex
          End
          Begin VB.CommandButton cmdDiscoAt 
             BackColor       =   &H00C0C0C0&
-            DownPicture     =   "frmINDEX.frx":7A97
+            DownPicture     =   "frmINDEX.frx":1ED60
             Height          =   650
             Left            =   90
-            Picture         =   "frmINDEX.frx":8809
+            Picture         =   "frmINDEX.frx":1FAD2
             Style           =   1  'Graphical
             TabIndex        =   17
             TabStop         =   0   'False
@@ -114,10 +216,10 @@ Begin VB.Form frmIndex
          End
          Begin VB.CommandButton cmdPagAt 
             BackColor       =   &H00C0C0C0&
-            DownPicture     =   "frmINDEX.frx":914C
+            DownPicture     =   "frmINDEX.frx":20415
             Height          =   650
             Left            =   90
-            Picture         =   "frmINDEX.frx":A1AB
+            Picture         =   "frmINDEX.frx":21474
             Style           =   1  'Graphical
             TabIndex        =   16
             TabStop         =   0   'False
@@ -235,8 +337,7 @@ Begin VB.Form frmIndex
       Begin VB.Label lblTOTdiscos 
          Alignment       =   2  'Center
          Appearance      =   0  'Flat
-         BackColor       =   &H00FFC0C0&
-         BackStyle       =   0  'Transparent
+         BackColor       =   &H00404080&
          Caption         =   "Disco 188 de 188"
          BeginProperty Font 
             Name            =   "Verdana"
@@ -247,12 +348,12 @@ Begin VB.Form frmIndex
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         ForeColor       =   &H00000000&
-         Height          =   270
-         Left            =   5340
+         ForeColor       =   &H00FFFFFF&
+         Height          =   255
+         Left            =   5310
          TabIndex        =   28
          Top             =   1470
-         Width           =   2025
+         Width           =   2445
       End
       Begin VB.Label lblTiempoRestante 
          Alignment       =   2  'Center
@@ -292,7 +393,7 @@ Begin VB.Form frmIndex
          EndProperty
          ForeColor       =   &H00000000&
          Height          =   270
-         Left            =   7410
+         Left            =   7800
          TabIndex        =   26
          Top             =   1470
          Width           =   1980
@@ -424,107 +525,6 @@ Begin VB.Form frmIndex
          Top             =   330
          Width           =   3015
       End
-   End
-   Begin VB.Frame frDISCOS 
-      BackColor       =   &H00404040&
-      BorderStyle     =   0  'None
-      Height          =   4005
-      Left            =   360
-      TabIndex        =   11
-      Top             =   120
-      Width           =   5880
-      Begin VB.Timer Timer1 
-         Left            =   5040
-         Top             =   3390
-      End
-      Begin VB.Timer Timer3 
-         Interval        =   10000
-         Left            =   5220
-         Top             =   2820
-      End
-      Begin tbr3pm.MP3Play MP3 
-         Height          =   1620
-         Left            =   4410
-         TabIndex        =   12
-         Top             =   600
-         Visible         =   0   'False
-         Width           =   1500
-         _ExtentX        =   2646
-         _ExtentY        =   2858
-      End
-      Begin VB.PictureBox picFondoDisco 
-         AutoRedraw      =   -1  'True
-         Height          =   4065
-         Left            =   630
-         Picture         =   "frmINDEX.frx":AC5C
-         ScaleHeight     =   4005
-         ScaleWidth      =   4245
-         TabIndex        =   0
-         Top             =   780
-         Width           =   4305
-         Begin VB.PictureBox picVideo 
-            BackColor       =   &H00000000&
-            Height          =   495
-            Left            =   180
-            ScaleHeight     =   435
-            ScaleWidth      =   915
-            TabIndex        =   33
-            Top             =   3270
-            Visible         =   0   'False
-            Width           =   975
-         End
-         Begin VB.Label lblDisco 
-            Alignment       =   2  'Center
-            BackColor       =   &H00000000&
-            Caption         =   "Complete al menos la primera hoja de discos cargados"
-            BeginProperty Font 
-               Name            =   "Verdana"
-               Size            =   8.25
-               Charset         =   0
-               Weight          =   400
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            ForeColor       =   &H00FFFFFF&
-            Height          =   435
-            Index           =   0
-            Left            =   1470
-            TabIndex        =   34
-            Top             =   3090
-            UseMnemonic     =   0   'False
-            Visible         =   0   'False
-            Width           =   2640
-         End
-         Begin VB.Image TapaCD 
-            Height          =   2505
-            Index           =   0
-            Left            =   1290
-            Picture         =   "frmINDEX.frx":18AD0
-            Stretch         =   -1  'True
-            Top             =   360
-            Visible         =   0   'False
-            Width           =   2640
-         End
-         Begin VB.Shape lblSel 
-            BorderColor     =   &H0000FFFF&
-            BorderWidth     =   6
-            Height          =   555
-            Left            =   390
-            Shape           =   4  'Rounded Rectangle
-            Top             =   1650
-            Width           =   435
-         End
-      End
-   End
-   Begin tbr3pm.VUMeter VU1 
-      Height          =   4425
-      Left            =   6390
-      TabIndex        =   7
-      Top             =   1320
-      Width           =   3405
-      _ExtentX        =   6006
-      _ExtentY        =   7805
    End
    Begin VB.Frame frModoVideo 
       BackColor       =   &H00FFFFFF&
@@ -1315,11 +1315,12 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub Form_Load()
+    On Error GoTo NoLoadIndex
     LineaError = "000-0201"
      RegistroDiario 'anota la fecha, hora y numero del contador
      '--------
      LineaError = "000-0202"
-    If TypeVersion = "SL" Then
+    If K.LICENCIA = HSuperLicencia Then
         LineaError = "000-0203"
         If FSO.FileExists(WINfolder + "\SL\indexchi.tbr") Then
             tbrPassImg1.Picture WINfolder + "\SL\indexchi.tbr"
@@ -1331,7 +1332,7 @@ Private Sub Form_Load()
     AjustarFRM Me, 12000
     'VU1.Visible = HabilitarVUMetro
     LineaError = "000-0205"
-    If TypeVersion = "DEMO" Then
+    If K.LICENCIA = aSinCargar Then
         LineaError = "000-0206"
         lblDEMO = "Este espacio sera suyo cuando adquiera la version full de 3PM"
     Else
@@ -1344,7 +1345,7 @@ Private Sub Form_Load()
     
     LineaError = "000-0208"
     '-----------------
-    If TypeVersion = "SL" Then
+    If K.LICENCIA = HSuperLicencia Then
         LineaError = "000-0209"
         If FSO.FileExists(WINfolder + "\SL\txtIDX.tbr") Then
             LineaError = "000-0210"
@@ -1764,6 +1765,7 @@ Private Sub Form_Load()
     
     'caso especial Eduardo rodirguez
     If ClaveAdmin = "ERO77701192FF" Then frmIndex.lblTBR.Visible = False
+    If ClaveAdmin = "MARC777" Then frmIndex.lblTBR.Visible = False
     
     'ver que onda con la publicidad de imagenes
     tbrPassImg1.ActivarPUBS = MostrarPUBIMG
@@ -1777,8 +1779,11 @@ Private Sub Form_Load()
     tbrPassImg1.IniciarPASS
     
     Exit Sub
+NoLoadIndex:
 ErrMP3:
-    MsgBox Err.Description + " N°: " + Str(Err.Number)
+    'MsgBox Err.Description + " N°: " + Str(Err.Number)
+    WriteTBRLog "LINEA: " + LineaError + vbCrLf + Err.Description + " N°: " + Str(Err.Number), True
+    Resume Next
 End Sub
 
 Public Sub SelDisco(nDisco As Long)
@@ -2097,7 +2102,7 @@ Private Sub MP3_Played(SecondsPlayed As Long)
     If wi > 0 Then LBLpORCtEMA.Width = wi
     '=====================================
     LineaError = "000-0466"
-    If TypeVersion = "DEMO" And SecondsPlayed > 126 And SecondsPlayed < TotalTema - 5 Then
+    If K.LICENCIA = aSinCargar And SecondsPlayed > 126 And SecondsPlayed < TotalTema - 5 Then
         LineaError = "000-0467"
         lblTemaSonando = "Tema Truncado. Version DEMO"
         LineaError = "000-0468"
@@ -2105,7 +2110,7 @@ Private Sub MP3_Played(SecondsPlayed As Long)
     End If
     'cotar tambin en el gratuito
     LineaError = "000-0469"
-    If TypeVersion = "DEMO2" And SecondsPlayed > 126 And SecondsPlayed < TotalTema - 5 Then
+    If K.LICENCIA = CGratuita And SecondsPlayed > 126 And SecondsPlayed < TotalTema - 5 Then
         LineaError = "000-0470"
         lblTemaSonando = "Tema Truncado. Version DEMO"
         LineaError = "000-0471"

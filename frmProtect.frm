@@ -319,15 +319,15 @@ Private Sub Timer1_Timer()
     End If
     
     Randomize Timer
-    b = lblDisco.Top - PicProtec(IndPicVisible).Height
-    If b < 150 Then b = 150 '150 es el tope del frmae
+    B = lblDisco.Top - PicProtec(IndPicVisible).Height
+    If B < 150 Then B = 150 '150 es el tope del frmae
         
-    A = Int(Rnd * b)
+    A = Int(Rnd * B)
     PicProtec(IndPicVisible).Top = A
     
     Randomize Timer
-    b = lblTIT.Left - PicProtec(IndPicVisible).Width
-    A = Int(Rnd * b)
+    B = lblTIT.Left - PicProtec(IndPicVisible).Width
+    A = Int(Rnd * B)
     PicProtec(IndPicVisible).Left = A
     
     PicProtec(IndPicVisible).Visible = True

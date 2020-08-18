@@ -147,7 +147,7 @@ Handler2=PDWizard.WebPostDplySubWiz
 
 [Package|Paquete de instalación estándar 1|Root]
 SubWizProgID=PDWizard.SetupPkgSubWiz
-BuildFolder=D:\ahora\3pm\Is\Juan Serrano\WMe
+BuildFolder=D:\ahora\3PM v5\Is\DEMO WEB\WMe
 
 [Package|Paquete de instalación estándar 1|Configure DAO ISAMs]
 Applicable=No
@@ -162,9 +162,12 @@ ODBCDirect=
 
 [Package|Paquete de instalación estándar 1|Missing Dependency Information]
 D:\ahora\3pm\ini.exe=
+C:\TBRWIN\SYSTEM\WBEM\WBEMDISP.TLB=
+C:\LINUX\SYSTEM\WBEM\WBEMDISP.TLB=
 
 [Package|Paquete de instalación estándar 1|Out-of-Date Dependency Information]
 C:\TBRWIN\SYSTEM\scrrun.dll=
+C:\LINUX\SYSTEM\SCRRUN.DLL=
 
 [Package|Paquete de instalación estándar 1|Files Added]
 d:\ahora\3pm\ini.exe=
@@ -183,23 +186,18 @@ c:\tbrwin\system\oleaut32.dll=
 c:\tbrwin\system\olepro32.dll=
 c:\tbrwin\system\asycfilt.dll=
 c:\tbrwin\system\stdole2.tlb=
+c:\linux\system\msvcrt.dll=
+c:\linux\system\msvbvm60.dll=
+c:\linux\system\oleaut32.dll=
+c:\linux\system\olepro32.dll=
+c:\linux\system\asycfilt.dll=
+c:\linux\system\stdole2.tlb=
 c:\archivos de programa\microsoft visual studio\vb98\wizards\pdwizard\redist\comcat.dll=
 
 [Package|Paquete de instalación estándar 1|Files In Project]
-D:\ahora\3pm\3pm.exe=Yes
-C:\TBRWIN\SYSTEM\msvbvm60.dll=No
-C:\TBRWIN\SYSTEM\OLEAUT32.DLL=No
-C:\TBRWIN\SYSTEM\OLEPRO32.DLL=No
-C:\TBRWIN\SYSTEM\ASYCFILT.DLL=No
-C:\TBRWIN\SYSTEM\STDOLE2.TLB=No
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=No
-C:\TBRWIN\SYSTEM\VB6ES.DLL=Yes
-C:\TBRWIN\SYSTEM\scrrun.dll=Yes
-C:\TBRWIN\SYSTEM\MSVCRT.DLL=No
-C:\TBRWIN\SYSTEM\scrrnes.dll=Yes
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
-C:\TBRWIN\SYSTEM\VB6STKIT.DLL=Yes
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
 D:\ahora\3pm\ini.exe=Yes
 D:\ahora\3pm\logo.sys=Yes
@@ -209,6 +207,18 @@ D:\ahora\3pm\manual.doc=Yes
 D:\ahora\3pm\tapa.jpg=Yes
 D:\ahora\3pm\top10.jpg=Yes
 D:\ahora\3pm\pub\LEER.txt=Yes
+D:\ahora\3PM v5\3pm.exe=Yes
+C:\LINUX\SYSTEM\MSVBVM60.DLL=No
+C:\LINUX\SYSTEM\OLEAUT32.DLL=No
+C:\LINUX\SYSTEM\OLEPRO32.DLL=No
+C:\LINUX\SYSTEM\ASYCFILT.DLL=No
+C:\LINUX\SYSTEM\STDOLE2.TLB=No
+C:\LINUX\SYSTEM\VB6ES.DLL=Yes
+C:\LINUX\SYSTEM\SCRRUN.DLL=Yes
+C:\LINUX\SYSTEM\MSVCRT.DLL=No
+C:\LINUX\SYSTEM\SCRRNES.DLL=Yes
+C:\LINUX\SYSTEM\WBEM\WBEMDISP.TLB=Yes
+C:\LINUX\SYSTEM\VB6STKIT.DLL=Yes
 
 [Package|Paquete de instalación estándar 1|Configure Registry Files]
 Applicable=No
@@ -242,6 +252,18 @@ C:\TBRWIN\SYSTEM\ASYCFILT.DLL=$(WinSysPathSysFile)
 C:\TBRWIN\SYSTEM\STDOLE2.TLB=$(WinSysPathSysFile)
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
 D:\ahora\3pm\pub\LEER.txt=$(AppPath)\PUB
+D:\ahora\3PM v5\3pm.exe=$(AppPath)
+C:\TBRWIN\SYSTEM\WBEM\WBEMDISP.TLB=$(WinSysPath)
+C:\LINUX\SYSTEM\MSVBVM60.DLL=$(WinSysPathSysFile)
+C:\LINUX\SYSTEM\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\LINUX\SYSTEM\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\LINUX\SYSTEM\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\LINUX\SYSTEM\STDOLE2.TLB=$(WinSysPathSysFile)
+C:\LINUX\SYSTEM\VB6ES.DLL=$(WinSysPath)
+C:\LINUX\SYSTEM\SCRRUN.DLL=$(WinSysPath)
+C:\LINUX\SYSTEM\SCRRNES.DLL=$(WinSysPath)
+C:\LINUX\SYSTEM\WBEM\WBEMDISP.TLB=$(WinSysPath)
+C:\LINUX\SYSTEM\VB6STKIT.DLL=$(WinSysPathSysFile)
 
 [Package|Paquete de instalación estándar 1|Configure Shared Files]
 Applicable=Yes
@@ -254,6 +276,7 @@ D:\ahora\3pm\manual.doc=No
 D:\ahora\3pm\tapa.jpg=No
 D:\ahora\3pm\top10.jpg=No
 D:\ahora\3pm\pub\LEER.txt=No
+D:\ahora\3PM v5\3pm.exe=No
 
 [Package|Paquete de instalación estándar 1|Distribution]
 Type=single
@@ -272,11 +295,11 @@ StartIn1=$(AppPath)
 Key1=Icon1
 
 [Package|Paquete de instalación estándar 1|Package]
-PackageFolder=D:\ahora\3pm\Is\Juan Serrano\WMe
-ProjectFolder=D:\ahora\3pm
+PackageFolder=D:\ahora\3PM v5\Is\DEMO WEB\WMe
+ProjectFolder=D:\ahora\3PM v5
 ServerSideCab=
-File1=D:\ahora\3pm\Is\Juan Serrano\WMe\setup.exe
-File2=D:\ahora\3pm\Is\Juan Serrano\WMe\Setup.Lst
-File3=D:\ahora\3pm\Is\Juan Serrano\WMe\3pm.CAB
+File1=D:\ahora\3PM v5\Is\DEMO WEB\WMe\setup.exe
+File2=D:\ahora\3PM v5\Is\DEMO WEB\WMe\Setup.Lst
+File3=D:\ahora\3PM v5\Is\DEMO WEB\WMe\3pm.CAB
 Handler1=PDWizard.FolderDplySubWiz
 Handler2=PDWizard.WebPostDplySubWiz

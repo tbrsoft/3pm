@@ -421,11 +421,11 @@ Private Sub DrawData()
         'BarrasEnVUmeter es el numero de barras
         PorcBarrasPintadasON = contVu / BarrasEnVUmeter * 100
         'verde
-        If PorcBarrasPintadasON <= 20 And PorcBarrasPintadasON >= 0 Then ColorOn = &HFF00&: ColorOff = &H8000&
+        If PorcBarrasPintadasON <= 20 And PorcBarrasPintadasON >= 0 Then ColorOn = &HFF00&: coloroff = &H8000&
         'amarillo
-        If PorcBarrasPintadasON <= 75 And PorcBarrasPintadasON > 20 Then: ColorOn = &HFFFF&: ColorOff = &H8080&
+        If PorcBarrasPintadasON <= 75 And PorcBarrasPintadasON > 20 Then: ColorOn = &HFFFF&: coloroff = &H8080&
         'rojo
-        If PorcBarrasPintadasON <= 100 And PorcBarrasPintadasON > 75 Then: ColorOn = &HFF&: ColorOff = &H80&
+        If PorcBarrasPintadasON <= 100 And PorcBarrasPintadasON > 75 Then: ColorOn = &HFF&: coloroff = &H80&
         
         P(contVu).BackColor = ColorOn
         P2(contVu).BackColor = ColorOn
@@ -440,14 +440,14 @@ Private Sub DrawData()
         
         PorcBarrasPintadasOff = contVuOff / BarrasEnVUmeter * 100
         'verde
-        If PorcBarrasPintadasOff <= 20 And PorcBarrasPintadasOff >= 0 Then ColorOn = &HFF00&: ColorOff = &H8000&
+        If PorcBarrasPintadasOff <= 20 And PorcBarrasPintadasOff >= 0 Then ColorOn = &HFF00&: coloroff = &H8000&
         'amarillo
-        If PorcBarrasPintadasOff <= 75 And PorcBarrasPintadasOff > 20 Then: ColorOn = &HFFFF&: ColorOff = &H8080&
+        If PorcBarrasPintadasOff <= 75 And PorcBarrasPintadasOff > 20 Then: ColorOn = &HFFFF&: coloroff = &H8080&
         'rojo
-        If PorcBarrasPintadasOff <= 100 And PorcBarrasPintadasOff > 75 Then: ColorOn = &HFF&: ColorOff = &H80&
+        If PorcBarrasPintadasOff <= 100 And PorcBarrasPintadasOff > 75 Then: ColorOn = &HFF&: coloroff = &H80&
         
-        P(contVuOff).BackColor = ColorOff
-        P2(contVuOff).BackColor = ColorOff
+        P(contVuOff).BackColor = coloroff
+        P2(contVuOff).BackColor = coloroff
         
         contVu = contVu + 1
         If contVu = BarrasEnVUmeter Then contVu = 0
@@ -467,15 +467,15 @@ Private Sub DrawData()
             MaxRH = 0
             ContTopVU = 0
         End If
-        'MaxLH = BarrasEnVUmeter: MaxRH = BarrasEnVUmeter esta en resize paraque no se cambien los valores
+        'MaxLH = BarrasEnVUmeter: MaxRH = BarrasEnVUmeter esta en resize para que no se cambien los valores
         Do While contVu < BarrasEnVUmeter
             PorcBarrasPintadas = contVu / BarrasEnVUmeter * 100
             'verde
-            If PorcBarrasPintadas <= 20 And PorcBarrasPintadas >= 0 Then ColorOn = &HFF00&: ColorOff = &H8000&
+            If PorcBarrasPintadas <= 20 And PorcBarrasPintadas >= 0 Then ColorOn = &HFF00&: coloroff = &H8000&
             'amarillo
-            If PorcBarrasPintadas <= 75 And PorcBarrasPintadas > 20 Then: ColorOn = &HFFFF&: ColorOff = &H8080&
+            If PorcBarrasPintadas <= 75 And PorcBarrasPintadas > 20 Then: ColorOn = &HFFFF&: coloroff = &H8080&
             'rojo
-            If PorcBarrasPintadas <= 100 And PorcBarrasPintadas > 75 Then: ColorOn = &HFF&: ColorOff = &H80&
+            If PorcBarrasPintadas <= 100 And PorcBarrasPintadas > 75 Then: ColorOn = &HFF&: coloroff = &H80&
 
             If contVu = MaxLH Then GoTo SiguienteRh 'que no repinte la ubicacion del tope
             
@@ -492,7 +492,7 @@ Private Sub DrawData()
                     End If
                     A = A + 1
                 Else
-                    P(contVu).BackColor = ColorOff
+                    P(contVu).BackColor = coloroff
                 End If
             End If
 SiguienteRh:
@@ -510,7 +510,7 @@ SiguienteRh:
                     End If
                     b = b + 1
                 Else
-                    P2(contVu).BackColor = ColorOff
+                    P2(contVu).BackColor = coloroff
                 End If
             End If
 SIGUIENTE:

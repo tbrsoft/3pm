@@ -4,11 +4,11 @@ Begin VB.Form Form1
    ClientHeight    =   8145
    ClientLeft      =   60
    ClientTop       =   345
-   ClientWidth     =   8880
+   ClientWidth     =   10650
    Icon            =   "Form1.frx":0000
    LinkTopic       =   "Form1"
    ScaleHeight     =   8145
-   ScaleWidth      =   8880
+   ScaleWidth      =   10650
    StartUpPosition =   3  'Windows Default
    WindowState     =   2  'Maximized
    Begin VB.TextBox Text3 
@@ -72,12 +72,12 @@ Begin VB.Form Form1
       Width           =   2145
    End
    Begin VB.ListBox List1 
-      Columns         =   3
+      Columns         =   2
       Height          =   2595
       Left            =   2340
       TabIndex        =   3
       Top             =   1050
-      Width           =   6225
+      Width           =   8265
    End
    Begin VB.CommandButton Command2 
       Caption         =   "WBem"

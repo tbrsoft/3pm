@@ -110,10 +110,10 @@ Private Sub UserControl_Resize()
     Label1.Left = 0
 End Sub
 
-Public Sub AddArchivoIMG(ARCH As String)
+Public Sub AddArchivoIMG(Arch As String)
     mTotalImagenes = UBound(mArchPictures) + 1
     ReDim Preserve mArchPictures(mTotalImagenes)
-    mArchPictures(mTotalImagenes) = ARCH
+    mArchPictures(mTotalImagenes) = Arch
 End Sub
 
 Public Sub ClearList()

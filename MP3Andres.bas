@@ -38,6 +38,8 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
     
     LineaError = "003-0009"
     If UCase(FSO.GetExtensionName(tema)) <> "MP3" Then
+        vidFullScreen = True
+        NoVumVID = True
         EsVideo = True
         LineaError = "003-0010"
         'cerrar el protector si estaba activo
@@ -45,37 +47,46 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
         'acomodar los controles en modo video
         'modo texto pata elegir los discos
         With frmIndex
-            LineaError = "003-0011"
-            .frModoVideo.Left = Screen.Width - .frModoVideo.Width
-            LineaError = "003-0012"
-            .frTEMAS.Left = Screen.Width - .frTEMAS.Width
-            'en principio los discos ocupan todo
-            LineaError = "003-0013"
-            .frModoVideo.Height = .frDISCOS.Height - .lblModoVideo.Height
-            LineaError = "003-0014"
-            .frModoVideo.Visible = True
-            LineaError = "003-0015"
-            .lblModoVideo.Visible = True
-            LineaError = "003-0016"
-            .VU1.Width = Screen.Width - .frModoVideo.Width
-            LineaError = "003-0017"
-            If HabilitarVUMetro Then
-                LineaError = "003-0018"
-                .frDISCOS.Width = .VU1.Width - (.VU1.AnchoBarra * 2) - 50
+            'ver si es fullscreen o no!!!!!!!
+            '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            If vidFullScreen Then
+                frmIndex.VU1.Height = Screen.Height
+                frmIndex.VU1.Width = Screen.Width
+                frmIndex.frDISCOS.Height = Screen.Height
+                ' si estan inhabilitados siempre o solo para videos
+                If HabilitarVUMetro Then
+                    If NoVumVID Then
+                        .frDISCOS.Left = 0
+                        .frDISCOS.Width = .VU1.Width
+                    Else
+                        .frDISCOS.Left = .VU1.AnchoBarra
+                        .frDISCOS.Width = .VU1.Width - (.VU1.AnchoBarra * 2) - 50
+                    End If
+                Else
+                    .frDISCOS.Left = 0
+                    .frDISCOS.Width = .VU1.Width
+                End If
             Else
-                LineaError = "003-0019"
-                .frDISCOS.Width = .VU1.Width ' Screen.Width - .frModoVideo.Width
+                .frModoVideo.Left = Screen.Width - .frModoVideo.Width
+                .frTEMAS.Left = Screen.Width - .frTEMAS.Width
+                'en principio los discos ocupan todo
+                .frModoVideo.Height = .frDISCOS.Height - .lblModoVideo.Height
+                .frModoVideo.Visible = True
+                .lblModoVideo.Visible = True
+                .VU1.Width = Screen.Width - .frModoVideo.Width
+                If HabilitarVUMetro Then
+                    .frDISCOS.Width = .VU1.Width - (.VU1.AnchoBarra * 2) - 50
+                Else
+                    .frDISCOS.Width = .VU1.Width
+                End If
+                .picFondoDisco.Top = 0
+                .picFondoDisco.Left = 0
             End If
-            LineaError = "003-0020"
+            'si no hago esto el video no se ve (ya que esta adentro)
             .picFondoDisco.Height = .frDISCOS.Height
-            LineaError = "003-0021"
             .picFondoDisco.Width = .frDISCOS.Width
-            LineaError = "003-0022"
-            .picFondoDisco.Top = 0
-            LineaError = "003-0023"
-            .picFondoDisco.Left = 0
+            
             LineaError = "003-0024"
-            'vu ahora no se cambia        .VU1.Top = .frDISCOS.Height            '.VU1.Height = Screen.Height - .frDISCOS.Height
             .picVideo.Top = 0
             .picVideo.Left = 0
             LineaError = "003-0025"
@@ -159,7 +170,8 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
         LineaError = "003-0047"
         If EsVideo Then
             LineaError = "003-0048"
-            .DoOpenVideo "child", frmIndex.picVideo.hWnd, 0, 0, (frmIndex.frDISCOS.Width / 15), (frmIndex.picFondo.Top / 15)
+            .DoOpenVideo "child", frmIndex.picVideo.hWnd, 0, 0, _
+                (frmIndex.picVideo.Width / 15), (frmIndex.picVideo.Height / 15)
         Else
             LineaError = "003-0049"
             .DoOpen

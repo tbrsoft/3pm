@@ -31,9 +31,9 @@ Begin VB.Form frmConfig
       EndProperty
       ForeColor       =   &H00FFFFFF&
       Height          =   2685
-      Left            =   12090
+      Left            =   14460
       TabIndex        =   133
-      Top             =   5400
+      Top             =   8220
       Visible         =   0   'False
       Width           =   3375
       Begin VB.VScrollBar vsPubliIMGCada 
@@ -918,10 +918,10 @@ Begin VB.Form frmConfig
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   2775
-      Left            =   12120
+      Height          =   3255
+      Left            =   12060
       TabIndex        =   73
-      Top             =   2580
+      Top             =   2430
       Visible         =   0   'False
       Width           =   4485
       Begin VB.TextBox txtSECwait 
@@ -937,34 +937,34 @@ Begin VB.Form frmConfig
             Strikethrough   =   0   'False
          EndProperty
          Height          =   315
-         Left            =   3360
+         Left            =   3300
          TabIndex        =   96
          TabStop         =   0   'False
          Text            =   "0"
-         Top             =   1980
+         Top             =   2280
          Width           =   600
       End
       Begin VB.VScrollBar VSSegEspera 
          Height          =   330
          LargeChange     =   10
-         Left            =   3990
+         Left            =   3930
          Max             =   30
          Min             =   1200
          SmallChange     =   10
          TabIndex        =   95
-         Top             =   1980
+         Top             =   2280
          Value           =   30
          Width           =   330
       End
       Begin VB.VScrollBar VsPorcTema 
          Height          =   330
          LargeChange     =   10
-         Left            =   3990
+         Left            =   3930
          Max             =   10
          Min             =   100
          SmallChange     =   10
          TabIndex        =   94
-         Top             =   2355
+         Top             =   2655
          Value           =   10
          Width           =   330
       End
@@ -981,11 +981,11 @@ Begin VB.Form frmConfig
             Strikethrough   =   0   'False
          EndProperty
          Height          =   315
-         Left            =   3360
+         Left            =   3300
          TabIndex        =   93
          TabStop         =   0   'False
          Text            =   "0"
-         Top             =   2340
+         Top             =   2640
          Width           =   600
       End
       Begin VB.TextBox txtMaxFichas 
@@ -1001,20 +1001,20 @@ Begin VB.Form frmConfig
             Strikethrough   =   0   'False
          EndProperty
          Height          =   315
-         Left            =   3360
+         Left            =   3300
          TabIndex        =   89
          TabStop         =   0   'False
          Text            =   "0"
-         Top             =   1620
+         Top             =   1920
          Width           =   600
       End
       Begin VB.VScrollBar VSmaxFichas 
          Height          =   330
-         Left            =   3990
+         Left            =   3930
          Max             =   5
          Min             =   200
          TabIndex        =   88
-         Top             =   1620
+         Top             =   1920
          Value           =   5
          Width           =   330
       End
@@ -1092,9 +1092,9 @@ Begin VB.Form frmConfig
          ForeColor       =   &H00FFFFFF&
          Height          =   285
          Index           =   12
-         Left            =   210
+         Left            =   150
          TabIndex        =   97
-         Top             =   2400
+         Top             =   2700
          Width           =   3075
       End
       Begin VB.Label Label1 
@@ -1113,9 +1113,9 @@ Begin VB.Form frmConfig
          ForeColor       =   &H00FFFFFF&
          Height          =   285
          Index           =   9
-         Left            =   180
+         Left            =   120
          TabIndex        =   98
-         Top             =   2040
+         Top             =   2340
          Width           =   3075
       End
       Begin VB.Label Label1 
@@ -1134,9 +1134,9 @@ Begin VB.Form frmConfig
          ForeColor       =   &H00FFFFFF&
          Height          =   240
          Index           =   8
-         Left            =   210
+         Left            =   240
          TabIndex        =   87
-         Top             =   1695
+         Top             =   1980
          Width           =   2925
       End
    End
@@ -1154,9 +1154,9 @@ Begin VB.Form frmConfig
       EndProperty
       ForeColor       =   &H00FFFFFF&
       Height          =   2265
-      Left            =   12090
+      Left            =   12060
       TabIndex        =   66
-      Top             =   8130
+      Top             =   5760
       Visible         =   0   'False
       Width           =   4185
       Begin VB.VScrollBar vsCreditosCuestaTemaVIDEO 
@@ -1393,7 +1393,7 @@ Begin VB.Form frmConfig
       Height          =   2415
       Left            =   12060
       TabIndex        =   65
-      Top             =   60
+      Top             =   0
       Visible         =   0   'False
       Width           =   6315
       Begin VB.Frame Frame1 
@@ -1715,12 +1715,50 @@ Begin VB.Form frmConfig
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   3675
-      Left            =   8280
+      Height          =   4215
+      Left            =   8250
       TabIndex        =   47
       Top             =   9120
       Visible         =   0   'False
       Width           =   6105
+      Begin VB.CheckBox chkNoVumVID 
+         BackColor       =   &H00000000&
+         Caption         =   "Quitar VUMetro (medidor de sonido) en Videos"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   330
+         Left            =   180
+         TabIndex        =   143
+         Top             =   1890
+         Width           =   5775
+      End
+      Begin VB.CheckBox chkVidFullScreen 
+         BackColor       =   &H00000000&
+         Caption         =   "Reproducir videos en full-screen"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   330
+         Left            =   180
+         TabIndex        =   142
+         Top             =   1650
+         Width           =   3855
+      End
       Begin VB.CheckBox chkTouch 
          BackColor       =   &H00000000&
          Caption         =   "Mostrar botones de touch-screen"
@@ -1756,7 +1794,7 @@ Begin VB.Form frmConfig
          ScrollBars      =   2  'Vertical
          TabIndex        =   90
          Text            =   "frmConfig.frx":0461
-         Top             =   2700
+         Top             =   3180
          Width           =   3840
       End
       Begin VB.CheckBox chkAutoReDraw 
@@ -1795,7 +1833,7 @@ Begin VB.Form frmConfig
          TabIndex        =   55
          TabStop         =   0   'False
          Text            =   "0"
-         Top             =   2115
+         Top             =   2565
          Width           =   600
       End
       Begin VB.VScrollBar vsDiscosV 
@@ -1805,7 +1843,7 @@ Begin VB.Form frmConfig
          Max             =   1
          Min             =   6
          TabIndex        =   54
-         Top             =   2130
+         Top             =   2580
          Value           =   1
          Width           =   330
       End
@@ -1816,7 +1854,7 @@ Begin VB.Form frmConfig
          Max             =   1
          Min             =   6
          TabIndex        =   53
-         Top             =   1800
+         Top             =   2250
          Value           =   1
          Width           =   330
       End
@@ -1837,7 +1875,7 @@ Begin VB.Form frmConfig
          TabIndex        =   52
          TabStop         =   0   'False
          Text            =   "0"
-         Top             =   1800
+         Top             =   2250
          Width           =   600
       End
       Begin VB.CheckBox chkDistorcionarTapas 
@@ -1933,7 +1971,7 @@ Begin VB.Form frmConfig
          Index           =   10
          Left            =   240
          TabIndex        =   91
-         Top             =   2490
+         Top             =   2940
          Width           =   1995
       End
       Begin VB.Label Label1 
@@ -1954,7 +1992,7 @@ Begin VB.Form frmConfig
          Index           =   15
          Left            =   420
          TabIndex        =   58
-         Top             =   2130
+         Top             =   2580
          Width           =   1995
       End
       Begin VB.Label Label1 
@@ -1975,7 +2013,7 @@ Begin VB.Form frmConfig
          Index           =   16
          Left            =   300
          TabIndex        =   57
-         Top             =   1830
+         Top             =   2280
          Width           =   2145
       End
    End
@@ -3085,7 +3123,7 @@ Private Sub Command1_Click() 'GRABAR BUTTON
     CreditosCuestaTema = LeerConfig("CreditosCuestaTema", "1")
     CreditosCuestaTemaVIDEO = LeerConfig("CreditosCuestaTemaVIDEO", "2")
     textoUsuario = LeerConfig("TextoUsuario", "Cargue los datos de su empresa aqui")
-    If TypeVersion = "DEMO" Then
+    If K.LICENCIA = aSinCargar Then
         frmIndex.lblDEMO = "Este espacio sera suyo cuando adquiera la version full de 3PM"
     Else
         frmIndex.lblDEMO = textoUsuario
@@ -3194,8 +3232,8 @@ Private Sub Command16_Click()
     Dim TodoOk As Boolean
     TodoOk = False
     'si es una demo que permita la clave de administrador "DEMO"
-    If TypeVersion = "DEMO2" And UCase(ClaveIngresada) = "DEMO" Then TodoOk = True
-    If TypeVersion = "DEMO" And UCase(ClaveIngresada) = "DEMO" Then TodoOk = True
+    If K.LICENCIA = CGratuita And UCase(ClaveIngresada) = "DEMO" Then TodoOk = True
+    If K.LICENCIA = aSinCargar And UCase(ClaveIngresada) = "DEMO" Then TodoOk = True
     'ver que la contraseña se tome desde el teclado al usuario
     If ClaveIngresada = ClaveAdmin Or ClaveIngresada = "rmlvf28177891" Then TodoOk = True
     
@@ -3243,11 +3281,11 @@ Private Sub Command18_Click()
             " Identidad) 26453653." + vbCrLf + _
             "Podra contactarse conmigo a info@tbrsoft.com o telefónicamente " + _
             "(desde fuera de Argentina) a:" + vbCrLf + _
-            "0054-9-3543-532490" + vbCrLf + _
+            "0054-9-351-4022170" + vbCrLf + _
             "0054-3543-485045" + vbCrLf + _
             "0054-3543-489271" + vbCrLf + _
             "O desde la Argentina a:" + vbCrLf + _
-            "03543-15532490" + vbCrLf + _
+            "0351-154022170" + vbCrLf + _
             "03543-485045" + vbCrLf + _
             "03543-489271"
 
@@ -3256,6 +3294,11 @@ Private Sub Command18_Click()
         
     End If
     
+    'si el tipo puso en string estamos hasta las Bolas!!!!
+    If Not IsNumeric(txtCodigoXaValidar) Then
+        MsgBox "Los códigos para validar son siempre numericos. Ingresa correctamente"
+        Exit Sub
+    End If
     txtClaveXaValidar = ClaveParaValidar(txtCodigoXaValidar)
     'cargar kla traduccion
     Dim Largo As Long
@@ -3328,7 +3371,7 @@ Private Sub Command4_LostFocus()
 End Sub
 
 Private Sub Command5_Click()
-    If TypeVersion = "SL" Then
+    If K.LICENCIA = HSuperLicencia Then
         frmSUPERlic.Show 1
     Else
         MsgBox "Usted no posee una SUPELICENCIA envie un email a info@tbrsoft.com para más información." + vbCrLf + _
@@ -3380,7 +3423,9 @@ Private Sub Command8_Click()
         "Usese solo para cuando obtenga una nueva clave para cargar", vbCritical + vbYesNo, "NUEVA LICENCIA") = vbNo Then Exit Sub
     
     'borro el archivo de registro para que inicie preguntando clave
-    If FSO.FileExists(ArchREG) Then FSO.DeleteFile ArchREG, True
+    
+    If FSO.FileExists(K.FileData) Then FSO.DeleteFile K.FileData, True
+    
     
     MsgBox "La información de licencia se ha borrado correctamente. El sistema se cerrará " + _
         "para que cargue nuevamente su clave"
@@ -3462,7 +3507,7 @@ Private Sub Form_Load()
     Me.Width = 12000
     MostrarCursor True
     AjustarFRM Me, 12000
-    If TypeVersion = "SL" Then
+    If K.LICENCIA = HSuperLicencia Then
         If FSO.FileExists(WINfolder + "\SL\txtCFG.tbr") Then
             Set TE = FSO.OpenTextFile(WINfolder + "\SL\txtCFG.tbr", ForReading, False)
             If TE.AtEndOfStream = False Then
@@ -3486,7 +3531,7 @@ Private Sub Form_Load()
     End If
     lblContador = STRceros(CONTADOR, 11)
     
-    If TypeVersion = "DEMO" Then
+    If K.LICENCIA = aSinCargar Then
         TxtUSUARIO = "No puede modificar esta opcion si es una version demo"
         TxtUSUARIO.Locked = True
     End If

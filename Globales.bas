@@ -1,4 +1,9 @@
 Attribute VB_Name = "Globales"
+Public vidFullScreen As Boolean 'dice si el video es fullscreen o no
+Public NoVumVID As Boolean 'quitar el VUMetro de los videos
+
+Public K As New clsKEYS 'control de llaves y licencias
+
 Public PUBs As New clsPUB
 
 Public MostrarPUB As Boolean 'se reproducen Publicidades MP3 o video?
@@ -19,6 +24,8 @@ Public CreditosValidar As Long
 Public ArchREG As String 'archivo con los datos del registro
 Public textoUsuario As String
 
+Public DatosLicencia As String
+
 Public CreditosCuestaTema As Long
 Public CreditosCuestaTemaVIDEO As Long
 Public PideVideo As Boolean 'antes de ejecutar para saber que cobrar tengo que saber que pide
@@ -34,10 +41,6 @@ Public SYSfolder As String
 Public WINfolder As String
 
 Public RankToPeople As Boolean 'expone o no el reank a los usuarios
-
-
-Public TypeVersion As String
-'puede ser DEMO o FULL o SUPERLICENCIA
 
 Public ClaveIngresada As String
 
@@ -629,3 +632,7 @@ Public Sub VerSiTocaPUB()
     End If
 End Sub
 
+Public Sub Main()
+    K.ClaveDLL = "ashjdklahsJKLHASL65456456456"
+    frmREG.Show 1
+End Sub

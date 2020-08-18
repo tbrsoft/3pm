@@ -1,6 +1,6 @@
 Type=Exe
-Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\WINDOWS\SYSTEM\stdole2.tlb#OLE Automation
-Reference=*\G{565783C6-CB41-11D1-8B02-00600806D9B6}#1.0#0#C:\WINDOWS\SYSTEM\WBEM\Wbemdisp.tlb#Microsoft WBEM Scripting V1.0 Library
+Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\TBRWIN\SYSTEM\stdole2.tlb#OLE Automation
+Reference=*\G{565783C6-CB41-11D1-8B02-00600806D9B6}#1.0#0#C:\TBRWIN\SYSTEM\WBEM\WBEMDISP.TLB#Microsoft WBEM Scripting V1.0 Library
 Form=Form1.frm
 Module=Mod; Mod.bas
 IconForm="Form1"
@@ -14,7 +14,7 @@ HelpContextID="0"
 CompatibleMode="0"
 MajorVer=1
 MinorVer=0
-RevisionVer=275
+RevisionVer=276
 AutoIncrementVer=1
 ServerSupportFiles=0
 VersionCompanyName="tbrSoft"

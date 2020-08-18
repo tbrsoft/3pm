@@ -67,7 +67,8 @@ Public Function ClaveParaValidar(CodigoSolicitado As String) ' es siempre un num
         Resto = Resto - 20
     Loop
     
-    'una clave con 4 valores posibles debe ser de 15 caracteres para que haya 1000 millones de claves posibles
+    'una clave con 4 valores posibles debe ser de 15 caracteres
+    'para que haya 1000 millones de claves posibles
     
     'si coloco una clave con texto el que alquila debera tener un teclado!!!!
     'no debe funcionar así!!!!!

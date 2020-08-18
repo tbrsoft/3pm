@@ -103,26 +103,25 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub Form_Load()
-    Text1.Text = "CLUF - Contrato de licencia de usuario final." + vbCrLf + vbCrLf + _
-    "Antes de adquirir y utilizar 3PM deberá estar de acuerdo y aceptar las siguientes condiciones." + vbCrLf + vbCrLf + _
-    " TbrSoft de ninguna manera será responsable por el uso dado al sistema por los usuarios finales. La " + _
-    "licencia para uso de 3PM será revocada inmediatamente si algún usuario violara las leyes vigentes " + _
-    "(respectivas al país en que se utilice) respecto a los derechos de los autores de las composiciones " + _
-    "reproducidas por 3PM. En todos los casos se deberá obtener una autorización para la reproducción de " + _
-    "todos los ficheros mp3 que se incluyan." + vbCrLf + "El costo estipulado por las instituciones y/o " + _
-    "asociaciones de autores no es responsabilidad de tbrSoft si no de los usuarios de 3PM." + vbCrLf + _
-    "La adquisición de 3PM no implica derechos de reventa de copias ilegales de este software ni la " + _
-    "instalación en más de un equipo (salvo que la licencia adquirida asi lo indique). En caso de disponer " + _
-    "de varios equipos deberán solicitar igual cantidad de copias de 3PM." + vbCrLf + _
-    "En ningun caso podra someter a 3PM a metodos de decompilación y similares. El codigo fuente de este " + _
-    "programa es propiedad de Andres Vazquez Flexes (Argentino, DNI n° 26.453.653) quien es titular unico de " + _
-    "los mismos." + vbCrLf + " La instalacion de 3PM y las consecuentes modificaciones" + _
+    Text1.Text = "CLUF - Contrato de licencia de usuario final." + vbCrLf + vbCrLf + "Antes de adquirir y utilizar 3PM deberá estar de acuerdo y aceptar las siguientes condiciones." + vbCrLf + vbCrLf + _
+    " TbrSoft de ninguna manera será responsable por el uso dado al sistema por los usuarios finales. La licencia para uso de 3PM será revocada inmediatamente si algún usuario violara las leyes vigentes " + _
+    "(respectivas al país en que se utilice) respecto a los derechos de los autores de las composiciones reproducidas por 3PM. En todos los casos se deberá obtener una autorización para la reproducción de " + _
+    "todos los ficheros mp3 que se incluyan." + vbCrLf + "El costo estipulado por las instituciones y/o asociaciones de autores no es responsabilidad de tbrSoft si no de los usuarios de 3PM." + vbCrLf + _
+    "La adquisición de 3PM no implica derechos de reventa de copias ilegales de este software ni la instalación en más de un equipo (salvo que la licencia adquirida asi lo indique). En caso de disponer " + _
+    "de varios equipos deberán solicitar igual cantidad de copias de 3PM." + vbCrLf + "En ningun caso podra someter a 3PM a metodos de decompilación y similares. El codigo fuente de este " + _
+    "programa es propiedad de Andres Vazquez Flexes (Argentino, DNI n° 26.453.653) quien es titular unico de los mismos." + vbCrLf + " La instalacion de 3PM y las consecuentes modificaciones" + _
     " que este software provoca en el sistema son responsabilidad exclusiva de" + _
     " quien instala este software y no de tbrSoft. tbrSoft no se hace responsable" + _
     " por las consecuencias de ningun tipo derivadas de la instalacion de 3PM." + vbCrLf + _
     "tbrSoft se reserva el derecho a modificar este contrarto en el futuro. Las licencias de este software" + _
     " son validas solo para un equipo, se hace referecia a equipo por su microprocesador y su placa base " + _
     "(motherboard). Po lo tanto si se reemplaza uno de estos componentes la licencia perdera valor ya que el equipo" + _
-    " no sera el mismo"
+    " no sera el mismo" + vbCrLf + "La licencia de 3PM perderá valor si fuera utilizada fuera del pais o zona" + _
+    " habilitada para el distribuidor que le haya vendido a usted su licencia. En este momento existen 3" + _
+    "distribuidores:" + vbCrLf + "  - tbrSoft. Propietario y distribuidor internacional salvo los paises en los que se" + _
+    " ha cedido los derechos de venta." + vbCrLf + "  - Rockolas Digitale de Centoamérica. Autorizado a ditribuir " + _
+    "en Centroamérica (no incluye Mexico). Solo tendran validez estas licencias dento de los paises que se incluyen en la zona indicada y no tendrán validez legal fuera de esta" + vbCrLf + _
+    "  - Guricity: Distribuidor Exclusivo en Argentina, Uruguay y Chile. De igual forma estas licencias solo serán validas para estos paises"
+    
         
 End Sub

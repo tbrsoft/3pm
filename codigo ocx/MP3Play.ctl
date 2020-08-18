@@ -36,13 +36,13 @@ Event Played(SecondsPlayed As Long)
 Event BeginPlay()
 Event EndPlay()
 
-Private Sub RELOJ_Timer()
+Private Sub Reloj_Timer()
     On Error GoTo ERmp3
     LineaError = "002-0001"
     'primero ver si ermina el tema
     If IsPlaying = False Then
         LineaError = "002-0002"
-        RELOJ.Interval = 0
+        Reloj.Interval = 0
         LineaError = "002-0003"
         RaiseEvent EndPlay
         LineaError = "002-0004"
@@ -286,7 +286,9 @@ ERmp3:
     Resume Next
 End Function
 
-Public Function DoOpenVideo(Style As String, HWind As Long, X1 As Long, Y1 As Long, X2 As Long, Y2 As Long)
+Public Function DoOpenVideo(Style As String, HWind As Long, _
+    X1 As Long, Y1 As Long, X2 As Long, Y2 As Long)
+    
     On Error GoTo ERmp3
     'DoStop
     'DoClose
@@ -365,17 +367,21 @@ ERmp3:
     Resume Next
 End Function
 
-Public Function DoPlay()
+Public Function DoPlay(Optional FullScreen As Boolean = False)
     On Error GoTo ERmp3
     LineaError = "002-0082"
-    dwReturn = mciSendString("play MP3Play", 0, 0, 0)
+    If FullScreen Then
+        dwReturn = mciSendString("play MP3Play fullscreen", 0, 0, 0)
+    Else
+        dwReturn = mciSendString("play MP3Play", 0, 0, 0)
+    End If
     If dwReturn <> 0 Then
         LogErrorMCI dwReturn
         'no se pudo modificar el volumen
         WriteLog "No se pudo ejecutar un fichero." + m_FileName + " Function DoPlay", False
     End If
     LineaError = "002-0086"
-    RELOJ.Interval = 1000
+    Reloj.Interval = 1000
     LineaError = "002-0087"
     RaiseEvent BeginPlay
     Exit Function
@@ -396,7 +402,7 @@ Public Function DoPause()
         WriteLog "No se pudo poner en pausa un fichero." + m_FileName + " Function DoPause", False
     End If
     LineaError = "002-0092"
-    RELOJ.Interval = 0
+    Reloj.Interval = 0
     Exit Function
 ERmp3:
     WriteLog "-" + vbCrLf + _
@@ -414,7 +420,7 @@ Public Function DoStop() As String
         WriteLog "No se pudo parar un fichero." + m_FileName + " Function DoStop", False
     End If
     LineaError = "002-0097"
-    RELOJ.Interval = 0
+    Reloj.Interval = 0
     LineaError = "002-0098"
     RaiseEvent EndPlay
     
@@ -435,7 +441,7 @@ Public Function DoClose() As String
     End If
     'SI SIGUE EL RELOJ SE MARCAN 1000 errores!!!!!!!!!!
     LineaError = "002-0103"
-    RELOJ.Interval = 0
+    Reloj.Interval = 0
     Exit Function
 ERmp3:
     WriteLog "-" + vbCrLf + _
