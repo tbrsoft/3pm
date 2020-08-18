@@ -775,6 +775,22 @@ YaEstaIMG:
         Else
             'que siga de largo he ingrese
             'MsgBox "SUPERLICENCIA de 3PM. El codigo de SuperLicencia se ha cargado correctamente. Bienvenido a Super3PM"
+            
+            '-----------------------------------------
+            '-----------------------------------------
+            '-----------------------------------------
+            '-----------------------------------------
+            'habra algunas que ingresen como exlcusivo!!!!!!!!
+            'revise cuales entregue y aparentemente nunca del 1 al 10!!!!!
+            If K.VariacionClave <= 10 Then
+                Is3pmExclusivo = True
+            Else
+                Is3pmExclusivo = False
+            End If
+            '-----------------------------------------
+            '-----------------------------------------
+            '-----------------------------------------
+            '-----------------------------------------
         End If
     End If
     

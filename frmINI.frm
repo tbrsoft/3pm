@@ -3,20 +3,20 @@ Begin VB.Form frmINI
    BackColor       =   &H00000000&
    BorderStyle     =   0  'None
    Caption         =   "Form1"
-   ClientHeight    =   9225
+   ClientHeight    =   9000
    ClientLeft      =   0
    ClientTop       =   0
    ClientWidth     =   12000
    Icon            =   "frmINI.frx":0000
    LinkTopic       =   "Form1"
-   ScaleHeight     =   9225
+   ScaleHeight     =   9000
    ScaleWidth      =   12000
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    WindowState     =   2  'Maximized
    Begin VB.Label lblTipoLIC 
       Alignment       =   2  'Center
-      BackColor       =   &H00000040&
+      BackColor       =   &H00404040&
       Caption         =   "Iniciando 3PM. Licencia Full"
       BeginProperty Font 
          Name            =   "Verdana"
@@ -27,10 +27,10 @@ Begin VB.Form frmINI
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H000000C0&
-      Height          =   285
+      ForeColor       =   &H00E0E0E0&
+      Height          =   645
       Left            =   7500
-      TabIndex        =   4
+      TabIndex        =   3
       Top             =   60
       Width           =   4440
    End
@@ -40,37 +40,16 @@ Begin VB.Form frmINI
       Left            =   3900
       Picture         =   "frmINI.frx":0442
       Stretch         =   -1  'True
-      Top             =   7860
+      Top             =   7605
       Width           =   3570
    End
    Begin VB.Label pBar 
       BackColor       =   &H0000FFFF&
       Height          =   240
-      Left            =   30
-      TabIndex        =   3
-      Top             =   6870
-      Width           =   11895
-   End
-   Begin VB.Label VVV 
-      Alignment       =   1  'Right Justify
-      BackColor       =   &H000040C0&
-      BackStyle       =   0  'Transparent
-      Caption         =   "v 8.8.88"
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H0000FFFF&
-      Height          =   420
-      Left            =   1740
-      TabIndex        =   0
-      Top             =   2070
-      Width           =   2460
+      Left            =   45
+      TabIndex        =   2
+      Top             =   7290
+      Width           =   11850
    End
    Begin VB.Label lblINI 
       BackColor       =   &H00000080&
@@ -87,10 +66,10 @@ Begin VB.Form frmINI
       EndProperty
       ForeColor       =   &H00C0FFFF&
       Height          =   285
-      Left            =   30
-      TabIndex        =   2
-      Top             =   7170
-      Width           =   11910
+      Left            =   45
+      TabIndex        =   1
+      Top             =   7605
+      Width           =   11820
    End
    Begin VB.Label lblProces 
       Alignment       =   2  'Center
@@ -108,27 +87,26 @@ Begin VB.Form frmINI
       EndProperty
       ForeColor       =   &H0000FFFF&
       Height          =   315
-      Left            =   30
-      TabIndex        =   1
-      Top             =   6540
+      Left            =   50
+      TabIndex        =   0
+      Top             =   6930
       UseMnemonic     =   0   'False
       Width           =   11850
    End
    Begin VB.Image TapaCD 
-      Height          =   4215
-      Left            =   7560
+      Height          =   3405
+      Left            =   7650
       Stretch         =   -1  'True
-      Top             =   1170
-      Width           =   4305
+      Top             =   765
+      Width           =   4230
    End
    Begin VB.Image Image1 
-      BorderStyle     =   1  'Fixed Single
-      Height          =   4020
+      Height          =   4455
       Left            =   1710
       Picture         =   "frmINI.frx":1EB0
       Stretch         =   -1  'True
-      Top             =   1410
-      Width           =   4710
+      Top             =   1215
+      Width           =   3750
    End
 End
 Attribute VB_Name = "frmINI"
@@ -136,11 +114,10 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-
 Private Sub Form_Load()
-    'MostrarCursor False
+    MostrarCursor False
     On Local Error GoTo NoINI
-    VVV = "v " + Trim(Str(App.Major)) + "." + Trim(Str(App.Minor)) + "." + Trim(Str(App.Revision))
+    'VVV = "v " + Trim(Str(App.Major)) + "." + Trim(Str(App.Minor)) + "." + Trim(Str(App.Revision))
     '--------
     If K.LICENCIA = HSuperLicencia Then
         If FSO.FileExists(WINfolder + "SL\imgbig.tbr") Then Image1.Picture = LoadPicture(WINfolder + "SL\imgbig.tbr")
@@ -174,6 +151,9 @@ Private Sub Form_Load()
     TeclaConfig = Val(LeerConfig("TeclaConfig", "67"))
     TeclaCerrarSistema = Val(LeerConfig("TeclaCerrarSistema", "87"))
     ApagarAlCierre = LeerConfig("ApagarAlCierre", "0")
+    'puede ser 46 o 5 por ahora
+    IsMod46Teclas = CLng(LeerConfig("IsMod46Teclas", "46"))
+    
     MaximoFichas = Val(LeerConfig("MaximoFichas", "40"))
     EsperaMinutos = Val(LeerConfig("EsperaMinutos", "900"))
     'Valores de ReIni FULL=tema ejecutando y lista LISTA=solo lista NADA=arranca de cero
@@ -216,8 +196,6 @@ Private Sub Form_Load()
     
     'la cargo si o si para que si despues entra a la conficuracion ya este cargada
     PUBs.CargarPUBs
-    
-    
     
     'cargar variables de claves
     'archivo de claves
@@ -288,9 +266,9 @@ Private Sub Form_Load()
     LineaError = "000A-00904"
     lblINI.Refresh
     LineaError = "000A-00905"
-    pBar.Width = 0
+    PBar.Width = 0
     LineaError = "000A-00906"
-    pBar.Refresh
+    PBar.Refresh
     LineaError = "000A-00907"
     Dim TT As String
     Dim mtxTOP10() As String, z As Integer
@@ -317,7 +295,7 @@ Private Sub Form_Load()
             LineaError = "000A-00913"
             z = z + 1
             LineaError = "000A-00914"
-            pBar.Width = z * 10
+            PBar.Width = z * 10
             LineaError = "000A-00915"
             ThisPTS = Val(txtInLista(TT, 0, ","))
             LineaError = "000A-00916"
@@ -346,11 +324,11 @@ Private Sub Form_Load()
     c = 0 'cantidad de minimos encontrados
     Dim Ordenados() As Long 'matriz con los indices ordenados
     LineaError = "000A-00923"
-    pBar.Width = 0
-    pBar.Refresh
+    PBar.Width = 0
+    PBar.Refresh
     LineaError = "000A-00924"
     Do
-        pBar.Width = c * 10
+        PBar.Width = c * 10
         LineaError = "000A-00925"
         For mtx = 1 To UBound(mtxTOP10)
             'se compara por los puntos
@@ -377,8 +355,8 @@ Private Sub Form_Load()
     Loop
     'cargar todos y sacar la primera columna de las zetas
     LineaError = "000A-00932"
-    pBar.Width = 0
-    pBar.Refresh
+    PBar.Width = 0
+    PBar.Refresh
     LineaError = "000A-00933"
     Dim MTXsort() As String
     'cambie opentextfile por createtextfile por un error que suele dar
@@ -400,7 +378,7 @@ Private Sub Form_Load()
                 txtInLista(mtxTOP10(Ordenados(mtx)), 4, ",")
             LineaError = "000A-00938"
             TE.WriteLine MTXsort(mtx)
-            pBar.Width = mtx * 10
+            PBar.Width = mtx * 10
             RankWrite = RankWrite + 1
         Else
             LineaError = "000A-00937"

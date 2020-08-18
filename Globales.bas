@@ -1,4 +1,12 @@
 Attribute VB_Name = "Globales"
+Public EstoyEnModoVideoMiniSelDisco As Boolean
+Public IsMod46Teclas As Long 'no es boolean porque puede haber mas modos
+    'valores:
+    '5=modo5Teclas
+    '46=modo4/6Teclas
+    '40=Modo Fonola vieja (4 numeros y OK). XXX
+    
+Public Is3pmExclusivo As Boolean
 Public IDIOMA As String
     'Puede ser: Español / English / Francois / Italiano
 
@@ -378,11 +386,8 @@ Public Sub VerClaves(CLAVE As String)
         CREDITOS = CREDITOS + NewCredit
         'no suma contador de creditos
         EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
-        If CREDITOS >= 10 Then
-            frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
-        Else
-            frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
-        End If
+        
+        ShowCredits
         
         CLAVE = "11111222223333344444" 'anular para que no se siga cargando
     End If
@@ -662,4 +667,18 @@ Public Sub Main()
         Case "Francois"
         Case "Italiano"
     End Select
+End Sub
+Public Sub ShowCredits()
+    If CREDITOS >= 10 Then
+        frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+        frmIndex.lblCreditos2 = "Creditos" + vbCrLf + Trim(Str(CREDITOS))
+    Else
+        If CREDITOS = 0 Then
+            frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+            frmIndex.lblCreditos2 = "INSERT" + vbCrLf + "COIN"
+        Else
+            frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
+            frmIndex.lblCreditos2 = "Creditos" + vbCrLf + "0" + Trim(Str(CREDITOS))
+        End If
+    End If
 End Sub

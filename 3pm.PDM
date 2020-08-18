@@ -6,7 +6,7 @@ Most Recent Package=Paquete de instalación estándar 1
 
 [Package|Paquete de instalación estándar 1|Root]
 SubWizProgID=PDWizard.SetupPkgSubWiz
-BuildFolder=E:\ahora\3PM v5 MEZCLA\i tng
+BuildFolder=D:\ahora\3PMv6\i excl
 
 [Package|Paquete de instalación estándar 1|Configure DAO ISAMs]
 Applicable=No
@@ -16,6 +16,8 @@ JetWorkspace=
 ODBCDirect=
 
 [Package|Paquete de instalación estándar 1|Files Found]
+ini.exe=D:\ahora\3PMv6\ini.exe
+LEER.txt=D:\ahora\3PMv6\pub\LEER.txt
 
 [Package|Paquete de instalación estándar 1|Files Released]
 
@@ -23,20 +25,22 @@ ODBCDirect=
 C:\LINUX\SYSTEM\WBEM\WBEMDISP.TLB=
 E:\ahora\3PM v5 MEZCLA\ini.exe=
 E:\ahora\3PM v5 MEZCLA\repair.exe=
+D:\ahora\3PMv6\ini.exe=
+D:\ahora\3PMv6\repair.exe=
 
 [Package|Paquete de instalación estándar 1|Out-of-Date Dependency Information]
 C:\LINUX\SYSTEM\SCRRUN.DLL=
 
 [Package|Paquete de instalación estándar 1|Files Added]
-E:\ahora\3PM v5 MEZCLA\ini.exe=
-E:\ahora\3PM v5 MEZCLA\repair.exe=
-E:\ahora\3PM v5 MEZCLA\tapa.jpg=
-E:\ahora\3PM v5 MEZCLA\top10.jpg=
-E:\ahora\3PM v5 MEZCLA\pub\LEER.txt=
-E:\ahora\3PM v5 MEZCLA\logo.sys=
-E:\ahora\3PM v5 MEZCLA\LOGOS.SYS=
-E:\ahora\3PM v5 MEZCLA\logow.sys=
-E:\ahora\3PM v5 MEZCLA\manual.doc=
+ini.exe=
+repair.exe=
+tapa.jpg=
+top10.jpg=
+leer.txt=
+logo.sys=
+logos.sys=
+logow.sys=
+manual.doc=
 
 [Package|Paquete de instalación estándar 1|Files Removed]
 c:\linux\system\msvcrt.dll=
@@ -48,7 +52,6 @@ c:\linux\system\stdole2.tlb=
 c:\archivos de programa\microsoft visual studio\vb98\wizards\pdwizard\redist\comcat.dll=
 
 [Package|Paquete de instalación estándar 1|Files In Project]
-E:\ahora\3PM v5 MEZCLA\3pm.exe=Yes
 C:\LINUX\SYSTEM\MSVBVM60.DLL=No
 C:\LINUX\SYSTEM\OLEAUT32.DLL=No
 C:\LINUX\SYSTEM\OLEPRO32.DLL=No
@@ -64,15 +67,16 @@ C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
 C:\LINUX\SYSTEM\VB6STKIT.DLL=Yes
 C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
-E:\ahora\3PM v5 MEZCLA\ini.exe=Yes
-E:\ahora\3PM v5 MEZCLA\repair.exe=Yes
-E:\ahora\3PM v5 MEZCLA\tapa.jpg=Yes
-E:\ahora\3PM v5 MEZCLA\top10.jpg=Yes
-E:\ahora\3PM v5 MEZCLA\pub\LEER.txt=Yes
-E:\ahora\3PM v5 MEZCLA\logo.sys=Yes
-E:\ahora\3PM v5 MEZCLA\LOGOS.SYS=Yes
-E:\ahora\3PM v5 MEZCLA\logow.sys=Yes
-E:\ahora\3PM v5 MEZCLA\manual.doc=Yes
+D:\ahora\3PMv6\3pm.exe=Yes
+D:\ahora\3PMv6\ini.exe=Yes
+D:\ahora\3PMv6\repair.exe=Yes
+D:\ahora\3PMv6\tapa.jpg=Yes
+D:\ahora\3PMv6\top10.jpg=Yes
+D:\ahora\3PMv6\pub\LEER.txt=Yes
+D:\ahora\3PMv6\logo.sys=Yes
+D:\ahora\3PMv6\LOGOS.SYS=Yes
+D:\ahora\3PMv6\logow.sys=Yes
+D:\ahora\3PMv6\manual.doc=Yes
 
 [Package|Paquete de instalación estándar 1|Configure Registry Files]
 Applicable=No
@@ -99,6 +103,16 @@ E:\ahora\3PM v5 MEZCLA\logo.sys=$(AppPath)
 E:\ahora\3PM v5 MEZCLA\LOGOS.SYS=$(AppPath)
 E:\ahora\3PM v5 MEZCLA\logow.sys=$(AppPath)
 E:\ahora\3PM v5 MEZCLA\manual.doc=$(AppPath)
+D:\ahora\3PMv6\3pm.exe=$(AppPath)
+D:\ahora\3PMv6\ini.exe=$(AppPath)
+D:\ahora\3PMv6\repair.exe=$(AppPath)
+D:\ahora\3PMv6\tapa.jpg=$(AppPath)
+D:\ahora\3PMv6\top10.jpg=$(AppPath)
+D:\ahora\3PMv6\pub\LEER.txt=$(AppPath)\pub
+D:\ahora\3PMv6\logo.sys=$(AppPath)
+D:\ahora\3PMv6\LOGOS.SYS=$(WinSysPathSysFile)
+D:\ahora\3PMv6\logow.sys=$(WinSysPathSysFile)
+D:\ahora\3PMv6\manual.doc=$(AppPath)
 
 [Package|Paquete de instalación estándar 1|Configure Shared Files]
 Applicable=Yes
@@ -112,6 +126,14 @@ E:\ahora\3PM v5 MEZCLA\logo.sys=No
 E:\ahora\3PM v5 MEZCLA\LOGOS.SYS=No
 E:\ahora\3PM v5 MEZCLA\logow.sys=No
 E:\ahora\3PM v5 MEZCLA\manual.doc=No
+D:\ahora\3PMv6\3pm.exe=No
+D:\ahora\3PMv6\ini.exe=No
+D:\ahora\3PMv6\repair.exe=No
+D:\ahora\3PMv6\tapa.jpg=No
+D:\ahora\3PMv6\top10.jpg=No
+D:\ahora\3PMv6\pub\LEER.txt=No
+D:\ahora\3PMv6\logo.sys=No
+D:\ahora\3PMv6\manual.doc=No
 
 [Package|Paquete de instalación estándar 1|Distribution]
 Type=single
@@ -120,7 +142,7 @@ Title=3pm
 
 [Package|Paquete de instalación estándar 1|IconGroups]
 Group0=3pm
-PrivateGroup0=Verdadero
+PrivateGroup0=Falso
 Parent0=$(Programs)
 
 [Package|Paquete de instalación estándar 1|3pm]
@@ -130,11 +152,11 @@ StartIn1=$(AppPath)
 Key1=Icon1
 
 [Package|Paquete de instalación estándar 1|Package]
-PackageFolder=E:\ahora\3PM v5 MEZCLA\i tng
-ProjectFolder=E:\ahora\3PM v5 MEZCLA
+PackageFolder=D:\ahora\3PMv6\i excl
+ProjectFolder=D:\ahora\3PMv6
 ServerSideCab=
-File1=E:\ahora\3PM v5 MEZCLA\i tng\setup.exe
-File2=E:\ahora\3PM v5 MEZCLA\i tng\Setup.Lst
-File3=E:\ahora\3PM v5 MEZCLA\i tng\3pm.CAB
+File1=D:\ahora\3PMv6\i excl\setup.exe
+File2=D:\ahora\3PMv6\i excl\Setup.Lst
+File3=D:\ahora\3PMv6\i excl\3pm.CAB
 Handler1=PDWizard.FolderDplySubWiz
 Handler2=PDWizard.WebPostDplySubWiz

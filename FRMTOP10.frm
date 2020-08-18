@@ -225,36 +225,50 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             frmConfig.Show 1
         
         Case TeclaIZQ
+            
             TECLAS_PRES = TECLAS_PRES + "1"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
             frmIndex.lblTECLAS = TECLAS_PRES
-            'ver que sea un puesto valido
-            'se define como válido se tiene untexto de más de 5 caracteres
-            pANT = PuestoElegido
-            PuestoElegido = PuestoElegido - 1
-            If PuestoElegido = -1 Then PuestoElegido = MaxTop - 1
-            If Len(lblPuestos(PuestoElegido)) > 5 Then
-                lblPuestos(pANT).BackColor = ColorUnSel
-                lblPuestos(PuestoElegido).BackColor = ColorSel
-            Else
-                'reacomodar puesto elegido
-                PuestoElegido = pANT
+            If IsMod46Teclas = 46 Then
+                'ver que sea un puesto valido
+                'se define como válido se tiene untexto de más de 5 caracteres
+                pANT = PuestoElegido
+                PuestoElegido = PuestoElegido - 1
+                If PuestoElegido = -1 Then PuestoElegido = MaxTop - 1
+                If Len(lblPuestos(PuestoElegido)) > 5 Then
+                    lblPuestos(pANT).BackColor = ColorUnSel
+                    lblPuestos(PuestoElegido).BackColor = ColorSel
+                Else
+                    'reacomodar puesto elegido
+                    PuestoElegido = pANT
+                End If
             End If
+            If IsMod46Teclas = 5 Then
+                Unload Me
+                Exit Sub
+            End If
+            
         Case TeclaDER
             TECLAS_PRES = TECLAS_PRES + "2"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
             frmIndex.lblTECLAS = TECLAS_PRES
-            'ver que sea un puesto valido
-            'se define como válido se tiene untexto de más de 5 caracteres
-            pANT = PuestoElegido
-            PuestoElegido = PuestoElegido + 1
-            If PuestoElegido = MaxTop Then PuestoElegido = 0
-            If Len(lblPuestos(PuestoElegido)) > 5 Then
-                'unsel el elegido
-                lblPuestos(pANT).BackColor = ColorUnSel
-                lblPuestos(PuestoElegido).BackColor = ColorSel
-            Else
-                PuestoElegido = pANT
+            If IsMod46Teclas = 46 Then
+                'ver que sea un puesto valido
+                'se define como válido se tiene untexto de más de 5 caracteres
+                pANT = PuestoElegido
+                PuestoElegido = PuestoElegido + 1
+                If PuestoElegido = MaxTop Then PuestoElegido = 0
+                If Len(lblPuestos(PuestoElegido)) > 5 Then
+                    'unsel el elegido
+                    lblPuestos(pANT).BackColor = ColorUnSel
+                    lblPuestos(PuestoElegido).BackColor = ColorSel
+                Else
+                    PuestoElegido = pANT
+                End If
+            End If
+            If IsMod46Teclas = 5 Then
+                Unload Me
+                Exit Sub
             End If
         Case TeclaESC
             TECLAS_PRES = TECLAS_PRES + "4"
@@ -262,6 +276,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             frmIndex.lblTECLAS = TECLAS_PRES
             
             Unload Me
+            Exit Sub
         Case TeclaOK
             TECLAS_PRES = TECLAS_PRES + "3"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
@@ -293,8 +308,8 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                 End If
                 'siempre que se ejecute un credito estaremos por debajo de maximo
                 OnOffCAPS vbKeyScrollLock, True
-                If CREDITOS < 10 Then frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
-                If CREDITOS >= 10 Then frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+                
+                ShowCredits
                 
                 'si esta ejecutando pasa a la lista de reproducción
                 If frmIndex.MP3.IsPlaying And CORTAR_TEMA = False Then
@@ -309,7 +324,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                     CargarArchReini UCase(ReINI) 'POR LAS DUDAS que no este en mayusculas
                 Else
                     'ocultar el rank y mostrar lblWAIT
-                    lblWAIT = "CARGANDO TEMA" + vbCrLf + "ESPERE..."
+                    lblWait = "CARGANDO TEMA" + vbCrLf + "ESPERE..."
                     Dim cRank As Integer
                     cRank = 0
                     Do While cRank < MaxTop
@@ -317,8 +332,8 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                         'lblPuestos(cRank).Refresh
                         cRank = cRank + 1
                     Loop
-                    lblWAIT.Visible = True
-                    lblWAIT.Refresh
+                    lblWait.Visible = True
+                    lblWait.Refresh
                     'TEMA_REPRODUCIENDO y mp3.isplayin se cargan en ejecutartema
                     CORTAR_TEMA = False 'este tema va entero ya que lo eligio el usuario
                     EjecutarTema temaElegido, True
@@ -345,10 +360,39 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             TECLAS_PRES = TECLAS_PRES + "5"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
             frmIndex.lblTECLAS = TECLAS_PRES
+            If IsMod46Teclas = 5 Then
+                'ver que sea un puesto valido
+                'se define como válido se tiene untexto de más de 5 caracteres
+                pANT = PuestoElegido
+                PuestoElegido = PuestoElegido + 1
+                If PuestoElegido = MaxTop Then PuestoElegido = 0
+                If Len(lblPuestos(PuestoElegido)) > 5 Then
+                    'unsel el elegido
+                    lblPuestos(pANT).BackColor = ColorUnSel
+                    lblPuestos(PuestoElegido).BackColor = ColorSel
+                Else
+                    PuestoElegido = pANT
+                End If
+            End If
+            
         Case TeclaPagAt
             TECLAS_PRES = TECLAS_PRES + "6"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
             frmIndex.lblTECLAS = TECLAS_PRES
+            If IsMod46Teclas = 5 Then
+                'ver que sea un puesto valido
+                'se define como válido se tiene untexto de más de 5 caracteres
+                pANT = PuestoElegido
+                PuestoElegido = PuestoElegido - 1
+                If PuestoElegido = -1 Then PuestoElegido = MaxTop - 1
+                If Len(lblPuestos(PuestoElegido)) > 5 Then
+                    lblPuestos(pANT).BackColor = ColorUnSel
+                    lblPuestos(PuestoElegido).BackColor = ColorSel
+                Else
+                    'reacomodar puesto elegido
+                    PuestoElegido = pANT
+                End If
+            End If
     End Select
     VerClaves TECLAS_PRES
     SecSinTecla = 0
@@ -365,11 +409,8 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             SumarContadorCreditos TemasPorCredito
             'grabar cant de creditos
             EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
-            If CREDITOS >= 10 Then
-                frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
-            Else
-                frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
-            End If
+            
+            ShowCredits
             
             'grabar credito para validar
             'creditosValidar ya se cargo en load de frmindex

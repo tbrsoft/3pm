@@ -168,29 +168,29 @@ Public Sub CargarPUBs()
     Dim ContImg As Long: ContImg = 0
     Dim ContBigImg As Long: ContBigImg = 0
     Dim ContTXT As Long: ContTXT = 0
-    Dim ARCH As String
-    ARCH = Dir(AP + "pub\*.*", vbArchive)
+    Dim Arch As String
+    Arch = Dir(AP + "pub\*.*", vbArchive)
     Dim IsMM As Boolean
     Dim IsIMG As Boolean
     Dim IsTXT As Boolean
     Dim IsBigIMG As Boolean 'imagen de mas de 50 KB para la salida de video
-    Do While ARCH <> ""
+    Do While Arch <> ""
         IsIMG = False: IsMM = False: IsBigIMG = False: IsTXT = False
         'ver que tenga los formatos que busco
-        If LCase(Right(ARCH, 3)) = "txt" Then IsTXT = True
-        If LCase(Right(ARCH, 3)) = "mp3" Then IsMM = True
-        If LCase(Right(ARCH, 3)) = "avi" Then IsMM = True
-        If LCase(Right(ARCH, 3)) = "mpg" Then IsMM = True
-        If LCase(Right(ARCH, 4)) = "mpeg" Then IsMM = True
+        If LCase(Right(Arch, 3)) = "txt" Then IsTXT = True
+        If LCase(Right(Arch, 3)) = "mp3" Then IsMM = True
+        If LCase(Right(Arch, 3)) = "avi" Then IsMM = True
+        If LCase(Right(Arch, 3)) = "mpg" Then IsMM = True
+        If LCase(Right(Arch, 4)) = "mpeg" Then IsMM = True
         'ver si es IMG
-        If LCase(Right(ARCH, 3)) = "jpg" Then IsIMG = True
-        If LCase(Right(ARCH, 3)) = "gif" Then IsIMG = True
-        If LCase(Right(ARCH, 3)) = "bmp" Then IsIMG = True
-        If LCase(Right(ARCH, 4)) = "jpeg" Then IsIMG = True
+        If LCase(Right(Arch, 3)) = "jpg" Then IsIMG = True
+        If LCase(Right(Arch, 3)) = "gif" Then IsIMG = True
+        If LCase(Right(Arch, 3)) = "bmp" Then IsIMG = True
+        If LCase(Right(Arch, 4)) = "jpeg" Then IsIMG = True
         'si es de mas de 50 entonces es BigIMG
         If IsIMG Then
             Dim TamPub As Long
-            TamPub = FileLen(AP + "pub\" + ARCH)
+            TamPub = FileLen(AP + "pub\" + Arch)
             If TamPub > 50000 Then
                 'es grande no poner en la lista de publicidades para la index
                 IsIMG = False
@@ -200,26 +200,26 @@ Public Sub CargarPUBs()
         If IsMM Then
             CONT = CONT + 1
             ReDim Preserve mPubs(CONT)
-            mPubs(CONT) = UCase(AP + "pub\" + ARCH)
+            mPubs(CONT) = UCase(AP + "pub\" + Arch)
         End If
         If IsTXT Then
             ContTXT = ContTXT + 1
             ReDim Preserve mPubsTXT(ContTXT)
-            mPubsTXT(ContTXT) = UCase(AP + "pub\" + ARCH)
+            mPubsTXT(ContTXT) = UCase(AP + "pub\" + Arch)
         End If
         If IsIMG Then
             ContImg = ContImg + 1
             ReDim Preserve mPubsIMG(ContImg)
-            mPubsIMG(ContImg) = UCase(AP + "pub\" + ARCH)
+            mPubsIMG(ContImg) = UCase(AP + "pub\" + Arch)
         End If
         
         If IsBigIMG Then
             ContBigImg = ContBigImg + 1
             ReDim Preserve mPubsBigIMG(ContBigImg)
-            mPubsBigIMG(ContBigImg) = UCase(AP + "pub\" + ARCH)
+            mPubsBigIMG(ContBigImg) = UCase(AP + "pub\" + Arch)
         End If
         
-        ARCH = Dir
+        Arch = Dir
     Loop
     
     'ordenarlo!!!!!!!!!!

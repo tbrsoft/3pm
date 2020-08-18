@@ -14,9 +14,9 @@ Private Declare Function OpenProcess Lib "kernel32" (ByVal dwAccess As _
 Private Declare Function CloseHandle Lib "kernel32" _
     (ByVal hObject As Long) As Long
 
-Public Sub AbrirArchivo(ARCH As String, FrmSolicita As Form)
+Public Sub AbrirArchivo(Arch As String, FrmSolicita As Form)
     LineaError = "001-0001"
-    ShellExecute FrmSolicita.hWnd, vbNullString, ARCH, vbNullString, vbNullString, vbMaximizedFocus
+    ShellExecute FrmSolicita.hWnd, vbNullString, Arch, vbNullString, vbNullString, vbMaximizedFocus
 End Sub
 
 
@@ -732,25 +732,25 @@ Function EsperarPorProceso(taskId As Long, Optional msecs As Long = -1) _
         CloseHandle procHandle
 End Function
 
-Public Function LeerArch1Linea(ARCH As String) As String
+Public Function LeerArch1Linea(Arch As String) As String
     LineaError = "001-0205"
-    If FSO.FileExists(ARCH) = False Then
+    If FSO.FileExists(Arch) = False Then
         LineaError = "001-0206"
         LeerArch1Linea = "No existe archivo"
         LineaError = "001-0207"
         Exit Function
     End If
     LineaError = "001-0208"
-    Set TE = FSO.OpenTextFile(ARCH, ForReading, False)
+    Set TE = FSO.OpenTextFile(Arch, ForReading, False)
     LineaError = "001-0209"
     LeerArch1Linea = TE.ReadLine
     LineaError = "001-0210"
     TE.Close
 End Function
 
-Public Sub EscribirArch1Linea(ARCH As String, TXT As String)
+Public Sub EscribirArch1Linea(Arch As String, TXT As String)
     LineaError = "001-0211"
-    Set TE = FSO.CreateTextFile(ARCH, True)
+    Set TE = FSO.CreateTextFile(Arch, True)
     LineaError = "001-0212"
     TE.WriteLine TXT
     LineaError = "001-0213"

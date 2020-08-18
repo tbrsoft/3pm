@@ -11,6 +11,7 @@ Begin VB.Form frmIndex
    Icon            =   "frmINDEX.frx":0000
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
+   LockControls    =   -1  'True
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   9000
@@ -20,37 +21,179 @@ Begin VB.Form frmIndex
    WindowState     =   2  'Maximized
    Begin VB.PictureBox picVideo 
       BackColor       =   &H00000000&
-      Height          =   495
-      Left            =   3690
-      ScaleHeight     =   435
-      ScaleWidth      =   915
+      Height          =   315
+      Left            =   3510
+      ScaleHeight     =   255
+      ScaleWidth      =   4380
       TabIndex        =   36
-      Top             =   5640
+      Top             =   4185
       Visible         =   0   'False
-      Width           =   975
+      Width           =   4440
+   End
+   Begin tbr3pm.VUMeter2 VU21 
+      Height          =   1275
+      Left            =   45
+      TabIndex        =   37
+      Top             =   5355
+      Width           =   11940
+      _ExtentX        =   21061
+      _ExtentY        =   2249
+      Begin tbr3pm.tbrProgressCircle Prog 
+         Height          =   465
+         Left            =   765
+         TabIndex        =   43
+         Top             =   540
+         Width           =   600
+         _ExtentX        =   1058
+         _ExtentY        =   820
+      End
+      Begin VB.Image TapaEjecutando 
+         BorderStyle     =   1  'Fixed Single
+         Height          =   840
+         Left            =   5940
+         Picture         =   "frmINDEX.frx":0442
+         Stretch         =   -1  'True
+         Top             =   45
+         Width           =   1125
+      End
+      Begin VB.Image Image1 
+         BorderStyle     =   1  'Fixed Single
+         Height          =   840
+         Left            =   7110
+         Picture         =   "frmINDEX.frx":31F1
+         Stretch         =   -1  'True
+         Top             =   45
+         Width           =   1170
+      End
+      Begin VB.Label lblPrecios2 
+         Alignment       =   2  'Center
+         BackStyle       =   0  'Transparent
+         BorderStyle     =   1  'Fixed Single
+         Caption         =   "1 coin = 8 creditos / 8 creditos = 1 tema / 8 creditos = 1 VIDEO"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   255
+         Left            =   1440
+         TabIndex        =   42
+         Top             =   900
+         Width           =   6855
+      End
+      Begin VB.Label lblPuesto2 
+         Alignment       =   2  'Center
+         BackStyle       =   0  'Transparent
+         Caption         =   "Rank #888"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   255
+         Left            =   4545
+         TabIndex        =   41
+         Top             =   45
+         Width           =   1365
+      End
+      Begin VB.Label lblREP 
+         Alignment       =   2  'Center
+         Appearance      =   0  'Flat
+         BackColor       =   &H00000000&
+         BackStyle       =   0  'Transparent
+         Caption         =   "Reproduciendo:"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   255
+         Left            =   1440
+         TabIndex        =   40
+         Top             =   45
+         Width           =   2970
+      End
+      Begin VB.Label lblTemaSonando2 
+         Alignment       =   2  'Center
+         BackStyle       =   0  'Transparent
+         BorderStyle     =   1  'Fixed Single
+         Caption         =   "Sin Reproducción actual Sin Reproducción actual Sin Reproducción actual Sin Reproducción actual"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H0000FFFF&
+         Height          =   570
+         Left            =   1440
+         TabIndex        =   39
+         Top             =   315
+         UseMnemonic     =   0   'False
+         Width           =   4470
+      End
+      Begin VB.Label lblCreditos2 
+         Alignment       =   2  'Center
+         BackStyle       =   0  'Transparent
+         BorderStyle     =   1  'Fixed Single
+         Caption         =   "Creditos 00"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   21.75
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   1110
+         Left            =   8325
+         TabIndex        =   38
+         Top             =   45
+         Width           =   2175
+      End
    End
    Begin VB.Frame frDISCOS 
-      BackColor       =   &H000000C0&
+      BackColor       =   &H00000000&
       BorderStyle     =   0  'None
-      Height          =   5115
-      Left            =   390
+      Height          =   4035
+      Left            =   3510
       TabIndex        =   11
-      Top             =   180
-      Width           =   5880
+      Top             =   90
+      Width           =   4440
       Begin VB.Timer Timer1 
-         Left            =   5130
-         Top             =   2745
+         Left            =   180
+         Top             =   2610
       End
       Begin VB.Timer Timer3 
          Interval        =   10000
-         Left            =   5040
-         Top             =   2295
+         Left            =   180
+         Top             =   2070
       End
       Begin tbr3pm.MP3Play MP3 
          Height          =   1620
-         Left            =   30
+         Left            =   180
          TabIndex        =   12
-         Top             =   60
+         Top             =   270
          Visible         =   0   'False
          Width           =   1500
          _ExtentX        =   2646
@@ -58,13 +201,14 @@ Begin VB.Form frmIndex
       End
       Begin VB.PictureBox picFondoDisco 
          AutoRedraw      =   -1  'True
+         BackColor       =   &H00004080&
          Height          =   3735
-         Left            =   690
-         Picture         =   "frmINDEX.frx":0442
+         Left            =   45
+         Picture         =   "frmINDEX.frx":4016
          ScaleHeight     =   3675
          ScaleWidth      =   4245
          TabIndex        =   0
-         Top             =   180
+         Top             =   135
          Width           =   4305
          Begin VB.Label lblDisco 
             Alignment       =   2  'Center
@@ -82,9 +226,9 @@ Begin VB.Form frmIndex
             ForeColor       =   &H00FFFFFF&
             Height          =   435
             Index           =   0
-            Left            =   1470
+            Left            =   720
             TabIndex        =   33
-            Top             =   3090
+            Top             =   2790
             UseMnemonic     =   0   'False
             Visible         =   0   'False
             Width           =   2640
@@ -92,10 +236,9 @@ Begin VB.Form frmIndex
          Begin VB.Image TapaCD 
             Height          =   2505
             Index           =   0
-            Left            =   1290
-            Picture         =   "frmINDEX.frx":E2B6
+            Left            =   675
             Stretch         =   -1  'True
-            Top             =   360
+            Top             =   270
             Visible         =   0   'False
             Width           =   2640
          End
@@ -103,9 +246,9 @@ Begin VB.Form frmIndex
             BorderColor     =   &H0000FFFF&
             BorderWidth     =   6
             Height          =   555
-            Left            =   390
+            Left            =   405
             Shape           =   4  'Rounded Rectangle
-            Top             =   1650
+            Top             =   1935
             Width           =   435
          End
       End
@@ -114,20 +257,20 @@ Begin VB.Form frmIndex
       Height          =   4425
       Left            =   30
       TabIndex        =   7
-      Top             =   2460
+      Top             =   90
       Width           =   3405
       _ExtentX        =   6006
       _ExtentY        =   7805
    End
    Begin VB.PictureBox picFondo 
       AutoSize        =   -1  'True
-      Height          =   11940
-      Left            =   60
-      Picture         =   "frmINDEX.frx":172C9
-      ScaleHeight     =   11880
+      Height          =   4620
+      Left            =   0
+      Picture         =   "frmINDEX.frx":8B09
+      ScaleHeight     =   4560
       ScaleWidth      =   15360
       TabIndex        =   13
-      Top             =   6720
+      Top             =   6660
       Width           =   15420
       Begin tbr3pm.tbrPassImg tbrPassImg1 
          Height          =   2250
@@ -155,7 +298,7 @@ Begin VB.Form frmIndex
             Height          =   1665
             Left            =   90
             TabIndex        =   35
-            Top             =   330
+            Top             =   315
             Visible         =   0   'False
             Width           =   2085
          End
@@ -173,29 +316,29 @@ Begin VB.Form frmIndex
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00FFFFFF&
-         Height          =   2135
+         Height          =   2220
          Left            =   9780
          TabIndex        =   14
          Top             =   45
          Width           =   2200
          Begin VB.CommandButton cmdPagAd 
             BackColor       =   &H00C0C0C0&
-            DownPicture     =   "frmINDEX.frx":2C741
-            Height          =   650
+            DownPicture     =   "frmINDEX.frx":B035
+            Height          =   710
             Left            =   1140
-            Picture         =   "frmINDEX.frx":2D702
+            Picture         =   "frmINDEX.frx":BFF6
             Style           =   1  'Graphical
             TabIndex        =   19
             TabStop         =   0   'False
-            Top             =   1425
+            Top             =   1485
             Width           =   1000
          End
          Begin VB.CommandButton cmdDiscoAd 
             BackColor       =   &H00C0C0C0&
-            DownPicture     =   "frmINDEX.frx":2E10F
-            Height          =   650
+            DownPicture     =   "frmINDEX.frx":CA03
+            Height          =   710
             Left            =   1110
-            Picture         =   "frmINDEX.frx":2EE0C
+            Picture         =   "frmINDEX.frx":D700
             Style           =   1  'Graphical
             TabIndex        =   18
             TabStop         =   0   'False
@@ -204,10 +347,10 @@ Begin VB.Form frmIndex
          End
          Begin VB.CommandButton cmdDiscoAt 
             BackColor       =   &H00C0C0C0&
-            DownPicture     =   "frmINDEX.frx":2F6E4
-            Height          =   650
+            DownPicture     =   "frmINDEX.frx":DFD8
+            Height          =   710
             Left            =   90
-            Picture         =   "frmINDEX.frx":30456
+            Picture         =   "frmINDEX.frx":ED4A
             Style           =   1  'Graphical
             TabIndex        =   17
             TabStop         =   0   'False
@@ -216,14 +359,14 @@ Begin VB.Form frmIndex
          End
          Begin VB.CommandButton cmdPagAt 
             BackColor       =   &H00C0C0C0&
-            DownPicture     =   "frmINDEX.frx":30D99
-            Height          =   650
+            DownPicture     =   "frmINDEX.frx":F68D
+            Height          =   710
             Left            =   90
-            Picture         =   "frmINDEX.frx":31DF8
+            Picture         =   "frmINDEX.frx":106EC
             Style           =   1  'Graphical
             TabIndex        =   16
             TabStop         =   0   'False
-            Top             =   1425
+            Top             =   1485
             Width           =   1000
          End
          Begin VB.CommandButton Command1 
@@ -285,7 +428,7 @@ Begin VB.Form frmIndex
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         ForeColor       =   &H80000008&
+         ForeColor       =   &H00E0E0E0&
          Height          =   945
          Left            =   4290
          TabIndex        =   32
@@ -328,16 +471,16 @@ Begin VB.Form frmIndex
          EndProperty
          ForeColor       =   &H0000FFFF&
          Height          =   270
-         Left            =   2280
+         Left            =   2250
          TabIndex        =   29
-         Top             =   1980
+         Top             =   2025
          UseMnemonic     =   0   'False
          Width           =   7470
       End
       Begin VB.Label lblTOTdiscos 
          Alignment       =   2  'Center
          Appearance      =   0  'Flat
-         BackColor       =   &H00404080&
+         BackColor       =   &H00400040&
          Caption         =   "Disco 188 de 188"
          BeginProperty Font 
             Name            =   "Verdana"
@@ -348,17 +491,17 @@ Begin VB.Form frmIndex
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         ForeColor       =   &H00FFFFFF&
+         ForeColor       =   &H0000FFFF&
          Height          =   255
-         Left            =   5310
+         Left            =   5325
          TabIndex        =   28
          Top             =   1470
-         Width           =   2445
+         Width           =   2415
       End
       Begin VB.Label lblTiempoRestante 
          Alignment       =   2  'Center
          Appearance      =   0  'Flat
-         BackColor       =   &H00000000&
+         BackColor       =   &H00400040&
          Caption         =   "Falta: 00:00"
          BeginProperty Font 
             Name            =   "Verdana"
@@ -369,7 +512,7 @@ Begin VB.Form frmIndex
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         ForeColor       =   &H00C0FFFF&
+         ForeColor       =   &H0000FFFF&
          Height          =   255
          Left            =   2280
          TabIndex        =   27
@@ -379,8 +522,7 @@ Begin VB.Form frmIndex
       Begin VB.Label lblPag 
          Alignment       =   2  'Center
          Appearance      =   0  'Flat
-         BackColor       =   &H00FFC0C0&
-         BackStyle       =   0  'Transparent
+         BackColor       =   &H00400040&
          Caption         =   "Pagina 88 de 88"
          BeginProperty Font 
             Name            =   "Verdana"
@@ -391,8 +533,8 @@ Begin VB.Form frmIndex
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         ForeColor       =   &H00000000&
-         Height          =   270
+         ForeColor       =   &H0000FFFF&
+         Height          =   255
          Left            =   7800
          TabIndex        =   26
          Top             =   1470
@@ -457,7 +599,7 @@ Begin VB.Form frmIndex
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         ForeColor       =   &H00000000&
+         ForeColor       =   &H00E0E0E0&
          Height          =   615
          Left            =   2250
          TabIndex        =   23
@@ -467,7 +609,7 @@ Begin VB.Form frmIndex
       Begin VB.Label lblPuesto 
          Alignment       =   2  'Center
          Appearance      =   0  'Flat
-         BackColor       =   &H00000000&
+         BackColor       =   &H00400040&
          Caption         =   "Rank #888"
          BeginProperty Font 
             Name            =   "Verdana"
@@ -478,7 +620,7 @@ Begin VB.Form frmIndex
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         ForeColor       =   &H00C0FFFF&
+         ForeColor       =   &H0000FFFF&
          Height          =   255
          Left            =   3840
          TabIndex        =   22
@@ -500,14 +642,14 @@ Begin VB.Form frmIndex
          EndProperty
          ForeColor       =   &H00E0E0E0&
          Height          =   195
-         Left            =   6510
+         Left            =   6390
          TabIndex        =   21
-         Top             =   -120
+         Top             =   90
          Visible         =   0   'False
          Width           =   3255
       End
       Begin VB.Label LBLpORCtEMA 
-         BackColor       =   &H0080FFFF&
+         BackColor       =   &H00000000&
          BorderStyle     =   1  'Fixed Single
          BeginProperty Font 
             Name            =   "Times New Roman"
@@ -519,10 +661,10 @@ Begin VB.Form frmIndex
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00000000&
-         Height          =   165
+         Height          =   120
          Left            =   2250
          TabIndex        =   20
-         Top             =   330
+         Top             =   360
          Width           =   3015
       End
    End
@@ -553,7 +695,7 @@ Begin VB.Form frmIndex
          Index           =   0
          Left            =   60
          TabIndex        =   2
-         Top             =   60
+         Top             =   0
          Width           =   2625
       End
    End
@@ -583,7 +725,7 @@ Begin VB.Form frmIndex
          ForeColor       =   &H00000000&
          Height          =   225
          Index           =   0
-         Left            =   0
+         Left            =   45
          TabIndex        =   5
          Top             =   0
          Width           =   1245
@@ -716,7 +858,13 @@ Dim LastpSeconds As Long 'comparador para bajar de a uno el volumen en demos
 Dim Ancho As Long, Variacion As Long 'PARA la barra de proceso del tema
 Public DuracionTema As Long 'duracion de todos los tenmas de un disco
 Dim TotalTema As Long 'duracion total
-Dim nDiscoSEL As Long 'del 0 al 5
+Dim nDiscoSEL As Long 'del 0 al 5 o hasta donde coresponda!!
+
+Private Function EnQueFilaEstoy() As Long
+    'es la fila uno si es la primera
+    'la baarra invertida devuelve solo la parte entera!!!
+    EnQueFilaEstoy = (nDiscoSEL \ TapasMostradasH) + 1
+End Function
 
 Private Sub cmdDiscoAd_Click()
     If MostrarTouch Then
@@ -783,31 +931,37 @@ End Sub
 
 Private Sub Form_Activate()
     LineaError = "000-0024"
-    'MostrarCursor False
+    MostrarCursor False
     'actualizar los precios
     LineaError = "000-0025"
     If TemasPorCredito = 1 Then
         LineaError = "000-0026"
         lblPrecios = "1 coin = " + CStr(TemasPorCredito) + " credito"
+        lblPrecios2 = "1 coin = " + CStr(TemasPorCredito) + " credito"
     Else
         LineaError = "000-0027"
         lblPrecios = "1 coin = " + CStr(TemasPorCredito) + " creditos"
+        lblPrecios2 = "1 coin = " + CStr(TemasPorCredito) + " creditos"
     End If
     LineaError = "000-0028"
     If CreditosCuestaTema = 1 Then
         LineaError = "000-0029"
         lblPrecios = lblPrecios + vbCrLf + "1 credito = 1 tema"
+        lblPrecios2 = lblPrecios2 + " / " + "1 credito = 1 tema"
     Else
         LineaError = "000-0030"
         lblPrecios = lblPrecios + vbCrLf + CStr(CreditosCuestaTema) + " creditos = 1 tema"
+        lblPrecios2 = lblPrecios2 + " / " + CStr(CreditosCuestaTema) + " creditos = 1 tema"
     End If
     'agreagr el precio de los videos!!!
     If CreditosCuestaTemaVIDEO = 1 Then
         LineaError = "000-0029"
         lblPrecios = lblPrecios + vbCrLf + "1 credito = 1 VIDEO"
+        lblPrecios2 = lblPrecios2 + " / " + "1 credito = 1 VIDEO"
     Else
         LineaError = "000-0030"
         lblPrecios = lblPrecios + vbCrLf + CStr(CreditosCuestaTemaVIDEO) + " creditos = 1 VIDEO"
+        lblPrecios2 = lblPrecios2 + " / " + CStr(CreditosCuestaTemaVIDEO) + " creditos = 1 VIDEO"
     End If
     
     'total sería
@@ -815,9 +969,14 @@ Private Sub Form_Activate()
         
     LineaError = "000-0031"
     If HabilitarVUMetro Then
-        LineaError = "000-0032"
-        If VU1.inHabilitado = False And VU1.IsPlaying = False Then
-            VU1.DoStart
+        If Is3pmExclusivo Then
+            If VU21.inHabilitado = False And VU21.IsPlaying = False Then
+                VU21.DoStart
+            End If
+        Else
+            If VU1.inHabilitado = False And VU1.IsPlaying = False Then
+                VU1.DoStart
+            End If
         End If
     End If
     
@@ -879,57 +1038,99 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             LineaError = "000-0044"
             EMPEZAR_SIGUIENTE
         Case TeclaPagAd
-            LineaError = "000-0045"
-            PagNum = nDiscoGral \ (TapasMostradasH * TapasMostradasV)
-            LineaError = "000-0046"
-            Dim PrimeroDeLaPaginaQueSigue As Long
-            LineaError = "000-0047"
-            PrimeroDeLaPaginaQueSigue = (PagNum + 1) * (TapasMostradasH * TapasMostradasV)
-            LineaError = "000-0048"
-            If PrimeroDeLaPaginaQueSigue < TOTAL_DISCOS Then
-                LineaError = "000-0049"
-                If nDiscoSEL <> 0 Then UnSelDisco nDiscoSEL
-                LineaError = "000-0050"
-                DiscosEnPagina = CargarDiscos(PrimeroDeLaPaginaQueSigue, True)
-                LineaError = "000-0051"
-                lblTOTdiscos = "Disco " + CStr(PrimeroDeLaPaginaQueSigue + 1) + " de " + CStr(TOTAL_DISCOS)
-                LineaError = "000-0052"
-                nDiscoSEL = 0
-                LineaError = "000-0053"
-                nDiscoSEL = 0
-                LineaError = "000-0054"
-                TECLAS_PRES = TECLAS_PRES + "5"
-                LineaError = "000-0055"
-                TECLAS_PRES = Right(TECLAS_PRES, 20)
-                LineaError = "000-0056"
-                lblTECLAS = TECLAS_PRES
-            End If
-        Case TeclaPagAt
+            'pase lo que pase registrar
+            LineaError = "000-0054"
+            TECLAS_PRES = TECLAS_PRES + "5"
+            LineaError = "000-0055"
+            TECLAS_PRES = Right(TECLAS_PRES, 20)
             LineaError = "000-0056"
-            PagNum = nDiscoGral \ (TapasMostradasH * TapasMostradasV)
-            LineaError = "000-0057"
-            If PagNum > 0 Then
-                LineaError = "000-0058"
-                Dim PrimeroDeLaPaginaQueAnterior As Long
-                PrimeroDeLaPaginaQueAnterior = (PagNum - 1) * (TapasMostradasH * TapasMostradasV)
-                LineaError = "000-0059"
-                If nDiscoSEL <> 0 Then UnSelDisco nDiscoSEL
-                LineaError = "000-0060"
-                DiscosEnPagina = CargarDiscos(PrimeroDeLaPaginaQueAnterior, False)
-                LineaError = "000-0061"
-                lblTOTdiscos = "Disco " + CStr(PrimeroDeLaPaginaQueAnterior + 1) + " de " + CStr(TOTAL_DISCOS)
-                LineaError = "000-0062"
-                TECLAS_PRES = TECLAS_PRES + "6"
-                LineaError = "000-0063"
-                TECLAS_PRES = Right(TECLAS_PRES, 20)
-                LineaError = "000-0064"
-                lblTECLAS = TECLAS_PRES
+            lblTECLAS = TECLAS_PRES
+            
+            'es para abajo en el modo 5 y pagina adelante den el modo 46
+            If IsMod46Teclas = 46 Then
+                'esta tecla es pagina adelante en el modo 46 y abajo en el modo 5
+                LineaError = "000-0045"
+                PagNum = nDiscoGral \ (TapasMostradasH * TapasMostradasV)
+                LineaError = "000-0046"
+                Dim PrimeroDeLaPaginaQueSigue As Long
+                LineaError = "000-0047"
+                PrimeroDeLaPaginaQueSigue = (PagNum + 1) * (TapasMostradasH * TapasMostradasV)
+                LineaError = "000-0048"
+                If PrimeroDeLaPaginaQueSigue < TOTAL_DISCOS Then
+                    LineaError = "000-0049"
+                    If nDiscoSEL <> 0 Then UnSelDisco nDiscoSEL
+                    LineaError = "000-0050"
+                    DiscosEnPagina = CargarDiscos(PrimeroDeLaPaginaQueSigue, True, 1)
+                    LineaError = "000-0051"
+                    lblTOTdiscos = "Disco " + CStr(PrimeroDeLaPaginaQueSigue + 1) + " de " + CStr(TOTAL_DISCOS)
+                    LineaError = "000-0052"
+                    nDiscoSEL = 0
+                End If
             End If
+            'si esta eligiendo discos en modo video min es
+            'totalmente desitinto, solo va al que sigue
+            'no importann páginas ni nada
+            'If EstoyEnModoVideoMiniSelDisco = False Then
+            '    'xxxx
+            '    Exit Sub
+            'End If
+            If IsMod46Teclas = 5 Then
+                'ver que no se vaya a la mierda!!!
+                Dim DiskToGo As Long
+                DiskToGo = nDiscoSEL + TapasMostradasH
+                'discos en pagina me dice cuantos hay la ultima vez que se cargo
+                If DiskToGo < DiscosEnPagina Then
+                    nDiscoGral = nDiscoGral + TapasMostradasH
+                    LineaError = "000-0083"
+                    UnSelDisco nDiscoSEL
+                    LineaError = "000-0084"
+                    SelDisco nDiscoSEL + TapasMostradasH
+                End If
+            End If
+            
+        Case TeclaPagAt
+            If IsMod46Teclas = 46 Then
+                'esta tecla es pagina atras en el modo 46 y arriba en el modo 5
+                LineaError = "000-0056"
+                PagNum = nDiscoGral \ (TapasMostradasH * TapasMostradasV)
+                LineaError = "000-0057"
+                If PagNum > 0 Then
+                    LineaError = "000-0058"
+                    Dim PrimeroDeLaPaginaQueAnterior As Long
+                    PrimeroDeLaPaginaQueAnterior = (PagNum - 1) * (TapasMostradasH * TapasMostradasV)
+                    LineaError = "000-0059"
+                    If nDiscoSEL <> 0 Then UnSelDisco nDiscoSEL
+                    LineaError = "000-0060"
+                    DiscosEnPagina = CargarDiscos(PrimeroDeLaPaginaQueAnterior, False, 1)
+                    LineaError = "000-0061"
+                    lblTOTdiscos = "Disco " + CStr(PrimeroDeLaPaginaQueAnterior + 1) + " de " + CStr(TOTAL_DISCOS)
+                    
+                End If
+            End If
+            If IsMod46Teclas = 5 Then
+                'ver que no se vaya a la mierda!!!
+                Dim DiskToGo2 As Long
+                DiskToGo2 = nDiscoSEL - TapasMostradasH
+                'discos en pagina me dice cuantos hay la ultima vez que se cargo
+                If DiskToGo2 >= 0 Then
+                    nDiscoGral = nDiscoGral - TapasMostradasH
+                    LineaError = "000-0083"
+                    UnSelDisco nDiscoSEL
+                    LineaError = "000-0084"
+                    SelDisco nDiscoSEL - TapasMostradasH
+                End If
+            End If
+            LineaError = "000-0062"
+            TECLAS_PRES = TECLAS_PRES + "6"
+            LineaError = "000-0063"
+            TECLAS_PRES = Right(TECLAS_PRES, 20)
+            LineaError = "000-0064"
+            lblTECLAS = TECLAS_PRES
         Case TeclaConfig
             LineaError = "000-0065"
              frmConfig.Show 1
         Case TeclaIZQ
-            'BotonTouch2.Flash
+            'esta tecla es IZQ en el modo 46 pasandpo de arriba aa abjo y siguiendo a la pag ant en el modo 5
             'ver si desplazo temas en modo video
             LineaError = "000-0066"
             If ModoVideoSelTema Then
@@ -947,12 +1148,27 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             Else
                 'no ir a -1
                 LineaError = "000-0072"
+                'ver si es el primero
                 If nDiscoSEL = 0 Then
                     'ver si hay que pasar hoja o no
                     LineaError = "000-0073"
                     If PasarHoja Then
                         LineaError = "000-0074"
-                        If nDiscoGral > 0 Then DiscosEnPagina = CargarDiscos(nDiscoGral - ((TapasMostradasH * TapasMostradasV)), False)
+                        'ver si hay páginas antes
+                        'si el gral es mayor que cero entonces si hay
+                        'en la primera página gral y discosel son iguales
+                        If nDiscoGral > 0 Then
+                            'como si viene eligiendo desde la ultima fila
+                            If IsMod46Teclas = 46 Then DiscosEnPagina = _
+                                CargarDiscos(nDiscoGral - _
+                                ((TapasMostradasH * TapasMostradasV)), False, TapasMostradasV)
+                            
+                            'busca solo la fila!!
+                            If IsMod46Teclas = 5 Then DiscosEnPagina = _
+                                CargarDiscos(nDiscoGral - _
+                                ((TapasMostradasH * TapasMostradasV)), False, EnQueFilaEstoy)
+                        End If
+                                
                     Else
                         'NO NO NO!!!! nDiscoGral = (TapasMostradasH * TapasMostradasV) - 1
                         'estoy en una hoja al principio y debo elegir el disco del final
@@ -977,12 +1193,33 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                         End If
                     End If
                 Else
-                    LineaError = "000-0082"
-                    nDiscoGral = nDiscoGral - 1
-                    LineaError = "000-0083"
-                    UnSelDisco nDiscoSEL
-                    LineaError = "000-0084"
-                    SelDisco nDiscoSEL - 1
+                    'si no es el primero ver si es
+                    'el primero de una fila y esta en modo 5 el teclado
+                    If nDiscoSEL = TapasMostradasH * (EnQueFilaEstoy - 1) Then
+                        'si esta en el modo 5 me fijo si esta al final de una línea
+                        If IsMod46Teclas = 5 Then
+                            'el disco a iniciar ya no es nDiscoGral-(tapash*tapasv)!!!!!!
+                            'hay que restar tambien el nOrden de esta pagina
+                            Dim DiscoToIni As Long
+                            'el primero de esta mas el total de esta!
+                            DiscoToIni = nDiscoGral - nDiscoSEL - (TapasMostradasH * TapasMostradasV)
+                            'ver que no se vaya a la mierda!!
+                            If DiscoToIni >= 0 Then
+                                DiscosEnPagina = CargarDiscos(DiscoToIni, False, EnQueFilaEstoy)
+                            End If
+                        Else
+                            'tratarlo normalmente como el 46
+                            GoTo Mod46IZQ
+                        End If
+                    Else
+Mod46IZQ:
+                        LineaError = "000-0082"
+                        nDiscoGral = nDiscoGral - 1
+                        LineaError = "000-0083"
+                        UnSelDisco nDiscoSEL
+                        LineaError = "000-0084"
+                        SelDisco nDiscoSEL - 1
+                    End If
                 End If
                 LineaError = "000-0085"
                 lblTOTdiscos = "Disco " + CStr(nDiscoGral + 1) + " de " + CStr(TOTAL_DISCOS)
@@ -994,6 +1231,8 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             LineaError = "000-0088"
             lblTECLAS = TECLAS_PRES
         Case TeclaDER
+            'esta tecla es IZQ en el modo 46 pasandpo de arriba a abjo
+            'y siguiendo a la pag sig en el modo 5
             LineaError = "000-0089"
             If ModoVideoSelTema Then
                 LineaError = "000-0090"
@@ -1008,16 +1247,30 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                     OrdenarListaTemaVideo
                 End If
             Else
+                'esta eligiendo discos ya sea en las portadas o en el modo video!!
                 LineaError = "000-0095"
                 If nDiscoSEL = DiscosEnPagina - 1 Then
-                    'ver si hay que pasar hojas
+                    'ver si hay que pasar hojas (segun config)
                     If PasarHoja Then
                         LineaError = "000-0096"
+                        'ver que no se vaya a la mierda!!
                         If nDiscoGral + 1 < TOTAL_DISCOS Then
                             LineaError = "000-0097"
-                            DiscosEnPagina = CargarDiscos(nDiscoGral + 1, True)
+                            'si esta en el modtec 46 pasa al primero
+                            'pero si esta en el modo 5 pasa a su mismo nivel
+                            'vertical en la hoja que sigue
+                            If IsMod46Teclas = 46 Then DiscosEnPagina = _
+                                CargarDiscos(nDiscoGral + 1, True, 1) 'va a la primera fila!!
+                            'busca solo la fila!!
+                            If IsMod46Teclas = 5 Then DiscosEnPagina = _
+                                CargarDiscos(nDiscoGral + 1, True, EnQueFilaEstoy)
                         End If
                     Else
+                        '------------------------------
+                        'si no esta configurado para pasar hojas entonces debe _
+                        estar en el modo 46
+                        'en el modo 5 no hay salto de página...
+                        '------------------------------
                         '!!!NO NO NO nDiscoGral = 0
                         'estoy en una hoja al final y debo elegir el disco del principio
                         'sel y unsel trabajan con referencias de o al total de discos por pag
@@ -1030,14 +1283,38 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                         SelDisco 0
                     End If
                 Else
+                    'ver si llego al final de una linea horizontal para pasar a la hoja
+                    'que sigue si esta en el modTeclado5
+                    
                     LineaError = "000-0101"
+                    'ver si el disco existe !!! o llegamos al final de todo !!!!
                     If nDiscoGral + 1 < TOTAL_DISCOS Then
-                        LineaError = "000-0102"
-                        nDiscoGral = nDiscoGral + 1
-                        LineaError = "000-0103"
-                        UnSelDisco nDiscoSEL
-                        LineaError = "000-0104"
-                        SelDisco nDiscoSEL + 1
+                        'si esta en el modo 5 me fijo si esta al final de una línea
+                        If IsMod46Teclas = 5 Then
+                            'ver ahora si es el último de una línea!!!
+                            If nDiscoSEL = (TapasMostradasH * EnQueFilaEstoy) - 1 Then
+                                'el disco a iniciar ya no es nDiscoGral + 1  !!!!!!
+                                Dim DiscoToIni2 As Long
+                                'el primero de esta mas el total de esta!
+                                DiscoToIni2 = nDiscoGral - nDiscoSEL + (TapasMostradasH * TapasMostradasV)
+                                'ver que no se vaya a la mierda!!
+                                If DiscoToIni2 < TOTAL_DISCOS Then
+                                    DiscosEnPagina = CargarDiscos(DiscoToIni2, True, EnQueFilaEstoy)
+                                End If
+                                
+                            Else
+                                'tratarlo como el modo 46
+                                GoTo Mod46
+                            End If
+                        Else
+Mod46:
+                            LineaError = "000-0102"
+                            nDiscoGral = nDiscoGral + 1
+                            LineaError = "000-0103"
+                            UnSelDisco nDiscoSEL
+                            LineaError = "000-0104"
+                            SelDisco nDiscoSEL + 1
+                        End If
                     End If
                 End If
             End If
@@ -1113,9 +1390,9 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                         LineaError = "000-0121"
                         EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
                         LineaError = "000-0122"
-                        If CREDITOS < 10 Then frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
-                        LineaError = "000-0123"
-                        If CREDITOS >= 10 Then frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
+                        
+                        ShowCredits
+                        
                         LineaError = "000-0124"
                         'grabar credito para validar
                         'creditosValidar ya se cargo en load de frmindex
@@ -1317,13 +1594,9 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             LineaError = "000-0194"
             EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
             LineaError = "000-0195"
-            If CREDITOS >= 10 Then
-                LineaError = "000-0196"
-                lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
-            Else
-                LineaError = "000-0197"
-                lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
-            End If
+            
+            ShowCredits
+            
             'grabar credito para validar
             'creditosValidar ya se cargo en load de frmindex
             LineaError = "000-0198"
@@ -1339,15 +1612,26 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub Form_Load()
+    If Is3pmExclusivo Then
+        'poner el picfondo.top a la altura del VU21 ya que todo esta basado en ese top!!!
+        VU21.Top = Me.Height - VU21.Height
+        picFondo.Top = VU21.Top
+        VU21.Visible = True
+        picFondo.Visible = False
+    Else
+        VU21.Visible = False
+        picFondo.Visible = True
+    End If
     On Error GoTo NoLoadIndex
     
+    Prog.MIN = 0 'barra de progreso circular
     picFondoDisco.Top = 0
     picFondoDisco.Left = 0
     
     LineaError = "000-0201"
-     RegistroDiario 'anota la fecha, hora y numero del contador
-     '--------
-     LineaError = "000-0202"
+    RegistroDiario 'anota la fecha, hora y numero del contador
+    '--------
+    LineaError = "000-0202"
     If K.LICENCIA = HSuperLicencia Then
         LineaError = "000-0203"
         If FSO.FileExists(WINfolder + "SL\indexchi.tbr") Then
@@ -1357,7 +1641,6 @@ Private Sub Form_Load()
     '--------
     LineaError = "000-0204"
     AjustarFRM Me, 12000
-    'VU1.Visible = HabilitarVUMetro
     LineaError = "000-0205"
     If K.LICENCIA = aSinCargar Then
         LineaError = "000-0206"
@@ -1401,7 +1684,9 @@ Private Sub Form_Load()
     LineaError = "000-0219"
     VU1.Height = picFondo.Top - 25
     LineaError = "000-0220"
-    If HabilitarVUMetro Then
+    
+    'si es exclusivo inhabilito el vumetro GRANDE !!!
+    If HabilitarVUMetro And Is3pmExclusivo = False Then
         'que entre en el control
         LineaError = "000-0221"
         frDISCOS.Width = VU1.Width - (VU1.AnchoBarra * 2) - 50 'Screen.Width
@@ -1432,7 +1717,6 @@ Private Sub Form_Load()
         lstProximos.Width = Screen.Width - lstProximos.Left - 250
         lblTBR.Width = Screen.Width - lblTBR.Left - 250
         lblDEMO.Width = Screen.Width - lblDEMO.Left - 250
-        
     End If
     'frDISCOS contiene los discos a mostrar
     'se debera calcualr el tamaño de cada discos asi como cantidad horizontal y vertical
@@ -1490,30 +1774,30 @@ Private Sub Form_Load()
         LineaError = "000-0261"
         lblDisco(0).Visible = False
     End If
-    
+    'centrar!!
+    Dim IniCentrarH As Long
+    IniCentrarH = EspacioEntreDiscosH
+    Dim IniCentrarV As Long
+    IniCentrarV = EspacioEntreDiscosV
+    LineaError = "000-0262"
+    lblDisco(0).Left = IniCentrarH
+    LineaError = "000-0268"
+    TapaCD(0).Left = IniCentrarH
     'ver si los rotulos van arriba o abajo
     If RotulosArriba Then
-        LineaError = "000-0262"
-        lblDisco(0).Left = 50
         LineaError = "000-0263"
-        lblDisco(0).Top = 50
-        LineaError = "000-0264"
-        TapaCD(0).Left = 50
+        lblDisco(0).Top = IniCentrarV
         LineaError = "000-0265"
         If MostrarRotulos Then
             LineaError = "000-0266"
             TapaCD(0).Top = lblDisco(0).Top + lblDisco(0).Height + 50
         Else
             LineaError = "000-0267"
-            TapaCD(0).Top = 50
+            TapaCD(0).Top = IniCentrarV
         End If
     Else
-        LineaError = "000-0268"
-        TapaCD(0).Left = 50
         LineaError = "000-0269"
-        TapaCD(0).Top = 50
-        LineaError = "000-0270"
-        lblDisco(0).Left = 50
+        TapaCD(0).Top = IniCentrarV
         LineaError = "000-0271"
         lblDisco(0).Top = TapaCD(0).Top + TapaCD(0).Height + 50
     End If
@@ -1539,11 +1823,11 @@ Private Sub Form_Load()
             LineaError = "000-0280"
             If RotulosArriba Then
                 LineaError = "000-0281"
-                lblDisco(c).Left = 50
+                lblDisco(c).Left = IniCentrarH
                 LineaError = "000-0282"
                 lblDisco(c).Top = TapaCD(c - TapasMostradasH).Top + TapaCD(c - TapasMostradasH).Height + EspacioEntreDiscosV
                 LineaError = "000-0283"
-                TapaCD(c).Left = 50
+                TapaCD(c).Left = IniCentrarH
                 If MostrarRotulos Then
                     LineaError = "000-0284"
                     TapaCD(c).Top = lblDisco(c).Top + lblDisco(c).Height + 50
@@ -1557,7 +1841,7 @@ Private Sub Form_Load()
                 If MostrarRotulos Then lblDisco(c).Visible = True
             Else
                 LineaError = "000-0288"
-                TapaCD(c).Left = 50
+                TapaCD(c).Left = IniCentrarH
                 If MostrarRotulos Then
                     LineaError = "000-0289"
                     TapaCD(c).Top = lblDisco(c - TapasMostradasH).Top + lblDisco(c - TapasMostradasH).Height + EspacioEntreDiscosV
@@ -1566,7 +1850,7 @@ Private Sub Form_Load()
                     TapaCD(c).Top = TapaCD(c - TapasMostradasH).Top + TapaCD(c - TapasMostradasH).Height + EspacioEntreDiscosV
                 End If
                 LineaError = "000-0291"
-                lblDisco(c).Left = 50
+                lblDisco(c).Left = IniCentrarH
                 LineaError = "000-0292"
                 lblDisco(c).Top = TapaCD(c).Top + TapaCD(c).Height + 50
                 LineaError = "000-0293"
@@ -1621,13 +1905,9 @@ Private Sub Form_Load()
     LineaError = "000-0312"
     CREDITOS = Val(LeerArch1Linea(AP + "creditos.tbr"))
     LineaError = "000-0313"
-    If CREDITOS >= 10 Then
-        LineaError = "000-0314"
-        lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
-    Else
-        LineaError = "000-0315"
-        lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
-    End If
+    
+    ShowCredits
+    
     'dejar cargado el mostrados de procesos
     'Load frmini
     'cargar las variables globales
@@ -1651,7 +1931,7 @@ Private Sub Form_Load()
     
     'ret devuelve la cantidadd de discos cargados
     LineaError = "000-0322"
-    DiscosEnPagina = CargarDiscos(0, True)
+    DiscosEnPagina = CargarDiscos(0, True, 1)
     'inicializar la matriz_lista (lista de reproduccion
     LineaError = "000-0323"
     ReDim MATRIZ_LISTA(0)
@@ -1874,23 +2154,29 @@ Public Sub UnSelDisco(nDisco As Long)
     If EsVideo Then OrdenarListaModoVideo
 End Sub
 
-Public Function CargarDiscos(numDiscoIniciar As Long, SelPrimero As Boolean) As Long
+Public Function CargarDiscos(numDiscoIniciar As Long, SelPrimero As Boolean, DeQueFila As Long) As Long
     'indicando en que disco se inicia carga ese y los seis (o lo que corresponde) que le sigen
+    'DeQueFial dice si es primero o último de cual fila!!!
     'devuelve el número de discos cargados
     LineaError = "000-0384"
-    CargarDiscos = 0
+    Dim mCargarDiscos As Long
+    mCargarDiscos = 0
     LineaError = "000-0385"
     Dim TotPags As Long
     TotPags = (TOTAL_DISCOS - 1) \ (TapasMostradasH * TapasMostradasV)
     LineaError = "000-0386"
     lblPag = "Pagina " + CStr(Round(numDiscoIniciar / (TapasMostradasH * TapasMostradasV) + 1, 0)) + " de " + CStr(TotPags + 1)
-    'tomar el disco que va a quedar seleccionado como numero de disco en el indice general
+    'tomar el disco que va a quedar seleccionado
+    'como numero de disco en el indice general
     If SelPrimero Then
         LineaError = "000-0387"
-        nDiscoGral = numDiscoIniciar
+        'si la fila es uno (la primera) entonces el calculo es facil
+        nDiscoGral = numDiscoIniciar + ((DeQueFila - 1) * TapasMostradasH)
     Else
         LineaError = "000-0388"
-        nDiscoGral = numDiscoIniciar + ((TapasMostradasH * TapasMostradasV) - 1) 'era un 5, o sea total tapas-1
+        nDiscoGral = numDiscoIniciar + ((TapasMostradasH * DeQueFila) - 1)
+        'nDiscoGral = numDiscoIniciar + ((TapasMostradasH * TapasMostradasV) - 1)
+        'era un 5, o sea total tapas-1
     End If
     'esconder todos los discos
     Dim NDR As Long 'numero de tapa de disco real del 0 al 5 (total de discos-1)
@@ -1904,12 +2190,12 @@ Public Function CargarDiscos(numDiscoIniciar As Long, SelPrimero As Boolean) As 
     LineaError = "000-0390"
     If CargarIMGinicio Then
         If SelPrimero Then
-            'si voy para adelante
-            'ocultar los que ya pse
+            'si voy para adelante ocultar los que ya pase
             c = 1
             LineaError = "000-0391"
             Do While c <= (TapasMostradasH * TapasMostradasV)
                 LineaError = "000-0392"
+                'si no es la primera hoja!!
                 If NDI >= (TapasMostradasH * TapasMostradasV) Then
                     LineaError = "000-0393"
                     TapaCD(NDI - c).Visible = False
@@ -1935,6 +2221,7 @@ Public Function CargarDiscos(numDiscoIniciar As Long, SelPrimero As Boolean) As 
             'Me.Refresh
         End If
     Else
+        'si no se cargaron al inicio!!
         LineaError = "000-0399"
         Do While NDR < ((TapasMostradasH * TapasMostradasV))
             LineaError = "000-0400"
@@ -1953,7 +2240,7 @@ Public Function CargarDiscos(numDiscoIniciar As Long, SelPrimero As Boolean) As 
         LineaError = "000-0404"
         If NDI < UBound(MATRIZ_DISCOS) Then
             LineaError = "000-0405"
-            CargarDiscos = CargarDiscos + 1
+            mCargarDiscos = mCargarDiscos + 1
             'ver si ya estan cargadas o se deben cargar
             LineaError = "000-0406"
             If CargarIMGinicio Then
@@ -1990,16 +2277,50 @@ Public Function CargarDiscos(numDiscoIniciar As Long, SelPrimero As Boolean) As 
         NDI = NDI + 1
         NDR = NDR + 1
     Loop
+    CargarDiscos = mCargarDiscos
     If SelPrimero Then
         LineaError = "000-0419"
-        UnSelDisco ((TapasMostradasH * TapasMostradasV) - 1)
+        'si es modo 46 no me importa la fila!!!!
+        If IsMod46Teclas = 46 Then
+            UnSelDisco ((TapasMostradasH * TapasMostradasV) - 1)
+        Else
+            'si viene de una fila que no es la última!!!!!!
+            UnSelDisco (TapasMostradasH - 1) + ((DeQueFila - 1) * TapasMostradasH)
+        End If
+        
         LineaError = "000-0420"
-        SelDisco 0
+        'si va a la primera fila queda en cero. JOIA
+        'pero si existe la hoja y no el disco en esa fila
+        'o sea la hoja tiene solo el primer disco y yo vengo
+        'de la segunda fila !!!!!!!!
+        ' y si esta despues del ultimo!!!!!!!!!
+        If nDiscoGral >= TOTAL_DISCOS Then
+            'tener en cuenta el nDiscoGral!!!!!!!!
+            nDiscoGral = TOTAL_DISCOS - 1
+            'elegir el ultimo que haya!!!
+            'no el ultimo de la pagina bestia!!!!!
+            'SelDisco (TapasMostradasV * TapasMostradasH) - 1
+            'JOIA'JOIA'JOIA'JOIA'JOIA'JOIA
+            SelDisco mCargarDiscos - 1
+        Else
+            SelDisco (DeQueFila - 1) * TapasMostradasH
+        End If
+        
     Else
+        'si viene de una pagina de adelante para atras....
         LineaError = "000-0421"
-        UnSelDisco 0
-        LineaError = "000-0422"
-        SelDisco ((TapasMostradasH * TapasMostradasV) - 1)
+        'si es modo 46 no me importa la fila!!!!
+        If IsMod46Teclas = 46 Then
+            UnSelDisco 0
+            'SelDisco ((TapasMostradasH * TapasMostradasV) - 1)
+        Else
+            LineaError = "000-0422"
+            'tiene que desseleccionar el que venía !!
+            UnSelDisco (DeQueFila - 1) * TapasMostradasH
+            
+        End If
+        SelDisco ((TapasMostradasH * DeQueFila) - 1)
+        
     End If
 End Function
 
@@ -2035,14 +2356,27 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
     LineaError = "000-0423"
     MostrarCursor True
     LineaError = "000-0425"
-    MP3.DoStop
+    'MP3.DoStop EL DOsTOP GENERA EL EVENTO ENDPLAY QUE EJECUTA EL QUE SIGUE!!!
     LineaError = "000-0426"
     MP3.DoClose
     LineaError = "000-0427"
-    VU1.DoStop
+    If Is3pmExclusivo Then
+        VU21.DoStop
+    Else
+        VU1.DoStop
+    End If
+    'esta es para rigoberto!!!!
+    End
 End Sub
 
 Private Sub MP3_BeginPlay()
+    Dim Tapa As String
+    Tapa = FSO.GetParentFolderName(MP3.FileName) + "\tapa.jpg"
+    If FSO.FileExists(Tapa) Then
+        TapaEjecutando.Picture = LoadPicture(Tapa)
+    Else
+        TapaEjecutando.Picture = LoadPicture(AP + "\tapa.jpg")
+    End If
     LineaError = "000-0428"
     TotalTema = MP3.LengthInSec
     LineaError = "000-0429"
@@ -2061,10 +2395,15 @@ Private Sub MP3_BeginPlay()
     LineaError = "000-0434"
     VolBajando = MP3.Volumen
     
+    Prog.Clear
+    Prog.MAX = MP3.LengthInSec
+    
 End Sub
 
 Private Sub MP3_EndPlay()
-    'volver a PasarHoja a su estado original
+    EstoyEnModoVideoMiniSelDisco = False
+    frmIndex.TapaEjecutando.Picture = LoadPicture(AP + "tapa.jpg")
+    'volver a PasarHoja a su estado original3
     LineaError = "000-0435"
     PasarHoja = LeerConfig("PasarHoja", "1")
     LineaError = "000-0436"
@@ -2077,8 +2416,9 @@ Private Sub MP3_EndPlay()
         'frDISCOS.Height = picFondo.Top
         VU1.Height = picFondo.Top
     End If
-    
-    If HabilitarVUMetro Then
+    'reacomodo si vengo de video minimo
+    'tener el cuenta el exclusivo!!!!!!!!!!!!!
+    If HabilitarVUMetro And Is3pmExclusivo = False Then
         LineaError = "000-0438"
         frDISCOS.Width = VU1.Width - (VU1.AnchoBarra * 2) - 50 'Screen.Width - VU1.Width
         LineaError = "000-0439"
@@ -2104,9 +2444,24 @@ Private Sub MP3_EndPlay()
     'lo destapo al terminar de acomodar todos los controles en otro lado
     'picVideo.Visible = False
     EMPEZAR_SIGUIENTE
+    lblREP.BackStyle = 0
+    lblREP.ForeColor = vbWhite
+    lblREP = ""
+    
 End Sub
 
 Private Sub MP3_Played(SecondsPlayed As Long)
+    
+    lblREP.Caption = "Reproduciendo:"
+    If SecondsPlayed / 2 = SecondsPlayed \ 2 Then
+        lblREP.BackStyle = 1
+        lblREP.BackColor = vbYellow
+        lblREP.ForeColor = vbBlack
+    Else
+        lblREP.BackStyle = 0
+        lblREP.ForeColor = vbWhite
+    End If
+    
     'esto pasa cada un segundo (si o si una vez por segundo)
     Dim sRest As Long
     LineaError = "000-0455"
@@ -2119,6 +2474,7 @@ Private Sub MP3_Played(SecondsPlayed As Long)
         VolBajando = VolBajando - 5 'baja 1 por segundo
         LineaError = "000-0459"
         lblTemaSonando = "Cerrando " + QuitarNumeroDeTema(FSO.GetBaseName(TEMA_REPRODUCIENDO))
+        lblTemaSonando2 = "Cerrando " + QuitarNumeroDeTema(FSO.GetBaseName(TEMA_REPRODUCIENDO))
         LineaError = "000-0460"
         If VolBajando > 0 Then
             LineaError = "000-0461"
@@ -2132,6 +2488,7 @@ Private Sub MP3_Played(SecondsPlayed As Long)
     End If
     LineaError = "000-0463"
     lblTiempoRestante = "FALTA: " + MP3.Falta
+    Prog.DibujarCirculo CDbl(SecondsPlayed)
     
     LineaError = "000-0464"
     wi = Ancho - Variacion * (SecondsPlayed - 2)
@@ -2142,6 +2499,7 @@ Private Sub MP3_Played(SecondsPlayed As Long)
     If K.LICENCIA = aSinCargar And SecondsPlayed > 126 And SecondsPlayed < TotalTema - 5 Then
         LineaError = "000-0467"
         lblTemaSonando = "Tema Truncado. Version DEMO"
+        lblTemaSonando2 = "Tema Truncado. Version DEMO"
         LineaError = "000-0468"
         MP3.DoStop
     End If
@@ -2150,6 +2508,7 @@ Private Sub MP3_Played(SecondsPlayed As Long)
     If K.LICENCIA = CGratuita And SecondsPlayed > 126 And SecondsPlayed < TotalTema - 5 Then
         LineaError = "000-0470"
         lblTemaSonando = "Tema Truncado. Version DEMO"
+        lblTemaSonando2 = "Tema Truncado. Version DEMO"
         LineaError = "000-0471"
         MP3.DoStop
     End If

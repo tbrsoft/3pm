@@ -4,6 +4,7 @@ Public CONTADOR As Long
 Public EsVideo As Boolean 'saber si el tema en ejecucion es video
 
 Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
+    EstoyEnModoVideoMiniSelDisco = False
     'si el tema es una publicidad then descuenta de la lista de temas pendientes
     'ademas no va al ranking
     Dim Carp As String
@@ -18,6 +19,7 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
     If FSO.FileExists(tema) = False Then
         LineaError = "003-0002"
         frmIndex.lblTemaSonando = "No se encontro el tema"
+        frmIndex.lblTemaSonando2 = "No se encontro el tema"
         LineaError = "003-0003"
         EMPEZAR_SIGUIENTE
     End If
@@ -35,6 +37,7 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
     nombreDISCO = FSO.GetBaseName(FSO.GetParentFolderName(tema))
     LineaError = "003-0008"
     frmIndex.lblTemaSonando = QuitarNumeroDeTema(nombreTEMA) + " / " + nombreDISCO
+    frmIndex.lblTemaSonando2 = QuitarNumeroDeTema(nombreTEMA) + " / " + nombreDISCO
     
     LineaError = "003-0009"
     If UCase(FSO.GetExtensionName(tema)) <> "MP3" Then
@@ -69,7 +72,7 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
                     '.picVideo.Height = Screen.Height
                 End If
                     
-                If HabilitarVUMetro Then
+                If HabilitarVUMetro And Is3pmExclusivo = False Then
                     If NoVumVID Then
                         .picVideo.Top = 0
                         .picVideo.Left = 0
@@ -87,13 +90,14 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
                     .picVideo.Left = 0
                     .picVideo.Width = Screen.Width
                     .picVideo.Height = Screen.Height
+                    .picVideo.ZOrder
                 End If
             Else
                 '--------------------------------
                 'si es salida de TV no volver!!!!
                 If Salida2 Then GoTo NoLeerOtros
                 '--------------------------------
-                
+                EstoyEnModoVideoMiniSelDisco = True
                 'quita el fullscreen!!!!
                 '.frDISCOS.Height = .picFondo.Top
                 '.VU1.Height = .picFondo.Top
@@ -105,21 +109,22 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
                 .frModoVideo.Visible = True
                 .lblModoVideo.Visible = True
                 .VU1.Width = Screen.Width - .frModoVideo.Width
-                If HabilitarVUMetro Then
+                'tener en cuenta si es exclusivo!!!
+                If HabilitarVUMetro And Is3pmExclusivo = False Then
                     .frDISCOS.Width = .VU1.Width - (.VU1.AnchoBarra * 2) - 50
+                    .picVideo.Width = .VU1.Width - (.VU1.AnchoBarra * 2)
+                    .picVideo.Left = .VU1.AnchoBarra
                 Else
                     .frDISCOS.Width = .VU1.Width
+                    .picVideo.Width = .VU1.Width
+                    .picVideo.Left = 0
                 End If
                 .picFondoDisco.Top = 0
                 .picFondoDisco.Left = 0
                 
                 .picVideo.Top = 0
-                .picVideo.Left = .VU1.AnchoBarra
-                .picVideo.Width = .VU1.Width - (.VU1.AnchoBarra * 2)
                 .picVideo.Height = .picFondo.Top
             End If
-            
-            
             
 'aqui vengo si es fullscreen y no me importa mover nada
 NoLeerOtros:
@@ -145,7 +150,7 @@ NoLeerOtros:
             LineaError = "003-0028"
             .VU1.Width = Screen.Width
             LineaError = "003-0029"
-            If HabilitarVUMetro Then
+            If HabilitarVUMetro And Is3pmExclusivo = False Then
                 .frDISCOS.Left = .VU1.AnchoBarra + 25 ' .VU1.Width
                 LineaError = "003-0030"
                 .frDISCOS.Width = .VU1.Width - (.VU1.AnchoBarra * 2) - 50
@@ -189,19 +194,22 @@ NoLeerOtros:
     'lo pongo al ultimo para que tenga tiempo de cargar el tema encargado
     'si lo pongo a donde estaba pasa un pedazito del tema anterior
     LineaError = "003-0040"
-    
-    Unload frmTemasDeDisco
+    'ya no se cierra!!!
+    'para juan carlos BsAs
+    'Unload frmTemasDeDisco
     LineaError = "003-0041"
     frmIndex.Refresh
     
     LineaError = "003-0042"
     frmIndex.lblPuesto = "Calculando..."
+    frmIndex.lblPuesto2 = "Calculando..."
     LineaError = "003-0043"
     'contabilizar para el ranking solo si lo pide
     If SumaRanking Then TOP10 tema, nombreTEMA, nombreDISCO
     'mostrar el puesto que esta en el ranking
     LineaError = "003-0044"
     frmIndex.lblPuesto = "Rank # " + PuestoN(tema)
+    frmIndex.lblPuesto2 = "Rank # " + PuestoN(tema)
     
     LineaError = "003-0045"
     With frmIndex.MP3
@@ -233,7 +241,13 @@ NoLeerOtros:
         .DoPlay
     End With
     LineaError = "003-0052"
-    If HabilitarVUMetro Then frmIndex.VU1.CarFantastic = False
+    If HabilitarVUMetro Then
+        If Is3pmExclusivo Then
+            frmIndex.VU21.CarFantastic = False
+        Else
+            frmIndex.VU1.CarFantastic = False
+        End If
+    End If
     If EsVideo Then
         LineaError = "003-0053"
         'para que tome de nuevo el control del teclado
@@ -256,8 +270,10 @@ Public Sub EMPEZAR_SIGUIENTE()
             
             LineaError = "003-0055"
             .lblTemaSonando = "Cargando Proximo Tema..."
+            .lblTemaSonando2 = "Cargando Proximo Tema..."
             LineaError = "003-0056"
             .lblTemaSonando.Refresh
+            .lblTemaSonando2.Refresh
             Dim TemaDeMatriz As String
             LineaError = "003-0057"
             TemaDeMatriz = txtInLista(MATRIZ_LISTA(1), 0, ",")
@@ -288,6 +304,7 @@ Public Sub EMPEZAR_SIGUIENTE()
             LineaError = "003-0065"
             CargarProximosTemas
         Else
+            .lblREP = ""
             'frmINDEX.MP3.SongName = "" 'no sirve
             LineaError = "003-0066"
             .Timer1.Interval = 10000
@@ -299,9 +316,11 @@ Public Sub EMPEZAR_SIGUIENTE()
             OnOffCAPS vbKeyCapital, False
             LineaError = "003-0069"
             .lblTemaSonando = "Sin reproduccion actual"
+            .lblTemaSonando2 = "Sin reproduccion actual"
             
             LineaError = "003-0070"
             .lblPuesto = "No Rank"
+            .lblPuesto2 = "No Rank"
             '.lstProximos.Clear
             '.lstProximos.AddItem "No hay próximo tema"
             LineaError = "003-0071"
@@ -313,7 +332,13 @@ Public Sub EMPEZAR_SIGUIENTE()
             LineaError = "003-0074"
             TEMA_REPRODUCIENDO = "Sin reproduccion actual"
             LineaError = "003-0075"
-            If HabilitarVUMetro Then frmIndex.VU1.CarFantastic = True
+            If HabilitarVUMetro Then
+                If Is3pmExclusivo Then
+                    frmIndex.VU21.CarFantastic = True
+                Else
+                    frmIndex.VU1.CarFantastic = True
+                End If
+            End If
             LineaError = "003-0076"
             EsVideo = False 'no estamos rep video
             LineaError = "003-0077"

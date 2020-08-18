@@ -768,11 +768,8 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             SumarContadorCreditos TemasPorCredito
             'grabar cant de creditos
             EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
-            If CREDITOS >= 10 Then
-                frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
-            Else
-                frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
-            End If
+            
+            ShowCredits
             
             'grabar credito para validar
             'creditosValidar ya se cargo en load de frmindex

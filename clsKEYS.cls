@@ -204,7 +204,7 @@ Listo:
 
 End Function
 
-Public Property Get VariacionClave()
+Public Property Get VariacionClave() As Long
     VariacionClave = mVariacionClave
 End Property
 
@@ -542,16 +542,16 @@ Private Function SumaCHRtxt(TXT As String) As Long
     SumaCHRtxt = TMP
 End Function
 
-Private Function LeerArch1Linea(ARCH As String) As String
+Private Function LeerArch1Linea(Arch As String) As String
     'If Dir(Arch) = "" Then
-    If FSO.FileExists(ARCH) = False Then
+    If FSO.FileExists(Arch) = False Then
         LeerArch1Linea = "No existe archivo"
         Exit Function
     End If
     'Dim Libre As Long, TMP As String
     'Libre = FreeFile
     'Open Arch For Input As Libre
-    Set TE = FSO.OpenTextFile(ARCH, ForReading, False)
+    Set TE = FSO.OpenTextFile(Arch, ForReading, False)
         'Line Input #Libre, TMP
     LeerArch1Linea = TE.ReadLine
     'Close Libre

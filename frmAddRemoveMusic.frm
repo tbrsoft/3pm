@@ -471,7 +471,7 @@ Dim MTXfiles() As String 'archivos en lstTEMAS , desde uno empieza
 Dim CmdLg As New CommonDialog
 
 Private Sub cmdKillArch_Click()
-    If lstTEMAS.SelCount = 0 Then
+    If lstTemas.SelCount = 0 Then
         Select Case IDIOMA
             Case "Español"
                 MsgBox "No hay archivos seleccionados"
@@ -493,9 +493,9 @@ Private Sub cmdKillArch_Click()
     If MsgBox(msg, vbQuestion + vbYesNo) = vbYes Then
         On Error GoTo NOBORRA
         Dim TotSel As Long, FileSel As String
-        TotSel = lstTEMAS.SelCount
-        For AA = 0 To lstTEMAS.ListCount - 1
-            If lstTEMAS.Selected(AA) Then
+        TotSel = lstTemas.SelCount
+        For AA = 0 To lstTemas.ListCount - 1
+            If lstTemas.Selected(AA) Then
                 'en la matriz empieza en 1 y lst empieza en 0
                 FileSel = txtInLista(MTXfiles(AA + 1), 0, ",")
                 FSO.DeleteFile FileSel, True
@@ -935,24 +935,7 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             SumarContadorCreditos TemasPorCredito
             'grabar cant de creditos
             EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
-            If CREDITOS >= 10 Then
-                Select Case IDIOMA
-                    Case "Español"
-                        frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
-                    Case "English"
-                        frmIndex.lblCreditos = "Coins: " + Trim(Str(CREDITOS))
-                    Case "Francois"
-                    Case "Italiano"
-                End Select
-            Else
-                Select Case IDIOMA
-                    Case "Español"
-                        frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
-                    Case "English"
-                    Case "Francois"
-                    Case "Italiano"
-                End Select
-            End If
+            ShowCredits
             
             'grabar credito para validar
             'creditosValidar ya se cargo en load de frmindex
@@ -974,42 +957,42 @@ Private Sub Form_Load()
 End Sub
 
 Private Sub lstCarpetas_Click()
-    lstTEMAS.Clear
+    lstTemas.Clear
     'mostrar los temas de esta carpeta solo si hay una sola carpeta elegida
     If lstCarpetas.SelCount > 1 Then
         Select Case IDIOMA
             Case "Español"
-                lstTEMAS.AddItem "No hay vista disponible"
-                lstTEMAS.AddItem "Multiples carpetas seleccionadas"
+                lstTemas.AddItem "No hay vista disponible"
+                lstTemas.AddItem "Multiples carpetas seleccionadas"
             Case "English"
             Case "Francois"
             Case "Italiano"
         End Select
         
-        lstTEMAS.Enabled = False
+        lstTemas.Enabled = False
         
     Else
-        lstTEMAS.Enabled = True
+        lstTemas.Enabled = True
         ReDim Preserve MTXfiles(0)
         MTXfiles = ObtenerArchMM(lstCarpetas)
         If UBound(MTXfiles) = 0 Then
             Select Case IDIOMA
                 Case "Español"
-                    lstTEMAS.AddItem "No hay temas multimedia en esta carpeta"
+                    lstTemas.AddItem "No hay temas multimedia en esta carpeta"
                 Case "English"
                 Case "Francois"
                 Case "Italiano"
             End Select
             
-            lstTEMAS.Enabled = False
+            lstTemas.Enabled = False
         Else
             For A = 1 To UBound(MTXfiles)
-                lstTEMAS.AddItem txtInLista(MTXfiles(A), 1, ",")
-                lstTEMAS.Enabled = True
+                lstTemas.AddItem txtInLista(MTXfiles(A), 1, ",")
+                lstTemas.Enabled = True
             Next
         End If
     End If
-    cmdKillArch.Enabled = lstTEMAS.Enabled
+    cmdKillArch.Enabled = lstTemas.Enabled
     'mostrar la tapa si la tiene
     Dim TapaArch As String
     TapaArch = lstCarpetas + "\tapa.jpg"

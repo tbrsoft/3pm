@@ -94,23 +94,8 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             SumarContadorCreditos TemasPorCredito
             'grabar cant de creditos
             EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
-            If CREDITOS >= 10 Then
-                Select Case IDIOMA
-                    Case "Español"
-                        frmIndex.lblCreditos = "Creditos: " + Trim(Str(CREDITOS))
-                    Case "English"
-                    Case "Francois"
-                    Case "Italiano"
-                End Select
-            Else
-                Select Case IDIOMA
-                    Case "Español"
-                        frmIndex.lblCreditos = "Creditos: 0" + Trim(Str(CREDITOS))
-                    Case "English"
-                    Case "Francois"
-                    Case "Italiano"
-                End Select
-            End If
+            
+            ShowCredits
             
             'grabar credito para validar
             'creditosValidar ya se cargo en load de frmindex

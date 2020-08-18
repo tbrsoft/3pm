@@ -570,11 +570,11 @@ Private Sub cmdImg_Click(Index As Integer)
         Case 2
             'imagen de cerrando logow.sys
             FSO.CopyFile ArchSel, AP + "logow.sys", True
-            img1.Picture = LoadPicture(AP + "logow.sys")
+            img2.Picture = LoadPicture(AP + "logow.sys")
         Case 3
             'imagen de puede apagar logos.sys
             FSO.CopyFile ArchSel, AP + "logos.sys", True
-            img1.Picture = LoadPicture(AP + "logos.sys")
+            img3.Picture = LoadPicture(AP + "logos.sys")
     End Select
     'LISTO!!!
 End Sub
@@ -664,7 +664,7 @@ Private Sub Command5_Click()
     ArchSel = CmdLg.FileName
     'imagen de inicio logo.sys
     FSO.CopyFile ArchSel, AP + "top10.jpg", True
-    TapaCD.Picture = LoadPicture(AP + "top10.jpg")
+    TapaRank.Picture = LoadPicture(AP + "top10.jpg")
     'LISTO!!!
 End Sub
 
@@ -686,6 +686,10 @@ Private Sub Form_Load()
     img3.Picture = LoadPicture(AP + "logos.sys")
     TapaCD.Picture = LoadPicture(AP + "tapa.jpg")
     TapaRank.Picture = LoadPicture(AP + "top10.jpg")
+    'si existen...
+    If FSO.FileExists(WINfolder + "SL\imgbig.tbr") Then imgPRESp.Picture = LoadPicture(WINfolder + "SL\imgbig.tbr")
+    If FSO.FileExists(WINfolder + "SL\imgtbr.tbr") Then imgIniTBR.Picture = LoadPicture(WINfolder + "SL\imgtbr.tbr")
+    
     If FSO.FileExists(WINfolder + "SL\txtcfg.tbr") Then
         Set TE = FSO.OpenTextFile(WINfolder + "SL\txtcfg.tbr", ForReading, False)
         txtCFG = TE.ReadAll
