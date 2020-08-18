@@ -641,8 +641,19 @@ Private Sub Form_Load()
     frmVIDEO.Height = Screen.Height
     frmVIDEO.Show
     frmVIDEO.Refresh
+    
+    frmVIDEO.picVideo.Left = 0
+    frmVIDEO.picVideo.Top = 0
+    frmVIDEO.picVideo.Width = frmVIDEO.Width
+    frmVIDEO.picVideo.Height = frmVIDEO.Height
+    frmVIDEO.picVideo.Visible = False
     '------------------------------------------------------
     
+    If frmVIDEO.Left = Screen.Width Then
+        TvOn = 1
+    Else
+        TvOn = 0
+    End If
     
     AjustarFRM Me, 12000
     'se graba en win y system
@@ -848,7 +859,7 @@ YaEstaIMG:
 'Alex Herrera COL AHQ54COL52hyy
 'VICTOR HUGO DE LA ROSA (de JMFC) vhdlr5001787y"
 'Tomas Nuñez Gonzalez    sncMEX098181y
-'Miguel Angel Santos Hernandez MEX MASH81090011y
+'Mig    uel Angel Santos Hernandez MEX MASH81090011y
 'JUAN MARTIN FLORES CRUZ MEX JMFCm6511yyyq
 'Mauro Villaroel     MV541CHQ9090Y
 'Chirstian Beltra    cb9811191ujY
@@ -988,3 +999,4 @@ Private Sub txtCOD_GotFocus(Index As Integer)
     txtCOD(Index).SelStart = 0
     txtCOD(Index).SelLength = Len(txtCOD(Index))
 End Sub
+    

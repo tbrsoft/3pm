@@ -241,6 +241,30 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     TeclaBajo = RealKeyCode
     
     Select Case RealKeyCode
+        Case TeclaNewFicha
+            If FindParam3PM("to") = "kd" Then
+                LTE 1
+                If CREDITOS <= MaximoFichas Then
+                    'apagar el fichero electronico
+                    SetKeyState vbKeyScrollLock, True
+                    VarCreditos CSng(TemasPorCredito)
+                Else
+                    'apagar el fichero electronico
+                    SetKeyState vbKeyScrollLock, False
+                End If
+            End If
+        Case TeclaNewFicha2
+            If FindParam3PM("to2") = "kd" Then
+                LTE 2
+                If CREDITOS <= MaximoFichas Then
+                    'apagar el fichero electronico
+                    SetKeyState vbKeyScrollLock, True
+                    VarCreditos CSng(CreditosBilletes)
+                Else
+                    'apagar el fichero electronico
+                    SetKeyState vbKeyScrollLock, False
+                End If
+            End If
         Case TeclaConfig
             frmConfig.Show 1
         
@@ -300,10 +324,10 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         
                 
         Case TeclaCerrarSistema
-            OnOffCAPS vbKeyCapital, False
+            SetKeyState vbKeyCapital, False
             'no puedo usar do stop porque lanza el evento ENDPLAY y esto produce un EMPEZARSIGUIENTE
             'que se come un tema de la lista
-            frmIndex.MP3.DoClose
+            frmIndex.MP3.DoClose 99
             MostrarCursor True
             If ApagarAlCierre Then APAGAR_PC
             End
@@ -376,16 +400,30 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
     Select Case RealKeyCode
 
         Case TeclaNewFicha
-            'si ya hay 9 cargados se traga las fichas
-            If CREDITOS <= MaximoFichas Then
-                'apagar el fichero electronico
-                OnOffCAPS vbKeyScrollLock, True
-                VarCreditos CSng(TemasPorCredito)
-            Else
-                'apagar el fichero electronico
-                OnOffCAPS vbKeyScrollLock, False
+            If FindParam3PM("to") = "999999" Then
+                LTE 1
+                'si ya hay 9 cargados se traga las fichas
+                If CREDITOS <= MaximoFichas Then
+                    'apagar el fichero electronico
+                    SetKeyState vbKeyScrollLock, True
+                    VarCreditos CSng(TemasPorCredito)
+                Else
+                    'apagar el fichero electronico
+                    SetKeyState vbKeyScrollLock, False
+                End If
             End If
-        
+        Case TeclaNewFicha2
+            If FindParam3PM("to2") = "999999" Then
+                LTE 2
+                If CREDITOS <= MaximoFichas Then
+                    'apagar el fichero electronico
+                    SetKeyState vbKeyScrollLock, True
+                    VarCreditos CSng(CreditosBilletes)
+                Else
+                    'apagar el fichero electronico
+                    SetKeyState vbKeyScrollLock, False
+                End If
+            End If
         
         Case TeclaOK
             If YaInicio <= 1 Then Exit Sub
@@ -413,7 +451,7 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
                 (PideVideo And CREDITOS >= PrecNowVideo) Then
             '--------------------------------------------------------------
             'siempre que se ejecute un credito estaremos por debajo de maximo
-                OnOffCAPS vbKeyScrollLock, True
+                SetKeyState vbKeyScrollLock, True
                                 
                 'restar lo que corresponde!!!
                 If PideVideo Then
@@ -423,7 +461,7 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
                 End If
                                 
                 'si esta ejecutando pasa a la lista de reproducción
-                If frmIndex.MP3.IsPlaying And CORTAR_TEMA = False Then
+                If (frmIndex.MP3.IsPlaying(0) Or frmIndex.MP3.IsPlaying(1)) And CORTAR_TEMA = False Then
                     'pasar a la lista de reproducción
                     Dim NewIndLista As Long
                     NewIndLista = UBound(MATRIZ_LISTA)
@@ -435,7 +473,7 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
                     CargarArchReini UCase(ReINI) 'POR LAS DUDAS que no este en mayusculas
                 Else
                     'ocultar el rank y mostrar lblWAIT
-                    lblWait = "CARGANDO TEMA" + vbCrLf + "ESPERE..."
+                    lblWAIT = "CARGANDO TEMA" + vbCrLf + "ESPERE..."
                     Dim cRank As Integer
                     cRank = 0
                     Do While cRank < MaxTop
@@ -443,8 +481,8 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
                         'lblPuestos(cRank).Refresh
                         cRank = cRank + 1
                     Loop
-                    lblWait.Visible = True
-                    lblWait.Refresh
+                    lblWAIT.Visible = True
+                    lblWAIT.Refresh
                     'TEMA_REPRODUCIENDO y mp3.isplayin se cargan en ejecutartema
                     CORTAR_TEMA = False 'este tema va entero ya que lo eligio el usuario
                     EjecutarTema temaElegido, True

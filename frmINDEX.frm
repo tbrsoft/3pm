@@ -21,13 +21,45 @@ Begin VB.Form frmIndex
    Begin VB.PictureBox picVideo 
       BackColor       =   &H00000000&
       Height          =   315
-      Left            =   3510
+      Index           =   1
+      Left            =   2190
       ScaleHeight     =   255
-      ScaleWidth      =   4380
-      TabIndex        =   35
-      Top             =   4590
+      ScaleWidth      =   900
+      TabIndex        =   45
+      Top             =   5190
       Visible         =   0   'False
-      Width           =   4440
+      Width           =   960
+   End
+   Begin VB.ListBox List1 
+      BeginProperty Font 
+         Name            =   "Terminal"
+         Size            =   9
+         Charset         =   255
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   1680
+      IntegralHeight  =   0   'False
+      ItemData        =   "frmINDEX.frx":0442
+      Left            =   300
+      List            =   "frmINDEX.frx":0461
+      TabIndex        =   44
+      Top             =   7260
+      Width           =   1935
+   End
+   Begin VB.PictureBox picVideo 
+      BackColor       =   &H00000000&
+      Height          =   315
+      Index           =   0
+      Left            =   2190
+      ScaleHeight     =   255
+      ScaleWidth      =   900
+      TabIndex        =   35
+      Top             =   4830
+      Visible         =   0   'False
+      Width           =   960
    End
    Begin tbr3pm.VUMeter2 VU21 
       Height          =   1275
@@ -250,9 +282,9 @@ Begin VB.Form frmIndex
    End
    Begin tbr3pm.VUMeter VU1 
       Height          =   4425
-      Left            =   60
+      Left            =   90
       TabIndex        =   7
-      Top             =   210
+      Top             =   240
       Width           =   3405
       _ExtentX        =   6006
       _ExtentY        =   7805
@@ -327,10 +359,10 @@ Begin VB.Form frmIndex
          Width           =   1875
          Begin VB.CommandButton cmdPagAd 
             BackColor       =   &H00C0C0C0&
-            DownPicture     =   "frmINDEX.frx":0442
+            DownPicture     =   "frmINDEX.frx":04A0
             Height          =   715
             Left            =   960
-            Picture         =   "frmINDEX.frx":1403
+            Picture         =   "frmINDEX.frx":1461
             Style           =   1  'Graphical
             TabIndex        =   19
             TabStop         =   0   'False
@@ -339,10 +371,10 @@ Begin VB.Form frmIndex
          End
          Begin VB.CommandButton cmdDiscoAd 
             BackColor       =   &H00C0C0C0&
-            DownPicture     =   "frmINDEX.frx":1E10
+            DownPicture     =   "frmINDEX.frx":1E6E
             Height          =   715
             Left            =   960
-            Picture         =   "frmINDEX.frx":2B0D
+            Picture         =   "frmINDEX.frx":2B6B
             Style           =   1  'Graphical
             TabIndex        =   18
             TabStop         =   0   'False
@@ -351,10 +383,10 @@ Begin VB.Form frmIndex
          End
          Begin VB.CommandButton cmdDiscoAt 
             BackColor       =   &H00C0C0C0&
-            DownPicture     =   "frmINDEX.frx":33E5
+            DownPicture     =   "frmINDEX.frx":3443
             Height          =   715
             Left            =   60
-            Picture         =   "frmINDEX.frx":4157
+            Picture         =   "frmINDEX.frx":41B5
             Style           =   1  'Graphical
             TabIndex        =   17
             TabStop         =   0   'False
@@ -363,10 +395,10 @@ Begin VB.Form frmIndex
          End
          Begin VB.CommandButton cmdPagAt 
             BackColor       =   &H00C0C0C0&
-            DownPicture     =   "frmINDEX.frx":4A9A
+            DownPicture     =   "frmINDEX.frx":4AF8
             Height          =   715
             Left            =   60
-            Picture         =   "frmINDEX.frx":5AF9
+            Picture         =   "frmINDEX.frx":5B57
             Style           =   1  'Graphical
             TabIndex        =   16
             TabStop         =   0   'False
@@ -661,9 +693,9 @@ Begin VB.Form frmIndex
       Height          =   1365
       Left            =   10290
       TabIndex        =   1
-      Top             =   420
+      Top             =   450
       Visible         =   0   'False
-      Width           =   1715
+      Width           =   1740
       Begin VB.Label L 
          AutoSize        =   -1  'True
          BackColor       =   &H00FFFFFF&
@@ -679,7 +711,7 @@ Begin VB.Form frmIndex
          EndProperty
          Height          =   225
          Index           =   0
-         Left            =   60
+         Left            =   30
          TabIndex        =   2
          Top             =   0
          Width           =   2625
@@ -692,9 +724,9 @@ Begin VB.Form frmIndex
       Height          =   1365
       Left            =   10290
       TabIndex        =   4
-      Top             =   2280
+      Top             =   2310
       Visible         =   0   'False
-      Width           =   1715
+      Width           =   1740
       Begin VB.Label T 
          AutoSize        =   -1  'True
          BackColor       =   &H0080FFFF&
@@ -797,11 +829,11 @@ Begin VB.Form frmIndex
       EndProperty
       ForeColor       =   &H00FFFFFF&
       Height          =   465
-      Left            =   10260
+      Left            =   10290
       TabIndex        =   6
-      Top             =   1800
+      Top             =   1830
       Visible         =   0   'False
-      Width           =   1710
+      Width           =   1740
    End
    Begin VB.Label lblModoVideo 
       Alignment       =   2  'Center
@@ -818,9 +850,9 @@ Begin VB.Form frmIndex
       EndProperty
       ForeColor       =   &H00FFFFFF&
       Height          =   435
-      Left            =   10260
+      Left            =   10290
       TabIndex        =   3
-      Top             =   0
+      Top             =   30
       Visible         =   0   'False
       Width           =   1740
    End
@@ -830,6 +862,10 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Dim LastRetEmpezarSig As Long 'guardo el ultimo valor de empezar siguiente
+'para el caso unico de que termine un video y no siga un video y se necesite
+'que empieze una publicidad
+
 Dim ModoVideoSelTema As Boolean 'si estoy en video
 'saber si estoy eligiendo tema. Sino estoy en disco
 
@@ -842,9 +878,16 @@ Dim VolBajando As Double 'bajando volumen para terminar tema demo
 Dim LastpSeconds As Long 'comparador para bajar de a uno el volumen en demos
 
 Dim Ancho As Long, Variacion As Long 'PARA la barra de proceso del tema
-Public DuracionTema As Long 'duracion de todos los tenmas de un disco
-Dim TotalTema As Long 'duracion total
+Public DuracionTema As Long 'duracion de todos los temas de un disco
+
 Dim nDiscoSEL As Long 'del 0 al 5 o hasta donde coresponda!!
+
+Dim WithEvents TF As tbrFOCUS.clsFOCUS
+Attribute TF.VB_VarHelpID = -1
+
+Public Function PonerFoco()
+    TF.PonerFoco
+End Function
 
 Private Function EnQueFilaEstoy() As Long
     'es la fila uno si es la primera
@@ -923,31 +966,35 @@ Private Sub Form_Activate()
     'actualizar los precios
     '---------------------
     'si es gratis no usar!
-    If CreditosCuestaTema(0) = 0 Then
+    lblPrecios = ""
+    lblPrecios2 = ""
+    If CreditosCuestaTema(0) = 0 And CreditosCuestaTema(1) = 0 And CreditosCuestaTema(2) = 0 Then
         lblPrecios = "Musica Gratis"
         lblPrecios2 = "Musica Gratis"
-    Else
+    End If
+    If CreditosCuestaTema(0) > 0 Then
         lblPrecios = "1 cancion   = " + CStr(FormatCurrency((PrecioBase / TemasPorCredito) * CreditosCuestaTema(0), , , , vbFalse))
         lblPrecios2 = "1 cancion=" + CStr(FormatCurrency((PrecioBase / TemasPorCredito) * CreditosCuestaTema(0), , , , vbFalse))
+    End If
+    If CreditosCuestaTema(1) > 0 Then
+        lblPrecios = lblPrecios + vbCrLf + "2 canciones = " + CStr(FormatCurrency((PrecioBase / TemasPorCredito) * CreditosCuestaTema(1), , , , vbFalse))
+        lblPrecios2 = lblPrecios2 + " 2 canciones=" + CStr(FormatCurrency((PrecioBase / TemasPorCredito) * CreditosCuestaTema(1), , , , vbFalse))
+    End If
         
-        If CreditosCuestaTema(1) > 0 Then
-            lblPrecios = lblPrecios + vbCrLf + "2 canciones = " + CStr(FormatCurrency((PrecioBase / TemasPorCredito) * CreditosCuestaTema(1), , , , vbFalse))
-            lblPrecios2 = lblPrecios2 + " 2 canciones=" + CStr(FormatCurrency((PrecioBase / TemasPorCredito) * CreditosCuestaTema(1), , , , vbFalse))
-        End If
-        
-        If CreditosCuestaTema(2) > 0 Then
-            lblPrecios = lblPrecios + vbCrLf + "3 canciones = " + CStr(FormatCurrency((PrecioBase / TemasPorCredito) * CreditosCuestaTema(2), , , , vbFalse))
-            lblPrecios2 = lblPrecios2 + " 3 canciones=" + CStr(FormatCurrency((PrecioBase / TemasPorCredito) * CreditosCuestaTema(2), , , , vbFalse))
-        End If
+    If CreditosCuestaTema(2) > 0 Then
+        lblPrecios = lblPrecios + vbCrLf + "3 canciones = " + CStr(FormatCurrency((PrecioBase / TemasPorCredito) * CreditosCuestaTema(2), , , , vbFalse))
+        lblPrecios2 = lblPrecios2 + " 3 canciones=" + CStr(FormatCurrency((PrecioBase / TemasPorCredito) * CreditosCuestaTema(2), , , , vbFalse))
     End If
     
     'si es gratis no usar!
-    If CreditosCuestaTemaVIDEO(0) = 0 Then
+    If CreditosCuestaTemaVIDEO(0) = 0 And CreditosCuestaTemaVIDEO(1) = 0 And CreditosCuestaTemaVIDEO(2) = 0 Then
         lblPrecios = lblPrecios + vbCrLf + "Videos Gratis"
         lblPrecios2 = lblPrecios2 + " / Videos Gratis"
     Else
-        lblPrecios = lblPrecios + vbCrLf + "1 video     = " + CStr(FormatCurrency(CreditosCuestaTemaVIDEO(0) * (PrecioBase / TemasPorCredito), , , , vbFalse))
-        lblPrecios2 = lblPrecios2 + " 1 video=" + CStr(FormatCurrency(CreditosCuestaTemaVIDEO(0) * (PrecioBase / TemasPorCredito), , , , vbFalse))
+        If CreditosCuestaTemaVIDEO(0) > 0 Then
+            lblPrecios = lblPrecios + vbCrLf + "1 video     = " + CStr(FormatCurrency(CreditosCuestaTemaVIDEO(0) * (PrecioBase / TemasPorCredito), , , , vbFalse))
+            lblPrecios2 = lblPrecios2 + " 1 video=" + CStr(FormatCurrency(CreditosCuestaTemaVIDEO(0) * (PrecioBase / TemasPorCredito), , , , vbFalse))
+        End If
         
         If CreditosCuestaTemaVIDEO(1) > 0 Then
             lblPrecios = lblPrecios + vbCrLf + "2 videos    = " + CStr(FormatCurrency(CreditosCuestaTemaVIDEO(1) * (PrecioBase / TemasPorCredito), , , , vbFalse))
@@ -1008,8 +1055,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         siguiendo a la pag ant en el modo 5
     'para el modo video y en modo46=5 se pasan como páginas!
     '----------------------------------------
-    
-    
+        
     EsModo5PeroLabura46 = (EsVideo And _
         Salida2 = False And _
         IsMod46Teclas = 5)
@@ -1017,6 +1063,32 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     tERR.Anotar "acau", EsModo5PeroLabura46, EsVideo, Salida2, IsMod46Teclas
     '----------------------------------------
     Select Case RealKeyCode
+        Case TeclaNewFicha
+            'si TeclaOk=KeyDown entonces no lo hace aca
+            If FindParam3PM("to") = "kd" Then
+                LTE 1
+                'si ya hay 9 cargados se traga las fichas
+                If CREDITOS <= MaximoFichas Then
+                    SetKeyState vbKeyScrollLock, True
+                    VarCreditos CSng(TemasPorCredito)
+                Else
+                    'apagar el fichero electronico
+                    SetKeyState vbKeyScrollLock, False
+                End If
+            End If
+        Case TeclaNewFicha2
+            'si TeclaOk2=KeyDown entonces no lo hace aca
+            If FindParam3PM("to2") = "kd" Then
+                LTE 2
+                'si ya hay 9 cargados se traga las fichas
+                If CREDITOS <= MaximoFichas Then
+                    SetKeyState vbKeyScrollLock, True
+                    VarCreditos CSng(CreditosBilletes)
+                Else
+                    'apagar el fichero electronico
+                    SetKeyState vbKeyScrollLock, False
+                End If
+            End If
         Case vbKeyF1
             frmERRORES.Show 1
         Case vbKeyF4
@@ -1030,50 +1102,56 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             SumarContadorCreditos -CONTADOR 'esto lo deja en cero
             frmOnlyContador.Show 1
         Case TeclaFF 'avanzar 10 segundos
-            Dim ToSec As Long
-            ToSec = (MP3.PositionInSec * 1000) + 10000
-            tERR.Anotar "acav", ToSec
-            MP3.SeekTo CStr(ToSec)
+            If EnableFF Then
+                Dim ToSec As Long
+                tERR.Anotar "acav", Shift
+                If Shift = 1 Then
+                    ToSec = (MP3.PositionInSec(3) * 1000) + 10000
+                    MP3.SeekTo CStr(ToSec), 3
+                Else
+                    ToSec = (MP3.PositionInSec(IAA) * 1000) + 10000
+                    MP3.SeekTo CStr(ToSec), IAA
+                End If
+                
+            End If
         'subir o bajar volumen
         Case TeclaBajaVolumen
-            If frmIndex.MP3.IsPlaying Then
+            If frmIndex.MP3.IsPlaying(IAA) Then
                 If CORTAR_TEMA = False Then 'TEMA PAGO
                     If VolumenIni <= 5 Then
-                        frmIndex.MP3.Volumen = 0
+                        frmIndex.MP3.Volumen(IAA) = 0
                     Else
-                        frmIndex.MP3.Volumen = VolumenIni - 5
+                        frmIndex.MP3.Volumen(IAA) = VolumenIni - 5
                     End If
-                    VolumenIni = frmIndex.MP3.Volumen
+                    VolumenIni = frmIndex.MP3.Volumen(IAA)
                 Else 'TEMA GRATUITO VARIA VOLUMEN 2
                     If VolumenIni2 <= 5 Then
-                        frmIndex.MP3.Volumen = 0
+                        frmIndex.MP3.Volumen(IAA) = 0
                     Else
-                        frmIndex.MP3.Volumen = VolumenIni2 - 5
+                        frmIndex.MP3.Volumen(IAA) = VolumenIni2 - 5
                     End If
-                    VolumenIni2 = frmIndex.MP3.Volumen
+                    VolumenIni2 = frmIndex.MP3.Volumen(IAA)
                 End If
             End If
         Case TeclaSubeVolumen
-            If frmIndex.MP3.IsPlaying Then
+            If frmIndex.MP3.IsPlaying(IAA) Then
                 If CORTAR_TEMA = False Then 'TEMA PAGO
                     If VolumenIni >= 95 Then
-                        frmIndex.MP3.Volumen = 100
+                        frmIndex.MP3.Volumen(IAA) = 100
                     Else
-                        frmIndex.MP3.Volumen = VolumenIni + 5
+                        frmIndex.MP3.Volumen(IAA) = VolumenIni + 5
                     End If
-                    VolumenIni = frmIndex.MP3.Volumen
+                    VolumenIni = frmIndex.MP3.Volumen(IAA)
                 Else 'TEMA GRATUITO
                     If VolumenIni2 >= 95 Then
-                        frmIndex.MP3.Volumen = 100
+                        frmIndex.MP3.Volumen(IAA) = 100
                     Else
-                        frmIndex.MP3.Volumen = VolumenIni2 + 5
+                        frmIndex.MP3.Volumen(IAA) = VolumenIni2 + 5
                     End If
-                    VolumenIni2 = frmIndex.MP3.Volumen
+                    VolumenIni2 = frmIndex.MP3.Volumen(IAA)
                 End If
             End If
-        Case TeclaNextMusic
-            tERR.Anotar "acaw"
-            EMPEZAR_SIGUIENTE
+        
         Case TeclaPagAd
             'pase lo que pase registrar
             TECLAS_PRES = TECLAS_PRES + "5"
@@ -1096,7 +1174,8 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                 PrimeroDeLaPaginaQueSigue = (PagNum + 1) * (TapasMostradasH * TapasMostradasV)
                 tERR.Anotar "acaz", PrimeroDeLaPaginaQueSigue, TOTAL_DISCOS
                 'NUEVO DE 6.5, pasa a la primer página
-                If PrimeroDeLaPaginaQueSigue > TOTAL_DISCOS Then
+                'ACA LE PUSE >= esra solo=!!!!
+                If PrimeroDeLaPaginaQueSigue >= TOTAL_DISCOS Then
                     PrimeroDeLaPaginaQueSigue = 0
                 End If
                 'supongo que lo puse para que no desseleccione el mismo _
@@ -1130,6 +1209,10 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             End If
             
         Case TeclaPagAt
+            TECLAS_PRES = TECLAS_PRES + "6"
+            TECLAS_PRES = Right(TECLAS_PRES, 20)
+            lblTECLAS = TECLAS_PRES
+            
             If EsModo5PeroLabura46 Then
                 tERR.Anotar "acbd"
                 'esto confirma que es modo 5
@@ -1173,9 +1256,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                 End If
                 tERR.Anotar "acbh", nDiscoSEL
             End If
-            TECLAS_PRES = TECLAS_PRES + "6"
-            TECLAS_PRES = Right(TECLAS_PRES, 20)
-            lblTECLAS = TECLAS_PRES
+            
         Case TeclaConfig
              frmConfig.Show 1
         Case TeclaIZQ
@@ -1426,7 +1507,7 @@ Mod46:
             TECLAS_PRES = Right(TECLAS_PRES, 20)
             lblTECLAS = TECLAS_PRES
         Case TeclaOK
-            
+        
             TECLAS_PRES = TECLAS_PRES + "3"
             TECLAS_PRES = Right(TECLAS_PRES, 20)
             lblTECLAS = TECLAS_PRES
@@ -1467,7 +1548,7 @@ Mod46:
                         (PideVideo And CREDITOS >= PrecNowVideo) Then
                     '--------------------------------------------------------------
                         'siempre que se ejecute un credito estaremos por debajo de maximo
-                        OnOffCAPS vbKeyScrollLock, True
+                        SetKeyState vbKeyScrollLock, True
                         
                         'restar lo que corresponde!!!
                         If PideVideo Then
@@ -1478,7 +1559,7 @@ Mod46:
                         
                         tERR.Anotar "accy"
                         'si esta ejecutando pasa a la lista de reproducción
-                        If MP3.IsPlaying Then
+                        If MP3.IsPlaying(0) Or MP3.IsPlaying(1) Then
                             'pasar a la lista de reproducción
                             Dim NewIndLista As Long
                             NewIndLista = UBound(MATRIZ_LISTA)
@@ -1578,11 +1659,11 @@ Mod46:
             End If
         Case TeclaCerrarSistema
             tERR.Anotar "acdn"
-            OnOffCAPS vbKeyCapital, False
-            'no puedo usar do stop porque lanza el evento ENDPLAY y esto produce un EMPEZARSIGUIENTE
+            SetKeyState vbKeyCapital, False
+            'no puedo usar do stop porque lanza el evento ENDPLAY y esto produce un EMPEZAR_SIGUIENTE
             'que se come un tema de la lista
             MostrarCursor True
-            MP3.DoClose
+            MP3.DoClose 99
             If ApagarAlCierre Then APAGAR_PC
             Unload Me
             End
@@ -1638,16 +1719,38 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
     End If
     
     tERR.Anotar "acdt", KeyCode, RealKeyCode
-    
+    If RealKeyCode = TeclaNextMusic Then
+        tERR.Anotar "acaw", EnableNextMusic
+        If EnableNextMusic Then EMPEZAR_SIGUIENTE 2
+    End If
+            
     If RealKeyCode = TeclaNewFicha Then
-        
-        'si ya hay 9 cargados se traga las fichas
-        If CREDITOS <= MaximoFichas Then
-            OnOffCAPS vbKeyScrollLock, True
-            VarCreditos CSng(TemasPorCredito)
-        Else
-            'apagar el fichero electronico
-            OnOffCAPS vbKeyScrollLock, False
+        'si TeclaOk=KeyDown entonces no lo hace aca
+        If FindParam3PM("to") = "999999" Then
+            LTE 1
+            'si ya hay 9 cargados se traga las fichas
+            If CREDITOS <= MaximoFichas Then
+                SetKeyState vbKeyScrollLock, True
+                VarCreditos CSng(TemasPorCredito)
+            Else
+                'apagar el fichero electronico
+                SetKeyState vbKeyScrollLock, False
+            End If
+        End If
+    End If
+    
+    If RealKeyCode = TeclaNewFicha2 Then
+        'si TeclaOk2=KeyDown entonces no lo hace aca
+        If FindParam3PM("to2") = "999999" Then
+            LTE 2
+            'si ya hay 9 cargados se traga las fichas
+            If CREDITOS <= MaximoFichas Then
+                SetKeyState vbKeyScrollLock, True
+                VarCreditos CSng(CreditosBilletes)
+            Else
+                'apagar el fichero electronico
+                SetKeyState vbKeyScrollLock, False
+            End If
         End If
     End If
     
@@ -1660,6 +1763,10 @@ FallaKD:
 End Sub
 
 Private Sub Form_Load()
+    
+    Set TF = New tbrFOCUS.clsFOCUS
+    TF.IntervalTimer = 5000
+    TF.Iniciar Me.hwnd
     
     On Error GoTo MiErr
     'imagenes no cargadas, vewr si hay algo configurado para el fondo
@@ -1891,7 +1998,7 @@ Private Sub Form_Load()
         
     Loop
     tERR.Anotar "acfa"
-    OnOffCAPS vbKeyScrollLock, True
+    SetKeyState vbKeyScrollLock, True
     lblV = "versión " + Trim(Str(App.Major)) + "." + Trim(Str(App.Minor)) + "." + Trim(Str(App.Revision))
     lblTiempoRestante = "Falta: " + "00:00"
     'ocultar las etiquetas
@@ -1974,7 +2081,7 @@ Private Sub Form_Load()
                 Loop
                 TE.Close
             End If
-            EMPEZAR_SIGUIENTE
+            EMPEZAR_SIGUIENTE 3
         Case "NADA"
             'no hacer nada
             'borrar la lista
@@ -2053,14 +2160,14 @@ Private Sub Form_Load()
         tERR.Anotar "acfo", ValidarCada, CodigoParaClaveActual
         lblValidar = "Val=" + CStr(ValidarCada) + "-Qued=" + CStr(ValidarCada - CreditosValidar) + "Actual=" + CStr(CreditosValidar) + " Codigo: " + CodigoParaClaveActual
     End If
-    tERR.Anotar "acfj2", MostrarPUBIMG, PubliIMGCada
+    tERR.Anotar "acfj2", PUBs.HabilitarPublicidadesIMG, PUBs.SonarPublicidadesIMGCada
     'caso especial Eduardo rodirguez
     If ClaveAdmin = "ERO77701192FF" Then frmIndex.lblTBR.Visible = False
     If ClaveAdmin = "MARC777" Then frmIndex.lblTBR.Visible = False
     
     'ver que onda con la publicidad de imagenes
-    tbrPassImg1.ActivarPUBS = MostrarPUBIMG
-    tbrPassImg1.IntervalBetwenIMGs = PubliIMGCada
+    tbrPassImg1.ActivarPUBS = PUBs.HabilitarPublicidadesIMG
+    tbrPassImg1.IntervalBetwenIMGs = PUBs.SonarPublicidadesIMGCada
     tbrPassImg1.ClearList
     'empiezan en 1 ambos!!!
     Dim AA As Long
@@ -2069,6 +2176,11 @@ Private Sub Form_Load()
     Next
     
     tbrPassImg1.IniciarPASS
+    
+    'si no tiene el foco ponerlo!!!
+    If TF.GetState <> 1 Then TF.PonerFoco
+    
+    VerSiTocaVMute
     
     Exit Sub
 NoLoadIndex:
@@ -2161,7 +2273,6 @@ Public Function CargarDiscos(numDiscoIniciar As Long, SelPrimero As Boolean, DeQ
         'si la fila es uno (la primera) entonces el calculo es facil
         nDiscoGral = numDiscoIniciar + ((DeQueFila - 1) * TapasMostradasH)
     Else
-        
         If IsMod46Teclas = 46 Or EsModo5PeroLabura46 Then
             nDiscoGral = numDiscoIniciar + ((TapasMostradasH * TapasMostradasV) - 1)
         End If
@@ -2172,7 +2283,6 @@ Public Function CargarDiscos(numDiscoIniciar As Long, SelPrimero As Boolean, DeQ
         'si no va a seleccionar el primero es el ultimo
         'y si no hay pàgina completa!!!!!!!!!!
         If nDiscoGral >= TOTAL_DISCOS Then nDiscoGral = TOTAL_DISCOS - 1
-        
     End If
     tERR.Anotar "acfv", nDiscoGral, nDiscoSEL, TOTAL_DISCOS
     'esconder todos los discos
@@ -2273,8 +2383,13 @@ Public Function CargarDiscos(numDiscoIniciar As Long, SelPrimero As Boolean, DeQ
                     TapaCD(NDR).Picture = LoadPicture(ArchTapa)
                 Else
 TAPADEF:
-                    tERR.Anotar "acgg", NDR
-                    TapaCD(NDR).Picture = LoadPicture(SYSfolder + "f61.dlw")
+                    'ver si hay SuperLicencia!!!
+                    If FSO.FileExists(WINfolder + "SL\indexCHI.tbr") Then
+                        tERR.Anotar "acgg", NDR
+                        TapaCD(NDR).Picture = LoadPicture(WINfolder + "SL\indexCHI.tbr")
+                    Else
+                        TapaCD(NDR).Picture = LoadPicture(SYSfolder + "f61.dlw")
+                    End If
                 End If
                 TapaCD(NDR).Visible = True
             End If
@@ -2399,11 +2514,11 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
     '        MsgBox "Un formulario se está cerrando por que su formulario " + _
     '            "propietario se está cerrando"
     'End Select
-    
+    TF.Detener
     tERR.Anotar "acgo"
     MostrarCursor True
     'MP3.DoStop EL DOsTOP GENERA EL EVENTO ENDPLAY QUE EJECUTA EL QUE SIGUE!!!
-    MP3.DoClose
+    MP3.DoClose 99
     If Is3pmExclusivo Then
         VU21.DoStop
     Else
@@ -2415,32 +2530,40 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
     End
 End Sub
 
-Private Sub MP3_BeginPlay()
+Private Sub MP3_BeginPlay(iAlias As Long)
+    'los video mudos no se tocan
+    TotalTema(iAlias) = MP3.LengthInSec(iAlias)
+    If iAlias = 3 Then Exit Sub
+    'si es la primera cancion no se detecta en el empezar siguient
+    If EsVideo Then
+        MP3.DoStop 3
+    End If
+    EnableFF = False
+    EnableNextMusic = False
     On Error GoTo MiErr
-    tERR.Anotar "acgq", MP3.FileName
+    tERR.Anotar "acgq", MP3.FileName(iAlias)
     Dim Tapa As String
-    Tapa = FSO.GetParentFolderName(MP3.FileName) + "\tapa.jpg"
+    Tapa = FSO.GetParentFolderName(MP3.FileName(iAlias)) + "\tapa.jpg"
     If FSO.FileExists(Tapa) Then
         TapaEjecutando.Picture = LoadPicture(Tapa)
     Else
         TapaEjecutando.Picture = LoadPicture(SYSfolder + "f61.dlw")
     End If
-    TotalTema = MP3.LengthInSec
+    
     Ancho = lblTemaSonando.Width
     'EVITAR DIVISIONES POR CERO
     tERR.Anotar "acgr", TotalTema
-    If TotalTema > 0 And MP3.IsPlaying Then
-        Variacion = Ancho / TotalTema
-        lblTiempoRestante = "TOTAL: " + MP3.Falta
+    If TotalTema(iAlias) > 0 And MP3.IsPlaying(iAlias) Then
+        Variacion = Ancho / TotalTema(iAlias) 'zczczcz
+        lblTiempoRestante = "TOTAL: " + MP3.Falta(iAlias)
     Else
         lblTiempoRestante = "Falta: " + "00:00"
     End If
     
-    VolBajando = MP3.Volumen
+    VolBajando = MP3.Volumen(iAlias)
     tERR.Anotar "acgs", VolBajando
     Prog.Clear
-    Prog.MAX = MP3.LengthInSec
-    
+    Prog.MAX = MP3.LengthInSec(iAlias)
 Exit Sub
     
 MiErr:
@@ -2449,14 +2572,48 @@ MiErr:
     
 End Sub
 
-Private Sub MP3_EndPlay()
+Private Sub MP3_EndPlay(iAlias As Long)
+    List1.List(iAlias) = ".. PLAY" + CStr(iAlias) + ":END"
     On Error GoTo MiErr
+    
+    'si es un video mudo entonces sigo con el otro
+    If iAlias = 3 Then
+        'parece que no se cerrar bien!!
+        'o que apareciera en playing y por lo tanto no empezar la que sigue
+        MP3.DoClose 3
+        
+        VerSiTocaVMute
+        Exit Sub
+    End If
+    
     tERR.Anotar "acgt"
     EstoyEnModoVideoMiniSelDisco = False
-    frmIndex.TapaEjecutando.Picture = LoadPicture(SYSfolder + "f61.dlw")
     'volver a PasarHoja a su estado original3
     PasarHoja = LeerConfig("PasarHoja", "1")
     tERR.Anotar "acgt", PasarHoja, vidFullScreen, HabilitarVUMetro, Is3pmExclusivo
+    
+    'antes al finalizar se desacomodaba todo a lo normal total el tema que segui se
+    'acomodaba, ahora que las canciones empiezan antes de que termine esto molesta
+    'todo se puso en un procedimiento ByeTema que se llama en otro momento
+    
+    'CMP cambio a multipista
+    'si el tipo uso ff a los 15 segundos se paso de largo el segundo 10 exacto
+    'y por lo tanto no se lanzo en ese momento
+    'que es cuando empieza una cancion
+    If EMPEZAR_SIGUIENTE(5) <> 4 Then
+        'sigue algo que no es video!
+        VerSiTocaVMute
+    End If
+Exit Sub
+    
+MiErr:
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acdz"
+    Resume Next
+    
+End Sub
+
+Private Sub ByeTema()
+    frmIndex.TapaEjecutando.Picture = LoadPicture(SYSfolder + "f61.dlw")
     VU1.Width = Screen.Width
     'ver si es fullscreen o no!!!!!!!
     '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -2475,6 +2632,7 @@ Private Sub MP3_EndPlay()
         frDISCOS.Left = 0
     End If
     
+    'reacomodar la finalizacion de un video
     picFondoDisco.Height = frDISCOS.Height
     picFondoDisco.Width = frDISCOS.Width
     frModoVideo.Visible = False
@@ -2485,26 +2643,134 @@ Private Sub MP3_EndPlay()
     'termino una cancion
     tERR.Anotar "acgu", EsVideo
     
-    If EsVideo Then MP3.DoClose
+    'CMP y esto por que estaba!!!!!!!!!!!!!!!!!
+    'If EsVideo Then MP3.DoClose
+    
     'lo destapo al terminar de acomodar todos los controles en otro lado
     'picVideo.Visible = False
     lblREP.BackStyle = 0
     lblREP.ForeColor = vbWhite
     lblREP = ""
-    EMPEZAR_SIGUIENTE
-Exit Sub
-    
-MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acdz"
-    Resume Next
-    
 End Sub
 
-Private Sub MP3_Played(SecondsPlayed As Long)
+Private Sub MP3_Played(SecondsPlayed As Long, iAlias As Long)
+    
+    List1.List(iAlias) = "== PLAY" + CStr(iAlias) + ":" + CStr(SecondsPlayed) + _
+            ":" + CStr(TotalTema(iAlias)) + ":" + CStr(MP3.Volumen(iAlias))
+    
+    List1.List(4) = "IAA:" + CStr(IAA)
+    List1.List(5) = "IAANext:" + CStr(IAANext)
+    
+    If iAlias = 3 Then Exit Sub
+    
     On Error GoTo MiErr
-    
     tERR.Anotar "acgv", SecondsPlayed
+
+    'los primeros X segundos van en FadeIn sea el momento que sea
+    If SecondsPlayed <= SegFade Then
+        List1.List(6) = "ININ:" + CStr(iAlias)
+        EnableFF = False
+        EnableNextMusic = False
+        
+        List1.List(iAlias) = "++ PLAY" + CStr(iAlias) + ":" + CStr(SecondsPlayed) + _
+            ":" + CStr(TotalTema(iAlias)) + ":" + CStr(MP3.Volumen(iAlias))
     
+        If CORTAR_TEMA Then
+            MP3.Volumen(iAlias) = VolumenIni2 * (SecondsPlayed * (1 / SegFade))
+        Else
+            MP3.Volumen(iAlias) = VolumenIni * (SecondsPlayed * (1 / SegFade))
+        End If
+        
+        GoTo SIGUE55
+    End If
+    'solo una vez pasa a ser activo el que era IAANext
+    If SecondsPlayed = SegFade + 1 Then
+        Dim TMP As Long: TMP = IAANext: IAANext = IAA: IAA = TMP
+        EnableFF = False
+        EnableNextMusic = False
+        GoTo SIGUE55
+    End If
+    
+    'este es el modo automático de finalizacion de las canciones
+    'al llegar a los ultimos X segundos se va vajando hasta terminar
+    Dim F As Long
+    F = (TotalTema(iAlias) - SecondsPlayed)
+    If F <= SegFade Then
+        List1.List(iAlias) = "-- PLAY" + CStr(iAlias) + ":" + CStr(SecondsPlayed) + _
+            ":" + CStr(TotalTema(iAlias)) + ":" + CStr(MP3.Volumen(iAlias))
+    
+        EnableFF = False
+        EnableNextMusic = False
+        'ir abriendolo!!!
+        If F = SegFade Then
+            List1.List(6) = "OPNEXT:" + CStr(iAlias)
+            'aqui lo que estaba en el end play para desacomodarlo!
+            ByeTema
+            Dim lRet As Long
+            lRet = EMPEZAR_SIGUIENTE(1)
+            LastRetEmpezarSig = lRet
+            
+            If lRet = 4 Then
+                'sigue un video!!!!
+                If Salida2 Then 'si sale en la tv corto la publicidad si hubiera
+                    If PUBs.HabilitarPublicidadesVMute Then
+                        MP3.DoStop 3
+                    End If
+                End If
+            End If
+            
+            GoTo SIGUE55
+        End If
+        'ver si el tema se acorto para pasar al siguiente con la "B"!!!!!!
+        If F <= 0 Then
+            List1.List(8) = "STOP:" + CStr(iAlias)
+            
+            MP3.DoStop iAlias
+            MP3.DoClose iAlias
+            
+            If LastRetEmpezarSig <> 4 Then 'no sigue un video
+            
+                'si es video y lo que sigue no es video esconder el picvideo
+                'que puede molestar a la publicidad de la salida de tv
+            
+                'ademas que no haya publicidad en video mudoooo!!!
+                If PUBs.HabilitarPublicidadesVMute = False Then
+                    frmVIDEO.picVideo.Visible = False
+                Else
+                    'si no sigue un video ver si esta reproduciendo
+                    'y ademas es visible el "3"
+                    VerSiTocaVMute
+                    'parece que como el picVideo del frmvideo
+                    'tiene las imagenes de otro video no agarra el nuevo!
+                    'VerSiTocaVMute
+                End If
+            
+                
+            End If
+            GoTo SIGUE55
+        End If
+        
+        If CORTAR_TEMA Then
+            MP3.Volumen(iAlias) = VolumenIni2 * (F * (1 / SegFade))
+        Else
+            List1.List(7) = "CUTIN:" + CStr(iAlias)
+            MP3.Volumen(iAlias) = VolumenIni * (F * (1 / SegFade))
+'            If EsVideo Then
+'                If Salida2 Then
+'                    frmVIDEO.picVideo.Width = frmVIDEO.picVideo.Width * (F / SegFade)
+'                Else
+'                    picVideo(iAlias).Width = picVideo(iAlias).Width * (F / SegFade)
+'                End If
+'            End If
+        End If
+        GoTo SIGUE55
+    End If
+      
+    'si llego aqui ya pase segfade+1 y no estoy en los ultimos, son valores normales de todo
+    EnableFF = True
+    EnableNextMusic = True
+    
+SIGUE55:
     lblREP.Caption = "Reproduciendo:"
     If SecondsPlayed / 2 = SecondsPlayed \ 2 Then
         lblREP.BackStyle = 1
@@ -2516,44 +2782,44 @@ Private Sub MP3_Played(SecondsPlayed As Long)
     End If
     
     'esto pasa cada un segundo (si o si una vez por segundo)
-    Dim sRest As Long
-    sRest = MP3.FaltaInSec
-    PorcEjecutado = MP3.PercentPlay
+    PorcEjecutado = CLng(SecondsPlayed / TotalTema(iAlias)) * 100
     
     tERR.Anotar "acgw", SecondsPlayed, PorcEjecutado, PorcentajeTEMA
     
-    If PorcEjecutado > PorcentajeTEMA And CORTAR_TEMA Then
-        VolBajando = VolBajando - 5 'baja 1 por segundo
-        lblTemaSonando = "Cerrando " + QuitarNumeroDeTema(FSO.GetBaseName(TEMA_REPRODUCIENDO))
-        lblTemaSonando2 = "Cerrando " + QuitarNumeroDeTema(FSO.GetBaseName(TEMA_REPRODUCIENDO))
-        If VolBajando > 0 Then
-            MP3.Volumen = VolBajando
-        Else
-            tERR.Anotar "acgw2"
-            MP3.DoStop
-            'EL DOSTOP DESENCADENA UN END PLAY QUE REALIZA UN EMPEZAR SIGUINETE
-            'EMPEZAR_SIGUIENTE
+    If CORTAR_TEMA Then
+        If PorcEjecutado > PorcentajeTEMA Then
+            VolBajando = VolBajando - 2 'baja 1 por segundo
+            lblTemaSonando = "Cerrando " + QuitarNumeroDeTema(FSO.GetBaseName(TEMA_REPRODUCIENDO))
+            lblTemaSonando2 = "Cerrando " + QuitarNumeroDeTema(FSO.GetBaseName(TEMA_REPRODUCIENDO))
+            If VolBajando > 0 Then
+                MP3.Volumen(iAlias) = VolBajando
+            Else
+                tERR.Anotar "acgw2"
+                MP3.DoStop iAlias
+                'EL DOSTOP DESENCADENA UN END PLAY QUE REALIZA UN EMPEZAR SIGUINETE
+                'EMPEZAR_SIGUIENTE
+            End If
         End If
     End If
     
     tERR.Anotar "acgw3"
     
-    lblTiempoRestante = "Falta: " + MP3.Falta
+    lblTiempoRestante = "Falta: " + MP3.Falta(iAlias)
     Prog.DibujarCirculo CDbl(SecondsPlayed)
     wi = Ancho - Variacion * (SecondsPlayed - 2)
     '=====================================
-    If K.LICENCIA = aSinCargar And SecondsPlayed > 126 And SecondsPlayed < TotalTema - 5 Then
+    If K.LICENCIA = aSinCargar And SecondsPlayed > 126 And SecondsPlayed < TotalTema(iAlias) - 5 Then
         tERR.Anotar "acgw4"
         lblTemaSonando = "Tema Truncado. Version DEMO"
         lblTemaSonando2 = "Tema Truncado. Version DEMO"
-        MP3.DoStop
+        MP3.DoStop 0
     End If
     'cotar tambin en el gratuito
-    If K.LICENCIA = CGratuita And SecondsPlayed > 126 And SecondsPlayed < TotalTema - 5 Then
+    If K.LICENCIA = CGratuita And SecondsPlayed > 126 And SecondsPlayed < TotalTema(iAlias) - 5 Then
         tERR.Anotar "acgw5"
         lblTemaSonando = "Tema Truncado. Version DEMO"
         lblTemaSonando2 = "Tema Truncado. Version DEMO"
-        MP3.DoStop
+        MP3.DoStop 0
     End If
     '=====================================
     Exit Sub
@@ -2597,8 +2863,8 @@ End Sub
 Private Sub tbrPassImg1_ChangeImg()
     On Error GoTo MiErr
     'si se esta pasando un video no dar bola!!!
-    tERR.Anotar "acgz", MP3.IsPlaying, EsVideo
-    If MP3.IsPlaying And EsVideo Then
+    tERR.Anotar "acgz", MP3.isPlayingAny, EsVideo
+    If MP3.isPlayingAny And EsVideo Then
         frmVIDEO.picBigImg.Visible = False
     Else
         frmVIDEO.picBigImg.Visible = False
@@ -2627,11 +2893,15 @@ MiErr:
 
 End Sub
 
+Private Sub TF_PerdioFoco(hwndFoco As Long)
+    TF.PonerFoco
+End Sub
+
 Private Sub Timer1_Timer()
     On Error GoTo MiErr
     
     'controla el tiempo sin uso (sin ejecucion de temas)
-    If MP3.IsPlaying Then Exit Sub
+    If MP3.IsPlaying(0) Or MP3.IsPlaying(1) Then Exit Sub
     'controla el tiempo sin uso (sin ejecucion de temas)
     SecSinUso = SecSinUso + (Timer1.Interval / 1000)
     lblNoUSO = Trim(Str(SecSinUso))
@@ -2685,7 +2955,10 @@ AZAR:
                     tERR.Anotar "achf.AZAR"
                     'ejecutar algun tema de cualquier disco
                     Dim MTX10() As String: zz = 0
-                    ruta = AP + "discos\"
+                    'y si no es un origen de discos!!!!
+                    'XXXXX GRAVE XXXX se clava la c buscando!!!!
+                    ruta = AP + "discos\" 'que vea los orígenes reales!!!!
+                    'XXXXX GRAVE XXXX se clava la c buscando!!!!
                     Dim NombreDir As String
                     NombreDir = Dir$(ruta & "*.*", vbDirectory)
                     Do While Len(NombreDir)

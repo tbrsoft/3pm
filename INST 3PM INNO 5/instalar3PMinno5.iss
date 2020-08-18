@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "3PM"
-#define MyAppVerName "3PM Kabalin 6.7"
+#define MyAppVerName "3PM Kabalin 6.8.x"
 #define MyAppPublisher "tbrSoft Internacional"
 #define MyAppURL "http://www.tbrsoft.com"
 #define MyAppExeName "3PM.EXE"
@@ -56,17 +56,18 @@ Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\asycfilt.dll"; DestDir: "{
 Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\olepro32.dll"; DestDir: "{sys}"; Flags: restartreplace uninsneveruninstall regserver
 Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\oleaut32.dll"; DestDir: "{sys}"; Flags: restartreplace uninsneveruninstall regserver
 Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\msvbvm60.dll"; DestDir: "{sys}"; Flags: restartreplace uninsneveruninstall regserver
-Source: "D:\dev\3PM\pub\LEER.txt"; DestDir: "{app}\PUB"; Flags: ignoreversion
-Source: "D:\dev\3PM\Nev.man"; DestDir: "{sys}"; Flags: restartreplace uninsneveruninstall sharedfile
-Source: "D:\dev\3PM\manual.doc"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\dev\3PM\repair 3PM\repair.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\dev\3PM\ini.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\dev\3PM kundera 68200\pub\LEER.txt"; DestDir: "{app}\PUB"; Flags: ignoreversion
+Source: "D:\dev\3PM kundera 68200\pubMute\LEER.txt"; DestDir: "{app}\PUBMUTE"; Flags: ignoreversion
+Source: "D:\dev\3PM kundera 68200\Nev.man"; DestDir: "{sys}"; Flags: restartreplace uninsneveruninstall sharedfile
+Source: "D:\dev\3PM kundera 68200\manual.doc"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\dev\3PM kundera 68200\repair 3PM\repair.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\dev\3PM kundera 68200\ini.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\wbemdisp.tlb"; DestDir: "{sys}\Wbem"; Flags: restartreplace uninsneveruninstall sharedfile
 Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\tbrerr.dll"; DestDir: "{sys}"; Flags: restartreplace sharedfile regserver
 Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\other\tbrreg.dll"; DestDir: "{sys}"; Flags: restartreplace sharedfile regserver
 Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\scrrnes.dll";  DestDir: "{sys}"; Flags: restartreplace uninsneveruninstall sharedfile
 Source: "C:\Archivos de programa\Inno Setup 5\vbFiles\scrrun.dll";   DestDir: "{sys}"; Flags: restartreplace uninsneveruninstall sharedfile regserver
-Source: "D:\dev\3PM\3PM.EXE"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\dev\3PM kundera 68200\3PM.EXE"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\{#MyAppName}\3PM"; Filename: "{app}\{#MyAppExeName}"

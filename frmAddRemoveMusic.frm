@@ -673,7 +673,7 @@ Private Sub cmdKillArch_Click()
     On Error GoTo MiErr
     
     tERR.Anotar "acjy"
-    If lstTEMAS.SelCount = 0 Then
+    If lstTemas.SelCount = 0 Then
         Select Case IDIOMA
             Case "Español"
                 MsgBox "No hay archivos seleccionados"
@@ -695,10 +695,10 @@ Private Sub cmdKillArch_Click()
     If MsgBox(MSG, vbQuestion + vbYesNo) = vbYes Then
         On Error GoTo NOBORRA
         Dim TotSel As Long, FileSel As String
-        TotSel = lstTEMAS.SelCount
-        For AA = 0 To lstTEMAS.ListCount - 1
+        TotSel = lstTemas.SelCount
+        For AA = 0 To lstTemas.ListCount - 1
             
-            If lstTEMAS.Selected(AA) Then
+            If lstTemas.Selected(AA) Then
                 'en la matriz empieza en 1 y lst empieza en 0
                 FileSel = txtInLista(MTXfiles(AA + 1), 0, "#")
                 FSO.DeleteFile FileSel, True
@@ -1214,7 +1214,7 @@ Private Sub Command7_Click()
                 MasDe300Kb = MasDe300Kb + FSO.GetBaseName(ThisFolder) + vbCrLf
                 TapasMuyGrandes = TapasMuyGrandes + 1
             Else
-                If TamTapa > 20 Then
+                If TamTapa > 30 Then
                     MasDe20Kb = MasDe20Kb + FSO.GetBaseName(ThisFolder) + vbCrLf
                     TapasGrandes = TapasGrandes + 1
                 End If
@@ -1337,11 +1337,11 @@ End Sub
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     Select Case KeyCode
         Case TeclaCerrarSistema
-            OnOffCAPS vbKeyCapital, False
+            SetKeyState vbKeyCapital, False
             If ApagarAlCierre Then APAGAR_PC
             'no puedo usar do stop porque lanza el evento ENDPLAY y esto produce un EMPEZARSIGUIENTE
             'que se come un tema de la lista
-            frmIndex.MP3.DoClose
+            frmIndex.MP3.DoClose 99
             End
     End Select
 End Sub
@@ -1350,13 +1350,26 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
     On Error GoTo MiErr
     tERR.Anotar "ackw", KeyCode, Shift
     If KeyCode = TeclaNewFicha Then
+        LTE 1
         'si ya hay 9 cargados se traga las fichas
         If CREDITOS <= MaximoFichas Then
-            OnOffCAPS vbKeyScrollLock, True
+            SetKeyState vbKeyScrollLock, True
             VarCreditos CSng(TemasPorCredito)
         Else
             'apagar el fichero electronico
-            OnOffCAPS vbKeyScrollLock, False
+            SetKeyState vbKeyScrollLock, False
+        End If
+    End If
+    
+    If KeyCode = TeclaNewFicha2 Then
+        LTE 2
+        'si ya hay 9 cargados se traga las fichas
+        If CREDITOS <= MaximoFichas Then
+            SetKeyState vbKeyScrollLock, True
+            VarCreditos CSng(CreditosBilletes)
+        Else
+            'apagar el fichero electronico
+            SetKeyState vbKeyScrollLock, False
         End If
     End If
     
@@ -1409,45 +1422,45 @@ End Sub
 Private Sub lstCarpetas_Click()
     On Error GoTo MiErr
     
-    lstTEMAS.Clear
+    lstTemas.Clear
     'mostrar los temas de esta carpeta solo si hay una sola carpeta elegida
     tERR.Anotar "acla", lstCarpetas.SelCount
     If lstCarpetas.SelCount > 1 Then
         Select Case IDIOMA
             Case "Español"
-                lstTEMAS.AddItem "No hay vista disponible"
-                lstTEMAS.AddItem "Multiples carpetas seleccionadas"
+                lstTemas.AddItem "No hay vista disponible"
+                lstTemas.AddItem "Multiples carpetas seleccionadas"
             Case "English"
             Case "Francois"
             Case "Italiano"
         End Select
         
-        lstTEMAS.Enabled = False
+        lstTemas.Enabled = False
         
     Else
-        lstTEMAS.Enabled = True
+        lstTemas.Enabled = True
         ReDim Preserve MTXfiles(0)
         MTXfiles = ObtenerArchMM(lstCarpetas)
         tERR.Anotar "aclb", UBound(MTXfiles)
         If UBound(MTXfiles) = 0 Then
             Select Case IDIOMA
                 Case "Español"
-                    lstTEMAS.AddItem "No hay temas multimedia en esta carpeta"
+                    lstTemas.AddItem "No hay temas multimedia en esta carpeta"
                 Case "English"
                 Case "Francois"
                 Case "Italiano"
             End Select
             
-            lstTEMAS.Enabled = False
+            lstTemas.Enabled = False
         Else
             For A = 1 To UBound(MTXfiles)
                 tERR.Anotar "aclc", A, UBound(MTXfiles)
-                lstTEMAS.AddItem txtInLista(MTXfiles(A), 1, "#")
-                lstTEMAS.Enabled = True
+                lstTemas.AddItem txtInLista(MTXfiles(A), 1, "#")
+                lstTemas.Enabled = True
             Next
         End If
     End If
-    cmdKillArch.Enabled = lstTEMAS.Enabled
+    cmdKillArch.Enabled = lstTemas.Enabled
     'mostrar la tapa si la tiene
     Dim TapaArch As String
     TapaArch = lstCarpetas + "\tapa.jpg"

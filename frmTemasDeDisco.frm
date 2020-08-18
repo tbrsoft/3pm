@@ -468,7 +468,6 @@ Private Sub Form_Activate()
         End If
     End If
     
-    
 End Sub
 
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
@@ -496,6 +495,30 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     'lblCOMOSALIR = CStr(KeyCode) + "-" + CStr(RealKeyCode)
     
     Select Case RealKeyCode
+        Case TeclaNewFicha
+            If FindParam3PM("to") = "kd" Then
+                LTE 1
+                If CREDITOS <= MaximoFichas Then
+                    'apagar el fichero electronico
+                    SetKeyState vbKeyScrollLock, True
+                    VarCreditos CSng(TemasPorCredito)
+                Else
+                    'apagar el fichero electronico
+                    SetKeyState vbKeyScrollLock, False
+                End If
+            End If
+        Case TeclaNewFicha2
+            If FindParam3PM("to2") = "kd" Then
+                LTE 2
+                If CREDITOS <= MaximoFichas Then
+                    'apagar el fichero electronico
+                    SetKeyState vbKeyScrollLock, True
+                    VarCreditos CSng(CreditosBilletes)
+                Else
+                    'apagar el fichero electronico
+                    SetKeyState vbKeyScrollLock, False
+                End If
+            End If
         Case vbKeyF4
             If Shift = 4 Then
                 Unload Me
@@ -503,11 +526,11 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         Case TeclaShowContador
             frmOnlyContador.Show 1
         Case TeclaCerrarSistema
-            OnOffCAPS vbKeyCapital, False
+            SetKeyState vbKeyCapital, False
             MostrarCursor True
             'no puedo usar do stop porque lanza el evento ENDPLAY y esto produce un EMPEZARSIGUIENTE
             'que se come un tema de la lista
-            frmIndex.MP3.DoClose
+            frmIndex.MP3.DoClose 99
             If ApagarAlCierre Then APAGAR_PC
             End
         Case TeclaESC
@@ -616,7 +639,7 @@ Errores:
 End Sub
 
 Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
-
+    
     On Local Error GoTo FallaKD
     
     'y si no es una ficha la que se esta cargando
@@ -650,23 +673,29 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
     
     Select Case RealKeyCode
         Case TeclaNewFicha
-            If CREDITOS <= MaximoFichas Then
-                'apagar el fichero electronico
-                OnOffCAPS vbKeyScrollLock, True
-                VarCreditos CSng(TemasPorCredito)
-            Else
-                'apagar el fichero electronico
-                OnOffCAPS vbKeyScrollLock, False
+            If FindParam3PM("to") = "999999" Then
+                LTE 1
+                If CREDITOS <= MaximoFichas Then
+                    'apagar el fichero electronico
+                    SetKeyState vbKeyScrollLock, True
+                    VarCreditos CSng(TemasPorCredito)
+                Else
+                    'apagar el fichero electronico
+                    SetKeyState vbKeyScrollLock, False
+                End If
             End If
-        'lo pongo aca para que no se tilden apretando
-        ' y se marque mil canciones
-        
-        'es jodido ya que se aprieta OK para entrar aqui y se suelta cuando ya se abrio!!!
-        'entocnes se elige el primer tema.....que cagada
-        
-        'para solucionarlo pongo una variable de inicialización
-        'en el key down...o se a que hasta que no apriete una tecla aqui
-        'no toma la soltada de tecla (keyup)
+        Case TeclaNewFicha2
+            If FindParam3PM("to2") = "999999" Then
+                LTE 2
+                If CREDITOS <= MaximoFichas Then
+                    'apagar el fichero electronico
+                    SetKeyState vbKeyScrollLock, True
+                    VarCreditos CSng(CreditosBilletes)
+                Else
+                    'apagar el fichero electronico
+                    SetKeyState vbKeyScrollLock, False
+                End If
+            End If
         
         Case TeclaOK
             If YaInicio <= 1 Then Exit Sub
@@ -699,7 +728,7 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             '--------------------------------------------------------------
 
                 'siempre que se ejecute un credito estaremos por debajo de maximo
-                OnOffCAPS vbKeyScrollLock, True
+                SetKeyState vbKeyScrollLock, True
                                 
                 'restar lo que corresponde!!!
                 If PideVideo Then
@@ -711,7 +740,8 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
                                 
                 'si esta ejecutando pasa a la lista de reproducción
                 'si esta ejecutando una prueba SACARLA!!!
-                If frmIndex.MP3.IsPlaying And CORTAR_TEMA = False Then
+                'el 99 pregunta si cualquier cosa se esta ejecutando!!
+                If (frmIndex.MP3.IsPlaying(0) Or frmIndex.MP3.IsPlaying(1)) And CORTAR_TEMA = False Then
                     'pasar a la lista de reproducción
                     Dim NewIndLista As Long
                     NewIndLista = UBound(MATRIZ_LISTA)
@@ -767,6 +797,9 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
                     CORTAR_TEMA = False 'este tema va entero ya que lo eligio el usuario
                     Me.ZOrder
                     EjecutarTema temaElegido, True
+                    'si es un video y sale en el monitor de la PC _
+                        salir para verlo!!!
+                    If Salida2 = False Then Unload Me
                 End If
                 
                 VerSiTocaPUB
@@ -843,7 +876,7 @@ Private Sub Form_Load()
         TapaCD.Picture = LoadPicture(SYSfolder + "f61.dlw")
     End If
     TapaCD.Refresh
-    lblDISCO = FSO.GetBaseName(UbicDiscoActual)
+    lblDisco = FSO.GetBaseName(UbicDiscoActual)
     Dim ArchDaTa As String
     ArchDaTa = UbicDiscoActual + "data.txt"
     If FSO.FileExists(ArchDaTa) Then

@@ -53,6 +53,7 @@ Public Sub MostrarCursor(Mostrar As Boolean)
     'si estoy en el IDE NOLO HAGO!
     'necesito el mouse para depurar!
     If LCase(AP) = "d:\dev\3pm\" Then Exit Sub
+    If LCase(AP) = "d:\dev\3pm kundera 68200\" Then Exit Sub
 
     tERR.Anotar "001-0002"
     Dim A As Long
@@ -164,13 +165,14 @@ Function ObtenerDir(ruta As String) As String()
     Dim NewName As String 'nuevo nombre si hay que corregir puntos metidos en el nombre de la carpeta
     Dim MaxPBAR As Long
     tERR.Anotar "001-0030"
-    MaxPBAR = frmINI.PBar.Width
+    MaxPBAR = frmINI.pBar.Width
     tERR.Anotar "001-0031"
-    frmINI.PBar.Width = 0
+    frmINI.pBar.Width = 0
     tERR.Anotar "001-0032"
-    frmINI.lblProces = "Iniciando busqueda"
+    frmINI.lblPROCES.Clear
+    frmINI.lblPROCES.AddItem "Iniciando busqueda", 0
     tERR.Anotar "001-0033"
-    frmINI.lblProces.Refresh
+    frmINI.lblPROCES.Refresh
     tERR.Anotar "001-0034"
     Dim ParaMatriz As String 'para generar cada elemento de la matriz
     Dim ContadorCarp As Long, CantMP3 As Long
@@ -218,12 +220,12 @@ Function ObtenerDir(ruta As String) As String()
                 ReDim Preserve Resultado(ContadorArch + ALLOC_CHUNK) As String
             End If
             tERR.Anotar "001-0050"
-            frmINI.PBar.Width = frmINI.PBar.Width + 100
+            frmINI.pBar.Width = frmINI.pBar.Width + 100
             'si me hacerco al max de pbar lo hago inalcanzable
             tERR.Anotar "001-0051"
-            frmINI.lblProces = NombreDir
+            frmINI.lblPROCES.AddItem NombreDir, 0
             tERR.Anotar "001-0052"
-            frmINI.lblProces.Refresh
+            frmINI.lblPROCES.Refresh
             tERR.Anotar "001-0053"
             ContadorCarp = ContadorCarp + 1
             'corregir el nombre del tema
@@ -264,7 +266,7 @@ NextCarp:
     Loop
 solo12: 'solo los 12 primeros
     tERR.Anotar "001-0067"
-    frmINI.PBar.Width = MaxPBAR
+    frmINI.pBar.Width = MaxPBAR
     tERR.Anotar "001-0068"
     
     ' proporciona el array resultante
@@ -314,7 +316,7 @@ solo12: 'solo los 12 primeros
     
 EntreAlPedo:
     tERR.Anotar "001-0087"
-    frmINI.PBar.Width = 0
+    frmINI.pBar.Width = 0
     tERR.Anotar "001-0089[" + CStr(LBound(Resultado)) + ":" + CStr(UBound(Resultado)) + "]"
     'si es 0:0 (me pasa en varios)!
     'en ese caso sale del for directamente!
@@ -356,20 +358,21 @@ Public Sub MostrarDiscosMTX()
 EntreAlPedo:
     Dim MaxPBAR As Long
     tERR.Anotar "001-0030"
-    MaxPBAR = frmINI.PBar.Width
+    MaxPBAR = frmINI.pBar.Width
     
     Dim AY As Long
     Dim nTAPAcd As Integer
     nTAPAcd = 0
     For AY = 0 To UBound(MATRIZ_DISCOS)
         
+        tERR.Anotar "001-0095"
+        UbicDiscoActual = txtInLista(MATRIZ_DISCOS(AY), 0, ",")
+        
+        Dim CarpFull As String, NameCarp As String
+        CarpFull = txtInLista(MATRIZ_DISCOS(AY), 0, ",")
+        NameCarp = txtInLista(MATRIZ_DISCOS(AY), 1, ",")
+        
         If CargarIMGinicio Then
-            tERR.Anotar "001-0095"
-            UbicDiscoActual = txtInLista(MATRIZ_DISCOS(AY), 0, ",")
-            
-            Dim CarpFull As String, NameCarp As String
-            CarpFull = txtInLista(MATRIZ_DISCOS(AY), 0, ",")
-            NameCarp = txtInLista(MATRIZ_DISCOS(AY), 1, ",")
             
             'caragar las imágenes en diferentes IMGs para que no se cargen despues
             Dim ArchTapa As String
@@ -382,9 +385,9 @@ EntreAlPedo:
             tERR.Anotar "001-0106"
             frmINI.lblINI.Refresh
             tERR.Anotar "001-0107"
-            frmINI.PBar.Width = frmINI.PBar.Width + 100
+            frmINI.pBar.Width = frmINI.pBar.Width + 100
             tERR.Anotar "001-0108"
-            frmINI.PBar.Refresh
+            frmINI.pBar.Refresh
             tERR.Anotar "001-0109"
             'si paso una pàgina....
             If nTAPAcd > ((TapasMostradasH * TapasMostradasV) - 1) Then
@@ -430,11 +433,12 @@ TAPADEF:
             frmIndex.L(nTAPAcd).Visible = True
         End If
         tERR.Anotar "001-0101"
+        '????¿¿¿¿
         frmIndex.L(nTAPAcd) = NameCarp
         tERR.Anotar "001-0102"
-        frmINI.lblProces = NameCarp
+        frmINI.lblPROCES.AddItem NameCarp, 0
         tERR.Anotar "001-0103"
-        frmINI.lblProces.Refresh
+        frmINI.lblPROCES.Refresh
         nTAPAcd = nTAPAcd + 1
     Next AY
     
@@ -444,7 +448,7 @@ solo12:
     tERR.Anotar "001-0119"
     frmINI.lblINI.Refresh
     tERR.Anotar "001-0120"
-    frmINI.PBar.Width = MaxPBAR
+    frmINI.pBar.Width = MaxPBAR
     
 End Sub
 
@@ -650,7 +654,7 @@ End Function
 Sub ExportarArchDelimitado(valores() As Variant, NombreArchivo As String, _
     Optional delimitador As String = vbTab)
         tERR.Anotar "001-0171"
-        Dim i As Long, j As Long, ArchTexto As String
+        Dim i As Long, J As Long, ArchTexto As String
         ' reconstruye las líneas individuales de texto del archivo
         tERR.Anotar "001-0172"
         ReDim lineas(0 To UBound(valores)) As String
@@ -701,7 +705,7 @@ Private Sub DuplicarDirArbolSub(origen As Folder, destino As Folder)
     For Each CarpOrigen In origen.SubFolders
         ' copiar esta subcarpeta en la carpeta destino
         tERR.Anotar "001-0184"
-        Set CarpDest = destino.SubFolders.Add(CarpOrigen.Name)
+            Set CarpDest = destino.SubFolders.Add(CarpOrigen.Name)
         ' repetir el proceso recursivamente para todas las
         ' subcarpetas de la carpeta considerada
         tERR.Anotar "001-0185"

@@ -1,4 +1,44 @@
 Attribute VB_Name = "Globales"
+Public TvOn As Long 'al iniciar y tratar de usar
+'la parte de tv corriendo el frmvideo podemos saber si tiene TV o no
+'cero es apagado y uno con TV OK.
+'*************************************************************************
+'la enrada de señales muy juntas de monedero puede ser un problema.
+'es por esto que ponemos un acumuludor que junta paquetes de señales
+'muy juntos. Por ejemplo Carlos W Cerna usa billetes de 1 dolar que deben mandar
+'5 señales de las que llegan 3 o 4. Entonces cuando este acumulador de señales
+'muy juntas de 3 o 4 yo debo sumar 5
+Public TimeLastCoin(2) As Single 'valor de "timer" a la llegada de cada credito
+Public CoinMuyJuntosAcum(2) As Long ' acumulacion de coins juntos. Se pone es cero
+'si la distancia en tiempo supera X
+Public TimeMaxSeparacion(2) As Single 'maxima separacion para que se consideren coins juntos
+'esto es una velocidad no humana si no posibklemente del monedero
+'puse tres para posibles teclas que necesiten este control
+
+'La 0 es la tecla Q. o sea la principal entrada de moneda
+'La 1 es la tecla S. o sea la entrada de moneda secundaria
+
+Public ValoresATransformar1() As Long
+Public ValoresATransformar2() As Long
+Public ValoresATransformar3() As Long
+'los indices son valores que pueden llegar valor es el deseado en realidad
+'si cuando llegeuen 3 o 4 quiero 5 debe ser
+'valoresatransf(3) = 5
+'valoresatransf(4) = 5
+'se le debe dar el indice con el mayor solicitado
+'los valores en cero se omiten
+'*************************************************************************
+
+Dim Cs As String 'comandos del acceso directo
+'cuando estoy haciendo fade me rompe los huevos que quieran adelantarse o salir de la cancion
+Public EnableFF As Boolean
+Public EnableNextMusic As Boolean
+
+Public TotalTema(4) As Long 'duracion total de cada uno de los 4 posibles
+Public SegFade As Long 'segundos de fade entre canciones
+
+Public IAA As Long 'Index Active Alias  numero del 0 al 3 con el que estoy usando
+Public IAANext As Long 'indice del que se viene
 '--------------
 Public PrecNowAudio As Single 'precio del momento de audio
 'este cambia segun si se cumple el monto para alguna oferta
@@ -7,6 +47,7 @@ Public PrecNowVideo As Single
 '--------------
 
 Public PrecioBase As Single
+Public PrecioBase2 As Single
 Public CreditosBilletes As Long 'credito por señal del billetero
 
 Public EsModo5PeroLabura46 As Boolean 'para el caso de modo video
@@ -28,12 +69,6 @@ Public NoVumVID As Boolean 'quitar el VUMetro de los videos
 Public OutTemasWhenSel As Boolean 'quitar el VUMetro de los videos
 
 Public PUBs As New clsPUB
-
-Public MostrarPUB As Boolean 'se reproducen Publicidades MP3 o video?
-Public PubliCada As Long 'cada cuantos temas la publicidad
-
-Public MostrarPUBIMG As Boolean 'se muestran Publicidades (imagen rotativa en index)?
-Public PubliIMGCada As Long 'cada cuantos segundos la publicidad
 
 Public MostrarTouch As Boolean
 Public ClaveAdmin As String
@@ -93,6 +128,7 @@ Public TeclaPagAt As Integer
 Public TeclaOK As Integer
 Public TeclaESC As Integer
 Public TeclaNewFicha As Integer
+Public TeclaNewFicha2 As Integer
 Public TeclaConfig As Integer 'tecla para entrar a la pantalla de configuracion
 Public TeclaCerrarSistema As Integer
 'agregadas en la ver 6.5
@@ -120,8 +156,13 @@ Public Protector As Long '0=inhabilitado 1=Original 2=Carpeta Fotos 3= Video Ful
 Public TECLAS_PRES As String 'las ultimas 20 teclas presionadas
 Public ExtActual As String 'extencion del ultimo archivo elegido
 'para el teclado
-Private Declare Function GetKeyboardState Lib "user32" (pbKeyState As Byte) As Long
+
+Private Declare Function GetKeyState Lib "user32" (ByVal nVirtKey As Long) As Integer
 Private Declare Function SetKeyboardState Lib "user32" (lppbKeyState As Byte) As Long
+Private Declare Sub keybd_event Lib "user32" (ByVal bVk As Byte, ByVal bScan As Byte, ByVal dwFlags As Long, ByVal dwExtraInfo As Long)
+Private Declare Function MapVirtualKey Lib "user32" Alias "MapVirtualKeyA" (ByVal wCode As Long, ByVal wMapType As Long) As Long
+Private Const KEYEVENTF_EXTENDEDKEY = &H1
+Private Const KEYEVENTF_KEYUP = &H2
 
 '''''ver como hacer una matriz o un diccionario con los mas escuchados
 '''''nombre temas,nombre carpeta,path completo con nombre de archivo
@@ -151,8 +192,11 @@ Public K 'control de llaves y licencias
 Public tERR As New tbrErrores.clsTbrERR
 
 Public Sub Main()
-    
+
     On Error GoTo ErrINI
+    
+    Cs = Command
+    
     AP = App.path
     If Right(AP, 1) <> "\" Then AP = AP + "\"
     
@@ -161,10 +205,29 @@ Public Sub Main()
     If Right(WINfolder, 1) <> "\" Then WINfolder = WINfolder + "\"
     If Right(SYSfolder, 1) <> "\" Then SYSfolder = SYSfolder + "\"
     
+    If LeerConfig("ActivarCorreccionSignal", "0") = "1" Then
+        CargarValoresTeclasEspeciales
+    Else
+        ReDim ValoresATransformar1(0) 'de uno en adelante signific QUE SE USA
+        'de controlar los coins
+        ReDim ValoresATransformar2(0)
+        
+        TimeMaxSeparacion(0) = 0
+    End If
+    
+    '********************************
+    'marco los indices a usar
+    IAA = 1
+    IAANext = 0
+    '********************************
+    SegFade = CLng(LeerConfig("SegFade", "10"))
+    EnableFF = False
+    EnableNextMusic = False
+    
     'antes que todo el registro de error
     tERR.FileLog = AP + "reg3PM.log"
     
-    tERR.LargoAcumula = 130
+    tERR.LargoAcumula = 200
     
     tERR.Anotar "1111"
     
@@ -283,20 +346,31 @@ MiErr:
 
 End Sub
 
-Public Sub OnOffCAPS(vKey As KeyCodeConstants, PRENDER As Boolean)
-    Dim keys(255) As Byte
-    ' leer el estado actual del teclado
-    GetKeyboardState keys(0)
-    ' invertir el bit 0 de la tecla virtual en la que estamos interesados
-    ' keys(vKey) = keys(vKey) Xor 1
-    If PRENDER Then
-        keys(vKey) = 1
-    Else
-        keys(vKey) = 0
-    End If
-    ' forzar el nuevo estado del teclado
-    SetKeyboardState keys(0)
+Public Sub SetKeyState(ByVal Key As Long, ByVal State As Boolean)
+  'ver si hace falta!
+  'si ya esta apretada ..... salgo
+  If (GetKeyState(Key) = 1) And State Then Exit Sub
+  If (GetKeyState(Key) = 0) And State = False Then Exit Sub
+  
+  keybd_event Key, MapVirtualKey(Key, 0), KEYEVENTF_EXTENDEDKEY Or 0, 0
+  keybd_event Key, MapVirtualKey(Key, 0), KEYEVENTF_EXTENDEDKEY Or KEYEVENTF_KEYUP, 0
+    
 End Sub
+
+'Public Sub OnOffCAPS(vKey As KeyCodeConstants, PRENDER As Boolean)
+'    Dim keys(255) As Byte
+'    ' leer el estado actual del teclado
+'    GetKeyboardState keys(0)
+'    ' invertir el bit 0 de la tecla virtual en la que estamos interesados
+'    ' keys(vKey) = keys(vKey) Xor 1
+'    If PRENDER Then
+'        keys(vKey) = 1
+'    Else
+'        keys(vKey) = 0
+'    End If
+'    ' forzar el nuevo estado del teclado
+'    SetKeyboardState keys(0)
+'End Sub
 
 Public Function Tecla(n As Integer) As String
     Select Case n
@@ -456,12 +530,12 @@ Public Sub VerClaves(CLAVE As String)
         Case ClaveClose
             CLAVE = "11111222223333344444" 'anular para que no se siga cargando
             'cerrar 3pm
-            OnOffCAPS vbKeyCapital, False
+            SetKeyState vbKeyCapital, False
             If ApagarAlCierre Then APAGAR_PC
             'no puedo usar do stop porque lanza el evento ENDPLAY y esto produce un EMPEZARSIGUIENTE
             'que se come un tema de la lista
             MostrarCursor True
-            frmIndex.MP3.DoClose
+            frmIndex.MP3.DoClose 0
             End
         Case ClaveConfig
             CLAVE = "11111222223333344444" 'anular para que no se siga cargando
@@ -499,6 +573,7 @@ Public Sub VarCreditos(VarCre As Single)
     ShowCredits
     'grabar credito para validar
     'creditosValidar ya se cargo en load de frmindex
+    
     If VarCre < 0 Then
         CreditosValidar = CreditosValidar - VarCre
         EscribirArch1Linea SYSfolder + "radilav.cfg", CStr(CreditosValidar)
@@ -934,14 +1009,14 @@ Public Sub SumarMatriz(MatrizAcumuladora() As String, MatrizAgregada() As String
 
     Dim YaEmpezo As Boolean
     YaEmpezo = False
-    Dim j As Long
+    Dim J As Long
     For A = 1 To UBound(MatrizAgregada)
         'si es la primera suma me quedaria el indice cero al pedo!!!
         If UBound(MatrizAcumuladora) = 0 And YaEmpezo = False Then
-            j = 0
+            J = 0
             YaEmpezo = True
         Else
-            j = UBound(MatrizAcumuladora) + 1
+            J = UBound(MatrizAcumuladora) + 1
         End If
         
         '=============================================================================
@@ -949,7 +1024,7 @@ Public Sub SumarMatriz(MatrizAcumuladora() As String, MatrizAgregada() As String
         Dim MD
         MD = 25
         tERR.Anotar "001-0060"
-        If K.LICENCIA = aSinCargar And j > MD Then
+        If K.LICENCIA = aSinCargar And J > MD Then
             'limite de discos
             tERR.Anotar "001-0061"
             MsgBox "Esta es una version demo y no se pueden cargar más " + _
@@ -961,7 +1036,7 @@ Public Sub SumarMatriz(MatrizAcumuladora() As String, MatrizAgregada() As String
             Exit For
         End If
         tERR.Anotar "001-0063"
-        If K.LICENCIA = CGratuita And j > MD Then
+        If K.LICENCIA = CGratuita And J > MD Then
             'limite de discos
             tERR.Anotar "001-0064"
             MsgBox "Esta es una version demo y no se pueden cargar más " + _
@@ -976,8 +1051,8 @@ Public Sub SumarMatriz(MatrizAcumuladora() As String, MatrizAgregada() As String
         '=============================================================================
     
         
-        ReDim Preserve MatrizAcumuladora(j)
-        MatrizAcumuladora(j) = MatrizAgregada(A)
+        ReDim Preserve MatrizAcumuladora(J)
+        MatrizAcumuladora(J) = MatrizAgregada(A)
     Next A
 
 End Sub
@@ -992,4 +1067,208 @@ Public Sub CaminoError(Ubic As String)
     End If
     LineaError = AcumCaminoError
 End Sub
+
+Public Function GetParam3PM(i As Long) As String
+    'devuelve los comandos aplicados luego del exe
+    Dim SP() As String
+    SP = Split(Cs)
+    
+    If i > UBound(s) Then
+        GetParam = ""
+    Else
+        GetParam = SP(i)
+    End If
+    
+End Function
+
+Public Function FindParam3PM(txtToFind As String) As String
+    'se fija si determinado parametro existe, devuelve el valor luego del igual
+    
+    Dim SP() As String, AA As Long
+    SP = Split(Cs)
+    
+    FindParam3PM = "999999" 'valor si el parametro no esta
+    
+    Dim SP2() As String
+    For AA = 0 To UBound(SP)
+        SP2 = Split(SP(AA), "=")
+        If SP2(0) = txtToFind Then
+            FindParam3PM = SP2(1)
+            Exit For
+        End If
+    Next AA
+    
+End Function
+
+Public Function LTE(i As Long) As Long  'llego tecla especial
+    'i es el indice de tecla especial
+    'La 0 es la tecla Q. o sea la principal entrada de moneda
+    'La 1 es la tecla S. o sea la entrada de moneda secundaria
+    
+    'devuelve el acumulado por si hiciera falta
+    'ver inserciones no humanas (tan rapidas como monedero)
+    'la primera inicia un reloj que se entera cuando pararon de llegar
+    
+    If Timer - TimeLastCoin(i) < (TimeMaxSeparacion(i) / 1000) Then
+        CoinMuyJuntosAcum(i) = CoinMuyJuntosAcum(i) + 1
+        EsperarFinTE i
+    Else
+        'el reloj debe detectarlo para saber a cuanto llego
+        'y desde alli ponerlo en cero
+        CoinMuyJuntosAcum(i) = 1
+    End If
+    
+    TimeLastCoin(i) = Timer
+    LTE = CoinMuyJuntosAcum(i)
+    'wLTE CoinMuyJuntosAcum(i)
+End Function
+
+'esperar X desde la ultima tecla especial para ver si termina o no
+Private Sub EsperarFinTE(i As Long)  'esperar tecla especial hasta terminar
+    
+    Dim LastC As Long
+    'me quedo esperando que pase el tiempo
+    Do
+        DoEvents: DoEvents
+        If (Timer - TimeLastCoin(i)) > (TimeMaxSeparacion(i) / 1000) Then Exit Do
+    Loop
+    
+    TerminoLTE i
+    CoinMuyJuntosAcum(i) = 0
+    TimeLastCoin(i) = 0
+End Sub
+
+Private Sub TerminoLTE(i As Long)
+    'cuando dejo de llegar la tecla especial
+    
+    'si el valor asigndo estaba en cero se ignora y no hay reemplazo
+    
+    Dim J As Long
+    If i = 1 Then
+        For J = 1 To UBound(ValoresATransformar1)
+            'si los valores que llegaron son los previstos como fallas ==>
+            If CoinMuyJuntosAcum(i) = J Then
+                'poner ValoresATransformar(J)-j mas señales a la tecla especial indicada
+                'mandar esa misma señal las veces que falta
+                If ValoresATransformar1(J) > 0 Then
+                    
+                    'poner los creditos que faltaron
+                    VarCreditos CSng(TemasPorCredito * (ValoresATransformar1(J) - J))
+                    
+                    'MsgBox "faltaron:" + CStr(ValoresATransformar1(J) - J) + _
+                        vbCrLf + "TLE:" + CStr(i) + vbCrLf + _
+                        "J=" + CStr(J) + vbCrLf + _
+                        CStr(ValoresATransformar1(J))
+                        
+                End If
+                Exit For
+            End If
+        Next J
+        CoinMuyJuntosAcum(i) = 0
+    End If
+    
+    If i = 2 Then
+        For J = 1 To UBound(ValoresATransformar2)
+            'si los valores que llegaron son los previstos como fallas ==>
+            If CoinMuyJuntosAcum(i) = J Then
+                'poner ValoresATransformar(J)-j mas señales a la tecla especial indicada
+                'mandar esa misma señal las veces que falta
+                If ValoresATransformar2(J) > 0 Then
+                    'poner los creditos que faltaron
+                    VarCreditos CSng(CreditosBilletes * (ValoresATransformar2(J) - J))
+                    
+                    'MsgBox "faltaron:" + CStr(ValoresATransformar2(J) - J) + _
+                        vbCrLf + "TLE:" + CStr(i) + vbCrLf + _
+                        "J=" + CStr(J) + vbCrLf + _
+                        CStr(ValoresATransformar2(J))
+                End If
+                Exit For
+            End If
+        Next J
+        CoinMuyJuntosAcum(i) = 0
+    End If
+End Sub
+
+Private Sub CargarValoresTeclasEspeciales()
+    'al inicio del sistema para empezar
+    Dim TMP As String, SP() As String
+    Dim TE8 As TextStream
+    
+    ReDim Preserve ValoresATransformar1(20)
+    ReDim Preserve ValoresATransformar2(20)
+    
+    If FSO.FileExists(SYSfolder + "teclaesp.fas") Then
+        Set TE8 = FSO.OpenTextFile(SYSfolder + "teclaesp.fas", ForReading, False)
+            TMP = TE8.ReadLine 'solo dice "to Q"
+            For J = 1 To 20
+                TMP = TE8.ReadLine
+                SP = Split(TMP, "=")
+                ValoresATransformar1(J) = CLng(SP(1))
+            Next J
+            TMP = TE8.ReadLine 'solo dice "to S"
+            For J = 1 To 20
+                TMP = TE8.ReadLine
+                SP = Split(TMP, "=")
+                ValoresATransformar2(J) = CLng(SP(1))
+            Next J
+            TimeMaxSeparacion(1) = CLng(TE8.ReadLine)
+            TimeMaxSeparacion(2) = CLng(TE8.ReadLine)
+        TE8.Close
+    End If
+    
+    CoinMuyJuntosAcum(1) = 0 'inicializa los valores
+    CoinMuyJuntosAcum(2) = 0
+    
+End Sub
+
+'Private Sub wLTE(n As Long)
+'    frmIndex.picLTE.Cls
+'    frmIndex.picLTE.Print CStr(n) + " " + CStr(Timer)
+'End Sub
+
+Public Sub VerSiTocaVMute()
+    'ver si ya esta reproduciendo algo !!!
+    If frmIndex.MP3.IsPlaying(3) Then Exit Sub
+    ' ver quiere videos continuos
+    If PUBs.HabilitarPublicidadesVMute = False Then Exit Sub
+    ' ... y si tiene videos
+    If PUBs.TotalPUBsMUTE = 0 Then Exit Sub
+    'ver si esta ocupada la salida de TV
+    If EsVideo And Salida2 Then Exit Sub
+    
+    '**************************************
+    'se debe ejecutar un video mudo!!!
+    '**************************************
+        'que no se pase
+    PUBs.UltimaReproducidaVMute = PUBs.UltimaReproducidaVMute + 1
+    If PUBs.UltimaReproducidaVMute > PUBs.TotalPUBsMUTE Then
+        PUBs.UltimaReproducidaVMute = 1
+    End If
+    
+    Dim FJ As String
+    FJ = PUBs.ArchsVMute(PUBs.UltimaReproducidaVMute)
+    
+    If FSO.FileExists(FJ) = False Then Exit Sub
+        
+    ' Tocar el fichero
+    On Local Error GoTo ErrEjecutarTema
+    'SOLO EL 3 PARA vMUTE
+    
+    frmIndex.MP3.FileName(3) = FJ
+    frmVIDEO.picBigImg.Visible = False
+    frmIndex.MP3.DoOpenVideo "child", frmVIDEO.picVideo.hwnd, 0, 0, _
+        (frmVIDEO.picVideo.Width / 15), (frmVIDEO.picVideo.Height / 15), 3
+            
+    frmIndex.picVideo(IAANext).Visible = False
+    frmVIDEO.picVideo.Visible = True
+    frmIndex.MP3.Volumen(3) = 0 ' ES MUDOOOO
+    frmIndex.MP3.DoPlay 3
+    
+    Exit Sub
+ErrEjecutarTema:
+    tERR.AppendLog tERR.ErrToTXT(Err), "vMute.BAS" + ".acpo6"
+    Resume Next
+            
+End Sub
+    
 

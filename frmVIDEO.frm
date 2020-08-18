@@ -14,16 +14,29 @@ Begin VB.Form frmVIDEO
    ScaleWidth      =   8850
    ShowInTaskbar   =   0   'False
    StartUpPosition =   3  'Windows Default
-   Begin VB.PictureBox picBigImg 
+   Begin VB.PictureBox picVideo 
       AutoSize        =   -1  'True
-      BackColor       =   &H00C00000&
+      BackColor       =   &H00C0E0FF&
       BorderStyle     =   0  'None
       Height          =   975
-      Left            =   90
+      Left            =   4320
+      ScaleHeight     =   975
+      ScaleWidth      =   1455
+      TabIndex        =   1
+      Top             =   540
+      Visible         =   0   'False
+      Width           =   1455
+   End
+   Begin VB.PictureBox picBigImg 
+      AutoSize        =   -1  'True
+      BackColor       =   &H00C0FFFF&
+      BorderStyle     =   0  'None
+      Height          =   975
+      Left            =   2160
       ScaleHeight     =   975
       ScaleWidth      =   1455
       TabIndex        =   0
-      Top             =   90
+      Top             =   570
       Visible         =   0   'False
       Width           =   1455
    End

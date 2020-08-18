@@ -14,6 +14,26 @@ Begin VB.Form frmINI
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    WindowState     =   2  'Maximized
+   Begin VB.ListBox lblPROCES 
+      Appearance      =   0  'Flat
+      BackColor       =   &H00000000&
+      BeginProperty Font 
+         Name            =   "Courier New"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H0000FF00&
+      Height          =   1590
+      IntegralHeight  =   0   'False
+      Left            =   1320
+      TabIndex        =   4
+      Top             =   7320
+      Width           =   9015
+   End
    Begin VB.Label VVV 
       BackStyle       =   0  'Transparent
       BeginProperty Font 
@@ -28,7 +48,7 @@ Begin VB.Form frmINI
       ForeColor       =   &H0000FFFF&
       Height          =   405
       Left            =   1560
-      TabIndex        =   4
+      TabIndex        =   3
       Top             =   30
       Width           =   4875
    End
@@ -46,19 +66,19 @@ Begin VB.Form frmINI
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00404040&
+      ForeColor       =   &H00FFFFFF&
       Height          =   285
-      Left            =   7020
-      TabIndex        =   3
-      Top             =   7080
+      Left            =   6930
+      TabIndex        =   2
+      Top             =   150
       Width           =   3270
    End
    Begin VB.Label pBar 
-      BackColor       =   &H000000FF&
+      BackColor       =   &H00C0FFFF&
       Height          =   90
-      Left            =   1320
-      TabIndex        =   2
-      Top             =   8160
+      Left            =   1350
+      TabIndex        =   1
+      Top             =   7140
       Width           =   435
    End
    Begin VB.Label lblINI 
@@ -67,7 +87,7 @@ Begin VB.Form frmINI
       Caption         =   "Contando Discos: 00"
       BeginProperty Font 
          Name            =   "Courier New"
-         Size            =   14.25
+         Size            =   8.25
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -75,39 +95,17 @@ Begin VB.Form frmINI
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00C0FFFF&
-      Height          =   285
+      Height          =   225
       Left            =   1350
-      TabIndex        =   1
-      Top             =   7440
-      Width           =   8970
-   End
-   Begin VB.Label lblProces 
-      Alignment       =   2  'Center
-      BackStyle       =   0  'Transparent
-      BorderStyle     =   1  'Fixed Single
-      Caption         =   "Buscando discos"
-      BeginProperty Font 
-         Name            =   "Courier New"
-         Size            =   12
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H0000FFFF&
-      Height          =   315
-      Left            =   1320
       TabIndex        =   0
-      Top             =   7710
-      UseMnemonic     =   0   'False
-      Width           =   9030
+      Top             =   6930
+      Width           =   8970
    End
    Begin VB.Image Image1 
       Height          =   6825
       Left            =   1320
       Stretch         =   -1  'True
-      Top             =   540
+      Top             =   90
       Width           =   9000
    End
 End
@@ -117,6 +115,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Private Sub Form_Load()
+    
     On Error GoTo MiErr
     tERR.Anotar "acmy"
     MostrarCursor False
@@ -124,8 +123,7 @@ Private Sub Form_Load()
     VVV = "3PM v " + Trim(Str(App.Major)) + "." + Trim(Str(App.Minor)) + "." + Trim(Str(App.Revision))
     '--------
     'cargar los previstos
-    
-    
+
     tERR.Anotar "acmz", K.LICENCIA
     If K.LICENCIA = HSuperLicencia Then
         If FSO.FileExists(WINfolder + "SL\imgbig.tbr") Then
@@ -238,20 +236,17 @@ Private Sub Form_Load()
     textoUsuario = LeerConfig("TextoUsuario", "Cargue los datos de su empresa aqui")
     tERR.Anotar "acnf"
     'publicidad
-    'inicializar publicidades si corresponde
-    MostrarPUB = LeerConfig("MostrarPub", "0")
-    PubliCada = LeerConfig("PubliCada", "5")
-    IDIOMA = LeerConfig("Idioma", "Español")
-    PUBs.HabilitarPublicidadesMp3Vid = MostrarPUB
-    PUBs.SonarPublicidadesCada = PubliCada
-    
-    MostrarPUBIMG = LeerConfig("MostrarPubIMG", "0")
-    PubliIMGCada = LeerConfig("PubliIMGCada", "10")
-    PUBs.HabilitarPublicidadesIMG = MostrarPUBIMG
-    PUBs.SonarPublicidadesIMGCada = PubliIMGCada
-    tERR.Anotar "acng"
     'la cargo si o si para que si despues entra a la conficuracion ya este cargada
     PUBs.CargarPUBs
+    'inicializar publicidades si corresponde
+    PUBs.HabilitarPublicidadesMp3Vid = LeerConfig("MostrarPub", "0")
+    PUBs.HabilitarPublicidadesVMute = LeerConfig("MostrarPUBMute", "0")
+    PUBs.SonarPublicidadesCada = LeerConfig("PubliCada", "5")
+    PUBs.HabilitarPublicidadesIMG = LeerConfig("MostrarPubIMG", "0")
+    PUBs.SonarPublicidadesIMGCada = LeerConfig("PubliIMGCada", "10")
+    
+    tERR.Anotar "acng"
+    IDIOMA = LeerConfig("Idioma", "Español")
     
     'cargar variables de claves
     'archivo de claves
@@ -335,9 +330,9 @@ Private Sub Form_Load()
     tERR.Anotar "000A-00904"
     lblINI.Refresh
     tERR.Anotar "000A-00905"
-    PBar.Width = 0
+    pBar.Width = 0
     tERR.Anotar "000A-00906"
-    PBar.Refresh
+    pBar.Refresh
     tERR.Anotar "000A-00907"
     Dim TT As String
     Dim mtxTOP10() As String, z As Integer
@@ -363,8 +358,8 @@ Private Sub Form_Load()
         If TT <> "" Then
             tERR.Anotar "acno", z
             z = z + 1
-            PBar.Width = z * 10
-            If PBar.Width > lblProces.Width Then PBar.Width = 100
+            pBar.Width = z * 10
+            If pBar.Width > lblPROCES.Width Then pBar.Width = 100
             ThisPTS = Val(txtInLista(TT, 0, ","))
             ThisArch = txtInLista(TT, 1, ",")
             ThisTEMA = txtInLista(TT, 2, ",")
@@ -387,11 +382,11 @@ Private Sub Form_Load()
     c = 0 'cantidad de minimos encontrados
     Dim Ordenados() As Long 'matriz con los indices ordenados
     
-    PBar.Width = 0
-    PBar.Refresh
+    pBar.Width = 0
+    pBar.Refresh
     
     Do
-        PBar.Width = c * 10
+        pBar.Width = c * 10
         
         For mtx = 1 To UBound(mtxTOP10)
             tERR.Anotar "acnp", c, mtx, mtxTOP10(mtx)
@@ -413,8 +408,8 @@ Private Sub Form_Load()
         MaxPT = 0
     Loop
     'cargar todos y sacar la primera columna de las zetas
-    PBar.Width = 0
-    PBar.Refresh
+    pBar.Width = 0
+    pBar.Refresh
     Dim MTXsort() As String
     'cambie opentextfile por createtextfile por un error que suele dar
     Dim TeRank As TextStream
@@ -435,7 +430,7 @@ Private Sub Form_Load()
                 txtInLista(mtxTOP10(Ordenados(mtx)), 4, ",")
         
             TeRank.WriteLine MTXsort(mtx)
-            PBar.Width = mtx * 10
+            pBar.Width = mtx * 10
             RankWrite = RankWrite + 1
         Else
             'WriteTBRLog "limpiado del Rank: " + _
@@ -463,3 +458,9 @@ MiErr:
     tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acnt"
     Resume Next
 End Sub
+
+Private Sub lblPROCES_Click()
+    If lblPROCES.ListIndex = -1 Then Exit Sub
+    lblPROCES.ListIndex = lblPROCES.ListCount - 1
+End Sub
+

@@ -22,10 +22,10 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
         frmIndex.lblTemaSonando = "No se encontro el tema"
         frmIndex.lblTemaSonando2 = "No se encontro el tema"
         tERR.Anotar "003-0003"
-        EMPEZAR_SIGUIENTE
+        EMPEZAR_SIGUIENTE 4
     End If
     tERR.Anotar "003-0004"
-     OnOffCAPS vbKeyCapital, True
+     SetKeyState vbKeyCapital, True
     ' Tocar el fichero
     On Local Error GoTo ErrEjecutarTema
     ' El valor de cada paso del HScrollPos
@@ -75,23 +75,23 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
                     
                 If HabilitarVUMetro And Is3pmExclusivo = False Then
                     If NoVumVID Then
-                        .picVideo.Top = 0
-                        .picVideo.Left = 0
-                        .picVideo.Width = Screen.Width
-                        .picVideo.Height = Screen.Height
+                        .picVideo(IAANext).Top = 0
+                        .picVideo(IAANext).Left = 0
+                        .picVideo(IAANext).Width = Screen.Width
+                        .picVideo(IAANext).Height = Screen.Height
                     Else
-                        .picVideo.Top = 0
-                        .picVideo.Left = .VU1.AnchoBarra
-                        .picVideo.Width = .VU1.Width - (.VU1.AnchoBarra * 2)
-                        .picVideo.Height = Screen.Height
-                        .VU1.Height = .picVideo.Height
+                        .picVideo(IAANext).Top = 0
+                        .picVideo(IAANext).Left = .VU1.AnchoBarra
+                        .picVideo(IAANext).Width = .VU1.Width - (.VU1.AnchoBarra * 2)
+                        .picVideo(IAANext).Height = Screen.Height
+                        .VU1.Height = .picVideo(IAANext).Height
                     End If
                 Else
-                    .picVideo.Top = 0
-                    .picVideo.Left = 0
-                    .picVideo.Width = Screen.Width
-                    .picVideo.Height = Screen.Height
-                    .picVideo.ZOrder
+                    .picVideo(IAANext).Top = 0
+                    .picVideo(IAANext).Left = 0
+                    .picVideo(IAANext).Width = Screen.Width
+                    .picVideo(IAANext).Height = Screen.Height
+                    .picVideo(IAANext).ZOrder
                 End If
             Else
                 '--------------------------------
@@ -113,18 +113,18 @@ Public Sub EjecutarTema(tema As String, SumaRanking As Boolean)
                 'tener en cuenta si es exclusivo!!!
                 If HabilitarVUMetro And Is3pmExclusivo = False Then
                     .frDISCOS.Width = .VU1.Width - (.VU1.AnchoBarra * 2) - 50
-                    .picVideo.Width = .VU1.Width - (.VU1.AnchoBarra * 2)
-                    .picVideo.Left = .VU1.AnchoBarra
+                    .picVideo(IAANext).Width = .VU1.Width - (.VU1.AnchoBarra * 2)
+                    .picVideo(IAANext).Left = .VU1.AnchoBarra
                 Else
                     .frDISCOS.Width = .VU1.Width
-                    .picVideo.Width = .VU1.Width
-                    .picVideo.Left = 0
+                    .picVideo(IAANext).Width = .VU1.Width
+                    .picVideo(IAANext).Left = 0
                 End If
                 .picFondoDisco.Top = 0
                 .picFondoDisco.Left = 0
                 
-                .picVideo.Top = 0
-                .picVideo.Height = .picFondo.Top
+                .picVideo(IAANext).Top = 0
+                .picVideo(IAANext).Height = .picFondo.Top
             End If
             
 'aqui vengo si es fullscreen y no me importa mover nada
@@ -175,7 +175,9 @@ NoLeerOtros:
             tERR.Anotar "003-0035"
             .frTEMAS.Visible = False
             .lblTEMAS.Visible = False
-            .picVideo.Visible = False
+            'CMP cambio a multipista
+            .picVideo(IAANext).Visible = False
+            .picVideo(IAA).Visible = False
         End With
         tERR.Anotar "003-0036"
         'volver a PasarHoja a su estado original
@@ -215,7 +217,7 @@ NoLeerOtros:
     tERR.Anotar "003-0045"
     With frmIndex.MP3
         tERR.Anotar "003-0046"
-        .FileName = tema
+        .FileName(IAANext) = tema
         tERR.Anotar "003-0047", EsVideo, Salida2
         If EsVideo Then
             If Salida2 Then
@@ -223,32 +225,29 @@ NoLeerOtros:
                 frmVIDEO.picBigImg.Visible = False
                 
                 tERR.Anotar "003-0048b"
-                .DoOpenVideo "child", frmVIDEO.hwnd, 0, 0, _
-                    (frmVIDEO.Width / 15), (frmVIDEO.Height / 15)
-                frmIndex.picVideo.Visible = False
+                .DoOpenVideo "child", frmVIDEO.picVideo.hwnd, 0, 0, _
+                    (frmVIDEO.picVideo.Width / 15), (frmVIDEO.picVideo.Height / 15), IAANext
+                frmIndex.picVideo(IAANext).Visible = False
+                frmVIDEO.picVideo.Visible = True
             Else
                 tERR.Anotar "003-0048"
-                .DoOpenVideo "child", frmIndex.picVideo.hwnd, 0, 0, _
-                    (frmIndex.picVideo.Width / 15), (frmIndex.picVideo.Height / 15)
+                .DoOpenVideo "child", frmIndex.picVideo(IAANext).hwnd, 0, 0, _
+                    (frmIndex.picVideo(IAANext).Width / 15), _
+                    (frmIndex.picVideo(IAANext).Height / 15), IAANext
                 '**************************************************
                 'overlapped me saca como una ventana nueva
                 'popup es como overlapped pero sin barra de titulo
                 '**************************************************
-                frmIndex.picVideo.Visible = True
+                frmIndex.picVideo(IAANext).Visible = True
             End If
         Else
             tERR.Anotar "003-0049"
-            .DoOpen
+            .DoOpen IAANext
         End If
         tERR.Anotar "003-0050"
-        'si es un tema al azar usar otro volumen
-        If CORTAR_TEMA Then
-            .Volumen = VolumenIni2 'el dos es un volumen para temas gratuitos
-        Else
-            .Volumen = VolumenIni
-        End If
+        .Volumen(IAANext) = 0 'sube si o si en los primeros segundos
         tERR.Anotar "003-0051"
-        .DoPlay
+        .DoPlay IAANext
     End With
     tERR.Anotar "003-0052"
     If HabilitarVUMetro Then
@@ -271,7 +270,9 @@ ErrEjecutarTema:
     tERR.AppendLog tERR.ErrToTXT(Err), "MP3Andres.BAS" + ".acpo"
     'WriteTBRLog "ERROR EN EJECUTAR TEMA. " + frmIndex.MP3.FileName + vbCrLf + _
         "Descripcion: " + Err.Description, True
-    If frmIndex.MP3.IsPlaying = False Then EMPEZAR_SIGUIENTE
+    If (frmIndex.MP3.IsPlaying(0) Or frmIndex.MP3.IsPlaying(1)) = False Then
+        EMPEZAR_SIGUIENTE 4
+    End If
         
     Exit Sub
     
@@ -282,20 +283,62 @@ ErrorPavo:
     Resume Next
 End Sub
 
-Public Sub EMPEZAR_SIGUIENTE()
+Public Function EMPEZAR_SIGUIENTE(DesdeDonde As Long) As Long
+    'desde donde indica quien pide comenzar cancion
+    '1 es desde una cancion que llego a sus ultimos segundos
+    '2 desde la tecla B de cancion siguiente
+    '3 al inicio del sistema
+    '4 el tema siguiente no existe o dio error paso al otro
+    '5 una cancion llego a cero! ver que no sea por que se paso de largo
+    'con el FF el momento justo (x seg antes de que termine la anterior) que comienzan
+    'las canciones con fade in. Esto implica revisar si algo se esta ejecutando.
+    'Puede pasar tambien que se cargue una cancion a la lista en estos segundos
+    'restantes que ya paso la busqueda del tema siguiente
+    
+    'la funcion devuelve:
+    '1: desdedonde=2, adelanta la finalizacion
+    '2: desdedonde=5
+    '3: habia uno en la lista y se ejecuto (audio)
+    '4: habia uno en la lista y se ejecuto (video)
+    '5: habia uno en la lista y se ejecuto (otro)
+    '6: no hay nada en la lista de espera
+    
+    '*******************************************************
+    'en caso desde la "B" debo poner como tiempo de finalizacion del actual _
+        para que no siga (si esperaria hasta el final para terminar normalmente)
+    If DesdeDonde = 2 Then
+        TotalTema(IAA) = frmIndex.MP3.PositionInSec(IAA) + SegFade + 1
+        EMPEZAR_SIGUIENTE = 1
+        Exit Function
+    End If
+    '*******************************************************
+    
+    tERR.Anotar "003-0054b", DesdeDonde, IAA, TotalTema(IAA), SegFade
+    
+    'CMP
+    'si ya hay uno ejecutandose que seria lo normal antes de que termine
+    'el anterior
+    Dim J As Boolean: J = False
+    If DesdeDonde = 5 Then '5 una cancion llego a cero! ver que no sea por que se paso de largo
+        'ver que el 0 y el 1 esten apagados!
+        If frmIndex.MP3.IsPlaying(0) Then J = True
+        If frmIndex.MP3.IsPlaying(1) Then J = True
+    End If
+    If J Then
+        EMPEZAR_SIGUIENTE = 2
+        Exit Function
+    End If
+    
     On Local Error GoTo ErrEmpSig
     tERR.Anotar "003-0054", UBound(MATRIZ_LISTA)
     With frmIndex
         'generar el endplay si o si
         'si hay algun elemento en la lista ejecutarlo
         If UBound(MATRIZ_LISTA) > 0 Then
-            
             tERR.Anotar "003-0055"
-            .lblTemaSonando = "Cargando Proximo Tema..."
-            .lblTemaSonando2 = "Cargando Proximo Tema..."
+            .lblTemaSonando = "Cargando Proximo Tema...": .lblTemaSonando2 = "Cargando Proximo Tema..."
             tERR.Anotar "003-0056"
-            .lblTemaSonando.Refresh
-            .lblTemaSonando2.Refresh
+            .lblTemaSonando.Refresh: .lblTemaSonando2.Refresh
             Dim TemaDeMatriz As String
             tERR.Anotar "003-0057"
             TemaDeMatriz = txtInLista(MATRIZ_LISTA(1), 0, ",")
@@ -322,10 +365,26 @@ Public Sub EMPEZAR_SIGUIENTE()
             tERR.Anotar "003-0063"
             CORTAR_TEMA = False 'este tema va entero ya que lo eligio el usuario
             tERR.Anotar "003-0064"
+            '*******************************
+            'ver si es audio o video o que es
+            Dim SP9() As String, sExt As String
+            SP9 = Split(TemaDeMatriz, ".")
+            sExt = LCase(SP9(UBound(SP9))) 'extencion del archivo
+            Select Case sExt
+                Case "mp3", "wma"
+                    EMPEZAR_SIGUIENTE = 3
+                Case "avi", "wmv", "mpg", "dat", "mpeg"
+                    EMPEZAR_SIGUIENTE = 4
+                Case Else
+                    EMPEZAR_SIGUIENTE = 5
+            End Select
+            
             EjecutarTema TemaDeMatriz, True
+            '*******************************
             tERR.Anotar "003-0065"
             CargarProximosTemas
-        Else
+        Else 'no hay nada en la lista
+            EMPEZAR_SIGUIENTE = 6
             .lblREP = ""
             'frmINDEX.MP3.SongName = "" 'no sirve
             tERR.Anotar "003-0066"
@@ -335,7 +394,7 @@ Public Sub EMPEZAR_SIGUIENTE()
             tERR.Anotar "003-0067"
             .lblTiempoRestante = "Falta: " + "00:00"
             tERR.Anotar "003-0068"
-            OnOffCAPS vbKeyCapital, False
+            SetKeyState vbKeyCapital, False
             tERR.Anotar "003-0069"
             .lblTemaSonando = "Sin reproduccion actual"
             .lblTemaSonando2 = "Sin reproduccion actual"
@@ -364,17 +423,19 @@ Public Sub EMPEZAR_SIGUIENTE()
             tERR.Anotar "003-0076"
             EsVideo = False 'no estamos rep video
             tERR.Anotar "003-0077"
-            frmIndex.MP3.DoClose
+            'frmIndex.MP3.DoClose IAA
             frmIndex.Refresh
-            frmIndex.picVideo.Visible = False
+            'CMP cambio a multipista
+            'frmIndex.picVideo(IAANext).Visible = False
+            'frmIndex.picVideo(IAA).Visible = False
         End If
     End With
     
-    Exit Sub
+    Exit Function
 ErrEmpSig:
     tERR.AppendLog tERR.ErrToTXT(Err), "MpAnd.B" + ".acpr"
     Resume Next
-End Sub
+End Function
 
 Public Sub TOP10(nameARCH As String, nameTEMA As String, nameDISCO As String)
     'On Error GoTo notop

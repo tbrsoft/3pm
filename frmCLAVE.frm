@@ -3,12 +3,13 @@ Begin VB.Form frmCLAVE
    BackColor       =   &H00000000&
    BorderStyle     =   0  'None
    Caption         =   "Form1"
-   ClientHeight    =   2250
+   ClientHeight    =   4125
    ClientLeft      =   0
    ClientTop       =   0
    ClientWidth     =   4455
    LinkTopic       =   "Form1"
-   ScaleHeight     =   2250
+   LockControls    =   -1  'True
+   ScaleHeight     =   4125
    ScaleWidth      =   4455
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
@@ -51,10 +52,17 @@ Begin VB.Form frmCLAVE
    Begin VB.Shape Shape1 
       BorderColor     =   &H00FFFFFF&
       BorderWidth     =   3
-      Height          =   1965
+      Height          =   3855
       Left            =   150
       Top             =   120
       Width           =   4215
+   End
+   Begin VB.Image Image1 
+      Height          =   1635
+      Left            =   1380
+      Picture         =   "frmCLAVE.frx":0000
+      Top             =   2130
+      Width           =   1500
    End
    Begin VB.Label Label1 
       Alignment       =   2  'Center
@@ -105,35 +113,11 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     Select Case KeyCode
         
         Case TeclaCerrarSistema
-            OnOffCAPS vbKeyCapital, False
+            SetKeyState vbKeyCapital, False
             If ApagarAlCierre Then APAGAR_PC
             'no puedo usar do stop porque lanza el evento ENDPLAY y esto produce un EMPEZARSIGUIENTE
             'que se come un tema de la lista
-            frmIndex.MP3.DoClose
+            frmIndex.MP3.DoClose 99
             End
     End Select
-End Sub
-
-Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
-    If KeyCode = TeclaNewFicha Then
-        'si ya hay 9 cargados se traga las fichas
-        If CREDITOS <= MaximoFichas Then
-            OnOffCAPS vbKeyScrollLock, True
-            CREDITOS = CREDITOS + TemasPorCredito
-            SumarContadorCreditos TemasPorCredito
-            'grabar cant de creditos
-            EscribirArch1Linea AP + "creditos.tbr", Trim(Str(CREDITOS))
-            
-            ShowCredits
-            
-            'grabar credito para validar
-            'creditosValidar ya se cargo en load de frmindex
-            CreditosValidar = CreditosValidar + TemasPorCredito
-            EscribirArch1Linea SYSfolder + "radilav.cfg", CStr(CreditosValidar)
-            
-        Else
-            'apagar el fichero electronico
-            OnOffCAPS vbKeyScrollLock, False
-        End If
-    End If
 End Sub

@@ -18,6 +18,7 @@ Attribute VB_Exposed = False
 Private mHabilitarPublicidadesMp3Vid As Boolean 'hay o no pub mpe o video?
 Private mHabilitarPublicidadesIMG As Boolean 'hay o no pub (imagenes rotativas)?
 Private mHabilitarPublicidadesTXT As Boolean 'de texto en en PassTXT
+Private mHabilitarPublicidadesVMute As Boolean 'de texto en en PassTXT
 
 Private mSonarPublicidadesCada As Long 'cantidad de temas que deben pasar para
 'que suene una publicidad
@@ -39,15 +40,27 @@ Private mPubsSORTBigIMG() As String 'matriz con la lista de publicidades ORDENAD
 Private mPubsTXT() As String 'matriz con la lista de publicidades
 Private mPubsSortTXT() As String 'matriz con la lista de publicidades ORDENADAS!!!
 
+Private mPubsMute() As String 'matriz con la lista de videos en AP/pubMute
+Private mPubsSortMute() As String 'matriz con la lista ORDENADA!!!
+
 Private mUltimaReproducida As Long 'ultima publicidad reproducida para servir de guia
 Private mUltimaReproducidaIMG As Long 'ultima publicidad reproducida para servir de guia
 Private mUltimaReproducidaBigIMG As Long 'ultima publicidad reproducida (GRANDES) para servir de guia
 Private mUltimaReproducidaTXT As Long 'ultima publicidad reproducida (GRANDES) para servir de guia
+Private mUltimaReproducidaVMute As Long 'ultima publicidad reproducida (GRANDES) para servir de guia
 
 Private mPubsEnLista As Long 'SOLO PARA PUB MP3/VIDEO.
 'Publicidades en la lista de espera. Para saber cuanto
-'restar del los temas pendientes reales. Como quedan en lña lsita de reproduccion el indicador
+'restar del los temas pendientes reales. Como quedan en la lsita de reproduccion el indicador
 ' TEMAS PENDIENTES (X) debe saber cuanto restar al total que tiene la lista
+
+Public Property Get HabilitarPublicidadesVMute() As Boolean
+    HabilitarPublicidadesVMute = mHabilitarPublicidadesVMute
+End Property
+
+Public Property Let HabilitarPublicidadesVMute(Publicidades As Boolean)
+    mHabilitarPublicidadesVMute = Publicidades
+End Property
 
 Public Property Get HabilitarPublicidadesTXT() As Boolean
     HabilitarPublicidadesTXT = mHabilitarPublicidadesTXT
@@ -121,6 +134,18 @@ Public Function ArchsPubs(uIndex As Long) As String
     End If
 End Function
 
+Public Function ArchsVMute(uIndex As Long) As String
+    'matriz de las publicidades que hay
+    'todas se reproducen alfabeticamente para que el usuario pueda tener algun control como
+    'ponerle números para saber que va a salir o duplicar alguna si le pinta
+    If uIndex > UBound(mPubsMute) Then
+        ArchsVMute = ""
+        'MsgBox "Boludo, me estas pidiendo una publicidad que no existe!!!"
+    Else
+        ArchsVMute = mPubsSortMute(uIndex)
+    End If
+End Function
+
 Public Function ArchsPubsTXT(uIndex As Long) As String
     'matriz de las publicidades que hay
     'todas se reproducen alfabeticamente para que el usuario pueda tener algun control como
@@ -164,10 +189,12 @@ Public Sub CargarPUBs()
     ReDim mPubsTXT(0)
     ReDim mPubsIMG(0)
     ReDim mPubsBigIMG(0)
+    ReDim mPubsMute(0)
     Dim CONT As Long: CONT = 0
     Dim ContImg As Long: ContImg = 0
     Dim ContBigImg As Long: ContBigImg = 0
     Dim ContTXT As Long: ContTXT = 0
+    
     Dim Arch As String
     Arch = Dir(AP + "pub\*.*", vbArchive)
     Dim IsMM As Boolean
@@ -220,6 +247,26 @@ Public Sub CargarPUBs()
             ContBigImg = ContBigImg + 1
             ReDim Preserve mPubsBigIMG(ContBigImg)
             mPubsBigIMG(ContBigImg) = UCase(AP + "pub\" + Arch)
+        End If
+        
+        Arch = Dir
+    Loop
+    
+    'ver los videos mudos
+    Arch = Dir(AP + "pubmute\*.*", vbArchive)
+    Dim ContMute As Long: ContMute = 0
+    Do While Arch <> ""
+        IsMM = False
+        'ver que tenga los formatos que busco
+        If LCase(Right(Arch, 3)) = "avi" Then IsMM = True
+        If LCase(Right(Arch, 3)) = "mpg" Then IsMM = True
+        If LCase(Right(Arch, 3)) = "dat" Then IsMM = True
+        If LCase(Right(Arch, 4)) = "mpeg" Then IsMM = True
+        
+        If IsMM Then
+            ContMute = ContMute + 1
+            ReDim Preserve mPubsMute(ContMute)
+            mPubsMute(ContMute) = UCase(AP + "pubmute\" + Arch)
         End If
         
         Arch = Dir
@@ -287,6 +334,38 @@ Public Sub CargarPUBs()
     For mtx = 0 To UBound(mPubsIMG)
         ReDim Preserve mPubsSORTIMG(mtx)
         mPubsSORTIMG(mtx) = Right(mPubsIMG(Ordenados(mtx)), Len(mPubsIMG(Ordenados(mtx))) - 3)
+    Next
+    '--------------------------------
+    'ahora ordeno las imágenes
+    'Dim MinSTR As String 'comparacion de cadenas. Empiezo con el máximo
+    'Dim ubicMIN As Long 'indice en la matriz del menor encontrado cada vuelta
+    MinSTR = "zzzzzzzzzzzzzzzz"
+    'Dim c As Long, mtx As Long, ValComp As String
+    c = 0 'cantidad de minimos encontrados
+    ReDim Preserve Ordenados(0) 'Dim Ordenados() As Long 'matriz con los indices ordenados
+    Do
+        For mtx = 0 To UBound(mPubsMute)
+            ValComp = mPubsMute(mtx)
+            If ValComp < MinSTR Then
+                MinSTR = ValComp
+                ubicMIN = mtx
+            End If
+        Next
+        'lo mando al ultimo para que no vuelva a salir como primero
+        mPubsMute(ubicMIN) = "ZZZ" + mPubsMute(ubicMIN)
+        ReDim Preserve Ordenados(c)
+        Ordenados(c) = ubicMIN
+        c = c + 1
+        If c > UBound(mPubsMute) Then Exit Do
+        MinSTR = "zzzzzzzzzz"
+    Loop
+    'cargar todos y sacar las primera 3 zetas
+    'limpiar la matriz ordenada
+    ReDim mPubsSortMute(0)
+    For mtx = 0 To UBound(mPubsMute)
+        ReDim Preserve mPubsSortMute(mtx)
+        mPubsSortMute(mtx) = Right(mPubsMute(Ordenados(mtx)), _
+            Len(mPubsMute(Ordenados(mtx))) - 3)
     Next
     '--------------------------------
     'ahora ordeno los txt
@@ -359,6 +438,12 @@ Public Property Get TotalPUBs() As Long
     TotalPUBs = UBound(mPubs)
 End Property
 
+Public Property Get TotalPUBsMUTE() As Long
+    'saber el total para no pasarme de largo
+    'empieza en cero
+    TotalPUBsMUTE = UBound(mPubsMute)
+End Property
+
 Public Property Get TotalPUBsTXT() As Long
     'saber el total para no pasarme de largo
     'empieza en cero
@@ -401,6 +486,16 @@ Public Property Get UltimaReproducidaBigIMG() As Long
     UltimaReproducidaBigIMG = mUltimaReproducidaBigIMG
 End Property
 
+Public Property Get UltimaReproducidaVMute() As Long
+    'indica cual se uso para ayudar al sistema a guiarse
+    'en realidad es la ultima que se mando a la lista. Nunca sabe cual es la ultima que se reprodujo
+    UltimaReproducidaVMute = mUltimaReproducidaVMute
+End Property
+
+Public Property Let UltimaReproducidaVMute(Ultima As Long)
+    mUltimaReproducidaVMute = Ultima
+End Property
+
 Public Property Let UltimaReproducida(Ultima As Long)
     mUltimaReproducida = Ultima
 End Property
@@ -422,4 +517,5 @@ Private Sub Class_Initialize()
     mUltimaReproducidaIMG = 0
     mUltimaReproducidaBigIMG = 0
     mUltimaReproducidaTXT = 0
+    mUltimaReproducidaVMute = 0
 End Sub
