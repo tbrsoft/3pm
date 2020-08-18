@@ -77,8 +77,19 @@ Public Function DoNow(DestFinal As String) As Long
     '(uno sirve, uno no, etc)
     Dim FF As String, CL44 As String
     Terr.Anotar "aae"
+    '///////////////////////////////////////////////////////
+    'leer la licencia anterior es diferente segun el soft
+    If LCase(InternalSF) = "3pm" Then
+        FF = FSO.GetSpecialFolder(SystemFolder) + "\dcilib22.dll"
+    End If
     
-    FF = FSO.GetSpecialFolder(SystemFolder) + "\dcilib22.dll"
+    If LCase(InternalSF) = "empirok" Then
+        FF = FSO.GetSpecialFolder(SystemFolder) + "\wBrumiaz.dll"
+    End If
+    '///////////////////////////////////////////////////////
+    
+    
+    
     If FSO.FileExists(FF) Then
         Dim TE2 As TextStream
         Set TE2 = FSO.OpenTextFile(FF, ForReading, False)

@@ -36,7 +36,7 @@ Begin VB.Form frmIndex
       BackColor       =   &H00000000&
       BorderStyle     =   0  'None
       Height          =   1620
-      Left            =   90
+      Left            =   120
       ScaleHeight     =   1620
       ScaleWidth      =   6600
       TabIndex        =   3
@@ -86,7 +86,7 @@ Begin VB.Form frmIndex
             Height          =   885
             Left            =   120
             TabIndex        =   8
-            Top             =   150
+            Top             =   180
             Visible         =   0   'False
             Width           =   1845
          End
@@ -111,7 +111,7 @@ Begin VB.Form frmIndex
          Height          =   270
          Left            =   2580
          TabIndex        =   5
-         Top             =   60
+         Top             =   90
          Width           =   2235
       End
       Begin VB.Label lblV 
@@ -448,12 +448,12 @@ Begin VB.Form frmIndex
       AutoRedraw      =   -1  'True
       BackColor       =   &H00000000&
       BorderStyle     =   0  'None
-      Height          =   525
-      Left            =   10110
-      ScaleHeight     =   525
+      Height          =   765
+      Left            =   9150
+      ScaleHeight     =   765
       ScaleWidth      =   1890
       TabIndex        =   18
-      Top             =   90
+      Top             =   150
       Width           =   1890
       Begin VB.Line LineRitmo 
          BorderColor     =   &H0000FFFF&
@@ -477,7 +477,7 @@ Begin VB.Form frmIndex
          Caption         =   "A"
          BeginProperty Font 
             Name            =   "Tahoma"
-            Size            =   12
+            Size            =   24
             Charset         =   0
             Weight          =   700
             Underline       =   0   'False
@@ -485,20 +485,20 @@ Begin VB.Form frmIndex
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00FFFFFF&
-         Height          =   285
+         Height          =   585
          Index           =   0
-         Left            =   90
+         Left            =   30
          TabIndex        =   22
-         Top             =   240
+         Top             =   210
          UseMnemonic     =   0   'False
-         Width           =   180
+         Width           =   330
       End
       Begin VB.Label lRITMO 
          AutoSize        =   -1  'True
          BackStyle       =   0  'Transparent
          Caption         =   "lRitmo"
          BeginProperty Font 
-            Name            =   "Tahoma"
+            Name            =   "Arial Narrow"
             Size            =   11.25
             Charset         =   0
             Weight          =   700
@@ -507,13 +507,13 @@ Begin VB.Form frmIndex
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00FFFFFF&
-         Height          =   270
+         Height          =   300
          Index           =   0
-         Left            =   0
+         Left            =   60
          TabIndex        =   21
-         Top             =   0
+         Top             =   -30
          UseMnemonic     =   0   'False
-         Width           =   735
+         Width           =   600
       End
       Begin VB.Label Label6 
          Alignment       =   2  'Center
@@ -563,7 +563,7 @@ Begin VB.Form frmIndex
          BackStyle       =   0  'Transparent
          Caption         =   "lRitmo"
          BeginProperty Font 
-            Name            =   "Tahoma"
+            Name            =   "Arial Narrow"
             Size            =   11.25
             Charset         =   0
             Weight          =   700
@@ -572,13 +572,13 @@ Begin VB.Form frmIndex
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00808080&
-         Height          =   270
+         Height          =   300
          Index           =   0
          Left            =   180
          TabIndex        =   23
-         Top             =   30
+         Top             =   -30
          UseMnemonic     =   0   'False
-         Width           =   735
+         Width           =   600
       End
       Begin VB.Label lLETRAS2 
          AutoSize        =   -1  'True
@@ -586,7 +586,7 @@ Begin VB.Form frmIndex
          Caption         =   "A"
          BeginProperty Font 
             Name            =   "Tahoma"
-            Size            =   12
+            Size            =   24
             Charset         =   0
             Weight          =   700
             Underline       =   0   'False
@@ -594,13 +594,13 @@ Begin VB.Form frmIndex
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00808080&
-         Height          =   285
+         Height          =   585
          Index           =   0
-         Left            =   420
+         Left            =   360
          TabIndex        =   24
-         Top             =   240
+         Top             =   210
          UseMnemonic     =   0   'False
-         Width           =   180
+         Width           =   330
       End
    End
    Begin VB.Timer Timer3 
@@ -628,7 +628,7 @@ Begin VB.Form frmIndex
          BackColor       =   &H00E0E0E0&
          BorderStyle     =   0  'None
          Height          =   4005
-         Left            =   60
+         Left            =   90
          ScaleHeight     =   4005
          ScaleWidth      =   6075
          TabIndex        =   41
@@ -636,12 +636,12 @@ Begin VB.Form frmIndex
          Width           =   6075
          Begin tbrFaroButton.fBoton btBUYDisco 
             Height          =   705
-            Left            =   360
+            Left            =   120
             TabIndex        =   42
-            Top             =   300
+            Top             =   1110
             Visible         =   0   'False
-            Width           =   2505
-            _ExtentX        =   4419
+            Width           =   1995
+            _ExtentX        =   3519
             _ExtentY        =   1244
             fFColor         =   16777215
             fBColor         =   14737632
@@ -653,12 +653,12 @@ Begin VB.Form frmIndex
          End
          Begin tbrFaroButton.fBoton btBuyCancion 
             Height          =   705
-            Left            =   60
+            Left            =   90
             TabIndex        =   43
-            Top             =   900
+            Top             =   1590
             Visible         =   0   'False
-            Width           =   2505
-            _ExtentX        =   4419
+            Width           =   1995
+            _ExtentX        =   3519
             _ExtentY        =   1244
             fFColor         =   16777215
             fBColor         =   14737632
@@ -670,12 +670,12 @@ Begin VB.Form frmIndex
          End
          Begin tbrFaroButton.fBoton btSalir 
             Height          =   705
-            Left            =   60
+            Left            =   90
             TabIndex        =   54
-            Top             =   1680
+            Top             =   1980
             Visible         =   0   'False
-            Width           =   2505
-            _ExtentX        =   4419
+            Width           =   1995
+            _ExtentX        =   3519
             _ExtentY        =   1244
             fFColor         =   16777215
             fBColor         =   14737632
@@ -685,10 +685,44 @@ Begin VB.Form frmIndex
             fFontS          =   10
             fECol           =   5452834
          End
+         Begin VB.Label lblInfoPreview 
+            BackColor       =   &H00000000&
+            BorderStyle     =   1  'Fixed Single
+            Caption         =   "Label3"
+            BeginProperty Font 
+               Name            =   "Arial Narrow"
+               Size            =   9.75
+               Charset         =   0
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            ForeColor       =   &H00FFFFFF&
+            Height          =   495
+            Left            =   3750
+            TabIndex        =   60
+            Top             =   2790
+            Visible         =   0   'False
+            Width           =   675
+         End
+         Begin VB.Image imgExtraObjeto 
+            Height          =   495
+            Left            =   4590
+            Top             =   2820
+            Width           =   705
+         End
+         Begin VB.Image picExtraObjeto 
+            Height          =   765
+            Left            =   3720
+            Stretch         =   -1  'True
+            Top             =   2700
+            Width           =   1635
+         End
          Begin VB.Image ImgSelecVIP 
             Height          =   375
-            Left            =   2880
-            Top             =   2250
+            Left            =   2910
+            Top             =   2100
             Visible         =   0   'False
             Width           =   375
          End
@@ -710,9 +744,9 @@ Begin VB.Form frmIndex
             ForeColor       =   &H00808080&
             Height          =   345
             Index           =   0
-            Left            =   2760
+            Left            =   2790
             TabIndex        =   53
-            Top             =   780
+            Top             =   1050
             UseMnemonic     =   0   'False
             Visible         =   0   'False
             Width           =   2160
@@ -733,9 +767,9 @@ Begin VB.Form frmIndex
             EndProperty
             ForeColor       =   &H00C0C0C0&
             Height          =   255
-            Left            =   330
+            Left            =   630
             TabIndex        =   52
-            Top             =   2850
+            Top             =   3510
             UseMnemonic     =   0   'False
             Visible         =   0   'False
             Width           =   750
@@ -756,9 +790,9 @@ Begin VB.Form frmIndex
             EndProperty
             ForeColor       =   &H00FFFFFF&
             Height          =   255
-            Left            =   330
+            Left            =   0
             TabIndex        =   51
-            Top             =   2670
+            Top             =   3510
             UseMnemonic     =   0   'False
             Visible         =   0   'False
             Width           =   690
@@ -814,7 +848,7 @@ Begin VB.Form frmIndex
          Begin VB.Image imageFONDO 
             Height          =   660
             Index           =   0
-            Left            =   5100
+            Left            =   5130
             Stretch         =   -1  'True
             Top             =   150
             Visible         =   0   'False
@@ -825,26 +859,26 @@ Begin VB.Form frmIndex
             Index           =   0
             Left            =   5250
             Stretch         =   -1  'True
-            Top             =   300
+            Top             =   240
             Visible         =   0   'False
             Width           =   720
          End
          Begin VB.Image imgDiscoSEL 
             Height          =   495
-            Left            =   330
-            Top             =   2010
+            Left            =   210
+            Top             =   2850
             Width           =   675
          End
          Begin VB.Image imgListaSong 
             Height          =   1995
-            Left            =   2460
+            Left            =   2490
             Top             =   60
             Width           =   2565
          End
          Begin VB.Image imgFondoDiscoSel 
             Height          =   645
-            Left            =   270
-            Top             =   1980
+            Left            =   120
+            Top             =   2820
             Width           =   825
          End
          Begin VB.Label lblCanciones 
@@ -888,9 +922,9 @@ Begin VB.Form frmIndex
             EndProperty
             ForeColor       =   &H00FFFFFF&
             Height          =   225
-            Left            =   360
+            Left            =   60
             TabIndex        =   47
-            Top             =   3000
+            Top             =   3720
             UseMnemonic     =   0   'False
             Visible         =   0   'False
             Width           =   510
@@ -911,17 +945,17 @@ Begin VB.Form frmIndex
             EndProperty
             ForeColor       =   &H00808080&
             Height          =   225
-            Left            =   390
+            Left            =   660
             TabIndex        =   46
-            Top             =   3270
+            Top             =   3660
             UseMnemonic     =   0   'False
             Visible         =   0   'False
             Width           =   510
          End
          Begin VB.Image cmdTouchArriba 
             Height          =   360
-            Left            =   630
-            Top             =   60
+            Left            =   660
+            Top             =   90
             Visible         =   0   'False
             Width           =   540
          End
@@ -958,15 +992,15 @@ Begin VB.Form frmIndex
          End
          Begin VB.Image imgSELEC 
             Height          =   375
-            Left            =   2220
-            Top             =   2250
+            Left            =   2490
+            Top             =   2100
             Visible         =   0   'False
             Width           =   375
          End
          Begin VB.Image imgSALIR 
             Height          =   375
-            Left            =   4080
-            Top             =   2250
+            Left            =   3300
+            Top             =   2100
             Visible         =   0   'False
             Width           =   375
          End
@@ -1019,7 +1053,7 @@ Begin VB.Form frmIndex
       BackColor       =   &H00000000&
       BorderStyle     =   0  'None
       Height          =   600
-      Left            =   7320
+      Left            =   7350
       ScaleHeight     =   600
       ScaleWidth      =   300
       TabIndex        =   12
@@ -1336,7 +1370,7 @@ End Function
 Private Sub btBuyCancion_Click()
 '    If PachaMode = 10000 Then
         tERR.Anotar "eaaa"
-        Carrito.AddFile lblCanciones(selDiscoI(-3)).Tag
+        Carrito.AddFile lblCanciones(selDiscoI(-3)).Tag, False, PerfilActual
         
         Timer3.Enabled = False
         VengoDeCarrito = True
@@ -1357,7 +1391,7 @@ End Sub
 
 Private Sub btBUYDisco_Click()
 '    If PachaMode = 10000 Then
-        Carrito.AddFolder txtInLista(MATRIZ_DISCOS(nDiscoGral), 0, ",")
+        Carrito.AddFolder txtInLista(MATRIZ_DISCOS(nDiscoGral), 0, ","), PerfilActual
         
         Timer3.Enabled = False
         VengoDeCarrito = True
@@ -1517,6 +1551,9 @@ End Sub
 Private Sub Form_Activate()
     On Error GoTo regERR
     
+    'si esta usando interfase pasar los mensajes aqui
+    If (LCs3 = "1") Then s3.HwndMsg = txtS3.HWND
+    
     If TengoBluetooth Then
         BTM.UseEventMSG tBT.HWND
     End If
@@ -1536,7 +1573,7 @@ Private Sub Form_Activate()
     'acomodo el roll!
     RollCRED.ReplaceIndex 1, GetPrecios(ShowCreditsMode, vbCrLf)
     
-    UB.UseEventMSG TUsb.HWND
+    If TengoUSB Then UB.UseEventMSG TUsb.HWND
     
     Exit Sub
 regERR:
@@ -1577,8 +1614,8 @@ Public Sub StartVu(sModo As String) 'empezar a medir sonido
             'AnchoBarra = pVU1.Width
             VU.ModoVumetro = UnaImagenSobreOtra 'imagenes prendido apagado
             pVU1.Left = 0
-            pVU1.Top = frDiscos.Top
-            pVU1.Height = frDiscos.Height
+            pVU1.Top = 90 'frDiscos.Top
+            pVU1.Height = frDiscos.Height + picFondo2.Height
             If EstoyEnModoVideoMiniSelDisco Then
                 pVU3.Left = frModoVideo.Left - pVU3.Width
             Else
@@ -1649,7 +1686,8 @@ Private Sub ProcessKeyCoin(Tecla As Integer, isDown As Long)
     
     'este dentro o fuera de un disco no se debe mostrar
     'si estoy en la lista de discos le aviso si hay musica vip
-    If EstoyEnDisco = 1 Then
+    'ademas tego en cuenta que sea un disco de musica, los de wallpapers
+    If EstoyEnDisco = 1 And PerfilActual = 1 Then
         lblNOCREDIT.Caption = getStrMusicaVIP 'deja vacio si no esta activado el vip o pone lo que va
     Else
         lblNOCREDIT.Caption = ""
@@ -1660,6 +1698,17 @@ Private Sub ProcessKeyCoin(Tecla As Integer, isDown As Long)
         If isDown = 0 Or isDown = 1 Then Exit Sub
     End If
     '***********************************************************
+    
+    If Tecla = TeclaNewFicha Or Tecla = TeclaNewFicha2 Then
+        If CREDITOS > MaximoFichas Then
+            LedEvent "ActionLedMuchoCredito"
+            Exit Sub
+        Else
+            'apagar el fichero electronico
+            LedEvent "ActionLedPocoCredito"
+        End If
+    End If
+    
     Select Case Tecla
         Case TeclaNewFicha
             If isDown = 1 Then
@@ -1795,6 +1844,12 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         Case vbKeyF5
             my_MEM.SetMomento "Apreto F5"
             tERR.AppendSinHist "F5: " + vbCrLf + my_MEM.GetFullDetalles
+        Case vbKeyF9 'mostrar la ayuda rápida
+            Timer3.Enabled = False
+            MostrarCursor True
+            frmQuikHelp.Show 1
+            MostrarCursor False
+            Timer3.Enabled = True
         Case TeclaShowContador
             frmOnlyContador.Show 1
         Case TeclaPutCeroContador
@@ -1902,7 +1957,9 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         Case TeclaCarrito
             'cuanto cuanto lo tiene apretado para ver si entro cargando lo elegido al carrito o no
             'aqui empiezo a contar el tiempo
-            If TimePressTeclaCart = -1 Then TimePressTeclaCart = Timer
+            If VendoMusica Then
+                If TimePressTeclaCart = -1 Then TimePressTeclaCart = Timer
+            End If
         Case TeclaPagAt
             If EstoyEnDisco = 0 Then
                 If EsModo5PeroLabura46 Then
@@ -2235,7 +2292,10 @@ Mod46:
     
 FinKD:
     
-    SecSinTecla = 0
+    'SecSinTecla = 0
+    'ahora (set08) hay una opcion de protector que mueve los discos y lo hace mandando
+    'un key_Dow, teclaDer, 0 que pone el segundero en cero. Ya tengo uno en el keyUp
+    'por lo tanto este no es necesario
     
     Exit Sub
     
@@ -2342,7 +2402,8 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
         'no puede elegir canciones VIP
         TimePressTeclaOK = 0
     Else
-        If RealKeyCode = TeclaCarrito Then
+        If RealKeyCode = TeclaCarrito And VendoMusica Then 'solo si activo la venta de musica
+            
             TimePressTeclaCart = Timer - TimePressTeclaCart
             
             'puede entrar agregando o no al carrito
@@ -2350,9 +2411,23 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             If TimePressTeclaCart <= 1.5 Then
                 'ver si esta en la lista de discos o en las carpetas
                 If EstoyEnDisco = 1 Then
-                    Carrito.AddFile lblCanciones(selDiscoI(-3)).Tag
+                    Dim cancionD As String
+                    cancionD = lblCanciones(selDiscoI(-3)).Tag
+                    Carrito.AddFile cancionD, False, PerfilActual
                 Else
-                    Carrito.AddFolder txtInLista(MATRIZ_DISCOS(nDiscoGral), 0, ",")
+                    'si el tipo desea que se autodetecten los perfiles debo ver el perfil de este
+                    'en general el perfil se calcula al ingresar!!!
+                    Dim lstDisco() As String, esteDisco As String
+                    Dim PerfilEncontrado As Long
+                    esteDisco = txtInLista(MATRIZ_DISCOS(nDiscoGral), 0, ",")
+                    
+                    If VentaExtras Then
+                        PerfilEncontrado = 1 'para que busque el perfil
+                        lstDisco = ObtenerArchMM(esteDisco, False, PerfilEncontrado)
+                        PerfilActual = PerfilEncontrado
+                    End If
+                    
+                    Carrito.AddFolder esteDisco, PerfilActual
                 End If
             End If
             'entro al carrito haya agregado o no
@@ -2417,7 +2492,7 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
                     isVip = (TimePressTeclaOK > 1.5) And PrecNowVIP > 0
                     TimePressTeclaOK = -1 'listo ya lo use
                     Dim S36 As Long
-                    S36 = TrataEjecutarTema(temaElegido, isVip)
+                    S36 = TrataEjecutarTema(temaElegido, isVip) 'no mando perfil actual por que en la lista de modo texto es si o si perfil=1=3pm base
                     tERR.Anotar "accx", S36
                     If S36 = 2 Then 'ya esta ejecutando otra cosa!
                         'volver a elegir discos
@@ -2448,7 +2523,11 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
                     'encontrar todos los archivos *.mp3, *.avi, *.mpg, *.mpeg, etc
                     tERR.Anotar "acdf", UbicDiscoActual
                     ReDim Preserve MATRIZ_TEMAS(0)
+                    'OM- el tipo entro a un disco en modo texto (hay un video en el monitor), _
+                        si el origen o el disco ya indica un perfil usarlo y si no automático
                     MATRIZ_TEMAS = ObtenerArchMM(UbicDiscoActual)
+                    'forzado el perfil es 3pm, quiozas mas adelante en el modo texto haya previews de wallpapers y otros
+                    PerfilActual = 1
                     tERR.Anotar "acdg", UBound(MATRIZ_TEMAS)
                     If UBound(MATRIZ_TEMAS) = 0 Then
                         T(0) = TR.Trad("No hay temas%98%Es un disco sin canciones%99%")
@@ -2612,7 +2691,7 @@ Private Sub AcomodarModoTexto(lModo As Long)
     
 End Sub
 
-
+'busca en la lista del disco abierto el elemento y lo mada al tratarEjTema que hace otros controles
 Private Sub EjecutarDeTouch(Optional ToVIP As Boolean = False)
     'opcionalmente puedo avisar si es un tema VIP
     
@@ -2620,7 +2699,16 @@ Private Sub EjecutarDeTouch(Optional ToVIP As Boolean = False)
     tERR.Anotar "caaa"
     
     'si esta programado sin musica que no haga nada
-    If NOMUSIC And (ShowDemoMusic = False) Then Exit Sub
+    If NOMUSIC Then 'no es fonola
+        If ShowDemoMusic Then 'pasa las canciones como demo 20 segundos
+            If CREDITOS < CreditForTestMusic Then Exit Sub 'si se configuro exigir creditos para pasar muestras (igual son gratis)
+            If MaxListaTestMusic > 0 Then 'si es cero permite todo
+                If tLST.GetLastIndex >= MaxListaTestMusic Then Exit Sub 'hay mas canciones en lista que las permitidas
+            End If
+        Else
+            Exit Sub
+        End If
+    End If
     
     Dim Fg As Long
     Fg = selDiscoI(-3) 'es el numero de cancion!
@@ -2633,10 +2721,17 @@ Private Sub EjecutarDeTouch(Optional ToVIP As Boolean = False)
     End If
     
     Dim S37 As Long
-    S37 = TrataEjecutarTema(lblCanciones(Fg).Tag, ToVIP)
+    S37 = TrataEjecutarTema(lblCanciones(Fg).Tag, ToVIP, PerfilActual) 'mando ademas el perfil ya _
+            que los rigtones y los MP3s comparten extencion y no son lo mismo
+            
     tERR.Anotar "caac", S37
     If S37 = 1 Then 'si no alcanza el credito avisar!
         lblNOCREDIT.Caption = TR.Trad("CREDITO INSUFICIENTE%99%")
+        Exit Sub
+    End If
+    
+    If S37 = 4 Or S37 = 5 Or S37 = 6 Or S37 = 7 Then
+        'me voy por que lo que esta abajo depende de que sea musica!
         Exit Sub
     End If
     
@@ -2669,7 +2764,6 @@ Public Function GetIntervalS3() As Long
     GetIntervalS3 = s3.GetInterval
 End Function
 
-    
 Public Sub SetIntervalS3(NewIntervalS3 As Long)
     s3.SetInterval NewIntervalS3
 End Sub
@@ -2714,111 +2808,57 @@ Private Sub Form_Load()
     
     tERR.Anotar "sVU01"
     Me.BackColor = vbBlack
-    'dejo todo definido en el vumetro
-    Dim LCs3 As String
-    LCs3 = LeerConfig("UsarS3", "0")
-    tERR.Anotar "sVU01-s3", LCs3
-    'no se activa escuchar por el puerto si no esta configurado
-    If LCs3 = "1" Then
-        tERR.Anotar "faaa"
-        Set s3 = New tbrSKS3.clsTbrSKS3
-        '*************************
-        s3.HwndMsg = txtS3.HWND
-        
-        'tERR.AppendLog "S3_1:" + CStr(txtS3.HWND)
-        
-        s3.ReIniCounters 'son los mios
-        tERR.Anotar "faab"
-        s3.Prender
-        s3.SetInterval CLng(LeerConfig("FrecTecladoTBR", "50"))
-        
-        tERR.Anotar "faac"
-        s3.Prender
-        
-        esperar 1
-        
-        s3.ReIniContLuis
-        tERR.Anotar "faad"
-        esperar 1
-        
-        'obtener el numero de placa
-        NP = CLng(s3.GetnPlaca(SYSfolder + "prec.dll"))
-        tERR.Anotar "faae" + CStr(NP)
-        If NP = -1 Then
-            'mLog "No se podido comenzar la prueba. Quizas la interfase no este conectada o sea una versión solo botones"
-            'Exit Sub
-        End If
-        
-        'VER LICENCIA!!!!!
-        Dim TimOut As Single  'TimeOut
-        TimOut = 2
-        
-        Dim J As Long, RET As Long, cRet As Long
-        cRet = 0
-        For J = 1 To 10
-            
-            RET = s3.AddCont(J Mod 4, TimOut)
-            tERR.Anotar "faaf", J, RET
-            If RET = 2 Then 'time out
-                tERR.Anotar "***** TIME OUT - CONT:" + CStr(J) + " (timeout!) " + s3.GetResLicSTR
-            End If
-            
-            If RET = 1 Then 'llego mal!!! poner en cero
-                tERR.Anotar "***** MAL CONT:" + CStr(J) + " (bad!) " + s3.GetResLicSTR
-                'reinicio todo!!!
-                s3.ReIniContLuis
-                esperar 1
-            End If
-            
-            If RET = 0 Then
-                tERR.Anotar "CONT:" + CStr(J) + " (ok!) " + s3.GetResLicSTR
-                cRet = cRet + 1 'veces que esta ok
-            End If
-            
-            If J > 2 And cRet = 0 Then
-                Wueltas = 0
-                Exit For
-            End If
-        Next J
-        tERR.Anotar "faag", cRet
-        '*************************
-        Wueltas = cRet
-        If Wueltas < 8 Then
-            tERR.AppendLog "Fin i2H" + CStr(Wueltas) + "." + CStr(J)
-        Else
-            s3.ToTimer2 True
-            'cambio el ADN
-            tERR.Set_ADN CStr(App.Major * 100000 + App.Minor * 1000 + App.Revision) + " " + CStr(NP) + " " + CStr(Wueltas) + " wv:" + WVER
-            tERR.AppendSinHist CStr(Wueltas) + "_2100_H_" + CStr(NP)
-            
-            K.IngresaClave "3pm", False
-        End If
-        
-        
-        
-        
-    End If
-    tERR.Anotar "eaap"
-    
-    UB.SoloDispositivosUSB = True
-    UB.Iniciar Me
+    '************************************
+    'aqui estaba lo de la licencia!!!
+    '*************************************
     
     TengoBluetooth = CBool(CLng(LeerConfig("TengoBluetooth", "0")))
+    TengoUSB = CBool(CLng(LeerConfig("TengoUSB", "1")))
+    TengoCD = CBool(CLng(LeerConfig("TengoCD", "0")))
     
     Me.Caption = "QTIO232087402198347"
-    tERR.Anotar "eaaq", TengoBluetooth
+    tERR.Anotar "eaaq", TengoBluetooth, TengoUSB, TengoCD
+    
+    If TengoUSB Then
+        Set UB = New tbrDRIVES.clsDRIVES
+        UB.SoloDispositivosUSB = True
+        UB.Iniciar Me
+    End If
     
     If TengoBluetooth Then
         'indica en el modulo que se usa la referencia al objeto BTManager
         'tbrBtActivex.UsarBluetooth
-        tERR.Anotar "eaar"
+        tERR.Anotar "eaar22"
         Set BTM = tbrBtActivex.btManager
-        
         tbrBtActivex.SetWindowMsg Me.HWND
-        
         BTM.Initialize
     End If
     
+    'ver si hay que buscar cds
+    If TengoCD Then
+        'mm91
+        tERR.Anotar "eaar22A"
+        Set CDR = New tbrCD
+        tERR.Anotar "eaar22b"
+        CDR.DetectarUnidades
+        tERR.Anotar "eaar23", CDR.Cantidad
+                
+        'inicar lo de andres P
+        Dim H As Long
+        H = CDR.Iniciar
+        tERR.Anotar "bgah", H
+        Select Case H
+            Case 1, 2 'no hay grabadoras!, 'hay mas de una grabadora!
+                tERR.AppendLog "bagi"
+                TengoCD = False
+                'xxxx deberia hacer algo mas pulenta para que el cliente sepa que paso!
+                'Exit Sub
+            Case Is > 2 'algo no se registro ok por que no puede cargar la dll tbrBurner
+                TengoCD = False
+                'MsgBox "No se pudo iniciar Modulo de Grabacion de CD." + vbCrLf + _
+                    "Asegúrese de tener instalado NET Framework y Nero 7 o superior"
+        End Select
+    End If
     tERR.Anotar "eaas"
     
     Set VU = New tbrSoftVumetro.tbrDrawVUM
@@ -2915,9 +2955,11 @@ Private Sub Form_Load()
         IMF = ExtraData.getDef.getImagePath("botonokcomun")
         imgSELEC.Picture = LoadPicture(IMF)
         IMF = ExtraData.getDef.getImagePath("botonokcomunvip")
-        Dim j33 As Boolean
-        j33 = fso.FileExists(IMF)
-        ImgSelecVIP.Picture = LoadPicture(IMF)
+        If fso.FileExists(IMF) Then
+            ImgSelecVIP.Picture = LoadPicture(IMF)
+        Else
+            ImgSelecVIP.Picture = LoadPicture("") 'puede que sea skin viejo sin boton VIP
+        End If
         
         IMF = ExtraData.getDef.getImagePath("botonsalirnormal")
         imgSALIR.Picture = LoadPicture(IMF)
@@ -2932,15 +2974,8 @@ Private Sub Form_Load()
     End If
     
     'ver si es superlicencia y usa otra tapa predeterminada
-    If K.sabseee("3pm") = Supsabseee Then
-        If fso.FileExists(GPF("tddp322")) Then
-            IMF = GPF("tddp322")
-        Else
-            IMF = ExtraData.getDef.getImagePath("tapapredeterminada")
-        End If
-    Else
-        IMF = ExtraData.getDef.getImagePath("tapapredeterminada")
-    End If
+    IMF = GetTpPred
+    tERR.Anotar "Ix002-e", IMF
     
     tbrPassImg1.Picture IMF
     tERR.Anotar "acem", SYSfolder
@@ -3063,6 +3098,7 @@ Private Sub Form_Load()
     imageFONDO(0).Width = AnchoTapaDisco 'TapaCD(0).Width + 400
     imageFONDO(0).Height = AltoTapaDisco + MargSup ' TapaCD(0).Height + lblDISCO(0).Height + 200
        
+    
     TapaCD(0).ZOrder
     imageFONDO(0).ZOrder
     lblDisco2(0).ZOrder
@@ -3166,7 +3202,7 @@ Private Sub Form_Load()
     Loop
     'tERR.AppendLog "LISTO TAPAS"
     tERR.Anotar "acfa"
-    SetKeyState vbKeyScrollLock, True
+    
     lblV = TR.Trad("versión%99%") + " " + Trim(CStr(App.Major)) + "." + Trim(CStr(App.Minor)) + "." + Trim(CStr(App.Revision))
     'lblTiempoRestante = "Falta: " + "00:00"
     'ocultar las etiquetas
@@ -3219,11 +3255,28 @@ Private Sub Form_Load()
     '********************************************
     'calcular el ancho total para poder centrar
     Dim WiRit As Long
-    WiRit = 0
-    For AAA = 0 To UBound(PartOrigenes)
-        lRITMO(0).Caption = fso.GetBaseName(PartOrigenes(AAA))
-        WiRit = WiRit + lRITMO(0).Width + 160
-    Next AAA
+    'asegurarse que entre en pantalla
+    Do
+        WiRit = 0
+        For AAA = 0 To UBound(PartOrigenes)
+            lRITMO(0).Caption = fso.GetBaseName(PartOrigenes(AAA))
+            WiRit = WiRit + lRITMO(0).Width + 160
+        Next AAA
+        
+        If WiRit > frDiscos.Width Then
+            tERR.Anotar "chichica", WiRit, frDiscos.Width, lRITMO(0).Font.Size
+            'no achicar demasiado la letra!
+            If lRITMO(0).Font.Size < 9 Then
+                Exit Do
+            Else
+                lRITMO(0).Font.Size = lRITMO(0).Font.Size - 1
+                lRITMO2(0).Font.Size = lRITMO(0).Font.Size
+            End If
+        Else
+            Exit Do
+        End If
+    Loop
+    'MsgBox lRITMO(0).Font.Size'para ver a que tamaño cierra
     lRITMO(0).Left = (picFondo2.Width / 2) - (WiRit / 2)
     '********************************************
     
@@ -3251,7 +3304,7 @@ Private Sub Form_Load()
     '=============================================================================
     Dim MD As Long
     Randomize
-    MD = CLng(Rnd * 49)
+    MD = CLng(Rnd * 49) + 15
     
     tERR.Anotar "001-0063"
     If K.sabseee("3pm") <= CGratuita And UBound(MATRIZ_DISCOS) > MD Then
@@ -3274,25 +3327,35 @@ Private Sub Form_Load()
     Dim CantMM As Long, MMs() As String, dDI As String
     Dim IsQuitar As String 'lista de los indices a quitar
     IsQuitar = ""
-    
+    Dim CantNoUsados As Long 'para saber cuanto se eliminan por cuestion de indices en matriz
+    CantNoUsados = 0
     For AAA = 0 To UBound(MATRIZ_DISCOS)
         'obtengo la lista de arhivos
         dDI = txtInLista(MATRIZ_DISCOS(AAA), 0, ",")
         If dDI = "_RANK_" Then 'este ni siquiera existe en el disco
             CantMM = 10
         Else
-            MMs = ObtenerArchMM(dDI)
+            'OM- al iniciar el sistema se define que discos estan vacios para no _
+                cargarlos directamente que quedan mal mostrar discos vacios
+            'si desea vender cosas extrañas las bubsco si no nada
+            
+            If VentaExtras Then
+                MMs = ObtenerArchMM(dDI, , 1)
+            Else
+                MMs = ObtenerArchMM(dDI)
+            End If
             tERR.Anotar "caam", AAA, dDI
             'veo que tenga al menos 1!
             CantMM = UBound(MMs)
         End If
         
         If CantMM = 0 Then
-            
             tERR.Anotar "caak", AAA, dDI
             'si se quita aqui en un for que depende del ubound voy a generar errores!!!
             'QuitaIndiceMatriz MATRIZ_DISCOS, AAA
-            IsQuitar = IsQuitar + CStr(AAA) + " "
+            IsQuitar = IsQuitar + CStr(AAA - CantNoUsados) + " "
+            'no espero que entiendas esto de restar la cantidad de usados
+            CantNoUsados = CantNoUsados + 1
         End If
     Next AAA
     
@@ -3367,6 +3430,8 @@ Private Sub Form_Load()
         'ver cual es el máximo y si hay que avisar
     End If
     
+    imgExtraObjeto.Stretch = False
+    
     tbrPassImg1.IniciarPASS
     
 '    'si no tiene el foco ponerlo!!!
@@ -3398,10 +3463,17 @@ NoLoadIndex:
 MiErr:
 
     Select Case LCase(tERR.GetLastLog)
-        Case "eaar"
+        Case "eaar22"
             'no se pudo inicializar el bluetooth correctamente
-            MsgBox "No se puede inicializar el bluetooth, se eliminara esta configuración"
+            MsgBox "No se puede inicializar el bluetooth, se eliminara esta configuración" + vbCrLf + _
+                "Asegúrese de tener un dispositivo bluetooth con driver bluesoleil 1.6.4 o superior instalado"
             ChangeConfig "TengoBluetooth", "0"
+            Resume Next
+        Case "eaar22a"
+            'no se pudo inicializar el bluetooth correctamente
+            MsgBox "No se puede módulo de grabación de CD, se eliminara esta configuración" + vbCrLf + _
+                "Asegúrese de tener NERO 7 o superior instalado y contar con una grabadora de CD"
+            ChangeConfig "TengoCD", "0"
             Resume Next
     End Select
 
@@ -3420,18 +3492,20 @@ Private Sub BeginRoll()
     RollCRED.TextoACola "tbrSoft", &HA9C8C9             '3 es texto gratis al publico
     If TOTAL_DISCOS < 2 Then
         RollCRED.TextoACola TR.Trad("NO HAY DISCOS" + vbCrLf + _
-                            "Presione 'C' para ingresar" + vbCrLf + _
-                            "a la configuración y utilice" + vbCrLf + _
-                            "el asistente para cargar" + vbCrLf + _
-                            "multimedia al sistema.%98%" + _
+                            "Presione F9 para un " + vbCrLf + _
+                            "asistente rápido o 'C' para " + vbCrLf + _
+                            "configuración avanzada%98%" + _
                             "Arranco la fonola y no encontro musica%99%"), &HA9C8C9
     End If
     
     If K.sabseee("3pm") <= CGratuita Then
+        RollCRED.TextoACola TR.Trad("PRESIONE F9" + vbCrLf + _
+            "PARA AYUDA BASICA%98%Con F3 se abre el menu de " + _
+            "licencia para comprar el programa%99%"), &HA9C8C9
         RollCRED.TextoACola TR.Trad("PRESIONE F3" + vbCrLf + _
             "PARA USAR EL SOFTWARE" + vbCrLf + _
             "SIN RESTRICCIONES%98%Con F3 se abre el menu de " + _
-            "licencia para comprar el programa%%99%"), &HA9C8C9
+            "licencia para comprar el programa%99%"), &HA9C8C9
     End If
     
     RollCRED.INI
@@ -3444,17 +3518,19 @@ Private Sub BeginRoll()
     RollSONG.TextoACola TR.Trad("no hay proximas canciones%99%"), &HA9C8C9 'algun elemento del ranking
     If TOTAL_DISCOS < 2 Then
         RollSONG.TextoACola TR.Trad("NO HAY DISCOS" + vbCrLf + _
-                            "Presione 'C' para ingresar" + vbCrLf + _
-                            "a la configuración y utilice" + vbCrLf + _
-                            "el asistente para cargar" + vbCrLf + _
-                            "multimedia al sistema.%98%" + _
+                            "Presione F9 para un " + vbCrLf + _
+                            "asistente rápido o 'C' para " + vbCrLf + _
+                            "configuración avanzada%98%" + _
                             "Arranco la fonola y no encontro musica%99%"), &HA9C8C9
     End If
     If K.sabseee("3pm") <= CGratuita Then
+        RollSONG.TextoACola TR.Trad("PRESIONE F9" + vbCrLf + _
+            "PARA AYUDA BASICA%98%Con F3 se abre el menu de " + _
+            "licencia para comprar el programa%99%"), &HA9C8C9
         RollSONG.TextoACola TR.Trad("PRESIONE F3" + vbCrLf + _
             "PARA USAR EL SOFTWARE" + vbCrLf + _
             "SIN RESTRICCIONES%98%Con F3 se abre el menu de " + _
-            "licencia para comprar el programa%%99%"), &HA9C8C9
+            "licencia para comprar el programa%99%"), &HA9C8C9
     End If
     RollSONG.INI
     
@@ -3567,7 +3643,7 @@ Public Sub SelDisco(nDisco As Long)
             lLETRAS(AAA - 65).ForeColor = vbRed
             LineLETRA.X1 = lLETRAS(AAA - 65).Left
             LineLETRA.X2 = lLETRAS(AAA - 65).Left + lLETRAS(AAA - 65).Width
-            LineLETRA.Y1 = lLETRAS(AAA - 65).Top
+            LineLETRA.Y1 = lLETRAS(AAA - 65).Top + 90
             LineLETRA.Y2 = LineLETRA.Y1
             LineLETRA.Visible = True
         Else
@@ -3899,6 +3975,7 @@ MiErr:
 
 End Sub
 
+'modo de seleccion de discos ORIGINAL
 Private Sub SuperSel2(ByVal Index As Integer)
     
     On Local Error GoTo ErrSSel
@@ -3974,6 +4051,7 @@ Private Sub SuperSel2(ByVal Index As Integer)
     
     IMF = ExtraData.getDef.getImagePath("MarcoFondodelosdiscos")
     imgListaSong.Picture = LoadPicture(IMF)
+    
     Dim IND As Long
     IND = ExtraData.getDef.GetIndexImage("MarcoChicoIndicadores")
     Dim MargDer As Long, MargIzq As Long, MargSup As Long, MargInf As Long
@@ -3985,14 +4063,13 @@ Private Sub SuperSel2(ByVal Index As Integer)
     
     imgListaSong.Top = 150
     If MostrarTouch Then
-        imgListaSong.Height = (picFondoDisco.Height) - imgSELEC.Height - 300 - lblNOCREDIT.Height
+        imgListaSong.Height = (picFondoDisco.Height) - imgSELEC.Height - 150
     Else
-        imgListaSong.Height = (picFondoDisco.Height) - 300
+        imgListaSong.Height = (picFondoDisco.Height) - 150
     End If
     
     imgListaSong.Left = imgFondoDiscoSel.Left + imgFondoDiscoSel.Width + 200 ' picFondoDisco.Width / 2
     imgListaSong.Width = picFondoDisco.Width - imgListaSong.Left - 300
-    imgListaSong.Visible = True
     
     'ya esta agrandado
     lblDATA.Font.Size = lblDiscoSEL2.Font.Size
@@ -4014,14 +4091,26 @@ Private Sub SuperSel2(ByVal Index As Integer)
     'encontrar todos los archivos *.mp3, *.avi, *.mpg, *.mpeg, etc
     UbicDiscoActual = txtInLista(MATRIZ_DISCOS(nDiscoGral), 0, ",")
     ReDim Preserve MATRIZ_TEMAS(0)
+    Dim PerfilEncontrado As Long
     If UbicDiscoActual = "_RANK_" Then
         MATRIZ_TEMAS = ObtenerRankComoMM(30) 'joia tengo un ranking decente!!!
+        PerfilActual = -1 'perfil de ranking!!
     Else
-        MATRIZ_TEMAS = ObtenerArchMM(UbicDiscoActual, True)
+        'OM- entro a un disco y quiero mostrar la lista de lo que hay
+        If VentaExtras Then
+            PerfilEncontrado = 1 'valor para que entre buscando
+            MATRIZ_TEMAS = ObtenerArchMM(UbicDiscoActual, True, PerfilEncontrado)
+        Else
+            'parta que ni busque perfiles, es un disco comun de 3PM
+            MATRIZ_TEMAS = ObtenerArchMM(UbicDiscoActual, True)
+            PerfilEncontrado = 1 'es el de 3PM base
+        End If
+                
         'de la forma!
         'D:\musica\Cuartetazo\Alma Fuerte-En vivo Obras 2001\02 - Almafuerte.mp3#02 - Almafuerte.mp3
+        PerfilActual = PerfilEncontrado
     End If
-    tERR.Anotar "caah", UBound(MATRIZ_TEMAS)
+    tERR.Anotar "caah2", UBound(MATRIZ_TEMAS)
     'usar esto y no una variable para saber de discos vacios
     If UBound(MATRIZ_TEMAS) = 0 Then
         lblCanciones(0).Caption = TR.Trad("NO HAY CANCIONES EN ESTE DISCO!%99%")
@@ -4040,12 +4129,69 @@ Private Sub SuperSel2(ByVal Index As Integer)
         If fso.FileExists(ArchDaTa) Then
             Dim A As TextStream
             Set A = fso.OpenTextFile(ArchDaTa, ForReading, False)
-            DataTXT = A.ReadAll
+                If A.AtEndOfStream = False Then
+                    DataTXT = A.ReadAll
+                Else
+                    DataTXT = TR.Trad("No hay datos adicionales de este disco%99%")
+                End If
+            A.Close
         Else
             DataTXT = TR.Trad("No hay datos adicionales de este disco%99%")
         End If
     End If
     
+    Select Case PerfilActual
+        Case 1: DataTXT = DataTXT + vbCrLf + "3PM BASE"
+        Case 2: DataTXT = DataTXT + vbCrLf + "3PM RINGTONES"
+        Case 3: DataTXT = DataTXT + vbCrLf + "3PM WALLPAPERS"
+        Case 4: DataTXT = DataTXT + vbCrLf + "3PM JAVA"
+        Case 5: DataTXT = DataTXT + vbCrLf + "3PM ISOs"
+        Case 6: DataTXT = DataTXT + vbCrLf + "3PM Videos para mobil"
+    End Select
+    
+    'estos perfiles incluye una imagen por cada objeto de la lista
+    If PerfilActual >= 3 And PerfilActual <= 6 Then
+    
+        'MODO 2 abajo a la derecha dentro de la misma lista de discos ...
+        'se mezcla la imagen con los elementos de abajo de la lista
+'        picExtraObjeto.Left = imgListaSong.Left + ((2 * imgListaSong.Width) / 3)
+'        picExtraObjeto.Width = imgListaSong.Width / 3
+'
+'        picExtraObjeto.Height = imgListaSong.Height / 3
+'        picExtraObjeto.Top = imgListaSong.Top + ((2 * imgListaSong.Height) / 3)
+        
+        'MODO 1
+        picExtraObjeto.Left = imgListaSong.Left
+        picExtraObjeto.Width = imgListaSong.Width
+        picExtraObjeto.Height = imgListaSong.Height / 2
+        picExtraObjeto.Top = picFondoDisco.Height - picExtraObjeto.Height - 45
+        picExtraObjeto.Picture = imgListaSong.Picture 'el marco de abajo si lo hubiera es el mismo que arriba
+        'achico la lista de imagenes por que esta es la referencia por los renglones _
+            que se muestran y dependen tambien el movimiento de los objetos de la lista
+        imgListaSong.Height = imgListaSong.Height - picExtraObjeto.Height
+    
+        picExtraObjeto.Visible = True
+    Else
+        picExtraObjeto.Visible = False
+    End If
+    
+    imgListaSong.Visible = True
+    
+    'nombres de los botones de comprar
+    Select Case PerfilActual
+        Case 1
+            btBUYDisco.Caption = "Comprar Disco"
+            btBuyCancion.Caption = "Comprar canción"
+        Case 2
+            btBUYDisco.Caption = "Comprar todos"
+            btBuyCancion.Caption = "Comprar Ringtone"
+        Case 3
+            btBUYDisco.Caption = "Comprar todos"
+            btBuyCancion.Caption = "Comprar Wallpaper"
+        Case 4
+            btBUYDisco.Caption = "Comprar todos"
+            btBuyCancion.Caption = "Comprar Juego"
+    End Select
     lblDATA.Caption = DataTXT:    lblDATA2.Caption = lblDATA.Caption
     lblDATA.Visible = True:       lblDATA2.Visible = True
     
@@ -4093,7 +4239,49 @@ Private Sub SuperSel2(ByVal Index As Integer)
                 EXT = TR.Trad(" (VCD-Video)%99%")
             Case "mn0", "mn1"
                 EXT = TR.Trad(" (KARAOKE)%99%")
+            Case "jpg", "jpeg", "bmp", "gif"
+                EXT = TR.Trad(" (Wallpaper)%99%")
+            Case "jar"
+                EXT = TR.Trad(" (Java)%99%")
+            'mm91
+            'formatos de imagenes de nero
+            'NR3: cd de mp3s    /    'NRA: cd de audio    /  'NRB: cd-rom de arranque
+            'NRC: nero usf/iso  /    'NRD: nero DVD       /  'NRE: cd extra
+            'NRG: imagen        /    'NRH: cd-rom hibrido /  'NRI: cd-rom iso
+            'NRM: cd mixto      /    'NRU: cd-rom udf     /  'NRV: cd supervideo
+            'NRW: cd rom wma    /    'CDC: cd cover no tiene nada que ver con imagenes parece
+            Case "iso"
+                EXT = TR.Trad(" (Imagen ISO)%99%")
+            Case "nrg"
+                EXT = TR.Trad(" (Imagen NERO)%99%")
+            Case "nr3"
+                EXT = TR.Trad(" (Imagen NERO MP3)%99%")
+            Case "nra"
+                EXT = TR.Trad(" (Imagen NERO AUDIO)%99%")
+            Case "nrb"
+                EXT = TR.Trad(" (Imagen NERO INICIO)%99%")
+            Case "nrc"
+                EXT = TR.Trad(" (Imagen NERO UDF/ISO)%99%")
+            Case "nrd"
+                EXT = TR.Trad(" (Imagen NERO DVD)%99%")
+            Case "nre"
+                EXT = TR.Trad(" (Imagen NERO CD EXTRA)%99%")
+            Case "nrh"
+                EXT = TR.Trad(" (Imagen NERO CD HIBR)%99%")
+            Case "nri"
+                EXT = TR.Trad(" (Imagen NERO ISO)%99%")
+            Case "nrm"
+                EXT = TR.Trad(" (Imagen NERO CD MIXTO)%99%")
+            Case "nru"
+                EXT = TR.Trad(" (Imagen NERO CD UDF)%99%")
+            Case "nrv"
+                EXT = TR.Trad(" (Imagen NERO SUPERVIDEO)%99%")
+            Case "nrw"
+                EXT = TR.Trad(" (Imagen NERO WMA)%99%")
+            Case "3gp"
+                EXT = TR.Trad(" (Video para movil)%99%")
         End Select
+        
         nombreTemas = fso.GetBaseName(nombreTemas) + EXT
         Load lblCanciones(C)
         Load lblCanciones2(C)
@@ -4107,6 +4295,7 @@ Private Sub SuperSel2(ByVal Index As Integer)
         'tiene autosize
         
         C = C + 1 'ver que el proximo entre
+        
     Loop
     
     Dim TotalSong As Long
@@ -4125,25 +4314,27 @@ Private Sub SuperSel2(ByVal Index As Integer)
         Do While C <= UBound(MATRIZ_TEMAS)
             pathTema = lblCanciones(C).Tag
             'si es mp3 usar el rápido, si no usar el viejo
-            'XXXX no se si podra leer la duracion del mp4 igual que el mp3
-            If UCase(Right(pathTema, 3)) = "MP3" Then '''Or UCase(Right(pathTema, 3)) = "MP4" Then
-                MP3tmp.FileName = pathTema
-                DuracionTema = MP3tmp.DurationSTR
-            Else
-                'en caso de que sea video el clsMp3 no anda!!
-                'mostrar duracion VIEJO FORMATO
-                tERR.Anotar "caaj21", pathTema
-                DuracionTema = frmIndex.MP3.QuickLargoDeTema(pathTema)
-                If DuracionTema = "N/S" Then
-                    NoCargoDuracion = NoCargoDuracion + 1
-                    If NoCargoDuracion > 3 Then
-                        'hay algun problema y no cargo mas
-'                        lstTIME.Visible = False
-'                        lstTEMAS.Left = 50
-'                        lstTEMAS.Width = lblNoEjecuta.Left - 50
+            'mm91 no se puede tener la duracion de otros tipos de archivos
+            Dim est As String
+            est = UCase(Right(pathTema, 3))
+            Select Case est
+                Case "MP3"
+                    MP3tmp.FileName = pathTema
+                    DuracionTema = MP3tmp.DurationSTR
+                Case "mpg", "avi", "mpeg"
+                    'en caso de que sea video el clsMp3 no anda!!
+                    'mostrar duracion VIEJO FORMATO
+                    DuracionTema = frmIndex.MP3.QuickLargoDeTema(pathTema)
+                    If DuracionTema = "N/S" Then
+                        NoCargoDuracion = NoCargoDuracion + 1
+                        If NoCargoDuracion > 3 Then
+                            'hay algun problema y no cargo mas
+    '                        lstTIME.Visible = False
+    '                        lstTEMAS.Left = 50
+    '                        lstTEMAS.Width = lblNoEjecuta.Left - 50
+                        End If
                     End If
-                End If
-            End If
+            End Select
             lblCanciones(C).Caption = lblCanciones(C).Caption + " (" + DuracionTema + ")"
             C = C + 1
         Loop
@@ -4200,7 +4391,9 @@ Private Sub SuperSel2(ByVal Index As Integer)
         C = C + 1
     Loop
     
-    lblNOCREDIT.Left = imgListaSong.Left + (imgListaSong.Width / 2 - lblNOCREDIT.Width / 2)
+    
+    lblNOCREDIT.Left = imgListaSong.Left + imgListaSong.Width - lblNOCREDIT.Width
+    lblNOCREDIT.Top = imgListaSong.Top + imgListaSong.Height '- lblNOCREDIT.Height - 120
     
     If MostrarTouch Then
         cmdTouchAbajo.Top = 120 'imgListaSong.Top + cmdTouchArriba.Height + 120
@@ -4223,22 +4416,22 @@ Private Sub SuperSel2(ByVal Index As Integer)
             btBUYDisco.Visible = True
         End If
         
-        imgSELEC.Left = imgListaSong.Left + (imgListaSong.Width / 3 - imgSELEC.Width)
+        imgSELEC.Left = imgListaSong.Left + 90 ' imgListaSong.Left + (imgListaSong.Width / 3 - imgSELEC.Width)
+        'imgSELEC.Left = imgListaSong.Left + (imgListaSong.Width / 3 - imgSELEC.Width)
         imgSELEC.Top = imgListaSong.Top + imgListaSong.Height + 60
         
         ImgSelecVIP.Left = imgSELEC.Left + imgSELEC.Width + 60
         ImgSelecVIP.Top = imgSELEC.Top
         
-        imgSALIR.Left = imgListaSong.Left + (imgListaSong.Width / 1.5)
+        imgSALIR.Left = ImgSelecVIP.Left + ImgSelecVIP.Width + 60
         imgSALIR.Top = imgListaSong.Top + imgListaSong.Height + 60
         
-        lblNOCREDIT.Top = imgSELEC.Height + imgSELEC.Top + 60
+        'lblNOCREDIT.Top = imgSELEC.Height + imgSELEC.Top + 60
         
         imgSELEC.Visible = True
         imgSALIR.Visible = True
-        ImgSelecVIP.Visible = (CreditosXaVipMusica > 0)
+        ImgSelecVIP.Visible = (CreditosXaVipMusica > 0) And (PerfilActual = 1)
     Else
-        lblNOCREDIT.Top = imgListaSong.Height + imgListaSong.Top - lblNOCREDIT.Height - 120
         btBuyCancion.Visible = False
         btBUYDisco.Visible = False
     End If
@@ -4250,10 +4443,12 @@ Private Sub SuperSel2(ByVal Index As Integer)
     Exit Sub
     
 ErrSSel:
-    tERR.AppendLog "SSEL444"
+    tERR.AppendLog "SSEL444-2", tERR.ErrToTXT(Err)
     Resume Next
 End Sub
 
+'se elige un elemento de la lista de discos
+'se usa tambien para moverse dentro de la lista, los cometarios internos describen el funcionamiento
 Private Function selDiscoI(I As Integer) As Long
 
     On Local Error GoTo ErrSDI
@@ -4262,7 +4457,7 @@ Private Function selDiscoI(I As Integer) As Long
     'como aqui pueden venir con el mouse (que aun no pone en cero el contador de los botones)
     SecSinTecla = 0
     
-    If EstoyEnDisco = 1 Then
+    If EstoyEnDisco = 1 And PerfilActual = 1 Then
         lblNOCREDIT.Caption = getStrMusicaVIP 'deja vacio si no esta activado el vip o pone lo que va
     Else
         lblNOCREDIT.Caption = ""
@@ -4337,6 +4532,10 @@ Private Function selDiscoI(I As Integer) As Long
             lblCanciones(C).BackStyle = 1
             lblCanciones2(C).BackStyle = 1
             lblCanciones(C).BorderStyle = 1
+            'si es un wallpaper hacer una previsualizacion y si es una aplicacion java ver si tiene sshot ..
+            'la funcion sola define si es un objeto que tenga preview posible
+            ShowPreview lblCanciones(C).Tag
+            
             'revisar además que este visible el elegido si la lista fuera mas larga de lo que corresponde
             If lblCanciones2(C).Tag = "OUT DOWN" Then
                 'corro todos para arriba....
@@ -4382,6 +4581,130 @@ ErrSDI:
         tERR.ErrToTXT(Err)
         
 End Function
+
+Private Sub ShowPreview(sF As String)
+    'el parametro es el path completo del objeto elegido
+    Dim imgToShow As String 'image a mostrar
+    Dim txtInfoPV As String 'info adicional del extra
+    Dim sizeKB As Long 'tamaño en KB de lo elegido
+    Dim VerTamanoIMG As Boolean 'si es wallpaper me importa mostrar los pixles, si el screenshot de un jar no!!! se podria confundir con los pixles del juego!
+    Select Case LCase(fso.GetExtensionName(sF))
+        Case "jar"
+            'buscar la imagen a mostrar
+            imgToShow = Mid(sF, 1, Len(sF) - Len(fso.GetExtensionName(sF))) + "jpg"
+            If fso.FileExists(imgToShow) = False Then
+                imgToShow = GetTpPred 'trato de mostrar la imagen predeterminada
+                If fso.FileExists(imgToShow) = False Then imgToShow = ""
+            End If
+            sizeKB = FileLen(sF) / 1024
+            VerTamanoIMG = False
+            
+            'ver si ya se abrio este jar y ta tengo el manifiesto a mano
+            Dim FilManif As String
+            FilManif = Mid(sF, 1, Len(sF) - Len(fso.GetExtensionName(sF))) + "mf"
+            If fso.FileExists(FilManif) Then
+                txtInfoPV = "INFO JAR:" + vbCrLf + GetFullStringArch(FilManif)
+            Else 'deja creado el archivo de manifiesto para entrrar mas rapido la proxima vez
+                Dim JJ As New tbrJAR
+                txtInfoPV = "INFO JAR:" + vbCrLf + JJ.getStringManifest(sF)
+            End If
+        
+        'mm91
+        'las imagenes iso pueden tener un archivo txt de informacion y una imagen JPG tambien
+        Case "iso", "nrg", "nr3", "nra", "nrb", "nrc", "nrd", "nre", "nrh", "nri", "nrm", "nru", "nrv", "nrw"
+            'buscar la imagen a mostrar
+            imgToShow = Mid(sF, 1, Len(sF) - Len(fso.GetExtensionName(sF))) + "jpg"
+            If fso.FileExists(imgToShow) = False Then
+                imgToShow = GetTpPred 'trato de mostrar la imagen predeterminada
+                If fso.FileExists(imgToShow) = False Then imgToShow = ""
+            End If
+            sizeKB = FileLen(sF) / 1024
+            VerTamanoIMG = False
+        Case "3gp" 'mm91 PODRIA abrir el video ????
+            'seria mejor que tener que hacer una imagen
+            'buscar la imagen a mostrar
+            imgToShow = Mid(sF, 1, Len(sF) - Len(fso.GetExtensionName(sF))) + "jpg"
+            If fso.FileExists(imgToShow) = False Then
+                imgToShow = GetTpPred 'trato de mostrar la imagen predeterminada
+                If fso.FileExists(imgToShow) = False Then imgToShow = ""
+            End If
+            sizeKB = FileLen(sF) / 1024
+            VerTamanoIMG = False
+        
+        Case "jpg", "jpeg", "bmp", "gif"
+            imgToShow = sF
+            sizeKB = FileLen(sF) / 1024
+            VerTamanoIMG = True
+        Case Else 'si es un mp3 o video o kar o sea nada con preview salgo
+            Exit Sub
+    End Select
+    
+    txtInfoPV = txtInfoPV + vbCrLf + "Necesita " + CStr(sizeKB) + " KB"
+        
+    imgExtraObjeto.Visible = False
+    lblInfoPreview.Visible = False
+    imgExtraObjeto.Stretch = False
+    imgExtraObjeto.Picture = LoadPicture(imgToShow)
+    
+    If VerTamanoIMG Then
+        Dim AnchoPix As Long: AnchoPix = imgExtraObjeto.Width / 15
+        Dim AltoPix As Long: AltoPix = imgExtraObjeto.Height / 15
+        txtInfoPV = txtInfoPV + vbCrLf + _
+            "Ocupa " + CStr(AnchoPix) + " x " + CStr(AltoPix) + " pixeles (ancho x alto)"
+    End If
+    
+    'buscar texto
+    'en JPG sera el tamaño en pixeles y el peso en MB
+    'en java será el peso en MB + requisitos del soft (cldc)+ tamaño en pixeles recomedado
+    Dim FilInfo As String
+    FilInfo = Mid(sF, 1, Len(sF) - Len(fso.GetExtensionName(sF))) + "txt"
+    If fso.FileExists(FilInfo) Then
+        Dim A As TextStream
+        Set A = fso.OpenTextFile(ArchDaTa, ForReading, False)
+            txtInfoPV = txtInfoPV + vbCrLf + A.ReadAll
+        A.Close
+    Else
+        'txtInfoPV = txtInfoPV + vbCrLf + "Sin información adicional"
+    End If
+    
+    lblInfoPreview.Caption = txtInfoPV
+    
+    'ver si hay que achicarlo
+    Dim CoefH As Single, CoefW As Single
+    CoefH = imgExtraObjeto.Height / (picExtraObjeto.Height * 0.9)
+    CoefW = imgExtraObjeto.Width / ((picExtraObjeto.Width / 2) * 0.9)
+    
+    If CoefW > 1 Or CoefH > 1 Then
+        imgExtraObjeto.Stretch = True
+        Dim newW As Single, NewH As Single
+        If CoefH > CoefW Then
+            newW = imgExtraObjeto.Width / CoefH
+            NewH = imgExtraObjeto.Height / CoefH
+        Else
+            newW = imgExtraObjeto.Width / CoefW
+            NewH = imgExtraObjeto.Height / CoefW
+        End If
+        
+        imgExtraObjeto.Width = newW
+        imgExtraObjeto.Height = NewH
+        
+    End If
+    
+    lblInfoPreview.Width = (picExtraObjeto.Width / 2) * 0.9
+    lblInfoPreview.Height = picExtraObjeto.Height * 0.9
+    lblInfoPreview.Top = picExtraObjeto.Top + (picExtraObjeto.Height / 2 - lblInfoPreview.Height / 2)
+    lblInfoPreview.Left = picExtraObjeto.Left + (picExtraObjeto.Width / 4 - lblInfoPreview.Width / 2)
+    
+    imgExtraObjeto.Top = picExtraObjeto.Top + (picExtraObjeto.Height / 2 - imgExtraObjeto.Height / 2)
+    'de la mitrad hacia la derecha
+    imgExtraObjeto.Left = picExtraObjeto.Left + (picExtraObjeto.Width / 2) + _
+        (picExtraObjeto.Width / 4 - imgExtraObjeto.Width / 2)
+    
+    imgExtraObjeto.Visible = True
+    lblInfoPreview.Visible = True
+    'picExtraObjeto.ZOrder
+    'imgExtraObjeto.ZOrder
+End Sub
 
 Private Sub MoverListaTemas(Direccion As Long)
     'direccion puede ser positivo para abajo o negativo para arriba
@@ -4453,8 +4776,10 @@ Private Sub UnSuperSel()
             tERR.Anotar "sdi7", M
             TapaCD(M).Visible = True
             imageFONDO(M).Visible = True
-            lblDISCO(M).Visible = True
-            lblDisco2(M).Visible = True
+            If MostrarRotulos Then
+                lblDISCO(M).Visible = True
+                lblDisco2(M).Visible = True
+            End If
         End If
     Next M
     
@@ -4464,6 +4789,9 @@ Private Sub UnSuperSel()
     lblDiscoSEL2.Visible = False
     imgFondoDiscoSel.Visible = False
     imgListaSong.Visible = False
+    picExtraObjeto.Visible = False
+    imgExtraObjeto.Visible = False
+    lblInfoPreview.Visible = False
     lblDATA.Visible = False
     lblDATA2.Visible = False
     
@@ -4576,7 +4904,7 @@ End Sub
 Private Sub lblNOCREDIT_Change()
     'CENTRARSE BIEN YA QUE TIENE AUTOSIZE
     ' Y SE USA DOS TEXTO "CREDITO INSUFICIENTE"   Y   "Credito VIP x $ x.xx"
-    lblNOCREDIT.Left = imgListaSong.Left + (imgListaSong.Width / 2 - lblNOCREDIT.Width / 2)
+    lblNOCREDIT.Left = imgListaSong.Left + imgListaSong.Width - lblNOCREDIT.Width
 End Sub
 
 Private Sub lLETRAS_Click(Index As Integer)
@@ -5090,7 +5418,7 @@ Private Sub Timer1_Timer()
                     CORTAR_TEMA(IAANext) = True 'este tema se eligio al azar no va entero
                     SecSinUso = 0
                     TE.Close
-                    EjecutarTema TemaAzar, False
+                    EjecutarTema TemaAzar, False, "AZAR"
                     Exit Sub
                 Else
                     'NI BOSTA, NO PASA MUSICA QUE HAGA EL RANKING !!!
@@ -5118,6 +5446,7 @@ MiErr:
     
 End Sub
 
+'reloj para salir de un disco o el protctor de pantalla
 Private Sub Timer3_Timer()
     On Error GoTo MiErr
     
@@ -5143,13 +5472,20 @@ Private Sub Timer3_Timer()
         Exit Sub
     End If
     tERR.Anotar "achn", SecSinTecla, EsperaTecla
-    ' a los 7 segundos sale del disco!
-    If SecSinTecla > 7 And EsVideo = False Then
+    ' a los x segundos sale del disco!
+    If SecSinTecla > 15 And EsVideo = False Then
         If EstoyEnDisco = 1 Then 'corregido con el manu
             UnSuperSel
         End If
     End If
-    If SecSinTecla > EsperaTecla And EsVideo = False Then frmProtect.Show 1
+    
+    If SecSinTecla > EsperaTecla And EsVideo = False Then
+        If Protector = 3 Then 'empezar a moverse solo!
+            Form_KeyDown TeclaDER, 0
+        Else 'ir a los demas protectores
+            frmProtect.Show 1
+        End If
+    End If
     
     Exit Sub
 MiErr:
@@ -5313,7 +5649,21 @@ Public Sub BaseVista()
     frModoVideo.Left = Screen.Width - frModoVideo.Width
     frTEMAS.Left = Screen.Width - frTEMAS.Width
     
+    
+    'picFondo2.Height = 765
+    'no usarlo porque el tamaño de la fuente de define automaticamente y no queda bien.
+    'seria verse o no nada mas
+    If QuitaBarraSup Then picFondo2.Height = 0
+    If QuitaBarraInf Then
+        tbrPassImg1.Visible = False
+        picFondo.Height = picFondo.Height / 2
+        lblCreditos.Top = picFondo.Height / 2 - lblCreditos.Height / 2
+    Else
+        lblCreditos.Top = 30
+    End If
+    
     'barra inferior
+    'picFondo.Height = 1500 'ejemplo de achicar para ver mas de discos
     picFondo.Top = Screen.Height - picFondo.Height
     
     picFondoPacha.Top = Screen.Height - picFondoPacha.Height
@@ -5322,7 +5672,8 @@ Public Sub BaseVista()
     
     'barra superior
     picFondo2.Top = 0
-    
+    lRITMO(0).Top = 0
+        
     'contenedor de los discos
     frDiscos.Top = picFondo2.Height
     frDiscos.Height = picFondo.Top - picFondo2.Height
@@ -5455,8 +5806,7 @@ Public Sub UpdateVista()
 
     'dentro del picfondo hay que reacomodar
     lblCreditos.Left = picFondo.Width / 2 - lblCreditos.Width / 2
-    tbrPassImg1.Left = picFondo.Width / 2 - tbrPassImg1.Width / 2
-    lblCreditos.Top = 30
+    
     'que se reacomode la sombra de los creditos, es necesario cuando se cambia el tamaño de picFondo!!!
     lblCreditos_Change
     
@@ -5473,8 +5823,9 @@ Public Sub UpdateVista()
     If MargSup = 0 Then MargSup = 60
     If MargInf = 0 Then MargInf = 60
     
-    RollCRED.Width = tbrPassImg1.Left - MargDer  'tbrPassImg1.Left * 0.75
-    RollSONG.Width = (picFondo.Width - (tbrPassImg1.Left + tbrPassImg1.Width)) - MargIzq '(picFondo.Width - (tbrPassImg1.Left + tbrPassImg1.Width)) * 0.75
+    tbrPassImg1.Left = picFondo.Width / 2 - tbrPassImg1.Width / 2
+    RollCRED.Width = tbrPassImg1.Left - MargDer - 90 'tbrPassImg1.Left * 0.75
+    RollSONG.Width = (picFondo.Width - (tbrPassImg1.Left + tbrPassImg1.Width)) - MargIzq - 90 '(picFondo.Width - (tbrPassImg1.Left + tbrPassImg1.Width)) * 0.75
     RollSONG.Height = picFondo.Height - MargSup - MargInf   'picFondo.Height * 0.7
     RollCRED.Height = picFondo.Height - MargSup - MargInf   ' picFondo.Height * 0.7
     RollCRED.Left = MargDer '(tbrPassImg1.Left / 2) - (RollCRED.Width / 2)
@@ -5485,8 +5836,7 @@ Public Sub UpdateVista()
     RollCRED.Top = MargSup  'picFondo.Height / 2 - RollCRED.Height / 2
     
     'al momento de definir el skin se define un porcentaje que ocuapa cada uno de los 4 margenes
-    
-    
+        
     IND = ExtraData.getDef.GetIndexImage("MarcoFondoDeLosDiscos")
     tERR.Anotar "aceu4", IMF
     MargSup = frDiscos.Height * ExtraData.getDef.GetFinalMargenSuperiorTra(IND) / 100
@@ -5560,10 +5910,10 @@ End Sub
 Private Sub tUltra_Change()
     'me esta hablando el control
     
-    If tUltra.Text = "" Then Exit Sub
-    tERR.Anotar tUltra.Text
+    If tUltra.tExt = "" Then Exit Sub
+    tERR.Anotar tUltra.tExt
     Dim SP() As String
-    SP = Split(tUltra.Text, "|")
+    SP = Split(tUltra.tExt, "|")
     
     Select Case CLng(SP(0)) 'lista de solicitudes
         Case 10000 'setear un hwnd para recibnir los errores
@@ -5576,14 +5926,14 @@ Private Sub tUltra_Change()
     End Select
     
     'para que cualquier cosa sea un cambio real
-    tUltra.Text = ""
+    tUltra.tExt = ""
 End Sub
 
 Private Sub TUsb_Change()
-    If TUsb.Text = "" Then Exit Sub
+    If TUsb.tExt = "" Then Exit Sub
     
     Dim SP() As String
-    SP = Split(TUsb.Text, "|")
+    SP = Split(TUsb.tExt, "|")
     
     Select Case SP(0)
         Case "0" 'entro drive
@@ -5595,15 +5945,15 @@ Private Sub TUsb_Change()
             
     End Select
     
-    TUsb.Text = ""
+    TUsb.tExt = ""
 End Sub
 
 Private Sub txtS3_Change()
     
-    If txtS3.Text = "" Then Exit Sub
+    If txtS3.tExt = "" Then Exit Sub
     
     Dim P As String
-    P = txtS3.Text
+    P = txtS3.tExt
     tERR.Anotar "acei88:" + P
     
     Dim SP() As String
@@ -5854,7 +6204,7 @@ Public Function WaitOk(sCancion As String) As Long
         picKAR.Visible = True
         picKAR.ZOrder
     End If
-    
+    'xxxx ver que diga si lo va a querer grabar a bluetooth al final
     MP3.DoPlayKar
 End Function
 
@@ -5875,7 +6225,10 @@ Private Function GetH(AR As String, PX As String) As String
         If resPX = CDK_prefix(J) Then
             'encontre a que cd pertenece!!!
             'VER SI TIENE LICENCIA PARA EL CD1
-            If K.sabseee(CDK_forLic(J)) >= EComun Then
+            If K.sabseee("mLicenciaCD001Kar") >= EComun Then
+                'CON QUE TENGA LA LICENCIA DEL 1 ALCAZA (nuevo set 08)
+                'la posibilidad de grabacion sera en superlicencia de karaoke
+                
                 'si tiene la licencia
                 KKY = CDK_qey(J)
                 PX = CDK_prefix(J)
@@ -5911,10 +6264,10 @@ End Sub
 
 '***********************************************************************
 Private Sub tBT_Change()
-    If tBT.Text = "" Then Exit Sub
+    If tBT.tExt = "" Then Exit Sub
     
     Dim SP() As String
-    SP = Split(tBT.Text, "|")
+    SP = Split(tBT.tExt, "|")
     
     Select Case SP(0)
         Case "0"
@@ -5934,15 +6287,16 @@ Private Sub tBT_Change()
             tERR.Anotar "BTM_DEV", SP(1), SP(2)
     End Select
     
-    tBT.Text = ""
+    tBT.tExt = ""
 End Sub
 
 Private Sub SuperSel(ByVal Index As Integer)
     tERR.Anotar "PachaMode", PachaMode
     If PachaMode = 10000 Then SuperSel2 Index 'el original
-    If PachaMode = 11000 Then SuperSel3 Index 'el original
+    If PachaMode = 11000 Then SuperSel3 Index 'el de pacha
 End Sub
 
+'modo de seleccion de discos segun pacha
 Private Sub SuperSel3(ByVal Index As Integer)
         
     On Local Error GoTo ErrSSel
@@ -5983,6 +6337,7 @@ Private Sub SuperSel3(ByVal Index As Integer)
     
     IMF = ExtraData.getDef.getImagePath("MarcoFondodelosdiscos")
     imgListaSong.Picture = LoadPicture(IMF)
+    picExtraObjeto.Picture = imgListaSong.Picture
     Dim IND As Long
     IND = ExtraData.getDef.GetIndexImage("MarcoChicoIndicadores")
     Dim MargDer As Long, MargIzq As Long, MargSup As Long, MargInf As Long
@@ -6065,14 +6420,26 @@ Private Sub SuperSel3(ByVal Index As Integer)
     'encontrar todos los archivos *.mp3, *.avi, *.mpg, *.mpeg, etc
     UbicDiscoActual = txtInLista(MATRIZ_DISCOS(nDiscoGral), 0, ",")
     ReDim Preserve MATRIZ_TEMAS(0)
+    Dim PerfilEncontrado As Long
     If UbicDiscoActual = "_RANK_" Then
         MATRIZ_TEMAS = ObtenerRankComoMM(30) 'joia tengo un ranking decente!!!
+        PerfilActual = -1 'perfil de ranking
     Else
-        MATRIZ_TEMAS = ObtenerArchMM(UbicDiscoActual, True)
+        'OM- entro a un disco y quiero ver lo que hay
+        If VentaExtras Then
+            PerfilEncontrado = 1 'valor para que entre buscando
+            MATRIZ_TEMAS = ObtenerArchMM(UbicDiscoActual, True, PerfilEncontrado)
+        Else
+            'parta que ni busque perfiles, es un disco comun de 3PM
+            MATRIZ_TEMAS = ObtenerArchMM(UbicDiscoActual, True)
+            PerfilEncontrado = 1
+        End If
+        
         'de la forma!
         'D:\musica\Cuartetazo\Alma Fuerte-En vivo Obras 2001\02 - Almafuerte.mp3#02 - Almafuerte.mp3
+        PerfilActual = PerfilEncontrado
     End If
-    tERR.Anotar "caah", UBound(MATRIZ_TEMAS)
+    tERR.Anotar "caah3", UBound(MATRIZ_TEMAS)
     'usar esto y no una variable para saber de discos vacios
     If UBound(MATRIZ_TEMAS) = 0 Then
         lblCanciones(0).Caption = TR.Trad("NO HAY CANCIONES EN ESTE DISCO!%99%")
@@ -6091,11 +6458,23 @@ Private Sub SuperSel3(ByVal Index As Integer)
         If fso.FileExists(ArchDaTa) Then
             Dim A As TextStream
             Set A = fso.OpenTextFile(ArchDaTa, ForReading, False)
-            DataTXT = A.ReadAll
+                If A.AtEndOfStream = False Then
+                    DataTXT = A.ReadAll
+                Else
+                    DataTXT = TR.Trad("No hay datos adicionales de este disco%99%")
+                End If
+            A.Close
         Else
             DataTXT = TR.Trad("No hay datos adicionales de este disco%99%")
         End If
     End If
+    
+    Select Case PerfilActual
+        Case 1: DataTXT = DataTXT + vbCrLf + "PERFIL 3PM BASE"
+        Case 2: DataTXT = DataTXT + vbCrLf + "PERFIL RINGTONES"
+        Case 3: DataTXT = DataTXT + vbCrLf + "PERFIL WALLPAPERS"
+        Case 4: DataTXT = DataTXT + vbCrLf + "PERFIL JAVA"
+    End Select
     
     lblDATA.Caption = DataTXT:    lblDATA2.Caption = lblDATA.Caption
     lblDATA.Visible = True:       lblDATA2.Visible = True
@@ -6144,6 +6523,47 @@ Private Sub SuperSel3(ByVal Index As Integer)
                 EXT = TR.Trad(" (VCD-Video)%99%")
             Case "mn0", "mn1"
                 EXT = TR.Trad(" (KARAOKE)%99%")
+            Case "jpg", "jpeg", "bmp", "gif"
+                EXT = TR.Trad(" (Wallpaper)%99%")
+            Case "jar"
+                EXT = TR.Trad(" (Java)%99%")
+            'mm91
+            'formatos de imagenes de nero
+            'NR3: cd de mp3s    /    'NRA: cd de audio    /  'NRB: cd-rom de arranque
+            'NRC: nero usf/iso  /    'NRD: nero DVD       /  'NRE: cd extra
+            'NRG: imagen        /    'NRH: cd-rom hibrido /  'NRI: cd-rom iso
+            'NRM: cd mixto      /    'NRU: cd-rom udf     /  'NRV: cd supervideo
+            'NRW: cd rom wma    /    'CDC: cd cover no tiene nada que ver con imagenes parece
+            Case "iso"
+                EXT = TR.Trad(" (Imagen ISO)%99%")
+            Case "nrg"
+                EXT = TR.Trad(" (Imagen NERO)%99%")
+            Case "nr3"
+                EXT = TR.Trad(" (Imagen NERO MP3)%99%")
+            Case "nra"
+                EXT = TR.Trad(" (Imagen NERO AUDIO)%99%")
+            Case "nrb"
+                EXT = TR.Trad(" (Imagen NERO INICIO)%99%")
+            Case "nrc"
+                EXT = TR.Trad(" (Imagen NERO UDF/ISO)%99%")
+            Case "nrd"
+                EXT = TR.Trad(" (Imagen NERO DVD)%99%")
+            Case "nre"
+                EXT = TR.Trad(" (Imagen NERO CD EXTRA)%99%")
+            Case "nrh"
+                EXT = TR.Trad(" (Imagen NERO CD HIBR)%99%")
+            Case "nri"
+                EXT = TR.Trad(" (Imagen NERO ISO)%99%")
+            Case "nrm"
+                EXT = TR.Trad(" (Imagen NERO CD MIXTO)%99%")
+            Case "nru"
+                EXT = TR.Trad(" (Imagen NERO CD UDF)%99%")
+            Case "nrv"
+                EXT = TR.Trad(" (Imagen NERO SUPERVIDEO)%99%")
+            Case "nrw"
+                EXT = TR.Trad(" (Imagen NERO WMA)%99%")
+            Case "3gp"
+                EXT = TR.Trad(" (Video para movil)%99%")
         End Select
         nombreTemas = fso.GetBaseName(nombreTemas) + EXT
         Load lblCanciones(C)
@@ -6175,24 +6595,27 @@ Private Sub SuperSel3(ByVal Index As Integer)
         Do While C <= UBound(MATRIZ_TEMAS)
             pathTema = lblCanciones(C).Tag
             'si es mp3 usar el rápido, si no usar el viejo
-            'XXXX no se si podra leer la duracion del mp4 igual que el mp3
-            If UCase(Right(pathTema, 3)) = "MP3" Then '''Or UCase(Right(pathTema, 3)) = "MP4" Then
-                MP3tmp.FileName = pathTema
-                DuracionTema = MP3tmp.DurationSTR
-            Else
-                'en caso de que sea video el clsMp3 no anda!!
-                'mostrar duracion VIEJO FORMATO
-                DuracionTema = frmIndex.MP3.QuickLargoDeTema(pathTema)
-                If DuracionTema = "N/S" Then
-                    NoCargoDuracion = NoCargoDuracion + 1
-                    If NoCargoDuracion > 3 Then
-                        'hay algun problema y no cargo mas
-'                        lstTIME.Visible = False
-'                        lstTEMAS.Left = 50
-'                        lstTEMAS.Width = lblNoEjecuta.Left - 50
+            'mm91 no se puede tener la duracion de otros tipos de archivos
+            Dim est As String
+            est = UCase(Right(pathTema, 3))
+            Select Case est
+                Case "MP3"
+                    MP3tmp.FileName = pathTema
+                    DuracionTema = MP3tmp.DurationSTR
+                Case "mpg", "avi", "mpeg"
+                    'en caso de que sea video el clsMp3 no anda!!
+                    'mostrar duracion VIEJO FORMATO
+                    DuracionTema = frmIndex.MP3.QuickLargoDeTema(pathTema)
+                    If DuracionTema = "N/S" Then
+                        NoCargoDuracion = NoCargoDuracion + 1
+                        If NoCargoDuracion > 3 Then
+                            'hay algun problema y no cargo mas
+    '                        lstTIME.Visible = False
+    '                        lstTEMAS.Left = 50
+    '                        lstTEMAS.Width = lblNoEjecuta.Left - 50
+                        End If
                     End If
-                End If
-            End If
+            End Select
             lblCanciones(C).Caption = lblCanciones(C).Caption + " (" + DuracionTema + ")"
             C = C + 1
         Loop
@@ -6202,7 +6625,6 @@ Private Sub SuperSel3(ByVal Index As Integer)
     'revisar especificamente que no haya nada mas largo que lo que se puede
     C = 1
     Do While C <= UBound(MATRIZ_TEMAS)
-    
         'si o si dejar un margen
         If lblCanciones(C).Width > (imgListaSong.Width * 0.9) Then
             Dim D As Long
@@ -6300,13 +6722,13 @@ Private Sub SuperSel3(ByVal Index As Integer)
             btBUYDisco.Visible = True
         End If
         
-        imgSELEC.Left = imgListaSong.Left + (imgListaSong.Width / 3 - imgSELEC.Width)
+        imgSELEC.Left = imgListaSong.Left + 90 ' imgListaSong.Left + (imgListaSong.Width / 3 - imgSELEC.Width)
         imgSELEC.Top = imgListaSong.Top + imgListaSong.Height + 60
         
         ImgSelecVIP.Left = imgSELEC.Left + imgSELEC.Width + 60
         ImgSelecVIP.Top = imgSELEC.Top
         
-        imgSALIR.Left = imgListaSong.Left + (imgListaSong.Width / 1.5)
+        imgSALIR.Left = ImgSelecVIP.Left + ImgSelecVIP.Width + 60
         imgSALIR.Top = imgListaSong.Top + imgListaSong.Height + 60
         
         lblNOCREDIT.Top = imgSELEC.Height + imgSELEC.Top + 60
@@ -6314,7 +6736,7 @@ Private Sub SuperSel3(ByVal Index As Integer)
         imgSELEC.Visible = True
         imgSALIR.Visible = True
         'si esta activado lo uso
-        ImgSelecVIP.Visible = (CreditosXaVipMusica > 0)
+        ImgSelecVIP.Visible = (CreditosXaVipMusica > 0) And (PerfilActual = 1)
     Else
 '        lblNOCREDIT.Top = imgListaSong.Height + imgListaSong.Top - lblNOCREDIT.Height - 120
 '        btBuyCancion.Visible = False
@@ -6328,7 +6750,7 @@ Private Sub SuperSel3(ByVal Index As Integer)
     Exit Sub
     
 ErrSSel:
-    tERR.AppendLog "SSEL444"
+    tERR.AppendLog "SSEL444-3", tERR.ErrToTXT(Err)
     Resume Next
 
 End Sub

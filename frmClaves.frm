@@ -316,20 +316,6 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     End Select
 End Sub
 
-Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
-    If KeyCode = TeclaNewFicha Then
-        'si ya hay 9 cargados se traga las fichas
-        If CREDITOS <= MaximoFichas Then
-            SetKeyState vbKeyScrollLock, True
-            VarCreditos CSng(TemasPorCredito)
-        Else
-            'apagar el fichero electronico
-            SetKeyState vbKeyScrollLock, False
-        End If
-    End If
-    Traducir 'Agregado por el complemento traductor
-End Sub
-
 Private Sub Form_Load()
     Pintar_fBoton Me
     If fso.FileExists(GPF("sequeda32")) = False Then

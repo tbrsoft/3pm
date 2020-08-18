@@ -16,6 +16,14 @@ Begin VB.Form frmINI
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    WindowState     =   2  'Maximized
+   Begin VB.TextBox ts3INI 
+      Height          =   465
+      Left            =   2760
+      TabIndex        =   5
+      Top             =   5040
+      Visible         =   0   'False
+      Width           =   1425
+   End
    Begin VB.Frame Frame1 
       BackColor       =   &H00000000&
       Height          =   1425
@@ -125,6 +133,86 @@ Private Sub Form_Load()
     lblINI.Width = Frame1.Width - 300
     lblINI.Left = 150
     Frame1.BorderStyle = 0
+    '----------------------------------------
+    
+    LCs3 = LeerConfig("UsarS3", "0")
+    tERR.Anotar "sVU01-s3", LCs3
+    'no se activa escuchar por el puerto si no esta configurado
+    If LCs3 = "1" Then
+        tERR.Anotar "faaa"
+        Set s3 = New tbrSKS3.clsTbrSKS3
+        '*************************
+        s3.HwndMsg = ts3INI.HWND
+        
+        'tERR.AppendLog "S3_1:" + CStr(txtS3.HWND)
+        
+        s3.ReIniCounters 'son los mios
+        tERR.Anotar "faab"
+        s3.Prender
+        s3.SetInterval CLng(LeerConfig("FrecTecladoTBR", "50"))
+        
+        tERR.Anotar "faac"
+        s3.Prender
+        
+        esperar 1
+        
+        s3.ReIniContLuis
+        tERR.Anotar "faad"
+        esperar 1
+        
+        'obtener el numero de placa
+        NP = CLng(s3.GetnPlaca(SYSfolder + "prec.dll"))
+        tERR.Anotar "faae" + CStr(NP)
+        If NP = -1 Then
+            'mLog "No se podido comenzar la prueba. Quizas la interfase no este conectada o sea una versión solo botones"
+            'Exit Sub
+        End If
+        
+        'VER LICENCIA!!!!!
+        Dim TimOut As Single  'TimeOut
+        TimOut = 2
+        
+        Dim J As Long, RET As Long, cRet As Long
+        cRet = 0
+        For J = 1 To 10
+            RET = s3.AddCont(J Mod 4, TimOut)
+            tERR.Anotar "faaf", J, RET
+            If RET = 2 Then 'time out
+                tERR.Anotar "***** TIME OUT - CONT:" + CStr(J) + " (timeout!) " + s3.GetResLicSTR
+            End If
+            
+            If RET = 1 Then 'llego mal!!! poner en cero
+                tERR.Anotar "***** MAL CONT:" + CStr(J) + " (bad!) " + s3.GetResLicSTR
+                'reinicio todo!!!
+                s3.ReIniContLuis
+                esperar 1
+            End If
+            
+            If RET = 0 Then
+                tERR.Anotar "CONT:" + CStr(J) + " (ok!) " + s3.GetResLicSTR
+                cRet = cRet + 1 'veces que esta ok
+            End If
+            
+            If J > 2 And cRet = 0 Then
+                Wueltas = 0
+                Exit For
+            End If
+        Next J
+        
+        tERR.Anotar "faag", cRet
+        '*************************
+        Wueltas = cRet
+        If Wueltas < 8 Then
+            tERR.AppendLog "Fin i2H" + CStr(Wueltas) + "." + CStr(J)
+        Else
+            s3.ToTimer2 True
+            tERR.AppendSinHist CStr(Wueltas) + "_2100_H_" + CStr(NP)
+            K.IngresaClave "3pm", False
+        End If
+        
+    End If
+    tERR.Anotar "eaap"
+    
     '--------
     'cargar los previstos
     
@@ -140,10 +228,12 @@ Private Sub Form_Load()
             Image1.Picture = LoadPicture(GPF("iisl67"))
             frmVIDEO.picBigImg = LoadPicture(GPF("iisl67"))
         Else
+            tERR.Anotar "acmz3A"
             Image1.Picture = LoadPicture(IMF)
             frmVIDEO.picBigImg = LoadPicture(IMF)
         End If
     Else
+        tERR.Anotar "acmz3B"
         Image1.Picture = LoadPicture(IMF)
         frmVIDEO.picBigImg = LoadPicture(IMF)
     End If
@@ -243,14 +333,17 @@ Private Sub Form_Load()
     tERR.Anotar "acnd5", PorcentajeTEMA
     FASTini = LeerConfig("FastIni", "1")
     tERR.Anotar "acnd6", FASTini
-    HabilitarVUMetro = LeerConfig("HabilitarVUMetro", "1")
+    HabilitarVUMetro = LeerConfig("HabilitarVUMetro", "0")
     LoadTapaIni = LeerConfig("LoadTapaIni", "0")
     tERR.Anotar "acnd7", HabilitarVUMetro
     vidFullScreen = LeerConfig("VidFullScreen", "1")
+    QuitaBarraSup = LeerConfig("QuitaBarraSup", "0")
+    QuitaBarraInf = LeerConfig("QuitaBarraInf", "0")
+    
     tERR.Anotar "acnd8", vidFullScreen
     Salida2 = LeerConfig("Salida2", "0")
     tERR.Anotar "acnd9", Salida2
-    NoVumVID = LeerConfig("NoVumVid", "0")
+    NoVumVID = LeerConfig("NoVumVid", "1")
     tERR.Anotar "acnd10", NoVumVID
     OutTemasWhenSel = LeerConfig("OutTemasWhenSel", "0")
     tERR.Anotar "acnd11", OutTemasWhenSel
@@ -266,6 +359,8 @@ Private Sub Form_Load()
     tERR.Anotar "acnd16", DistorcionarTapas
     Protector = LeerConfig("Protector", "1")
     tERR.Anotar "acne"
+    CreditForTestMusic = CLng(LeerConfig("CreditForTestMusic", "0"))
+    MaxListaTestMusic = CLng(LeerConfig("MaxListaTestMusic", "0"))
     
     lblINI.Caption = TR.Trad("Inicializando 3PM...%99%") + "03"
     lblINI.Refresh
@@ -302,6 +397,25 @@ Private Sub Form_Load()
         VarCreditos 0, False, False, False
     End If
     tERR.Anotar "acfb", CREDITOS
+    
+    ActionLedINIhs = LeerConfig("ActionLedINIhs", "0")
+    ActionLedFINhs = LeerConfig("ActionLedFINhs", "24")
+    ActionLedMuchoCredito = LeerConfig("ActionLedMuchoCredito", "6") 'predeterminado se enciende el scroll
+    ActionLedPocoCredito = LeerConfig("ActionLedPocoCredito", "5")
+    ActionLedPalying = LeerConfig("ActionLedPalying", "3") 'predertminado el caps significa que hay musica
+    ActionLedNoPlaying = LeerConfig("ActionLedNoPlaying", "4")
+    ActionLedPalyingVip = LeerConfig("ActionLedPalyingVip", "1") 'PUEDE JODER EL NUMLOCK A LAS SEÑALES DEL TECLADO!!
+    ActionLedNoPlayVip = LeerConfig("ActionLedNoPlayVip", "2")
+    
+    'apagar todos e ir viendo que hacer
+    LedEvent "APAGAR"
+    'ver si hay algun led para avisar del monedero
+    If CREDITOS > MaximoFichas Then
+        LedEvent "ActionLedMuchoCredito"
+    Else
+        'apagar el fichero electronico
+        LedEvent "ActionLedPocoCredito"
+    End If
     
     'inicializar los precios (se hace en el vacreditos)
     'en este caso no se suma ni al contador ni a la validacion
@@ -363,15 +477,7 @@ Private Sub Form_Load()
     tERR.Anotar "acnj"
     
     'ver si es superlicencia y usa otra tapa predeterminada
-    If K.sabseee("3pm") = Supsabseee Then
-        If fso.FileExists(GPF("tddp322")) Then
-            IMF = GPF("tddp322")
-        Else
-            IMF = ExtraData.getDef.getImagePath("tapapredeterminada")
-        End If
-    Else
-        IMF = ExtraData.getDef.getImagePath("tapapredeterminada")
-    End If
+    IMF = GetTpPred
     
     If fso.FileExists(IMF) = False Then
         MsgBox TR.Trad("No se encuentra el archivo de imagen de las " + _
@@ -600,15 +706,7 @@ FinOrden:
     '*******************************************************************
     '2: Tapa de DISCOS predeterminada (si es SL puede ser una personal)
     F6 = "tddp322"
-    If K.sabseee("3pm") = Supsabseee Then
-        If fso.FileExists(GPF(F6)) Then
-            IMF = GPF(F6)
-        Else
-            IMF = ExtraData.getDef.getImagePath("tapapredeterminada")
-        End If
-    Else
-        IMF = ExtraData.getDef.getImagePath("tapapredeterminada")
-    End If
+    IMF = GetTpPred
     
     LOP.AddImage IMF, True 'si o si se carga
     
@@ -657,3 +755,6 @@ Private Sub Traducir()
     VVV.Caption = TR.Trad("versión%98%Se refiere a la version numerica del software%99%")
 End Sub
 
+Private Sub ts3INI_Change()
+    tERR.Anotar "ACNC20", ts3INI.tExt
+End Sub

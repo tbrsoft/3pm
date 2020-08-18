@@ -1,0 +1,8 @@
+2007/12/14 13:54:14:515 	Registre todos los  eventos
+2007/12/14 13:54:14:515 	#1 Pase por el initialize
+2007/12/15 13:02:37:109 	Registre todos los  eventos
+2007/12/15 13:02:37:109 	#1 Pase por el initialize
+2007/12/15 13:03:20:109 	Registre todos los  eventos
+2007/12/15 13:03:20:109 	#1 Pase por el initialize
+2007/12/15 13:03:48:718 	Registre todos los  eventos
+2007/12/15 13:03:48:718 	#1 Pase por el initialize

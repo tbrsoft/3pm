@@ -1,0 +1,31 @@
+como mierda llegan los temas a reproducirse o la lista ?
+
+--------------------------
+si presiono OK u OK vip viendo un video y la lista de canciones en modo texto
+
+1 TrataEjecutarTema, esta funcion se fija primero la extención y 
+  solo si es multimedia se fija si alcanza el credito (si es vip 
+  se fija en eso). Luego descuenta creditos correspondientes y se 
+  fija si hay canciones en lista (si es vip la pone primero) y listo
+  llama a EjecutarTema si no hay nada en lista
+
+2 En EjecutarTema se fija si es una publicidad o cancion comun
+  Luego la agrega al ranking y finalmente hace el DoOpen segun 
+  sea audio, video o karaoke + un doPlay Final (tambie revisa
+  si es una muestra de musica)
+
+--------------------------
+Si presiono botoes del touch screen llama a EjecutarDeTouch que 
+  se fija que cancion de la lista esta elegida, ademas revisa que
+  se escuche enteras o como muestras las canciones y luego llama 
+  a TrataEjecutarTema
+--------------------------
+Si presiono OK en la lista de discos llama a EjecutarDeTouch
+--------------------------
+El timer para canciones gratis llama tambien a EjecutarTema directo
+--------------------------
+La funcion empezar siguiente llama directamente a EjecutarTema 
+
+
+
+

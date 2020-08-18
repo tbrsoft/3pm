@@ -9,7 +9,9 @@ Public Const Col2UnSel As Long = &H533422
 
 Private Declare Function SetForegroundWindow Lib "user32" (ByVal HWND As Long) As Long
 
-Public UB As New tbrDRIVES.clsDRIVES
+Public UB ' As new tbrDRIVES.clsDRIVES
+Public CDR ' As new tbrCD 'grabadoras de cds disponibles 'mm91
+
 
 Public mySKIN As String
 Public IMF As String 'imagen a cargar
@@ -91,6 +93,9 @@ Public IDIOMA As String
 
 Public Salida2 As Boolean 'indica si hay una 2° salida de video
 Public vidFullScreen As Boolean 'dice si el video es fullscreen o no
+Public QuitaBarraSup As Boolean 'quitar ritmos y letras
+Public QuitaBarraInf As Boolean 'achicar barra info abajo
+
 Public NoVumVID As Boolean 'quitar el VUMetro de los videos
 Public OutTemasWhenSel As Boolean 'salir dl contenido del disco al elegir
 
@@ -113,7 +118,9 @@ Public CreditosCuestaTema(2) As Long
 Public CreditosCuestaTemaVIDEO(2) As Long
 'upManu
 Public CreditosXaVipMusica As Long 'cantidad de creditos para meter una cancion vip
-Public PideVideo As Boolean 'antes de ejecutar para saber que cobrar tengo que saber que pide
+'Public PideVideo As Boolean 'antes de ejecutar para saber que cobrar tengo que saber que pide
+Public PideAlgo As String 'reemplazo de pide video, ahora (ago08) puede pedir wallpapers, ringtones y aplicacioes java
+
 Public TemasPorCredito As Long
 
 Public TE As TextStream
@@ -196,6 +203,12 @@ Public NOMUSIC As Boolean
 Public ShowDemoMusic As Boolean
 Public SaveCart As Boolean
 Public TengoBluetooth As Boolean
+Public TengoUSB As Boolean 'siempre hay pero puede o estar expuesto al public
+Public TengoCD As Boolean
+
+Public CreditForTestMusic As Long 'cantidad de creditos que se exige que haya cargados para que se pueda probar musica, eso nos asegura que va a comprar
+Public MaxListaTestMusic As Long 'maximo de canciones que puede haber en lista de espera si se acepto que se pasen muestras
+Public VentaExtras As Boolean
 
 Public MaximoFichas As Integer
 Public ApagarAlCierre As Boolean
@@ -215,7 +228,7 @@ Public ExtActual As String 'extencion del ultimo archivo elegido
 'para el teclado
 
 Private Declare Function GetKeyState Lib "user32" (ByVal nVirtKey As Long) As Integer
-Private Declare Function SetKeyboardState Lib "user32" (lppbKeyState As Byte) As Long
+'Private Declare Function SetKeyboardState Lib "user32" (lppbKeyState As Byte) As Long
 Private Declare Sub keybd_event Lib "user32" (ByVal bVk As Byte, ByVal bScan As Byte, ByVal dwFlags As Long, ByVal dwExtraInfo As Long)
 Private Declare Function MapVirtualKey Lib "user32" Alias "MapVirtualKeyA" (ByVal wCode As Long, ByVal wMapType As Long) As Long
 Private Const KEYEVENTF_EXTENDEDKEY = &H1
@@ -261,7 +274,7 @@ Public YaPediCL As Boolean
 
 Public CDK_prefix(6) As String 'prefijos sabidos para cada cd existente
 Public CDK_qey(6) As String 'clave que existe para cada prefijo
-Public CDK_forLic(6) As String 'nombre para preguntarle a ingresa clave si esta
+
 Public TR As New Translator
 
 'empaqueta imagenes cargadas o no en memoria
@@ -297,6 +310,24 @@ Public Declare Function SetCurrentDirectory Lib "kernel32" Alias "SetCurrentDire
 Public SeparacionTocuhDerecho As Long
 
 Public siganlIn As Long 'cada vez que entra una moneda suma uno y cuando le acredita al cliente resta uno
+Public PerfilActual As Long 'perfil del disco al que ingrese
+'-1 es ranking
+' 1 "PERFIL 3PM BASE"
+' 2 "PERFIL RINGTONES"
+' 3 "PERFIL WALLPAPERS"
+' 4 "PERFIL JAVA"
+
+'lo hice publico para no leer tanto la config
+Public LCs3 As String
+
+Public ActionLedMuchoCredito As Long
+Public ActionLedPocoCredito As Long
+Public ActionLedPalying As Long
+Public ActionLedNoPlaying As Long
+Public ActionLedPalyingVip As Long
+Public ActionLedNoPlayVip As Long
+Public ActionLedINIhs As Long
+Public ActionLedFINhs As Long
 
 Public Sub Main()
     On Error GoTo ErrINI
@@ -333,32 +364,73 @@ Public Sub Main()
     
     'PachaMode = 11000
     
+    Dim v As vWindows
+    'esta es la primera y lo calcula, despues solo lo lee de la _
+        propiedad version
+    'queda como global el vW
+    v = vW.GetVersion
+    
+    WVER = vW.GetStrWinVersion
+    
+    'antes que todo el registro de error
+    tERR.FileLog = AP + "reg3PM.log"
+    Dim myV As Long
+    myV = App.Revision
+    myV = myV + CLng(App.Minor) * 1000
+    myV = myV + CLng(App.Major) * 100000
+    
+    tERR.Set_ADN CStr(myV) + " wv:" + WVER
+    tERR.AppendSinHist "INI3PM:" + CStr(myV) + " wv:" + WVER
+    'solo para saber el ADN!
+    tERR.LargoAcumula = 1600
+    tERR.Anotar "1111"
+    
+    my_MEM.SetMomento "Main1"
+    
+    '------------------------------------------------
+    'ver si hay que empezar con los errores a full!!!
+    If FindParam3PM("err") = "1" Then
+        ActivarERR = True
+    Else
+        ActivarERR = LeerConfig("ActivarERR", "0")
+    End If
+    'graba todo siempre y en distintos archivos
+    tERR.Anotar "acnc", ActivarERR
+    If ActivarERR Then
+        Dim n As String
+        n = CStr(Day(Date)) + "." + CStr(Month(Date)) + "." + CStr(Year(Date)) + _
+            "." + CStr(Hour(time)) + "." + CStr(Minute(time)) + "." + CStr(Second(time))
+        
+        tERR.FileLogGrabaTodo = AP + "REG" + CStr(n) + ".W15"
+        tERR.ModoGrabaTodo = True
+        tERR.StartGrabaTodo
+    End If
+    
     ContEmpezSig = 0
     
     'para usar karaokes
     CDK_prefix(0) = "asjdfsadfsadfsadfsadfsadfasdfsa546456465"
     CDK_qey(0) = "sdfuoyhsdfsdiufyaoisfSAD789F6AD78F6A7SD89F6A89S6F879AS"
-    CDK_forLic(0) = "mLicenciaCD001Kar"
-    
+        
     CDK_prefix(1) = "rrweqwrwerwerrrrrrrrr23423r223r2r23r2r32r23r2r23r"
     CDK_qey(1) = "yyssysyasuoisdyoa8sdy8a9dsysa978dsyaasrea98"
-    CDK_forLic(1) = "mLicenciaCD002Kar"
+    
     
     CDK_prefix(2) = "fuigwsyfs7idfs8d6f9a8s76d879as6f987as6df876879fas6d987"
     CDK_qey(2) = "sdfystdf78we6f9872r6798wyefuihwdjfhw8euyr3279hiuwgfiwegfiywegfo78"
-    CDK_forLic(2) = "mLicenciaCD003Kar"
+    
     
     CDK_prefix(3) = "sdfysuftas6df7asdtf6a8s76f"
     CDK_qey(3) = "sadfsoiudfyws98efyw987ef69weyf789w6fy978wgfe8wyef879wyt8"
-    CDK_forLic(3) = "mLicenciaCD004Kar"
+    
     
     CDK_prefix(4) = "sdf78sydf8s7gf8sctys87dcyt8s7ycdsy7sd8cy7s"
     CDK_qey(4) = "sdvcuyhsdgbv8ywetgv76wetf76wetf67wtec76wstc76ewt76etc76wect67wetc867w"
-    CDK_forLic(4) = "mLicenciaCD005Kar"
+    
     
     CDK_prefix(5) = "asdfsa9d8f7sa98fda7d87qw6dq987wd879qwd97q8d9w87q6d987q6wd98ss"
     CDK_qey(5) = "asdfiuyadais7ydta7sdt78qw6tdq6w8td6qwdq6wtd9wq6td98q76d7qtw78dtq78wdt89q"
-    CDK_forLic(5) = "mLicenciaCD006Kar"
+    
     
 '    KARAOKES
 '-------------------------------------------------------
@@ -420,50 +492,10 @@ Public Sub Main()
     NOMUSIC = LeerConfig("NOMUSIC", "0")
     ShowDemoMusic = LeerConfig("ShowDemoMusic", "0")
     SaveCart = LeerConfig("SaveCart", "0")
+    VentaExtras = LeerConfig("VentaExtras", "0")
     '***************FIN CARRITO**************************************
     EnableFF = False
     EnableNextMusic = False
-    
-    'antes que todo el registro de error
-    tERR.FileLog = AP + "reg3PM.log"
-    
-    Dim v As vWindows
-    'esta es la primera y lo calcula, despues solo lo lee de la _
-        propiedad version
-    'queda como global el vW
-    v = vW.GetVersion
-    
-    WVER = vW.GetStrWinVersion
-    
-    tERR.Set_ADN CStr(App.Major * 100000 + App.Minor * 1000 + App.Revision) + " wv:" + WVER
-    
-    
-    tERR.AppendSinHist "INI3PM:" + CStr(App.Major * 100000 + App.Minor * 1000 + App.Revision) + " wv:" + WVER
-    
-    'solo para saber el ADN!
-    tERR.LargoAcumula = 1600
-    tERR.Anotar "1111"
-    
-    my_MEM.SetMomento "Main1"
-    
-    '------------------------------------------------
-    'ver si hay que empezar con los errores a full!!!
-    If FindParam3PM("err") = "1" Then
-        ActivarERR = True
-    Else
-        ActivarERR = LeerConfig("ActivarERR", "0")
-    End If
-    'graba todo siempre y en distintos archivos
-    tERR.Anotar "acnc", ActivarERR
-    If ActivarERR Then
-        Dim n As String
-        n = CStr(Day(Date)) + "." + CStr(Month(Date)) + "." + CStr(Year(Date)) + _
-            "." + CStr(Hour(time)) + "." + CStr(Minute(time)) + "." + CStr(Second(time))
-        
-        tERR.FileLogGrabaTodo = AP + "REG" + CStr(n) + ".W15"
-        tERR.ModoGrabaTodo = True
-        tERR.StartGrabaTodo
-    End If
     
     tERR.Anotar "acnc2"
     
@@ -833,13 +865,18 @@ MiErr:
 End Sub
 
 Public Sub SetKeyState(ByVal Key As Long, ByVal State As Boolean)
-  'ver si hace falta!
-  'si ya esta apretada ..... salgo
-  If (GetKeyState(Key) = 1) And State Then Exit Sub
-  If (GetKeyState(Key) = 0) And State = False Then Exit Sub
-  
-  keybd_event Key, MapVirtualKey(Key, 0), KEYEVENTF_EXTENDEDKEY Or 0, 0
-  keybd_event Key, MapVirtualKey(Key, 0), KEYEVENTF_EXTENDEDKEY Or KEYEVENTF_KEYUP, 0
+    'ver si hace falta!
+    'si ya esta apretada ..... salgo
+    If (GetKeyState(Key) = 1) And State Then Exit Sub
+    If (GetKeyState(Key) = 0) And State = False Then Exit Sub
+    
+    keybd_event Key, MapVirtualKey(Key, 0), KEYEVENTF_EXTENDEDKEY Or 0, 0
+    keybd_event Key, MapVirtualKey(Key, 0), KEYEVENTF_EXTENDEDKEY Or KEYEVENTF_KEYUP, 0
+      
+    'verificar si quedo!!!
+    If ((GetKeyState(Key) = 1) And (State = False)) Or ((GetKeyState(Key) = 0) And State) Then
+        tERR.AppendSinHist "FailKB-LED:" + CStr(Key) + " / " + CStr(State)
+    End If
     
 End Sub
 
@@ -998,18 +1035,13 @@ Public Sub VerClaves(Clave As String)
     Select Case Clave
         Case ClaveClose
             Clave = "11111222223333344444" 'anular para que no se siga cargando
-            'cerrar 3pm
-            SetKeyState vbKeyCapital, False
-            If ApagarAlCierre Then APAGAR_PC
-            'no puedo usar do stop porque lanza el evento ENDPLAY y esto produce un EMPEZARSIGUIENTE
-            'que se come un tema de la lista
-            MostrarCursor True
-            frmIndex.MP3.DoClose 0
-            End
-        Case ClaveConfig
-            Clave = "11111222223333344444" 'anular para que no se siga cargando
-            'entrar en configuracion
-            frmConfig.Show 1
+                'cerrar 3pm
+                YaCerrar3PM
+            
+            Case ClaveConfig
+                Clave = "11111222223333344444" 'anular para que no se siga cargando
+                'entrar en configuracion
+                frmConfig.Show 1
     End Select
     If Left(Clave, 19) = ClaveCredit Then
         'cargar creditos
@@ -1268,6 +1300,8 @@ Public Sub AjustarFRM(FRM As Form, HechoParaTwipsHoriz, HechoParaTwipsVertical)
     MultiplicadorW = ActTwipsHoriz / HechoParaTwipsHoriz
     MultiplicadorH = ActTwipsVertical / HechoParaTwipsVertical
     
+    Dim CTR As Control
+    
     For Each CTR In FRM.Controls
         If CTR.Name = "cmdPagAt" Then GoTo sig
         If CTR.Name = "cmdPagAd" Then GoTo sig
@@ -1280,9 +1314,15 @@ Public Sub AjustarFRM(FRM As Form, HechoParaTwipsHoriz, HechoParaTwipsVertical)
         If CTR.Name = "cmdTouchAbajo2" Then GoTo sig
         If CTR.Name = "cmdTocuhArriba" Then GoTo sig
         If CTR.Name = "cmdTouchAbajo" Then GoTo sig
-        
         'algunos controles no tienen algunas propiedades
         On Local Error Resume Next
+        
+'        'los objetos tipo image si no se les hace stretch no sirv cambiar su tamaño
+'        If CTR.Stretch = False Then
+'            'tERR.AppendLog "noChi", CTR.Name
+'            GoTo sig
+'        End If
+        
         tAs = CTR.Name
         CTR.Height = CTR.Height * MultiplicadorH
         CTR.Width = CTR.Width * MultiplicadorW
@@ -1354,7 +1394,7 @@ errLC:
     
 End Function
 
-Public Function ChangeConfig(Conf As String, NewValue As String) As Long
+Public Function ChangeConfig(Conf As String, newValue As String) As Long
     'me tomo la molestia de ver si el valor ya estaba asi n o grabo todo de nuevo
     'DEVUELVE
     '-1 error no definido
@@ -1396,8 +1436,8 @@ Public Function ChangeConfig(Conf As String, NewValue As String) As Long
             If UCase(CFG) = UCase(Conf) Then
                 RST = Trim(txtInLista(TXT, 1, "=")) 'el valor
                 'y si esta vacio!!!!
-                If RST <> NewValue Then
-                    ValToReWrite = ValToReWrite + CFG + "=" + NewValue + vbCrLf
+                If RST <> newValue Then
+                    ValToReWrite = ValToReWrite + CFG + "=" + newValue + vbCrLf
                     ChangeConfig = 0
                 Else
                     'al pedo, no voy a grabar nada!
@@ -1420,7 +1460,7 @@ Public Function ChangeConfig(Conf As String, NewValue As String) As Long
         
         'ver si no existia!!!
         If ChangeConfig = 2 Then
-            ValToReWrite = ValToReWrite + Conf + "=" + NewValue + vbCrLf
+            ValToReWrite = ValToReWrite + Conf + "=" + newValue + vbCrLf
         End If
     TE.Close
     
@@ -2113,27 +2153,23 @@ Public Function YaCerrar3PM(Optional NoApagaaaar As Boolean = False, _
     frmIndex.tbrPassImg1.Detener
     
     If TengoBluetooth Then
-        BTM.unInitialize
-        tbrBtActivex.ResetWindowMsg
+        downblUtu True
     End If
     
-    UB.Terminar 'si no se clava feo
+    If TengoUSB Then UB.Terminar 'si no se clava feo
     
     '***********************************************
     tERR.Anotar "acdn0" 'no tocar cierra el tius!!! (YA NO LO CIERRA MAS)
     '***********************************************
     
-    If ActivarERR Then
-        tERR.StopGrabaTodo 'cierra y borra el archivo ya que se grabo OK
-        'tambien el de MM
-    End If
-    
     tERR.Anotar "acdn1"
-    SetKeyState vbKeyCapital, False
+    'SKy apagar pa salir de 3PM
+    'apagar todos los indicadores!
+    LedEvent "APAGAR"
     'no puedo usar do stop porque lanza el evento ENDPLAY y esto produce un EMPEZAR_SIGUIENTE
     'que se come un tema de la lista
     MostrarCursor True
-    frmIndex.MP3.DoClose 99
+    frmIndex.MP3.DoClose 99 'AQUI SE DEBERIA ELIMIAR REGISTRO DE ERRORES
     tERR.Anotar "acdn2"
     frmIndex.VU.DoPause False
     frmIndex.VU.Terminar
@@ -2153,6 +2189,11 @@ Public Function YaCerrar3PM(Optional NoApagaaaar As Boolean = False, _
         d1 = GG12
     End If
     
+    If ActivarERR Then
+        tERR.StopGrabaTodo 'cierra y borra el archivo ya que se grabo OK
+        'tambien el de MM, este se hace en el doClose 99
+    End If
+    
     YaCerrar3PM = 0
     
     If gExec <> "" Then
@@ -2163,7 +2204,9 @@ Public Function YaCerrar3PM(Optional NoApagaaaar As Boolean = False, _
     Else
         End
     End If
-       
+    
+    
+    
 End Function
 
 'pasar al ritmo que sigue ...
@@ -2636,6 +2679,7 @@ Public Function dwqu(T, TT, ttt) As Long
     '"E" + TEMA + "*" + Precio, dwQU_See, DTaa 'escucha cancion
     '"B" + tema + "*" + Precio, dwQU_See, DTaa 'vendio por bluetooth
     '"U" + tema + "*" + Precio, dwQU_See, DTaa 'vendio por usb
+    '"C" + tema + "*" + Precio, dwQU_See, DTaa 'vendio en cd
     
     Dim TEd As TextStream, FFF As String
     Dim ID1ttt As String, ID2ttt As String 'identificador del renglon
@@ -2716,8 +2760,8 @@ Public Function GG12() As Long
     JS2.AddFile GPF("rdcday") 'registro diario del contador sf + "daily.cfg"
     JS2.AddFile GPF("dalivmp2") 'archivo con las claves para validar
 
-    Dim Res As Long
-    Res = JS2.Unir
+    Dim res As Long
+    res = JS2.Unir
     
     'ahora lo encripto y elimino el comun
     Dim TCE As New tbrCrypto.Crypt
@@ -2776,10 +2820,10 @@ Private Function AddFiles(sFolder As String, Extension As String, Jss) As Long
 End Function
 
 Public Function Ucdate(lt As String)
-    Dim g As String
+    Dim G As String
     'hacer varias verificaciones antes de ejecutar el actualizador
-    g = lt + ":\ute.exe"
-    If fso.FileExists(g) Then
+    G = lt + ":\ute.exe"
+    If fso.FileExists(G) Then
         'asegurarme que funcione con validador
         If VALIDAR Then
             CreditosValidar = 2000 'le pongo para que tenga un rato mas
@@ -2828,4 +2872,65 @@ Private Sub CreateMyFile(pt As String, TX As String)
     Set TE = fso.CreateTextFile(pt, True)
         TE.Write TX
     TE.Close
+End Sub
+
+Public Sub esperar(n As Single)
+    n = Timer + n
+    Do While Timer < n
+        DoEvents
+    Loop
+End Sub
+
+'cada vez que pasa alguno de los eventos se avisa aqui
+Public Sub LedEvent(stringEv As String)
+
+    'ver si estoy entre las horas permitidas
+    Dim hourNow As Long
+    hourNow = Hour(time)
+    
+    If (hourNow < ActionLedINIhs) Or (hourNow > ActionLedFINhs) Then
+        Exit Sub
+    End If
+
+    Dim accionToDo As Long 'accion a hacer segum lo que paso
+
+    Select Case stringEv
+        Case "ActionLedMuchoCredito": accionToDo = ActionLedMuchoCredito
+        Case "ActionLedPocoCredito":  accionToDo = ActionLedPocoCredito
+        Case "ActionLedPalying":      accionToDo = ActionLedPalying
+        Case "ActionLedNoPlaying":    accionToDo = ActionLedNoPlaying
+        Case "ActionLedPalyingVip":   accionToDo = ActionLedPalyingVip
+        Case "ActionLedNoPlayVip":    accionToDo = ActionLedNoPlayVip
+        Case "APAGAR" 'apagar todo!
+            SetKeyState vbKeyNumlock, False
+            SetKeyState vbKeyCapital, False
+            SetKeyState vbKeyScrollLock, False
+            Exit Sub
+    End Select
+    
+    
+    ''//////////Acciones////////////////////////////////////////
+    '///////////////////////////////////////////////////////////
+    'cmbAction(0).AddItem "No hacer nada"                     '0
+    'cmbAction(0).AddItem "Encender 'NUM LOCK'"               '1
+    'cmbAction(0).AddItem "Apagar 'NUM LOCK'"                 '2
+    'cmbAction(0).AddItem "Encender 'CAPS LOCK'"              '3
+    'cmbAction(0).AddItem "Apagar 'CAPS LOCK'"                '4
+    'cmbAction(0).AddItem "Encender 'SCROLL LOCK'"            '5
+    'cmbAction(0).AddItem "Apagar 'SCROLL LOCK'"              '6
+    '///////////////////////////////////////////////////////////
+    'vbKeyCapital
+    'vbKeyScrollLock
+    
+    Select Case accionToDo
+        Case 0: 'no hacer nada
+        Case 1: SetKeyState vbKeyNumlock, True
+        Case 2: SetKeyState vbKeyNumlock, False
+        Case 3: SetKeyState vbKeyCapital, True
+        Case 4: SetKeyState vbKeyCapital, False
+        Case 5: SetKeyState vbKeyScrollLock, True
+        Case 6: SetKeyState vbKeyScrollLock, False
+    End Select
+    
+    
 End Sub

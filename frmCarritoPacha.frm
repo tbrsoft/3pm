@@ -288,7 +288,7 @@ Private Sub Form_Load()
     Me.AutoRedraw = True
     Pintar_fBoton Me
     
-    UB.UseEventMSG tUSBPacha.HWND
+    If TengoUSB Then UB.UseEventMSG tUSBPacha.HWND
     
     Label2.Caption = "Tamaño de la compra: " + CStr(Carrito.GetTotalMB) + " MB"
     tERR.Anotar "daba"
@@ -338,10 +338,10 @@ Private Sub Form_Resize()
 End Sub
 
 Private Sub tUSBPacha_Change()
-    If tUSBPacha.Text = "" Then Exit Sub
-    tERR.Anotar "CarUSB", tUSBPacha.Text
+    If tUSBPacha.tExt = "" Then Exit Sub
+    tERR.Anotar "CarUSB", tUSBPacha.tExt
     Dim SP() As String
-    SP = Split(tUSBPacha.Text, "|")
+    SP = Split(tUSBPacha.tExt, "|")
     
     Select Case SP(0)
         Case "0" 'entro drive
@@ -353,7 +353,7 @@ Private Sub tUSBPacha_Change()
             UpdateDrives
     End Select
     
-    tUSBPacha.Text = ""
+    tUSBPacha.tExt = ""
 End Sub
 
 'XXXXXXXXXXXXXX
@@ -364,41 +364,42 @@ Private Sub UpdateDrives()
     UnloadBtBuy
     
     tERR.Anotar "xsab", UB.GetCantidadUSB
-    If UB.GetCantidadUSB > 0 Then
-        btBuy(0).Visible = False
-        
-        'SI HAY MAS DE UNO QUE SEPA QUIEN ES QUIEN
-        tERR.Anotar "xsad", UB.GetCantidadUSB
-        If UB.GetCantidadUSB >= 1 Then
-            Dim H As Long
-            For H = 1 To UB.GetCantidadUSB
-                Load btBuy(H)
-                'xxxxxxxxxxxxxxxxxxxx error 68 disp no disponible
-                UB.RefreshValues H
-                If H = 1 Then
-                    btBuy(H).Top = btBuy(H - 1).Top
-                Else
-                    btBuy(H).Top = btBuy(H - 1).Top + btBuy(H - 1).Height
-                End If
-                tERR.Anotar "xsae", UB.GetNameUSB(H)
-                
-                btBuy(H).Caption = "Comprar por USB: " + vbCrLf + _
-                    UB.GetNameUSB(H) + " (" + UB.GetLetterUSB(H) + ":\)" + vbCrLf + _
-                    "Tiene " + CStr(UB.GetFreeMB(H)) + " MB libres"
-                
-                btBuy(H).Tag = "USB"
-     
-                btBuy(H).Visible = True
-                btBuy(H).TabIndex = btBuy(H - 1).TabIndex + 1
-                
-                'que se cargue despintado!!
-                SelBT btBuy(H), False
-            Next H
+    If TengoUSB Then
+        If UB.GetCantidadUSB > 0 Then
+            btBuy(0).Visible = False
+            
+            'SI HAY MAS DE UNO QUE SEPA QUIEN ES QUIEN
+            tERR.Anotar "xsad", UB.GetCantidadUSB
+            If UB.GetCantidadUSB >= 1 Then
+                Dim H As Long
+                For H = 1 To UB.GetCantidadUSB
+                    Load btBuy(H)
+                    'xxxxxxxxxxxxxxxxxxxx error 68 disp no disponible
+                    UB.RefreshValues H
+                    If H = 1 Then
+                        btBuy(H).Top = btBuy(H - 1).Top
+                    Else
+                        btBuy(H).Top = btBuy(H - 1).Top + btBuy(H - 1).Height
+                    End If
+                    tERR.Anotar "xsae", UB.GetNameUSB(H)
+                    
+                    btBuy(H).Caption = "Comprar por USB: " + vbCrLf + _
+                        UB.GetNameUSB(H) + " (" + UB.GetLetterUSB(H) + ":\)" + vbCrLf + _
+                        "Tiene " + CStr(UB.GetFreeMB(H)) + " MB libres"
+                    
+                    btBuy(H).Tag = "USB"
+         
+                    btBuy(H).Visible = True
+                    btBuy(H).TabIndex = btBuy(H - 1).TabIndex + 1
+                    
+                    'que se cargue despintado!!
+                    SelBT btBuy(H), False
+                Next H
+            End If
+            
+            
         End If
-        
-        
     End If
-    
     tERR.Anotar "xsaf", TengoBluetooth
     If TengoBluetooth Then
         tERR.Anotar "xsag", BTM.Count
@@ -443,17 +444,18 @@ Private Sub UpdateDrives()
     
     tERR.Anotar "xsak"
     
-    If UB.GetCantidadUSB = 0 Then
-        If TengoBluetooth Then
-            If BTM.Count = 0 Then
-                btBuy(0).Caption = "NO HAY DISPOSITIVOS" + vbCrLf + "Inserte USB o presione aqui para buscar bluetooth"
+    If TengoUSB Then
+        If UB.GetCantidadUSB = 0 Then
+            If TengoBluetooth Then
+                If BTM.Count = 0 Then
+                    btBuy(0).Caption = "NO HAY DISPOSITIVOS" + vbCrLf + "Inserte USB o presione aqui para buscar bluetooth"
+                End If
+            Else
+                btBuy(0).Caption = "NO HAY DISPOSITIVOS" + vbCrLf + "Inserte USB ahora"
             End If
-        Else
-            btBuy(0).Caption = "NO HAY DISPOSITIVOS" + vbCrLf + "Inserte USB ahora"
+            btBuy(0).Visible = True
         End If
-        btBuy(0).Visible = True
     End If
-    
     Acomodar
 End Sub
 

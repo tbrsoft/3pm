@@ -211,7 +211,7 @@ Public Property Let ModoGrabaTodo(Graba As Boolean)
 End Property
 
 Public Property Get ModoGrabaTodo() As Boolean
-    mMODOGRABATODO = ModoGrabaTodo
+    ModoGrabaTodo = mMODOGRABATODO
 End Property
 
 Public Property Get LogAcumulado() As String

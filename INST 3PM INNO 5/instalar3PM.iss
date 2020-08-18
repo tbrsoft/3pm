@@ -7,6 +7,7 @@
 #define MyAppURL "http://www.tbrsoft.com"
 #define MyAppExeName "3PM.EXE"
 
+
 [Setup]
 AppName={#MyAppName}
 AppVerName={#MyAppVerName}
@@ -22,6 +23,8 @@ OutputBaseFilename=Instalar3PM7
 SetupIconFile=..\3pm.ico
 Compression=lzma
 SolidCompression=yes
+LicenseFile=..\license.rtf
+WizardImageFile=3pmInstalador.bmp
 
 [Languages]
 Name: "eng"; MessagesFile: "compiler:Default.isl"
@@ -62,6 +65,8 @@ Source: "..\skin\3pmBaseSkin.SKIN"; DestDir: "{app}\skin"; Flags: ignoreversion
 Source: "..\skin\crystal front.SKIN"; DestDir: "{app}\skin"; Flags: ignoreversion
 Source: "..\skin\wood shell.SKIN"; DestDir: "{app}\skin"; Flags: ignoreversion
 Source: "..\skin\blare_skin.SKIN"; DestDir: "{app}\skin"; Flags: ignoreversion
+
+Source: ..\license.rtf; DestDir: {app}; Flags: ignoreversion
 
 ;SOLO PACHAAAAA botones chiquitos
 Source: "..\skin\tbrSoft_Skin_new2.SKIN"; DestDir: "{app}\skin"; Flags: ignoreversion

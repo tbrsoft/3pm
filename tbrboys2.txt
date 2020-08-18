@@ -1,0 +1,319 @@
+INSTALADOR ARIAS
+
+{{{ 
+*******************************************************
+3pm registra joiamente lo vendido 
+el lector lo lee correctamente
+
+falta ahora que sea algo para multiples equipos
+falta el receptor para que pacha reciba y suba la información
+que se genere una estadística en HTML y se suba por ftp }}}
+
+{{{ 
+*******************************************************
+que penalty funcione en XP o 2000
+que tenga modificacion de teclado }}}
+{{{ 
+{{{ 
+*****************************************************
+german uso un credito y despues no estaba disponible para descragar al volver a logearse
+
+buaque el codigo del credito en el FTP y no lo encontre como si no se hubiera subido
+
+fijarse que hay un numero que parece que representa el año y es posible que no lo encuentre por eso.
+
+la cuestion es que poara aprobar el credito se debe asegurarse que el archivo se
+marco en el archivo del ftp y por lo tanto disponible para futuros accesos
+}}}
+}}}
+{{{ 
+---------------------------------------------------
+al eliminar en usb el SW.showwait puede tener un segundero tambien por si se pone lento
+
+el tius con 3pm funciona bien
+pero consume mucho de procesador al estar leyendo TODOS los anotar que tira el 3PM
+
+quizas abria que aplicar un filtro mas rapido o mandar los datos por fuera del terr
+
+se registran bien que canciones y como se grabaron
+
+con esto obtengo datos de que canciones de que discos
+y de que origenes
+
+falta ademas que se graben las fechas y algun id unico del equipo !!!!!!!!!!!!!
+
+ademas hay que hacer estadisticas a gusto del cliente que se publiquen en internet }}}
+{{{ 
+*****************************************************
+
+
+zulliger es una huevada el error que indico german
+
+hacer que el manu meta el usb en en tbrfotos y dentro del tbrmotto
+
+hacer un ejecutable que controle a 3pm y que le permita funcionar o no
+ademas que entregue informes detallados de todo lo que pasa (JSA) cuando se 
+meta el pdrive de tbrsoft
+
+PACHA EXPENDEDOR
+
+pen drive
+
+0- Abre 3PMUsb.exe para realizar otras tareas
+1- Actualiza 3PM si fuera necesario
+2- Graba al dispositivo toda la info que se debe sacar
+3- Elimina la información para no duplicar (guarda copia de seguridad de cuando se le extrajo y que se le extrajo
+4- prolonga su vida util o bloquea según tenga asignado
+5- Abre 3PM y desactiva para que desconecte
+
+Imprimir imagenes enviadas por email y hacer visible como se pide para Marcelo
+
+
+el en tbrConfig tengo cocinado en las variables string. Pero no se graba ni se leen
+ademas no muestra la opcion como va real cargando un textbox para que el usuario configure
+
+
+MAÑANA
+
+PROGRAMA DE PREGUNTAS Y RESPUESTAS
+tbrPenalty  }}}
+
+{{{ 
+++++++++++++++++++++++++++++++++++++++++++++++++
+tbrIdioma
+Buscador de cadenas de texto
+Buscar cadenas huerfanas
+Permitrir correcciones al traductor sobre mi texto en español
+Permitir traducir o agregar el "contexto"
+}}}
+
+{{{ 
+++++++++++++++++++++++++++++++++++++++++++++++++
+tbrSellPoint
+  X  Mejorar boton salir de 1Prod
+  X  Sacar segunda imagen del costado
+  que se pasen con efecto cheto si hay mas de una en mostrar1Prod
+  Y  en SyC definir "imagen de marca" que no sea la "2"
+  poder usar PNG como fondo de las imágenes de productos
+  Que en 1Prod el nombre tenga sombra o asegurarme que se lea
+  El texto del precio no se lee. quizas una sombra ayude
+  Que no se pixelen las imágenes (ver funcion del manu)
+  Como los PNG no pueden variar en tamaño que se autocalcule el maximo por columna
+  Los PNG no se ven arriba como parte de la sección elegida!
+  Marcar telefonos para comparativa
+  Que la ubicacion en 1Prod sea configurable
+
+  DESPUES REUNION
+  Que incluya como categorias principales. 
+
+  Lineas/Abonos
+  Telefonos
+  Accesorios (memoria, cable datos, 
+  Comprar Música
+}}}
+{{{ 
+++++++++++++++++++++++++++++++++++++++++++++++++
+3pm
+
+  opcional la configuracion inicial que no deje predeterminado 
+  en modo 5 teclas si voy para atras se queda en la última página y gira entre esas tres
+  Se pierde el skin que tenes gradabo
+  
+
+  para el carrito necesito mucho el origen viertual "lo nuevo" de paso sirve para la fonola
+  para esto pongo un archivo de texto en cada disco con info de cuando entro al sistema
+  podrá ademas tener un ranking de texto de cada disco para acelerar el ranking general gigantesco!!!
+
+  necesito poder cortar las grabaciones con tecla
+  necesito "formatear dispositivo" para acelerar grabaciones o al menos opcion "borrar todo"
+  necesito que entre a grabar automaticamente cuando ya haya espacio al ir borrando
+  quizas el check para que elija de una todo lo que desea borrar para que borre de una y salga y no uno a uno como está
+  ver que salga de la pagina borrar cuando ya haya espacio disponible
+
+  al salir del carrito el proximo enter no funciona! (desactivar lo hecho al presionar las teclas para los costados
+
+  nombre de los discos cambiar fuente tamaño y color (giachicno, roccio, muchos)
+
+  carrito de 3pm
+
+guardar un stats.txt en cada disco para ver los mas escuchados y acelerar ese trámite
+además en este se pueden poner los precios especiales de las canciones.
+
+  vip para ponerme mi cancion primero en la lista, con costo adicional. (clifton)
+
+  Cambiar el sistema de precios, que no queden valores de centavos feos. Que además se cambie el precio según demanda
+  O sea que haya promociones pero que estas varíen segun la demanda (andres)
+
+  Idiomas (clifton)
+Ingles con luis, ver francés con monsegou o nevine. Ver portugues
+
+  parece que los videos en el tv se entrecortan cuando se entra o sale a los discos o al elegir las canciones (wilmer y rene)
+
+  si hay un tema gratuito y se carga uno pago solo se cancela si paso segfade, antes no, solo lo pasa a la lista!!!
+
+ver que el mixer del JOIA puede elegir el mezclador de grabacion (stereo mixer, mic, cd audio, etc)
+y ademas cambiarle el volumen. Con esto no habria que elegir nada manualmente!
+
+los temas gratuitos no se enganchan, no costaria nada hacerlo
+
+regular independientemente volumen microfono y sonido mn0 disponible al usuario
+
+divx tambien mpg4 parece que son. SON AVI!
+los ASF tambien!!!!
+
+fijarse en el system INI que formatos podrá
+}}}
+{{{ 
++++++++++++++++++++++++++++++++++++++++++++++++++
+tbrIdioma
+   Hacer que el traductor pueda agregar o modificar contexto
+   que se pueda ver el objeto final donde va (si es de tamaño variable mostrar diferentes opciones)
+   Que el que traduce pueda hacer correcciones. }}}
+{{{ 
++++++++++++++++++++++++++++++++++++++++++++++++++
+MPROCK
+  SISTEM DE LICENCIA MPROCK EL MISMO QUE 3PM (tomas nuñez)
+  jorge orellano 0.9.631 pierde el archivo de configuracion. Principalmente XXn que se pierde al apagarse mal
+  cambiar la cantidad de discos en modo 3 (no mas de 2 x 2) y poner imagenes de fondo que la transparencia no sirve
+sincronizcion en pcs viejas !! }}}
+{{{ 
++++++++++++++++++++++++++++++++++++++++++++++++++
+SERVIDOR LIC
+  TRANSFERIR CREDITOS A OTRO CLIENTE DESDE MI CUENTA!
+
+  iNFORMES de resumen para clientes
+  al leer el tramite recibido dice que falta el archivo de datos o algo asi
+  el boton para recibir el archivo cambia el texto y no tengo varias imágenes
+  el boton realizar trámite no esta claro como el primero
+  en la lista del servidor cuando el tipo pide un informe sale como "variacion de licencias"
+ 
+  Activar una opción para bajar de nuevo una misma clave y que no descuente   }}}
+{{{ 
++++++++++++++++++++++++++++++++++++++++++++++++++
+tbrStock y tbrSellPoint
+- MODO DE EXPORTAR O IMPORTAR DATOS DE STOCK 
+- Sistemas de Mensajes de Texto
+- CATALOGO DIGITAL / CONFIGURAR SELECCION DE IMAGENES PARA POSTERIOR IMPRESION }}}
+mario
+
+resdumen de financiera se imprime todo. poner impresion parcial.
+ordenes de factura NO PERMITE IMPRIMIR factura de compra.
+{{{ 
+*********************************************
+tbrQuestions
+la fuente usada en el cargador de preguntas no existia en la PC de destino y se vio en arial o algo asi feo.
+se pone en blanco el cargador cuando la pregunta es pesada. }}}
+{{{ 
+************************************************************************
+
+zlgDIGITAL
+
+que se abra mas de uno al mismo tiempo
+la D puede estar sola en localizacion
+
+dar de baja creditos cuando esten vencidos
+creditos locales por si no tiene la PC salida a internet
+
+
+ADEMAS PERMITIRLE PROGRAMAR LOS RESULTADOS Y VALORES
+
+    Necesito tener un interprete de archivos de texto que permita ejecutar acciones en Visual Basic segun lo que el texto indique (un archivo de texto simple), sería como un minilenguaje que permitira ademas de manejar configuraciones almacenar valores de texto grandes y ejecutar de manera condicional distintas operaciones.
+
+    Para que te ubiques mejor es para un software que realiza test psicológicos. Los valores que describen al sujeto testeado pueden cambiar segun el pais y los textos a mostrar tambien. Es por esto que para no estar nosotros modificando el codigo le daremos acceso al psicologo al archivo de texto y que una modificación a los valores no implique actualizar el ejecutable y si un simple archivo de texto.
+
+    Vamos a lo técnico. Debe ser un modulo de clase que me entregas en un ejecutable donde tendras un formulario para probar el funcionamiento.
+
+    Que cuestiones debe interpretar el modulo?:
+
+    1- Cadenas de texto largas. Tendras que definir algun caracter de fin de la cadena que no sea el salto de carro ya que dentro del mismo texto puede haber de ellos (tampoco las comillas). Por ejemplo el texto en el archivo puede decir
+
+---------------------------------------------
+    Var$:DetalleA=ejemplo de texto largo....
+
+        con "saltos" de carro y comillas.
+---------------------------------------------
+
+    En el modulo de clase puede haber una funcion que se llame
+
+    text1.text = clsErnesto.GetVar("DetalleA")
+
+    y devolver el texto completo
+
+    Debe haber una funcion que liste todas las variables "Var$" en el archivo de texto para listarlas por ejemplo.
+
+    Hasta aqui bastante sencillo.
+
+    El archivo de texto debera tener algun caracter para comentar líneas y simplificar el manejo al psicologo que lo editará.
+
+    Desde el archivo de texto se debera poder acceder a varables usadas en VB que cambiar por cada test realizado, por ejemplo edad del paciente, sexo, nivel de estudios etc.
+
+    Esto deberá poder usarse desde el archivo de texto para indicar que se debe usar.
+    por ejemplo
+
+    Var$:TituloImpresionResultados=Resultado del test de &&&NombrePSI&&& (MP:&&&MatriculaProf&&&)
+
+    Edad del paciente: &&&EdadPac&&&
+    Estudios: &&&EstPAC&&&
+
+    ..........
+    
+    Lo que yo escribo es como referencia, vos encontraras la mejor forma de hacerlo. Lo que necesito es que se pueda hacer lo que indico.
+
+    Tambien necesito poder descibir valores numericos que no tengan problema de "." o "," independientemente de la configuracion regional del usuario
+
+    VarN:23,33 
+    VarN:23.33
+
+    Necesito ademas que el archivo de texto obtenga valores desde el sistema llamando a alguna función
+
+    VarN:CantidadCR=&&&FuncionEnVB("F2*CR")&&&  
+
+    No necesito que el modulo "lea" el nombre de la funcion en el VB seria una locura
+
+    siguiendo con el ejemplo ....
+
+    VarN:PredetermiadoCR = 33.11
+    Ademas valores condicionales que dependeran de valores en el sistema o simples numeros.
+    
+    if %CantidadCR > %predeterminadoCR 
+        {
+        Var$:TextoCR1=loco, tiene mas CR de lo comun
+        } 
+    
+    Vos te preguntaras ¿por que no se analiza en VB que ya tiene todas estas estructuras?
+    Es debido a que la cantidad de preguntas cambia y las mismas preguntas cambian tambien.
+    Se deben poder agregar nuevos valores en el futuro sin que cambie el ejecutable
+
+    Ademas se puede complicar un poco mas
+
+    VarN:CoefCR=%CantidadCR / %predeterminadoCR   ' si se complica hacerlo calcular que se evalue el resultado en VB
+                                                  ' por ejemplo VarN:CoefCR=&&&Dividir&&& 
+    Select Case CoefCR                            ' lo pongo asi porque te ubicas que representa
+        Case entre(0;0.5)                         'se me acaba de ocurrir el "entre", hacelo como quieras
+            Var$:TextoCR1=tiene muy poco CR
+        
+        Case entre(0.5;0.8)
+            Var$:TextoCR1=le falta CR
+    
+        Case entre(0.9;1.1)
+            Var$:TextoCR1=CR justo
+
+        Case > 1.1
+            Var$:TextoCR1=muuucho CR
+
+    Acepto cualquier sugerencia para esto ultimo, no es sencillo hacer un interprete, quizas tengo que hacerlo de otra forma.
+
+    Fijate que necesito mas de una condicion en algunos casos (siguiendo el caso anterior)
+
+    if &&&TomaTestGrupal&&& AND %CoefCR 
+
+
+    Por lo que veo quizas sea mejor que el archivo de texto tenga una zona de ejecucion y calculo de valores que este bien definido. Luego de ejecutar todo el modulo tendra todos los valores almacenas de alguna forma para aplicarlos rápidamente
+
+    Quizas el "SELECT CASE" pueda ser reemplazado con algun IF que contemple todo para simplificar el modulo. Fijate
+
+}}}
+{{{ 
+***********************************************
+Direccion Artime
+9 de julio 824 dpto 15 }}}

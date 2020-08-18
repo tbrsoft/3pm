@@ -371,15 +371,7 @@ Private Sub cmbSK_Click()
     imgDISC(0).Picture = LoadPicture(IMF)
     
     'ver si es superlicencia y usa otra tapa predeterminada
-    If K.sabseee("3pm") = Supsabseee Then
-        If fso.FileExists(GPF("tddp322")) Then
-            IMF = GPF("tddp322")
-        Else
-            IMF = ExtraData.getDef.getImagePath("tapapredeterminada")
-        End If
-    Else
-        IMF = ExtraData.getDef.getImagePath("tapapredeterminada")
-    End If
+    IMF = GetTpPred
     
     imgDISC(1).Picture = LoadPicture(IMF)
     imgDISC(2).Picture = LoadPicture(IMF)
@@ -727,7 +719,7 @@ End Sub
 '-------Agregado por el complemento traductor------------
 Private Sub Traducir()
     Command4.Caption = TR.Trad("cambiar detalles%99%")
-    Command3.Caption = TR.Trad("Crear nuevo skin%99%")
+    command3.Caption = TR.Trad("Crear nuevo skin%99%")
     Command2.Caption = TR.Trad("grabar y salir%99%")
     Command1.Caption = TR.Trad("salir sin grabar%99%")
     Label5.Caption = TR.Trad("Puede elegir manualmente cada grafica o cargar " + _

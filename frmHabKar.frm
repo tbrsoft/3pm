@@ -5,39 +5,22 @@ Begin VB.Form frmHabKar
    BackColor       =   &H00400000&
    BorderStyle     =   4  'Fixed ToolWindow
    Caption         =   "Habilitar en esta PC uso de karaokes"
-   ClientHeight    =   3840
+   ClientHeight    =   3210
    ClientLeft      =   45
    ClientTop       =   285
-   ClientWidth     =   7935
+   ClientWidth     =   4740
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   3840
-   ScaleWidth      =   7935
+   ScaleHeight     =   3210
+   ScaleWidth      =   4740
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
-   Begin VB.ListBox lstCDs 
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00404040&
-      Height          =   1980
-      Left            =   180
-      TabIndex        =   1
-      Top             =   630
-      Width           =   7635
-   End
    Begin tbrFaroButton.fBoton fBoton4 
       Height          =   405
-      Left            =   6600
+      Left            =   1650
       TabIndex        =   0
-      Top             =   3360
+      Top             =   2520
       Width           =   1215
       _ExtentX        =   2143
       _ExtentY        =   714
@@ -51,15 +34,15 @@ Begin VB.Form frmHabKar
    End
    Begin tbrFaroButton.fBoton fBoton1 
       Height          =   645
-      Left            =   180
-      TabIndex        =   3
-      Top             =   2640
+      Left            =   930
+      TabIndex        =   2
+      Top             =   780
       Width           =   2775
       _ExtentX        =   4895
       _ExtentY        =   1138
       fFColor         =   16777215
       fBColor         =   14737632
-      fCapt           =   "Generar pedido para CD elegido"
+      fCapt           =   "Obtener archivo para pedir licencia de karaoke."
       fEnabled        =   -1  'True
       fFontN          =   ""
       fFontS          =   0
@@ -67,23 +50,32 @@ Begin VB.Form frmHabKar
    End
    Begin tbrFaroButton.fBoton fBoton2 
       Height          =   645
-      Left            =   4320
-      TabIndex        =   4
-      Top             =   2640
-      Width           =   3495
-      _ExtentX        =   6165
+      Left            =   930
+      TabIndex        =   3
+      Top             =   1620
+      Width           =   2715
+      _ExtentX        =   4789
       _ExtentY        =   1138
       fFColor         =   16777215
       fBColor         =   14737632
-      fCapt           =   "Insertar licencia de karaoke recibida para cd elegido"
+      fCapt           =   "Insertar licencia de karaoke recibida."
       fEnabled        =   -1  'True
       fFontN          =   ""
       fFontS          =   0
       fECol           =   5452834
    End
+   Begin VB.Label Label2 
+      BackStyle       =   0  'Transparent
+      ForeColor       =   &H00C0C0C0&
+      Height          =   255
+      Left            =   4560
+      TabIndex        =   4
+      Top             =   3000
+      Width           =   225
+   End
    Begin VB.Label Label1 
       BackStyle       =   0  'Transparent
-      Caption         =   "Seleccione CD que desea adquirir."
+      Caption         =   "Genere el pedido de licencia de karaoke e ingrese la licencia desde aquí."
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   9
@@ -94,12 +86,12 @@ Begin VB.Form frmHabKar
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00E0E0E0&
-      Height          =   315
+      Height          =   465
       Index           =   2
-      Left            =   210
-      TabIndex        =   2
-      Top             =   300
-      Width           =   6405
+      Left            =   180
+      TabIndex        =   1
+      Top             =   120
+      Width           =   4515
    End
 End
 Attribute VB_Name = "frmHabKar"
@@ -108,11 +100,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Private Sub fBoton1_Click()
-    If lstCDs.ListIndex = -1 Then
-        MsgBox TR.Trad("No ha elegido nada!%99%")
-        Exit Sub
-    End If
-    
+        
     Dim Ident3 As String
     Ident3 = InputBox(TR.Trad("Indique un breve recordatorio para esta PC" + vbCrLf + _
         "Por ejemplo 'rockola 17' o 'celeron266' o algun texto que le " + _
@@ -171,7 +159,7 @@ Private Sub fBoton1_Click()
     Dim nFOt2 As New tbrDATA.clsTODO
     'asegurarse que vaya con el noombre que tiene que ir!!!
     nFOt2.SetLog AP + "kc2.log"
-    nFOt2.SetSF "mLicenciaCD00" + CStr(lstCDs.ListIndex + 1) + "Kar" 'nuevo agosto 2007 para no mezclar con karaokes ni con programas de artime y manu
+    nFOt2.SetSF "mLicenciaCD001Kar" 'nuevo agosto 2007 para no mezclar con karaokes ni con programas de artime y manu
     nFOt2.DoNow F2
     
     TR.SetVars F2
@@ -196,34 +184,28 @@ Private Sub fBoton2_Click()
     
     tERR.Anotar "IC10kar1"
     
-    'copiar segun corresponda
-    Dim sSel As Long
-    sSel = lstCDs.ListIndex
-    
     Dim PARA As String
-    PARA = "mLicenciaCD00" + CStr(sSel + 1) + "Kar"
-    
-    'el plin 7 es el 1, el 9 es el 2......el 17 es el 6
-    sSel = 7 + (sSel * 2)
+    PARA = "mLicenciaCD001Kar"
     
     'YYYYYYYYYYYYYYYYYYYYYY
     'traigo la licencia del 2 y anda en el 1 tambien!!!!!!!!!!!!!!
-    fso.CopyFile F, GPF("plin" + CStr(sSel)), True: fso.CopyFile F, GPF("plin" + CStr(sSel + 1)), True
+    fso.CopyFile F, GPF("plin7"), True
+    fso.CopyFile F, GPF("plin8"), True 'copia de seguridad
     
     tERR.Anotar "IC10kar2"
     K.IngresaClave PARA, True
     
-    'decir que paso
-    sSel = lstCDs.ListIndex + 1
-    If K.sabseee("mLicenciaCD00" + CStr(sSel) + "Kar") >= GFull Then
-        MsgBox TR.Trad("Se cargo la licencia del cd solicitado sin problemas%99%")
+    Dim j As TypeLic
+    j = K.sabseee("mLicenciaCD001Kar")
+    If j = Supsabseee Then
+        MsgBox TR.Trad("Se cargo la SuperLicencia de karaoke%99%")
     Else
-        MsgBox TR.Trad("No se cargo la licencia contacte a tbrSoft%99%")
+        If j >= EComun Then
+            MsgBox TR.Trad("Se cargo la licencia de karaoke%99%")
+        Else
+            MsgBox TR.Trad("No se cargo la licencia contacte a tbrSoft%99%")
+        End If
     End If
-    
-    'listar todo de nuevo
-    refreshCD
-    
 End Sub
 
 Private Sub fBoton4_Click()
@@ -236,55 +218,9 @@ End Sub
 'clave CD 03: "sdf6asd7f65sad65f4sad7f4as8df598sadf87sad6f987sad6f9"
 Private Sub Form_Load()
     Pintar_fBoton Me
-    Traducir 'Agregado por el complemento traductor
-    refreshCD
-End Sub
-
-Private Sub refreshCD()
-    lstCDs.Clear
-    
-    If K.sabseee("mLicenciaCD001Kar") >= GFull Then
-        lstCDs.AddItem "CD001 * 110 " + TR.Trad("karaokes%99%") + " *    " + TR.Trad("INSTALADO%99%") + " * " + TR.Trad("(disponible)%99%")
-    Else
-        lstCDs.AddItem "CD001 * 110 " + TR.Trad("karaokes%99%") + " * " + TR.Trad("NO INSTALADO%99%") + " * " + TR.Trad("(disponible)%99%")
-    End If
-    
-    If K.sabseee("mLicenciaCD002kar") >= GFull Then
-        lstCDs.AddItem "CD002 *  99 " + TR.Trad("karaokes%99%") + " *    " + TR.Trad("INSTALADO%99%") + " * " + TR.Trad("(disponible)%99%")
-    Else
-        lstCDs.AddItem "CD002 *  99 " + TR.Trad("karaokes%99%") + " * " + TR.Trad("NO INSTALADO%99%") + " * " + TR.Trad("(disponible)%99%")
-    End If
-    
-    If K.sabseee("mLicenciaCD003kar") >= GFull Then
-        lstCDs.AddItem "CD003 *  99 " + TR.Trad("karaokes%99%") + " *    " + TR.Trad("INSTALADO%99%") + " * " + TR.Trad("(disponible)%99%")
-    Else
-        lstCDs.AddItem "CD003 *  99 " + TR.Trad("karaokes%99%") + " * " + TR.Trad("NO INSTALADO%99%") + " * " + TR.Trad("(disponible)%99%")
-    End If
-    
-    'todos los demas
-    Dim J As Long
-    For J = 4 To 6
-        If K.sabseee("mLicenciaCD00" + CStr(J) + "Kar") >= GFull Then
-            lstCDs.AddItem "CD00" + CStr(J) + " *              *    " + TR.Trad("INSTALADO * (en desarrollo)%98%En desarrollo se refiere a CDs de karaokes que todava no fabricamos pero que pronto los vamos a terminar y dejar disponibles%99%")
-        Else
-            lstCDs.AddItem "CD00" + CStr(J) + " *              * " + TR.Trad("NO INSTALADO * (en desarrollo)%98%En desarrollo se refiere a CDs de karaokes que todava no fabricamos pero que pronto los vamos a terminar y dejar disponibles%99%")
-        End If
-    Next J
-    
-    lstCDs.ListIndex = 0
+    Label2.Caption = K.sabseee("mLicenciaCD001Kar")
 End Sub
 
 Private Sub Form_Resize()
     tbrPintar frmIndex.Fondoxxx, Me, 0, 0, Me.Width / 15, Me.Height / 15
-End Sub
-
-Private Sub lstCDs_Click()
-    fBoton1.Enabled = (InStr(lstCDs, "disponible") > 0)
-End Sub
-'-------Agregado por el complemento traductor------------
-Private Sub Traducir()
-    fBoton4.Caption = TR.Trad("SALIR%99%")
-    fBoton1.Caption = TR.Trad("Generar pedido para el CD elegido%99%")
-    fBoton2.Caption = TR.Trad("Insertar licencia de karaoke recibida para el cd elegido%99%")
-    Label1(2).Caption = TR.Trad("Seleccione el CD que desea adquirir%99%")
 End Sub

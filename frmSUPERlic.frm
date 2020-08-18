@@ -92,7 +92,7 @@ Begin VB.Form frmSUPERlic
    End
    Begin tbrFaroButton.fBoton command6 
       Height          =   645
-      Left            =   2340
+      Left            =   2370
       TabIndex        =   5
       Top             =   5040
       Width           =   1275
@@ -199,7 +199,7 @@ Private Sub Command6_Click()
     'grabar el texto como un nuevo archivo
     Set TE = fso.CreateTextFile(GPF("telcnot"), True)
     If txtCFG = "" Then txtCFG = " "
-    TE.Write txtCFG
+    TE.Write txtCFG.Text
     TE.Close
 End Sub
 

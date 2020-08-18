@@ -9,35 +9,112 @@ Public CONTADOR2_Cart As Long
 Public EsVideo As Boolean 'saber si el tema en ejecucion es video
 Public EsKar As Boolean
 
-Public Function TrataEjecutarTema(TEMA As String, Optional ToVIP As Boolean = False) As Long
+Public Function TrataEjecutarTema(TEMA As String, Optional ToVIP As Boolean = False, Optional perfil As Long = 1) As Long
     
     'devuelve 0 si todo ok
     ' 1 no alcanza el credito (puede ser tambien para VIP)
     '-1 no llega por error!
     ' 2 ya esta ejecutando
     ' 3 si sigue un video
-    
+    ' 4 pide ver un wallpaper
+    ' 5 pide aplicacion java
+    ' 6 pide ringtone 'xxxx sin hacer !
+    ' 7 pide pasar musica gratis pero hay mas canciones en lista de las que puede haber
+    ' 8 pide imagen iso (quizas pueda abrir un mi explorador .... demasiado dificil parece)
+    ' 9 pide video 3gp (por ahora no tengo como reproducirlo)
     
     On Local Error GoTo ErrTrata
-    
-    If LCase(Right(TEMA, 3)) = "mp3" Or LCase(Right(TEMA, 3)) = "wma" Then '''Or LCase(Right(temaElegido, 3)) = "mp4" Then
-        PideVideo = False
-    Else
-        PideVideo = True
-    End If
+    Select Case LCase(Right(TEMA, 3))
+        Case "wma"
+            PideAlgo = "musica"
+        Case "mp3"
+            'XXXX el raking deberia ser uno por cada tipo de contenido! por ahora solo musica!!
+            If perfil = -1 Then PideAlgo = "musica"
+            If perfil = 1 Then PideAlgo = "musica"
+            If perfil = 2 Then PideAlgo = "ringtone"
+        Case "mpeg", "mpg", "avi", "wmv", "vob", "dat"
+            PideAlgo = "video"
+        Case "mn0", "mn1"
+            PideAlgo = "video" '"karaoke"
+        Case "jpg", "jpeg", "bmp", "gif"
+            PideAlgo = "wallpaper"
+        Case "jar" ', "jad"
+            PideAlgo = "java" 'quizas en el futuro podríamos poner algun emulador que muestre el juego
+        'mm91
+        Case "iso", "nrg", "nr3", "nra", "nrb", "nrc", "nrd", "nre", "nrh", "nri", "nrm", "nru", "nrv", "nrw"
+            PideAlgo = "iso"
+        Case "3gp" 'mm91 video para movil
+            PideAlgo = "3gp"
+    End Select
                       
     TrataEjecutarTema = -1 'valor predeterminado
-              
+    
+    
+    'agosto 08
+    'ver si lo que pide va al reproductor!!
+    If PideAlgo = "wallpaper" Then
+        'solo mostrarlo en pantalla algunos segundos mas grande
+        TrataEjecutarTema = 4
+        Exit Function
+    End If
+    
+    If PideAlgo = "java" Then
+        'nada que se pueda hacer
+        TrataEjecutarTema = 5
+        Exit Function
+    End If
+    'mm91
+    If PideAlgo = "iso" Then
+        'nada que se pueda hacer
+        TrataEjecutarTema = 8
+        Exit Function
+    End If
+    'mm91
+    If PideAlgo = "3gp" Then
+        'nada que se pueda hacer
+        TrataEjecutarTema = 9
+        Exit Function
+    End If
+    
+    If PideAlgo = "ringtone" Then 'me lo dice el perfil ya que tiene la misma extencion que las canciones
+        'debe (si hay credito) mostrarlo
+        
+        'por mas que no este configurado para hacer solo muestras de musica esta es si o si muestra de musica
+        'no es una cancion que se cobre por escuchar
+        If CREDITOS < CreditForTestMusic Then '
+            TrataEjecutarTema = 1
+            Exit Function
+        End If
+        'ver que tampoco haya muchas cosas en la lista
+        If (MaxListaTestMusic > 0) And (tLST.GetLastIndex >= MaxListaTestMusic) Then
+            TrataEjecutarTema = 7
+            GoTo FIN443 'hay mas canciones en lista que las permitidas
+        End If
+        'bien, se debe reproducir pero de modo gratuito ....
+        TrataEjecutarTema = 6
+        GoTo Parte444 'este goto va directo a reproducir o poer en la lista sin cobrar nada
+        Exit Function
+    End If
+    
     'ver si puede pagar lo que pide!!!
     'que joyita papa!!!. Parece que supieras programar
     
     'oct 2007
     'si es de venta de musica esta pasa a ser gratuita (en caso de que lo defina asi)
     'ya que se puede pasar solo algnos segundos de cada canción
-    If NOMUSIC Then
-        If ShowDemoMusic Then
-            'no debe ni mirar precios ni descontar
-            GoTo Parte444
+    'agosto 08 se agregaron limitaciones de creditos y de lista de canciones para reproducir muestras
+    'si esta programado sin musica que no haga nada
+    If NOMUSIC Then 'no es fonola
+        If ShowDemoMusic Then 'pasa las canciones como demo 20 segundos
+            If CREDITOS < CreditForTestMusic Then GoTo FIN443 'si se configuro exigir creditos para pasar muestras (igual son gratis)
+            If MaxListaTestMusic > 0 Then 'si es cero permite todo
+                If tLST.GetLastIndex >= MaxListaTestMusic Then
+                    TrataEjecutarTema = 7
+                    GoTo FIN443 'hay mas canciones en lista que las permitidas
+                End If
+            End If
+            'si llego hasta aqui cumple los requisitos para pasar esta musica de muestra
+            GoTo Parte444 'este goto va directo a reproducir o poer en la lista sin cobrar nada
         Else
             GoTo FIN443
         End If
@@ -50,18 +127,15 @@ Public Function TrataEjecutarTema(TEMA As String, Optional ToVIP As Boolean = Fa
         Exit Function
     End If
     
-    If (PideVideo = False And CREDITOS < PrecNowAudio) Or _
-        (PideVideo And CREDITOS < PrecNowVideo) Then
+    If (PideAlgo = "musica" And CREDITOS < PrecNowAudio) Or _
+        (PideAlgo = "video" And CREDITOS < PrecNowVideo) Then
         
         TrataEjecutarTema = 1 'no alcanza el credito
-        
         VerSiTocaPUB
         
         Exit Function
     End If
     '--------------------------------------------------------------
-    'siempre que se ejecute un credito estaremos por debajo de maximo
-    SetKeyState vbKeyScrollLock, True
     
     'registrar gasto de plata del usuario!
     Dim YU As Long, DTaa As String
@@ -71,7 +145,7 @@ Public Function TrataEjecutarTema(TEMA As String, Optional ToVIP As Boolean = Fa
     'restar lo que corresponde!!!
     'tener en cuenta lo vip !!!
     
-    If PideVideo Then
+    If PideAlgo = "video" Then
         If ToVIP Then
             VarCreditos -PrecNowVIP
             dwqu _
@@ -106,6 +180,14 @@ Public Function TrataEjecutarTema(TEMA As String, Optional ToVIP As Boolean = Fa
         End If
     End If
 
+    'unico lugar del sistema que descuenta creditos por reproduccion (por compra hay otros)
+    If CREDITOS > MaximoFichas Then
+        LedEvent "ActionLedMuchoCredito"
+    Else
+        'apagar el fichero electronico
+        LedEvent "ActionLedPocoCredito"
+    End If
+
     tERR.Anotar "accy"
     'si esta ejecutando pasa a la lista de reproducción
 Parte444:
@@ -122,10 +204,10 @@ Parte444:
             'pasar a la lista de reproducción
             'el segundo parametro es un tag por ejemplo "PUB" pero en genral para temas comunes es ""
             'el tercer parametro es -1 predeterminado al ultimo de la lista
-            ' o puede ser cero para que se ejecute iaaa (NO FUNCIONA AUN VER DLLListaRep
+            ' o puede ser cero para que se ejecute iaaa (NO FUNCIONA AUN VER DLLListaRep)
             ' o 1 para proximo, 2 para segundo, 3 para tercero, etc, etc
             If ToVIP Then
-                tLST.ListaAdd TEMA, "", 1
+                tLST.ListaAdd TEMA, "VIP", 1
             Else
                 tLST.ListaAdd TEMA
             End If
@@ -136,18 +218,24 @@ Parte444:
             CargarArchReini UCase(ReINI) 'POR LAS DUDAS que no este en mayusculas
             'si esta en uno gratis tengo que sacarlo y seguir
             If .EsGratis(Usado) Then
-                If PideVideo Then TrataEjecutarTema = 3 'especial por si es un video
+                If PideAlgo = "video" Then TrataEjecutarTema = 3 'especial por si es un video
                 EMPEZAR_SIGUIENTE 2
             End If
             
         Else
             TrataEjecutarTema = 0 'se larga ya
-            If PideVideo Then TrataEjecutarTema = 3 'especial por si es un video
+            If PideAlgo = "video" Then TrataEjecutarTema = 3 'especial por si es un video
             'NUNCA ENTRARA AQUI si esta en modo de video para los otros si sirve!
             tERR.Anotar "acdc", TEMA
             frmIndex.MP3.EsGratis(IAANext) = False
             CORTAR_TEMA(IAANext) = False 'este tema va entero ya que lo eligio el usuario
-            EjecutarTema TEMA, True
+            Dim sTag As String
+            If ToVIP Then
+                sTag = "VIP"
+            Else
+                sTag = ""
+            End If
+            EjecutarTema TEMA, True, sTag
         End If
     
     End With
@@ -166,13 +254,15 @@ ErrTrata:
     Resume Next
 End Function
 
-Public Sub EjecutarTema(TEMA As String, ByRef SumaRanking As Boolean)
+Public Sub EjecutarTema(TEMA As String, ByRef SumaRanking As Boolean, Optional sTag As String)
     'XXXXX bloquear si esta especificado
     'NOMUSIC ya que solo sera de venta
     'fijarse tambien si
     'ShowDemoMusic es true para mostrar solo un parte
     'ademas las canciones gratuitas tambien ver que hacer
     'tambien las publicidadaes
+    
+    'le agregue sTag en set08 para saber si era un vip ya que athuel quiere prender luces en los vip
     
     On Local Error GoTo ErrEjecutarTema
 
@@ -214,9 +304,15 @@ Public Sub EjecutarTema(TEMA As String, ByRef SumaRanking As Boolean)
     End If
     
     'ver si es solo expendedor de musica
-    If NOMUSIC And (ShowDemoMusic = False) Then
-        'salgo de aca!
-        Exit Sub
+    If NOMUSIC Then 'no es fonola
+        If ShowDemoMusic Then 'pasa las canciones como demo 20 segundos
+            If CREDITOS < CreditForTestMusic Then Exit Sub 'si se configuro exigir creditos para pasar muestras (igual son gratis)
+            If MaxListaTestMusic > 0 Then 'si es cero permite todo
+                If tLST.GetLastIndex >= MaxListaTestMusic Then Exit Sub 'hay mas canciones en lista que las permitidas
+            End If
+        Else
+            Exit Sub
+        End If
     End If
     
     '*****************************************
@@ -241,7 +337,13 @@ Public Sub EjecutarTema(TEMA As String, ByRef SumaRanking As Boolean)
     End If
     
     tERR.Anotar "003-0004"
-     SetKeyState vbKeyCapital, True
+    'SKy mientras reproduce musica caps lock estara encendido
+    LedEvent "ActionLedPalying" '     SetKeyState vbKeyCapital, True
+    If sTag = "VIP" Then
+        LedEvent "ActionLedPalyingVip"
+    Else
+        LedEvent "ActionLedNoPlayVip"
+    End If
     ' Tocar el fichero
     
     ' El valor de cada paso del HScrollPos
@@ -448,6 +550,7 @@ Public Sub EjecutarTema(TEMA As String, ByRef SumaRanking As Boolean)
         
         tERR.Anotar "003-0049b", iAlias, NOMUSIC, ShowDemoMusic
         
+        'si tiene mas de 50 segundos y es una muestra solo paso una parte para que lo prueben
         If NOMUSIC And ShowDemoMusic Then
             If .LengthInSec(IAANext) >= 50 Then
                 .SeekTo 30000, IAANext
@@ -607,9 +710,22 @@ Public Function EMPEZAR_SIGUIENTE(DesdeDonde As Long) As Long
             
             Dim TemaDeMatriz As String
             tERR.Anotar "003-0057"
+            
             TemaDeMatriz = tLST.GetElementListaPath(1) 'el proximo que sigue!
             'reacomodar la matriz para quitar el primer elemento y ver si no hay mas
-            tERR.Anotar "003-0058"
+            
+            
+            Dim sTag As String
+            If tLST.GetTag(1) = "VIP" Then
+                sTag = "VIP"
+            Else
+                sTag = ""
+            End If
+            
+            tERR.Anotar "003-0058", TemaDeMatriz, sTag
+            
+            'este elimina el primer elemento predeterminadamente
+            
             If tLST.ListaKillElement = 0 Then
                 .RollSONG.ReplaceIndex 1, TR.Trad("No hay " + vbCrLf + _
                     "mas selecciones%99%")
@@ -636,7 +752,8 @@ Public Function EMPEZAR_SIGUIENTE(DesdeDonde As Long) As Long
                     frmIndex.List1.List(17) = "EmpezarSig(" + CStr(DesdeDonde) + ")=5 = " + CStr(ContEmpezSig)
             End Select
             'C
-            EjecutarTema TemaDeMatriz, True
+            
+            EjecutarTema TemaDeMatriz, True, sTag
             '*******************************
             tERR.Anotar "003-0065"
             CargarProximosTemas
@@ -652,7 +769,9 @@ Public Function EMPEZAR_SIGUIENTE(DesdeDonde As Long) As Long
             'tERR.Anotar "003-0067"
             '.lblTiempoRestante = "Falta: " + "00:00"
             tERR.Anotar "003-0068"
-            SetKeyState vbKeyCapital, False
+            'SKy si no se esta reproduciendo nada se apaga
+            LedEvent "ActionLedNoPlaying"
+            LedEvent "ActionLedNoPlayVip" '            SetKeyState vbKeyCapital, False
             tERR.Anotar "003-0069"
             .RollSONG.ReplaceIndex 0, TR.Trad("Sin reproduccion actual%99%")
             
@@ -840,10 +959,10 @@ Public Sub SumarContadorCreditos(valorSUMAR As Long)
     'el tmp3 esta multiplicado por 2 y el 4 por 3 (historico)
     
     'comparar el reiniciable
-    Dim Res As Long
-    Res = (TMP1 / 11) - (TMP2 / 9)
+    Dim res As Long
+    res = (TMP1 / 11) - (TMP2 / 9)
     Dim NewVal As Long
-    Select Case Res
+    Select Case res
         Case 0
             'todo joia
             NewVal = TMP1 / 11 'podria ser el 2 / 9
@@ -916,10 +1035,10 @@ Public Sub SumarContadorCarrito(valorSUMAR As Long)
     'el 4 por 4 (historico)
     
     'comparar el reiniciable
-    Dim Res As Long
-    Res = (TMP1 / 7) - (TMP2 / 6)
+    Dim res As Long
+    res = (TMP1 / 7) - (TMP2 / 6)
     Dim NewVal As Long
-    Select Case Res
+    Select Case res
         Case 0
             'todo joia
             NewVal = TMP1 / 7 'podria ser el 2 / 9

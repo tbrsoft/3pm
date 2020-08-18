@@ -110,12 +110,12 @@ Public Sub ShowDEV(PTh As String)
     
     tERR.Anotar "dabp"
     S = pt.GetLista
-    S(0) = PTh + ":\3PMusic\"
+    S(0) = PTh + ":\Expendedor\"
     tERR.Anotar "dabq", S(0)
     'XXXXXX
     'detectar si es un celular y poner el predeterminado donde corresponda
     'xxxxxx
-    lstPTHS.AddItem " Predeterminado y recomendado: " + PTh + ":\3PMusic"
+    lstPTHS.AddItem " Predeterminado y recomendado: " + PTh + ":\Expendedor"
     
     For H = 1 To UBound(S)
         lstPTHS.AddItem " Guardar en: " + S(H)
@@ -152,7 +152,7 @@ Public Sub Save(I As Long)
     If I = -1 Then
         'si entro asi es por que es el unico dispositivo
         ReDim S(0)
-        S(0) = UB.GetLetterUSB(1) + ":\3PMusic\"
+        S(0) = UB.GetLetterUSB(1) + ":\Expendedor\"
         tERR.Anotar "dabt", S(0)
         DEST = S(0)
         'DEST = S(0)
@@ -228,6 +228,26 @@ Public Sub Save(I As Long)
         
         If fso.FolderExists(DEST + InFolder) Then
             tERR.Anotar "daby3", Carrito.GetElementFull(H), DEST + InFolder + "\"
+            
+            'si el archivo existe en destino no pasa nada pero si es solo lectura o algun modo extraño jode!
+            Dim DestNow As String
+            DestNow = DEST + InFolder + "\" + fso.GetBaseName(Carrito.GetElementFull(H)) + "." + fso.GetExtensionName(Carrito.GetElementFull(H))
+            If fso.FileExists(DestNow) Then
+                Dim at As Long 'atributos
+                at = GetAttr(DestNow)
+'                Constante Valor Descripción
+'                vbNormal 0 Normal
+'                vbReadOnly 1 Sólo lectura
+'                vbHidden 2 Oculto
+'                vbSystem 4 Archivo de sistema
+'                vbDirectory 16 Directorio o carpeta
+'                vbArchive 32 El archivo ha sido modificado después de efectuar la última copia de seguridad
+
+                If at <> 0 Or at <> 32 Then
+                    SetAttr DestNow, vbNormal
+                End If
+            End If
+            
             fso.CopyFile Carrito.GetElementFull(H), DEST + InFolder + "\", True
         Else
             tERR.Anotar "dabz"

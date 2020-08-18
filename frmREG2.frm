@@ -395,12 +395,7 @@ Private Sub Form_Load()
         CStr(K.sabseee("mLicencia3PMVtaMusica")) + "|" + _
         CStr(K.sabseee("mLicencia3PMOrigMusicaFTP")) + "|" + _
         CStr(K.sabseee("mLicencia3PMConfigOnline")) + "|" + _
-        CStr(K.sabseee("mLicenciaCD001Kar")) + "|" + _
-        CStr(K.sabseee("mLicenciaCD002Kar")) + "|" + _
-        CStr(K.sabseee("mLicenciaCD003Kar")) + "|" + _
-        CStr(K.sabseee("mLicenciaCD004Kar")) + "|" + _
-        CStr(K.sabseee("mLicenciaCD005Kar")) + "|" + _
-        CStr(K.sabseee("mLicenciaCD006Kar")) + "|"
+        CStr(K.sabseee("mLicenciaCD001Kar"))
         
     lblNP.Visible = (NP > 0)
     If NP > 0 Then lblNP.Caption = CStr(NP)
@@ -550,7 +545,8 @@ Private Sub XxBoton2_Click()
 End Sub
 
 Private Sub XxBoton3_Click()
-    frmCLUF.Show 1
+    AbrirArchivo AP + "license.rtf", Me
+    'frmCLUF.Show 1
 End Sub
 
 Private Sub XxBoton4_Click()

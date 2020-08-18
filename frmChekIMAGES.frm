@@ -185,14 +185,14 @@ Private Sub XxBoton1_Click()
         
             fso.CopyFile ArchTapa, CarpTapa + "ex-tapa.jpg", True
             
-            Dim Res As Long, sCompres As Long
-            Res = FileLen(ArchTapa) 'para que entre al do!!
+            Dim res As Long, sCompres As Long
+            res = FileLen(ArchTapa) 'para que entre al do!!
             sCompres = 90
             'achicar en compresion hasta que quede dentro de niveles permitidos
-            Do While Res > (TamanoTapaPermitido * 1024)
+            Do While res > (TamanoTapaPermitido * 1024)
                 
-                Res = TJ.BMPtoJPG_CalcularBites(ArchTapa, sCompres)
-                TR.SetVars sCompres, Res
+                res = TJ.BMPtoJPG_CalcularBites(ArchTapa, sCompres)
+                TR.SetVars sCompres, res
                 MyLog TR.Trad("Pruebo compresion %01% queda en %02% bytes%99%")
                 
                 sCompres = sCompres - 10
@@ -202,9 +202,9 @@ Private Sub XxBoton1_Click()
                     Dim WiHe As Long
                     sCompres = 90
                     WiHe = 150
-                    Do While Res > (TamanoTapaPermitido * 1024)
-                        Res = TJ.BMPtoJPG_CalcularBites(ArchTapa, sCompres, WiHe, WiHe)
-                        TR.SetVars sCompres, WiHe, Res
+                    Do While res > (TamanoTapaPermitido * 1024)
+                        res = TJ.BMPtoJPG_CalcularBites(ArchTapa, sCompres, WiHe, WiHe)
+                        TR.SetVars sCompres, WiHe, res
                         MyLog TR.Trad("Pruebo compresion %01% y tamaño en %02% " + _
                             "queda en %03% bytes%99%")
                             
@@ -215,14 +215,14 @@ Private Sub XxBoton1_Click()
                     'listo, lo mejor que se pueda o alguno que dio ok
                     TJ.BMPtoJPG CarpTapa + "ex-tapa.jpg", CarpTapa + "tapa.jpg", sCompres, WiHe, WiHe
                     
-                    TR.SetVars Res
+                    TR.SetVars res
                     MyLog TR.Trad("DEFINIDO EN %01% bytes%99%")
                     
                     GoTo sig
                 End If
             Loop
             
-            TR.SetVars Res
+            TR.SetVars res
             MyLog TR.Trad("DEFINIDO EN %01% bytes%99%")
             'listo, lo mejor que se pueda o alguno que dio ok
             TJ.BMPtoJPG CarpTapa + "ex-tapa.jpg", CarpTapa + "tapa.jpg", sCompres
@@ -271,23 +271,23 @@ Private Function getBestImg(sFolder As String) As String
     EXTS(4) = "tiff"
     
     Dim J As Long
-    Dim Res() As String 'lista de todas las imagenes disponibles
-    ReDim Res(0)
+    Dim res() As String 'lista de todas las imagenes disponibles
+    ReDim res(0)
     For J = 0 To UBound(EXTS)
         ACH = Dir(sFolder + "*." + EXTS(J))
         Do While ACH <> ""
-            ReDim Preserve Res(UBound(Res) + 1)
-            Res(UBound(Res)) = sFolder + ACH
+            ReDim Preserve res(UBound(res) + 1)
+            res(UBound(res)) = sFolder + ACH
             ACH = Dir
         Loop
     Next J
     
-    If UBound(Res) = 0 Then
+    If UBound(res) = 0 Then
         getBestImg = ""
         Exit Function
     Else
-        If UBound(Res) = 1 Then 'si es solo una devuelvo esa!
-            getBestImg = Res(1)
+        If UBound(res) = 1 Then 'si es solo una devuelvo esa!
+            getBestImg = res(1)
             Exit Function
         End If
         
@@ -298,11 +298,11 @@ Private Function getBestImg(sFolder As String) As String
         
         MaxPTOS = 0
         IndMaxPtos = 1 'predeterminada
-        For J = 1 To UBound(Res)
+        For J = 1 To UBound(res)
             ThisPtos = 0
-            If InStr(fso.GetBaseName(Res(J)), "tapa") > 0 Then ThisPtos = ThisPtos + 500
-            If InStr(fso.GetBaseName(Res(J)), "frente") > 0 Then ThisPtos = ThisPtos + 500
-            ThisPtos = ThisPtos + CLng(FileLen(Res(J)) / 1024) 'mas tamaño deberia ser mas calidad!
+            If InStr(fso.GetBaseName(res(J)), "tapa") > 0 Then ThisPtos = ThisPtos + 500
+            If InStr(fso.GetBaseName(res(J)), "frente") > 0 Then ThisPtos = ThisPtos + 500
+            ThisPtos = ThisPtos + CLng(FileLen(res(J)) / 1024) 'mas tamaño deberia ser mas calidad!
             
             If ThisPtos > MaxPTOS Then
                 MaxPTOS = ThisPtos
@@ -312,7 +312,7 @@ Private Function getBestImg(sFolder As String) As String
         Next J
         
         'la mejor elegida
-        getBestImg = Res(IndMaxPtos)
+        getBestImg = res(IndMaxPtos)
         
     End If
     

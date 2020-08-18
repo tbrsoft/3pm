@@ -1,4 +1,5 @@
 VERSION 5.00
+Object = "{181111E6-07C8-4D47-8611-3BF038099354}#5.2#0"; "tbrFaroButton.ocx"
 Begin VB.Form frmCarritoReview 
    BackColor       =   &H00000000&
    BorderStyle     =   0  'None
@@ -7,6 +8,7 @@ Begin VB.Form frmCarritoReview
    ClientLeft      =   0
    ClientTop       =   0
    ClientWidth     =   7965
+   KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
@@ -15,6 +17,40 @@ Begin VB.Form frmCarritoReview
    ShowInTaskbar   =   0   'False
    StartUpPosition =   3  'Windows Default
    WindowState     =   2  'Maximized
+   Begin tbrFaroButton.fBoton btOKPachaCartDel 
+      Height          =   840
+      Left            =   3090
+      TabIndex        =   2
+      TabStop         =   0   'False
+      Top             =   3630
+      Visible         =   0   'False
+      Width           =   1665
+      _ExtentX        =   2937
+      _ExtentY        =   1482
+      fFColor         =   16777215
+      fBColor         =   14737632
+      fCapt           =   "Quitar"
+      fEnabled        =   -1  'True
+      fFontN          =   "Verdana"
+      fFontS          =   10
+      fECol           =   5452834
+   End
+   Begin VB.Image tUPDel 
+      BorderStyle     =   1  'Fixed Single
+      Height          =   585
+      Left            =   4800
+      Top             =   3870
+      Visible         =   0   'False
+      Width           =   795
+   End
+   Begin VB.Image tDownDel 
+      BorderStyle     =   1  'Fixed Single
+      Height          =   585
+      Left            =   2280
+      Top             =   3870
+      Visible         =   0   'False
+      Width           =   795
+   End
    Begin VB.Label Label3 
       Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
@@ -75,6 +111,10 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Private sSel As Long 'seleccion elegida
 
+Private Sub btOKPachaCartDel_Click()
+    Form_KeyDown TeclaOK, 0
+End Sub
+
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     Dim II As Long
     Select Case KeyCode
@@ -116,6 +156,17 @@ End Sub
 Private Sub Form_Load()
     Label3.Caption = "-Contenido de la compra-" + vbCrLf + _
         "Elija la selección a eliminar"
+        
+    Dim IMF As String
+    
+    IMF = ExtraData.getDef.getImagePath("touchderechanormal")
+    tUPDel.Picture = LoadPicture(IMF)
+
+    IMF = ExtraData.getDef.getImagePath("touchizqnormal")
+    tDownDel.Picture = LoadPicture(IMF)
+    
+    tUPDel.BorderStyle = 0
+    tDownDel.BorderStyle = 0
 End Sub
 
 Private Sub Form_Resize()
@@ -124,6 +175,25 @@ Private Sub Form_Resize()
     
     Label3.Caption = "Elija el elemento a eliminar y presione 'OK' o la tecla de carrito para eliminarlo"
     
+    'que quede igual!
+    tDownDel.Top = frmIndex.picFondoPacha.Top + frmIndex.t1.Top
+    tDownDel.Left = frmIndex.picFondoPacha.Left + frmIndex.t1.Left
+    
+    tUPDel.Top = frmIndex.picFondoPacha.Top + frmIndex.t3.Top
+    tUPDel.Left = frmIndex.picFondoPacha.Left + frmIndex.t3.Left
+    'este boton es más grande!
+    'btOKPachaCart.Top = frmIndex.picFondoPacha.Top + frmIndex.btOKPacha.Top
+    btOKPachaCartDel.Top = Me.Height - btOKPachaCartDel.Height + 60
+    btOKPachaCartDel.Left = frmIndex.picFondoPacha.Left + frmIndex.btOKPacha.Left
+    btOKPachaCartDel.Width = frmIndex.btOKPacha.Width
+    'aqui tengo mas lugar y necesito más texto
+    'btOKPachaCart.Height = frmIndex.btOKPacha.Height
+    btOKPachaCartDel.Caption = "Quitar"
+    
+    tDownDel.Visible = True
+    tUPDel.Visible = True
+    btOKPachaCartDel.Visible = True
+        
     LoadLista
     
 End Sub
@@ -232,3 +302,10 @@ MER:
     Resume Next
 End Function
 
+Private Sub tDownDel_Click()
+    Form_KeyDown TeclaIZQ, 0
+End Sub
+
+Private Sub tUPDel_Click()
+    Form_KeyDown TeclaDER, 0
+End Sub

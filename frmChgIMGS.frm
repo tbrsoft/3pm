@@ -322,11 +322,9 @@ Private Sub Form_Load()
         IMG2.Picture = LoadPicture(ExtraData.getDef.getImagePath("iniciasys"))
     End If
     
-    If fso.FileExists(GPF("tddp322")) Then
-        IMG3.Picture = LoadPicture(GPF("tddp322"))
-    Else
-        IMG3.Picture = LoadPicture(ExtraData.getDef.getImagePath("tapapredeterminada"))
-    End If
+    
+    IMG3.Picture = LoadPicture(GetTpPred)
+    
     
     If fso.FileExists(GPF("tddp323")) Then
         IMG4.Picture = LoadPicture(GPF("tddp323"))

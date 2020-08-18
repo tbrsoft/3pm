@@ -11,6 +11,7 @@ Begin VB.Form frmAddRemoveMusic
    ClientWidth     =   11910
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
+   LockControls    =   -1  'True
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   8670
@@ -684,15 +685,7 @@ Private Sub cmdKillTapa_Click()
     tERR.Anotar "ackc", lstCarpetas
     'refrescar la imagen
     'ver si es superlicencia y usa otra tapa predeterminada
-    If K.sabseee("3pm") = Supsabseee Then
-        If fso.FileExists(GPF("tddp322")) Then
-            IMF = GPF("tddp322")
-        Else
-            IMF = ExtraData.getDef.getImagePath("tapapredeterminada")
-        End If
-    Else
-        IMF = ExtraData.getDef.getImagePath("tapapredeterminada")
-    End If
+    IMF = GetTpPred
     
     TapaCD.Picture = LoadPicture(IMF)
     cmdKillTapa.Enabled = False
@@ -1305,6 +1298,7 @@ Private Sub lstCarpetas_Click()
     Else
         lstTEMAS.Enabled = True
         ReDim Preserve MTXfiles(0)
+        'OM- lista el contenido multimedia de una carpeta en el visor de la ventana agregar/quitar musica
         MTXfiles = ObtenerArchMM(lstCarpetas)
         tERR.Anotar "aclb", UBound(MTXfiles)
         If UBound(MTXfiles) = 0 Then
@@ -1334,15 +1328,7 @@ Private Sub lstCarpetas_Click()
     Else
         tERR.Anotar "aclf"
         'ver si es superlicencia y usa otra tapa predeterminada
-        If K.sabseee("3pm") = Supsabseee Then
-            If fso.FileExists(GPF("tddp322")) Then
-                IMF = GPF("tddp322")
-            Else
-                IMF = ExtraData.getDef.getImagePath("tapapredeterminada")
-            End If
-        Else
-            IMF = ExtraData.getDef.getImagePath("tapapredeterminada")
-        End If
+        IMF = GetTpPred
                 
         TapaCD.Picture = LoadPicture(IMF)
         cmdKillTapa.Enabled = False

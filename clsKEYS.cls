@@ -39,11 +39,6 @@ Private mLicencia3PMOrigMusicaFTP As TypeLic
 Private mLicencia3PMConfigOnline As TypeLic
 
 Private mLicenciaCD001Kar As TypeLic
-Private mLicenciaCD002Kar As TypeLic
-Private mLicenciaCD003Kar As TypeLic
-Private mLicenciaCD004Kar As TypeLic
-Private mLicenciaCD005Kar As TypeLic
-Private mLicenciaCD006Kar As TypeLic
 
 Private Sub Class_Initialize()
     'GPF("cd3pm") 'DatosClaveIngresada.DLL
@@ -55,11 +50,6 @@ Private Sub Class_Initialize()
     mLicencia3PMConfigOnline = a_SinLeer
     
     mLicenciaCD001Kar = a_SinLeer
-    mLicenciaCD002Kar = a_SinLeer
-    mLicenciaCD003Kar = a_SinLeer
-    mLicenciaCD004Kar = a_SinLeer
-    mLicenciaCD005Kar = a_SinLeer
-    mLicenciaCD006Kar = a_SinLeer
     
     'generar el archivo de esta PC !
     nFOt.SetSF "3pm" 'nuevo agosto 2007 para no mezclar con karaokes ni con programas de artime y manu
@@ -74,11 +64,6 @@ Private Sub Class_Initialize()
     sabseee "mLicencia3PMOrigMusicaFTP"
     sabseee "mLicencia3PMConfigOnline"
     sabseee "mLicenciaCD001Kar"
-    sabseee "mLicenciaCD002Kar"
-    sabseee "mLicenciaCD003Kar"
-    sabseee "mLicenciaCD004Kar"
-    sabseee "mLicenciaCD005Kar"
-    sabseee "mLicenciaCD006Kar"
     tERR.Anotar "IC12ff"
     
 End Sub
@@ -127,11 +112,6 @@ Public Function sabseee(ParaQue As String) As TypeLic
         Case LCase("mLicencia3PMOrigMusicaFTP"): tmpLLIC = mLicencia3PMOrigMusicaFTP
         Case LCase("mLicencia3PMConfigOnline"):  tmpLLIC = mLicencia3PMConfigOnline
         Case LCase("mLicenciaCD001Kar"):         tmpLLIC = mLicenciaCD001Kar
-        Case LCase("mLicenciaCD002Kar"):         tmpLLIC = mLicenciaCD002Kar
-        Case LCase("mLicenciaCD003Kar"):         tmpLLIC = mLicenciaCD003Kar
-        Case LCase("mLicenciaCD004Kar"):         tmpLLIC = mLicenciaCD004Kar
-        Case LCase("mLicenciaCD005Kar"):         tmpLLIC = mLicenciaCD005Kar
-        Case LCase("mLicenciaCD006Kar"):         tmpLLIC = mLicenciaCD006Kar
     End Select
     
     'reviso a ver si esta
@@ -153,11 +133,6 @@ Public Function sabseee(ParaQue As String) As TypeLic
         Case LCase("mLicencia3PMOrigMusicaFTP"): sabseee = mLicencia3PMOrigMusicaFTP
         Case LCase("mLicencia3PMConfigOnline"):  sabseee = mLicencia3PMConfigOnline
         Case LCase("mLicenciaCD001Kar"):         sabseee = mLicenciaCD001Kar
-        Case LCase("mLicenciaCD002Kar"):         sabseee = mLicenciaCD002Kar
-        Case LCase("mLicenciaCD003Kar"):         sabseee = mLicenciaCD003Kar
-        Case LCase("mLicenciaCD004Kar"):         sabseee = mLicenciaCD004Kar
-        Case LCase("mLicenciaCD005Kar"):         sabseee = mLicenciaCD005Kar
-        Case LCase("mLicenciaCD006Kar"):         sabseee = mLicenciaCD006Kar
     End Select
     
 End Function
@@ -252,60 +227,6 @@ Public Sub IngresaClave(ParaQue As String, RegFallo As Boolean)
                 mLicenciaCD001Kar = aSinCargar
             End If
     
-        Case LCase("mLicenciaCD002Kar")
-            '****************mLicenciaCD002Kar
-            'si no cargo el archivo no leer nada
-            TmpAR = GetFileOrBUP(GPF("plin9"), GPF("plin10"))
-            'hasta aqui solo se define el archivo que se va a probar
-            If TmpAR <> "" Then
-                mLicenciaCD002Kar = garrala(TmpAR, "mLicenciaCD002Kar", RegFallo)
-            Else
-                mLicenciaCD002Kar = aSinCargar
-            End If
-    
-        Case LCase("mLicenciaCD003Kar")
-            '****************mLicenciaCD003Kar
-            'si no cargo el archivo no leer nada
-            TmpAR = GetFileOrBUP(GPF("plin11"), GPF("plin12"))
-            'hasta aqui solo se define el archivo que se va a probar
-            If TmpAR <> "" Then
-                mLicenciaCD003Kar = garrala(TmpAR, "mLicenciaCD003Kar", RegFallo)
-            Else
-                mLicenciaCD003Kar = aSinCargar
-            End If
-    
-        Case LCase("mLicenciaCD004Kar")
-            '****************mLicenciaCD004Kar
-            'si no cargo el archivo no leer nada
-            TmpAR = GetFileOrBUP(GPF("plin13"), GPF("plin14"))
-            'hasta aqui solo se define el archivo que se va a probar
-            If TmpAR <> "" Then
-                mLicenciaCD004Kar = garrala(TmpAR, "mLicenciaCD004Kar", RegFallo)
-            Else
-                mLicenciaCD004Kar = aSinCargar
-            End If
-    
-        Case LCase("mLicenciaCD005Kar")
-            '****************mLicenciaCD005Kar
-            'si no cargo el archivo no leer nada
-            TmpAR = GetFileOrBUP(GPF("plin15"), GPF("plin16"))
-            'hasta aqui solo se define el archivo que se va a probar
-            If TmpAR <> "" Then
-                mLicenciaCD005Kar = garrala(TmpAR, "mLicenciaCD005Kar", RegFallo)
-            Else
-                mLicenciaCD005Kar = aSinCargar
-            End If
-    
-        Case LCase("mLicenciaCD006Kar")
-            '****************mLicenciaCD006Kar
-            'si no cargo el archivo no leer nada
-            TmpAR = GetFileOrBUP(GPF("plin17"), GPF("plin18"))
-            'hasta aqui solo se define el archivo que se va a probar
-            If TmpAR <> "" Then
-                mLicenciaCD006Kar = garrala(TmpAR, "mLicenciaCD006Kar", RegFallo)
-            Else
-                mLicenciaCD006Kar = aSinCargar
-            End If
             
     End Select
     
@@ -322,11 +243,9 @@ Public Sub IngresaClave(ParaQue As String, RegFallo As Boolean)
             Case 46523511 'sergio soza (fue en un paquete con 3 mas. Esta es la única con karaoke)
                 mLicencia = Supsabseee
                 mLicenciaCD001Kar = Supsabseee
-                mLicenciaCD002Kar = Supsabseee
             Case 47536194 'sergio soza la mando para que le pongamos karaoke
                 mLicencia = Supsabseee
                 mLicenciaCD001Kar = Supsabseee
-                mLicenciaCD002Kar = Supsabseee
             Case 49509525 'guillermo rosario USB
                 mLicencia = Supsabseee
                 mLicencia3PMVtaMusica = Supsabseee 'PAGO LICENCIA DE CARRITO
@@ -344,12 +263,14 @@ Public Sub IngresaClave(ParaQue As String, RegFallo As Boolean)
                 mLicencia = Supsabseee
             Case 70108830 'oscar brito licencia simple
                 mLicencia = GFull
-            Case 82453846 'rodolfo martino (justiniano pose / bell ville)
+                
+            Case 82453846, 86542785, 85721433, 85620164, 87381243, 89463531 'rodolfo martino (justiniano pose / bell ville)
                 mLicencia = Supsabseee
                 mLicenciaCD001Kar = Supsabseee
-                mLicenciaCD002Kar = Supsabseee
-                mLicenciaCD003Kar = Supsabseee
                 mLicencia3PMVtaMusica = Supsabseee
+            
+            Case 85888147 'oscar brito licencia simple
+                mLicencia = GFull
             Case Else
                 'las que no estan especificadas tienen al menos superlicencia _
                     de 3PM si no especifica lo contrario
@@ -368,7 +289,7 @@ Private Function garrala(ArchTest As String, sForSF As String, EsErrorSiNoVa As 
 
     Dim TEZ As String 'lista "FINAL:" original
     Dim mNR As Long
-    mNR = nFOt.GetNR(ArchTest, TEZ)  'el tez queda en ni bosta!!!
+    mNR = nFOt.GetNR(ArchTest, TEZ)   'el tez queda en ni bosta!!!
     
     Dim ForSF As String 'saber para que soft fue hecho
     ForSF = nFOt.GetSF
@@ -392,13 +313,13 @@ Private Function garrala(ArchTest As String, sForSF As String, EsErrorSiNoVa As 
     End If
 
     TEZ = Trim(UCase(TEZ))
-    tERR.Anotar "IC06", TEZ
+    tERR.Anotar "IC06", TEZ 'final del L37 abierto
     
     Dim FFdeLaClave As String
     FFdeLaClave = nFOt.GetRF 'da ok el de esta misma PC
     
     FFdeLaClave = Trim(UCase(FFdeLaClave))
-    tERR.Anotar "IC07", FFdeLaClave
+    tERR.Anotar "IC07", FFdeLaClave 'final de esta PC
     
 '    'lo escribo por las dudas
 '    Dim POP4 As TextStream

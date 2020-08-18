@@ -32,12 +32,12 @@ Public Sub Startlisen(ListaValores As String)
     'recibe lista de los valores deseados separados por espacio
     Dim SP() As String
     SP = Split(ListaValores)
-    Dim a As Long
-    For a = 0 To UBound(SP)
-        ReDim Preserve ListaTeclas(a): ListaTeclas(a) = CByte(SP(a))
-        ReDim Preserve ListaTeclasState(a): ListaTeclasState(a) = 0 'no pulsada
-        ReDim Preserve ListaTeclasStateLast(a): ListaTeclasStateLast(a) = 0 'no pulsada
-    Next a
+    Dim A As Long
+    For A = 0 To UBound(SP)
+        ReDim Preserve ListaTeclas(A): ListaTeclas(A) = CByte(SP(A))
+        ReDim Preserve ListaTeclasState(A): ListaTeclasState(A) = 0 'no pulsada
+        ReDim Preserve ListaTeclasStateLast(A): ListaTeclasStateLast(A) = 0 'no pulsada
+    Next A
     TKey.Interval = 20
     TKey.Enabled = True
 End Sub
@@ -58,10 +58,10 @@ End Sub
 
 Private Sub TKey_Timer()
     Dim KeyResult As Long
-    Dim a As Long
-    For a = 0 To UBound(ListaTeclas)
+    Dim A As Long
+    For A = 0 To UBound(ListaTeclas)
         'el numero es el codigo ascii
-        KeyResult = GetAsyncKeyState(ListaTeclas(a))
+        KeyResult = GetAsyncKeyState(ListaTeclas(A))
         KeyResult = Abs(KeyResult)
         'el bit mas significativo es 1 cuando el boton esta apretado
         'el menos significativo es uno si la tecla fue apretada desde que se llamo
@@ -80,15 +80,15 @@ Private Sub TKey_Timer()
         
         'los 4 valores me joden, me gustaria saber apretado y no apretado!
         If KeyResult >= 32767 Then 'Apretado con o sin señales anteriores
-            ListaTeclasState(a) = 32767
+            ListaTeclasState(A) = 32767
         Else
-            ListaTeclasState(a) = 1
+            ListaTeclasState(A) = 1
         End If
-        If ListaTeclasStateLast(a) <> ListaTeclasState(a) Then
-            ListaTeclasStateLast(a) = ListaTeclasState(a)
+        If ListaTeclasStateLast(A) <> ListaTeclasState(A) Then
+            ListaTeclasStateLast(A) = ListaTeclasState(A)
             'LLegados = LLegados + vbCrLf + CStr(Timer) + ":" + CStr(ListaTeclasStateLast(A))
-            If Abs(ListaTeclasState(a)) = 32767 Then
-                RaiseEvent LlegoTecla(ListaTeclas(a))
+            If Abs(ListaTeclasState(A)) = 32767 Then
+                RaiseEvent LlegoTecla(ListaTeclas(A))
             End If
         End If
         
@@ -100,7 +100,7 @@ Private Sub TKey_Timer()
 '        Else
 '            ListaTeclasState(A) = 0 'no pulsada
 '        End If
-    Next a
+    Next A
 End Sub
 
 Public Function IsLisen() As Boolean

@@ -106,7 +106,7 @@ Begin VB.Form frmCarritoDelete
       EndProperty
       ForeColor       =   &H00E0E0E0&
       Height          =   645
-      Left            =   150
+      Left            =   180
       TabIndex        =   3
       Top             =   1980
       Width           =   8955

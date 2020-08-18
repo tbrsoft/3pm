@@ -139,8 +139,8 @@ Public Function NumToTec(nS As String) As String
     
     Dim LL As Long
     LL = Len(nS)
-    Dim J As Long, Res As String, Letra As String
-    Res = ""
+    Dim J As Long, res As String, Letra As String
+    res = ""
     For J = 1 To LL
         Letra = Mid(nS, J, 1)
         Select Case Letra
@@ -156,20 +156,20 @@ Public Function NumToTec(nS As String) As String
             Case "9": Letra = "DER"
         End Select
         
-        Res = Res + Letra
-        If J < LL Then Res = Res + " - "
+        res = res + Letra
+        If J < LL Then res = res + " - "
         
     Next J
     
-    NumToTec = Res
+    NumToTec = res
 End Function
 
 Public Function TexToTec(nS As String) As String
     
     Dim LL As Long
     LL = Len(nS)
-    Dim J As Long, Res As String, Letra As String
-    Res = ""
+    Dim J As Long, res As String, Letra As String
+    res = ""
     For J = 1 To LL
         Letra = Mid(nS, J, 1)
         Select Case Asc(Letra)
@@ -178,12 +178,12 @@ Public Function TexToTec(nS As String) As String
             Case Else: Letra = "NO"
         End Select
         
-        Res = Res + Letra
-        If J < LL Then Res = Res + " - "
+        res = res + Letra
+        If J < LL Then res = res + " - "
         
     Next J
     
-    TexToTec = Res
+    TexToTec = res
 End Function
 
 Public Function ClaveParaValidar(CodigoSolicitado As String, _

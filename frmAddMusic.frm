@@ -31,7 +31,7 @@ Begin VB.Form frmAddMusic
       EndProperty
       ForeColor       =   &H00FFFFFF&
       Height          =   2835
-      Left            =   8040
+      Left            =   8310
       TabIndex        =   25
       Top             =   1350
       Width           =   3555
@@ -74,7 +74,7 @@ Begin VB.Form frmAddMusic
    End
    Begin tbrFaroButton.fBoton Command3 
       Height          =   615
-      Left            =   8040
+      Left            =   8310
       TabIndex        =   24
       Top             =   7980
       Width           =   3495
@@ -90,9 +90,9 @@ Begin VB.Form frmAddMusic
    End
    Begin tbrFaroButton.fBoton Command4 
       Height          =   525
-      Left            =   8055
+      Left            =   8325
       TabIndex        =   23
-      Top             =   5985
+      Top             =   6000
       Width           =   3495
       _ExtentX        =   6165
       _ExtentY        =   926
@@ -108,7 +108,7 @@ Begin VB.Form frmAddMusic
       BackColor       =   &H000080FF&
       BorderStyle     =   0  'None
       Height          =   195
-      Left            =   8055
+      Left            =   8325
       ScaleHeight     =   195
       ScaleWidth      =   15
       TabIndex        =   10
@@ -117,7 +117,7 @@ Begin VB.Form frmAddMusic
    End
    Begin VB.ListBox lstCarConMM 
       BeginProperty Font 
-         Name            =   "Verdana"
+         Name            =   "Arial Narrow"
          Size            =   8.25
          Charset         =   0
          Weight          =   400
@@ -125,12 +125,12 @@ Begin VB.Form frmAddMusic
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   5010
-      Left            =   120
+      Height          =   4905
+      Left            =   60
       Style           =   1  'Checkbox
       TabIndex        =   6
-      Top             =   2460
-      Width           =   7725
+      Top             =   2430
+      Width           =   7995
    End
    Begin VB.PictureBox PBar 
       BackColor       =   &H000080FF&
@@ -157,7 +157,7 @@ Begin VB.Form frmAddMusic
    Begin VB.PictureBox P2 
       BackColor       =   &H00FFFFFF&
       Height          =   195
-      Left            =   8055
+      Left            =   8325
       ScaleHeight     =   135
       ScaleWidth      =   3435
       TabIndex        =   11
@@ -169,7 +169,8 @@ Begin VB.Form frmAddMusic
       Height          =   435
       Left            =   30
       TabIndex        =   20
-      Top             =   480
+      Top             =   360
+      Visible         =   0   'False
       Width           =   1245
       _ExtentX        =   2196
       _ExtentY        =   767
@@ -185,7 +186,7 @@ Begin VB.Form frmAddMusic
       Height          =   435
       Left            =   30
       TabIndex        =   21
-      Top             =   900
+      Top             =   780
       Width           =   1245
       _ExtentX        =   2196
       _ExtentY        =   767
@@ -201,7 +202,7 @@ Begin VB.Form frmAddMusic
       Height          =   435
       Left            =   30
       TabIndex        =   22
-      Top             =   1320
+      Top             =   1200
       Width           =   1245
       _ExtentX        =   2196
       _ExtentY        =   767
@@ -212,6 +213,26 @@ Begin VB.Form frmAddMusic
       fFontN          =   "Arial"
       fFontS          =   8
       fECol           =   5452834
+   End
+   Begin VB.Label Label1 
+      BackStyle       =   0  'Transparent
+      Caption         =   "Deje marcados solo aquellos discos que desee copiar."
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00E0E0E0&
+      Height          =   285
+      Index           =   8
+      Left            =   810
+      TabIndex        =   28
+      Top             =   2220
+      Width           =   6525
    End
    Begin VB.Label lblP 
       BackStyle       =   0  'Transparent
@@ -249,7 +270,7 @@ Begin VB.Form frmAddMusic
       ForeColor       =   &H00E0E0E0&
       Height          =   1230
       Index           =   0
-      Left            =   8160
+      Left            =   8430
       TabIndex        =   18
       Top             =   90
       Width           =   3435
@@ -270,7 +291,7 @@ Begin VB.Form frmAddMusic
       ForeColor       =   &H00FFFFFF&
       Height          =   555
       Index           =   2
-      Left            =   7590
+      Left            =   7860
       TabIndex        =   17
       Top             =   120
       Width           =   525
@@ -289,7 +310,7 @@ Begin VB.Form frmAddMusic
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00404040&
-      Height          =   435
+      Height          =   285
       Left            =   630
       TabIndex        =   8
       Top             =   1920
@@ -313,7 +334,8 @@ Begin VB.Form frmAddMusic
       Index           =   7
       Left            =   1305
       TabIndex        =   16
-      Top             =   570
+      Top             =   450
+      Visible         =   0   'False
       Width           =   6525
    End
    Begin VB.Label Label1 
@@ -332,7 +354,7 @@ Begin VB.Form frmAddMusic
       ForeColor       =   &H00FFFFFF&
       Height          =   555
       Index           =   6
-      Left            =   7860
+      Left            =   8130
       TabIndex        =   15
       Top             =   4770
       Width           =   525
@@ -393,7 +415,7 @@ Begin VB.Form frmAddMusic
       EndProperty
       ForeColor       =   &H00E0E0E0&
       Height          =   1005
-      Left            =   8055
+      Left            =   8325
       TabIndex        =   12
       Top             =   6915
       Width           =   3495
@@ -413,7 +435,7 @@ Begin VB.Form frmAddMusic
       ForeColor       =   &H00E0E0E0&
       Height          =   2535
       Index           =   1
-      Left            =   8355
+      Left            =   8625
       TabIndex        =   9
       Top             =   4215
       Width           =   3495
@@ -451,7 +473,7 @@ Begin VB.Form frmAddMusic
       EndProperty
       ForeColor       =   &H00C0FFFF&
       Height          =   315
-      Left            =   690
+      Left            =   960
       TabIndex        =   5
       Top             =   1950
       Width           =   7455
@@ -501,7 +523,7 @@ Begin VB.Form frmAddMusic
       Index           =   1
       Left            =   1305
       TabIndex        =   1
-      Top             =   1320
+      Top             =   1200
       Width           =   6435
    End
    Begin VB.Label Label1 
@@ -521,7 +543,7 @@ Begin VB.Form frmAddMusic
       Index           =   0
       Left            =   1305
       TabIndex        =   0
-      Top             =   900
+      Top             =   780
       Width           =   6405
    End
 End
@@ -567,7 +589,7 @@ End Sub
 Public Sub BuscarCarpetasMM()
     On Error GoTo MiErr
     
-    TotalArchMM = 0 'inicializar el contador de archivosmm(no carpetas)
+    TotalArchMM = 0 'inicializar el contador de archivosmm (no carpetas)
     Dim TotF As Long
     TotF = UBound(CarpsConMM)
     PBar.Width = 0
@@ -580,12 +602,39 @@ Public Sub BuscarCarpetasMM()
         lblBAR = TR.Trad("Buscando en%99%") + " " + CarpsConMM(A)
         PBar.Width = P.Width / TotF * A
         PBar.Refresh
-        TMPfilesMM = ObtenerArchMM(CarpsConMM(A))
+        'OM- estoy navegando por todas las carpetas de algun lugar viendo si estan tienen multimedia
+        'si el cliente no define que esta buscando quizas debería buscar automáticamente
+        'tener en cuenta si se va a copiar todo lo que hay o solo lo que importa de la carpeta
+        'es importante por el llenado del disco y que las carpetas no vengan con agregados que
+        'no se cuentan en el tamaño del disco
+        'mm91
+        Dim Perf As Long
+        If VentaExtras Then
+            Perf = 1
+            TMPfilesMM = ObtenerArchMM(CarpsConMM(A), , Perf)
+        Else
+            TMPfilesMM = ObtenerArchMM(CarpsConMM(A))
+            Perf = 1
+        End If
+        'mm91
         If UBound(TMPfilesMM) > 0 Then
             TotalArchMM = TotalArchMM + UBound(TMPfilesMM)
             TR.SetVars "# " + CStr(UBound(TMPfilesMM)) + " "
-            lstCarConMM.AddItem CarpsConMM(A) + TR.Trad("%01%archivos%98%La " + _
-                "variable 1 es un numero que se calcula%99%")
+            
+            Select Case Perf
+                Case 1
+                    lstCarConMM.AddItem CarpsConMM(A) + TR.Trad("%01% canciones%98%La " + "variable 1 es un numero que se calcula%99%")
+                Case 2
+                    lstCarConMM.AddItem CarpsConMM(A) + TR.Trad("%01% ringtones%98%La " + "variable 1 es un numero que se calcula%99%")
+                Case 3
+                    lstCarConMM.AddItem CarpsConMM(A) + TR.Trad("%01% wallpapers%98%La " + "variable 1 es un numero que se calcula%99%")
+                Case 4
+                    lstCarConMM.AddItem CarpsConMM(A) + TR.Trad("%01% juegos java%98%La " + "variable 1 es un numero que se calcula%99%")
+                Case 5
+                    lstCarConMM.AddItem CarpsConMM(A) + TR.Trad("%01% imágenes ISO%98%La " + "variable 1 es un numero que se calcula%99%")
+                Case 6
+                    lstCarConMM.AddItem CarpsConMM(A) + TR.Trad("%01% videos 3GP%98%La " + "variable 1 es un numero que se calcula%99%")
+            End Select
             
             lstCarConMM.Selected(TotCarpMM) = True
             TotCarpMM = TotCarpMM + 1
@@ -661,31 +710,74 @@ Private Sub Command4_Click()
             
             'NO OLVIDARSE DE TAPA.JPG Y DATA.TXT
             Dim ArchTapa As String
-            ArchTapa = Ubic + "tapa.jpg"
-            If fso.FileExists(ArchTapa) Then
-                'si existe ver los atributos
-                If fso.FileExists(NewCarp + "tapa.jpg") Then
-                    AAA = GetAttr(NewCarp + "tapa.jpg")
-                    tERR.Anotar "acim", AAA
-                    If AAA = vbHidden Or AAA = vbReadOnly Then SetAttr NewCarp + "tapa.jpg", 0
+            
+            'debo agregar TODOS los jpg (que son ilustraciones de objetos o tapas no achicadas)
+            'y todos los TXT que son mis descripciones
+            'corregido en set 2008
+            
+'            ArchTapa = Ubic + "tapa.jpg"
+'            If fso.FileExists(ArchTapa) Then
+'                'si existe ver los atributos
+'                If fso.FileExists(NewCarp + "tapa.jpg") Then
+'                    AAA = GetAttr(NewCarp + "tapa.jpg")
+'                    tERR.Anotar "acim", AAA
+'                    If AAA = vbHidden Or AAA = vbReadOnly Then SetAttr NewCarp + "tapa.jpg", 0
+'                End If
+'                tERR.Anotar "acin", ArchTapa, NewCarp
+'                fso.CopyFile ArchTapa, NewCarp + "tapa.jpg"
+'            End If
+            
+'            Dim ArchDaTa As String
+'            ArchDaTa = Ubic + "data.txt"
+'            If fso.FileExists(ArchDaTa) Then
+'                tERR.Anotar "acio"
+'                'si existe ver los atributos
+'                If fso.FileExists(NewCarp + "data.txt") Then
+'                    AAA = GetAttr(NewCarp + "data.txt")
+'                    If AAA = vbHidden Or AAA = vbReadOnly Then SetAttr NewCarp + "data.txt", 0
+'                End If
+'                tERR.Anotar "acip", ArchDaTa, NewCarp
+'                fso.CopyFile ArchDaTa, NewCarp + "data.txt"
+'            End If
+
+            ArchTapa = Dir(Ubic + "*.jpg") 'dir devuelve solo el nombre de archivo+ext sin el path
+            Do While ArchTapa <> ""
+                If ArchTapa <> "." And ArchTapa <> ".." Then
+                    'si existe ver los atributos para reemplazar sin error
+                    If fso.FileExists(NewCarp + ArchTapa) Then
+                        AAA = GetAttr(NewCarp + ArchTapa)
+                        tERR.Anotar "acim", AAA
+                        If AAA = vbHidden Or AAA = vbReadOnly Then SetAttr NewCarp + ArchTapa, 0
+                    End If
+                    tERR.Anotar "acin", ArchTapa, NewCarp
+                    fso.CopyFile Ubic + ArchTapa, NewCarp + ArchTapa
                 End If
-                tERR.Anotar "acin", ArchTapa, NewCarp
-                fso.CopyFile ArchTapa, NewCarp + "tapa.jpg"
+                ArchTapa = Dir
+            Loop
+            
+            ArchTapa = Dir(Ubic + "*.txt") 'dir devuelve solo el nombre de archivo+ext sin el path
+            Do While ArchTapa <> ""
+                If ArchTapa <> "." And ArchTapa <> ".." Then
+                    'si existe ver los atributos para reemplazar sin error
+                    If fso.FileExists(NewCarp + ArchTapa) Then
+                        AAA = GetAttr(NewCarp + ArchTapa)
+                        tERR.Anotar "acim", AAA
+                        If AAA = vbHidden Or AAA = vbReadOnly Then SetAttr NewCarp + ArchTapa, 0
+                    End If
+                    tERR.Anotar "acin", ArchTapa, NewCarp
+                    fso.CopyFile Ubic + ArchTapa, NewCarp + ArchTapa
+                End If
+                ArchTapa = Dir
+            Loop
+                        
+            'OM- empezando a copiar todo lo de la lista elegida en asistente para agregar multimedia
+            'mm91
+            If VentaExtras Then
+                TMPfiles = ObtenerArchMM(Ubic, , 1) 'deveuelve pathfull , solonombre
+            Else
+                TMPfiles = ObtenerArchMM(Ubic) 'deveuelve pathfull , solonombre
             End If
             
-            Dim ArchDaTa As String
-            ArchDaTa = Ubic + "data.txt"
-            If fso.FileExists(ArchDaTa) Then
-                tERR.Anotar "acio"
-                'si existe ver los atributos
-                If fso.FileExists(NewCarp + "data.txt") Then
-                    AAA = GetAttr(NewCarp + "data.txt")
-                    If AAA = vbHidden Or AAA = vbReadOnly Then SetAttr NewCarp + "data.txt", 0
-                End If
-                tERR.Anotar "acip", ArchDaTa, NewCarp
-                fso.CopyFile ArchDaTa, NewCarp + "data.txt"
-            End If
-            TMPfiles = ObtenerArchMM(Ubic) 'deveuelve pathfull , solonombre
             tERR.Anotar "aciq", Ubic
             C = 1
             Do While C <= TotMM 'se supone que es el total de esta carpeta
@@ -733,7 +825,9 @@ Private Sub Command4_Click()
         End If
     Next
     
-    MsgBox TR.Trad("Los archivos se copiaron correctamente%99%")
+    MsgBox TR.Trad("Los archivos se copiaron correctamente%99%") + vbCrLf + _
+        TR.Trad("El contenido agregado estará disponible la próxima vez que inicie 3PM%99")
+    
     
     Exit Sub
 MiErr:

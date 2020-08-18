@@ -606,7 +606,7 @@ Public Function DoClose(iAlias As Long) As String
     On Error GoTo ERmp3
     Terr.Anotar "002-0099", iAlias
     If iAlias = 99 Then 'cierra todos
-        If Terr.ModoGrabaTodo Then Terr.StopGrabaTodo
+        If Terr.ModoGrabaTodo Then Terr.StopGrabaTodo 'dejo de grabar!!!
         
         Dim F11 As Long
         For F11 = 0 To 3
