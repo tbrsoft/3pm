@@ -1,6 +1,7 @@
 VERSION 5.00
-Object = "{AC1ACB77-BE60-49F4-BE38-2F9A87F5E5E4}#2.0#0"; "tbrX_Boton II.ocx"
+Object = "{181111E6-07C8-4D47-8611-3BF038099354}#5.2#0"; "tbrFaroButton.ocx"
 Begin VB.Form frmINI 
+   AutoRedraw      =   -1  'True
    BackColor       =   &H00000000&
    BorderStyle     =   0  'None
    Caption         =   "Form1"
@@ -17,63 +18,50 @@ Begin VB.Form frmINI
    WindowState     =   2  'Maximized
    Begin VB.Frame Frame1 
       BackColor       =   &H00000000&
-      Height          =   4125
-      Left            =   2250
+      Height          =   1425
+      Left            =   1680
       TabIndex        =   0
-      Top             =   1290
-      Width           =   9000
-      Begin tbrX_Boton2.XxBoton pBAR 
-         Height          =   315
-         Left            =   90
-         TabIndex        =   4
-         Top             =   870
-         Width           =   735
-         _ExtentX        =   1296
-         _ExtentY        =   556
-         xFColor         =   16777215
-         xBColor         =   192
-         xCapt           =   ""
-         xEnabled        =   0   'False
-      End
-      Begin VB.ListBox lblPROCES 
-         Appearance      =   0  'Flat
-         BackColor       =   &H00000000&
-         BeginProperty Font 
-            Name            =   "Courier New"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00C0C000&
-         Height          =   2910
-         IntegralHeight  =   0   'False
+      Top             =   2850
+      Width           =   7590
+      Begin tbrFaroButton.fBoton pBAR 
+         Height          =   330
          Left            =   120
-         TabIndex        =   1
-         Top             =   1230
-         Width           =   5985
+         TabIndex        =   4
+         Top             =   990
+         Width           =   855
+         _ExtentX        =   1508
+         _ExtentY        =   582
+         fFColor         =   12632319
+         fBColor         =   0
+         fCapt           =   ""
+         fEnabled        =   -1  'True
+         fFontN          =   ""
+         fFontS          =   0
+         fECol           =   16777215
       End
-      Begin tbrX_Boton2.XxBoton XxBoton1 
-         Height          =   375
+      Begin tbrFaroButton.fBoton XxBoton1 
+         Height          =   390
          Left            =   90
-         TabIndex        =   5
-         Top             =   840
-         Width           =   2355
-         _ExtentX        =   4154
-         _ExtentY        =   661
-         xFColor         =   16777215
-         xBColor         =   64
-         xCapt           =   ""
-         xEnabled        =   0   'False
+         TabIndex        =   3
+         Top             =   960
+         Width           =   1095
+         _ExtentX        =   1931
+         _ExtentY        =   688
+         fFColor         =   6553600
+         fBColor         =   0
+         fCapt           =   ""
+         fEnabled        =   -1  'True
+         fFontN          =   ""
+         fFontS          =   0
+         fECol           =   16711680
       End
       Begin VB.Label lblINI 
+         Alignment       =   2  'Center
          BackColor       =   &H00000080&
          BackStyle       =   0  'Transparent
          Caption         =   "Contando: 00"
          BeginProperty Font 
-            Name            =   "Tahoma"
+            Name            =   "Verdana"
             Size            =   9.75
             Charset         =   0
             Weight          =   700
@@ -81,19 +69,19 @@ Begin VB.Form frmINI
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         ForeColor       =   &H00C0C000&
-         Height          =   285
-         Left            =   60
-         TabIndex        =   3
-         Top             =   510
-         Width           =   6030
+         ForeColor       =   &H00FFFFFF&
+         Height          =   495
+         Left            =   90
+         TabIndex        =   2
+         Top             =   480
+         Width           =   7410
       End
       Begin VB.Label VVV 
          AutoSize        =   -1  'True
          BackColor       =   &H00000000&
-         Caption         =   "version"
+         Caption         =   "versión"
          BeginProperty Font 
-            Name            =   "Tahoma"
+            Name            =   "Verdana"
             Size            =   14.25
             Charset         =   0
             Weight          =   700
@@ -101,19 +89,19 @@ Begin VB.Form frmINI
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         ForeColor       =   &H00808000&
+         ForeColor       =   &H00E0E0E0&
          Height          =   345
          Left            =   60
-         TabIndex        =   2
+         TabIndex        =   1
          Top             =   150
-         Width           =   1050
+         Width           =   1185
       End
    End
    Begin VB.Image Image1 
-      Height          =   2445
-      Left            =   90
-      Top             =   60
-      Width           =   2670
+      Height          =   1305
+      Left            =   3480
+      Top             =   1350
+      Width           =   1440
    End
 End
 Attribute VB_Name = "frmINI"
@@ -121,7 +109,9 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+
 Private Sub Form_Load()
+    Traducir 'Agregado por el complemento traductor
     
     On Error GoTo MiErr
     
@@ -130,55 +120,56 @@ Private Sub Form_Load()
     tERR.Anotar "acmy"
     MostrarCursor False
     
-    VVV = "3PM v " + Trim(CStr(App.Major)) + "." + Trim(CStr(App.Minor)) + "." + Trim(CStr(App.Revision))
+    VVV = "3PM v " + CStr(App.Major) + "." + STRceros(App.Minor, 2) + "." + STRceros(App.Revision, 3)
     VVV.Left = Frame1.Width / 2 - VVV.Width / 2
     lblINI.Width = Frame1.Width - 300
     lblINI.Left = 150
-    lblPROCES.Width = Frame1.Width - 300
-    lblPROCES.Left = 150
     Frame1.BorderStyle = 0
     '--------
     'cargar los previstos
-
-    tERR.Anotar "acmz", K.LICENCIA
+    
+    tERR.Anotar "acmz", K.LICENCIA("3pm")
     'ver si existe la personalizada
     ', la del skin es:
-    imF = ExtraData.GetImagePath("iniciasys")
+    IMF = ExtraData.GetImagePath("iniciasys")
     
-    If K.LICENCIA = HSuperLicencia Then
-        If FSO.FileExists(GPF("iisl67")) Then
+    tERR.Anotar "acmz2", IMF
+    If K.LICENCIA("3pm") = HSuperLicencia Then
+        If fso.FileExists(GPF("iisl67")) Then
+            tERR.Anotar "acmz3"
             Image1.Picture = LoadPicture(GPF("iisl67"))
             frmVIDEO.picBigImg = LoadPicture(GPF("iisl67"))
         Else
-            Image1.Picture = LoadPicture(imF)
-            frmVIDEO.picBigImg = LoadPicture(imF)
+            Image1.Picture = LoadPicture(IMF)
+            frmVIDEO.picBigImg = LoadPicture(IMF)
         End If
     Else
-        Image1.Picture = LoadPicture(imF)
-        frmVIDEO.picBigImg = LoadPicture(imF)
+        Image1.Picture = LoadPicture(IMF)
+        frmVIDEO.picBigImg = LoadPicture(IMF)
     End If
     
+    tERR.Anotar "acmz4"
     Image1.Left = Screen.Width / 2 - Image1.Width / 2
     Image1.Top = 300 'Me.Height / 2 - Image1.Height / 2
-    
+    'Frame1.Width = 5500
     Frame1.Left = Screen.Width / 2 - Frame1.Width / 2
+    tERR.Anotar "acmz5"
     Frame1.Top = Image1.Top + Image1.Height + 300
     Frame1.Height = Screen.Height - Image1.Height - 1600
-    PBar.Left = lblINI.Left
-    XxBoton1.Left = PBar.Left - 15
+    pBAR.Left = lblINI.Left
+    tERR.Anotar "acmz6"
+    XxBoton1.Left = pBAR.Left - 15
     XxBoton1.Width = lblINI.Width
-    lblPROCES.Top = XxBoton1.Top + XxBoton1.Height + 60
-    lblPROCES.Height = Frame1.Height - lblPROCES.Top - 60
-    
+    tERR.Anotar "acmz7"
     frmVIDEO.picBigImg.Top = frmVIDEO.Height / 2 - frmVIDEO.picBigImg.Height / 2
     frmVIDEO.picBigImg.Left = frmVIDEO.Width / 2 - frmVIDEO.picBigImg.Width / 2
     frmVIDEO.picBigImg.Visible = True
     frmVIDEO.picBigImg.Refresh
     
     tERR.Anotar "000A-00903"
-    lblINI.Caption = "Inicializando 3PM..."
+    lblINI.Caption = TR.Trad("Inicializando 3PM...%98%Al arranque del sistema%99%")
     lblINI.Refresh
-    PBar.Width = 0
+    pBAR.Width = 0
     
     tERR.Anotar "acna"
     
@@ -191,6 +182,7 @@ Private Sub Form_Load()
     TeclaPagAd = Val(LeerConfig("TeclaPagAd", "77"))
     TeclaPagAt = Val(LeerConfig("TeclaPagAt", "78"))
     TeclaOK = Val(LeerConfig("TeclaOK", "13"))
+    TeclaCarrito = Val(LeerConfig("TeclaCarrito", "79"))
     TeclaESC = Val(LeerConfig("TeclaESC", "27"))
     TeclaNewFicha = Val(LeerConfig("TeclaNuevaFicha", "81"))
     TeclaNewFicha2 = Val(LeerConfig("TeclaNuevaFicha2", "83"))
@@ -203,14 +195,15 @@ Private Sub Form_Load()
     TeclaBajaVolumen = Val(LeerConfig("TeclaBajaVolumen", "68")) 'D
     TeclaSubeVolumen = Val(LeerConfig("TeclaSubeVolumen", "69")) 'E
     TeclaNextMusic = Val(LeerConfig("TeclaNextMusic", "66")) 'B
-    lblINI.Caption = "Inicializano 3PM..01"
+    lblINI.Caption = TR.Trad("Inicializando 3PM...%99%") + "01"
     lblINI.Refresh
-    PBar.Width = lblINI.Width * 0.15
+    pBAR.Width = lblINI.Width * 0.15
     TeclaDERx2 = Val(LeerConfig("TeclaDerechax2", "2"))
     TeclaIZQx2 = Val(LeerConfig("TeclaIzquierdax2", "1"))
     TeclaPagAdx2 = Val(LeerConfig("TeclaPagAdx2", "3"))
     TeclaPagAtx2 = Val(LeerConfig("TeclaPagAtx2", "4"))
     TeclaOKx2 = Val(LeerConfig("TeclaOKx2", "5"))
+    TeclaCarritox2 = Val(LeerConfig("TeclaCarritox2", "16"))
     TeclaESCx2 = Val(LeerConfig("TeclaESCx2", "7"))
     TeclaNewFichax2 = Val(LeerConfig("TeclaNuevaFichax2", "22"))
     TeclaNewFicha2x2 = Val(LeerConfig("TeclaNuevaFicha2x2", "23"))
@@ -229,9 +222,9 @@ Private Sub Form_Load()
     'puede ser 46 o 5 por ahora
     IsMod46Teclas = CLng(LeerConfig("IsMod46Teclas", "46"))
     
-    lblINI.Caption = "Inicializano 3PM..02"
+    lblINI.Caption = TR.Trad("Inicializando 3PM...%99%") + "02"
     lblINI.Refresh
-    PBar.Width = lblINI.Width * 0.45
+    pBAR.Width = lblINI.Width * 0.45
     
     MaximoFichas = Val(LeerConfig("MaximoFichas", "40"))
     EsperaMinutos = Val(LeerConfig("EsperaMinutos", "900"))
@@ -249,6 +242,7 @@ Private Sub Form_Load()
     FASTini = LeerConfig("FastIni", "1")
     tERR.Anotar "acnd6", FASTini
     HabilitarVUMetro = LeerConfig("HabilitarVUMetro", "1")
+    LoadTapaIni = LeerConfig("LoadTapaIni", "0")
     tERR.Anotar "acnd7", HabilitarVUMetro
     vidFullScreen = LeerConfig("VidFullScreen", "1")
     tERR.Anotar "acnd8", vidFullScreen
@@ -271,9 +265,9 @@ Private Sub Form_Load()
     Protector = LeerConfig("Protector", "1")
     tERR.Anotar "acne"
     
-    lblINI.Caption = "Inicializano 3PM..03"
+    lblINI.Caption = TR.Trad("Inicializando 3PM...%99%") + "03"
     lblINI.Refresh
-    PBar.Width = lblINI.Width * 0.67
+    pBAR.Width = lblINI.Width * 0.67
     
     CargarDuracionTemas = LeerConfig("CargarDuracionTemas", "0")
     MostrarRotulos = LeerConfig("MostrarRotulos", "1")
@@ -297,7 +291,7 @@ Private Sub Form_Load()
     'ver cuantos creditos hay
     CREDITOS = 0
     
-    If FSO.FileExists(GPF("creditosactuales")) Then
+    If fso.FileExists(GPF("creditosactuales")) Then
         VarCreditos CSng(LeerArch1Linea(GPF("creditosactuales"))), False, False, False
     Else
         VarCreditos 0, False, False, False
@@ -310,9 +304,9 @@ Private Sub Form_Load()
     textoUsuario = LeerConfig("TextoUsuario", "Cargue los datos de su empresa aqui")
     textoUsuario = Replace(textoUsuario, Chr(5), vbCrLf)
     
-    lblINI.Caption = "Inicializano 3PM..04"
+    lblINI.Caption = TR.Trad("Inicializando 3PM...%99%") + "04"
     lblINI.Refresh
-    PBar.Width = lblINI.Width * 0.78
+    pBAR.Width = lblINI.Width * 0.78
     
     tERR.Anotar "acnf"
     'publicidad
@@ -325,60 +319,66 @@ Private Sub Form_Load()
     PUBs.HabilitarPublicidadesIMG = LeerConfig("MostrarPubIMG", "0")
     PUBs.SonarPublicidadesIMGCada = LeerConfig("PubliIMGCada", "10")
     
-    tERR.Anotar "acng"
-    IDIOMA = LeerConfig("Idioma", "Español")
-    
     'cargar variables de claves
     'archivo de claves
-    If FSO.FileExists(GPF("sequeda32")) = False Then
-        Set TE = FSO.CreateTextFile(GPF("sequeda32"), True)
+    If fso.FileExists(GPF("sequeda32")) = False Then
+        Set TE = fso.CreateTextFile(GPF("sequeda32"), True)
         TE.WriteLine "Config:12345612345612345612"
         TE.WriteLine "Close:45612345612345612345"
         TE.WriteLine "Credit:1234441234441234561"
         TE.Close
     End If
+    
     tERR.Anotar "acnh"
-    Set TE = FSO.OpenTextFile(GPF("sequeda32"), ForReading, False)
+    Set TE = fso.OpenTextFile(GPF("sequeda32"), ForReading, False)
     'config/close/credit es el orden del archivo
     ClaveConfig = txtInLista(TE.ReadLine, 1, ":")
     ClaveClose = txtInLista(TE.ReadLine, 1, ":")
     ClaveCredit = txtInLista(TE.ReadLine, 1, ":")
     TE.Close
     
-    lblINI.Caption = "Inicializano 3PM..05"
+    lblINI.Caption = TR.Trad("Inicializando 3PM...%99%") + "05"
     lblINI.Refresh
-    PBar.Width = lblINI.Width * 0.84
+    pBAR.Width = lblINI.Width * 0.84
     
     tERR.Anotar "acni"
     'ver si ya estaba cargado
-    If App.PrevInstance Then MsgBox "No se pueden abrir dos instancias de 3pm": End
+    If App.PrevInstance Then
+        MsgBox TR.Trad("No se pueden abrir dos instancias " + _
+            "de 3pm%98%Instancia se refiere cada copia del programa en ejecución" + vbCrLf + _
+            "Esto se hace por que si 3PM esta cargado en memoria no tiene " + _
+            "sentido que se cargue de nuevo. Puede haber fallas%99%"): End
+    End If
     
     'ASEGURARSE QUE EXISTA la carpeta del ranking y la imagen que le corresponde
-    If FSO.FolderExists(AP + "discos") = False Then
-        FSO.CreateFolder AP + "discos"
+    If fso.FolderExists(AP + "discos") = False Then
+        fso.CreateFolder AP + "discos"
     End If
     
     tERR.Anotar "acnj"
     
     'ver si es superlicencia y usa otra tapa predeterminada
-    If K.LICENCIA = HSuperLicencia Then
-        If FSO.FileExists(GPF("tddp322")) Then
-            imF = GPF("tddp322")
+    If K.LICENCIA("3pm") = HSuperLicencia Then
+        If fso.FileExists(GPF("tddp322")) Then
+            IMF = GPF("tddp322")
         Else
-            imF = ExtraData.GetImagePath("tapapredeterminada")
+            IMF = ExtraData.GetImagePath("tapapredeterminada")
         End If
     Else
-        imF = ExtraData.GetImagePath("tapapredeterminada")
+        IMF = ExtraData.GetImagePath("tapapredeterminada")
     End If
     
-    If FSO.FileExists(imF) = False Then
-        MsgBox "No se encuentra el archivo de imagen de las portadas predeterminadas!. La instalacion de 3PM no es corecta!"
+    If fso.FileExists(IMF) = False Then
+        MsgBox TR.Trad("No se encuentra el archivo de imagen de las " + _
+            "portadas predeterminadas!. " + vbCrLf + _
+            "La instalacion de 3PM no es corecta!%98%" + _
+            "Con portadas se refiere a la tapa de los discos%99%")
         End
     End If
     
     'carpeta del protector
-    If FSO.FolderExists(AP + "fotos") = False Then
-        FSO.CreateFolder AP + "fotos"
+    If fso.FolderExists(AP + "fotos") = False Then
+        fso.CreateFolder AP + "fotos"
     End If
     
     TECLAS_PRES = "11111222223333344444" 'arranca con 20 pulsaciones
@@ -386,15 +386,15 @@ Private Sub Form_Load()
     
     '===================ORDENAR EL RANKING================================
     
-    lblINI.Caption = "Inicializano 3PM..06"
+    lblINI.Caption = TR.Trad("Inicializando 3PM...%99%") + "06"
     lblINI.Refresh
-    PBar.Width = lblINI.Width * 0.95
+    pBAR.Width = lblINI.Width * 0.95
     
     tERR.Anotar "000A-00901"
     'ver si existe ranking.tbr
-    If FSO.FileExists(GPF("rd3_444")) = False Then
+    If fso.FileExists(GPF("rd3_444")) = False Then
         tERR.Anotar "000A-00902"
-        FSO.CreateTextFile GPF("rd3_444"), True
+        fso.CreateTextFile GPF("rd3_444"), True
         tERR.Anotar "000A-00903"
         'si me quedo da error
         GoTo FinOrden
@@ -402,7 +402,7 @@ Private Sub Form_Load()
     
     tERR.Anotar "000A-00907"
     Dim TT As String
-    Dim mtxTOP10() As String, z As Integer
+    Dim mtxTOP10() As String, Z As Integer
     Dim ThisArch As String
     Dim ThisTEMA As String
     Dim ThisDISCO As String
@@ -411,7 +411,7 @@ Private Sub Form_Load()
     Encontrado = False
     'abrir el archivo y CARGARLO A UNA MATRIZ
     tERR.Anotar "acnl"
-    Set TE = FSO.OpenTextFile(GPF("rd3_444"), ForReading, False)
+    Set TE = fso.OpenTextFile(GPF("rd3_444"), ForReading, False)
     'leerlo cargarlo en matriz y ordenar por mas escuchado
     
     'sin esto los archivos vacios se clavan
@@ -423,18 +423,17 @@ Private Sub Form_Load()
         TT = TE.ReadLine
         tERR.Anotar "acnm", TT
         If TT <> "" Then
-            tERR.Anotar "acno", z
-            z = z + 1
-            PBar.Width = (z * 10) Mod (lblPROCES.Width / 2)
+            tERR.Anotar "acno", Z
+            Z = Z + 1
+            pBAR.Width = (Z * 10) Mod (XxBoton1.Width / 2)
             lblINI.Caption = ThisArch
             lblINI.Refresh
-            'If PBar.Width > lblPROCES.Width Then PBar.Width = 100
             ThisPTS = Val(txtInLista(TT, 0, ","))
             ThisArch = txtInLista(TT, 1, ",")
             ThisTEMA = txtInLista(TT, 2, ",")
             ThisDISCO = txtInLista(TT, 3, ",")
-            ReDim Preserve mtxTOP10(z)
-            mtxTOP10(z) = TT
+            ReDim Preserve mtxTOP10(Z)
+            mtxTOP10(Z) = TT
         End If
     Loop
     
@@ -447,18 +446,18 @@ Private Sub Form_Load()
     Dim MaxPT As Long 'comparacoin de cadenas. Empiezo con el máximo
     Dim ubicMAX As Long 'indice en la matriz del menor encontrado cada vuelta
     MaxPT = 0
-    Dim c As Long, mtx As Long, ValComp As Long
-    c = 0 'cantidad de minimos encontrados
+    Dim C As Long, mtx As Long, ValComp As Long
+    C = 0 'cantidad de minimos encontrados
     Dim Ordenados() As Long 'matriz con los indices ordenados
     
-    PBar.Width = 0
+    pBAR.Width = 0
     lblINI.Caption = "rank 1" '+ String((c Mod 70), ".") 'mtxTOP10(mtx)
     lblINI.Refresh
     Do
-        PBar.Width = (c * 60) Mod lblINI.Width
+        pBAR.Width = (C * 60) Mod lblINI.Width
         Frame1.Refresh
         For mtx = 1 To UBound(mtxTOP10)
-            tERR.Anotar "acnp", c, mtx, mtxTOP10(mtx)
+            tERR.Anotar "acnp", C, mtx, mtxTOP10(mtx)
             'se compara por los puntos
             ValComp = Val(txtInLista(mtxTOP10(mtx), 0, ","))
             If ValComp > MaxPT Then
@@ -470,19 +469,19 @@ Private Sub Form_Load()
         
         'al mayor lo quito para que no salga de nuevo
         mtxTOP10(ubicMAX) = "0," + mtxTOP10(ubicMAX)
-        c = c + 1
-        ReDim Preserve Ordenados(c)
-        Ordenados(c) = ubicMAX
-        If c >= UBound(mtxTOP10) Then Exit Do
+        C = C + 1
+        ReDim Preserve Ordenados(C)
+        Ordenados(C) = ubicMAX
+        If C >= UBound(mtxTOP10) Then Exit Do
         MaxPT = 0
     Loop
     'cargar todos y sacar la primera columna de las zetas
-    PBar.Width = 0
+    pBAR.Width = 0
 
     Dim MTXsort() As String
     'cambie opentextfile por createtextfile por un error que suele dar
     Dim TeRank As TextStream
-    Set TeRank = FSO.CreateTextFile(GPF("rd3_444"), True)
+    Set TeRank = fso.CreateTextFile(GPF("rd3_444"), True)
     'si no hay nada para escribir el Close da error?!?!?!?!?
     Dim RankWrite As Long
     RankWrite = 0
@@ -491,13 +490,15 @@ Private Sub Form_Load()
     lblINI.Refresh
     For mtx = 1 To UBound(mtxTOP10)
         
-        PBar.Width = (mtx * 60) Mod lblINI.Width
+        pBAR.Width = (mtx * 60) Mod lblINI.Width
         Frame1.Refresh
         tERR.Anotar "acnq", mtx
         ReDim Preserve MTXsort(mtx)
         'como se agrego un indice mas en archivo esta en el indice2
         'ver si existe si si no no cargarlo
-        If Dir(txtInLista(mtxTOP10(Ordenados(mtx)), 2, ",")) <> "" Then
+        Dim JJ As String
+        JJ = txtInLista(mtxTOP10(Ordenados(mtx)), 2, ",")
+        If fso.FileExists(JJ) Then
             MTXsort(mtx) = txtInLista(mtxTOP10(Ordenados(mtx)), 1, ",") + "," + _
                 txtInLista(mtxTOP10(Ordenados(mtx)), 2, ",") + "," + _
                 txtInLista(mtxTOP10(Ordenados(mtx)), 3, ",") + "," + _
@@ -509,6 +510,7 @@ Private Sub Form_Load()
             Limpiaron = Limpiaron + 1
         End If
     Next
+    
     tERR.Anotar "acnr"
     'si no hay nada para escribir el Close da error?!?!?!?!?
     If RankWrite = 0 Then TeRank.WriteLine ""
@@ -522,23 +524,131 @@ FinOrden:
     'si este es cero esta en los primeros usos entonces mostrar el CLUF
     tERR.Anotar "acns"
     SumarContadorCreditos 0
+    SumarContadorCarrito 0
+        
+    Dim MtxTmpOrigenes() As String
+    Dim Origenes As String
+    Origenes = LeerArch1Linea(GPF("origs"))
+    PartOrigenes = Split(Origenes, "*")
+
+    Dim H As Long
+    
+    For H = 0 To UBound(PartOrigenes)
+        tERR.Anotar "acfc3", PartOrigenes(H)
+        
+        'ver los discos del origene elegido
+        lblINI.Caption = TR.Trad("ESPERE. Buscando...%99%") + PartOrigenes(H)
+        lblINI.Refresh
+        pBAR.Width = (lblINI.Width * H / 100) Mod lblINI.Width
+        
+        MtxTmpOrigenes() = ObtenerDir(PartOrigenes(H))
+        
+        'ver los discos del origene elegido
+        lblINI.Caption = TR.Trad("Ordenando...%99%") + PartOrigenes(H)
+        lblINI.Refresh
+        pBAR.Width = (lblINI.Width * H / 100) Mod lblINI.Width
+        
+        'acumular a la matriz general
+        SumarMatriz MATRIZ_DISCOS, MtxTmpOrigenes
+    Next H
+    
+    '*******************************************************************
+    my_MEM.SetMomento "Carga Tapas"
+    '*******************************************************************
+    
+    'ver que hay de discos nuevo e inicializar lo que corresponda
+    Dim ArchDaTa As String
+    For H = 1 To UBound(MATRIZ_DISCOS)
+        ArchDaTa = txtInLista(MATRIZ_DISCOS(H), 0, ",")
+        'If ArchTapa = "_RANK_" Then GoTo TAPADEF
+        If Right(ArchDaTa, 1) <> "\" Then ArchDaTa = ArchDaTa + "\"
+        ArchDaTa = ArchDaTa + "2h.jpg"
+        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    
+    Next H
+    
+    'ver si hay que cargar las imagenes al inicio!!!
+    Dim ArchTapa As String
+    
+    'Algunas imagenes son necesarias
+    'esas las cargo en LOP2
+    'Algunas las necesito son
+    
+    Dim F6 As String
+    '*******************************************************************
+    '1: Tapa de ranking predeterminada (si es SL puede ser una personal)
+
+    F6 = "tddp323"
+    If K.LICENCIA("3pm") = HSuperLicencia Then
+        If fso.FileExists(GPF(F6)) Then
+            IMF = GPF(F6)
+        Else
+            IMF = ExtraData.GetImagePath("taparanking")
+        End If
+    Else
+        IMF = ExtraData.GetImagePath("taparanking")
+    End If
+    
+    LOP.AddImage IMF, True 'si o si se carga
+    '*******************************************************************
+    
+    '*******************************************************************
+    '2: Tapa de DISCOS predeterminada (si es SL puede ser una personal)
+    F6 = "tddp322"
+    If K.LICENCIA("3pm") = HSuperLicencia Then
+        If fso.FileExists(GPF(F6)) Then
+            IMF = GPF(F6)
+        Else
+            IMF = ExtraData.GetImagePath("tapapredeterminada")
+        End If
+    Else
+        IMF = ExtraData.GetImagePath("tapapredeterminada")
+    End If
+    
+    LOP.AddImage IMF, True 'si o si se carga
+    
+    '*******************************************************************
+    'TODOS LOS DEMAS!!!!
+    For H = 1 To UBound(MATRIZ_DISCOS)
+        ArchTapa = txtInLista(MATRIZ_DISCOS(H), 0, ",")
+        'If ArchTapa = "_RANK_" Then GoTo TAPADEF
+        If Right(ArchTapa, 1) <> "\" Then ArchTapa = ArchTapa + "\"
+        ArchTapa = ArchTapa + "tapa.jpg"
+        
+        lblINI.Caption = TR.Trad("Buscando...%99%") + ArchTapa
+        lblINI.Refresh
+        pBAR.Width = (lblINI.Width * H / 100) Mod lblINI.Width
+        
+        'solo la cargo si existe y ademas tiene el tamaño que tiene que tener
+        If fso.FileExists(ArchTapa) Then
+            'si la tapa es demasiado grande
+            If FileLen(ArchTapa) > TamanoTapaPermitido * 1024 Then
+                tERR.Anotar "acgf2", NDR, ArchTapa, CStr(FileLen(ArchTapa))
+            Else
+                LOP.AddImage ArchTapa, LoadTapaIni
+            End If
+        End If
+    Next H
+    
+    pBAR.Visible = False
+    XxBoton1.Visible = False
+    
     my_MEM.SetMomento "Pide INDEX"
+    
+    lblINI.Caption = TR.Trad("Abriendo 3PM ... %99%")
+    lblINI.Refresh
+    
+    
     frmIndex.Show 1
     
     Exit Sub
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acnt"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".acnt"
     Resume Next
 End Sub
-
-Private Sub lblINI_Change()
-    lblPROCES.AddItem lblINI, 0
-    If lblPROCES.ListCount > 5000 Then lblPROCES.Clear
-    PBar.Caption = lblINI.Caption
-End Sub
-
-Private Sub lblPROCES_Click()
-    If lblPROCES.ListIndex = -1 Then Exit Sub
-    lblPROCES.ListIndex = lblPROCES.ListCount - 1
+'-------Agregado por el complemento traductor------------
+Private Sub Traducir()
+    tERR.Anotar "ACNC19"
+    VVV.Caption = TR.Trad("versión%98%Se refiere a la version numerica del software%99%")
 End Sub
 

@@ -69,7 +69,7 @@ Private VW As New clsWindowsVERSION
 
 Public Sub LeerTodo()
 
-    PR.ShowProgreso "Reserved", 25
+    'PR.ShowProgreso "Reserved", 25
     '---------------------------------------------------------
     'RESERVED
     '---------------------------------------------------------
@@ -92,13 +92,13 @@ Public Sub LeerTodo()
     End If
     mPROCInfoReserved = RSV
     
-    PR.ShowProgreso "Windows", 30
+    'PR.ShowProgreso "Windows", 30
     '---------------------------------------------------------
     'Windows Version
     '---------------------------------------------------------
     mWinVersion = VW.GetVersionString
     
-    PR.ShowProgreso "Bios98", 35
+    'pr.ShowProgreso "Bios98", 35
     '---------------------------------------------------------
     'Bios 98
     '---------------------------------------------------------
@@ -119,7 +119,7 @@ Public Sub LeerTodo()
     Else
         mBiosDate = "noX11"
     End If
-    PR.ShowProgreso "Bios WMI", 40
+    'pr.ShowProgreso "Bios WMI", 40
     '---------------------------------------------------------
     'Bios con WMI (no en 98)
     '---------------------------------------------------------
@@ -167,7 +167,7 @@ NoWBmem:
         mBIOSSMBIOSMinorVersion = "noX11"
         mBIOSVersion = "noX11"
 SIG01:
-    PR.ShowProgreso "Proc", 50
+    'pr.ShowProgreso "Proc", 50
     '---------------------------------------------------------
     'PROCESADOR
     '---------------------------------------------------------
@@ -204,7 +204,7 @@ NoWBmem2:
     mPROCFamily = "noX11"
     
 SIG02:
-    PR.ShowProgreso "Pais", 80
+    'pr.ShowProgreso "Pais", 80
     '---------------------------------------------------------
     'PAIS
     '---------------------------------------------------------

@@ -305,11 +305,12 @@ Public Function List(Optional sFILTER As String = "*.*") As Long
     
     'ver si es con filtro!!!
     If sFILTER <> "*.*" Then ADR = Left(ADR, Len(ADR) - 3) + sFILTER
-    
+    DoEvents
     lstBytes.Clear: lstFILES.Clear: lstFOLDERS.Clear
     hFile2 = FtpFindFirstFile(SERVER, ADR, udtWFD, INTERNET_FLAG_RELOAD Or INTERNET_FLAG_NO_CACHE_WRITE, 0&)
     If hFile2 Then
         Do
+            DoEvents
             strFile = Left(udtWFD.cFileName, InStr(1, udtWFD.cFileName, Chr(0)) - 1)
             If Len(strFile) > 0 Then
                 If udtWFD.dwFileAttributes And vbDirectory Then
@@ -778,7 +779,6 @@ Private Sub UserControl_Initialize()
 End Sub
 
 Public Function UbicarseEnFolder(sFolder As String) As Long
-    
     
     LOG "Cambiando a carpeta " + sFolder, 0.2
     

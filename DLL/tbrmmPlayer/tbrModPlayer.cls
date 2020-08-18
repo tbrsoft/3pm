@@ -13,7 +13,7 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = True
 Option Explicit
 
-Dim Ret As String * 128 'lo uso en todos lados
+Dim RET As String * 128 'lo uso en todos lados
 
 Private WithEvents Reloj0 As tbrTimer.clsTimer
 Attribute Reloj0.VB_VarHelpID = -1
@@ -59,7 +59,7 @@ Dim dwReturn As Long
 Private Alias(4) As String
 'lista de alias para usar en enganches o similares
 
-Public Event Played(SecondsPlayed As Long, iAlias As Long)
+Public Event Played(SecondsPlayed As Long, iAlias As Long, MS As Long)
 Public Event BeginPlay(iAlias As Long)
 Public Event EndPlay(iAlias As Long)
 Public Event mmError(txtMasHist As String)
@@ -67,13 +67,16 @@ Public Event FaltaNextEvKAR(dMiliSec As Double)
 
 Private TMPs As String
 Private mTotalSec(3) As Single
+Private mTotalMiliSec(3) As Single 'nuevo mayo 07 para mejor movento de volumen
 Private mTotalFrames(3) As Single
 Private mFramePerSecond(3) As Single
+Private mFramePerMiliSecond(3) As Single 'nuevo mayo 07 para mejor movento de volumen
 Private mSecActual(3) As Single
+Private mMiliSecActual(3) As Single 'nuevo mayo 07 para mejor movento de volumen
 Private mHastaTema(3) As Long 'al abrir a DLL el total tema(3) que decia _
     cuanto duraba (y lo cortaba si se cancelaba una cancion u otro) o sea _
     en general es la duracion real en segundos pero puede ser menos para _
-    cortarlo antes
+    cortarlo antes.
 
 Private mEsGratis(3) As Boolean
 
@@ -82,13 +85,28 @@ Private FSO As New Scripting.FileSystemObject
 Private KAR As New tbrPlayMN0
 Private TEM As New tbrSoftEncrMan.clstbrENC
 
-
 Private MilliSecKarIni As Double
 Private MilliSecKar As Double
+Private mIntervalKar As Long 'intervalo para leer eventos (muy bajo jode en PCs viejas)
 
-Public Sub doTem(i As Boolean, cl As String, ai As String, ao As String) 'encripta o desencripta un archivo
-    TEM.Encriptar i, cl, ai, ao
+Public Sub doTem(i As Boolean, cl As String, ai As String, ao As String, Optional px As String = "") 'encripta o desencripta un archivo
+    TEM.Encriptar i, cl, ai, ao, px
+    'aparentemente graba si o si el archivo hay que ver si sirve despues
 End Sub
+
+Public Function GetPrefixKar(AR As String, nLEN As Long) As String
+    'devuelve los primeros caracteres de un karaoke encriptado (AR) para saber
+    'con clave abrirlo
+    Dim Aux As String
+    
+    If Dir(AR) = "" Then Exit Function
+    Aux = Space(nLEN)
+    Open AR For Binary As #1
+        Get #1, 1, Aux
+    Close #1
+    
+    GetPrefixKar = Aux
+End Function
 
 'no se puede usar matriz en WithEvents !!!
 Private Sub Reloj0_Timer(): Reloj_Timer 0: End Sub
@@ -99,11 +117,9 @@ Private Sub Reloj3_Timer(): Reloj_Timer 3: End Sub
 Public Function GetCurrentMultimediaPos(iAlias As Long) As Long
     'se refiere a frame actual
     
-    Dim dwReturn As Long
     Dim pos As String * 128
-    Terr.Anotar "002-0001t", iAlias, Alias(iAlias)
     dwReturn = mciSendString("status " & Alias(iAlias) & " position", pos, 128, 0&)
-    Terr.Anotar "002-0001s", dwReturn
+    Terr.Anotar "002-0001s", iAlias, Alias(iAlias), dwReturn
     If Not dwReturn = 0 Then  'not success
         GetCurrentMultimediaPos = -1
         Exit Function
@@ -115,7 +131,6 @@ End Function
 
 Public Function GetTotalframes(iAlias As Long) As Long
     
-    Dim dwReturn As Long
     Dim Total As String * 128
     
     dwReturn = mciSendString("status " & Alias(iAlias) & " length", Total, 128, 0&)
@@ -140,13 +155,18 @@ Public Property Let Volumen(iAlias As Long, ByVal New_Volumen As Long)
     On Error GoTo ERmp3
     'en mi máquina anda del 0 al 1000 (en todas)
     Terr.Anotar "002-0013"
+    
+    'asegurarse que no pida ni negativos ni mayores a 100
+    If New_Volumen < 0 Then New_Volumen = 0
+    If New_Volumen > 100 Then New_Volumen = 100
+    
     m_Volumen(iAlias) = New_Volumen * 10
     TMPs = "SetAudio " + Alias(iAlias) + " Volume To " + CStr(m_Volumen(iAlias))
     Terr.Anotar "002-0014", iAlias, TMPs
-    Ret = mciSendString(TMPs, 0&, 0&, 0&)
-    Terr.Anotar "002-0015", Ret
-    If Ret <> 0 Then
-        LogErrorMCI Ret
+    RET = mciSendString(TMPs, 0&, 0&, 0&)
+    Terr.Anotar "002-0015", RET
+    If RET <> 0 Then
+        LogErrorMCI RET
         'no se pudo modificar el volumen
         RaiseEvent mmError("****ERRmmPlayer****" + vbCrLf + _
                         "NoVolumen" + vbCrLf + _
@@ -197,14 +217,14 @@ Public Function IsPlaying(iAlias As Long) As Boolean
         IsPlaying = False
     Else
         Terr.Anotar "002-0030"
-        Ret = mciSendString("status " + Alias(iAlias) + " mode", S, 128, 0&)
-        Terr.Anotar "002-0031", Ret, iAlias
-        If Ret = 263 Then '263 es cuando no ha abierto nada
+        RET = mciSendString("status " + Alias(iAlias) + " mode", S, 128, 0&)
+        Terr.Anotar "002-0031", RET, iAlias
+        If RET = 263 Then '263 es cuando no ha abierto nada
             IsPlaying = False
             Exit Function
         End If
-        If Ret <> 0 Then
-            LogErrorMCI Ret
+        If RET <> 0 Then
+            LogErrorMCI RET
             'no se pudo modificar el volumen
             RaiseEvent mmError("****ERRmmPlayer****" + vbCrLf + _
                         "IsplayStat" + vbCrLf + _
@@ -214,7 +234,7 @@ Public Function IsPlaying(iAlias As Long) As Boolean
         End If
         'EN ESTE CASO ES NULO O ALGO ASI
         'YA QUE MCI NO TIENE LA CAPACIDAD DE STATUS!!!
-        If Ret = 274 Then
+        If RET = 274 Then
             Terr.Anotar "002-0034b", iAlias
             IsPlaying = True
         Else
@@ -256,10 +276,50 @@ Public Function DoOpen(iAlias As Long) As Long
         Exit Function
     End If
     
-    Terr.Anotar "002-0040"
+    Dim Puto277 As Boolean
+    Puto277 = False
+Otro277:
+    Terr.Anotar "002-0040", Puto277
+    
     Dim lenShort As Long, TMP As String * 255
     lenShort = GetShortPathName(m_FileName(iAlias), TMP, 255)
-    'la funcion transforma todo a 8.3 por que con espacioes el reproductor no anda. JOYA JOYA JOYA
+    'la funcion transforma todo a 8.3 por que con espacios el reproductor no anda.
+    'JOYA JOYA JOYA
+    
+    'parece que los nombres lasrgos de carpetas o de archivos o del path completo _
+    esta limitado por en cantidad por una variable MAX_PATH que vale distinto segun _
+    el sistema operativo o de archivos
+    'el texto dice que esto se puede omitir poniendo al inicio
+    '\\?\
+    
+    'File Name Conventions
+    '.....
+    'Process a path as a null-terminated string. The maximum length for a path, _
+    including a trailing backslash, is given by MAX_PATH.
+    'The Unicode versions of several functions permit paths that exceed the _
+    MAX_PATH length if the path has the "\\?\" prefix. The "\\?\" tells the _
+    function to turn off path parsing. However, each component in the path _
+    cannot be more than MAX_PATH characters long. Use the "\\?\" prefix with _
+    paths for local storage devices and the "\\?\UNC\" prefix with paths having _
+    the Universal Naming Convention (UNC) format. The "\\?\" is ignored as part _
+    of the path. For example, "\\?\C:\myworld\private" is seen as _
+    "C:\myworld\private", and "\\?\UNC\bill_g_1\hotstuff\coolapps" is seen _
+    as "\\bill_g_1\hotstuff\coolapps".
+
+    'devido a que a algunos clientes le da el error mci 377 que se define como error_interno
+    'o sea no tiene descripcion clara. Es posible que seas por como corta el nombre
+    'por ejemplo la funcion para
+    'C:\Archivos de programa\3PM\discos\RICARDO ARJORA - Quien Dijo Ayer (2007)\CD 1 - 10 - Mujeres.mp3
+    'devuelve
+    'C:\ARCHIV~1\3PM\discos\RI8C71~1\CD1-10~1.MP3
+    'ademas fallo al hacele el open
+    'que no tiene nada que ver, me gustaria que hubeira devuelto
+    'C:\ARCHIV~1\3PM\discos\RICAR~1\CD1-10~1.MP3
+    
+    'viendo esto podria analizar la respuesta
+    'y si me deja dudas copiar el archivo a c:\bosta.mp3 o la extencion que sea
+    'y mierda que no va a reproducir
+    
     Terr.Anotar "002-0045", m_FileName(iAlias)
     
     Dim FileNameSHORT As String
@@ -286,6 +346,21 @@ Public Function DoOpen(iAlias As Long) As Long
             Exit Function
         End If
         
+        If dwReturn = 277 Then
+            'es un error que ni gates sabe que es por eso lo llaman "error interno"
+            'uno de los motivos puede ser que el getShoertPath joda.
+            'por eso si llego aqui hago una prueba
+            If Puto277 = False Then
+                Puto277 = True
+                Dim WA As String
+                WA = "c:\Musica.mpx"
+                If FSO.FileExists(WA) Then FSO.DeleteFile WA, True
+                FSO.CopyFile m_FileName(iAlias), WA, True
+                m_FileName(iAlias) = WA
+                GoTo Otro277
+            End If
+        
+        End If
         LogErrorMCI dwReturn
         'no se puedo abrir!!!
         RaiseEvent mmError("****ERRmmPlayer****" + vbCrLf + _
@@ -294,10 +369,18 @@ Public Function DoOpen(iAlias As Long) As Long
                         Terr.LogAcumulado)
         DoOpen = 3
         Exit Function
+    Else
+        'esta todo ok
+        DoOpen = 0
+        If Puto277 Then
+            'quiere decir que lo solucione la cocha de la lora que error putooooo!!!!
+            Terr.Anotar "PMQLP1212"
+            Terr.AppendLog "PMQLP1212" 'PutaMadreQueLoPario
+        End If
     End If
     
     Terr.Anotar "002-0054"
-    DoOpen = 0
+    
     MiniInicVarMci iAlias
     
     Exit Function
@@ -311,6 +394,14 @@ End Function
 
 Public Function DoOpenVideo(Style As String, HWind As Long, _
     X1 As Long, Y1 As Long, X2 As Long, Y2 As Long, iAlias As Long)
+    
+    'devuelve
+        '0: ok
+        '1: no existe el archivo
+        
+        '3 al mandar el Mci Open fallo !
+        '4: MCIERR_NO_WINDOW
+        '5: otros errores <> 4 que se presentan al pegar el video a una ventana
     
     On Error GoTo ERmp3
     
@@ -328,6 +419,7 @@ Public Function DoOpenVideo(Style As String, HWind As Long, _
                         "NoFile" + vbCrLf + _
                         "HIST:" + vbCrLf + _
                         Terr.LogAcumulado)
+        DoOpenVideo = 1
         Exit Function
     End If
     Terr.Anotar "002-0068"
@@ -352,6 +444,7 @@ Public Function DoOpenVideo(Style As String, HWind As Long, _
                         "NoAbreVid" + vbCrLf + _
                         "HIST:" + vbCrLf + _
                         Terr.LogAcumulado)
+        DoOpenVideo = 2
     End If
     Terr.Anotar "002-0076", X1, X2, Y1, Y2
     
@@ -382,6 +475,8 @@ Public Function DoOpenVideo(Style As String, HWind As Long, _
                         Terr.LogAcumulado)
             'pasa con videos con codecs nuevos que al cargarse si funciona en
             'WMP pero no en 3PM!!!!!!!!!!!!!!!!!!!
+            DoOpenVideo = 4
+            Exit Function
         '********************
         Else
             LogErrorMCI dwReturn
@@ -390,8 +485,13 @@ Public Function DoOpenVideo(Style As String, HWind As Long, _
                         "NoAbreVid2" + vbCrLf + _
                         "HIST:" + vbCrLf + _
                         Terr.LogAcumulado)
+            DoOpenVideo = 5
+            'no salgo por que no se si es grabe o no
         End If
+    Else
+        DoOpenVideo = 0
     End If
+    
     
     MiniInicVarMci iAlias
     
@@ -406,6 +506,7 @@ End Function
 
 Private Function GetFramesPerSecond(iAlias As Long) As Long
     mFramePerSecond(iAlias) = mTotalFrames(iAlias) / (mTotalSec(iAlias))
+    mFramePerMiliSecond(iAlias) = mTotalFrames(iAlias) / (mTotalMiliSec(iAlias))
     GetFramesPerSecond = mFramePerSecond(iAlias)
 End Function
 
@@ -417,10 +518,12 @@ Public Function DoPlay(iAlias As Long, Optional FullScreen As Boolean = False) A
     Terr.Anotar "002-0082", CStr(FullScreen), iAlias
     If FullScreen Then
         'dwReturn = mciSendString("play " + Alias(iAlias) + " fullscreen from 0 to " + CStr(mTotalFrames(iAlias)), 0&, 0&, 0&)
-        dwReturn = mciSendString("play " + Alias(iAlias) + " fullscreen from 0", 0&, 0&, 0&)
+        'dwReturn = mciSendString("play " + Alias(iAlias) + " fullscreen from 0", 0&, 0&, 0&)
+        dwReturn = mciSendString("play " + Alias(iAlias) + " fullscreen", 0&, 0&, 0&)
     Else
         'dwReturn = mciSendString("play " + Alias(iAlias) + " from 0 to " + CStr(mTotalFrames(iAlias)), 0&, 0&, 0&)
-        dwReturn = mciSendString("play " + Alias(iAlias) + " from 0", 0&, 0&, 0&)
+        'dwReturn = mciSendString("play " + Alias(iAlias) + " from 0", 0&, 0&, 0&)
+        dwReturn = mciSendString("play " + Alias(iAlias), 0&, 0&, 0&)
     End If
     If dwReturn <> 0 Then
         DoPlay = 1
@@ -433,7 +536,8 @@ Public Function DoPlay(iAlias As Long, Optional FullScreen As Boolean = False) A
         Exit Function
     End If
     Terr.Anotar "002-0086", dwReturn
-    RELOJ(iAlias).Interval = 400 'puede variar
+    RELOJ(iAlias).Interval = 60 'puede variar
+    RELOJ(iAlias).Enabled = True
     Terr.Anotar "002-0087"
     DoPlay = 0
     RaiseEvent BeginPlay(iAlias)
@@ -501,6 +605,9 @@ Public Function DoClose(iAlias As Long) As String
     On Error GoTo ERmp3
     Terr.Anotar "002-0099", iAlias
     If iAlias = 99 Then 'cierra todos
+        'If Terr.ModoGrabaTodo Then Terr.StopGrabaTodo
+        Terr.StopGrabaTodo
+        
         Dim F11 As Long
         For F11 = 0 To 3
             dwReturn = mciSendString("stop " + Alias(F11), 0&, 0&, 0&)
@@ -518,6 +625,8 @@ Public Function DoClose(iAlias As Long) As String
                         "HIST:" + vbCrLf + _
                         Terr.LogAcumulado)
         End If
+        
+        
         
     Else 'o solo el elegido
         dwReturn = mciSendString("close " + Alias(iAlias), 0&, 0&, 0&)
@@ -663,6 +772,7 @@ Public Function SeekTo(Second, iAlias As Long)
     'transformar segundos a frames
     Dim STF As Long
     STF = (Second / 1000) * mFramePerSecond(iAlias)
+    
     If IsPlaying(iAlias) Then
         Terr.Anotar "002-0155"
         dwReturn = mciSendString("play " + Alias(iAlias) + " from " & STF, 0&, 0&, 0&)
@@ -677,7 +787,7 @@ Public Function SeekTo(Second, iAlias As Long)
         End If
     Else
         Terr.Anotar "002-0159"
-        dwReturn = mciSendString("seek " + Alias(iAlias) + " to " & STF, 0, 0, 0)
+        dwReturn = mciSendString("seek " + Alias(iAlias) + " to " & STF, 0&, 0&, 0&)
         If dwReturn <> 0 And dwReturn <> 263 And dwReturn <> 282 Then
             LogErrorMCI dwReturn
             RaiseEvent mmError("****ERRmmPlayer****" + vbCrLf + _
@@ -837,9 +947,10 @@ Public Function QuickLargoDeTema(TemaQuick As String) As String
     
     QuickLargoDeTema = "N/S"
     
-    FileName(2) = TemaQuick
-    DoOpen 2
-    MiniInicVarMci 2
+'    Increible negrada esta y asi lo estan usando algunos
+'    FileName(2) = TemaQuick
+'    DoOpen 2
+'    MiniInicVarMci 2
     
     If dwReturn = 264 Then 'no hay memoria sufuciente!!!
         LogErrorMCI dwReturn
@@ -859,13 +970,10 @@ Public Function QuickLargoDeTema(TemaQuick As String) As String
     If Sec < 60 Then
         QuickLargoDeTema = "00:" & Format(Sec, "00")
     Else
-        Terr.Anotar "002-0212"
         Mins = Int(Sec / 60)
-        Terr.Anotar "002-0213"
         Sec = Sec - (Mins * 60)
-        Terr.Anotar "002-0214"
         QuickLargoDeTema = Format(Mins, "00") & ":" & Format(Sec, "00")
-        Terr.Anotar "002-0215"
+        Terr.Anotar "002-0213", Mins, Sec
     End If
     
     MiniCerrar 2
@@ -962,10 +1070,11 @@ End Function
 Private Function MiniCerrar(iAlias As Long) As Long
     
     Terr.Anotar "002-0036", iAlias, Alias(iAlias)
-    Ret = mciSendString("Close " + Alias(iAlias), 0&, 0&, 0&)
+    RET = mciSendString("Close " + Alias(iAlias), 0&, 0&, 0&)
     Terr.Anotar "002-0037"
-    If Ret <> 0 And Ret <> 263 Then '263 es cuando no ha abierto nada
-        LogErrorMCI Ret
+    RET = CLng(RET)
+    If RET <> 0 And RET <> 263 Then '263 es cuando no ha abierto nada
+        LogErrorMCI RET
         RaiseEvent mmError("****ERRmmPlayer****" + vbCrLf + _
                         "NoCierra" + vbCrLf + _
                         "HIST:" + vbCrLf + _
@@ -988,13 +1097,12 @@ Public Sub MiniInicVarMci(iAlias As Long)
     GetTotalTimeByMS iAlias 'aqui se carga mtotalSec
     GetFramesPerSecond iAlias 'aquis e dividen los dos anteriores y se obtiene mFrames per sec
     
-    'simepre asi, puede ser cambiado si quiero que termine antes desde 3PM
+    'siempre asi, puede ser cambiado si quiero que termine antes desde 3PM o mpRock
     mHastaTema(iAlias) = mTotalSec(iAlias)
 End Sub
 
 Public Function GetTotalTimeByMS(iAlias As Long) As Long
     
-    Dim dwReturn As Long
     Dim TotalTime As String * 128
 
     dwReturn = mciSendString("set " & Alias(iAlias) & " time format ms", TotalTime, 128, 0&)
@@ -1004,43 +1112,50 @@ Public Function GetTotalTimeByMS(iAlias As Long) As Long
     
     If Not dwReturn = 0 Then  'not success
         mTotalSec(iAlias) = -1
+        mTotalMiliSec(iAlias) = -1
         GetTotalTimeByMS = -1
         Exit Function
     End If
     
     'Success
     mTotalSec(iAlias) = Val(TotalTime) / 1000
+    mTotalMiliSec(iAlias) = Val(TotalTime)
     GetTotalTimeByMS = Val(TotalTime)
 End Function
 
-
 Private Sub Class_Initialize()
+
     Set Reloj0 = New tbrTimer.clsTimer
     Set Reloj1 = New tbrTimer.clsTimer
     Set Reloj2 = New tbrTimer.clsTimer
     Set Reloj3 = New tbrTimer.clsTimer
     Set RelojKar = New tbrTimer.clsTimer
+    
+    RelojKar.Interval = 0
     RelojKar.Enabled = False
+    mIntervalKar = 40 'para cuando se cargue
     
     Reloj0.Interval = 0
     Reloj1.Interval = 0
     Reloj2.Interval = 0
     Reloj3.Interval = 0
-    Reloj0.Enabled = True
-    Reloj1.Enabled = True
-    Reloj2.Enabled = True
-    Reloj3.Enabled = True
-    
-    Terr.FileLog = App.Path + "\regMM.log"  'en realidad nunca uso el append ya que le paso el detalle al programa usuario de la DLL para que haga lo que quiera!
-    Terr.LargoAcumula = 300
-    
-    Terr.Anotar "MP3001"
+    Reloj0.Enabled = False
+    Reloj1.Enabled = False
+    Reloj2.Enabled = False
+    Reloj3.Enabled = False
     
     Alias(0) = "MP3Play0"
     Alias(1) = "Mp3Play1"
     Alias(2) = "Mp3Play2"
     Alias(3) = "Mp3Play3"
+    
+End Sub
+
+Public Sub SetDriversVideo()
     'asegurarse que se reproduzca de manera predeterminada con lo que corresponde
+    'algunos tienen problemas con los videos
+    'imagino que ponen codecs que cambian esto para bien (no lo creo)
+    'por las dudas lo hago opcional
     
     'this Function help you if you want to know the default device
     'the parameter must be the device type like:
@@ -1050,7 +1165,7 @@ Private Sub Class_Initialize()
     'waveaudio
     'videodisc
     If Not GetDefaultDevice("MPEGVideo") = "mciqtz.drv" Then
-        'if Driver"mciqtz.drv" not the default device for type
+        'if Driver "mciqtz.drv" not the default device for type
         '"MpegVideo" then set mciqtz.drv as a default device
         
         SetDefaultDevice "MPEGVideo", "mciqtz.drv"
@@ -1058,6 +1173,8 @@ Private Sub Class_Initialize()
         'Some programs change this device like xing mpeg
         'and if this occur you can not play all mutimedia files
         'and will occur unexpected errors
+        
+        RaiseEvent mmError("****ERRmmPlayer****" + vbCrLf + "mciqtz.drv NO ERA PREDETERMINADO")
     End If
     
     If Not GetDefaultDevice("sequencer") = "mciseq.drv" Then
@@ -1070,8 +1187,25 @@ Private Sub Class_Initialize()
         'if Driver"mciavi.drv" not the default device for type
         '"avivideo" then set avivideo as a default device
         SetDefaultDevice "avivideo", "mciavi.drv"
+        
+        RaiseEvent mmError("****ERRmmPlayer****" + vbCrLf + "mciavi.drv NO ERA PREDETERMINADO")
     End If
+    
+End Sub
 
+
+Public Sub DefinePathLogs(P1 As String, P2 As String)
+    Terr.FileLog = P1
+    'en realidad nunca uso el append ya que le paso el detalle al programa usuario de la DLL para que haga lo que quiera!
+    Terr.LargoAcumula = 300
+    KAR.DefinePathLog P2
+    Terr.Anotar "MP3001", P1, P2
+End Sub
+
+Public Sub ActivaFulLog(P1 As String)
+    Terr.FileLogGrabaTodo = P1
+    Terr.ModoGrabaTodo = True
+    Terr.StartGrabaTodo
 End Sub
 
 Private Function RELOJ(i) As tbrTimer.clsTimer
@@ -1120,7 +1254,20 @@ Public Function DoOpenKar(ArchMN0 As String, ToPicture As Object, ToPelota As Ob
     KAR.DefinePictureBox ToPicture
     KAR.DefinePelota ToPelota
     Terr.Anotar "Kar003"
-    KAR.DoOpenKar ArchMN0 'lo separa y fabrica el mp3 en getPathMP3
+    Dim RET As Long
+    RET = KAR.DoOpenKar(ArchMN0) 'lo separa y fabrica el mp3 en getPathMP3
+    If RET <> 0 Then
+        RaiseEvent mmError("****ERRmmPlayer****" + vbCrLf + _
+                        "NO PUDO ABRIR EL KARAOKE" + vbCrLf + _
+                        ArchMN0 + vbCrLf + _
+                        "ERR=" + CStr(RET) + vbCrLf + _
+                        "LOGK:" + KAR.GetLOG + vbCrLf + _
+                        "HISTMM:" + vbCrLf + _
+                        Terr.LogAcumulado)
+        
+        DoOpenKar = 2
+        Exit Function
+    End If
     Terr.Anotar "Kar004"
     m_FileName(2) = KAR.GetPathMP3
     DoOpen 2
@@ -1143,9 +1290,15 @@ Public Function DoPlayKar()
     
     ResincroKar
     
-    RelojKar.Interval = 40
     RelojKar.Enabled = True
+    RelojKar.Interval = mIntervalKar
+    
 End Function
+
+Public Sub SetIntervalEventosKAR(NewInterval As Long)
+    mIntervalKar = NewInterval
+    If RelojKar.Enabled Then RelojKar.Interval = mIntervalKar
+End Sub
 
 Public Sub DoStopKar()
     RelojKar.Interval = 0: RelojKar.Enabled = False
@@ -1172,22 +1325,44 @@ Private Sub Reloj_Timer(Index As Integer)
     
     Dim CurrPos As Single, lFPS As Long
     CurrPos = GetCurrentMultimediaPos(CLng(Index))
-    
     lFPS = mFramePerSecond(CLng(Index))
     
     'no dividir por cero!
     If lFPS = 0 Then lFPS = 1
     mSecActual(CLng(Index)) = CurrPos / lFPS
+    mMiliSecActual(CLng(Index)) = CurrPos / mFramePerMiliSecond(Index)
     Terr.Anotar "002-0001b", CurrPos, mSecActual(Index)
     
+    Dim Termino As Boolean
+    Termino = False
     
-    Dim Termino As Boolean: Termino = False
+    'se me terminan los karaokes cuando estan empezando
+    If CurrPos = -1 Then
+        Termino = True
+        Terr.Anotar "cur1", CurrPos, mTotalFrames(CLng(Index))
+        GoTo EndSong
+    End If
     
-    If CurrPos = -1 Or mTotalFrames(CLng(Index)) = -1 Then Termino = True: GoTo EndSong
-    If CurrPos >= (mTotalFrames(CLng(Index)) - 1) Then Termino = True: GoTo EndSong
+    If mTotalFrames(CLng(Index)) = -1 Then
+        Termino = True
+        Terr.Anotar "cur2", CurrPos, mTotalFrames(CLng(Index))
+        GoTo EndSong
+    End If
+    
+    If CurrPos >= (mTotalFrames(CLng(Index)) - 1) Then
+        Terr.Anotar "cur3", CurrPos, mTotalFrames(CLng(Index))
+        Termino = True
+        GoTo EndSong
+    End If
+    
     'If IsPlaying(CLng(Index)) = False Then Termino = True: GoTo EndSong
     
-    If mSecActual(CLng(Index)) >= mHastaTema(Index) Then Termino = True: GoTo EndSong
+    If mSecActual(CLng(Index)) >= mHastaTema(Index) Then
+        Termino = True
+        Terr.Anotar "cur4", CurrPos, mTotalFrames(CLng(Index))
+        GoTo EndSong
+    End If
+        
     
     'Terr.AppendSinHist "I:" + CStr(Index) + _
         " CurrPos:" + CStr(CurrPos) + _
@@ -1197,19 +1372,22 @@ Private Sub Reloj_Timer(Index As Integer)
     
 EndSong:
     If Termino Then
+        
         RELOJ(Index).Interval = 0
-        DoStop CLng(Index)
         'si termino un karaoke!!!
         If Index = 2 Then
+            'Terr.AppendLog "FinKar:" + CStr(CurrPos), CStr(mTotalFrames(CLng(Index)))
+            'XXXX esto borraba la imagen de fndo al comenzar un karaoke que seguia despues de otro
             RelojKar.Interval = 0: RelojKar.Enabled = False
             KAR.CleanPic
         End If
+        DoStop CLng(Index)
         'RaiseEvent EndPlay(CLng(Index))
         Exit Sub
     Else
         'saber que segundo es ...
         Dim sActual As Long
-        RaiseEvent Played(CLng(mSecActual(CLng(Index))), CLng(Index))
+        RaiseEvent Played(CLng(mSecActual(CLng(Index))), CLng(Index), CLng(mMiliSecActual(CLng(Index))))
     End If
     
     Exit Sub

@@ -26,12 +26,12 @@ Private Declare Function MoveToEx Lib "gdi32" (ByVal hdc As Long, ByVal X As Lon
 'linea desde el puntero grafico hasta el indicado
 Private Declare Function LineTo Lib "gdi32" (ByVal hdc As Long, ByVal X As Long, ByVal Y As Long) As Long
 
-
 Public Enum ModoVum
     DesdeArriba = 0
     DesdeAbajo = 1
     Estereo = 2
-    TresColoresEstereo = 3
+    TresColoresEstereo = 3 'p1 es un canal y p2 el otro
+    UnaImagenSobreOtra = 4 'usa p2 sobre p1 y p3 sobre p4
 End Enum
 
 Private Type RECT
@@ -61,6 +61,9 @@ Private mColorBase As Long 'color de las barras en modos simples
 
 Private P As Object 'lugar donde todo se pinta
 Private P2 As Object 'segundo picture para otras cosas (otro canal)
+Private P3 As Object
+Private P4 As Object
+
 'coordenadas que se usan dentro del picturebox
 Private X1enP As Long, X2enP As Long
 Private Y1enP As Long, Y2enP As Long
@@ -68,12 +71,22 @@ Private Y1enP As Long, Y2enP As Long
 Private X1enP2 As Long, X2enP2 As Long
 Private Y1enP2 As Long, Y2enP2 As Long
 
+Private X1enP3 As Long, X2enP3 As Long
+Private Y1enP3 As Long, Y2enP3 As Long
+
+Private X1enP4 As Long, X2enP4 As Long
+Private Y1enP4 As Long, Y2enP4 As Long
+
+
 Private mCantPic As Long 'cantidad de barras para los modos simples (0 1 2)
 Private mCantCuadros As Long 'cantidad de bloques en modo 3 colores estereo
 Private mFramePorSeg As Long 'lecturas del reloj por segundo de las señales
-Private LastD(511) As Byte
 
-Private p1HDC As Long, p2HDC As Long
+'ultimos x valores de cada canal para que los cambios no sean bruscos y el movimiento sea armonico
+Private LastValrR() As Byte
+Private LastValrL() As Byte
+
+Private p1HDC As Long, p2HDC As Long, p3HDC As Long, p4HDC As Long
 
 Private mEnabled As Boolean
 Private mCarFantastic As Boolean
@@ -120,8 +133,7 @@ Public Function Empezar() As Long
 
     CrearBrochas
     Empezar = V.DoStart
-    
-    
+
 End Function
 
 Public Sub Terminar()
@@ -145,6 +157,9 @@ Private Sub Class_Initialize()
     'On Local Error GoTo ErrIniVU
     
     Set V = New tbrVUMETRO
+    
+    ReDim LastValrR(2) 'armoniza con 11 valores (no en los modos con multiples barras)
+    ReDim LastValrL(2) 'todos los valores quedan en cero
     
     'If V.Dispositivos = 0 Then RaiseEvent VerError("Sin Dispositivos")
     
@@ -281,13 +296,13 @@ Private Sub V_Pintar(D() As Byte)
     Descontar = 128
     MaxThis = 256 - Descontar  'el sonido cero es 120
     'borro todo en cada vuelta
-    P.Cls: P2.Cls
+    
 
     'en los modos 0 1 y 2 debo leer mas de una vez segun la cantiad de pics
     If Modo = DesdeAbajo Or Modo = DesdeArriba Or Modo = Estereo Then
+        P.Cls: P2.Cls
          'en otros modos puede limpiar menos
         For a = 0 To 510 Step CLng(512 / mCantPic) + 1 'que sea un poco de todo el espectro de valores
-        'For a = 400 To 500 Step CLng(100 / mCantPic) + 1 'que sea un poco de todo el espectro de valores
             
             'A TIENE QUE SER PAR PARA RESPETAR LOS CANALES!!
             If a / 2 <> a \ 2 Then
@@ -298,14 +313,11 @@ Private Sub V_Pintar(D() As Byte)
                 End If
             End If
             'armonizar con el anterior
-            ThisPT_L = Abs(D(a) - Descontar + LastD(a) - Descontar)
-            ThisPT_R = Abs(D(a + 1) - Descontar + LastD(a + 1) - Descontar)
+            ThisPT_L = Abs(D(a) - Descontar)
+            ThisPT_R = Abs(D(a + 1) - Descontar)
             
             If ThisPT_L > 255 Then ThisPT_L = 255
             If ThisPT_R > 255 Then ThisPT_R = 255
-            
-            LastD(a) = D(a)
-            LastD(a + 1) = D(a + 1)
             
             'asegurar que las divisiones con decimal no se vayan a cero
             Dim TMPsng As Single
@@ -383,20 +395,68 @@ Private Sub V_Pintar(D() As Byte)
     End If
     
     If Modo = TresColoresEstereo Then
-'        ThisPT_R = 0: ThisPT_L = 0
-'        For a = 150 To 170 Step 2
-'            ThisPT_R = ThisPT_R + D(a)
-'            ThisPT_L = ThisPT_L + D(a + 1)
-'        Next a
-'        ThisPT_R = Abs(ThisPT_R - (Descontar * 11))
-'        ThisPT_L = Abs(ThisPT_L - (Descontar * 11))
+        P.Cls: P2.Cls
         
-        ThisPT_R = Abs(D(150) - Descontar)
-        ThisPT_L = Abs(D(151) - Descontar)
+        ThisPT_R = Abs(D(150) - Descontar) * 2
+        ThisPT_L = Abs(D(151) - Descontar) * 2
+        
+        'Armonizar ThisPT_R, ThisPT_L, ThisPT_R, ThisPT_L
+        If ThisPT_R > 255 Then ThisPT_R = 255
+        If ThisPT_L > 255 Then ThisPT_L = 255
         
         DrawBarra3PM P, X1enP, X2enP, Y1enP, Y2enP, (100 * ThisPT_R) / MaxThis
         DrawBarra3PM P2, X1enP2, X2enP2, Y1enP2, Y2enP2, (100 * ThisPT_L) / MaxThis
     End If
+    
+    If Modo = UnaImagenSobreOtra Then
+        ThisPT_R = Abs(D(350) - Descontar) * 2
+        ThisPT_L = Abs(D(351) - Descontar) * 2
+        
+        'Armonizar ThisPT_R, ThisPT_L, ThisPT_R, ThisPT_L
+        If ThisPT_R > 255 Then ThisPT_R = 255
+        If ThisPT_L > 255 Then ThisPT_L = 255
+    
+        'p1 esta por debajo, es la imagen activa del vumetro y esta atras de la p2 que es la inactiva
+        ' de igual forma el 3 esta detras del 4
+        'las imagenes y los tamaños ya estan definidos en el ejecutable
+        'en este caso tono como referencia maxthis que es lo maximo, calculo un porcentaje y de ahi
+        'se que alto hay que dibujar
+        'asegurarse en el ejecutable de hacer los zorders correspondientes
+        'ademas de que ambos tengan el mismo top y left, no vamos a cambiar eso 50 veces por segundo
+        
+        P2.Height = Abs(1 - (ThisPT_R / MaxThis)) * P.Height  'p1 y p3.height no cambian nunca!
+        P4.Height = Abs(1 - (ThisPT_L / MaxThis)) * P3.Height
+        
+        'P2.Refresh: P4.Refresh haxe que todo titile!!!
+    End If
+    
+End Sub
+
+Private Sub Armonizar(AddCH_R As Long, AddCH_L As Long, RetCH_R As Long, RetCH_L As Long)
+    'entran dos valores y devuelve el valor armonizado
+    Dim J As Long
+    'correr todos los valores ....
+    For J = UBound(LastValrR) To 1 Step -1
+        LastValrR(J) = LastValrR(J - 1)
+        LastValrL(J) = LastValrL(J - 1)
+    Next J
+    
+    'queda el cero libre para el nuevo valor ...
+    LastValrR(0) = AddCH_R
+    LastValrL(J) = AddCH_L
+    
+    'calcular el valor armonizado
+    RetCH_R = 0: RetCH_L = 0
+    For J = 0 To UBound(LastValrR)
+        RetCH_R = RetCH_R + LastValrR(J)
+        RetCH_L = RetCH_L + LastValrL(J)
+    Next J
+    
+    RetCH_R = RetCH_R / (UBound(LastValrR)) 'deberia ser +1 pero lo dejo asi para que de numeros mas altos
+    RetCH_L = RetCH_L / (UBound(LastValrR))
+    
+    If RetCH_R > 255 Then RetCH_R = 255
+    If RetCH_L > 255 Then RetCH_L = 255
     
 End Sub
 
@@ -420,6 +480,43 @@ Public Sub DefinePictureBox2(pic As Object)
     
     P2.ForeColor = mColorBase
     p2HDC = P2.hdc
+End Sub
+
+Public Sub DefinePictureBox3(pic As Object)
+    Set P3 = pic
+    P3.AutoRedraw = True
+    '10 % margen en todos lados
+    X1enP3 = P3.Width * 0.02: Y1enP3 = P3.Height * 0.02
+    X2enP3 = P3.Width - X1enP3: Y2enP3 = P3.Height - Y1enP3
+    
+    P3.ForeColor = mColorBase
+    p3HDC = P3.hdc
+End Sub
+
+Public Sub DefineImage(nPic As Long, ArchImg As String, aSIZE As Boolean)
+    Dim pMil As Object
+    
+    If nPic = 1 Then Set pMil = P
+    If nPic = 2 Then Set pMil = P2
+    If nPic = 3 Then Set pMil = P3
+    If nPic = 4 Then Set pMil = P4
+    
+    If aSIZE Then pMil.AutoSize = True
+    pMil.Picture = LoadPicture(ArchImg)
+    If aSIZE Then pMil.AutoSize = False
+    
+    pMil.Cls
+End Sub
+
+Public Sub DefinePictureBox4(pic As Object)
+    Set P4 = pic
+    P4.AutoRedraw = True
+    '10 % margen en todos lados
+    X1enP4 = P4.Width * 0.02: Y1enP4 = P4.Height * 0.02
+    X2enP4 = P4.Width - X1enP4: Y2enP4 = P4.Height - Y1enP4
+    
+    P4.ForeColor = mColorBase
+    p4HDC = P4.hdc
 End Sub
 
 Public Property Get ColorBase() As Long

@@ -68,3 +68,7 @@ DLL/MODULO ERR/i
 DLL/NumeroLetra
 DLL/tbrArbol
 SKS-DLL3/Output
+SKS-DLL3/INST INNO
+*.rar
+*.vbg
+DLL/tbrTimer/prueba reloj/

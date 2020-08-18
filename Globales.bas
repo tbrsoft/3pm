@@ -1,8 +1,20 @@
 Attribute VB_Name = "Globales"
+'Con Seleccion
+Public Const ColSel As Long = &HFFFF00   '&HC0C0C0
+Public Const Col2Sel As Long = &H0&       '&H2D271C
+
+'Sin Seleccion
+Public Const ColUnSel As Long = &HE0E0E0
+Public Const Col2UnSel As Long = &H533422
+
+Private Declare Function SetForegroundWindow Lib "user32" (ByVal HWND As Long) As Long
+
+Public UB As New tbrDRIVES.clsDRIVES
+
 Public mySKIN As String
-Public imF As String 'imagen a cargar
+Public IMF As String 'imagen a cargar
 Public ExtraData As New tbrFullPak.clsPakageSkin
-Public S3 As tbrSKS3.clsTbrSKS3
+Public s3 As tbrSKS3.clsTbrSKS3
 Public AnchoBarra As Long 'ancho del vumetro grande
 Public ClaveIngresada As String
 Public ShowCreditsMode As Long 'modo de mostrar los creditos
@@ -86,7 +98,7 @@ Public PUBs As New clsPUB
 Public MostrarTouch As Boolean
 Public ClaveAdmin As String
 'validar con clave cada x creditos
-Public Validar As Boolean
+Public VALIDAR As Boolean
 Public ValidarCada As Long
 Public AvisarAntes As Long
 Public CreditosValidar As Long
@@ -129,7 +141,6 @@ Public SecSinUso As Long 'segundos sin poner tema 'activa tema automatico
 Public SecSinTecla As Long 'segundos sin tocar teclas ' activa protector de pantalla
 Public nDiscoGral As Long ' del 0 a total_discos
 
-
 'para la configuracion de 3PM
 Public BloquearMusicaElegida As Boolean
 Public TeclaDER As Integer 'integer es keycode en eventos del teclado
@@ -155,6 +166,7 @@ Public TeclaIZQx2 As Integer
 Public TeclaPagAdx2 As Integer
 Public TeclaPagAtx2 As Integer
 Public TeclaOKx2 As Integer
+Public TeclaCarritox2 As Integer
 Public TeclaESCx2 As Integer
 Public TeclaNewFichax2 As Integer
 Public TeclaNewFicha2x2 As Integer
@@ -167,6 +179,15 @@ Public TeclaFFx2 As Integer
 Public TeclaBajaVolumenx2 As Integer
 Public TeclaSubeVolumenx2 As Integer
 Public TeclaNextMusicx2 As Integer
+'agregadas en 7.1.500 para el carrito de compras
+Public TeclaCarrito As Long
+Public Carrito As New clsMMCart
+
+Public VendoMusica As Boolean
+Public NOMUSIC As Boolean
+Public ShowDemoMusic As Boolean
+Public SaveCart As Boolean
+Public TengoBluetooth As Boolean
 
 Public MaximoFichas As Integer
 Public ApagarAlCierre As Boolean
@@ -192,7 +213,7 @@ Private Declare Function MapVirtualKey Lib "user32" Alias "MapVirtualKeyA" (ByVa
 Private Const KEYEVENTF_EXTENDEDKEY = &H1
 Private Const KEYEVENTF_KEYUP = &H2
 
-Public FSO As New Scripting.FileSystemObject
+Public fso As New Scripting.FileSystemObject
 Public AP As String
 Public CREDITOS As Single ' fichas cargadas (o temas habilitados para cargar)
 'lo puse sinle por que las promociones de precios lo requieren
@@ -225,12 +246,47 @@ Public nDiscoSEL As Long 'del 0 al 5 o hasta donde coresponda!!
 
 Public my_MEM As New tbrMEM
 
-Public Sub Main()
+Public LastTecla As Long 'ultima tecla apretada. La pongo en cero cuando espero algo
 
+'pedir solo una vez la clave por sesion
+Public YaPediCL As Boolean
+
+Public CDK_prefix(6) As String 'prefijos sabidos para cada cd existente
+Public CDK_qey(6) As String 'clave que existe para cada prefijo
+Public CDK_forLic(6) As String 'nombre para preguntarle a ingresa clave si esta
+Public TR As New Translator
+
+'empaqueta imagenes cargadas o no en memoria
+Public LOP As New tbrAlotOfPictures.clsALotOfPictures 'todas las imagenes de los discos
+
+Public LoadTapaIni As Boolean
+
+'ATENCION NEGRADA!
+Public varSecPlay As Long
+'como en algunos casos empiezo en el segundo 30
+'por ejemplo para mostrar una cancion
+'el fade inicial no agarra, hago una variable que cambie el secondplayed
+'que viene en el evento played
+
+Public Wueltas As Long 'contactos aprobados de la interfase
+Public NP As Long ' numero de la placa 2H
+
+Public WVER As String 'version exacte de guindors
+
+'*************************************************
+'bluetooth
+Public BTM 'As TbrBtManager 'para que sea opcional
+
+Public PachaMode As Long 'modo de vista
+'valor comun 10000
+
+Public Sub Main()
     On Error GoTo ErrINI
     
-    'primero que todo mido la memoria para saber cuanto habia antes de empezar con mas cosas de 3PM
+    nDiscoSEL = 99999
     
+    
+    'primero que todo mido la memoria para saber cuanto habia antes de empezar con mas cosas de 3PM
     
 '    If CSng("0,1") = 0.1 Then
 '        SD = ","
@@ -241,17 +297,72 @@ Public Sub Main()
 
     Cs = Command
     
+    If FindParam3PM("pacha") = "1" Then
+        PachaMode = 11000
+    Else
+        PachaMode = 10000
+    End If
+    
+    PachaMode = 11000
+    
     AP = App.path
     If Right(AP, 1) <> "\" Then AP = AP + "\"
     
-    If FSO.FileExists("c:\au.o") Then AP = ""
+    If fso.FileExists("c:\au.o") Then AP = ""
     
-    SYSfolder = FSO.GetSpecialFolder(SystemFolder)
-    WINfolder = FSO.GetSpecialFolder(WindowsFolder)
+    SYSfolder = fso.GetSpecialFolder(SystemFolder)
+    WINfolder = fso.GetSpecialFolder(WindowsFolder)
     If Right(WINfolder, 1) <> "\" Then WINfolder = WINfolder + "\"
     If Right(SYSfolder, 1) <> "\" Then SYSfolder = SYSfolder + "\"
+    
     ContEmpezSig = 0
     
+    'para usar karaokes
+    CDK_prefix(0) = "asjdfsadfsadfsadfsadfsadfasdfsa546456465"
+    CDK_qey(0) = "sdfuoyhsdfsdiufyaoisfSAD789F6AD78F6A7SD89F6A89S6F879AS"
+    CDK_forLic(0) = "mLicenciaCD001Kar"
+    
+    CDK_prefix(1) = "rrweqwrwerwerrrrrrrrr23423r223r2r23r2r32r23r2r23r"
+    CDK_qey(1) = "yyssysyasuoisdyoa8sdy8a9dsysa978dsyaasrea98"
+    CDK_forLic(1) = "mLicenciaCD002Kar"
+    
+    CDK_prefix(2) = "fuigwsyfs7idfs8d6f9a8s76d879as6f987as6df876879fas6d987"
+    CDK_qey(2) = "sdfystdf78we6f9872r6798wyefuihwdjfhw8euyr3279hiuwgfiwegfiywegfo78"
+    CDK_forLic(2) = "mLicenciaCD003Kar"
+    
+    CDK_prefix(3) = "sdfysuftas6df7asdtf6a8s76f"
+    CDK_qey(3) = "sadfsoiudfyws98efyw987ef69weyf789w6fy978wgfe8wyef879wyt8"
+    CDK_forLic(3) = "mLicenciaCD004Kar"
+    
+    CDK_prefix(4) = "sdf78sydf8s7gf8sctys87dcyt8s7ycdsy7sd8cy7s"
+    CDK_qey(4) = "sdvcuyhsdgbv8ywetgv76wetf76wetf67wtec76wstc76ewt76etc76wect67wetc867w"
+    CDK_forLic(4) = "mLicenciaCD005Kar"
+    
+    CDK_prefix(5) = "asdfsa9d8f7sa98fda7d87qw6dq987wd879qwd97q8d9w87q6d987q6wd98ss"
+    CDK_qey(5) = "asdfiuyadais7ydta7sdt78qw6tdq6w8td6qwdq6wtd9wq6td98q76d7qtw78dtq78wdt89q"
+    CDK_forLic(5) = "mLicenciaCD006Kar"
+    
+'    KARAOKES
+'-------------------------------------------------------
+'
+'-------------------------------------------------------
+'prefijo cd1: "asjdfsadfsadfsadfsadfsadfasdfsa546456465"
+'clave cd1    "sdfuoyhsdfsdiufyaoisfSAD789F6AD78F6A7SD89F6A89S6F879AS"
+'-------------------------------------------------------
+'prefijo cd2 "yyssysyasuoisdyoa8sdy8a9dsysa978dsyaasrea98"
+'clave cd2   "rrweqwrwerwerrrrrrrrr23423r223r2r23r2r32r23r2r23r"
+'-------------------------------------------------------
+'prefijo cd3 "fuigwsyfs7idfs8d6f9a8s76d879as6f987as6df876879fas6d987"
+'clave cd3   "sdfystdf78we6f9872r6798wyefuihwdjfhw8euyr3279hiuwgfiwegfiywegfo78"
+'-------------------------------------------------------
+'prefijo cd4 "sdfysuftas6df7asdtf6a8s76f"
+'clave cd4   "sadfsoiudfyws98efyw987ef69weyf789w6fy978wgfe8wyef879wyt8"
+'-------------------------------------------------------
+'prefijo cd5 "sdf78sydf8s7gf8sctys87dcyt8s7ycdsy7sd8cy7s"
+'clave cd5   "sdvcuyhsdgbv8ywetgv76wetf76wetf67wtec76wstc76ewt76etc76wect67wetc867w"
+'-------------------------------------------------------
+'prefijo cd6 "asdfsa9d8f7sa98fda7d87qw6dq987wd879qwd97q8d9w87q6d987q6wd98ss"
+'clave cd6   "asdfiuyadais7ydta7sdt78qw6tdq6w8td6qwdq6wtd9wq6td98q76d7qtw78dtq78wdt89q"
     
     'correr todos los archivos de lugar si estuvieran por ahi !!!
     BuscarArchivosUbicVieja
@@ -278,12 +389,39 @@ Public Sub Main()
     SegFadeB = CLng(LeerConfig("SegFadeB", "1"))
     ThisFade = SegFade
     
+    '*****************CARRITO****************************************
+    'ver si se carga al iniciar o se borra (deberia ser configurable)
+    tERR.Anotar "daca"
+    Carrito.SetFileSave GPF("cart987")
+    'SI esta configurado asi, si no NO
+    If LeerConfig("SaveCart", "0") <> "0" Then Carrito.LoadCartFromDisk
+    
+    Carrito.LoadPrices GPF("promocart")
+    
+    VendoMusica = LeerConfig("VendoMusica", "0")
+    NOMUSIC = LeerConfig("NOMUSIC", "0")
+    ShowDemoMusic = LeerConfig("ShowDemoMusic", "0")
+    SaveCart = LeerConfig("SaveCart", "0")
+    '***************FIN CARRITO**************************************
     EnableFF = False
     EnableNextMusic = False
     
     'antes que todo el registro de error
     tERR.FileLog = AP + "reg3PM.log"
     
+    Dim v As vWindows
+    'esta es la primera y lo calcula, despues solo lo lee de la _
+        propiedad version
+    'queda como global el vW
+    v = vW.GetVersion
+    
+    WVER = vW.GetStrWinVersion
+    
+    tERR.Set_ADN CStr(App.Major * 100000 + App.Minor * 1000 + App.Revision) + " wv:" + WVER
+    
+    tERR.AppendSinHist "INI3PM:" + CStr(App.Major * 100000 + App.Minor * 1000 + App.Revision) + " wv:" + WVER
+    
+    'solo para saber el ADN!
     tERR.LargoAcumula = 600
     tERR.Anotar "1111"
     
@@ -296,43 +434,48 @@ Public Sub Main()
     Else
         ActivarERR = LeerConfig("ActivarERR", "0")
     End If
-    'graba todo siempre y en distintosa archivos
+    'graba todo siempre y en distintos archivos
     tERR.Anotar "acnc", ActivarERR
     If ActivarERR Then
         Dim n As String
         n = CStr(Day(Date)) + "." + CStr(Month(Date)) + "." + CStr(Year(Date)) + _
             "." + CStr(Hour(time)) + "." + CStr(Minute(time)) + "." + CStr(Second(time))
+        
         tERR.FileLogGrabaTodo = AP + "REG" + CStr(n) + ".W15"
         tERR.ModoGrabaTodo = True
         tERR.StartGrabaTodo
+        
+        
     End If
     
+    tERR.Anotar "acnc2"
     '------------------------------------------------
     mySKIN = LeerConfig("mySKIN", AP + "skin\3pmBaseSkin.skin")
     '------------------------------------------------
     
-    If FSO.FileExists(mySKIN) = False Then
+    If fso.FileExists(mySKIN) = False Then
+        tERR.Anotar "acnc3"
         mySKIN = AP + "skin\3pmBaseSkin.skin"
     
-        If FSO.FileExists(mySKIN) = False Then
-            MsgBox "No se ha encontrado ningun skin!!" + vbCrLf + _
-                "Se esperaba: " + vbCrLf + mySKIN + vbCrLf + _
-                "Coloquelo en su ubicaion e inicie de nuevo"
+        If fso.FileExists(mySKIN) = False Then
+            tERR.Anotar "acnc4"
+            TR.SetVars mySKIN 'esta es %01%
+            MsgBox TR.Trad("No se ha encontrado ningún skin!!" + vbCrLf + _
+                "Se esperaba: " + vbCrLf + "%01%" + vbCrLf + _
+                "Colóquelo en su ubicación e inicie de nuevo%98%La variable " + _
+                " 1 es un path al archivo skin que corresponde. " + vbCrLf + _
+                "Tener al menos un skin es un requisito del sistema%99%")
             End
         End If
     End If
     '------------------------------------------------
     
-    Dim V As vWindows
-    'esta es la primera y lo calcula, despues solo lo lee de la _
-        propiedad version
-    'queda como global el vW
-    V = vW.GetVersion
-    
     TamanoTapaPermitido = CLng(LeerConfig("TamanoTapaPermitido", "50"))
     
     ReDim Preserve MATRIZ_DISCOS(0)
+    
     RankToPeople = LeerConfig("RankToPeople", "1")
+    tERR.Anotar "acnc5", RankToPeople
     If RankToPeople Then
         'el el verdadero es pathcompleto, nombre carpeta
         MATRIZ_DISCOS(0) = "_RANK_,_Los mas escuchados" 'nuevo junio 07 para que parezca
@@ -347,17 +490,29 @@ Public Sub Main()
     'frmREG.Show 1
     '**************************************************************************
     '**************************************************************************
-    If FSO.FileExists(GPF("origs")) = False Then
+    tERR.Anotar "acnc6"
+    If fso.FileExists(GPF("origs")) = False Then
+        tERR.Anotar "acnc7"
         'ESCRIBIRLO!!!
         EscribirArch1Linea GPF("origs"), AP + "discos"
     End If
     
     'para recuperaciones
     TeclaIZQ = Val(LeerConfig("TeclaIzquierda", "90"))
-    IDIOMA = LeerConfig("Idioma", "Español")
-    'descomprimir el pakage de imágenes siempre que se inicia para evitar
-    'violaciones.
+    IDIOMA = LeerConfig("Idioma", "Espanol")
+    IDIOMA = Replace(IDIOMA, "ñ", "n")
     
+    tERR.Anotar "acnc7", TeclaIZQ, IDIOMA
+    'ademas si existe el archivo
+    If fso.FileExists((GetBasePath) + IDIOMA + ".idm") = False Then
+        'no esta el archivo de idioma!!!
+        tERR.AppendLog "No se encuentra el archivo de idioma que se necesita:", IDIOMA
+    Else
+        tERR.Anotar "acnc8"
+        TR.Language = (GetBasePath) + IDIOMA + ".idm"
+    End If
+    
+    tERR.Anotar "acnc9"
     'definir el lugar donde se guardan los errores!
     ExtraData.SetLogErr AP + "LogSKIN.LOG"
     
@@ -365,19 +520,21 @@ Public Sub Main()
     Dim H As Long
     H = ExtraData.AbrirSKIN(mySKIN)
     If H = 1 Then 'alguien le cambio el nombre al original!
-        MsgBox "El skin tenia otro nombre y ha sido monidicado. Devuelva el archivo SKIN a su nombre" + _
-            " original para poder utilizarlo"
+        MsgBox TR.Trad("El skin tenia otro nombre y ha sido modificado. " + vbCrLf + _
+            "Devuelva el archivo SKIN a su nombre original para poder utilizarlo%99%")
         End
         Exit Sub
     End If
     
+    tERR.Anotar "acnc10"
     Dim JuSe As New tbrJUSE.clsJUSE
     'leerlo
     JuSe.ReadFile GPF("pdis233")
     'extraer todo en System
-    Dim a As Long
-    For a = 1 To JuSe.CantArchs
-        JuSe.Extract GPF("extr233"), a
+    Dim A As Long
+    tERR.Anotar "acnc11"
+    For A = 1 To JuSe.CantArchs
+        JuSe.Extract GPF("extr233"), A
     Next
     'cerrar todo
     Set JuSe = Nothing
@@ -402,7 +559,7 @@ Public Sub Main()
     frmVIDEO.picVideo.Height = frmVIDEO.Height
     frmVIDEO.picVideo.Visible = False
     '------------------------------------------------------
-    
+    tERR.Anotar "acnc12"
     If frmVIDEO.Left = Screen.Width Then
         TvOn = 1
     Else
@@ -412,50 +569,53 @@ Public Sub Main()
     'AjustarFRM Me, 12000
     'se graba en win y system
     If UCase(App.EXEName) <> "3PM" Then
-        MsgBox "No puede cambiar el nombre del programa"
+        MsgBox TR.Trad("No puede cambiar el nombre del programa%98%" + _
+            "Esto pasa cuando cambian el nombre del archivo 3pm.exe por otro%99%")
         End
     End If
     'VER SI existe el archivo con los datos de las
     'imágenes de inicio y de cierre
     Dim ArchImgIni As String
     ArchImgIni = GPF("iit17222")
+    tERR.Anotar "acnc13", ArchImgIni
     'este archivo de inicio se genera la primera vez para tomas las imagenes de windows
     'al momento de instalar 3PM
-    If FSO.FileExists(ArchImgIni) Then
+    If fso.FileExists(ArchImgIni) Then
         GoTo YaEstaIMG
     Else
-        Set TE = FSO.CreateTextFile(ArchImgIni, True)
+        tERR.Anotar "acnc14"
+        Set TE = fso.CreateTextFile(ArchImgIni, True)
         'ver imagen de inicio
-        If FSO.FileExists("c:\logo.sys") Then
+        If fso.FileExists("c:\logo.sys") Then
             TE.WriteLine "ImgIni=1"
             'copiar el archivo a un lugar seguro para
             'despues administrar los cambios
-            If FSO.FileExists(GPF("ildw9m")) Then
-                FSO.DeleteFile GPF("ildw9m"), True
+            If fso.FileExists(GPF("ildw9m")) Then
+                fso.DeleteFile GPF("ildw9m"), True
             End If
-            FSO.CopyFile "c:\logo.sys", GPF("ildw9m"), True
+            fso.CopyFile "c:\logo.sys", GPF("ildw9m"), True
         Else
             TE.WriteLine "ImgIni=0"
         End If
         
         'ver imagen de cerrando
-        If FSO.FileExists(WINfolder + "logow.sys") Then
+        If fso.FileExists(WINfolder + "logow.sys") Then
             TE.WriteLine "ImgCerrando=1"
             'copiar el archivo a un lugar seguro para
             'despues administrar los cambios
-            If FSO.FileExists(GPF("ildw9m3")) Then FSO.DeleteFile GPF("ildw9m3"), True
-            FSO.CopyFile WINfolder + "logow.sys", GPF("ildw9m3"), True
+            If fso.FileExists(GPF("ildw9m3")) Then fso.DeleteFile GPF("ildw9m3"), True
+            fso.CopyFile WINfolder + "logow.sys", GPF("ildw9m3"), True
         Else
             TE.WriteLine "ImgCerrando=0"
         End If
         
         'ver imagen de apagar
-        If FSO.FileExists(WINfolder + "logos.sys") Then
+        If fso.FileExists(WINfolder + "logos.sys") Then
             TE.WriteLine "ImgApagar=1"
             'copiar el archivo a un lugar seguro para
             'despues administrar los cambios
-            If FSO.FileExists(GPF("ildw9m2")) Then FSO.DeleteFile GPF("ildw9m2"), True
-            FSO.CopyFile WINfolder + "logos.sys", GPF("ildw9m2"), True
+            If fso.FileExists(GPF("ildw9m2")) Then fso.DeleteFile GPF("ildw9m2"), True
+            fso.CopyFile WINfolder + "logos.sys", GPF("ildw9m2"), True
         Else
             TE.WriteLine "ImgApagar=0"
         End If
@@ -470,45 +630,46 @@ YaEstaIMG:
     'VER si ya se pasaron las imagenes de 3pm
     'a la carpeta que corresponde
     
+    tERR.Anotar "acnc15"
     'copiar a la carpeta primero la original....
-    If FSO.FileExists(GPF("extr233_56")) Then
+    If fso.FileExists(GPF("extr233_56")) Then
         'siempre copiarlo si esta
-        If FSO.FileExists(GPF("ild3pm")) Then FSO.DeleteFile GPF("ild3pm"), True
-        FSO.CopyFile GPF("extr233_56"), GPF("ild3pm"), True
+        If fso.FileExists(GPF("ild3pm")) Then fso.DeleteFile GPF("ild3pm"), True
+        fso.CopyFile GPF("extr233_56"), GPF("ild3pm"), True
     End If
     'que sera reemplazada si existe la de SL.....
-    If FSO.FileExists(GPF("233_56_b")) Then
+    If fso.FileExists(GPF("233_56_b")) Then
         'siempre copiarlo si esta
-        If FSO.FileExists(GPF("ild3pm")) Then FSO.DeleteFile GPF("ild3pm"), True
-        FSO.CopyFile GPF("233_56_b"), GPF("ild3pm"), True
+        If fso.FileExists(GPF("ild3pm")) Then fso.DeleteFile GPF("ild3pm"), True
+        fso.CopyFile GPF("233_56_b"), GPF("ild3pm"), True
     End If
     
     'copiar a la carpeta primero la original....
-    If FSO.FileExists(GPF("extr233_58")) Then
+    If fso.FileExists(GPF("extr233_58")) Then
         'siempre copiarlo si esta
-        If FSO.FileExists(GPF("ild3pm3")) Then FSO.DeleteFile GPF("ild3pm3"), True
-        FSO.CopyFile GPF("extr233_58"), GPF("ild3pm3"), True
+        If fso.FileExists(GPF("ild3pm3")) Then fso.DeleteFile GPF("ild3pm3"), True
+        fso.CopyFile GPF("extr233_58"), GPF("ild3pm3"), True
     End If
     'que sera reemplazada si existe la de SL.....
-    If FSO.FileExists(GPF("233_58_b")) Then
+    If fso.FileExists(GPF("233_58_b")) Then
         'siempre copiarlo si esta
-        If FSO.FileExists(GPF("ild3pm3")) Then FSO.DeleteFile GPF("ild3pm3"), True
-        FSO.CopyFile GPF("233_58_b"), GPF("ild3pm3"), True
+        If fso.FileExists(GPF("ild3pm3")) Then fso.DeleteFile GPF("ild3pm3"), True
+        fso.CopyFile GPF("233_58_b"), GPF("ild3pm3"), True
     End If
     
     'copiar a la carpeta primero la original....
-    If FSO.FileExists(GPF("extr233_57")) Then
+    If fso.FileExists(GPF("extr233_57")) Then
         'siempre copiarlo si esta
-        If FSO.FileExists(GPF("ild3pm2")) Then FSO.DeleteFile GPF("ild3pm2"), True
-        FSO.CopyFile GPF("extr233_57"), GPF("ild3pm2"), True
+        If fso.FileExists(GPF("ild3pm2")) Then fso.DeleteFile GPF("ild3pm2"), True
+        fso.CopyFile GPF("extr233_57"), GPF("ild3pm2"), True
     End If
     'que sera reemplazada si existe la de SL.....
-    If FSO.FileExists(GPF("233_57_b")) Then
+    If fso.FileExists(GPF("233_57_b")) Then
         'siempre copiarlo si esta
-        If FSO.FileExists(GPF("ild3pm2")) Then FSO.DeleteFile GPF("ild3pm2"), True
-        FSO.CopyFile GPF("233_57_b"), GPF("ild3pm2"), True
+        If fso.FileExists(GPF("ild3pm2")) Then fso.DeleteFile GPF("ild3pm2"), True
+        fso.CopyFile GPF("233_57_b"), GPF("ild3pm2"), True
     End If
-    
+    tERR.Anotar "acnc16"
     'ver primero quien es para saber si esta habilitado licenciarse
     'si ClaveAdmin = "demo" quiere decir que lo bajo de internet y por
     'lo tanto no puede licenciar NI BOSTA!!!JAJAJAJAJA
@@ -524,7 +685,9 @@ YaEstaIMG:
     End Select
     
     'entra derecho sin preguntar por licencia hasta aqui
+    tERR.Anotar "acnc17"
     my_MEM.SetMomento "Pide frmINI"
+    tERR.Anotar "acnc18"
     frmINI.Show 1
     
     Exit Sub
@@ -534,15 +697,15 @@ ErrINI:
     'me paso en la PC del artime !!!!!
     If Err.Number = 7 Then
         tERR.AppendLog "SIN MEMORIA!", my_MEM.GetFullDetalles
-        MsgBox "No dispone de suficiente memoria." + vbCrLf + "3PM SE CERRARA!"
+        MsgBox TR.Trad("No dispone de suficiente memoria." + vbCrLf + _
+            "3PM SE CERRARA!%98%Se refiere a memoria ram disponible%99%")
         End
+    Else
+        tERR.AppendLog tERR.ErrToTXT(Err), "MAIN.BAS" + ".acpi2"
+        Resume Next
     End If
     
-    tERR.AppendLog tERR.ErrToTXT(Err), "MAIN.BAS" + ".acpi2"
-    Resume Next
-    
 End Sub
-
 
 Public Function txtInLista(lista As String, Orden As Long, Separador As String) As String
     'devuelve "OUT LISTA" si se solicita un orden no existente
@@ -550,17 +713,17 @@ Public Function txtInLista(lista As String, Orden As Long, Separador As String) 
     'si pongo 99999 en orden saco el ultimo
     Dim lAct As String, lOrden As Integer
     Dim palabra(40) As String
-    Dim c As Integer
-    c = 1: lOrden = 0
-    Do While c <= Len(lista)
-        lAct = Mid(lista, c, 1)
+    Dim C As Integer
+    C = 1: lOrden = 0
+    Do While C <= Len(lista)
+        lAct = Mid(lista, C, 1)
         If lAct = Separador Then
             lOrden = lOrden + 1
         Else
             palabra(lOrden) = palabra(lOrden) + lAct
             If lOrden > Orden Then Exit Do
         End If
-        c = c + 1
+        C = C + 1
     Loop
     'si oreden solicitado>ultimo oreden de la lista...
     If Orden > lOrden Then
@@ -585,24 +748,30 @@ Public Sub CargarProximosTemas()
     Dim strProximos As String ', TotTemas As Integer
     
     If tLST.GetLastIndex = 0 Then
-        frmIndex.RollSONG.ReplaceIndex 1, "No hay" + vbCrLf + "mas selecciones"
+        frmIndex.RollSONG.ReplaceIndex 1, TR.Trad("No hay" + vbCrLf + _
+            "mas selecciones%98%No quedan canciones o videos para reproducir%99%")
     Else
         
         'volver a contar
         PUBs.PubsEnLista = 0
         'el indice 0 no existe ni existira por eso el C=1
 
-        frmIndex.RollSONG.ReplaceIndex 1, "proxima seleccion" + vbCrLf + _
-            QuitarNumeroDeTema(tLST.GetElementListaFileName(1)) + vbCrLf + _
-            "del disco" + vbCrLf + _
-            tLST.GetElementListaLastFolder(1) + vbCrLf + _
-            "Rank # " + PuestoN(tLST.GetElementListaPath(1))
+        TR.SetVars QuitarNumeroDeTema(tLST.GetElementListaFileName(1)), _
+            tLST.GetElementListaLastFolder(1), PuestoN(tLST.GetElementListaPath(1))
+
+        frmIndex.RollSONG.ReplaceIndex 1, _
+            TR.Trad("proxima seleccion" + vbCrLf + _
+            "%01%" + vbCrLf + "del disco" + vbCrLf + _
+            "%02%" + vbCrLf + "Rank # %03%%98%" + _
+            "La variable 1 es el nombre de la cancion, la " + _
+            "2 es el nombre del disco y la tercera es un numero " + _
+            "de posicion en el ranking%99%")
         
         'frmIndex.RollSONG.ReplaceIndex 1, "proxima seleccion" + vbCrLf + _
             tLST.GetElementListaFileName(1) + vbCrLf + _
-            "del disco" + vbCrLf + _
+            tr.trad("del disco") + vbCrLf + _
             tLST.GetElementListaLastFolder(1) + vbCrLf + _
-            "Rank # " + PuestoN(tLST.GetElementListaPath(1))
+            tr.trad("Rank # ") + PuestoN(tLST.GetElementListaPath(1))
 
 '        Dim c As Long
 '        For c = 1 To tLST.GetLastIndex
@@ -781,17 +950,17 @@ Public Function STRceros(n As Variant, Cifras As Integer) As String
     Else
         STRceros = STRn
     End If
-    
 End Function
 
 Public Sub APAGAR_PC()
-    Dim V As vWindows
-    V = vW.GetVersion
-    Select Case V
+    Dim v As vWindows
+    v = vW.GetVersion
+    Select Case v
     Case Win98, Win98SE, WinME
         Shell "rundll32 user.exe,exitwindows"
-    Case Win2000, WinNT4, WinXp, WinXP2
+    Case Win2000, WinNT4, WinXp, WinVista
         Shell "Shutdown -s -t 0"
+    
     End Select
 End Sub
 
@@ -837,7 +1006,9 @@ Public Sub VarCreditos(VarCre As Single, Optional SumaCont As Boolean = True, _
     'reiniciar el contador reiniciable. En el caso de esta funcion VarCreditos
     'hay valores negativos cuando se usa na cancion y se descuenta el credito dispo
     'nible, esto no implica que se cambie el contador reiniciable ni el historico
-    If VarCre > 0 Then SumarContadorCreditos CLng(VarCre)
+    If VarCre > 0 Then
+        SumarContadorCreditos CLng(VarCre)
+    End If
     '-------------------------------------------------------
     'grabar cant de creditos
     If SumaCont Then
@@ -845,12 +1016,26 @@ Public Sub VarCreditos(VarCre As Single, Optional SumaCont As Boolean = True, _
     End If
     tERR.Anotar "acei", CreditosValidar, CREDITOS
     
-    'grabar credito para validar
-    'creditosValidar ya se cargo en load de frmindex
-    
     If VarCre < 0 And SumaValidar Then
         CreditosValidar = CreditosValidar - VarCre
         EscribirArch1Linea GPF("radliv"), CStr(CreditosValidar)
+        
+        If RavI > 2 Then 'si ya aviso una vez
+            Dim F As String
+            F = TR.Trad("recuerde " + vbCrLf + "validar" + vbCrLf + _
+                "su equipo%98%Existe un sitema de validacion en que el " + _
+                "dueño del local donde esta la fonola debe llamar al" + _
+                "dueño y pedir una clave. Se usa para que no le roben " + _
+                "los equipos al dueño%99%")
+                
+            frmIndex.RollCRED.ReplaceIndex 0, F
+            frmIndex.RollCRED.ReplaceIndex 1, F
+            frmIndex.RollCRED.ReplaceIndex 2, F
+            
+            frmIndex.RollSONG.ReplaceIndex 0, F
+            frmIndex.RollSONG.ReplaceIndex 1, F
+            frmIndex.RollSONG.ReplaceIndex 2, F
+        End If
     End If
     
     DefinePrecios VarCre, PrecNowAudio, PrecNowVideo
@@ -936,13 +1121,13 @@ End Sub
 
 Public Function tbrFIX(n As Single, DecimalesTruncar As Long) As Single
     'truncar a una X cantidad de decimales
-    Dim sN As String
+    Dim SN As String
     'tratarlo como caracter es mas facil
-    sN = CStr(n)
+    SN = CStr(n)
     'si es entero entonces salgo, no hay nada que hacer
     Dim TieneDec As Boolean
-    If InStr(sN, ",") > 0 Then TieneDec = True
-    If InStr(sN, ".") > 0 Then TieneDec = True
+    If InStr(SN, ",") > 0 Then TieneDec = True
+    If InStr(SN, ".") > 0 Then TieneDec = True
     If TieneDec = False Then
         tbrFIX = n
         Exit Function
@@ -950,17 +1135,17 @@ Public Function tbrFIX(n As Single, DecimalesTruncar As Long) As Single
     
     Dim AA As Long, Largo As Long, BB As Long
     BB = 0 'cuenta la cantidad de decimales
-    Largo = Len(sN)
+    Largo = Len(SN)
     Dim EmpezoDec As Boolean
     EmpezoDec = False
     For AA = 1 To Largo
         If EmpezoDec Then BB = BB + 1
         'si se llega al total cortar ahi
         If BB = DecimalesTruncar Then
-            tbrFIX = CSng(Mid(sN, 1, AA))
+            tbrFIX = CSng(Mid(SN, 1, AA))
             Exit Function
         End If
-        If Mid(sN, AA, 1) = "." Or Mid(sN, AA, 1) = "," Then EmpezoDec = True
+        If Mid(SN, AA, 1) = "." Or Mid(SN, AA, 1) = "," Then EmpezoDec = True
     Next AA
     'si sale de aqui sin haber salido antes es porque no llega a la cantida deseada
     tbrFIX = n
@@ -1012,40 +1197,58 @@ Public Function GetPrecioVideoMasBarato() As Single
         
 End Function
 
-Public Sub AjustarFRM(FRM As Form, HechoParaTwipsHoriz)
+Public Sub Pintar_fBoton(FRM As Form)
+    Dim CTR
+    For Each CTR In FRM.Controls
+        If TypeOf CTR Is fBoton Then
+            CTR.BackColor = ColUnSel
+            CTR.BackColor2 = Col2UnSel
+        End If
+    Next
+End Sub
+
+Public Sub AjustarFRM(FRM As Form, HechoParaTwipsHoriz, HechoParaTwipsVertical)
     'ajusta el formulario a la pantalla. JOYA, JOYA
     'HechoParaPixelHoriz quiere decir que el tamaño original entra justo en
     'por ej 800x600 si el valor es 12000
+    
+    'SET 2007 YA LA PROPORCION ENTRE ANCHO Y ALTO NO ES IGUAL!! MONITORES
     Dim ActTwipsHoriz As Long
     ActTwipsHoriz = Screen.Width
-    Dim Multiplicador As Double
-    Multiplicador = ActTwipsHoriz / HechoParaTwipsHoriz
     
-    For Each ctr In FRM.Controls
-        If ctr.Name = "cmdPagAt" Then GoTo sig
-        If ctr.Name = "cmdPagAd" Then GoTo sig
-        If ctr.Name = "pVU1" Then GoTo sig
-        If ctr.Name = "pVU2" Then GoTo sig
-        If ctr.Name = "pVU3" Then GoTo sig
-        If ctr.Name = "pVU4" Then GoTo sig
-        If ctr.Name = "imgSelec2" Then GoTo sig
-        If ctr.Name = "cmdTocuhArriba2" Then GoTo sig
-        If ctr.Name = "cmdTouchAbajo2" Then GoTo sig
-        If ctr.Name = "cmdTocuhArriba" Then GoTo sig
-        If ctr.Name = "cmdTouchAbajo" Then GoTo sig
+    Dim ActTwipsVertical As Long
+    ActTwipsVertical = Screen.Height
+    
+    Dim MultiplicadorW As Double
+    Dim MultiplicadorH As Double
+    MultiplicadorW = ActTwipsHoriz / HechoParaTwipsHoriz
+    MultiplicadorH = ActTwipsVertical / HechoParaTwipsVertical
+    
+    For Each CTR In FRM.Controls
+        If CTR.name = "cmdPagAt" Then GoTo sig
+        If CTR.name = "cmdPagAd" Then GoTo sig
+        If CTR.name = "pVU1" Then GoTo sig
+        If CTR.name = "pVU2" Then GoTo sig
+        If CTR.name = "pVU3" Then GoTo sig
+        If CTR.name = "pVU4" Then GoTo sig
+        If CTR.name = "imgSelec2" Then GoTo sig
+        If CTR.name = "cmdTocuhArriba2" Then GoTo sig
+        If CTR.name = "cmdTouchAbajo2" Then GoTo sig
+        If CTR.name = "cmdTocuhArriba" Then GoTo sig
+        If CTR.name = "cmdTouchAbajo" Then GoTo sig
         
         'algunos controles no tienen algunas propiedades
         On Local Error Resume Next
-        tAs = ctr.Name
-        ctr.Height = ctr.Height * Multiplicador
-        ctr.Width = ctr.Width * Multiplicador
-        ctr.Top = ctr.Top * Multiplicador
-        ctr.Left = ctr.Left * Multiplicador
-        ctr.Font.Size = ctr.Font.Size * Multiplicador
-        ctr.X1 = ctr.X1 * Multiplicador
-        ctr.X2 = ctr.X2 * Multiplicador
-        ctr.Y1 = ctr.Y1 * Multiplicador
-        ctr.Y2 = ctr.Y2 * Multiplicador
+        tAs = CTR.name
+        CTR.Height = CTR.Height * MultiplicadorH
+        CTR.Width = CTR.Width * MultiplicadorW
+        CTR.Top = CTR.Top * MultiplicadorH
+        CTR.Left = CTR.Left * MultiplicadorW
+        CTR.Font.Size = CTR.Font.Size * MultiplicadorH '(si son distintos este seguro es menor por las nuevas definiciones que existen)
+        CTR.X1 = CTR.X1 * MultiplicadorW
+        CTR.X2 = CTR.X2 * MultiplicadorW
+        CTR.Y1 = CTR.Y1 * MultiplicadorH
+        CTR.Y2 = CTR.Y2 * MultiplicadorH
 sig:
     Next
 
@@ -1057,18 +1260,18 @@ Public Function LeerConfig(Conf As String, ValDefault As String) As String
     LeerConfig = "NO EXISTE"
     
     Dim TXT As String, CFG As String, RST As String
-    If FSO.FileExists(GPF("config")) Then
-        Set TE = FSO.OpenTextFile(GPF("config"), ForReading, False)
+    If fso.FileExists(GPF("config")) Then
+        Set TE = fso.OpenTextFile(GPF("config"), ForReading, False)
             Dim FullConfig As String
             FullConfig = TE.ReadAll
         TE.Close
         'desencriptar
         FullConfig = Encriptar(FullConfig, True)
         'escribir un temporal desencriptado
-        Set TE = FSO.CreateTextFile(AP + "tmp.tbr", True)
+        Set TE = fso.CreateTextFile(AP + "tmp.tbr", True)
             TE.Write FullConfig
         TE.Close
-        Set TE = FSO.OpenTextFile(AP + "tmp.tbr", ForReading, False)
+        Set TE = fso.OpenTextFile(AP + "tmp.tbr", ForReading, False)
             Do While Not TE.AtEndOfStream
                 TXT = TE.ReadLine
                 CFG = Trim(txtInLista(TXT, 0, "=")) 'la configuracion
@@ -1085,7 +1288,7 @@ Public Function LeerConfig(Conf As String, ValDefault As String) As String
             Loop
         TE.Close
         'borrar el temporal
-        FSO.DeleteFile AP + "tmp.tbr", True
+        fso.DeleteFile AP + "tmp.tbr", True
     End If
     If LeerConfig = "NO EXISTE" Then
         'cargar el valor por defecto
@@ -1106,8 +1309,8 @@ Public Function ChangeConfig(Conf As String, NewValue As String) As Long
     ChangeConfig = 2
     
     Dim TXT As String, CFG As String, RST As String
-    If FSO.FileExists(GPF("config")) Then
-        Set TE = FSO.OpenTextFile(GPF("config"), ForReading, False)
+    If fso.FileExists(GPF("config")) Then
+        Set TE = fso.OpenTextFile(GPF("config"), ForReading, False)
             Dim FullConfig As String
             FullConfig = TE.ReadAll
         TE.Close
@@ -1120,14 +1323,14 @@ Public Function ChangeConfig(Conf As String, NewValue As String) As Long
         FullConfig = "PrimerInicio=1"
     End If
     'escribir un temporal desencriptado
-    Set TE = FSO.CreateTextFile(AP + "tmp.tbr", True)
+    Set TE = fso.CreateTextFile(AP + "tmp.tbr", True)
         TE.Write FullConfig
     TE.Close
     
     Dim ValToReWrite As String 'leeo todo para que todo quede igual menos lo que cambio!!!
     ValToReWrite = ""
     
-    Set TE = FSO.OpenTextFile(AP + "tmp.tbr", ForReading, False)
+    Set TE = fso.OpenTextFile(AP + "tmp.tbr", ForReading, False)
         Do While Not TE.AtEndOfStream
             TXT = TE.ReadLine
             
@@ -1141,11 +1344,16 @@ Public Function ChangeConfig(Conf As String, NewValue As String) As Long
                 Else
                     'al pedo, no voy a grabar nada!
                     TE.Close
-                    FSO.DeleteFile AP + "tmp.tbr", True
+                    fso.DeleteFile AP + "tmp.tbr", True
                     ChangeConfig = 1
                     Exit Function
                 End If
-                Exit Do
+                
+                '***************************************
+                'Exit Do
+                'NOOOOOOOOOOOOOOOOOOOOOOOOOOOO hace que se corte hasta
+                'aqui y no grabe lo demás !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                '***************************************
             Else 'pasa derecho como estaba a lo siguiente
                 'no perder el renglon
                 ValToReWrite = ValToReWrite + TXT + vbCrLf
@@ -1156,19 +1364,19 @@ Public Function ChangeConfig(Conf As String, NewValue As String) As Long
         If ChangeConfig = 2 Then
             ValToReWrite = ValToReWrite + Conf + "=" + NewValue + vbCrLf
         End If
-        
     TE.Close
+    
     'borrar el temporal
-    FSO.DeleteFile AP + "tmp.tbr", True
+    fso.DeleteFile AP + "tmp.tbr", True
     
     'encriptar
     ValToReWrite = Encriptar(ValToReWrite, False)
     'grabar el kilombo
-    Set TE = FSO.CreateTextFile(GPF("config"), True)
+    Set TE = fso.CreateTextFile(GPF("config"), True)
         TE.Write ValToReWrite
     TE.Close
     'hacer una copia de seguridad cada vez que haya cambios
-    FSO.CopyFile GPF("config"), GPF("config2")
+    fso.CopyFile GPF("config"), GPF("config2")
     
     Exit Function
     
@@ -1263,16 +1471,16 @@ Public Function QuitarNumeroDeTema(TemaFull As String) As String
     If NumersoAlInicio > 0 Then
         tmpTema = Trim(Right(TemaFull, Len(TemaFull) - 3))
         'ver si quedo con esto
-        Dim a As Long
-        For a = 1 To 4
-            If Mid(tmpTema, a, 1) = "-" _
-                Or Mid(tmpTema, a, 1) = "_" _
-                Or Mid(tmpTema, a, 1) = "/" _
-                Or Mid(tmpTema, a, 1) = "@" _
-                Or Mid(tmpTema, a, 1) = "[" _
-                Or Mid(tmpTema, a, 1) = "]" _
-                Or Mid(tmpTema, a, 1) = "(" _
-                Or Mid(tmpTema, a, 1) = ")" Then
+        Dim A As Long
+        For A = 1 To 4
+            If Mid(tmpTema, A, 1) = "-" _
+                Or Mid(tmpTema, A, 1) = "_" _
+                Or Mid(tmpTema, A, 1) = "/" _
+                Or Mid(tmpTema, A, 1) = "@" _
+                Or Mid(tmpTema, A, 1) = "[" _
+                Or Mid(tmpTema, A, 1) = "]" _
+                Or Mid(tmpTema, A, 1) = "(" _
+                Or Mid(tmpTema, A, 1) = ")" Then
                 tmpTema = Trim(Right(tmpTema, Len(tmpTema) - 1))
             End If
         Next
@@ -1296,19 +1504,26 @@ Public Sub InfoDisco(LBL As Label)
     Dim DiscoInst3PM As String
     DiscoInst3PM = Left(AP, 1)
     DiscoInst3PM = DiscoInst3PM + ":\"
-    TotDisco = Round(FSO.Drives(DiscoInst3PM).TotalSize / 1024 / 1024, 2)
-    TotFree1 = Round(FSO.Drives(DiscoInst3PM).AvailableSpace / 1024 / 1024, 2)
-    TotFree2 = Round(FSO.Drives(DiscoInst3PM).FreeSpace / 1024 / 1024, 2)
-    Serial = FSO.Drives(DiscoInst3PM).SerialNumber
-    VolName = FSO.Drives(DiscoInst3PM).VolumeName
+    TotDisco = Round(fso.Drives(DiscoInst3PM).TotalSize / 1024 / 1024, 2)
+    TotFree1 = Round(fso.Drives(DiscoInst3PM).AvailableSpace / 1024 / 1024, 2)
+    TotFree2 = Round(fso.Drives(DiscoInst3PM).FreeSpace / 1024 / 1024, 2)
+    Serial = fso.Drives(DiscoInst3PM).SerialNumber
+    VolName = fso.Drives(DiscoInst3PM).VolumeName
     
     Dim PorcLibre As Double
     PorcLibre = Round(TotFree1 / TotDisco * 100, 2)
     
-    LBL = "Informacion del disco (" + VolName + ")" + vbCrLf + _
-    "Total disco: " + CStr(TotDisco) + " MB" + vbCrLf + _
-    "Total Disponible: " + CStr(TotFree1) + " MB" + vbCrLf + _
-    "Porcentaje libre: " + CStr(PorcLibre) + "%"
+    TR.SetVars VolName, TotDisco, TotFree1, (TotFree1 / TotDisco) * 100
+    
+    LBL.Caption = TR.Trad("Informacion del disco (%01%)" + vbCrLf + _
+        "Total disco: %02% MB" + vbCrLf + _
+        "Total Disponible: %03% MB" + vbCrLf + _
+        "Porcentaje libre: %04% % %98%La variable 1 es la etiqueta " + _
+        "o nombre de una de las particiones del disco" + vbCrLf + _
+        "La variable 2 es el total de MegaBytes del disco mencionado" + vbCrLf + _
+        "La variable 3 es el total de MegaBytes libres del disco mencionado" + vbCrLf + _
+        "La variable 4 es el porcentaje disponible del disco mencionado" + vbCrLf + _
+        "%99%")
 End Sub
 
 Public Function InfoDisco2(LetraDisco As String, ByRef MbTotal As Long, _
@@ -1317,11 +1532,17 @@ Public Function InfoDisco2(LetraDisco As String, ByRef MbTotal As Long, _
     Dim TotDisco, TotFree1, TotFree2, Serial As String, VolName As String
     'ver en que disco esta instalado
     LetraDisco = LetraDisco + ":\"
-    TotDisco = Round(FSO.Drives(LetraDisco).TotalSize / 1024 / 1024, 2)
-    TotFree1 = Round(FSO.Drives(LetraDisco).AvailableSpace / 1024 / 1024, 2)
-    TotFree2 = Round(FSO.Drives(LetraDisco).FreeSpace / 1024 / 1024, 2)
-    Serial = FSO.Drives(LetraDisco).SerialNumber
-    VolName = FSO.Drives(LetraDisco).VolumeName
+    
+    '--------------MANUEL----------------------------------------
+    If fso.Drives(LetraDisco).IsReady = False Then Exit Function
+    '------------------------------------------------------------
+    
+    
+    TotDisco = Round(fso.Drives(LetraDisco).TotalSize / 1024 / 1024, 2)
+    TotFree1 = Round(fso.Drives(LetraDisco).AvailableSpace / 1024 / 1024, 2)
+    TotFree2 = Round(fso.Drives(LetraDisco).FreeSpace / 1024 / 1024, 2)
+    Serial = fso.Drives(LetraDisco).SerialNumber
+    VolName = fso.Drives(LetraDisco).VolumeName
     
     Dim PorcLibre As Double
     PorcLibre = Round(TotFree1 / TotDisco * 100, 2)
@@ -1330,8 +1551,11 @@ Public Function InfoDisco2(LetraDisco As String, ByRef MbTotal As Long, _
     MbLibre = TotFree1
     PorcFree = PorcLibre
     
-    InfoDisco2 = LetraDisco + "(" + VolName + ")=" + CStr(TotDisco) + " MB y " + _
-        CStr(TotFree1) + " MB libres (" + CStr(PorcLibre) + "%)"
+    TR.SetVars _
+        LetraDisco + "(" + VolName + ")=" + CStr(TotDisco), _
+        TotFree1, _
+        PorcLibre
+    InfoDisco2 = TR.Trad("%01% MB totales y %02% MB libres (%03% %)%99%")
 End Function
 
 Public Sub VerSiTocaPUB()
@@ -1360,7 +1584,7 @@ Public Sub VerSiTocaPUB()
             ArchPub = PUBs.ArchsPubs(PUBs.UltimaReproducida)
             
             'otra seguridad mas
-            If FSO.FileExists(ArchPub) Then
+            If fso.FileExists(ArchPub) Then
                 'pasar a la lista de reproducción
                 tLST.ListaAdd ArchPub, "PUB"
                 'escribir la lista en pantalla
@@ -1376,22 +1600,27 @@ Public Sub VerSiTocaPUB()
 End Sub
 
 Public Sub ShowCredits()
-    
     Select Case ShowCreditsMode
-    Case 0 'modo plata
-        If CREDITOS = 0 Then
-            frmIndex.lblCreditos = "Inserte moneda"
-        Else
-            frmIndex.lblCreditos = "Credito " + CStr(FormatCurrency(CREDITOS * PrecioBase / TemasPorCredito, , , , vbFalse))
-        End If
-    Case 1 'modo creditos
-        If CREDITOS = 0 Then
-            frmIndex.lblCreditos = "Inserte moneda"
-        Else
-            frmIndex.lblCreditos = "Credito " + CStr(Round(CREDITOS, 2))
-        End If
+        Case 0 'modo plata
+            If CREDITOS = 0 Then
+                frmIndex.lblCreditos.Caption = TR.Trad("Inserte moneda" + _
+                    "%98%aviso de que no hay credito para ejecutar%99%")
+            Else
+                frmIndex.lblCreditos.Caption = TR.Trad("Credito" + _
+                "%98%aviso de credito disponible%99%") + _
+                    " " + CStr(FormatCurrency(CREDITOS * PrecioBase / TemasPorCredito, _
+                    , , , vbFalse))
+            End If
+            
+        Case 1 'modo créditos
+            If CREDITOS = 0 Then
+                frmIndex.lblCreditos = TR.Trad("Inserte moneda%99%" + _
+                    "%98%aviso de que no hay credito para ejecutar%99%")
+            Else
+                frmIndex.lblCreditos = TR.Trad("Credito%99%") + " " + _
+                    CStr(Round(CREDITOS, 2))
+            End If
     End Select
-    
 End Sub
 
 Public Function FindIndexOfLst(SplitSpace1 As String, CMB As ComboBox) As Long
@@ -1405,15 +1634,13 @@ Public Function FindIndexOfLst(SplitSpace1 As String, CMB As ComboBox) As Long
     End If
     Dim Largo As Long
     Largo = Len(SplitSpace1)
-    Dim a As Long
-    For a = 0 To CMB.ListCount - 1
-        If Left(CMB.List(a), Largo) = SplitSpace1 Then
-            FindIndexOfLst = a
+    Dim A As Long
+    For A = 0 To CMB.ListCount - 1
+        If Left(CMB.List(A), Largo) = SplitSpace1 Then
+            FindIndexOfLst = A
             Exit Function
         End If
-    Next a
-    
-    
+    Next A
 End Function
 
 Public Sub QuitaIndiceMatriz(mtxToBorrar, iQuitar As Long)
@@ -1433,8 +1660,8 @@ Public Sub SumarMatriz(MatrizAcumuladora() As String, MatrizAgregada() As String
 
     Dim YaEmpezo As Boolean
     YaEmpezo = False
-    Dim J As Long, a As Long
-    For a = 1 To UBound(MatrizAgregada)
+    Dim J As Long, A As Long
+    For A = 1 To UBound(MatrizAgregada)
         'si es la primera suma me quedaria el indice cero al pedo!!!
         If UBound(MatrizAcumuladora) = 0 And YaEmpezo = False Then
             'ver si viene vacio ese cero o con el ranking si estuviera asi configurado
@@ -1449,8 +1676,12 @@ Public Sub SumarMatriz(MatrizAcumuladora() As String, MatrizAgregada() As String
         End If
         
         ReDim Preserve MatrizAcumuladora(J)
-        MatrizAcumuladora(J) = MatrizAgregada(a)
-    Next a
+        MatrizAcumuladora(J) = MatrizAgregada(A)
+        
+        frmINI.lblINI.Caption = TR.Trad("Ordenando...%99%") + MatrizAgregada(A)
+        frmINI.lblINI.Refresh
+        frmINI.pBAR.Width = (frmINI.lblINI.Width * A / UBound(MatrizAgregada)) Mod frmINI.lblINI.Width
+    Next A
 
 End Sub
 
@@ -1465,15 +1696,15 @@ Public Sub CaminoError(Ubic As String)
     LineaError = AcumCaminoError
 End Sub
 
-Public Function GetParam3PM(i As Long) As String
+Public Function GetParam3PM(I As Long) As String
     'devuelve los comandos aplicados luego del exe
     Dim SP() As String
     SP = Split(Cs)
     
-    If i > UBound(s) Then
+    If I > UBound(S) Then
         GetParam = ""
     Else
-        GetParam = SP(i)
+        GetParam = SP(I)
     End If
     
 End Function
@@ -1497,7 +1728,7 @@ Public Function FindParam3PM(txtToFind As String) As String
     
 End Function
 
-Public Function LTE(i As Long) As Long  'llego tecla especial
+Public Function LTE(I As Long) As Long  'llego tecla especial
     'i es el indice de tecla especial
     'La 0 es la tecla Q. o sea la principal entrada de moneda
     'La 1 es la tecla S. o sea la entrada de moneda secundaria
@@ -1508,54 +1739,54 @@ Public Function LTE(i As Long) As Long  'llego tecla especial
     
     'MOCAAAAASO cuando pasa la media noche timer es menor que TimeLastCoin(i)
     'por lo tanto se queda esperando !!!!
-    If Timer < TimeLastCoin(i) Then
-        TimeLastCoin(i) = Timer
-        CoinMuyJuntosAcum(i) = 1
+    If Timer < TimeLastCoin(I) Then
+        TimeLastCoin(I) = Timer
+        CoinMuyJuntosAcum(I) = 1
         Exit Function
     End If
     
-    If Timer - TimeLastCoin(i) < (TimeMaxSeparacion(i) / 1000) Then
-        CoinMuyJuntosAcum(i) = CoinMuyJuntosAcum(i) + 1
-        EsperarFinTE i
+    If Timer - TimeLastCoin(I) < (TimeMaxSeparacion(I) / 1000) Then
+        CoinMuyJuntosAcum(I) = CoinMuyJuntosAcum(I) + 1
+        EsperarFinTE I
     Else
         'el reloj debe detectarlo para saber a cuanto llego
         'y desde alli ponerlo en cero
-        CoinMuyJuntosAcum(i) = 1
+        CoinMuyJuntosAcum(I) = 1
     End If
     
-    TimeLastCoin(i) = Timer
-    LTE = CoinMuyJuntosAcum(i)
+    TimeLastCoin(I) = Timer
+    LTE = CoinMuyJuntosAcum(I)
     'wLTE CoinMuyJuntosAcum(i)
 End Function
 
 'esperar X desde la ultima tecla especial para ver si termina o no
-Private Sub EsperarFinTE(i As Long)  'esperar tecla especial hasta terminar
+Private Sub EsperarFinTE(I As Long)  'esperar tecla especial hasta terminar
     
     Dim LastC As Long
     'me quedo esperando que pase el tiempo
     Do
         DoEvents: DoEvents
-        If (Timer - TimeLastCoin(i)) > (TimeMaxSeparacion(i) / 1000) Then Exit Do
+        If (Timer - TimeLastCoin(I)) > (TimeMaxSeparacion(I) / 1000) Then Exit Do
         'MOCAAAAASO cuando pasa la media noche timer es menor que TimeLastCoin(i)
         'por lo tanto se queda esperando !!!!
-        If Timer <= TimeLastCoin(i) Then Exit Do 'NUNCA DESPUES DE LA MEDIANOCHE !!!
+        If Timer <= TimeLastCoin(I) Then Exit Do 'NUNCA DESPUES DE LA MEDIANOCHE !!!
     Loop
     
-    TerminoLTE i
-    CoinMuyJuntosAcum(i) = 0
-    TimeLastCoin(i) = 0
+    TerminoLTE I
+    CoinMuyJuntosAcum(I) = 0
+    TimeLastCoin(I) = 0
 End Sub
 
-Private Sub TerminoLTE(i As Long)
+Private Sub TerminoLTE(I As Long)
     'cuando dejo de llegar la tecla especial
     
     'si el valor asigndo estaba en cero se ignora y no hay reemplazo
     
     Dim J As Long
-    If i = 1 Then
+    If I = 1 Then
         For J = 1 To UBound(ValoresATransformar1)
             'si los valores que llegaron son los previstos como fallas ==>
-            If CoinMuyJuntosAcum(i) = J Then
+            If CoinMuyJuntosAcum(I) = J Then
                 'poner ValoresATransformar(J)-j mas señales a la tecla especial indicada
                 'mandar esa misma señal las veces que falta
                 If ValoresATransformar1(J) > 0 Then
@@ -1572,13 +1803,13 @@ Private Sub TerminoLTE(i As Long)
                 Exit For
             End If
         Next J
-        CoinMuyJuntosAcum(i) = 0
+        CoinMuyJuntosAcum(I) = 0
     End If
     
-    If i = 2 Then
+    If I = 2 Then
         For J = 1 To UBound(ValoresATransformar2)
             'si los valores que llegaron son los previstos como fallas ==>
-            If CoinMuyJuntosAcum(i) = J Then
+            If CoinMuyJuntosAcum(I) = J Then
                 'poner ValoresATransformar(J)-j mas señales a la tecla especial indicada
                 'mandar esa misma señal las veces que falta
                 If ValoresATransformar2(J) > 0 Then
@@ -1593,7 +1824,7 @@ Private Sub TerminoLTE(i As Long)
                 Exit For
             End If
         Next J
-        CoinMuyJuntosAcum(i) = 0
+        CoinMuyJuntosAcum(I) = 0
     End If
 End Sub
 
@@ -1605,8 +1836,8 @@ Private Sub CargarValoresTeclasEspeciales()
     ReDim Preserve ValoresATransformar1(20)
     ReDim Preserve ValoresATransformar2(20)
     
-    If FSO.FileExists(GPF("rempmon45")) Then
-        Set TE8 = FSO.OpenTextFile(GPF("rempmon45"), ForReading, False)
+    If fso.FileExists(GPF("rempmon45")) Then
+        Set TE8 = fso.OpenTextFile(GPF("rempmon45"), ForReading, False)
             TMP = TE8.ReadLine 'solo dice "to Q"
             For J = 1 To 20
                 TMP = TE8.ReadLine
@@ -1656,7 +1887,7 @@ Public Sub VerSiTocaVMute()
     Dim FJ As String
     FJ = PUBs.ArchsVMute(PUBs.UltimaReproducidaVMute)
     
-    If FSO.FileExists(FJ) = False Then Exit Sub
+    If fso.FileExists(FJ) = False Then Exit Sub
         
     ' Tocar el fichero
     On Local Error GoTo ErrEjecutarTema
@@ -1664,13 +1895,15 @@ Public Sub VerSiTocaVMute()
     
     frmIndex.MP3.FileName(3) = FJ
     frmVIDEO.picBigImg.Visible = False
-    frmIndex.MP3.DoOpenVideo "child", frmVIDEO.picVideo.hwnd, 0, 0, _
+    frmIndex.MP3.DoOpenVideo "child", frmVIDEO.picVideo.HWND, 0, 0, _
         (frmVIDEO.picVideo.Width / 15), (frmVIDEO.picVideo.Height / 15), 3
     
     TotalTema(3) = frmIndex.MP3.LengthInSec(3)
     'UpdateHastaTema 3 'no hace falta parece
     
     frmIndex.picVideo(IAANext).Visible = False
+    frmIndex.picKAR.Visible = False
+    frmVIDEO.picKAR_V.Visible = False
     frmVIDEO.picVideo.Visible = True
     frmIndex.MP3.Volumen(3) = 0 ' ES MUDOOOO
     frmIndex.MP3.DoPlay 3
@@ -1692,22 +1925,29 @@ Public Function GetPrecios(lFormat As Long, Separador As String) As String
     TMP = ""
     
     If CreditosCuestaTema(0) = 0 And CreditosCuestaTema(1) = 0 And CreditosCuestaTema(2) = 0 Then
-        TMP = "Musica Gratis"
+        TMP = TR.Trad("Musica Gratis%98%Se refiere a los precios. En este caso se puso el precio en cero%99%")
     End If
+    
     If CreditosCuestaTema(0) > 0 Then
         Select Case lFormat
             Case 0
-                TMP = "1 cancion = " + CStr(FormatCurrency((PrecioBase / TemasPorCredito) * CreditosCuestaTema(0), , , , vbFalse))
+                TMP = TR.Trad("1 cancion%99%") + " = " + CStr(FormatCurrency((PrecioBase / TemasPorCredito) * CreditosCuestaTema(0), , , , vbFalse))
             Case 1
-                TMP = "1 cancion = " + CStr(Round(CreditosCuestaTema(0))) + " cred."
+                TMP = TR.Trad("1 cancion%99%") + " = " + _
+                    CStr(Round(CreditosCuestaTema(0))) + _
+                    TR.Trad(" cred.%98%abreviatura de créditos%99%")
         End Select
     End If
+    
     If CreditosCuestaTema(1) > 0 Then
         Select Case lFormat
             Case 0
-                TMP = TMP + Separador + "2 canciones = " + CStr(FormatCurrency((PrecioBase / TemasPorCredito) * CreditosCuestaTema(1), , , , vbFalse))
+                TMP = TMP + Separador + TR.Trad("2 canciones%99%") + " = " + _
+                    CStr(FormatCurrency((PrecioBase / TemasPorCredito) * CreditosCuestaTema(1), , , , vbFalse))
             Case 1
-                TMP = TMP + Separador + "2 canciones = " + CStr(Round(CreditosCuestaTema(1), 2)) + " cred."
+                TMP = TMP + Separador + TR.Trad("2 canciones%99%") + " = " + _
+                    CStr(Round(CreditosCuestaTema(1), 2)) + _
+                    TR.Trad(" cred.%98%abreviatura de créditos%99%")
         End Select
         
     End If
@@ -1715,54 +1955,76 @@ Public Function GetPrecios(lFormat As Long, Separador As String) As String
     If CreditosCuestaTema(2) > 0 Then
         Select Case lFormat
             Case 0
-                TMP = TMP + Separador + "3 canciones = " + CStr(FormatCurrency((PrecioBase / TemasPorCredito) * CreditosCuestaTema(2), , , , vbFalse))
+                TMP = TMP + Separador + _
+                    TR.Trad("3 canciones%99%") + " = " + _
+                    CStr(FormatCurrency((PrecioBase / TemasPorCredito) * CreditosCuestaTema(2), , , , vbFalse))
             Case 1
-                TMP = TMP + Separador + "3 canciones = " + CStr(Round(CreditosCuestaTema(2))) + " cred."
+                TMP = TMP + Separador + _
+                    TR.Trad("3 canciones%99%") + " = " + _
+                        CStr(Round(CreditosCuestaTema(2), 2)) + _
+                        TR.Trad(" cred.%98%abreviatura de créditos%99%")
         End Select
     End If
     
     'si es gratis no usar!
     If CreditosCuestaTemaVIDEO(0) = 0 And CreditosCuestaTemaVIDEO(1) = 0 And CreditosCuestaTemaVIDEO(2) = 0 Then
-        TMP = TMP + Separador + "Videos Gratis"
+        TMP = TMP + Separador + TR.Trad("Videos Gratis%99%")
     End If
+    
     If CreditosCuestaTemaVIDEO(0) > 0 Then
         Select Case lFormat
             Case 0
-                TMP = TMP + Separador + "1 video = " + CStr(FormatCurrency(CreditosCuestaTemaVIDEO(0) * (PrecioBase / TemasPorCredito), , , , vbFalse))
+                TMP = TMP + Separador + TR.Trad("1 video%99%") + " = " + _
+                    CStr(FormatCurrency(CreditosCuestaTemaVIDEO(0) * (PrecioBase / TemasPorCredito), , , , vbFalse))
             Case 1
-                TMP = TMP + Separador + "1 video = " + CStr(Round(CreditosCuestaTemaVIDEO(0))) + " cred."
+                TMP = TMP + Separador + TR.Trad("1 video%99%") + " = " + _
+                CStr(Round(CreditosCuestaTemaVIDEO(0))) + _
+                TR.Trad(" cred.%98%abreviatura de créditos%99%")
         End Select
     End If
         
     If CreditosCuestaTemaVIDEO(1) > 0 Then
         Select Case lFormat
             Case 0
-                TMP = TMP + Separador + "2 videos = " + CStr(FormatCurrency(CreditosCuestaTemaVIDEO(1) * (PrecioBase / TemasPorCredito), , , , vbFalse))
+                TMP = TMP + Separador + TR.Trad("2 videos%99%") + " = " + _
+                    CStr(FormatCurrency(CreditosCuestaTemaVIDEO(1) * (PrecioBase / TemasPorCredito), , , , vbFalse))
             Case 1
-                TMP = TMP + Separador + "2 videos = " + CStr(Round(CreditosCuestaTemaVIDEO(1))) + " cred."
+                TMP = TMP + Separador + TR.Trad("2 videos%99%") + " = " + _
+                    CStr(Round(CreditosCuestaTemaVIDEO(1))) + _
+                    TR.Trad(" cred.%98%abreviatura de créditos%99%")
         End Select
     End If
         
     If CreditosCuestaTemaVIDEO(2) > 0 Then
         Select Case lFormat
             Case 0
-                TMP = TMP + Separador + "3 videos = " + CStr(FormatCurrency((PrecioBase / TemasPorCredito) * CreditosCuestaTemaVIDEO(2), , , , vbFalse))
+                TMP = TMP + Separador + TR.Trad("3 videos%99%") + " = " + _
+                    CStr(FormatCurrency((PrecioBase / TemasPorCredito) * CreditosCuestaTemaVIDEO(2), , , , vbFalse))
             Case 1
-                TMP = TMP + Separador + "3 videos = " + CStr(Round(CreditosCuestaTemaVIDEO(2))) + " cred."
+                TMP = TMP + Separador + TR.Trad("3 videos%99%") + " = " + _
+                    CStr(Round(CreditosCuestaTemaVIDEO(2))) + _
+                    TR.Trad(" cred.%98%abreviatura de créditos%99%")
         End Select
     End If
     
     GetPrecios = TMP
 End Function
 
-Public Sub UpdateHastaTema(i As Long)
-    frmIndex.MP3.HastaTema(i) = TotalTema(i)
+Public Sub UpdateHastaTema(I As Long)
+    frmIndex.MP3.HastaTema(I) = TotalTema(I)
 End Sub
 
 Public Sub YaCerrar3PM(Optional NoApagaaaar As Boolean = False)
     
+    If TengoBluetooth Then BTM.unInitialize
+    
+    UB.Terminar 'si no se clava feo
+    
     tERR.Anotar "acdn0"
-    If ActivarERR Then tERR.StopGrabaTodo 'cierra y borra el archivo ya que se grabo OK
+    If ActivarERR Then
+        tERR.StopGrabaTodo 'cierra y borra el archivo ya que se grabo OK
+        'tambien el de MM
+    End If
     
     tERR.Anotar "acdn1"
     SetKeyState vbKeyCapital, False
@@ -1795,7 +2057,7 @@ Public Sub SelPagina(RitmoSel As String, Optional PrimeraLetra As String = "A")
     Dim VueltasCompletas As Long
     VueltasCompletas = 0
     Do
-        FolSel = UCase(FSO.GetBaseName(FSO.GetParentFolderName(txtInLista(MATRIZ_DISCOS(AA), 0, ","))))
+        FolSel = UCase(fso.GetBaseName(fso.GetParentFolderName(txtInLista(MATRIZ_DISCOS(AA), 0, ","))))
         FolRit = UCase(RitmoSel)
         
         If FolSel = FolRit Then
@@ -1942,4 +2204,152 @@ End Sub
 'ES EL MISMO DE MSCOMPU GARKA!!!!!!!!!!!!!!!!
 'enrique israel mora suarez EIMS611609yyw
 'desiderio meneseres BOL Des911BOL1011
+
+Public Function RavI() As Long
+
+    tERR.Anotar "acfh", VALIDAR
+    
+    
+    If VALIDAR Then
+        'ver cual es el máximo y si hay que avisar
+        tERR.Anotar "acfj", CreditosValidar, ValidarCada, AvisarAntes
+        Dim QuedanC As Long
+        QuedanC = ValidarCada - CreditosValidar
+        
+        If (CreditosValidar > QuedanC) Then
+                
+            'que solo pida una vez la clave por cada sesión
+            If QuedanC > 0 Then
+                'esta perdonado, solo una vez por sesion
+                If YaPediCL Then
+                    RavI = 3
+                    Exit Function
+                Else
+                    RavI = 2
+                End If
+            Else 'ya esta pasado
+                If YaPediCL Then
+                    'ya esta avisado que no joda!!!"
+                    RavI = 5
+                Else
+                    RavI = 4
+                End If
+            End If
+        
+            'solicitar una clave
+            'se podra saltear solo si todavia no llego al limite
+            'uso el frmClave que tiene la variable publica ClaveIngresada
+            Dim ClaveCorrespondiente As String
+            ClaveCorrespondiente = NumToTec(ClaveParaValidar(CodigoParaClaveActual))
+            
+            tERR.Anotar "acfl"
+            YaPediCL = True
+            frmCLAVE.Show 1
+            
+            'que no tome el enter de frmclave.show en el index!
+            frmIndex.OkInState1 = 0
+            
+            tERR.Anotar "acfm", UCase(ClaveIngresada), UCase(ClaveCorrespondiente)
+            
+            'si pone la clave de administrador tambien vale
+            If UCase(ClaveIngresada) = UCase(ClaveAdmin) Then GoTo mOK
+            If UCase(ClaveIngresada) = "RMLVF" Then GoTo mOK
+            
+            If TexToTec(UCase(ClaveIngresada)) <> UCase(ClaveCorrespondiente) Then
+                If QuedanC > 0 Then
+                    
+                Else
+                    If K.LICENCIA("3pm") <= CGratuita Then
+                        MsgBox TR.Trad("Si hubiera una licencia cargada " + _
+                        "esta máquina estaría bloqueada!!!" + vbCrLf + _
+                        "MAS CUIDADO LA PROXIMA VEZ%98%Se refiere a bloqueo " + _
+                        "de seguridad configurado para que los que trabajan " + _
+                        "los equipos no se los roben a los dueños%99%")
+                    Else 'solo lo mato si no es ua PC de prueba
+                        'MsgBox "No podrá seguir utilizando 3PM hasta que valide con la clave correspondiente"
+                        'otra forma de bloqueo que no sea salir directo que es muy detectable
+                        'End
+                        'no digamos que bruto que loco pero no es un simple END
+                        
+                        'otra opcion es
+                        'YaCerrar3PM
+                        
+                        'otra mas fea es
+'                        Randomize
+'                        Dim J As Long
+'                        J = Int(Rnd * 30)
+'                        ReDim Preserve MATRIZ_DISCOS(J)
+                        
+                        On Local Error Resume Next
+                        Dim JK As Long
+                        For JK = 0 To 30
+                            frmIndex.TapaCD(JK).Top = -frmIndex.TapaCD(JK).Height * 2
+                        Next JK
+                    End If
+                End If
+            Else
+mOK:
+                RavI = 1
+                tERR.Anotar "acfn"
+                'todo OK. Cargo bien la clave
+                CreditosValidar = 0
+                EscribirArch1Linea GPF("radliv"), "0"
+                'empezar un nuevo periodo
+                CrearNuevoCodigoValidar 'graba el archivo con un numero al azar
+            End If
+        Else 'pidieron validar pero todavia falta
+            RavI = 1
+        End If
+        tERR.Anotar "acfo", ValidarCada, CodigoParaClaveActual
+    Else
+        RavI = 0 'nadie pidio validar
+    End If
+    
+End Function
+
+Public Function GetTag(TotalTag As String, par As String, _
+    Optional SEP1 As String = "|", Optional SEP2 As String = ":") As String
+    'lee un tag que sean datos separados por "|" y como PARAMETRO:VALOR dentro de cada elemento
+    'sep1 es "|" y sep2 es ":"
+    
+    On Local Error GoTo ErrTT
+    
+    Dim SP() As String
+    SP = Split(TotalTag, "|")
+    Dim C As Long, SP2() As String
+    For C = 0 To UBound(SP)
+        SP2 = Split(SP(C), ":")
+        Dim D As Long
+        For D = 0 To UBound(SP2) Step 2
+            If LCase(SP2(D)) = LCase(par) Then
+                GetTag = SP2(D + 1)
+                Exit Function
+            End If
+        Next D
+    Next C
+    
+    Exit Function
+    
+ErrTT:
+    GetTag = "ERR"
+End Function
+
+Public Function ForceFocus(HW As Long) As Boolean
+    If SetForegroundWindow(HW) = 0 Then
+        ForceFocus = False
+    Else
+        ForceFocus = True
+    End If
+End Function
+
+Public Sub SelBT(o As Object, Sel As Boolean)
+    If Sel Then
+        o.BackColor = ColSel
+        o.BackColor2 = Col2Sel
+    Else
+        o.BackColor = ColUnSel
+        o.BackColor2 = Col2UnSel
+    End If
+    o.Font.Bold = Sel
+End Sub
 

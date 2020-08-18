@@ -43,10 +43,12 @@ Public Enum vWindows
     WinNT4 = 6
     Win2000 = 7
     WinXp = 8
-    WinXP2 = 9 'despeus del XP
+    WinVista = 9
 End Enum
 
 Private ToNoCalculateAgain As vWindows
+
+Private strVersion As String
 
 Public Property Get Version() As vWindows
     Version = ToNoCalculateAgain
@@ -67,6 +69,10 @@ Public Function GetVersion() As vWindows
         
             Case VER_PLATFORM_WIN32s:
                 ToNoCalculateAgain = Win31
+                '*********StrVERSION**********
+                strVersion = "3.1"
+                '*********StrVERSION**********
+                
                 
             Case VER_PLATFORM_WIN32_WINDOWS
                 If osvi.dwMajorVersion = 4 Then
@@ -90,28 +96,54 @@ Public Function GetVersion() As vWindows
                     If osvi.dwMinorVersion = 90 Then ToNoCalculateAgain = WinME
                     
                 End If
+                
+                '*********StrVERSION**********
+                strVersion = CStr(osvi.dwMajorVersion) + "." + _
+                    CStr(osvi.dwMinorVersion) + "." + _
+                    CStr(osvi.dwBuildNumber) + "."
+                '*********StrVERSION**********
+                
+                
+                
+                
             Case VER_PLATFORM_WIN32_NT:
-            'NT4''''''''''''''''''''''''''''''
-            If osvi.dwMajorVersion = 4 Then ToNoCalculateAgain = WinNT4
-            
-            If osvi.dwMajorVersion = 5 Then
-            '2000''''''''''''''''''''''''''''''
-                If osvi.dwMinorVersion = 0 Then ToNoCalculateAgain = Win2000
-            'XP''''''''''''''''''''''''''''''
-                If osvi.dwMinorVersion >= 1 Then ToNoCalculateAgain = WinXp
-            End If
-            
-            'XP futuros y otros sistemas'''''
-            If osvi.dwMajorVersion > 5 Then ToNoCalculateAgain = WinXP2
-            
+                'NT4''''''''''''''''''''''''''''''
+                If osvi.dwMajorVersion = 4 Then
+                    ToNoCalculateAgain = WinNT4
+                End If
+                
+                If osvi.dwMajorVersion = 5 Then
+                '2000''''''''''''''''''''''''''''''
+                    If osvi.dwMinorVersion = 0 Then ToNoCalculateAgain = Win2000
+                'XP''''''''''''''''''''''''''''''
+                    If osvi.dwMinorVersion >= 1 Then ToNoCalculateAgain = WinXp
+                End If
+                
+                'XP futuros y otros sistemas'''''
+                If osvi.dwMajorVersion > 5 Then
+                    ToNoCalculateAgain = WinVista
+                End If
+                
+                '*********StrVERSION**********
+                strVersion = CStr(osvi.dwMajorVersion) + "." + _
+                    CStr(osvi.dwMinorVersion) + "." + _
+                    CStr(osvi.dwBuildNumber) + "."
+                '*********StrVERSION**********
         End Select
+        
+        
     End If
     GetVersion = ToNoCalculateAgain
+        
     Exit Function
 errh:
     ToNoCalculateAgain = Error
     GetVersion = ToNoCalculateAgain
 End Function
+
+Public Property Get GetStrWinVersion() As String
+    GetStrWinVersion = strVersion
+End Property
 
 Private Sub Class_Initialize()
     ToNoCalculateAgain = NoCalculadoAun

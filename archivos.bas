@@ -3,7 +3,7 @@ Option Explicit
 Option Compare Text
 
 Public Declare Function ShowCursor Lib "user32" (ByVal bShow As Long) As Long
-Public Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteA" (ByVal hwnd As Long, ByVal lpOperation As String, ByVal lpFile As String, ByVal lpParameters As String, ByVal lpDirectory As String, ByVal nShowCmd As Long) As Long
+Public Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteA" (ByVal HWND As Long, ByVal lpOperation As String, ByVal lpFile As String, ByVal lpParameters As String, ByVal lpDirectory As String, ByVal nShowCmd As Long) As Long
 
 ' API declaración (utilizada por la rutina EsperarPorProceso)
 Private Declare Function EsperarUnicoObjeto Lib "kernel32" _
@@ -15,7 +15,7 @@ Private Declare Function CloseHandle Lib "kernel32" _
 
 Public Sub AbrirArchivo(Arch As String, FrmSolicita As Form)
     tERR.Anotar "001-0001"
-    ShellExecute FrmSolicita.hwnd, vbNullString, Arch, vbNullString, vbNullString, vbMaximizedFocus
+    ShellExecute FrmSolicita.HWND, vbNullString, Arch, vbNullString, vbNullString, vbMaximizedFocus
 End Sub
 
 Public Function GPF(TXT As String) As String 'GetPathFile
@@ -30,14 +30,47 @@ Public Function GPF(TXT As String) As String 'GetPathFile
         Case "chdc02": TMP = "chd.c02" ' sf + "cc891.dll" hasta 894
         Case "chdc03": TMP = "chd.c03" '
         Case "chdc04": TMP = "chd.c04" '
+        Case "chdc05": TMP = "chd.c05" 'contadores de carrito ventas
+        Case "chdc06": TMP = "chd.c06" '
+        Case "chdc07": TMP = "chd.c07" '
+        Case "chdc08": TMP = "chd.c08" '
+        
         Case "config2": TMP = "eber.lud" 'copia de seguridad de la config sf + "autoSave3PM.cfg"
         Case "cd3pm": TMP = "cd3.pm" 'Clave sf + "dciLib22.dll"
         Case "cccd3pm": TMP = "cccd3.pm" 'Copia clave sf + "c2LK.dll"
         Case "cd4pm": TMP = "cd4.pm" 'Archivo de licencia 3pm 7.0 (GENERADO)
         Case "cd5pm": TMP = "cd5.pm" 'Archivo RECIBIDO de licencia 3pm 7.0 EN DESUSO
         Case "cd6pm": TMP = "cd6.pm" 'Archivo RECIBIDO de licencia 3pm 7.0 (Copia SEG) EN DESUSO
+        
         Case "cd7pm": TMP = "cd7.pm" 'Archivo RECIBIDO de licencia 3pm 7.0 COREGIDO Y EN USO
         Case "cd8pm": TMP = "cd8.pm" 'Archivo RECIBIDO de licencia 3pm 7.0 (Copia SEG) COREGIDO Y EN USO
+        
+        Case "plin1": TMP = "plin1.ppm" 'mLicencia3PMVtaMusica
+        Case "plin2": TMP = "plin2.ppm" 'mLicencia3PMVtaMusica BUP
+        
+        Case "plin3": TMP = "plin3.ppm" 'mLicencia3PMOrigMusicaFTP
+        Case "plin4": TMP = "plin4.ppm" 'mLicencia3PMOrigMusicaFTP BUP
+        
+        Case "plin5": TMP = "plin5.ppm" 'mLicencia3PMConfigOnline
+        Case "plin6": TMP = "plin6.ppm" 'mLicencia3PMConfigOnline BUP
+        
+        Case "plin7": TMP = "plin7.ppm" 'mLicenciaCD001Kar
+        Case "plin8": TMP = "plin8.ppm" 'mLicenciaCD001Kar BUP
+        
+        Case "plin9": TMP = "plin9.ppm" 'mLicenciaCD002Kar
+        Case "plin10": TMP = "plin10.ppm" 'mLicenciaCD002Kar BUP
+        
+        Case "plin11": TMP = "plin11.ppm" 'mLicenciaCD003Kar
+        Case "plin12": TMP = "plin12.ppm" 'mLicenciaCD003Kar BUP
+        
+        Case "plin13": TMP = "plin13.ppm" 'mLicenciaCD004Kar
+        Case "plin14": TMP = "plin14.ppm" 'mLicenciaCD004Kar BUP
+        
+        Case "plin15": TMP = "plin15.ppm" 'mLicenciaCD005Kar
+        Case "plin16": TMP = "plin16.ppm" 'mLicenciaCD005Kar BUP
+            
+        Case "plin17": TMP = "plin17.ppm" 'mLicenciaCD006Kar
+        Case "plin18": TMP = "plin18.ppm" 'mLicenciaCD006Kar BUP
         
         Case "rdcday": TMP = "rdc.day" 'registro diario del contador sf + "daily.cfg"
         Case "pdis233"
@@ -73,6 +106,8 @@ Public Function GPF(TXT As String) As String 'GetPathFile
         Case "adpdp2323": TMP = "adpdp2.323" 'algo del protector
         Case "casc1001": TMP = "casc1.001" 'canciones a seguir cantando
         Case "dalivmp2": TMP = "daliv.mp2" 'archivo con las claves para validar
+        Case "cart987": TMP = "cart.987"
+        Case "promocart": TMP = "pcraor.mto"
         Case Else: MsgBox "NO SE ENCUENTRA EL ARCHIVO:" + TXT
     End Select
     
@@ -131,7 +166,7 @@ Public Sub BuscarArchivosUbicVieja()
     'dejarla en system para que la version 7 la lea!!!!
     ArchNew = SF + "dciLib22.dll"
     ArchAnt = BasePath + "cd3.pm"
-    If FSO.FileExists(ArchAnt) Then FSO.CopyFile ArchAnt, ArchNew
+    If fso.FileExists(ArchAnt) Then fso.CopyFile ArchAnt, ArchNew
     
     'Copia clave
     ArchAnt = SF + "c2LK.dll": ArchNew = BasePath + "cccd3.pm"
@@ -229,41 +264,43 @@ Public Sub BuscarArchivosUbicVieja()
     ArchAnt = AP + "reini.tbr": ArchNew = BasePath + "casc1.001"
     ReplaceArch ArchAnt, ArchNew
         
+    Exit Sub
+    
 ErrBAV:
     tERR.AppendLog tERR.ErrToTXT(Err), "BAV: " + ArchAnt + " / " + ArchNew
     Resume Next
 
 End Sub
 
-Private Function ReplaceArch(Orig As String, Dest As String) As Long
+Private Function ReplaceArch(Orig As String, DEST As String) As Long
     
     On Local Error GoTo ErrBAV2
     
-    If FSO.FileExists(Orig) Then
-        If FSO.FileExists(Dest) Then FSO.DeleteFile Dest, True
-        FSO.MoveFile Orig, Dest
+    If fso.FileExists(Orig) Then
+        If fso.FileExists(DEST) Then fso.DeleteFile DEST, True
+        fso.MoveFile Orig, DEST
         ReplaceArch = 0
     End If
     Exit Function
     
 ErrBAV2:
     ReplaceArch = 1
-    tERR.AppendLog tERR.ErrToTXT(Err), "BAV: " + Orig + " / " + Dest
+    tERR.AppendLog tERR.ErrToTXT(Err), "BAV: " + Orig + " / " + DEST
     Resume Next
     
 End Function
 
-Private Function GetBasePath() As String
+Public Function GetBasePath() As String
     
     Dim BasePath As String                   'carpeta de cada archivo usado por 3pm
     
-    If FSO.FileExists(AP + "sf\bp3.bas") Then
+    If fso.FileExists(AP + "sf\bp3.bas") Then
         BasePath = LeerArch1Linea(AP + "sf\bp3.bas")
     Else
         BasePath = AP + "sf\"
     End If
     
-    If FSO.FolderExists(BasePath) = False Then FSO.CreateFolder BasePath
+    If fso.FolderExists(BasePath) = False Then fso.CreateFolder BasePath
     
     GetBasePath = BasePath
     
@@ -274,27 +311,28 @@ Public Sub ExportarCFG(Optional DestArch As String = "")
     Dim F As String
     If DestArch <> "" Then
         'para modo automático
-        If FSO.FileExists(DestArch) Then FSO.DeleteFile DestArch, True
+        If fso.FileExists(DestArch) Then fso.DeleteFile DestArch, True
         F = DestArch
     Else
         Dim CmdLg As New CommonDialog
-        CmdLg.DialogTitle = "Exportar Archivo de configuración de 3PM"
+        CmdLg.DialogTitle = TR.Trad("Exportar Archivo de configuración de 3PM%99%")
         CmdLg.ShowSave
     
         F = CmdLg.FileName
         If F = "" Then Exit Sub
     
-        If FSO.FileExists(F) Then
-            If MsgBox("Ya existe el archivo " + vbCrLf + F + _
-                vbCrLf + "¿Desea reemplazarlo?", vbQuestion + vbYesNo) = _
+        If fso.FileExists(F) Then
+            TR.SetVars F
+            If MsgBox(TR.Trad("Ya existe el archivo " + vbCrLf + _
+                "%01%" + vbCrLf + _
+                "¿Desea reemplazarlo?%99%"), vbQuestion + vbYesNo) = _
                 vbNo Then Exit Sub
         End If
     End If
     
-    
-    FSO.CopyFile GPF("config"), F, True
+    fso.CopyFile GPF("config"), F, True
     'solo mostrar el mensaje si lo habia abierto el usuario
-    If DestArch = "" Then MsgBox "El archivo se exporto correctamente"
+    If DestArch = "" Then MsgBox TR.Trad("El archivo se exporto correctamente%99%")
 
 End Sub
 
@@ -310,18 +348,26 @@ Public Sub MostrarCursor(Mostrar As Boolean)
     If LCase(AP) = "d:\dev\3pm kundera 69000\dlllistarep\" Then Exit Sub
     If LCase(AP) = "d:\dev\3pm kundera 70000\dlllistarep\" Then Exit Sub
     If LCase(AP) = "d:\dev\3pm kundera 70000\" Then Exit Sub
+    If LCase(AP) = "d:\dev\3pm kundera 71000\" Then Exit Sub
+    If LCase(AP) = "d:\dev\3pm kundera 71500\" Then Exit Sub
+    If LCase(AP) = "d:\dev\3pm kundera 716226\" Then Exit Sub
+    If LCase(AP) = "d:\dev\3pm kundera 718047\" Then Exit Sub
     If LCase(AP) = "d:\dev\3pmkun~3\" Then Exit Sub
     If LCase(AP) = "d:\dev\3pmkun~4\" Then Exit Sub
+    If LCase(AP) = "d:\dev\3pmkun~5\" Then Exit Sub
+    If LCase(AP) = "d:\dev\3pmkun~6\" Then Exit Sub
     If LCase(AP) = "c:\windows\system32\" Then Exit Sub
+    If LCase(AP) = "D:\BUP MANUEL\3PM kundera 71500 ale\" Then Exit Sub
+    
     
     tERR.Anotar "001-0002"
-    Dim a As Long, CONT As Long 'para que no de muchas vueltas !!!
+    Dim A As Long, CONT As Long 'para que no de muchas vueltas !!!
     If Mostrar Then
-        a = 0: CONT = 0
-        Do While a < 1
+        A = 0: CONT = 0
+        Do While A < 1
             CONT = CONT + 1
             tERR.Anotar "001-0003"
-            a = ShowCursor(1) 'suma uno
+            A = ShowCursor(1) 'suma uno
             ' a clifton se le clavo muchas veces subiendo _
                 y subiendo (parece que no llegaba!!!)
             If CONT > 1 Then
@@ -331,10 +377,10 @@ Public Sub MostrarCursor(Mostrar As Boolean)
         Loop
     Else
         tERR.Anotar "001-0004"
-        a = 1: CONT = 0
-        Do While a >= 0
+        A = 1: CONT = 0
+        Do While A >= 0
             tERR.Anotar "001-0005"
-            a = ShowCursor(0) 'suma uno
+            A = ShowCursor(0) 'suma uno
             
             If CONT > 1 Then
                 tERR.AppendSinHist "NoShowCur!2"
@@ -427,31 +473,19 @@ End Function
 
 'corrige ademas los puntos que pueda tener, los saca
 
-'tiene metido el mostrador de avance de proceso
+'tiene (tenia) metido el mostrador de avance de proceso
 
 Function ObtenerDir(ruta As String) As String()
     tERR.Anotar "001-0029"
     Dim NewName As String 'nuevo nombre si hay que corregir puntos metidos en el nombre de la carpeta
-    Dim MaxPBAR As Long
-    tERR.Anotar "001-0030"
-    MaxPBAR = frmINI.PBar.Width
-    tERR.Anotar "001-0031"
-    frmINI.PBar.Width = 0
-    tERR.Anotar "001-0032"
-    frmINI.lblPROCES.Clear
-    frmINI.lblPROCES.AddItem "Iniciando busqueda", 0
-    tERR.Anotar "001-0033"
-    frmINI.lblPROCES.Refresh
-    tERR.Anotar "001-0034"
+
     Dim ParaMatriz As String 'para generar cada elemento de la matriz
     Dim ContadorCarp As Long, CantMP3 As Long
     Dim Resultado() As String
     Dim NombreDir As String, ContadorArch As Long, Ruta2 As String
     tERR.Anotar "001-0035"
     Const ALLOC_CHUNK = 50
-    tERR.Anotar "001-0036"
     ReDim Resultado(ALLOC_CHUNK) As String
-    tERR.Anotar "001-0037"
     ' genera el nombre de ruta + barra invertida
     Ruta2 = ruta
     tERR.Anotar "001-0038"
@@ -478,9 +512,9 @@ Function ObtenerDir(ruta As String) As String()
             tERR.Anotar "001-0046"
             ContadorArch = ContadorArch + 1
             
-            frmINI.lblINI = "Contando Discos: " + Trim(CStr(ContadorArch))
+            'frmINI.lblINI = "Contando Discos: " + Trim(CStr(ContadorArch))
             tERR.Anotar "001-0047"
-            frmINI.lblINI.Refresh
+            'frmINI.lblINI.Refresh
             tERR.Anotar "001-0048"
             If ContadorArch > UBound(Resultado) Then
                 ' cambia el tamaño del array resultante, si
@@ -488,28 +522,23 @@ Function ObtenerDir(ruta As String) As String()
                 tERR.Anotar "001-0049"
                 ReDim Preserve Resultado(ContadorArch + ALLOC_CHUNK) As String
             End If
-            tERR.Anotar "001-0050"
-            frmINI.PBar.Width = (ContadorArch * 150) Mod frmINI.lblINI.Width 'frmINI.PBar.Width + 100
-            'si me hacerco al max de pbar lo hago inalcanzable
-            tERR.Anotar "001-0051"
-            frmINI.lblPROCES.AddItem NombreDir, 0
-            tERR.Anotar "001-0052"
-            frmINI.lblPROCES.Refresh
-            tERR.Anotar "001-0053"
+            
             ContadorCarp = ContadorCarp + 1
             'corregir el nombre del tema
-            NewName = QuitarCaracter(NombreDir, ".")
+            NewName = Replace(NombreDir, ".", "")
+            NewName = Replace(NewName, "#", "")
+            
             tERR.Anotar "001-0054"
             If NombreDir <> NewName Then
             
                 tERR.Anotar "001-0055", Ruta2 + NombreDir, Ruta2 + NewName
                 'si la carpeta de destino ya exista da un error!!!
-                If FSO.FolderExists(Ruta2 + NewName) Then
+                If fso.FolderExists(Ruta2 + NewName) Then
                     Dim BB As Long, tmpNewName As String
                     'busco un numero que al ponerlo al final no este duplicado
                     For BB = 2 To 1000
                         tmpNewName = NewName + CStr(BB)
-                        If FSO.FolderExists(Ruta2 + tmpNewName) = False Then
+                        If fso.FolderExists(Ruta2 + tmpNewName) = False Then
                             NewName = tmpNewName
                             Exit For
                         End If
@@ -517,7 +546,7 @@ Function ObtenerDir(ruta As String) As String()
                     NewName = tmpNewName
                 End If
             
-                FSO.MoveFolder Ruta2 + NombreDir, Ruta2 + NewName
+                fso.MoveFolder Ruta2 + NombreDir, Ruta2 + NewName
 
                 tERR.Anotar "001-0057", NewName
                 NombreDir = NewName
@@ -526,6 +555,10 @@ Function ObtenerDir(ruta As String) As String()
             ParaMatriz = Ruta2 & NombreDir + "," + NombreDir
             tERR.Anotar "001-0059"
             Resultado(ContadorArch) = ParaMatriz
+            
+            frmINI.lblINI.Caption = ParaMatriz
+            frmINI.lblINI.Refresh
+            frmINI.pBAR.Width = (frmINI.lblINI.Width * ContadorArch / 100) Mod frmINI.lblINI.Width
 NextCarp:
             
         End If
@@ -533,9 +566,10 @@ NextCarp:
         NombreDir = Dir$
         
     Loop
+    
 solo12: 'solo los 12 primeros
     tERR.Anotar "001-0067"
-    frmINI.PBar.Width = MaxPBAR
+    'frmINI.PBar.Width = MaxPBAR
     tERR.Anotar "001-0068"
     
     ' proporciona el array resultante
@@ -551,31 +585,32 @@ solo12: 'solo los 12 primeros
     tERR.Anotar "001-0071"
     MinSTR = "zzzzzzzzzzzzzzzz"
     tERR.Anotar "001-0072"
-    Dim c As Long, mtx As Long, ValComp As String
-    c = 0 'cantidad de minimos encontrados
+    Dim C As Long, mtx As Long, ValComp As String
+    C = 0 'cantidad de minimos encontrados
     tERR.Anotar "001-0073"
     Dim Ordenados() As Long 'matriz con los indices ordenados
     Do
         tERR.Anotar "001-0074"
         For mtx = LBound(Resultado) + 1 To UBound(Resultado)
-            tERR.Anotar "001-0075"
             ValComp = txtInLista(Resultado(mtx), 0, ",")
-            tERR.Anotar "001-0076"
             If ValComp < MinSTR Then
-                tERR.Anotar "001-0077"
                 MinSTR = ValComp
-                tERR.Anotar "001-0078"
                 ubicMIN = mtx
             End If
         Next
+        
+        frmINI.lblINI.Caption = CStr(C)
+        frmINI.lblINI.Refresh
+        frmINI.pBAR.Width = (frmINI.lblINI.Width * mtx / 100) Mod frmINI.lblINI.Width
+        
         tERR.Anotar "001-0079"
         Resultado(ubicMIN) = "zzzzzzzzzz," + Resultado(ubicMIN)
-        c = c + 1
-        ReDim Preserve Ordenados(c)
+        C = C + 1
+        ReDim Preserve Ordenados(C)
         tERR.Anotar "001-0080"
-        Ordenados(c) = ubicMIN
+        Ordenados(C) = ubicMIN
         tERR.Anotar "001-0081"
-        If c >= UBound(Resultado) Then Exit Do
+        If C >= UBound(Resultado) Then Exit Do
         tERR.Anotar "001-0082"
         MinSTR = "zzzzzzzzzz"
     Loop
@@ -584,8 +619,6 @@ solo12: 'solo los 12 primeros
     Dim MTXsort() As String
     
 EntreAlPedo:
-    tERR.Anotar "001-0087"
-    frmINI.PBar.Width = 0
     tERR.Anotar "001-0089[" + CStr(LBound(Resultado)) + ":" + CStr(UBound(Resultado)) + "]"
     'si es 0:0 (me pasa en varios)!
     'en ese caso sale del for directamente!
@@ -624,24 +657,25 @@ Public Sub MostrarDiscosMTX()
 '        "'C' para ingresar a la configuracion y utilize el " + _
 '        "asistente para cargar multimedia al sistema."
     End If
+    
 EntreAlPedo:
     Dim MaxPBAR As Long
     tERR.Anotar "001-0030"
-    MaxPBAR = frmINI.PBar.Width
+    'MaxPBAR = frmINI.PBar.Width
     
     Dim AY As Long
     Dim nTAPAcd As Integer
     nTAPAcd = 0
     For AY = 0 To UBound(MATRIZ_DISCOS)
         
-        tERR.Anotar "001-0095"
+        tERR.Anotar "001-0095", UBound(MATRIZ_DISCOS)
         UbicDiscoActual = txtInLista(MATRIZ_DISCOS(AY), 0, ",")
         
         Dim CarpFull As String, NameCarp As String
         CarpFull = txtInLista(MATRIZ_DISCOS(AY), 0, ",")
         NameCarp = txtInLista(MATRIZ_DISCOS(AY), 1, ",")
         
-        tERR.Anotar "001-0097"
+        tERR.Anotar "001-0097", CarpFull, nTAPAcd
         'el L es el de los discos en modo texto!
         If nTAPAcd > 0 Then
             tERR.Anotar "001-0098"
@@ -655,25 +689,23 @@ EntreAlPedo:
         '????¿¿¿¿
         frmIndex.L(nTAPAcd) = NameCarp
         tERR.Anotar "001-0102"
-        frmINI.lblPROCES.AddItem NameCarp, 0
+        'frmINI.lblPROCES.AddItem NameCarp, 0
         tERR.Anotar "001-0103"
-        frmINI.lblPROCES.Refresh
+        'frmINI.lblPROCES.Refresh
         nTAPAcd = nTAPAcd + 1
     Next AY
     
 solo12:
     tERR.Anotar "001-0118"
-    frmINI.lblINI = "Proceso terminado, cargando 3PM..."
-    tERR.Anotar "001-0119"
-    frmINI.lblINI.Refresh
-    tERR.Anotar "001-0120"
-    frmINI.PBar.Width = MaxPBAR
+    'frmINI.lblINI = "Proceso terminado, cargando 3PM..."
+    'frmINI.lblINI.Refresh
+    'frmINI.PBar.Width = MaxPBAR
     
 End Sub
 
 'cuenta los archivos de determinada extension contenidos en una carpeta
 Public Function ContarArch(ByVal ruta As String, EXT As String, VerSubDIRs As Boolean) As Long
-    Dim nombres() As String, i As Long, CONT As Long
+    Dim nombres() As String, I As Long, CONT As Long
     tERR.Anotar "001-0122"
     ' asegurarse de que existe una barra invertida inicial
     If Right(ruta, 1) <> "\" Then ruta = ruta & "\"
@@ -693,9 +725,9 @@ Public Function ContarArch(ByVal ruta As String, EXT As String, VerSubDIRs As Bo
         tERR.Anotar "001-0126"
         nombres() = ObtenerDir(ruta)
         tERR.Anotar "001-0127"
-        For i = 1 To UBound(nombres)
+        For I = 1 To UBound(nombres)
             tERR.Anotar "001-0128"
-            ContarArch ruta & nombres(i), EXT, True
+            ContarArch ruta & nombres(I), EXT, True
         Next
         tERR.Anotar "001-0129"
     End If
@@ -811,7 +843,7 @@ End Sub
 Function ObtenLineasArchTexto(NombreArchivo As String, Optional DropEmpty As Boolean, _
     Optional Limite As Variant) As String()
         tERR.Anotar "001-0156"
-        Dim ArchTexto As String, elementos() As String, i As Long
+        Dim ArchTexto As String, elementos() As String, I As Long
         ' lee el contenido del archivo, salir si hay un error
         tERR.Anotar "001-0157"
         ArchTexto = LeerContenidoArchTexto(NombreArchivo)
@@ -827,9 +859,9 @@ Function ObtenLineasArchTexto(NombreArchivo As String, Optional DropEmpty As Boo
             ' llena las líneas vacías con algo que otros elementos
             ' no contienen
             tERR.Anotar "001-0161"
-            For i = 0 To UBound(elementos)
+            For I = 0 To UBound(elementos)
                 tERR.Anotar "001-0162"
-                    If Len(elementos(i)) = 0 Then elementos(i) = vbCrLf
+                    If Len(elementos(I)) = 0 Then elementos(I) = vbCrLf
             Next
             ' utiliza la función Filter() para soltar rápidamente
             ' las líneas vacías
@@ -848,7 +880,7 @@ End Function
 Function ImportarArchDelimitado(NombreArchivo As String, _
     Optional delimitador As String = vbTab) As Variant()
         tERR.Anotar "001-0165"
-        Dim lineas() As String, i As Long
+        Dim lineas() As String, I As Long
         ' obtiene todas las lineas contenidas en el archivo,
         ' ignorando las líneas en blanco
         tERR.Anotar "001-0166"
@@ -858,9 +890,9 @@ Function ImportarArchDelimitado(NombreArchivo As String, _
         tERR.Anotar "001-0167"
         ReDim Valores(0 To UBound(lineas)) As Variant
         tERR.Anotar "001-0168"
-        For i = 0 To UBound(lineas)
+        For I = 0 To UBound(lineas)
             tERR.Anotar "001-0169"
-            Valores(i) = Split(lineas(i), delimitador, -1)
+            Valores(I) = Split(lineas(I), delimitador, -1)
         Next
         tERR.Anotar "001-0170"
         ImportarArchDelimitado = Valores()
@@ -873,14 +905,14 @@ End Function
 Sub ExportarArchDelimitado(Valores() As Variant, NombreArchivo As String, _
     Optional delimitador As String = vbTab)
         tERR.Anotar "001-0171"
-        Dim i As Long, J As Long, ArchTexto As String
+        Dim I As Long, J As Long, ArchTexto As String
         ' reconstruye las líneas individuales de texto del archivo
         tERR.Anotar "001-0172"
         ReDim lineas(0 To UBound(Valores)) As String
         tERR.Anotar "001-0173"
-        For i = 0 To UBound(Valores)
+        For I = 0 To UBound(Valores)
             tERR.Anotar "001-0174"
-            lineas(i) = Join(Valores(i), delimitador)
+            lineas(I) = Join(Valores(I), delimitador)
         Next
         ' introduce CRLFs entre registros
         tERR.Anotar "001-0175"
@@ -897,18 +929,18 @@ End Sub
 
 Sub DuplicarDirArbol(rutaOrigen As String, rutaDest As String)
     tERR.Anotar "001-0177"
-    Dim CarpOrigen As Scripting.Folder, CarpDest As Scripting.Folder
+    Dim CarpOrigen As Scripting.folder, CarpDest As Scripting.folder
     ' la carpeta origen debe existir
     tERR.Anotar "001-0178"
-    Set CarpOrigen = FSO.GetFolder(rutaOrigen)
+    Set CarpOrigen = fso.GetFolder(rutaOrigen)
     ' la carpeta destino se creará en caso necesario
     tERR.Anotar "001-0179"
-    If FSO.FolderExists(rutaDest) Then
+    If fso.FolderExists(rutaDest) Then
         tERR.Anotar "001-0180"
-        Set CarpDest = FSO.GetFolder(rutaDest)
+        Set CarpDest = fso.GetFolder(rutaDest)
     Else
         tERR.Anotar "001-0181"
-        Set CarpDest = FSO.CreateFolder(rutaDest)
+        Set CarpDest = fso.CreateFolder(rutaDest)
     End If
     ' saltar a la rutina recursiva para realizar el trabajo real
     tERR.Anotar "001-0181"
@@ -917,14 +949,14 @@ End Sub
 
 ' Procedimiento recursivo privado utilizado por DuplicarDirArbol
 
-Private Sub DuplicarDirArbolSub(origen As Folder, destino As Folder)
+Private Sub DuplicarDirArbolSub(origen As folder, destino As folder)
     tERR.Anotar "001-0182"
-    Dim CarpOrigen As Scripting.Folder, CarpDest As Scripting.Folder
+    Dim CarpOrigen As Scripting.folder, CarpDest As Scripting.folder
     tERR.Anotar "001-0183"
     For Each CarpOrigen In origen.SubFolders
         ' copiar esta subcarpeta en la carpeta destino
         tERR.Anotar "001-0184"
-            Set CarpDest = destino.SubFolders.Add(CarpOrigen.Name)
+            Set CarpDest = destino.SubFolders.add(CarpOrigen.name)
         ' repetir el proceso recursivamente para todas las
         ' subcarpetas de la carpeta considerada
         tERR.Anotar "001-0185"
@@ -942,24 +974,24 @@ End Sub
 Function BuscarArchTexto(ruta As String, buscar As String) As Variant()
     tERR.Anotar "001-0186"
     Dim fil As Scripting.File, ts As Scripting.TextStream
-    Dim Pos As Long, ContadorArch As Long
+    Dim pos As Long, ContadorArch As Long
     tERR.Anotar "001-0187"
     ReDim Resultado(50) As Variant
     ' buscar for all the TXT files in the directory
     tERR.Anotar "001-0188"
-    For Each fil In FSO.GetFolder(ruta).Files
+    For Each fil In fso.GetFolder(ruta).Files
         tERR.Anotar "001-0189"
-        If UCase$(FSO.GetExtensionName(fil.path)) = "TXT" Then
+        If UCase$(fso.GetExtensionName(fil.path)) = "TXT" Then
             ' obtener el objeto TextStream correspondiente
             tERR.Anotar "001-0190"
             Set ts = fil.OpenAsTextStream(ForReading)
             ' leer su contenido, buscar la cadena y cerrarlo
             tERR.Anotar "001-0191"
-            Pos = InStr(1, ts.ReadAll, buscar, vbTextCompare)
+            pos = InStr(1, ts.ReadAll, buscar, vbTextCompare)
             tERR.Anotar "001-0192"
             ts.Close
             tERR.Anotar "001-0193"
-            If Pos > 0 Then
+            If pos > 0 Then
                 ' si se encuentra la cadena, reabre el archivo
                 ' para determinar su posición en forma de (línea, columna)
                 tERR.Anotar "001-0194"
@@ -967,7 +999,7 @@ Function BuscarArchTexto(ruta As String, buscar As String) As Variant()
                 ' salta todos los caracteres precedentes para saber dónde se
                 ' encuentra la cadena
                 tERR.Anotar "001-0194"
-                ts.Skip Pos - 1
+                ts.Skip pos - 1
                 ' llena el array resultado, hace sitio en caso necesario
                 ContadorArch = ContadorArch + 1
                 tERR.Anotar "001-0195"
@@ -1013,13 +1045,13 @@ End Function
 Public Function LeerArch1Linea(Arch As String) As String
     On Error GoTo MiErr
     
-    If FSO.FileExists(Arch) = False Then
+    If fso.FileExists(Arch) = False Then
         tERR.Anotar "001-0206", Arch
         LeerArch1Linea = "No existe archivo"
         Exit Function
     End If
     tERR.Anotar "001-0208", Arch
-    Set TE = FSO.OpenTextFile(Arch, ForReading, False)
+    Set TE = fso.OpenTextFile(Arch, ForReading, False)
         Dim Tmp66 As String
         Tmp66 = TE.ReadLine
         LeerArch1Linea = Tmp66
@@ -1035,7 +1067,7 @@ End Function
 
 Public Sub EscribirArch1Linea(Arch As String, TXT As String)
     tERR.Anotar "001-0211"
-    Set TE = FSO.CreateTextFile(Arch, True)
+    Set TE = fso.CreateTextFile(Arch, True)
     tERR.Anotar "001-0212"
     TE.WriteLine TXT
     tERR.Anotar "001-0213"
@@ -1045,21 +1077,21 @@ End Sub
 Public Function ObtenerRankComoMM(Optional MaxTop As Long = 15) As String()
 
     Dim TMP() As String
-    If FSO.FileExists(GPF("rd3_444")) = False Then
+    If fso.FileExists(GPF("rd3_444")) = False Then
         'no hay nada !!!!
-        FSO.CreateTextFile GPF("rd3_444"), True
+        fso.CreateTextFile GPF("rd3_444"), True
         ReDim TMP(0)
         ObtenerRankComoMM = TMP
         Exit Function
     End If
     
-    Set TE = FSO.OpenTextFile(GPF("rd3_444"), ForReading, False)
+    Set TE = fso.OpenTextFile(GPF("rd3_444"), ForReading, False)
     Dim TT As String
     Dim ThisArch As String
     Dim ThisTEMA As String
     Dim ThisDISCO As String
     Dim ThisPTS As Long
-    Dim c As Long: c = 0
+    Dim C As Long: C = 0
     ReDim TMP(0)
     Do While Not TE.AtEndOfStream
         TT = TE.ReadLine
@@ -1069,14 +1101,14 @@ Public Function ObtenerRankComoMM(Optional MaxTop As Long = 15) As String()
         ThisTEMA = QuitarNumeroDeTema(ThisTEMA)
         ThisDISCO = txtInLista(TT, 3, ",")
             
-        If c = MaxTop Then Exit Do
+        If C = MaxTop Then Exit Do
         'si elarchivo no existe no se debe cargar
-        If FSO.FileExists(ThisArch) Then
+        If fso.FileExists(ThisArch) Then
         
-            c = c + 1 'la otra matriz obtenerMM empieza en 1 entonces esta tambien y la hacemos compatible
+            C = C + 1 'la otra matriz obtenerMM empieza en 1 entonces esta tambien y la hacemos compatible
             
-            ReDim Preserve TMP(c)
-            TMP(c) = ThisArch + "#" + CStr(c) + "º (" + CStr(ThisPTS) + ") -" + ThisTEMA
+            ReDim Preserve TMP(C)
+            TMP(C) = ThisArch + "#" + CStr(C) + "º (" + CStr(ThisPTS) + ") -" + ThisTEMA
             
         End If
     Loop
@@ -1085,7 +1117,10 @@ Public Function ObtenerRankComoMM(Optional MaxTop As Long = 15) As String()
     
 End Function
 
-Public Function ObtenerArchMM(Carpeta As String) As String()
+Public Function ObtenerArchMM(Carpeta As String, _
+    Optional ordenarABC As Boolean = False) As String()
+    
+    
     'devuelve "Carpeta + NombreArchivo + "#" + NombreArchivo"
     'devuelve PathFull,SoloNombre
 
@@ -1098,273 +1133,83 @@ Public Function ObtenerArchMM(Carpeta As String) As String()
     ReDim Preserve TMPmatriz(0)
     'mp3
     Dim NombreArchivo As String, ContadorArch As Long, NewName As String
-    NombreArchivo = Dir$(Carpeta + "*.mp3")
-    Do While Len(NombreArchivo)
-        tERR.Anotar "001-0217", NombreArchivo
-        'corregir el nombre del tema
-        NewName = QuitarCaracter(NombreArchivo, ",")
-        If NombreArchivo <> NewName Then
-            'no se puede corregir si es un CD. Solo corrige si es disco duro
-            'esta funcion se usa para leer CDs debo prevenir
-            tERR.Anotar "001-0220", NewName
-            If FSO.Drives(Left(Carpeta, 1)).DriveType = Fixed Then
-                tERR.Anotar "001-0221"
-                'ver si existe lo que se esta por escribir
-                'si es asi elimino el actual
-                If FSO.FileExists(Carpeta + NewName) Then
-                    FSO.DeleteFile Carpeta + NombreArchivo, True
-                Else
-                    FSO.MoveFile Carpeta + NombreArchivo, Carpeta + NewName
-                End If
-                tERR.Anotar "001-0222"
-                NombreArchivo = NewName
-            End If
-        End If
-        ContadorArch = ContadorArch + 1
-        ReDim Preserve TMPmatriz(ContadorArch)
-        tERR.Anotar "001-0225", ContadorArch
-        TMPmatriz(ContadorArch) = Carpeta + NombreArchivo + "#" + NombreArchivo
-        NombreArchivo = Dir$
-    Loop
     
-    'WMA
-    NombreArchivo = Dir$(Carpeta + "*.wma")
-    Do While Len(NombreArchivo)
-        'corregir el nombre del tema
-        tERR.Anotar "001-0218", NombreArchivo
-        NewName = QuitarCaracter(NombreArchivo, ",")
-        tERR.Anotar "001-0219", NewName
-        If NombreArchivo <> NewName Then
-            If FSO.Drives(Left(Carpeta, 1)).DriveType = Fixed Then
-                tERR.Anotar "001-0221"
-                'ver si existe lo que se esta por escribir
-                'si es asi elimino el actual
-                If FSO.FileExists(Carpeta + NewName) Then
-                    FSO.DeleteFile Carpeta + NombreArchivo, True
-                Else
-                    FSO.MoveFile Carpeta + NombreArchivo, Carpeta + NewName
-                End If
-                tERR.Anotar "001-0222"
-                NombreArchivo = NewName
-            End If
-        End If
-        ContadorArch = ContadorArch + 1
-        ReDim Preserve TMPmatriz(ContadorArch)
-        TMPmatriz(ContadorArch) = Carpeta + NombreArchivo + "#" + NombreArchivo
-        tERR.Anotar "001-0226", ContadorArch
-        NombreArchivo = Dir$
-    Loop
+    Dim EEXX(9) As String
+    EEXX(0) = "mp3": EEXX(1) = "wma": EEXX(2) = "mpg": EEXX(3) = "mpeg": EEXX(4) = "avi"
+    EEXX(5) = "vob": EEXX(6) = "mn0": EEXX(7) = "mn1": EEXX(8) = "dat": EEXX(9) = "wmv"
     
-    'mpg
-    NombreArchivo = Dir$(Carpeta + "\*.mpg")
-    Do While Len(NombreArchivo)
-        'corregir el nombre del tema
-        tERR.Anotar "001-0228", NombreArchivo
-        NewName = QuitarCaracter(NombreArchivo, ",")
-        tERR.Anotar "001-0229", NewName
-        If NombreArchivo <> NewName Then
-            If FSO.Drives(Left(Carpeta, 1)).DriveType = Fixed Then
-                tERR.Anotar "001-0221"
-                'ver si existe lo que se esta por escribir
-                'si es asi elimino el actual
-                If FSO.FileExists(Carpeta + NewName) Then
-                    FSO.DeleteFile Carpeta + NombreArchivo, True
-                Else
-                    FSO.MoveFile Carpeta + NombreArchivo, Carpeta + NewName
+    Dim H As Long
+    For H = 0 To UBound(EEXX)
+        NombreArchivo = Dir$(Carpeta + "*." + EEXX(H))
+        Do While Len(NombreArchivo)
+            tERR.Anotar "001-0217", NombreArchivo, EEXX(H)
+            'corregir el nombre del tema
+            NewName = Replace(NombreArchivo, ",", "")
+            NewName = Replace(NewName, "#", "")
+            If NombreArchivo <> NewName Then
+                'no se puede corregir si es un CD. Solo corrige si es disco duro
+                'esta funcion se usa para leer CDs debo prevenir
+                tERR.Anotar "001-0220", NewName
+                If fso.Drives(Left(Carpeta, 1)).DriveType = Fixed Then
+                    tERR.Anotar "001-0221"
+                    'ver si existe lo que se esta por escribir
+                    'si es asi elimino el actual
+                    If fso.FileExists(Carpeta + NewName) Then
+                        fso.DeleteFile Carpeta + NombreArchivo, True
+                    Else
+                        fso.MoveFile Carpeta + NombreArchivo, Carpeta + NewName
+                    End If
+                    tERR.Anotar "001-0222"
+                    NombreArchivo = NewName
                 End If
-                tERR.Anotar "001-0222"
-                NombreArchivo = NewName
             End If
-        End If
-        ContadorArch = ContadorArch + 1
-        ReDim Preserve TMPmatriz(ContadorArch)
-        tERR.Anotar "001-0234", ContadorArch
-        TMPmatriz(ContadorArch) = Carpeta + NombreArchivo + "#" + NombreArchivo
-        NombreArchivo = Dir$
-    Loop
+            ContadorArch = ContadorArch + 1
+            ReDim Preserve TMPmatriz(ContadorArch)
+            tERR.Anotar "001-0225", ContadorArch
+            TMPmatriz(ContadorArch) = Carpeta + NombreArchivo + "#" + NombreArchivo
+            NombreArchivo = Dir$
+        Loop
     
-    'mpeg
-    NombreArchivo = Dir$(Carpeta + "\*.mpeg")
-    Do While Len(NombreArchivo)
-        'corregir el nombre del tema
-        tERR.Anotar "001-0238", NombreArchivo
-        NewName = QuitarCaracter(NombreArchivo, ",")
-        If NombreArchivo <> NewName Then
-            tERR.Anotar "001-0240", NewName
-            If FSO.Drives(Left(Carpeta, 1)).DriveType = Fixed Then
-                tERR.Anotar "001-0221"
-                'ver si existe lo que se esta por escribir
-                'si es asi elimino el actual
-                If FSO.FileExists(Carpeta + NewName) Then
-                    FSO.DeleteFile Carpeta + NombreArchivo, True
-                Else
-                    FSO.MoveFile Carpeta + NombreArchivo, Carpeta + NewName
-                End If
-                tERR.Anotar "001-0222"
-                NombreArchivo = NewName
-            End If
-        End If
-        ContadorArch = ContadorArch + 1
-        ReDim Preserve TMPmatriz(ContadorArch)
-        tERR.Anotar "001-0244", ContadorArch
-        TMPmatriz(ContadorArch) = Carpeta + NombreArchivo + "#" + NombreArchivo
-        NombreArchivo = Dir$
-    Loop
-    
-    'avi
-    NombreArchivo = Dir$(Carpeta + "\*.avi")
-    Do While Len(NombreArchivo)
-        'corregir el nombre del tema
-        tERR.Anotar "001-0248", NombreArchivo
-        NewName = QuitarCaracter(NombreArchivo, ",")
-        If NombreArchivo <> NewName Then
-            tERR.Anotar "001-0250", NewName
-            If FSO.Drives(Left(Carpeta, 1)).DriveType = Fixed Then
-                tERR.Anotar "001-0221"
-                'ver si existe lo que se esta por escribir
-                'si es asi elimino el actual
-                If FSO.FileExists(Carpeta + NewName) Then
-                    FSO.DeleteFile Carpeta + NombreArchivo, True
-                Else
-                    FSO.MoveFile Carpeta + NombreArchivo, Carpeta + NewName
-                End If
-                tERR.Anotar "001-0222"
-                NombreArchivo = NewName
-            End If
-        End If
-        ContadorArch = ContadorArch + 1
-        ReDim Preserve TMPmatriz(ContadorArch)
-        tERR.Anotar "001-0254", ContadorArch
-        TMPmatriz(ContadorArch) = Carpeta + NombreArchivo + "#" + NombreArchivo
-        NombreArchivo = Dir$
-    Loop
-    
-    'VOB
-    NombreArchivo = Dir$(Carpeta + "\*.vob")
-    Do While Len(NombreArchivo)
-        'corregir el nombre del tema
-        tERR.Anotar "001-0248", NombreArchivo
-        NewName = QuitarCaracter(NombreArchivo, ",")
-        If NombreArchivo <> NewName Then
-            tERR.Anotar "001-0250", NewName
-            If FSO.Drives(Left(Carpeta, 1)).DriveType = Fixed Then
-                tERR.Anotar "001-0221"
-                'ver si existe lo que se esta por escribir
-                'si es asi elimino el actual
-                If FSO.FileExists(Carpeta + NewName) Then
-                    FSO.DeleteFile Carpeta + NombreArchivo, True
-                Else
-                    FSO.MoveFile Carpeta + NombreArchivo, Carpeta + NewName
-                End If
-                tERR.Anotar "001-0222"
-                NombreArchivo = NewName
-            End If
-        End If
-        ContadorArch = ContadorArch + 1
-        ReDim Preserve TMPmatriz(ContadorArch)
-        tERR.Anotar "001-0254", ContadorArch
-        TMPmatriz(ContadorArch) = Carpeta + NombreArchivo + "#" + NombreArchivo
-        NombreArchivo = Dir$
-    Loop
-    
-    'dat
-    NombreArchivo = Dir$(Carpeta + "\*.dat")
-    Do While Len(NombreArchivo)
-        'corregir el nombre del tema
-        tERR.Anotar "001-0248", NombreArchivo
-        NewName = QuitarCaracter(NombreArchivo, ",")
-        If NombreArchivo <> NewName Then
-            tERR.Anotar "001-0250", NewName
-            If FSO.Drives(Left(Carpeta, 1)).DriveType = Fixed Then
-                tERR.Anotar "001-0221"
-                'ver si existe lo que se esta por escribir
-                'si es asi elimino el actual
-                If FSO.FileExists(Carpeta + NewName) Then
-                    FSO.DeleteFile Carpeta + NombreArchivo, True
-                Else
-                    FSO.MoveFile Carpeta + NombreArchivo, Carpeta + NewName
-                End If
-                tERR.Anotar "001-0222"
-                NombreArchivo = NewName
-            End If
-        End If
-        ContadorArch = ContadorArch + 1
-        ReDim Preserve TMPmatriz(ContadorArch)
-        tERR.Anotar "001-0254", ContadorArch
-        TMPmatriz(ContadorArch) = Carpeta + NombreArchivo + "#" + NombreArchivo
-        NombreArchivo = Dir$
-    Loop
-    
-    'wmv
-    NombreArchivo = Dir$(Carpeta + "\*.wmv")
-    Do While Len(NombreArchivo)
-        'corregir el nombre del tema
-        tERR.Anotar "001-0248", NombreArchivo
-        NewName = QuitarCaracter(NombreArchivo, ",")
-        If NombreArchivo <> NewName Then
-            tERR.Anotar "001-0250", NewName
-            If FSO.Drives(Left(Carpeta, 1)).DriveType = Fixed Then
-                tERR.Anotar "001-0221"
-                'ver si existe lo que se esta por escribir
-                'si es asi elimino el actual
-                If FSO.FileExists(Carpeta + NewName) Then
-                    FSO.DeleteFile Carpeta + NombreArchivo, True
-                Else
-                    FSO.MoveFile Carpeta + NombreArchivo, Carpeta + NewName
-                End If
-                tERR.Anotar "001-0222"
-                NombreArchivo = NewName
-            End If
-        End If
-        ContadorArch = ContadorArch + 1
-        ReDim Preserve TMPmatriz(ContadorArch)
-        tERR.Anotar "001-0254", ContadorArch
-        TMPmatriz(ContadorArch) = Carpeta + NombreArchivo + "#" + NombreArchivo
-        NombreArchivo = Dir$
-    Loop
-    
+    Next H
+
     tERR.Anotar "001-0256"
-    ObtenerArchMM = TMPmatriz
+    
+    If ordenarABC Then
+        Dim TMP2Matriz() As String
+        ReDim TMP2Matriz(0)
+        Dim OKs As Long
+        
+        Dim K As Long, L As Long
+        Dim CPR As String 'comparador
+        CPR = "ZZZ"
+        Dim Min As Long 'indice del minimo
+        Min = 0
+        For L = 1 To UBound(TMPmatriz) 'esta en base 1
+            CPR = "ZZZZZZZZZ"
+            For K = 1 To UBound(TMPmatriz) 'esta en base 1
+                If TMPmatriz(K) < CPR Then
+                    CPR = TMPmatriz(K)
+                    Min = K
+                End If
+            Next K
+            
+            OKs = OKs + 1
+            ReDim Preserve TMP2Matriz(OKs)
+            TMP2Matriz(OKs) = CPR
+            TMPmatriz(Min) = "ZZZZZZZZZ"
+        Next L
+        
+        ObtenerArchMM = TMP2Matriz
+        
+    Else
+        ObtenerArchMM = TMPmatriz
+    End If
+    
+    
     
     Exit Function
 ErrObtMM:
     tERR.AppendLog tERR.ErrToTXT(Err), "Archivos.bas" + ".acpk4"
     Resume Next
-    
-End Function
-
-Public Function QuitarCaracter(FileOrFolder As String, _
-    CaracterToKill As String) As String
-    'sacar en caracter de una cadena
-    'lo uso para sacar las comas de los archivos mp3
-    'o los puntos de los nombre de los discos
-    tERR.Anotar "001-0257"
-    Dim SeCambio As Boolean
-    Dim TMPfOf 'temporario de file or folder
-    tERR.Anotar "001-0258"
-    TMPfOf = FileOrFolder
-    Dim FindIn As Long
-    Dim Parte1 As String, Parte2 As String
-    tERR.Anotar "001-0259"
-    SeCambio = False
-    Do
-        tERR.Anotar "001-0260"
-        FindIn = InStr(TMPfOf, CaracterToKill)
-        If FindIn > 0 Then
-            tERR.Anotar "001-0261"
-            SeCambio = True
-            tERR.Anotar "001-0262"
-            Parte1 = Mid(TMPfOf, 1, FindIn - 1)
-            tERR.Anotar "001-0263"
-            Parte2 = Mid(TMPfOf, FindIn + 1, Len(TMPfOf) - FindIn)
-            tERR.Anotar "001-0264"
-            TMPfOf = Parte1 + Parte2
-        Else
-            tERR.Anotar "001-0265"
-            Exit Do
-        End If
-    Loop
-    tERR.Anotar "001-0266"
-    QuitarCaracter = TMPfOf
     
 End Function

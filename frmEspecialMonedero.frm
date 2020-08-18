@@ -1,6 +1,8 @@
 VERSION 5.00
+Object = "{181111E6-07C8-4D47-8611-3BF038099354}#5.2#0"; "tbrFaroButton.ocx"
 Begin VB.Form frmEspecialMonedero 
-   BackColor       =   &H00404040&
+   AutoRedraw      =   -1  'True
+   BackColor       =   &H00000000&
    BorderStyle     =   4  'Fixed ToolWindow
    Caption         =   "Correcion señal monedero"
    ClientHeight    =   6900
@@ -13,12 +15,108 @@ Begin VB.Form frmEspecialMonedero
    ScaleHeight     =   6900
    ScaleWidth      =   10395
    ShowInTaskbar   =   0   'False
-   StartUpPosition =   3  'Windows Default
+   StartUpPosition =   2  'CenterScreen
+   Begin tbrFaroButton.fBoton Command2 
+      Height          =   585
+      Left            =   8340
+      TabIndex        =   14
+      Top             =   5850
+      Width           =   1545
+      _ExtentX        =   2725
+      _ExtentY        =   1032
+      fFColor         =   16777215
+      fBColor         =   14737632
+      fCapt           =   "salir"
+      fEnabled        =   -1  'True
+      fFontN          =   ""
+      fFontS          =   0
+      fECol           =   5452834
+   End
+   Begin tbrFaroButton.fBoton Command1 
+      Height          =   585
+      Left            =   8340
+      TabIndex        =   13
+      Top             =   5220
+      Width           =   1545
+      _ExtentX        =   2725
+      _ExtentY        =   1032
+      fFColor         =   16777215
+      fBColor         =   14737632
+      fCapt           =   "grabar y salir"
+      fEnabled        =   -1  'True
+      fFontN          =   ""
+      fFontS          =   0
+      fECol           =   5452834
+   End
+   Begin tbrFaroButton.fBoton Command3 
+      Height          =   435
+      Left            =   6210
+      TabIndex        =   12
+      Top             =   5580
+      Width           =   495
+      _ExtentX        =   873
+      _ExtentY        =   767
+      fFColor         =   16777215
+      fBColor         =   14737632
+      fCapt           =   "-"
+      fEnabled        =   -1  'True
+      fFontN          =   ""
+      fFontS          =   0
+      fECol           =   5452834
+   End
+   Begin tbrFaroButton.fBoton Command4 
+      Height          =   435
+      Left            =   5730
+      TabIndex        =   11
+      Top             =   5580
+      Width           =   495
+      _ExtentX        =   873
+      _ExtentY        =   767
+      fFColor         =   16777215
+      fBColor         =   14737632
+      fCapt           =   "+"
+      fEnabled        =   -1  'True
+      fFontN          =   ""
+      fFontS          =   0
+      fECol           =   5452834
+   End
+   Begin tbrFaroButton.fBoton Command5 
+      Height          =   435
+      Left            =   3780
+      TabIndex        =   10
+      Top             =   5580
+      Width           =   495
+      _ExtentX        =   873
+      _ExtentY        =   767
+      fFColor         =   16777215
+      fBColor         =   14737632
+      fCapt           =   "-"
+      fEnabled        =   -1  'True
+      fFontN          =   ""
+      fFontS          =   0
+      fECol           =   5452834
+   End
+   Begin tbrFaroButton.fBoton Command6 
+      Height          =   435
+      Left            =   3300
+      TabIndex        =   9
+      Top             =   5580
+      Width           =   495
+      _ExtentX        =   873
+      _ExtentY        =   767
+      fFColor         =   16777215
+      fBColor         =   14737632
+      fCapt           =   "+"
+      fEnabled        =   -1  'True
+      fFontN          =   ""
+      fFontS          =   0
+      fECol           =   5452834
+   End
    Begin VB.TextBox txtMS 
       Enabled         =   0   'False
       BeginProperty Font 
-         Name            =   "Courier New"
-         Size            =   14.25
+         Name            =   "Verdana"
+         Size            =   12
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -27,17 +125,17 @@ Begin VB.Form frmEspecialMonedero
       EndProperty
       Height          =   435
       Index           =   1
-      Left            =   5760
-      TabIndex        =   14
+      Left            =   5790
+      TabIndex        =   8
       Text            =   "300"
-      Top             =   6210
+      Top             =   6240
       Width           =   705
    End
    Begin VB.TextBox txtMS 
       Enabled         =   0   'False
       BeginProperty Font 
-         Name            =   "Courier New"
-         Size            =   14.25
+         Name            =   "Verdana"
+         Size            =   12
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -46,122 +144,16 @@ Begin VB.Form frmEspecialMonedero
       EndProperty
       Height          =   435
       Index           =   0
-      Left            =   3420
-      TabIndex        =   13
-      Text            =   "300"
-      Top             =   6210
-      Width           =   705
-   End
-   Begin VB.CommandButton Command6 
-      Caption         =   "+"
-      Enabled         =   0   'False
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   12
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   405
-      Left            =   3390
-      TabIndex        =   11
-      Top             =   5550
-      Width           =   465
-   End
-   Begin VB.CommandButton Command5 
-      Caption         =   "-"
-      Enabled         =   0   'False
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   12
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   405
-      Left            =   3870
-      TabIndex        =   10
-      Top             =   5550
-      Width           =   465
-   End
-   Begin VB.CommandButton Command4 
-      Caption         =   "+"
-      Enabled         =   0   'False
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   12
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   405
-      Left            =   5610
-      TabIndex        =   9
-      Top             =   5550
-      Width           =   465
-   End
-   Begin VB.CommandButton Command3 
-      Caption         =   "-"
-      Enabled         =   0   'False
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   12
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   405
-      Left            =   6090
-      TabIndex        =   8
-      Top             =   5550
-      Width           =   465
-   End
-   Begin VB.CommandButton Command2 
-      Caption         =   "Salir"
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   585
-      Left            =   8340
+      Left            =   3450
       TabIndex        =   7
-      Top             =   6120
-      Width           =   1365
-   End
-   Begin VB.CommandButton Command1 
-      Caption         =   "Grabar y salir"
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   585
-      Left            =   8340
-      TabIndex        =   6
-      Top             =   5490
-      Width           =   1365
+      Text            =   "300"
+      Top             =   6240
+      Width           =   705
    End
    Begin VB.ListBox lstVals 
       Enabled         =   0   'False
       BeginProperty Font 
-         Name            =   "Courier New"
+         Name            =   "Verdana"
          Size            =   11.25
          Charset         =   0
          Weight          =   700
@@ -173,16 +165,16 @@ Begin VB.Form frmEspecialMonedero
       Index           =   1
       IntegralHeight  =   0   'False
       ItemData        =   "frmEspecialMonedero.frx":0000
-      Left            =   5070
+      Left            =   5280
       List            =   "frmEspecialMonedero.frx":0007
       TabIndex        =   2
-      Top             =   300
+      Top             =   330
       Width           =   2175
    End
    Begin VB.ListBox lstVals 
       Enabled         =   0   'False
       BeginProperty Font 
-         Name            =   "Courier New"
+         Name            =   "Verdana"
          Size            =   11.25
          Charset         =   0
          Weight          =   700
@@ -197,7 +189,7 @@ Begin VB.Form frmEspecialMonedero
       Left            =   2700
       List            =   "frmEspecialMonedero.frx":001B
       TabIndex        =   0
-      Top             =   300
+      Top             =   330
       Width           =   2175
    End
    Begin VB.Line Line1 
@@ -212,9 +204,9 @@ Begin VB.Form frmEspecialMonedero
       Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
       BorderStyle     =   1  'Fixed Single
-      Caption         =   "Maximo de milisegundos de separacion para considerarlas separadas. Mas de 400 no se recomienda"
+      Caption         =   "Máximo de milisegundos de separación para considerarlas separadas. No es recomendable utilizar más de 400 ms."
       BeginProperty Font 
-         Name            =   "Courier New"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
          Weight          =   700
@@ -222,68 +214,68 @@ Begin VB.Form frmEspecialMonedero
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H0000FFFF&
+      ForeColor       =   &H00E0E0E0&
       Height          =   1035
       Index           =   4
       Left            =   90
-      TabIndex        =   12
+      TabIndex        =   6
       Top             =   5700
       Width           =   2985
    End
    Begin VB.Label Label1 
       Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
-      Caption         =   "Eliga el valor que necesite de la lista correspondiente y con los botones ""+"" y ""-"" modifique hasta el valor necesario"
+      Caption         =   "Elija el valor que necesite de la lista correspondiente, con los botones ""+"" y ""-"" modifique hasta el valor necesario."
       BeginProperty Font 
-         Name            =   "Courier New"
-         Size            =   9.75
+         Name            =   "Verdana"
+         Size            =   8.25
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H0000FFFF&
+      ForeColor       =   &H00E0E0E0&
       Height          =   1545
       Index           =   3
-      Left            =   7530
+      Left            =   7620
       TabIndex        =   5
-      Top             =   930
+      Top             =   1110
       Width           =   2655
    End
    Begin VB.Label Label1 
       BackStyle       =   0  'Transparent
       Caption         =   "Tecla monedero 2 (S)"
       BeginProperty Font 
-         Name            =   "Courier New"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   400
+         Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H0000FFFF&
+      ForeColor       =   &H00E0E0E0&
       Height          =   285
       Index           =   2
-      Left            =   5100
+      Left            =   5310
       TabIndex        =   4
-      Top             =   60
+      Top             =   30
       Width           =   2175
    End
    Begin VB.Label Label1 
       BackStyle       =   0  'Transparent
       Caption         =   "Tecla monedero 1 (Q)"
       BeginProperty Font 
-         Name            =   "Courier New"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   400
+         Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H0000FFFF&
+      ForeColor       =   &H00E0E0E0&
       Height          =   285
       Index           =   1
       Left            =   2730
@@ -295,15 +287,15 @@ Begin VB.Form frmEspecialMonedero
       BackStyle       =   0  'Transparent
       Caption         =   $"frmEspecialMonedero.frx":0028
       BeginProperty Font 
-         Name            =   "Courier New"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   400
+         Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00FFFFFF&
+      ForeColor       =   &H00E0E0E0&
       Height          =   5295
       Index           =   0
       Left            =   150
@@ -322,7 +314,7 @@ Option Explicit
 Private Sub Command1_Click()
     Dim te7 As TextStream, J As Long
     'lista de reemplazos
-    Set te7 = FSO.OpenTextFile(GPF("rempmon45"), ForWriting, True)
+    Set te7 = fso.OpenTextFile(GPF("rempmon45"), ForWriting, True)
         te7.WriteLine "TO Q"
         For J = 1 To 20
             te7.WriteLine lstVals(0).List(J - 1)
@@ -361,6 +353,8 @@ Private Sub Command6_Click()
 End Sub
 
 Private Sub Form_Load()
+    Pintar_fBoton Me
+    Traducir 'Agregado por el complemento traductor
     lstVals(0).Clear: lstVals(1).Clear
     Dim J As Long
     For J = 1 To 20
@@ -371,8 +365,8 @@ Private Sub Form_Load()
     'ver si ya existe y mostrarlo como esta
     Dim TMP As String, SP() As String
     Dim TE8 As TextStream
-    If FSO.FileExists(GPF("rempmon45")) Then
-        Set TE8 = FSO.OpenTextFile(GPF("rempmon45"), ForReading, False)
+    If fso.FileExists(GPF("rempmon45")) Then
+        Set TE8 = fso.OpenTextFile(GPF("rempmon45"), ForReading, False)
             TMP = TE8.ReadLine 'solo dice "to Q"
             For J = 1 To 20
                 TMP = TE8.ReadLine
@@ -416,4 +410,29 @@ Private Sub ModifiVal(iLST As Long, lstIndex As Long, Var As Long)
     
     lstVals(iLST).List(lstIndex) = SP(0) + "=" + CStr(Cant)
     
+End Sub
+'-------Agregado por el complemento traductor------------
+Private Sub Traducir()
+    Command2.Caption = TR.Trad("Salir%99%")
+    Command1.Caption = TR.Trad("Grabar y salir%99%")
+    Label1(4).Caption = TR.Trad("Maximo de milisegundos de espacio para " + _
+        "considerarlas separadas. Mas de 400 no se recomienda%99%")
+    Label1(3).Caption = TR.Trad("Eliga el valor que necesite de la lista " + _
+        "correspondiente y con los botones  +  y  -  modifique hasta " + _
+        "el valor necesario%99%")
+    Label1(2).Caption = TR.Trad("Tecla monedero 2 (S)%99%")
+    Label1(1).Caption = TR.Trad("Tecla monedero 1 (Q)%99%")
+    Label1(0).Caption = TR.Trad("La listas muestran los valores de señales " + _
+        "que pueden ingresar en un breve lapso de tiempo. Algo 'no humano' " + _
+        "que llega desde un monedero electrónico. Esto es de mucha utilidad " + _
+        "si tiene problemas con su adpatador conectado desde el monedero a " + _
+        "su teclado. Por ejemplo si debe recibir 5 señales en 500 milisegundos " + _
+        "y llegan a veces 3 o 4 puede configurarlo para que cuando lleguen 3 o " + _
+        "4 señales muy juntas interpretarlas como 5 señales. Lo mejor sería " + _
+        "solucionar el problema de su adaptador, mientras tanto esta función " + _
+        "es de utilidad%99%")
+End Sub
+
+Private Sub Form_Resize()
+    tbrPintar frmIndex.Fondoxxx, Me, 0, 0, Me.Width / 15, Me.Height / 15
 End Sub

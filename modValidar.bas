@@ -7,24 +7,23 @@ Private txtClaves As String
 Public Sub CrearNuevoCodigoValidar()
     'tiene que ser de la lista de codigos que se pueden pedir!!!!
     'si no fuera asi no encontraría nunca el pedido para responder
-    'XXXXX
     
     Dim TX As String
     Dim TE As TextStream
     
-    Set TE = FSO.OpenTextFile(GPF("dalivmp2")) 'archivo encriptado con las claves
+    Set TE = fso.OpenTextFile(GPF("dalivmp2")) 'archivo encriptado con las claves
         TX = TE.ReadAll
     TE.Close
     
-    Dim Pos As Long 'posicion del archivo que voy leyendo
-    Pos = 1
-    Pos = Pos + 16
+    Dim pos As Long 'posicion del archivo que voy leyendo
+    pos = 1
+    pos = pos + 16
     'los siguentes 2 digitos especifican el largo del texto
     Dim LN As Long, LN2 As Long, LN3 As Long 'temporales
-    TP = Mid(TX, Pos, 2)
+    TP = Mid(TX, pos, 2)
     LN = CLng(TP)
-    Pos = Pos + 2
-    Pos = Pos + (LN * 4)
+    pos = pos + 2
+    pos = pos + (LN * 4)
     'listo ahora solo los numeros. cada 16 hay 2 grupos de 8 encriptados
     
     Dim AZAR As Long, Limite As Long
@@ -34,7 +33,7 @@ Public Sub CrearNuevoCodigoValidar()
     
     Dim Pedir As String
     
-    For LN = (Pos - 1) To (Len(TX) - 16) Step 16
+    For LN = (pos - 1) To (Len(TX) - 16) Step 16
         
         TP = Mid(TX, LN + 2, 1) + Mid(TX, LN + 15, 1) + Mid(TX, LN + 11, 1) + Mid(TX, LN + 16, 1) + _
              Mid(TX, LN + 6, 1) + Mid(TX, LN + 4, 1) + Mid(TX, LN + 14, 1) + Mid(TX, LN + 10, 1)
@@ -71,22 +70,31 @@ End Function
 Public Sub RegistroDiario()
     'registra cada inicio de 3PM y el numero que indica el contador
     Dim TE As TextStream
-    Set TE = FSO.OpenTextFile(GPF("rdcday"), ForAppending, True)
+    Set TE = fso.OpenTextFile(GPF("rdcday"), ForAppending, True)
         SumarContadorCreditos 0 'me aseguro que se carge la variable contador
-        TE.WriteLine CStr(Date) + " - " + CStr(time) + " Contador R en: " + CStr(CONTADOR) + " Contador H en: " + CStr(CONTADOR2)
+        SumarContadorCarrito 0
+        TR.SetVars CONTADOR, CONTADOR2, Contador_Cart, CONTADOR2_Cart
+        
+        TE.WriteLine CStr(Date) + " - " + CStr(time) + _
+            TR.Trad(" Contador R en: %01% Contador H en: %02%%98%Contador " + _
+                "R es el contador Reiniciable y contador H es el contador" + _
+                "Histórico de monedas insertadas%99%")
+        TE.WriteLine TR.Trad(" Contador R(carrito) en: %03% Contador H en: %04%%98%Contador " + _
+                "R es el contador Reiniciable y contador H es el contador" + _
+                "Histórico de creditos usados en el carrito de compras%99%")
     TE.Close
     
     If FileLen(GPF("rdcday")) > 50000 Then
         'si es muy grande achicarlo.
         Dim TE431 As String
-        Set TE = FSO.OpenTextFile(GPF("rdcday"), ForReading, True)
+        Set TE = fso.OpenTextFile(GPF("rdcday"), ForReading, True)
             TE431 = TE.ReadAll
         TE.Close
         'le saco al mitad
         Dim MIT As Long
         MIT = Len(TE431) / 2
         TE431 = Right(TE431, MIT)
-        Set TE = FSO.CreateTextFile(GPF("rdcday"), True)
+        Set TE = fso.CreateTextFile(GPF("rdcday"), True)
             TE.WriteLine TE431
         TE.Close
     End If
@@ -188,17 +196,17 @@ Public Function ClaveParaValidar(CodigoSolicitado As String, _
     Dim TX As String
     Dim TE As TextStream
     
-    Set TE = FSO.OpenTextFile(GPF("dalivmp2")) 'archivo encriptado con las claves
+    Set TE = fso.OpenTextFile(GPF("dalivmp2")) 'archivo encriptado con las claves
         TX = TE.ReadAll
     TE.Close
     
-    Dim Pos As Long 'posicion del archivo que voy leyendo
-    Pos = 1
+    Dim pos As Long 'posicion del archivo que voy leyendo
+    pos = 1
     'las primeras 16 son dos numeros de 8 mezclados que informan de cuantos creditos
     'se valida y con que preaviso
     Dim TP As String, TP2 As String, TP3 As String 'temporales
     
-    TP = Mid(TX, Pos, 16)
+    TP = Mid(TX, pos, 16)
     TP2 = Mid(TP, 3, 1) + Mid(TP, 15, 1) + Mid(TP, 9, 1) + Mid(TP, 1, 1) + _
           Mid(TP, 13, 1) + Mid(TP, 7, 1) + Mid(TP, 11, 1) + Mid(TP, 5, 1)
           
@@ -209,25 +217,25 @@ Public Function ClaveParaValidar(CodigoSolicitado As String, _
           
     PreAviso = CLng(TP2 / 6)
     
-    Pos = Pos + 16
+    pos = pos + 16
     
     'los siguentes 2 digitos especifican el largo del texto
     
     Dim LN As Long, LN2 As Long, LN3 As Long 'temporales
     
-    TP = Mid(TX, Pos, 2)
+    TP = Mid(TX, pos, 2)
     LN = CLng(TP)
-    Pos = Pos + 2
+    pos = pos + 2
     For LN2 = 0 To LN - 1 'cuatro numeros cada letra
-        LN3 = CLng(Mid(TX, Pos + (LN2 * 4), 4)) / (LN2 + 1)
+        LN3 = CLng(Mid(TX, pos + (LN2 * 4), 4)) / (LN2 + 1)
         TP2 = Chr(LN3)
         RecPC = RecPC + TP2
     Next LN2
       
-    Pos = Pos + (LN * 4)
+    pos = pos + (LN * 4)
     'listo ahora solo los numeros. cada 16 hay 2 grupos de 8 encriptados
     
-    For LN = Pos - 1 To (Len(TX) - 16) Step 16
+    For LN = pos - 1 To (Len(TX) - 16) Step 16
         TP = Mid(TX, LN + 2, 1) + Mid(TX, LN + 15, 1) + Mid(TX, LN + 11, 1) + Mid(TX, LN + 16, 1) + _
              Mid(TX, LN + 6, 1) + Mid(TX, LN + 4, 1) + Mid(TX, LN + 14, 1) + Mid(TX, LN + 10, 1)
         TP2 = Mid(TX, LN + 3, 1) + Mid(TX, LN + 5, 1) + Mid(TX, LN + 9, 1) + Mid(TX, LN + 1, 1) + _

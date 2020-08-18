@@ -56,11 +56,11 @@ Public Function AddFile(Arch As String) As Long
     'devuelve 2 si no eligio archivo
     AddFile = 0
     If mArchivo = "" Then
-        AddFile = 1
+        AddFile = 1 'no hay archivo donde empaquetarlo!
         Exit Function
     End If
     If Arch = "" Then
-        AddFile = 2
+        AddFile = 2 'no existe el archivo a incluir
         Exit Function
     Else
         Dim NewInd As Long
@@ -382,7 +382,6 @@ Public Function Extract(ExtracToFolder As String, IndexFileTo As Long) As Long
     'devuelve 2 si no eligio destino o no existe
     If Right(ExtracToFolder, 1) <> "\" Then ExtracToFolder = ExtracToFolder + "\"
     
-    Extract = 0
     'ver si existe el índice
     If UBound(mArchivosFT) < IndexFileTo Then
         Extract = 1
@@ -394,20 +393,30 @@ Public Function Extract(ExtracToFolder As String, IndexFileTo As Long) As Long
         Extract = 2
         Exit Function
     End If
-    
-    Open mArchivo For Binary As #1
+    Dim FR As Long
+    FR = FreeFile
+    Open mArchivo For Binary As #FR
         'ya tengo todo
         Dim getFileSPC As String
         getFileSPC = Space(mLargos(IndexFileTo))
         'hay que correrse el largo de la fat!!!!!!!!!!!!
         'y hay que corresrse el indicador de 6 caracteres
-        Get #1, mLargoFAT + mInis(IndexFileTo) + 6, getFileSPC
-    Close #1
+        Get #FR, mLargoFAT + mInis(IndexFileTo) + 6, getFileSPC
+    Close #FR
     'tirarlo en un archivo en la carpeta especificada con el mismo nombre que tenía
-    Open ExtracToFolder + mArchivosFT(IndexFileTo) For Binary As #2
-        Put #2, 1, getFileSPC
-    Close #2
+    FR = FreeFile
+    
+    'si existe el destino borrarlo
+    If Dir(ExtracToFolder + mArchivosFT(IndexFileTo)) <> "" Then
+        Kill ExtracToFolder + mArchivosFT(IndexFileTo)
+    End If
+    
+    Open ExtracToFolder + mArchivosFT(IndexFileTo) For Binary As #FR
+        Put #FR, 1, getFileSPC
+    Close #FR
         
+    Extract = 0
+    
 End Function
 
 

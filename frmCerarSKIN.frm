@@ -1,5 +1,7 @@
 VERSION 5.00
 Begin VB.Form frmCrearSKIN 
+   AutoRedraw      =   -1  'True
+   BackColor       =   &H00E0E0E0&
    Caption         =   "Form1"
    ClientHeight    =   3195
    ClientLeft      =   60
@@ -11,7 +13,7 @@ Begin VB.Form frmCrearSKIN
    StartUpPosition =   3  'Windows Default
    Begin VB.TextBox tCS 
       BeginProperty Font 
-         Name            =   "Trebuchet MS"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
          Weight          =   700
@@ -19,6 +21,7 @@ Begin VB.Form frmCrearSKIN
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
+      ForeColor       =   &H00404040&
       Height          =   2415
       Left            =   270
       MultiLine       =   -1  'True
@@ -37,11 +40,11 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Sub Form_Load()
-    If FSO.FileExists(AP + "crearskin.txt") Then
+    If fso.FileExists(AP + "crearskin.txt") Then
         Dim a As TextStream
-        Set a = FSO.OpenTextFile(AP + "crearskin.txt", ForReading, False)
+        Set a = fso.OpenTextFile(AP + "crearskin.txt", ForReading, False)
         tCS.Text = a.ReadAll
     Else
-        tCS.Text = "Algún gracioso le borro el archivo explicativo!"
+        tCS.Text = TR.Trad("No se encuentra el archivo explicativo%99%")
     End If
 End Sub

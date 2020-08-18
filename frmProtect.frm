@@ -40,7 +40,7 @@ Begin VB.Form frmProtect
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         ForeColor       =   &H00FFFF80&
+         ForeColor       =   &H00E0E0E0&
          Height          =   555
          Left            =   60
          TabIndex        =   2
@@ -111,7 +111,7 @@ Begin VB.Form frmProtect
       Begin VB.Label lblTIT 
          Alignment       =   2  'Center
          BackStyle       =   0  'Transparent
-         Caption         =   "Se esta protegiendo la pantalla. Presione cualquier tecla para continuar"
+         Caption         =   "Se está protegiendo la pantalla. Presione cualquier tecla para continuar."
          BeginProperty Font 
             Name            =   "Verdana"
             Size            =   9.75
@@ -121,7 +121,7 @@ Begin VB.Form frmProtect
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         ForeColor       =   &H00C0FFFF&
+         ForeColor       =   &H00E0E0E0&
          Height          =   2265
          Left            =   10290
          TabIndex        =   1
@@ -145,9 +145,13 @@ Dim IndPicVisible As Integer
 Dim MTXtapas() As String
 Dim IndMtxTapaVisible As Long
 
+Private Sub Form_Click()
+    SecSinTecla = 0
+    Unload Me
+End Sub
+
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     Select Case KeyCode
-        
         Case TeclaCerrarSistema
             YaCerrar3PM
     End Select
@@ -180,10 +184,11 @@ MiErr:
 End Sub
 
 Private Sub Form_Load()
+    Traducir 'Agregado por el complemento traductor
     On Error GoTo MiErr
     tERR.Anotar "acoo"
     Intervalo = 2
-    AjustarFRM Me, 12000
+    AjustarFRM Me, 12000, 9000
     FR.Left = Screen.Width / 2 - FR.Width / 2
     FR.Top = Screen.Height / 2 - FR.Height / 2
     TopTit = 150: movTit = 40
@@ -213,7 +218,7 @@ Private Sub Form_Load()
             Else
                 tERR.Anotar "acoq", ruta + NombreDir
                 ' es un directorio
-                If FSO.FileExists(ruta & NombreDir + "\tapa.jpg") Then
+                If fso.FileExists(ruta & NombreDir + "\tapa.jpg") Then
                     ContadorArch = ContadorArch + 1
                     ReDim Preserve MTXtapas(ContadorArch) As String
                     MTXtapas(ContadorArch) = ruta & NombreDir & "\tapa.jpg"
@@ -249,7 +254,7 @@ Private Sub Form_Load()
     'si no hay archivos en fotos da error!!!!
     tERR.Anotar "acov", ContadorArch
     If ContadorArch = 0 Then
-        lblDISCO = "!!!!!!No hay fotos para mostrar!!!!"
+        lblDISCO = TR.Trad("!No hay fotos para mostrar!%99%")
         lblDISCO.Visible = True
     Else
         TiempoEnProtect = 0
@@ -266,6 +271,21 @@ End Sub
 Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
     'dejar grabada la ultima foto que se vio
     WriteSimpleFile CStr(IndMtxTapaVisible)
+End Sub
+
+Private Sub FR_Click()
+    SecSinTecla = 0
+    Unload Me
+End Sub
+
+Private Sub lblDISCO_Click()
+    SecSinTecla = 0
+    Unload Me
+End Sub
+
+Private Sub PicProtec_Click(Index As Integer)
+    SecSinTecla = 0
+    Unload Me
 End Sub
 
 Private Sub Timer1_Timer()
@@ -299,7 +319,7 @@ Private Sub Timer1_Timer()
     If (Protector = 1) Then
         Dim DISCO As String
         DISCO = Left(MTXtapas(IndMtxTapaVisible), Len(MTXtapas(IndMtxTapaVisible)) - 9)
-        DISCO = FSO.GetBaseName(DISCO)
+        DISCO = fso.GetBaseName(DISCO)
         lblDISCO = DISCO
         PicProtec(IndPicVisible).Stretch = True
     End If
@@ -333,13 +353,13 @@ Private Sub Timer1_Timer()
     B = lblDISCO.Top - PicProtec(IndPicVisible).Height
     If B < 150 Then B = 150 '150 es el tope del frmae
     tERR.Anotar "acpe"
-    a = Int(Rnd * B)
-    PicProtec(IndPicVisible).Top = a
+    A = Int(Rnd * B)
+    PicProtec(IndPicVisible).Top = A
     
     Randomize Timer
     B = lblTIT.Left - PicProtec(IndPicVisible).Width
-    a = Int(Rnd * B)
-    PicProtec(IndPicVisible).Left = a
+    A = Int(Rnd * B)
+    PicProtec(IndPicVisible).Left = A
     
     PicProtec(IndPicVisible).Visible = True
     tERR.Anotar "acpf"
@@ -351,11 +371,11 @@ End Sub
 
 Private Sub WriteSimpleFile(TXT As String)
     
-    If FSO.FileExists(GPF("adpdp2323")) = False Then
-        Set TE = FSO.CreateTextFile(GPF("adpdp2323"), False)
+    If fso.FileExists(GPF("adpdp2323")) = False Then
+        Set TE = fso.CreateTextFile(GPF("adpdp2323"), False)
         TE.Close
     End If
-    Set TE = FSO.OpenTextFile(GPF("adpdp2323"), ForWriting, False)
+    Set TE = fso.OpenTextFile(GPF("adpdp2323"), ForWriting, False)
     
     TE.WriteLine TXT
     
@@ -364,14 +384,14 @@ End Sub
 
 Private Function ReadSimpleFile() As String
     
-    If FSO.FileExists(GPF("adpdp2323")) = False Then
-        Set TE = FSO.CreateTextFile(GPF("adpdp2323"), False)
+    If fso.FileExists(GPF("adpdp2323")) = False Then
+        Set TE = fso.CreateTextFile(GPF("adpdp2323"), False)
         TE.Close
         ReadSimpleFile = "0"
         Exit Function
     End If
     
-    Set TE = FSO.OpenTextFile(GPF("adpdp2323"), ForReading, False)
+    Set TE = fso.OpenTextFile(GPF("adpdp2323"), ForReading, False)
     If TE.AtEndOfStream Then
         ReadSimpleFile = ""
     Else
@@ -381,3 +401,8 @@ Private Function ReadSimpleFile() As String
     TE.Close
 End Function
 
+'-------Agregado por el complemento traductor------------
+Private Sub Traducir()
+    lblDISCO.Caption = TR.Trad("Protección de pantalla%99%")
+    lblTIT.Caption = TR.Trad("Se está protegiendo la pantalla. Presione cualquier tecla para continuar.")
+End Sub

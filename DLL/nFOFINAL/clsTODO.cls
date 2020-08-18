@@ -14,6 +14,12 @@ Attribute VB_Exposed = True
 Option Explicit
 Dim ACUMTTT As String
 Dim FSO As New Scripting.FileSystemObject
+Dim ResuFinal As String
+Private InternalSF As String
+Private Terr As New tbrErrores.clsTbrERR
+Dim CC As New tbrCrypto.Crypt
+
+'Dim LB() As String
 
 'sacado de 3PM con sistema de licencia anterior
 Private Function SimpleUnEncript(TXT As String) As String
@@ -33,15 +39,43 @@ Private Function SimpleUnEncript(TXT As String) As String
     SimpleUnEncript = TMP
 End Function
 
-Public Sub DoNow(DestFinal As String)
+Public Function GetRF() As String
+    GetRF = ResuFinal
+End Function
+
+Public Sub SetSF(defSF As String)
+    'define para que soft se esta creando el archivo de datos
+    InternalSF = defSF
+End Sub
+
+Public Function GetSF() As String
+    'obtenerlo del archivo que se esta leyendo
+    GetSF = InternalSF
+End Function
+
+Public Function DoNow(DestFinal As String) As Long
+
+    On Local Error GoTo ErrDoNow
+    
+    Terr.Anotar "aac"
+    
+    Dim tmpDN As Long
+    '0 todo ok
+    tmpDN = 1
     Dim TI As New clstbrInfoPC
     
-    ACUMTTT = TI.GetIM
+    tmpDN = 2
+    ACUMTTT = TI.GetIM 'leo TODOs los datos
+    Terr.Anotar "aad"
+    
+    tmpDN = 3
+    ResuFinal = TI.ResFinal  'tomo solo lo que no cambia
     
     'buscar claves anteriores de 3PM!!!
     'en system32+dcilib22.dll esta encriptada muy feamente!
     '(uno sirve, uno no, etc)
     Dim FF As String, CL44 As String
+    Terr.Anotar "aae"
     
     FF = FSO.GetSpecialFolder(SystemFolder) + "\dcilib22.dll"
     If FSO.FileExists(FF) Then
@@ -52,10 +86,16 @@ Public Sub DoNow(DestFinal As String)
     Else
         CL44 = "nox11"
     End If
-    'YA NO ES MAS !!!
-    'ahora es 3pm/sf/cd3.pm !!!
+    
+    tmpDN = 4
+    Terr.Anotar "aaf"
     
     ACUMTTT = ACUMTTT + vbCrLf + "EX3: " + CL44
+    
+    'nuevo agosto 2007!
+    ACUMTTT = ACUMTTT + vbCrLf + "SFSFSF:" + InternalSF
+    
+    Terr.Anotar "aag", InternalSF
     
     FF = FSO.GetSpecialFolder(SystemFolder) + "\nad3.cd"
         
@@ -63,18 +103,29 @@ Public Sub DoNow(DestFinal As String)
     Set TE = FSO.CreateTextFile(FF, True)
         TE.Write ACUMTTT
     TE.Close
-    
+    Terr.Anotar "aah"
+    tmpDN = 5
     'encriptarlo!!!
-    Dim CC As New caesCrypto.Crypt
+    
     CC.EncryptFile eMC_Blowfish, FF, DestFinal, "siboldi98"
     
+    Terr.Anotar "aai"
+    tmpDN = 6
     'borrar el original!
     FSO.DeleteFile FF, True
+    Terr.Anotar "aaj"
+    DoNow = 0
     
-End Sub
+    Exit Function
+    
+ErrDoNow:
+    Terr.AppendLog "AAA1", CStr(tmpDN)
+    MsgBox "Error en -DoNow- (" + CStr(tmpDN) + ")"
+    DoNow = tmpDN
+End Function
 
 Public Function GetNR(AR As String, ByRef FF As String) As Long
-    'obtiene el numero de respuesta NR que tiene algun archivo de licencia creado "a"
+    'obtiene el numero de respuesta NR que tiene algun archivo de licencia creado "ar"
     'devuelve en FF al final al que corresponde !!
     'ademas obtiene el fFINAL desencriptando todo para ver si corresponde a la misma
     'PC que trata de cargarlo!!!
@@ -90,15 +141,22 @@ Public Function GetNR(AR As String, ByRef FF As String) As Long
         Txe = TE.ReadAll
     TE.Close
     
-    'al principio son 1500 valores separados por puntos!
-    Dim cFINAL(1500) As Byte 'clave final
+    'al principio son X valores separados por puntos!
+    Dim cFINAL() As Long 'clave final
     Dim A As Long, SP() As String
+    If InStrRev(Txe, ".") = 0 Then
+        tmpNR = -2 'no es aparentemente un archivo de licencia!
+        GoTo FIN
+    End If
+    
     SP = Split(Txe, ".")
-    For A = 0 To 1500
-        cFINAL(A) = CByte(SP(A)) 'cargo uno por uno los valores
-        'cFinal(4) cFinal(5) cFinal(6) cFinal(7) deben conseguir mid(fFinal2,1,1) 'primer caracter
-        'cFinal(8) cFinal(9) cFinal(10) cFinal(11) deben conseguir mid(fFinal2,2,1) 'segundo caracter
-        '....etc
+    For A = 0 To UBound(SP) - 1 'el ultimo es "" y da error
+        ReDim Preserve cFINAL(A)
+        If Not IsNumeric(SP(A)) Then
+            tmpNR = -2 'no es aparentemente un archivo de licencia!
+            GoTo FIN
+        End If
+        cFINAL(A) = CLng(SP(A)) 'cargo uno por uno los valores
     Next A
     
     'reconstruyo fFinal2
@@ -106,19 +164,66 @@ Public Function GetNR(AR As String, ByRef FF As String) As Long
     fFinal2 = ""
     Dim n As Long, testN As Long
     testN = -3 'bandera de que no leyo ninguno
-    For A = 4 To 1496 Step 4
-        'si los 4 son cero no me sirve
-        If cFINAL(A) > 0 And cFINAL(A + 1) > 0 And cFINAL(A + 2) > 0 And cFINAL(A + 3) > 0 Then
-            Letra = Chr(cFINAL(A)) + Chr(cFINAL(A + 1)) + Chr(cFINAL(A + 2)) + Chr(cFINAL(A + 3))
-            Letra = P4to1(Letra, A / 4, n)
-            If testN = -3 Then testN = n
-            If testN <> n Then
-                GetNR = -2 'TODOS DEBEN SER IGUALES !!!!
-                Exit Function
-            End If
-            fFinal2 = fFinal2 + Letra
-        End If
-    Next A
+    
+    'no uso for por que no son ciclos iguales
+    
+    Dim V1 As Long 'contador de letras empieza en 1 cuando se genera el archivo
+    V1 = 1
+    Dim ix As Long 'valor dentro del split
+    ix = 0
+    Do
+        
+        If ix >= UBound(SP) Then Exit Do
+        A = cFINAL(ix)
+        Select Case A
+            Case 60 To 69
+            
+                If testN = -3 Then testN = cFINAL(ix + 2) - V1
+                n = cFINAL(ix + 2) - V1
+                
+                If testN <> n Then
+                    tmpNR = (-V1 * 1000) - ix 'para saber donde da el error doy un numero de donde fue el problema
+                    GoTo FIN
+                End If
+                
+                fFinal2 = fFinal2 + Chr(cFINAL(ix + 1))
+                
+                ix = ix + 7
+                V1 = V1 + 1
+                
+            Case 70 To 89
+            
+                If testN = -3 Then testN = cFINAL(ix + 2)
+                n = cFINAL(ix + 2)
+                
+                If testN <> n Then
+                    tmpNR = (-V1 * 1000) - ix 'para saber donde da el error doy un numero de donde fue el problema
+                    GoTo FIN
+                End If
+                
+                fFinal2 = fFinal2 + Chr(cFINAL(ix + 1))
+                
+                V1 = V1 + 1
+                ix = ix + 4
+                
+            Case 90 To 170
+            
+                If testN = -3 Then testN = cFINAL(ix + 1) - (cFINAL(ix + 5))
+                n = cFINAL(ix + 1) - (cFINAL(ix + 5))
+                
+                If testN <> n Then
+                    tmpNR = (-V1 * 1000) - ix 'para saber donde da el error doy un numero de donde fue el problema
+                    GoTo FIN
+                End If
+                
+                fFinal2 = fFinal2 + Chr(cFINAL(ix + 5))
+                
+                V1 = V1 + 1
+                ix = ix + 6
+'            Case Else 'NO VAA
+'                V1 = V1 + 1
+        End Select
+    Loop
     '****************
     'si llego hasta aqui son todos iguales!
     tmpNR = testN
@@ -128,16 +233,33 @@ Public Function GetNR(AR As String, ByRef FF As String) As Long
     For A = 1 To Len(fFinal2)
         fFinal = fFinal + chgL2(Mid(fFinal2, A, 1))
     Next A
-    FF = fFinal
-    If UCase(Left(fFinal, 6)) <> "FINAL:" Then
-        GetNR = -1 'no valido!!
+    'le saco el final:
+    FF = Mid(fFinal, 7, Len(fFinal) - 6)
+    
+    'le saco el det de soft si lo tuviera
+    Dim USF As Long 'ubicacion del sf si hubiera
+    USF = InStr(1, FF, "SFSFSF:", vbTextCompare)
+    If USF > 0 Then
+        InternalSF = Mid(FF, USF + 7)
+        'saco tambien la "|"
+        FF = Left(FF, USF - 1)
+    Else
+        InternalSF = ""
     End If
     
+    If UCase(Left(fFinal, 6)) <> "FINAL:" Then
+        tmpNR = -1 'no valido!!
+    End If
+    
+FIN:
     GetNR = tmpNR
 End Function
 
 Public Function Get0406(AR As String) As String
-    Dim CC As New caesCrypto.Crypt
+    'puede dar error al desencriptar
+    On Local Error GoTo NoEsArchDe3PM
+    
+    
     CC.DecryptFile eMC_Blowfish, AR, "c:\h.cda", "siboldi98"
     
     'abrirlo y desencriptarlo
@@ -151,7 +273,7 @@ Public Function Get0406(AR As String) As String
     
     FSO.DeleteFile "c:\h.cda", True
     
-    Dim SP() As String, fFinal As String: fFinal = "NiBosta"
+    Dim SP() As String
     SP = Split(Txe, vbCrLf)
     Dim A As Long
     'buscar solo los numeros que tomo como referencia
@@ -167,38 +289,57 @@ Public Function Get0406(AR As String) As String
     Next A
     Get0406 = S4_6
     
+    Exit Function
+NoEsArchDe3PM:
+    Get0406 = "NO"
 End Function
 
-Public Sub CK(AR As String, NR As Long, dest As String)
+Public Function LiToLo(AR As String, AR2 As String) As Long
+    On Local Error GoTo NoEsArchDe3PM2
+    
+    CC.DecryptFile eMC_Blowfish, AR, AR2, "siboldi98"
+    LiToLo = 0
+    Exit Function
+NoEsArchDe3PM2:
+    LiToLo = 1
+End Function
+
+Public Function CK(AR As String, NR As Long, dest As String) As Long
     '***************************************
     'crear un archivo de licencia dado un archivo de datos (AR)
     '***************************************
     
     'el archivo de licencia aplicado al archivo de datos dados se hara para
-    'que devuelva el nuemro (NR) solicitado
-    
+    'que devuelva el numero (NR) solicitado
     'este ultimo lo uso para saber que tipo de licecnia es
     
     'El archivo AR esta encriptado
-    
-    Dim CC As New caesCrypto.Crypt
+    On Local Error GoTo NoEsArchDe3PM
+    CK = 1
+    Terr.Anotar "daa"
     CC.DecryptFile eMC_Blowfish, AR, "c:\h.cda", "siboldi98"
     
     'abrirlo y desencriptarlo
     Dim FSO As New Scripting.FileSystemObject
-    
+        
+    CK = 2
+    Terr.Anotar "dab"
     Dim TE As TextStream
     Dim Txe As String 'todo el texto
     Set TE = FSO.OpenTextFile("c:\h.cda", ForReading, False)
         Txe = TE.ReadAll
     TE.Close
     
+    CK = 3
+    Terr.Anotar "dac"
     FSO.DeleteFile "c:\h.cda", True
     
     Dim SP() As String, fFinal As String: fFinal = "NiBosta"
     SP = Split(Txe, vbCrLf)
     Dim A As Long
     'buscar solo los numeros que tomo como referencia
+    Terr.Anotar "dad"
+    InternalSF = "" 'si no lo lee sera alguno viejo que no lo tenia aún
     For A = 0 To UBound(SP)
 '        'lo hago en una funcion aparte
 '        'ver tambien si tenia clave
@@ -207,46 +348,64 @@ Public Sub CK(AR As String, NR As Long, dest As String)
 '            SP2 = Split(SP(A), ":")
 '            S4_6 = Trim(SP2(1))
 '        End If
-        If Left(SP(A), 6) = "FINAL:" Then
+        If UCase(Left(SP(A), 6)) = "FINAL:" Then
             fFinal = SP(A) 'con la palabra final y todo (de paso me sirve para validar _
                 que es un codigo valido!)
-            'Exit For 'para que entre a todo lo que busco
         End If
+        
+        'leo para que software fue hecho!
+        If UCase(Left(SP(A), 7)) = "SFSFSF:" Then
+            'le saco el prefijo sfsfsf:
+            InternalSF = Mid(SP(A), 8)
+            Terr.Anotar "dae", InternalSF
+        End If
+        
     Next A
     
+    'nuevo.. ahora el soft tambien indica diferencias
+    fFinal = fFinal + "SFSFSF:" + InternalSF
+    
+    CK = 4
+    Terr.Anotar "daf"
     Set CC = Nothing
     
     'fFINAL tiene el codigo a partir del cual se generara
     'primero hago reemplazos varios
     Dim Letra As String, fFinal2 As String
     fFinal2 = ""
+    'ReDim Preserve LB(0)
     For A = 1 To Len(fFinal) 'entre 50 y 150 aprox
         Letra = LCase(Mid(fFinal, A, 1))
         Letra = chgL(Letra)
+    '    ReDim Preserve LB(A)
+    '    LB(A) = LCase(Mid(fFinal, A, 1)) + " " + Letra
         'If Letra = "/" Then MsgBox Mid(fFinal, A, 1)
         fFinal2 = fFinal2 + Letra
     Next A
+    CK = 5
     'aplico otros cambios
-    '***********************
-    Dim cFINAL(1500) As Byte 'clave final
-    '***********************
+    Dim supF As String: supF = ""
     For A = 1 To Len(fFinal2) 'entre 50 y 150 aprox
         Dim p4 As String 'cuatro caracteres por cada uno
-        p4 = GetP4(Mid(fFinal2, A, 1), A, NR)
-        'cargo los 4 en cuatro indices de la matriz
-        Dim B As Long
-        For B = 1 To 4
-            cFINAL((A * 4) + (B - 1)) = Asc(Mid(p4, B, 1))
-        Next B
+        Letra = Mid(fFinal2, A, 1)
+        p4 = GetP4(Letra, A, NR)
+        supF = supF + p4
     Next A
+    CK = 6
     'escribo en el destino indicado
     Dim TE4 As TextStream
     Set TE4 = FSO.CreateTextFile(dest, True)
-        For A = 0 To 1500
-            TE4.Write CStr(cFINAL(A)) + "."
-        Next A
+        TE4.Write supF
     TE4.Close
-End Sub
+    CK = 0
+    Exit Function
+NoEsArchDe3PM:
+    'sale con el CK en el error, solo cero esta ok
+End Function
+
+'Public Function GetLBs() As String()
+'    GetLBs = LB
+'End Function
 
 Private Function P4to1(Cuatro As String, vA As Long, ByRef NR As Long) As String
     'recibe cuatro letras y devuelve una letra. Funcion inversa de GetP4
@@ -295,49 +454,219 @@ Private Function P4to1(Cuatro As String, vA As Long, ByRef NR As Long) As String
     
 End Function
 
-Private Function GetP4(s As String, v1 As Long, v2 As Long) As String
+Private Function GetP4(s As String, V1 As Long, v2 As Long) As String
     'devulelve 4 letras en base al caracter y dos valores variables
     'a del for y el NR esperado
     
+    'pongo los 3 como numeros
+    Dim v0 As Long
+    v0 = Asc(s)
+    
+    'v0 es el valor de la letra actual. de 0 a 255
     'v1 es el a del for o sea va de 1 a 50-150)
     'v2 es el nr que como lo defino yo va de 1 a 100
     
     'debe ser una funcion reversible !
     
-    Dim L(3) As String
+    'para los valores previos temporales numericos
+    Dim TP(6) As Long
     
-    'V1 es el nro de orden por lo tanto es un dato al desencriptar tambien
-    L(0) = Chr(Abs(v2 - v1))
-    ' de aca tiene 2 valores posibles de V2
-    'SI V2 > V1  ==>>  V2 = L(0) + V1
-    'SI V2 < V1  ==>>  V2 = V1 - L(0)
+    Dim fFIN As String 'si o si empeiza en numero y termina en punto
+    
+    'el primero de los 4 es al azar
     Randomize
-    If v1 >= v2 Then 'el igual puede o no ir, es lo mismo. Si l(0)=0 no jode
-        L(1) = Chr(128 + (Rnd * 80))
-    Else
-        L(1) = Chr(127 - (Rnd * 80))
-    End If
-    'PARA LECTURA POSTERIOR
-    'si L(1) es mayor= a 128 es porque V1 > V2 = V1 - L(0)
-    'si L(1) es menor  a 128 es porque V1 < V2 = L(0) + V1
+    TP(0) = CLng(Rnd * 100) + 60 'da entre 60 y 160
     
-    L(2) = Chr(Abs(Asc(s) - v2)) 'aca tiene 2 opciones para "S"
-    'SI V2 >= Asc(s)  ==>>  V2 = L(2) + Asc(s)
-    'SI V2 <  Asc(s)  ==>>  V2 = Asc(s) - L(2)
-    
-    Randomize
-    If v2 >= Asc(s) Then 'el igual puede o no ir, es lo mismo. Si l(0)=0 no jode
-        L(3) = Chr(100 + (Rnd * 80))
+    If TP(0) < 70 Then
+        TP(1) = v0
+        TP(2) = V1 + v2
+        TP(3) = v2 + v0
+        TP(4) = TP(0) + 1 'si o si distinto de cero
+        TP(5) = TP(0) - 40 'si o si distinto de cero
+        TP(6) = TP(0) + V1 'si o si distinto de cero
+        fFIN = CStr(TP(0)) + "." + _
+               CStr(TP(1)) + "." + _
+               CStr(TP(2)) + "." + _
+               CStr(TP(3)) + "." + _
+               CStr(TP(4)) + "." + _
+               CStr(TP(5)) + "." + _
+               CStr(TP(6)) + "."
+        
     Else
-        L(3) = Chr(99 - (Rnd * 80))
-    End If
-    'PARA LECTURA POSTERIOR
-    'si L(3) es mayor o igual a 100 es porque v2 >= asc(s)   asc(s) = v2 - L(2)
-    'si L(3) es menor a 100 es porque V2 < asc(s)            asc(s) = v2 + L(2)
+        If TP(0) < 90 Then 'de 71 a 89
+            TP(1) = v0
+            TP(2) = v2
+            TP(3) = 6
+            TP(4) = 0
+            TP(5) = 0
+            TP(6) = 0
             
-    'junto los 4 y devuelvo
-    GetP4 = L(0) + L(1) + L(2) + L(3)
+            fFIN = CStr(TP(0)) + "." + _
+               CStr(TP(1)) + "." + _
+               CStr(TP(2)) + "." + _
+               CStr(TP(3)) + "."
+        Else
+            'entre 91 y 160
+            TP(1) = v0 + v2
+            TP(2) = V1 * 2
+            TP(3) = V1 + 19
+            TP(4) = TP(1) 'si o si distinto de cero
+            TP(5) = v0 'si o si distinto de cero
+            TP(6) = 0
+            
+            fFIN = CStr(TP(0)) + "." + _
+               CStr(TP(1)) + "." + _
+               CStr(TP(2)) + "." + _
+               CStr(TP(3)) + "." + _
+               CStr(TP(4)) + "." + _
+               CStr(TP(5)) + "."
+        End If
+    End If
+    
+    GetP4 = fFIN
 End Function
+
+Public Function GetDiff2PC(ID1 As String, ID2 As String) As String
+    'devuelve la diferencia de hardware entre 2 equipos
+    Dim Ret(20) As Long 'cada una de los valores con informacion
+    ' de 0 a 6 son diferencias en las placas de red existentes
+    
+    'NO SE INICIALIZO!!!!!
+    Dim M As Long
+    For M = 0 To 20
+        Ret(M) = 0
+    Next M
+    On Local Error GoTo ErrDIFF
+    
+    Dim SP1() As String, SP2() As String
+    
+    SP1 = Split(ID1, "|")
+    SP2 = Split(ID2, "|")
+    
+    'si alguno de los dos no tiene la cantidad de indices deseados salgo IA!
+    '000E7B034604.0012F0323ADC|          |00000000000006D8|D080006|454X0713S      |
+    '000BCD56747A.000D9D46EC17|CNF3230D95|BFEBF9FF00000F27|207000F|6G2722         |
+    '00138F9B3DD2             |00000000  |BFEBFBFF00000F49|409000F|WD-WMAP91962322|
+    
+    'donde
+    'SP(0) = Lista de MACS separadas por .
+    'SP(1) = BIOS
+    'SP(2) = Micro
+    'SP(3) = Micro Reserved
+    'SP(4) = DISCO 1
+    'SP(5) = DISCO 2
+    'SP(6) = DISCO 3
+    'SP(7) = DISCO 4
+    
+    'ret(0):si es cero la PC1 tiene el minimo de indices necesarios para arrancar
+    'ret(1):si es cero la PC2 tiene el minimo de indices necesarios para arrancar
+    'ret(2):cantidad de placas de red de la PC1
+    'ret(3):cantidad de placas de red de la PC2
+    'ret(4):cantidad de coindicencias en placas de red
+    'ret(5):dif en la bios si es 4 esta ok, si es 6 esta mal. NO puede ser otro resultado
+    'ret(6):dif en el micro si es 2 esta ok, si es 1 esta mal. NO puede ser otro resultado
+    'ret(7):dif en el micro reserved si es 5 esta ok, si es 3 esta mal. NO puede ser otro resultado
+    'ret(8):cantidad de discos en la pc1
+    'ret(9):cantidad de discos en la pc2
+    'ret(10):coincidencias en los discos
+    'ret(11):
+    'ret(12):
+    'ret(13):
+    'ret(14):
+    'ret(15):
+    'ret(16):
+    'ret(17):
+    'ret(18):
+    'ret(19):
+    
+    'son por lo menos 5 (el (5) vacio si hay solo un disco)
+    
+    If UBound(SP1) < 5 Then
+        Ret(0) = 1
+        Exit Function
+    End If
+    
+    If UBound(SP2) < 5 Then
+        Ret(1) = 1
+        Exit Function
+    End If
+    
+    'sublistas de MACs
+    Dim SP1B() As String
+    Dim SP2B() As String
+    
+    SP1B = Split(SP1(0), ".")
+    SP2B = Split(SP2(0), ".")
+    
+    Ret(2) = UBound(SP1B) + 1 'cantidad de placas de la PC1
+    Ret(3) = UBound(SP2B) + 1 'cantidad de placas de la PC1
+    Ret(4) = 0 'cantida de coincidencias
+    'Ya tengo todo lo que necesito para comparar
+    Dim A As Long, B As Long
+    For A = 0 To UBound(SP1B)
+        For B = 0 To UBound(SP2B)
+            If LCase(SP1B(A)) = LCase(SP2B(B)) Then
+                Ret(4) = Ret(4) + 1 'cantidad de coincidencias
+                GoTo nNext
+            End If
+        Next B
+nNext:
+    Next A
+    
+    'DIF en LA BIOS
+    If Trim(LCase(SP1(1))) <> Trim(LCase(SP2(1))) Then
+        Ret(5) = 6
+    Else
+        Ret(5) = 4
+    End If
+    
+    'DIF en el micro
+    If Trim(LCase(SP1(2))) <> Trim(LCase(SP2(2))) Then
+        Ret(6) = 1
+    Else
+        Ret(6) = 2
+    End If
+    
+    'DIF en reserved
+    If Trim(LCase(SP1(3))) <> Trim(LCase(SP2(3))) Then
+        Ret(7) = 3
+    Else
+        Ret(7) = 5
+    End If
+    
+    'DIF en discos
+    'ver la cantidad
+    Ret(8) = UBound(SP1) - 4 'cantidad de discos duros en SP1
+    Ret(9) = UBound(SP2) - 4 'cantidad de discos duros en SP1
+    Ret(10) = 0 'cantidad de coincidencias
+    'pasa lo que pase comparo todos con todos
+    Dim J As Long, K As Long
+    For J = 4 To UBound(SP1) - 1
+        For K = 4 To UBound(SP2) - 1
+            If Trim(LCase(SP1(J))) = Trim(LCase(SP2(K))) Then
+                Ret(10) = Ret(10) + 1
+                GoTo MEXT
+            End If
+        Next K
+MEXT:
+    Next J
+    
+    
+    'pasar todo a string
+    Dim SS As String
+    SS = ""
+    For J = 0 To UBound(Ret)
+        SS = SS + CStr(Ret(J))
+    Next J
+    
+    GetDiff2PC = SS
+    Exit Function
+    
+ErrDIFF:
+    Ret(20) = Ret(20) + 1
+    Resume Next
+End Function
+
 
 Private Function chgL(s As String) As String
     Select Case s
@@ -440,3 +769,31 @@ Private Function chgL2(s As String) As String 'inversa de la anterior
         Case Else: chgL2 = "/"
     End Select
 End Function
+
+Public Sub SetLog(sDir As String)
+    Terr.FileLog = sDir
+    Terr.Anotar "aab"
+    
+    Dim GF As String
+    GF = FSO.GetBaseName(sDir) + "." + FSO.GetExtensionName(sDir)
+    'le saco el nombre que tenga y me quedo con la carpeta
+    GF = Mid(sDir, 1, Len(sDir) - Len(GF))
+    If Right(GF, 1) <> "\" Then GF = GF + "\"
+    
+    GF = GF + "regCR.log"
+    
+    CC.SetLog GF
+    
+End Sub
+
+Private Sub Class_Initialize()
+    InternalSF = "" 'valor predeterminado compatible con versiones anteriores
+    Terr.FileLog = App.path + "\regKI.log"
+    Terr.Set_ADN CStr(App.Major * 100000 + App.Minor * 1000 + App.Revision)
+    
+    Terr.LargoAcumula = 600
+    Terr.Anotar "aaa"
+    
+    CC.SetLog App.path + "\regCR.log"
+    
+End Sub

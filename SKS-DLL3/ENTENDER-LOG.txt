@@ -1,0 +1,8 @@
+VVA: Valor acumulado anterior
+mvX(cX): matriz X (X), me da un valor para que confirmemos que esta bien el vector que uso
+L1:X Valor de respuesta de licencia que me da luis
+L2:X Valor de respuesta de licencia que dice 3PM
+Cs, contadores 1,2,3,4
+L18 licencia OK
+L17 licencia mal !
+NP: numero de placa leido de la interfase tiene un espacio y despues todos amontonados los primeros indices de los 3 vectores

@@ -50,29 +50,41 @@ Private mEsteEventoEsLargo As Boolean
 Private TFU As Long 'tamaño de fuente usado
 Private Sombra As Long 'distancia del segundo texto
 
+Private Terr As New tbrErrores.clsTbrERR
+
 Public Function GetPathMP3() As String
     GetPathMP3 = nMP3
 End Function
 
-Public Sub DoOpenKar(Archivo As String) 'separar el mn0 y deja todo los eventos listos!
+Public Function DoOpenKar(Archivo As String) As Long 'separar el mn0 y deja todo los eventos listos!
     
+    Terr.Anotar "1000", Archivo
     'el mmPlayer lo llama cuando tiene el mp3 abierto
-
-    SepararMN0 Archivo 'graba los archivos dentro del mn0 en la carpeta temp
-    SetFormato 'define la fuente y los tamaños del mn0
+    Dim RET As Long
+    RET = SepararMN0(Archivo) 'graba los archivos dentro del mn0 en la carpeta temp
+    Terr.Anotar "1001", RET
+    If RET <> 0 Then
+        'si fue negativo es un error del sistema y el numero es abs(ret)
+        'si es de 1 a 4 es que falto algun archivo o se descomprimio mal
+        DoOpenKar = RET
+        Exit Function
+    End If
     
+    Terr.Anotar "1002"
+    SetFormato 'define la fuente y los tamaños del mn0
+    Terr.Anotar "1003"
     DireccionPelota = 0
     
-    
-    
     LeeKar nNK0 'hacer una lista de eventos
-    
+    Terr.Anotar "1004", nIMG
     'poner la imagen que el usuario eligio
     P.PaintPicture LoadPicture(nIMG), 0, 0, P.Width, P.Height
     Dim BT As String
     BT = App.Path + "\tmp.bmp"
-    If Dir(BT) <> "" Then Kill BT
+    If FS.FileExists(BT) Then FS.DeleteFile BT, True
+    'If Dir(BT) <> "" Then Kill BT
     '¿ por que lo graba a BMP ? por el tamaño!
+    Terr.Anotar "1005", BT
     SavePicture P.Image, BT
     'P.Picture = LoadPicture(ArchIMG)
     P.Picture = LoadPicture(BT) '<<<<<
@@ -80,12 +92,15 @@ Public Sub DoOpenKar(Archivo As String) 'separar el mn0 y deja todo los eventos 
     LE = 0: LEF = 0 'numero de evento y de frase en cero
     
     Pelota.Visible = True
-    
+    Terr.Anotar "1006"
     GetTFU 'definir el tamaño de fuente que se va a usar!!!
     
-End Sub
+End Function
 
-Private Sub SepararMN0(Archivo As String)
+Private Function SepararMN0(Archivo As String) As Long
+    
+    On Local Error GoTo ErrSEPMN
+    Terr.Anotar "1007"
     'graba los archivos en APP + TEMP
     Dim Archivos() As String
     Dim qDatos() As String
@@ -107,7 +122,7 @@ Private Sub SepararMN0(Archivo As String)
         For R = 0 To UBound(qDatos) - 1
             Dqs = Split(qDatos(R), "?")
             Datoo = Space$(Dqs(1))
-    
+            Terr.Anotar "1008", R
             Dim ArchivoDestino As String
             Select Case R
                 Case 0
@@ -123,8 +138,11 @@ Private Sub SepararMN0(Archivo As String)
                     nTMP = cTMP + Dqs(0)
                     ArchivoDestino = nTMP
             End Select
-    
-            If Not Dir(ArchivoDestino) = "" Then Kill ArchivoDestino
+            Terr.Anotar "1009", ArchivoDestino
+            'si existe algo lo borro
+            If FS.FileExists(ArchivoDestino) Then FS.DeleteFile ArchivoDestino, True
+            'BOSTAS DEL MANU
+            'If Not Dir(ArchivoDestino) = "" Then Kill ArchivoDestino
     
             Open ArchivoDestino For Binary As #2
                 Get #1, Pdv, Datoo
@@ -133,8 +151,34 @@ Private Sub SepararMN0(Archivo As String)
             Pdv = Pdv + Dqs(1) + 1
             DoEvents
         Next R
-    Close
-End Sub
+    Close 'cierra todos, no solo el 1
+    Terr.Anotar "1010"
+    'VER QUE ESTEN TODOS LOS ARCHIVOS
+    If FS.FileExists(nNK0) = False Then
+        SepararMN0 = 1
+        Exit Function
+    End If
+    
+    If FS.FileExists(nMP3) = False Then
+        SepararMN0 = 2
+        Exit Function
+    End If
+    
+    If FS.FileExists(nIMG) = False Then
+        SepararMN0 = 3
+        Exit Function
+    End If
+    
+    If FS.FileExists(nTMP) = False Then
+        SepararMN0 = 4
+        Exit Function
+    End If
+    'todo ok
+    SepararMN0 = 0
+    Exit Function
+ErrSEPMN:
+    SepararMN0 = -(Err.Number)
+End Function
 
 Public Function EjecutarEvento(Miliseg As Double) As Long
     'devuelve el proximo evento que hara
@@ -348,9 +392,16 @@ Private Sub SetFormato()
 End Sub
 
 Private Sub Class_Initialize()
-     CarpetaTemp
-     Set P = Nothing
-     mEsteEventoEsLargo = True 'el primero lo tomo como largo por las dudas
+    CarpetaTemp
+    Set P = Nothing
+    mEsteEventoEsLargo = True 'el primero lo tomo como largo por las dudas
+End Sub
+
+Public Sub DefinePathLog(Pth As String)
+    Terr.FileLog = Pth
+    'en realidad nunca uso el append ya que le paso el detalle al programa usuario de la DLL para que haga lo que quiera!
+    Terr.LargoAcumula = 300
+    Terr.Anotar "Kar001", Pth
 End Sub
 
 'Private Sub IrATiempo(xMiliSeg As Long)
@@ -378,11 +429,11 @@ Private Function LeeKar(Archivo As String, Optional CambiarTiempos As Long = 0) 
     '1 si no existe
     '2 si no es neokaraoke cero
     '3 desconocido
-
+    Terr.Anotar "1011"
     mFile = Archivo
 
     On Local Error GoTo ErrKar
-    Dim KAR As String
+    Dim sKAR As String
     If Dir(mFile) = "" Then
         LeeKar = 1
         Exit Function
@@ -390,27 +441,28 @@ Private Function LeeKar(Archivo As String, Optional CambiarTiempos As Long = 0) 
 
     Dim Activ As Boolean
     Activ = False
-
-    KAR = Space(FileLen(mFile))
+    
+    sKAR = Space(FileLen(mFile))
     Open mFile For Binary As #1
-        Get #1, 1, KAR
+        Get #1, 1, sKAR
     Close
-
+    
+    Terr.Anotar "1012"
     'ok
     LeeKar = 0
 
-    If Mid(KAR, 1, 6) <> "NeoKar" Then
-        KAR = "NeoKar0" + Chr(5) + KAR
+    If Mid(sKAR, 1, 6) <> "NeoKar" Then
+        sKAR = "NeoKar0" + Chr(5) + sKAR
     End If
 
-    KAR = Mid(KAR, 7)
-    ListaEventos = Split(KAR, Chr(6))
+    sKAR = Mid(sKAR, 7)
+    ListaEventos = Split(sKAR, Chr(6))
 
     ReDim ListaEvFraces(0)
     Dim A As Long
     Dim eB As Long
     eB = 0
-
+    
     Dim DosDatos() As String
     LEF = 0
     For A = 0 To UBound(ListaEventos)
@@ -444,10 +496,14 @@ Private Function LeeKar(Archivo As String, Optional CambiarTiempos As Long = 0) 
         eB = 1
 SIG:
     Next A
-
+    Terr.Anotar "1013"
     Exit Function
 ErrKar:
     LeeKar = 3
+End Function
+
+Public Function GetLOG() As String
+    GetLOG = Terr.LogAcumulado
 End Function
 
 Public Property Get MaxEventos() As Long

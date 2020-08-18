@@ -13,6 +13,8 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
+Dim AP As String
+
 Public Event Pintar(D() As Byte)
 
 Private WithEvents RELOJ As clsTimer
@@ -232,6 +234,9 @@ Public Property Get IsPlaying() As Boolean
 End Property
 
 Private Sub Class_Initialize()
+    AP = App.Path
+    If Right(AP, 1) <> "\" Then AP = AP + "\"
+    
     'vu2***************************
     
     mCurva = 1.15
@@ -323,13 +328,13 @@ Public Function DoStart() As Long
     'ver si ya esta abierto
     If OpIN = 4 Then
         'esta abierto. Cargar en DevHandle el valor de DevHandle devuelto en la primera apertura
-        DevHandle = Val(ReadFile("c:\devhw.dat"))
+        DevHandle = Val(ReadFile(AP + "devhw.dat"))
         'maercar como secundario
     End If
     If OpIN = 0 Then
         'se abrio ok debo grabar un archivo temporal para que lo lea este OCX cuando
         'se abra nuevamente
-        WriteFile "c:\DevHw.dat", CStr(DevHandle)
+        WriteFile AP + "DevHw.dat", CStr(DevHandle)
     End If
         
     If DevHandle = 0 Then

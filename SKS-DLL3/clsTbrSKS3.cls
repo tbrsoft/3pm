@@ -111,6 +111,12 @@ Private mV1, mV2, mV3 'vectores de los textos
 Private SignalType As Byte 'para cuando hablemos de licencia no lleguen como botones
 '0 es boton
 
+Private totLIC As Long 'total pedidas
+Private totLicOK As Long 'total ok
+
+Private tmpLastDato As Long 'lo pongo en -1 cuando quiero y espero un resultado especifico
+'en principio para no esperar tiempo de mas en las licencias
+
 'sme es para anuunciar al exterior, writeevent es para acumular privado
 Private Function SME(T As String)  'sendMessage Event
     SME = SendMessage(mHwndMsg, WM_SETTEXT, 0, ByVal T)
@@ -354,10 +360,44 @@ Private Sub EsperarSec(Sec As Single)
     Do While Timer < T + Sec: DoEvents: Loop
 End Sub
 
-Public Sub AddCont(nCont_0_to_3 As Long)
+Public Function AddCont(nCont_0_to_3 As Long, Optional myTimeOut As Single = 1) As Long
     'lo reviso al hacer el ok
     SendDataLuis nCont_0_to_3 + 113, True
-End Sub
+    'esperar la respuesta !!!
+    SME "*** AddCont: " + CStr(nCont_0_to_3)
+    tmpLastDato = -1 'apenas reciba un dato esto se cambia
+    Dim J As Single
+    J = Timer
+    Do While J + myTimeOut > Timer
+        
+        DoEvents
+        
+        If tmpLastDato = -2 Then
+            'llego un numero pero no era el esperado!
+            AddCont = 1 'ok, recibi un dato como esperaba
+            SME "*** AddCont=1!!"
+            Exit Function
+        End If
+        
+        If tmpLastDato >= 0 Then
+            'NUMERO OK!
+            AddCont = 0
+            SME "*** AddCont=0!!"
+            Exit Function
+        End If
+        
+    Loop
+    SME "*** AddCont=2!!"
+    AddCont = 2 'si se queda con este es que llego al time out
+    
+    'luis me pidio que cuando haya un time out iniciar todo por las dudas
+    'ya que generalmente falla a continuación
+    
+    ReIniContLuis
+    
+    esperar 1
+    
+End Function
 
 Private Sub SendDataLuis(sData As Byte, Optional AsignarSType As Boolean = False)
 
@@ -365,8 +405,12 @@ Private Sub SendDataLuis(sData As Byte, Optional AsignarSType As Boolean = False
     
     'para cuando pido cosas que no tiene que ver con botonres
     If AsignarSType Then SignalType = sData
-    
-    SME "Send:" + CStr(sData)
+    'se va solo a cero al recibir OK!!!!
+'    Else
+'        SignalType = 0
+'    End If
+'
+    SME "Send:" + CStr(sData) + ":" + CStr(SignalType)
     
     tbrTimer1.Enabled = False
     
@@ -407,79 +451,70 @@ Private Sub RecibiOK(sVal As Byte, sModo As Byte)
         If sVal <= 23 Then Counters(sVal) = Counters(sVal) + 1
         SME "sD:" + CStr(sVal) + ":" + CStr(sModo)
     Else
-        'valores que espero a veces
+        'valores que espero a veces para saber el numero de placa
         If SignalType = 117 Then nPLACA(0) = sVal
         If SignalType = 118 Then nPLACA(1) = sVal
         If SignalType = 119 Then nPLACA(2) = sVal
         If SignalType = 120 Then nPLACA(3) = sVal
         If SignalType = 121 Then nPLACA(4) = sVal
         
+        '**************************** LICENCIA!!!
         'pide contador
-        'LICENCIA!!!
         '116: aumentar contador 1 (cont1++) (valacum1=valacum1+mv1(cont1)+cont4)
         '115: aumentar contador 2 (cont2++) (valacum1=valacum1+mv2(cont2)+cont3)
         '114: aumentar contador 3 (cont3++) (valacum1=valacum1+mv3(cont3)+cont2)
         '113: cont4++ devuelve un valor al azar entre 40 y 49 (inclusive ambos)
         
-        If SignalType = 116 Then
-            Cont1 = Cont1 + 1
-            Mod64 Cont1
-            SME "-----LIC-----"
-            SME "ValAcumAnterior:" + CStr(ValAcum1)
-            SME "mV1(Cont1)=" + CStr(mV1(Cont1))
-            ValAcum1 = ValAcum1 + mV1(Cont1) + Cont4
+        If SignalType > 112 And SignalType < 117 Then
+            
+            If SignalType = 116 Then
+                Cont1 = Cont1 + 1
+                Mod64 Cont1
+                ValAcum1 = ValAcum1 + mV1(Cont1) + Cont4
+            End If
+            
+            If SignalType = 115 Then
+                Cont2 = Cont2 + 1
+                Mod64 Cont2
+                ValAcum1 = ValAcum1 + mV2(Cont2) + Cont3
+            End If
+                
+            If SignalType = 114 Then
+                Cont3 = Cont3 + 1
+                Mod64 Cont3
+                ValAcum1 = ValAcum1 + mV3(Cont3) + Cont2
+            End If
+            
+            If SignalType = 113 Then
+                Cont4 = Cont4 + 1
+                Mod64 Cont4
+            End If
+            
             Mod64 ValAcum1
-            SME "recibi:" + CStr(sVal)
-            SME "ValAcum 1: " + CStr(ValAcum1)
-            SME "(Cont1=" + CStr(Cont1) + ")"
-            SME "(Cont2=" + CStr(Cont2) + ")"
-            SME "(Cont3=" + CStr(Cont3) + ")"
-            SME "(Cont4=" + CStr(Cont4) + ")"
+            
+            SME "L" + CStr(SignalType) 'T
+            SME "VAA:" + CStr(ValAcum1) 'T
+            SME "mV1(c1):" + CStr(mV1(Cont1))
+            
+            SME "L1:" + CStr(sVal) + " L2:" + CStr(ValAcum1)
+            totLIC = totLIC + 1
+            
+            'en todos los casos espera el numro de ValAcum1 pero en el 113 es un numero al azar entre 40 y 49
+            
+            If ((sVal = ValAcum1) And (SignalType <> 113)) Or _
+                ((sVal > 39) And (sVal < 50) And (SignalType = 113)) Then
+                
+                totLicOK = totLicOK + 1
+                SME "L18"
+                tmpLastDato = sVal
+            Else
+                tmpLastDato = -2 'bandera de licencia mal
+                SME "L17"
+            End If
+            SME "Cs " + CStr(Cont1) + CStr(Cont2) + CStr(Cont3) + CStr(Cont4)
+            
         End If
-        
-        If SignalType = 115 Then
-            Cont2 = Cont2 + 1
-            Mod64 Cont2
-            SME "-----LIC-----"
-            SME "ValAcumAnterior:" + CStr(ValAcum1)
-            SME "mV2(Cont2)=" + CStr(mV2(Cont2))
-            ValAcum1 = ValAcum1 + mV2(Cont2) + Cont3
-            Mod64 ValAcum1
-            SME "recibi:" + CStr(sVal)
-            SME "ValAcum 1: " + CStr(ValAcum1)
-            SME "(Cont1=" + CStr(Cont1) + ")"
-            SME "(Cont2=" + CStr(Cont2) + ")"
-            SME "(Cont3=" + CStr(Cont3) + ")"
-            SME "(Cont4=" + CStr(Cont4) + ")"
-        End If
-        
-        If SignalType = 114 Then
-            Cont3 = Cont3 + 1
-            Mod64 Cont3
-            SME "-----LIC-----"
-            SME "ValAcumAnterior:" + CStr(ValAcum1)
-            SME "mV3(Cont3)=" + CStr(mV3(Cont3))
-            ValAcum1 = ValAcum1 + mV3(Cont3) + Cont2
-            Mod64 ValAcum1
-            SME "recibi:" + CStr(sVal)
-            SME "ValAcum 1: " + CStr(ValAcum1)
-            SME "(Cont1=" + CStr(Cont1) + ")"
-            SME "(Cont2=" + CStr(Cont2) + ")"
-            SME "(Cont3=" + CStr(Cont3) + ")"
-            SME "(Cont4=" + CStr(Cont4) + ")"
-        End If
-        
-        If SignalType = 113 Then
-            Cont4 = Cont4 + 1
-            Mod64 Cont4
-            SME "-----LIC-----"
-            SME "recibi:" + CStr(sVal)
-            SME "ValAcum 1: " + CStr(ValAcum1)
-            SME "(Cont1=" + CStr(Cont1) + ")"
-            SME "(Cont2=" + CStr(Cont2) + ")"
-            SME "(Cont3=" + CStr(Cont3) + ")"
-            SME "(Cont4=" + CStr(Cont4) + ")"
-        End If
+        '**************************** FIN LICENCIA
         
         If SignalType = 112 Then
             If sVal = 111 Then
@@ -490,13 +525,25 @@ Private Sub RecibiOK(sVal As Byte, sModo As Byte)
             End If
         End If
         
-        SME "xD:" + CStr(sVal) + ":" + CStr(sModo)
+        SME "xD:" + CStr(sVal) + ":" + CStr(sModo) + ":" + CStr(SignalType)
+        
+        SignalType = 0 'puede seguir un boton
     End If
     
     'If sVal = 24 Then 'se prendio OK !!
     'sme "recibi OK (" + CStr(sModo) + "):" + CStr(sVal)
     
 End Sub
+
+Public Function GetResLicSTR() As String
+    GetResLicSTR = "LIC:" + CStr(totLIC) + " - OK:" + CStr(totLicOK)
+End Function
+
+Public Function GetPorcLic() As Single
+    Dim Ts As Single
+    Ts = CSng(totLicOK / totLIC) * 100
+    GetPorcLic = Ts
+End Function
 
 Private Function Mod64(ByRef L As Long)
     If L > 63 Then L = L Mod 64
@@ -536,6 +583,9 @@ Private Sub Class_Initialize()
     T2.Enabled = False
     
     SignalType = 0 'predeterminado son botones
+    
+    totLIC = 0
+    totLicOK = 0
 End Sub
 
 Private Sub ReIniCont()
@@ -544,6 +594,8 @@ Private Sub ReIniCont()
     Cont3 = 0
     Cont4 = 0
     ValAcum1 = 0
+    totLIC = 0
+    totLicOK = 0
 End Sub
 
 Public Sub ReIniContLuis()
@@ -551,7 +603,7 @@ Public Sub ReIniContLuis()
     SendDataLuis 112, True
 End Sub
 
-Public Sub GetnPlaca(fLista As String)
+Public Function GetnPlaca(fLista As String) As String
 
     '121: me da las cifras 9 y 10 del numero de placa                   nPlaca(4)
     '120: me da las cifras 7 y 8 del numero de placa                    nPlaca(3)
@@ -571,13 +623,26 @@ Public Sub GetnPlaca(fLista As String)
         Loop
     Next H
     
+    
+    For H = 0 To 4
+        'ver si alguno no se leyo y lo consulto de nuevo
+        If nPLACA(H) < 0 Then
+            SendDataLuis 117 + H, True 'la pido
+            TT = Timer
+            Do While nPLACA(H) < 0
+                DoEvents
+                'no espero toda la visa
+                If TT + 1 < Timer Then Exit Do
+            Loop
+        End If
+    Next H
+    
     'lo que viene son botones
     SignalType = 0
     
     If nPLACA(0) < 0 Or nPLACA(1) < 0 Or nPLACA(2) < 0 Or nPLACA(3) < 0 Or nPLACA(4) < 0 Then
         NumPLACA = -1
-        SME "NumPlaca:-1"
-        Exit Sub
+        SME "NP:-1"
     Else
         NumPLACA = nPLACA(4) + _
                nPLACA(3) * 100 + _
@@ -587,16 +652,13 @@ Public Sub GetnPlaca(fLista As String)
         
         GetVal CStr(NumPLACA), fLista, mV1, mV2, mV3
         
-        SME "NumPlaca:" + CStr(NumPLACA)
-        SME "MV1(0)=" + CStr(mV1(0))
-        SME "MV2(0)=" + CStr(mV2(0))
-        SME "MV3(0)=" + CStr(mV3(0))
+        SME "NP:" + CStr(NumPLACA) + " " + CStr(mV1(0)) + CStr(mV2(0)) + CStr(mV3(0))
         
     End If
-    
-    SignalType = 0 'sigo con botones
 
-End Sub
+    GetnPlaca = CStr(NumPLACA)
+
+End Function
 
 Public Sub ToTimer2(Prender As Boolean)
     T2.Interval = 30
@@ -617,3 +679,11 @@ End Function
 Private Sub Class_Terminate()
     SendDataLuis 126 'apagar botones
 End Sub
+
+Private Sub esperar(N As Single)
+    N = Timer + N
+    Do While Timer < N
+        DoEvents
+    Loop
+End Sub
+

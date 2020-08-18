@@ -24,31 +24,36 @@ End Property
 Public Function GetIM() As String 'get info mac
     'devuelve todas las MAC adress juntas
     
-    PR.ShowProgreso "INI", 1
-    If TD.CantidadMac = 0 Then
-        GetIM = "0"
-        Exit Function
-    End If
-    
     Dim TMP As String, FINAL As String
-    Dim A As Long
-    
     TMP = "": FINAL = ""
     
-    For A = 1 To TD.CantidadMac
-        PR.ShowProgreso "MAC " + CStr(A), 1 + (A * 5)
-        'solo las que tienen MAC
-        If TD.GetnTipo(A) = 6 Then
-            TMP = TMP + "MAC " + CStr(A) + ": " + TD.GetRealMac(A) + vbCrLf
-            FINAL = FINAL + TD.GetRealMac(A)
-            If A < TD.CantidadMac Then FINAL = FINAL + "."
-        End If
-    Next A
+    'PR.ShowProgreso "INI", 1
+    If TD.CantidadMac = 0 Then
+        'el hecho de no tener mac no tiene que matar todo lo otro
+        'GetIM = "0"
+        'Exit Function
+    Else
+        Dim A As Long
+        Dim tmpMac As String
+        For A = 1 To TD.CantidadMac
+            tmpMac = TD.GetRealMac(A)
+            If tmpMac = "" Then GoTo SIgMAC
+            'PR.ShowProgreso "MAC " + CStr(A), 1 + (A * 5)
+            'solo las que tienen MAC
+            If TD.GetnTipo(A) = 6 Then
+                TMP = TMP + "MAC " + CStr(A) + ": " + tmpMac + vbCrLf
+                FINAL = FINAL + tmpMac
+                If A < TD.CantidadMac Then FINAL = FINAL + "."
+            End If
+SIgMAC:
+        Next A
+    End If
+    
     FINAL = FINAL + "|"
     
     TK.LeerTodo
     
-    PR.ShowProgreso "Escribiendo", 90
+    'PR.ShowProgreso "Escribiendo", 90
     TMP = TMP + "BiosCaption: " + TK.mBIOSCaption + vbCrLf
     TMP = TMP + "BiosDate: " + TK.mBiosDate + vbCrLf
     TMP = TMP + "BIOSDescription: " + TK.mBIOSDescription + vbCrLf
@@ -62,7 +67,7 @@ Public Function GetIM() As String 'get info mac
     TMP = TMP + "BIOSSMBIOSMajorVersion: " + TK.mBIOSSMBIOSMajorVersion + vbCrLf
     TMP = TMP + "BIOSSMBIOSMinorVersion: " + TK.mBIOSSMBIOSMinorVersion + vbCrLf
     TMP = TMP + "BIOSVersion: " + TK.mBIOSVersion + vbCrLf
-    PR.ShowProgreso "Escribiendo", 95
+    'PR.ShowProgreso "Escribiendo", 95
     TMP = TMP + "Country: " + TK.mCountry + vbCrLf
     TMP = TMP + "PROCCaption: " + TK.mPROCCaption + vbCrLf
     TMP = TMP + "PROCCCspeed: " + TK.mPROCCCspeed + vbCrLf
@@ -91,10 +96,8 @@ Public Function GetIM() As String 'get info mac
     TMP = TMP + "FINAL: " + FINAL
     mResFinal = FINAL
     
-    PR.ShowProgreso "Escribiendo", 99
-    
+    'PR.ShowProgreso "Escribiendo", 99
     GetIM = TMP
-    
-    PR.HideProgreso
+    'PR.HideProgreso
     
 End Function

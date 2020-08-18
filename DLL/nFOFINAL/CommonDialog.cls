@@ -717,7 +717,7 @@ Private Sub InitOFN()
        .nMaxFileTitle = 255
         sTemp = mFilter
         For i = 1 To Len(sTemp)
-            If mID(sTemp, i, 1) = "|" Then
+            If Mid(sTemp, i, 1) = "|" Then
                Mid(sTemp, i, 1) = vbNullChar
             End If
         Next
@@ -823,7 +823,7 @@ Public Sub ShowFont()
        If FontToUse = 0 Then Exit Sub
           OldhDC = SelectObject(CF.hdc, FontToUse)
           RetValue = GetTextFace(CF.hdc, 79, tbuf)
-          mFontName = mID$(tbuf, 1, RetValue)
+          mFontName = Mid$(tbuf, 1, RetValue)
        End If
 End Sub
 Public Sub ShowPrinter()

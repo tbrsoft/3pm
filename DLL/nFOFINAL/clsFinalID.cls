@@ -70,43 +70,43 @@ Public Property Get CantidadMac()
     CantidadMac = UBound(MACs)
 End Property
 
-Public Function GetRealMac(I As Long) As String
-    If I > UBound(MACs) Then
+Public Function GetRealMac(i As Long) As String
+    If i > UBound(MACs) Then
         GetRealMac = "MAC no existente"
     Else
-        GetRealMac = MACs(I)
+        GetRealMac = MACs(i)
     End If
 End Function
 
-Public Function GetDescripcion(I As Long) As String
-    If I > UBound(MACs) Then
+Public Function GetDescripcion(i As Long) As String
+    If i > UBound(MACs) Then
         GetDescripcion = "MAC no existente"
     Else
-        GetDescripcion = DescrPlaca(I)
+        GetDescripcion = DescrPlaca(i)
     End If
 End Function
 
-Public Function GetTipo(I As Long) As String
-    If I > UBound(MACs) Then
+Public Function GetTipo(i As Long) As String
+    If i > UBound(MACs) Then
         GetTipo = "MAC no existente"
     Else
-        GetTipo = TipoPlaca(I)
+        GetTipo = TipoPlaca(i)
     End If
 End Function
 
-Public Function GetnTipo(I As Long) As Long
-    If I > UBound(MACs) Then
+Public Function GetnTipo(i As Long) As Long
+    If i > UBound(MACs) Then
         GetnTipo = -1
     Else
-        GetnTipo = nTipoPlaca(I)
+        GetnTipo = nTipoPlaca(i)
     End If
 End Function
 
 
-Public Function GetNombre(I As Long) As String
-    If I > UBound(MACs) Then
+Public Function GetNombre(i As Long) As String
+    If i > UBound(MACs) Then
         GetNombre = "MAC no existente"
     Else
-        GetNombre = NombrePlaca(I)
+        GetNombre = NombrePlaca(i)
     End If
 End Function

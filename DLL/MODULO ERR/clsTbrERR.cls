@@ -18,10 +18,15 @@ Private mFileLogGrabaTodo As String 'archivo donde se registra todo
 Private mLogAcumulado As String 'acumulado de los lugares por los que paso
 Private mMODOGRABATODO As Boolean
 Private TextStreamGrabaTodo As TextStream
+Private mADN As String 'cadena que puede imprimirse opcionalmente con todos los append
+'se usa por ejemplo para saber la version del soft usada y saber si el error es por version vieja
 
 Private ContadorRegTodo As Long 'contador de lineas cuando registra todo
 'al llegar 50 se borra
 
+Public Function Set_ADN(newADN As String) As String
+    mADN = newADN
+End Function
 
 Public Sub Anotar(NuevoTexto As String, Optional ByVal Var1, Optional ByVal Var2, Optional ByVal Var3, Optional ByVal Var4)
     
@@ -108,11 +113,14 @@ Public Sub AppendLog(ByVal txtAdicional As String, _
     Dim TE As TextStream
     Set TE = FSO.OpenTextFile(mFileLog, ForAppending, True)
         TE.WriteLine CStr(Date) + "*" + CStr(Time) + vbCrLf + _
-            mLogAcumulado + vbCrLf + txtAdicional + vbCrLf + txtAdicional2 + vbCrLf
-            'si esta dentro de 3PM o mprock lo muestro!!
-            If LCase(mFileLog) = "d:\dev\3pm\reg3pm.log" Then
-                F1.Inicializar mLogAcumulado, txtAdicional + vbCrLf + txtAdicional2
-            End If
+            mADN + vbCrLf + _
+            mLogAcumulado + vbCrLf + _
+            txtAdicional + vbCrLf + _
+            txtAdicional2 + vbCrLf
+'            'si esta dentro de 3PM o mprock lo muestro!!
+'            If LCase(mFileLog) = "d:\dev\3pm\reg3pm.log" Then
+'                F1.Inicializar mLogAcumulado, txtAdicional + vbCrLf + txtAdicional2
+'            End If
     TE.Close
     Set TE = Nothing
     
@@ -122,10 +130,10 @@ Public Sub AppendSinHist(txt As String)
     Dim TE As TextStream
     Set TE = FSO.OpenTextFile(mFileLog, ForAppending, True)
         TE.WriteLine CStr(Timer) + ":" + txt
-            'si esta dentro de 3PM o mprock lo muestro!!
-            If LCase(mFileLog) = "d:\dev\3pm\reg3pm.log" Then
-                F1.Inicializar mLogAcumulado, txtAdicional + vbCrLf + txtAdicional2
-            End If
+'            'si esta dentro de 3PM o mprock lo muestro!!
+'            If LCase(mFileLog) = "d:\dev\3pm\reg3pm.log" Then
+'                F1.Inicializar mLogAcumulado, txtAdicional + vbCrLf + txtAdicional2
+'            End If
     TE.Close
     Set TE = Nothing
 End Sub

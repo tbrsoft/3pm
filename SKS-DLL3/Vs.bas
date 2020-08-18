@@ -8,6 +8,8 @@ Public Sub GetVal(Codigo As String, f As String, _
     
     'f es el archivo con la lista!
     
+    If FSO.FileExists(f) = False Then GoTo NOARCH
+    
     Dim Te As TextStream
     Set Te = FSO.OpenTextFile(f, ForReading, False)
     Dim tOK As Boolean: tOK = False
@@ -43,8 +45,8 @@ Public Sub GetVal(Codigo As String, f As String, _
             If Q = 1 Then M2 = ArrTMP
             If Q = 2 Then M3 = ArrTMP
         Next Q
-    Else
-        
+    Else 'no es un numero valido!
+NOARCH:
         For Q = 0 To 2
             For Q2 = 1 To 64
                 ReDim Preserve ArrTMP(Q2 - 1)

@@ -1,5 +1,7 @@
 VERSION 5.00
+Object = "{181111E6-07C8-4D47-8611-3BF038099354}#5.2#0"; "tbrFaroButton.ocx"
 Begin VB.Form frmConfigVIS 
+   AutoRedraw      =   -1  'True
    BackColor       =   &H00000000&
    BorderStyle     =   4  'Fixed ToolWindow
    Caption         =   "Graficos de 3PM"
@@ -14,33 +16,48 @@ Begin VB.Form frmConfigVIS
    ScaleWidth      =   11910
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
-   Begin VB.CommandButton Command4 
-      Caption         =   "cambiar detalles"
-      BeginProperty Font 
-         Name            =   "Trebuchet MS"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   525
-      Left            =   5460
+   Begin tbrFaroButton.fBoton Command3 
+      Height          =   465
+      Left            =   5610
       TabIndex        =   9
-      Top             =   840
+      Top             =   330
       Width           =   1935
+      _ExtentX        =   3413
+      _ExtentY        =   820
+      fFColor         =   16777215
+      fBColor         =   14737632
+      fCapt           =   "crear nuevo skin"
+      fEnabled        =   -1  'True
+      fFontN          =   ""
+      fFontS          =   0
+      fECol           =   5452834
+   End
+   Begin tbrFaroButton.fBoton Command4 
+      Height          =   465
+      Left            =   7680
+      TabIndex        =   8
+      Top             =   330
+      Width           =   1935
+      _ExtentX        =   3413
+      _ExtentY        =   820
+      fFColor         =   16777215
+      fBColor         =   14737632
+      fCapt           =   "cambiar detalles"
+      fEnabled        =   -1  'True
+      fFontN          =   ""
+      fFontS          =   0
+      fECol           =   5452834
    End
    Begin VB.PictureBox Picture1 
       AutoRedraw      =   -1  'True
       BackColor       =   &H00000000&
       BorderStyle     =   0  'None
-      Height          =   7335
+      Height          =   7275
       Left            =   0
-      ScaleHeight     =   7335
+      ScaleHeight     =   7275
       ScaleWidth      =   11775
-      TabIndex        =   6
-      Top             =   1320
+      TabIndex        =   3
+      Top             =   1380
       Width           =   11775
       Begin VB.PictureBox imgMarco 
          BackColor       =   &H00000000&
@@ -48,7 +65,7 @@ Begin VB.Form frmConfigVIS
          Left            =   930
          ScaleHeight     =   5745
          ScaleWidth      =   9405
-         TabIndex        =   7
+         TabIndex        =   4
          Top             =   360
          Width           =   9465
          Begin VB.PictureBox imgFONDO 
@@ -58,7 +75,7 @@ Begin VB.Form frmConfigVIS
             Left            =   90
             ScaleHeight     =   5445
             ScaleWidth      =   9135
-            TabIndex        =   8
+            TabIndex        =   5
             Top             =   150
             Width           =   9195
             Begin VB.Image imgTapaSel 
@@ -199,26 +216,8 @@ Begin VB.Form frmConfigVIS
       End
    End
    Begin VB.Timer Timer1 
-      Left            =   7980
-      Top             =   120
-   End
-   Begin VB.CommandButton Command3 
-      Caption         =   "Crear nuevo skin"
-      Enabled         =   0   'False
-      BeginProperty Font 
-         Name            =   "Trebuchet MS"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   525
-      Left            =   5460
-      TabIndex        =   5
-      Top             =   300
-      Width           =   1935
+      Left            =   10890
+      Top             =   60
    End
    Begin VB.ComboBox cmbSK 
       BeginProperty Font 
@@ -231,52 +230,49 @@ Begin VB.Form frmConfigVIS
          Strikethrough   =   0   'False
       EndProperty
       Height          =   390
-      Left            =   90
+      Left            =   120
       Style           =   2  'Dropdown List
-      TabIndex        =   4
-      Top             =   300
+      TabIndex        =   2
+      Top             =   360
       Width           =   5295
    End
-   Begin VB.CommandButton Command2 
-      Caption         =   "grabar y salir"
-      BeginProperty Font 
-         Name            =   "Trebuchet MS"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   555
-      Left            =   4170
-      TabIndex        =   2
-      Top             =   780
-      Width           =   1200
+   Begin tbrFaroButton.fBoton Command1 
+      Height          =   525
+      Left            =   6300
+      TabIndex        =   6
+      Top             =   870
+      Width           =   1245
+      _ExtentX        =   2196
+      _ExtentY        =   926
+      fFColor         =   16777215
+      fBColor         =   14737632
+      fCapt           =   "salir sin grabar"
+      fEnabled        =   -1  'True
+      fFontN          =   ""
+      fFontS          =   0
+      fECol           =   5452834
    End
-   Begin VB.CommandButton Command1 
-      Cancel          =   -1  'True
-      Caption         =   "salir sin grabar"
-      BeginProperty Font 
-         Name            =   "Trebuchet MS"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   555
-      Left            =   2850
-      TabIndex        =   1
-      Top             =   780
-      Width           =   1200
+   Begin tbrFaroButton.fBoton Command2 
+      Height          =   525
+      Left            =   7680
+      TabIndex        =   7
+      Top             =   870
+      Width           =   1245
+      _ExtentX        =   2196
+      _ExtentY        =   926
+      fFColor         =   16777215
+      fBColor         =   14737632
+      fCapt           =   "grabar y salir"
+      fEnabled        =   -1  'True
+      fFontN          =   ""
+      fFontS          =   0
+      fECol           =   5452834
    End
    Begin VB.Label Label5 
       BackStyle       =   0  'Transparent
-      Caption         =   "Puede elegir manualmente cada grafica o cargar un skin de esta lista"
+      Caption         =   "Puede elegir manualmente cada interfaz gráfica o cargar un skin de esta lista."
       BeginProperty Font 
-         Name            =   "Trebuchet MS"
+         Name            =   "Verdana"
          Size            =   9.75
          Charset         =   0
          Weight          =   700
@@ -284,19 +280,19 @@ Begin VB.Form frmConfigVIS
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H0000FFFF&
+      ForeColor       =   &H00E0E0E0&
       Height          =   270
       Left            =   90
-      TabIndex        =   3
+      TabIndex        =   1
       Top             =   30
-      Width           =   6495
+      Width           =   8535
    End
    Begin VB.Label Label4 
       Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
-      Caption         =   "Los cambios tendrán efectos en el proximo inicio de 3PM"
+      Caption         =   "Los cambios surgirán efecto en el próximo inicio de 3PM."
       BeginProperty Font 
-         Name            =   "Trebuchet MS"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
          Weight          =   700
@@ -304,12 +300,12 @@ Begin VB.Form frmConfigVIS
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00C0FFFF&
+      ForeColor       =   &H00E0E0E0&
       Height          =   480
-      Left            =   120
+      Left            =   60
       TabIndex        =   0
-      Top             =   810
-      Width           =   2415
+      Top             =   840
+      Width           =   4005
    End
 End
 Attribute VB_Name = "frmConfigVIS"
@@ -327,68 +323,69 @@ Private Sub cmbSK_Click()
     Dim F As Long
     F = ExtraData.AbrirSKIN(AP + "skin\" + cmbSK + ".skin")
     If F = 1 Then 'alguien le cambio el nombre al original!
-        MsgBox "Este skin tenia otro nombre y ha sido monidicado. Devuelva el archivo SKIN a su nombre" + _
-            " original para poder utilizarlo"
+        MsgBox TR.Trad("Este skin tenia otro nombre y ha sido monidicado. " + _
+            "Devuelva el archivo SKIN a su nombre original " + _
+            "para poder utilizarlo%99%")
         Exit Sub
     End If
     'mostrar cada una de las imagenes donde corresponde!
-    imF = ExtraData.GetImagePath("vumetroapagado")
-    imgVUMSel.Picture = LoadPicture(imF)
-    imgVumSel2.Picture = LoadPicture(imF)
+    IMF = ExtraData.GetImagePath("vumetroapagado")
+    imgVUMSel.Picture = LoadPicture(IMF)
+    imgVumSel2.Picture = LoadPicture(IMF)
     
-    imF = ExtraData.GetImagePath("MarcoFondodelosdiscos")
-    imgMarco.PaintPicture LoadPicture(imF), 0, 0, imgMarco.Width, imgMarco.Height
+    IMF = ExtraData.GetImagePath("MarcoFondodelosdiscos")
+    imgMarco.PaintPicture LoadPicture(IMF), 0, 0, imgMarco.Width, imgMarco.Height
     
-    imF = ExtraData.GetImagePath("FondoDeLasTapas")
-    imgFONDO.PaintPicture LoadPicture(imF), 0, 0, imgFONDO.Width, imgFONDO.Height
+    IMF = ExtraData.GetImagePath("FondoDeLasTapas")
+    imgFONDO.PaintPicture LoadPicture(IMF), 0, 0, imgFONDO.Width, imgFONDO.Height
     
-    imF = ExtraData.GetImagePath("marcodiscocomun")
-    imgTapaSel.Picture = LoadPicture(imF)
+    IMF = ExtraData.GetImagePath("marcodiscocomun")
+    imgTapaSel.Picture = LoadPicture(IMF)
     ii3.Picture = imgTapaSel.Picture
     ii4.Picture = imgTapaSel.Picture
     ii5.Picture = imgTapaSel.Picture
     ii6.Picture = imgTapaSel.Picture
     
-    imF = ExtraData.GetImagePath("marcodiscoelegido")
-    imgTapaSel2.Picture = LoadPicture(imF)
+    IMF = ExtraData.GetImagePath("marcodiscoelegido")
+    imgTapaSel2.Picture = LoadPicture(IMF)
     
-    imF = ExtraData.GetImagePath("touchizqnormal")
+    IMF = ExtraData.GetImagePath("touchizqnormal")
     'imF = ExtraData.GetImagePath("touchiapretado")
-    imgTouchSel.Picture = LoadPicture(imF)
+    imgTouchSel.Picture = LoadPicture(IMF)
     
-    imF = ExtraData.GetImagePath("touchderechanormal")
+    IMF = ExtraData.GetImagePath("touchderechanormal")
     'imF = ExtraData.GetImagePath("touchderechaapretado")
-    imgTouchSel2.Picture = LoadPicture(imF)
+    imgTouchSel2.Picture = LoadPicture(IMF)
     
     'ver si es superlicencia y usa otra tapa predeterminada
-    If K.LICENCIA = HSuperLicencia Then
-        If FSO.FileExists(GPF("tddp323")) Then
-            imF = GPF("tddp323")
+    If K.LICENCIA("3pm") = HSuperLicencia Then
+        If fso.FileExists(GPF("tddp323")) Then
+            IMF = GPF("tddp323")
         Else
-            imF = ExtraData.GetImagePath("taparanking")
+            IMF = ExtraData.GetImagePath("taparanking")
         End If
     Else
-        imF = ExtraData.GetImagePath("taparanking")
+        IMF = ExtraData.GetImagePath("taparanking")
     End If
     
-    imgDISC(0).Picture = LoadPicture(imF)
+    imgDISC(0).Picture = LoadPicture(IMF)
     
     'ver si es superlicencia y usa otra tapa predeterminada
-    If K.LICENCIA = HSuperLicencia Then
-        If FSO.FileExists(GPF("tddp322")) Then
-            imF = GPF("tddp322")
+    If K.LICENCIA("3pm") = HSuperLicencia Then
+        If fso.FileExists(GPF("tddp322")) Then
+            IMF = GPF("tddp322")
         Else
-            imF = ExtraData.GetImagePath("tapapredeterminada")
+            IMF = ExtraData.GetImagePath("tapapredeterminada")
         End If
     Else
-        imF = ExtraData.GetImagePath("tapapredeterminada")
+        IMF = ExtraData.GetImagePath("tapapredeterminada")
     End If
     
-    imgDISC(1).Picture = LoadPicture(imF)
-    imgDISC(2).Picture = LoadPicture(imF)
-    imgDISC(3).Picture = LoadPicture(imF)
-    imgDISC(4).Picture = LoadPicture(imF)
-    imgDISC(5).Picture = LoadPicture(imF)
+    imgDISC(1).Picture = LoadPicture(IMF)
+    imgDISC(2).Picture = LoadPicture(IMF)
+    imgDISC(3).Picture = LoadPicture(IMF)
+    imgDISC(4).Picture = LoadPicture(IMF)
+    imgDISC(5).Picture = LoadPicture(IMF)
     
     Timer1.Interval = 200
     
@@ -410,10 +407,14 @@ Private Sub Command3_Click()
 End Sub
 
 Private Sub Command4_Click()
+    frmIndex.Timer3.Enabled = False
     frmChgIMGS.Show 1
+    frmIndex.Timer3.Enabled = True
 End Sub
 
 Private Sub Form_Load()
+    Pintar_fBoton Me
+    Traducir 'Agregado por el complemento traductor
     
     'mostrar la lista de skins disponibles
     Dim lSK As String, SK() As String
@@ -428,7 +429,7 @@ Private Sub Form_Load()
         cmbSK.AddItem Mid(lSK, 1, Len(lSK) - 5)
         
         'seleccionar el que esta elegido
-        If LCase(FSO.GetBaseName(mySKIN)) = LCase(cmbSK.List(CC)) Then
+        If LCase(fso.GetBaseName(mySKIN)) = LCase(cmbSK.List(CC)) Then
             cmbSK.ListIndex = CC
         End If
         
@@ -576,6 +577,10 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
     Timer1.Interval = 0
 End Sub
 
+Private Sub Form_Resize()
+    tbrPintar frmIndex.Fondoxxx, Me, 0, 0, Me.Width / 15, Me.Height / 15
+End Sub
+
 'Private Sub hsTAPA_Change()
 '    picTapas.Left = -CLng(hsTAPA.Value) * 10 'es integer!!!
 'End Sub
@@ -644,61 +649,61 @@ Private Sub Timer1_Timer()
     Select Case F2
         Case 0
             'mostrar cada una de las imagenes donde corresponde!
-            imF = ExtraData.GetImagePath("vumetroapagado")
-            imgVUMSel.Picture = LoadPicture(imF)
-            imgVumSel2.Picture = LoadPicture(imF)
+            IMF = ExtraData.GetImagePath("vumetroapagado")
+            imgVUMSel.Picture = LoadPicture(IMF)
+            imgVumSel2.Picture = LoadPicture(IMF)
             
-            imF = ExtraData.GetImagePath("touchizqnormal")
-            imgTouchSel.Picture = LoadPicture(imF)
+            IMF = ExtraData.GetImagePath("touchizqnormal")
+            imgTouchSel.Picture = LoadPicture(IMF)
             
-            imF = ExtraData.GetImagePath("touchderechanormal")
-            imgTouchSel2.Picture = LoadPicture(imF)
+            IMF = ExtraData.GetImagePath("touchderechanormal")
+            imgTouchSel2.Picture = LoadPicture(IMF)
         Case 1
             'mostrar cada una de las imagenes donde corresponde!
-            imF = ExtraData.GetImagePath("vumetroprendido")
-            imgVUMSel.Picture = LoadPicture(imF)
-            imgVumSel2.Picture = LoadPicture(imF)
+            IMF = ExtraData.GetImagePath("vumetroprendido")
+            imgVUMSel.Picture = LoadPicture(IMF)
+            imgVumSel2.Picture = LoadPicture(IMF)
             
-            imF = ExtraData.GetImagePath("touchizqapretado")
-            imgTouchSel.Picture = LoadPicture(imF)
+            IMF = ExtraData.GetImagePath("touchizqapretado")
+            imgTouchSel.Picture = LoadPicture(IMF)
             
-            imF = ExtraData.GetImagePath("touchderechaapretado")
-            imgTouchSel2.Picture = LoadPicture(imF)
+            IMF = ExtraData.GetImagePath("touchderechaapretado")
+            imgTouchSel2.Picture = LoadPicture(IMF)
         Case 2
             'mostrar cada una de las imagenes donde corresponde!
-            imF = ExtraData.GetImagePath("vumetroapagado")
-            imgVUMSel.Picture = LoadPicture(imF)
-            imgVumSel2.Picture = LoadPicture(imF)
+            IMF = ExtraData.GetImagePath("vumetroapagado")
+            imgVUMSel.Picture = LoadPicture(IMF)
+            imgVumSel2.Picture = LoadPicture(IMF)
             
-            imF = ExtraData.GetImagePath("touchizqapretado")
-            imgTouchSel.Picture = LoadPicture(imF)
+            IMF = ExtraData.GetImagePath("touchizqapretado")
+            imgTouchSel.Picture = LoadPicture(IMF)
             
-            imF = ExtraData.GetImagePath("touchderechaapretado")
-            imgTouchSel2.Picture = LoadPicture(imF)
+            IMF = ExtraData.GetImagePath("touchderechaapretado")
+            imgTouchSel2.Picture = LoadPicture(IMF)
         Case 3
             'mostrar cada una de las imagenes donde corresponde!
-            imF = ExtraData.GetImagePath("vumetroprendido")
-            imgVUMSel.Picture = LoadPicture(imF)
-            imgVumSel2.Picture = LoadPicture(imF)
+            IMF = ExtraData.GetImagePath("vumetroprendido")
+            imgVUMSel.Picture = LoadPicture(IMF)
+            imgVumSel2.Picture = LoadPicture(IMF)
             
-            imF = ExtraData.GetImagePath("touchizqapretado")
-            imgTouchSel.Picture = LoadPicture(imF)
+            IMF = ExtraData.GetImagePath("touchizqapretado")
+            imgTouchSel.Picture = LoadPicture(IMF)
             
-            imF = ExtraData.GetImagePath("touchderechanormal")
-            imgTouchSel2.Picture = LoadPicture(imF)
+            IMF = ExtraData.GetImagePath("touchderechanormal")
+            imgTouchSel2.Picture = LoadPicture(IMF)
         Case 4
-            imF = ExtraData.GetImagePath("touchizqnormal")
-            imgTouchSel.Picture = LoadPicture(imF)
+            IMF = ExtraData.GetImagePath("touchizqnormal")
+            imgTouchSel.Picture = LoadPicture(IMF)
             
-            imF = ExtraData.GetImagePath("touchderechaapretado")
-            imgTouchSel2.Picture = LoadPicture(imF)
+            IMF = ExtraData.GetImagePath("touchderechaapretado")
+            imgTouchSel2.Picture = LoadPicture(IMF)
             
         Case 5
-            imF = ExtraData.GetImagePath("touchderechanormal")
-            imgTouchSel2.Picture = LoadPicture(imF)
+            IMF = ExtraData.GetImagePath("touchderechanormal")
+            imgTouchSel2.Picture = LoadPicture(IMF)
             
-            imF = ExtraData.GetImagePath("touchizqapretado")
-            imgTouchSel.Picture = LoadPicture(imF)
+            IMF = ExtraData.GetImagePath("touchizqapretado")
+            imgTouchSel.Picture = LoadPicture(IMF)
             
     End Select
     
@@ -718,4 +723,15 @@ Private Sub Timer1_Timer()
 '    If F2 = 4 Then ii5.Picture = LoadPicture(imF)
 '    If F2 = 5 Then ii6.Picture = LoadPicture(imF)
     
+End Sub
+'-------Agregado por el complemento traductor------------
+Private Sub Traducir()
+    Command4.Caption = TR.Trad("cambiar detalles%99%")
+    Command3.Caption = TR.Trad("Crear nuevo skin%99%")
+    Command2.Caption = TR.Trad("grabar y salir%99%")
+    Command1.Caption = TR.Trad("salir sin grabar%99%")
+    Label5.Caption = TR.Trad("Puede elegir manualmente cada grafica o cargar " + _
+        "un skin de esta lista%99%")
+    Label4.Caption = TR.Trad("Los cambios tendrán efectos en el proximo " + _
+        "inicio de 3PM%99%")
 End Sub

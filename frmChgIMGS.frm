@@ -1,9 +1,10 @@
 VERSION 5.00
-Object = "{AC1ACB77-BE60-49F4-BE38-2F9A87F5E5E4}#2.0#0"; "tbrX_Boton II.ocx"
+Object = "{181111E6-07C8-4D47-8611-3BF038099354}#5.2#0"; "tbrFaroButton.ocx"
 Begin VB.Form frmChgIMGS 
+   AutoRedraw      =   -1  'True
    BackColor       =   &H00000000&
    BorderStyle     =   4  'Fixed ToolWindow
-   Caption         =   "Cambiar componentes graficos"
+   Caption         =   "Cambiar componentes gráficos"
    ClientHeight    =   4785
    ClientLeft      =   45
    ClientTop       =   285
@@ -20,7 +21,7 @@ Begin VB.Form frmChgIMGS
       BackColor       =   &H00000000&
       Caption         =   "Imagen de inicio de 3PM"
       BeginProperty Font 
-         Name            =   "Trebuchet MS"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
          Weight          =   400
@@ -34,7 +35,7 @@ Begin VB.Form frmChgIMGS
       TabIndex        =   4
       Top             =   2280
       Width           =   4725
-      Begin tbrX_Boton2.XxBoton Command23 
+      Begin tbrFaroButton.fBoton Command23 
          Height          =   465
          Left            =   270
          TabIndex        =   5
@@ -42,12 +43,15 @@ Begin VB.Form frmChgIMGS
          Width           =   2205
          _ExtentX        =   3889
          _ExtentY        =   820
-         xFColor         =   16777215
-         xBColor         =   6263909
-         xCapt           =   "Elegir imagen"
-         xEnabled        =   0   'False
+         fFColor         =   16777215
+         fBColor         =   14737632
+         fCapt           =   "Elegir imagen"
+         fEnabled        =   -1  'True
+         fFontN          =   ""
+         fFontS          =   0
+         fECol           =   5452834
       End
-      Begin tbrX_Boton2.XxBoton XxBoton5 
+      Begin tbrFaroButton.fBoton XxBoton5 
          Height          =   465
          Left            =   270
          TabIndex        =   6
@@ -55,10 +59,13 @@ Begin VB.Form frmChgIMGS
          Width           =   2205
          _ExtentX        =   3889
          _ExtentY        =   820
-         xFColor         =   16777215
-         xBColor         =   6263909
-         xCapt           =   "Quitar"
-         xEnabled        =   0   'False
+         fFColor         =   16777215
+         fBColor         =   14737632
+         fCapt           =   "Quitar"
+         fEnabled        =   -1  'True
+         fFontN          =   ""
+         fFontS          =   0
+         fECol           =   5452834
       End
       Begin VB.Image IMG2 
          BorderStyle     =   1  'Fixed Single
@@ -73,7 +80,7 @@ Begin VB.Form frmChgIMGS
       BackColor       =   &H00000000&
       Caption         =   "Imagen de fondo de las portadas"
       BeginProperty Font 
-         Name            =   "Trebuchet MS"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
          Weight          =   400
@@ -87,7 +94,7 @@ Begin VB.Form frmChgIMGS
       TabIndex        =   1
       Top             =   300
       Width           =   4725
-      Begin tbrX_Boton2.XxBoton Command22 
+      Begin tbrFaroButton.fBoton Command22 
          Height          =   465
          Left            =   270
          TabIndex        =   2
@@ -95,12 +102,15 @@ Begin VB.Form frmChgIMGS
          Width           =   2205
          _ExtentX        =   3889
          _ExtentY        =   820
-         xFColor         =   16777215
-         xBColor         =   6263909
-         xCapt           =   "Elegir imagen"
-         xEnabled        =   0   'False
+         fFColor         =   16777215
+         fBColor         =   14737632
+         fCapt           =   "Elegir imagen"
+         fEnabled        =   -1  'True
+         fFontN          =   ""
+         fFontS          =   0
+         fECol           =   5452834
       End
-      Begin tbrX_Boton2.XxBoton XxBoton4 
+      Begin tbrFaroButton.fBoton XxBoton4 
          Height          =   465
          Left            =   270
          TabIndex        =   3
@@ -108,10 +118,13 @@ Begin VB.Form frmChgIMGS
          Width           =   2205
          _ExtentX        =   3889
          _ExtentY        =   820
-         xFColor         =   16777215
-         xBColor         =   6263909
-         xCapt           =   "Quitar"
-         xEnabled        =   0   'False
+         fFColor         =   16777215
+         fBColor         =   14737632
+         fCapt           =   "Quitar"
+         fEnabled        =   -1  'True
+         fFontN          =   ""
+         fFontS          =   0
+         fECol           =   5452834
       End
       Begin VB.Image IMG1 
          BorderStyle     =   1  'Fixed Single
@@ -122,7 +135,7 @@ Begin VB.Form frmChgIMGS
          Width           =   1995
       End
    End
-   Begin tbrX_Boton2.XxBoton XxBoton1 
+   Begin tbrFaroButton.fBoton XxBoton1 
       Height          =   345
       Left            =   4290
       TabIndex        =   0
@@ -130,16 +143,19 @@ Begin VB.Form frmChgIMGS
       Width           =   1665
       _ExtentX        =   2937
       _ExtentY        =   609
-      xFColor         =   16777215
-      xBColor         =   64
-      xCapt           =   "SALIR"
-      xEnabled        =   -1  'True
+      fFColor         =   16777215
+      fBColor         =   14737632
+      fCapt           =   "Salir"
+      fEnabled        =   -1  'True
+      fFontN          =   ""
+      fFontS          =   0
+      fECol           =   5452834
    End
    Begin VB.Frame Frame3 
       BackColor       =   &H00000000&
       Caption         =   "Tapa predetermianda de discos"
       BeginProperty Font 
-         Name            =   "Trebuchet MS"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
          Weight          =   400
@@ -153,7 +169,7 @@ Begin VB.Form frmChgIMGS
       TabIndex        =   7
       Top             =   300
       Width           =   4725
-      Begin tbrX_Boton2.XxBoton Command24 
+      Begin tbrFaroButton.fBoton Command24 
          Height          =   465
          Left            =   270
          TabIndex        =   8
@@ -161,12 +177,15 @@ Begin VB.Form frmChgIMGS
          Width           =   2205
          _ExtentX        =   3889
          _ExtentY        =   820
-         xFColor         =   16777215
-         xBColor         =   6263909
-         xCapt           =   "Elegir imagen"
-         xEnabled        =   0   'False
+         fFColor         =   16777215
+         fBColor         =   14737632
+         fCapt           =   "Elegir imagen"
+         fEnabled        =   -1  'True
+         fFontN          =   ""
+         fFontS          =   0
+         fECol           =   5452834
       End
-      Begin tbrX_Boton2.XxBoton XxBoton6 
+      Begin tbrFaroButton.fBoton XxBoton6 
          Height          =   465
          Left            =   270
          TabIndex        =   9
@@ -174,10 +193,13 @@ Begin VB.Form frmChgIMGS
          Width           =   2205
          _ExtentX        =   3889
          _ExtentY        =   820
-         xFColor         =   16777215
-         xBColor         =   6263909
-         xCapt           =   "Quitar"
-         xEnabled        =   0   'False
+         fFColor         =   16777215
+         fBColor         =   14737632
+         fCapt           =   "Quitar"
+         fEnabled        =   -1  'True
+         fFontN          =   ""
+         fFontS          =   0
+         fECol           =   5452834
       End
       Begin VB.Image IMG3 
          BorderStyle     =   1  'Fixed Single
@@ -192,7 +214,7 @@ Begin VB.Form frmChgIMGS
       BackColor       =   &H00000000&
       Caption         =   "Tapa predetermianda de ranking"
       BeginProperty Font 
-         Name            =   "Trebuchet MS"
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
          Weight          =   400
@@ -206,7 +228,7 @@ Begin VB.Form frmChgIMGS
       TabIndex        =   10
       Top             =   2280
       Width           =   4725
-      Begin tbrX_Boton2.XxBoton Command25 
+      Begin tbrFaroButton.fBoton Command25 
          Height          =   465
          Left            =   270
          TabIndex        =   11
@@ -214,12 +236,15 @@ Begin VB.Form frmChgIMGS
          Width           =   2205
          _ExtentX        =   3889
          _ExtentY        =   820
-         xFColor         =   16777215
-         xBColor         =   6263909
-         xCapt           =   "Elegir imagen"
-         xEnabled        =   0   'False
+         fFColor         =   16777215
+         fBColor         =   14737632
+         fCapt           =   "Elegir imagen"
+         fEnabled        =   -1  'True
+         fFontN          =   ""
+         fFontS          =   0
+         fECol           =   5452834
       End
-      Begin tbrX_Boton2.XxBoton XxBoton7 
+      Begin tbrFaroButton.fBoton XxBoton7 
          Height          =   465
          Left            =   270
          TabIndex        =   12
@@ -227,10 +252,13 @@ Begin VB.Form frmChgIMGS
          Width           =   2205
          _ExtentX        =   3889
          _ExtentY        =   820
-         xFColor         =   16777215
-         xBColor         =   6263909
-         xCapt           =   "Quitar"
-         xEnabled        =   0   'False
+         fFColor         =   16777215
+         fBColor         =   14737632
+         fCapt           =   "Quitar"
+         fEnabled        =   -1  'True
+         fFontN          =   ""
+         fFontS          =   0
+         fECol           =   5452834
       End
       Begin VB.Image IMG4 
          BorderStyle     =   1  'Fixed Single
@@ -267,43 +295,53 @@ Private Function GetArch(sTitle As String, sFilter As String) As String
 End Function
 
 Private Sub Form_Load()
-    XxBoton4.Enabled = (K.LICENCIA = HSuperLicencia)
-    Command22.Enabled = (K.LICENCIA = HSuperLicencia)
+    Pintar_fBoton Me
+    Traducir 'Agregado por el complemento traductor
+    XxBoton4.Enabled = (K.LICENCIA("3pm") = HSuperLicencia)
+    Command22.Enabled = XxBoton4.Enabled
     
-    XxBoton5.Enabled = (K.LICENCIA = HSuperLicencia)
-    Command23.Enabled = (K.LICENCIA = HSuperLicencia)
+    XxBoton5.Enabled = XxBoton4.Enabled
+    Command23.Enabled = XxBoton4.Enabled
     
-    XxBoton6.Enabled = (K.LICENCIA = HSuperLicencia)
-    Command24.Enabled = (K.LICENCIA = HSuperLicencia)
+    XxBoton6.Enabled = XxBoton4.Enabled
+    Command24.Enabled = XxBoton4.Enabled
     
-    XxBoton7.Enabled = (K.LICENCIA = HSuperLicencia)
-    Command25.Enabled = (K.LICENCIA = HSuperLicencia)
+    XxBoton7.Enabled = XxBoton4.Enabled
+    Command25.Enabled = XxBoton4.Enabled
 
     'mostrar las imagenes usadas actualemente
-    If FSO.FileExists(GPF("iischu")) Then
-        img1.Picture = LoadPicture(GPF("iischu"))
+    If fso.FileExists(GPF("iischu")) Then
+        IMG1.Picture = LoadPicture(GPF("iischu"))
     Else
-        img1.Picture = LoadPicture(ExtraData.GetImagePath("FondoDeLasTapas"))
+        IMG1.Picture = LoadPicture(ExtraData.GetImagePath("FondoDeLasTapas"))
     End If
     
-    If FSO.FileExists(GPF("iisl67")) Then
-        img2.Picture = LoadPicture(GPF("iisl67"))
+    If fso.FileExists(GPF("iisl67")) Then
+        IMG2.Picture = LoadPicture(GPF("iisl67"))
     Else
-        img2.Picture = LoadPicture(ExtraData.GetImagePath("iniciasys"))
+        IMG2.Picture = LoadPicture(ExtraData.GetImagePath("iniciasys"))
     End If
     
-    If FSO.FileExists(GPF("tddp322")) Then
-        img3.Picture = LoadPicture(GPF("tddp322"))
+    If fso.FileExists(GPF("tddp322")) Then
+        IMG3.Picture = LoadPicture(GPF("tddp322"))
     Else
-        img3.Picture = LoadPicture(ExtraData.GetImagePath("tapapredeterminada"))
+        IMG3.Picture = LoadPicture(ExtraData.GetImagePath("tapapredeterminada"))
     End If
     
-    If FSO.FileExists(GPF("tddp323")) Then
+    If fso.FileExists(GPF("tddp323")) Then
         IMG4.Picture = LoadPicture(GPF("tddp323"))
     Else
         IMG4.Picture = LoadPicture(ExtraData.GetImagePath("taparanking"))
     End If
     
+End Sub
+
+Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
+    frmIndex.Timer3.Enabled = True
+End Sub
+
+Private Sub Form_Resize()
+    tbrPintar frmIndex.Fondoxxx, Me, 0, 0, Me.Width / 15, Me.Height / 15
 End Sub
 
 Private Sub XxBoton1_Click()
@@ -312,60 +350,76 @@ End Sub
 
 Private Sub Command22_Click()
     Dim F As String
-    F = GetArch("Elegir imagen", "Imagenes (*.jpg, *.bmp, *.gif)|*.jpg; *.gif;*.bmp")
+    F = GetArch(TR.Trad("Elegir imagen%99%"), TR.Trad("Imagenes%99%") + " (*.jpg, *.bmp, *.gif)|*.jpg; *.gif;*.bmp")
     If F = "" Then Exit Sub
-    FSO.CopyFile F, GPF("iischu"), True
-    img1.Picture = LoadPicture(GPF("iischu"))
+    fso.CopyFile F, GPF("iischu"), True
+    IMG1.Picture = LoadPicture(GPF("iischu"))
 End Sub
 
 Private Sub XxBoton4_Click()
-    FSO.DeleteFile GPF("iischu"), True
+    fso.DeleteFile GPF("iischu"), True
     'vuelve a la del skin original que si o si existe
-    img1.Picture = LoadPicture(ExtraData.GetImagePath("FondoDeLasTapas"))
+    IMG1.Picture = LoadPicture(ExtraData.GetImagePath("FondoDeLasTapas"))
 End Sub
 
 Private Sub Command23_Click()
     Dim F As String
-    F = GetArch("Elegir imagen", "Imagenes (*.jpg, *.bmp, *.gif)|*.jpg; *.gif;*.bmp")
+    F = GetArch(TR.Trad("Elegir imagen%99%"), TR.Trad("Imagenes%99%") + " (*.jpg, *.bmp, *.gif)|*.jpg; *.gif;*.bmp")
     If F = "" Then Exit Sub
     'lo pongo en la ubicacion
-    FSO.CopyFile F, GPF("iisl67"), True
-    img2.Picture = LoadPicture(GPF("iisl67"))
+    fso.CopyFile F, GPF("iisl67"), True
+    IMG2.Picture = LoadPicture(GPF("iisl67"))
 End Sub
 
 Private Sub XxBoton5_Click()
-    FSO.DeleteFile GPF("iisl67"), True
+    fso.DeleteFile GPF("iisl67"), True
     'vuelve a la del skin original que si o si existe
-    img2.Picture = LoadPicture(ExtraData.GetImagePath("iniciasys"))
+    IMG2.Picture = LoadPicture(ExtraData.GetImagePath("iniciasys"))
 End Sub
 
 Private Sub Command24_Click()
     Dim F As String
-    F = GetArch("Elegir imagen", "Imagenes (*.jpg, *.bmp, *.gif)|*.jpg; *.gif;*.bmp")
+    F = GetArch(TR.Trad("Elegir imagen%99%"), TR.Trad("Imagenes%99%") + " (*.jpg, *.bmp, *.gif)|*.jpg; *.gif;*.bmp")
     If F = "" Then Exit Sub
-    FSO.CopyFile F, GPF("tddp322"), True
-    img3.Picture = LoadPicture(GPF("tddp322"))
+    fso.CopyFile F, GPF("tddp322"), True
+    IMG3.Picture = LoadPicture(GPF("tddp322"))
 End Sub
 
 Private Sub XxBoton6_Click()
-    FSO.DeleteFile GPF("tddp322"), True
+    fso.DeleteFile GPF("tddp322"), True
     'vuelve a la del skin original que si o si existe
-    img3.Picture = LoadPicture(ExtraData.GetImagePath("tapapredeterminada"))
+    IMG3.Picture = LoadPicture(ExtraData.GetImagePath("tapapredeterminada"))
 End Sub
 
 Private Sub Command25_Click()
     Dim F As String
-    F = GetArch("Elegir imagen", "Imagenes (*.jpg, *.bmp, *.gif)|*.jpg; *.gif;*.bmp")
+    F = GetArch(TR.Trad("Elegir imagen%99%"), TR.Trad("Imagenes%99%") + " (*.jpg, *.bmp, *.gif)|*.jpg; *.gif;*.bmp")
     If F = "" Then Exit Sub
     'lo pongo en la ubicacion
-    FSO.CopyFile F, GPF("tddp323"), True
+    fso.CopyFile F, GPF("tddp323"), True
     IMG4.Picture = LoadPicture(GPF("tddp323"))
 End Sub
 
 Private Sub XxBoton7_Click()
-    FSO.DeleteFile GPF("tddp323"), True
+    fso.DeleteFile GPF("tddp323"), True
     'vuelve a la del skin original que si o si existe
     IMG4.Picture = LoadPicture(ExtraData.GetImagePath("taparanking"))
 End Sub
 
 
+'-------Agregado por el complemento traductor------------
+Private Sub Traducir()
+    Frame2.Caption = TR.Trad("Imagen de inicio de 3PM%99%")
+    Command23.Caption = TR.Trad("Elegir imagen%99%")
+    XxBoton5.Caption = TR.Trad("Quitar%99%")
+    Frame1.Caption = TR.Trad("Imagen de fondo de las portadas%99%")
+    Command22.Caption = TR.Trad("Elegir imagen%99%")
+    XxBoton4.Caption = TR.Trad("Quitar%99%")
+    XxBoton1.Caption = TR.Trad("SALIR%99%")
+    Frame3.Caption = TR.Trad("Tapa predetermianda de discos%99%")
+    Command24.Caption = TR.Trad("Elegir imagen%99%")
+    XxBoton6.Caption = TR.Trad("Quitar%99%")
+    Frame4.Caption = TR.Trad("Tapa predetermianda de ranking%99%")
+    Command25.Caption = TR.Trad("Elegir imagen%99%")
+    XxBoton7.Caption = TR.Trad("Quitar%99%")
+End Sub

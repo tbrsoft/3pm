@@ -14,7 +14,7 @@ Attribute VB_Exposed = True
 Option Explicit
 '************************************************************************************
 'maneja listas de canciones a reproducir
-'debe incluir enganches de canciones y los indice del reproductor que se estan usando
+'debería incluir enganches de canciones y los indice del reproductor que se estan usando
 '************************************************************************************
 
 Private ListaFalta() As String 'solo los paths completos de los que falta
@@ -41,7 +41,7 @@ Public Function ListaAdd(ArchToAdd As String, Optional sTAG As String = "", _
     Optional nOrden As Long = -1)
     
     '-1 significa al final
-    '0 es ahora mismo cortando cualquier cosa
+    '0 es ahora mismo cortando cualquier cosa (no programado aun)
     '1 es el proximo
     '2 es el segundo etc.
     

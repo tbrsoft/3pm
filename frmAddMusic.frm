@@ -1,38 +1,57 @@
 VERSION 5.00
+Object = "{181111E6-07C8-4D47-8611-3BF038099354}#5.2#0"; "tbrFaroButton.ocx"
 Begin VB.Form frmAddMusic 
-   BackColor       =   &H00004080&
+   AutoRedraw      =   -1  'True
+   BackColor       =   &H00404040&
    BorderStyle     =   4  'Fixed ToolWindow
-   Caption         =   "Agregar musica a 3PM"
-   ClientHeight    =   8625
+   Caption         =   "Agregar música a 3PM"
+   ClientHeight    =   8640
    ClientLeft      =   45
    ClientTop       =   285
    ClientWidth     =   11910
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   8625
+   ScaleHeight     =   8640
    ScaleWidth      =   11910
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    WindowState     =   2  'Maximized
    Begin VB.Frame Frame1 
-      BackColor       =   &H00004080&
-      Caption         =   "Origenes disponibles"
+      BackColor       =   &H00404040&
+      Caption         =   "Orígenes disponibles"
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   400
+         Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   2715
-      Left            =   8070
-      TabIndex        =   24
+      Height          =   2835
+      Left            =   8040
+      TabIndex        =   25
       Top             =   1350
-      Width           =   3645
+      Width           =   3555
+      Begin VB.ListBox lstOrigenes 
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   1515
+         IntegralHeight  =   0   'False
+         Left            =   60
+         TabIndex        =   27
+         Top             =   270
+         Width           =   3375
+      End
       Begin VB.TextBox txtInfoOrig 
          BackColor       =   &H00E0E0E0&
          BeginProperty Font 
@@ -45,80 +64,56 @@ Begin VB.Form frmAddMusic
             Strikethrough   =   0   'False
          EndProperty
          Height          =   825
-         Left            =   150
+         Left            =   60
          MultiLine       =   -1  'True
          ScrollBars      =   2  'Vertical
          TabIndex        =   26
-         Top             =   1830
-         Width           =   3375
-      End
-      Begin VB.ListBox lstOrigenes 
-         BeginProperty Font 
-            Name            =   "Verdana"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   1575
-         IntegralHeight  =   0   'False
-         Left            =   150
-         TabIndex        =   25
-         Top             =   240
+         Top             =   1860
          Width           =   3375
       End
    End
-   Begin VB.CommandButton Command6 
-      BackColor       =   &H00FFC0C0&
-      Caption         =   "CD Audio"
-      Enabled         =   0   'False
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   400
-      Left            =   50
-      Style           =   1  'Graphical
-      TabIndex        =   20
-      Top             =   480
-      Width           =   1200
+   Begin tbrFaroButton.fBoton Command3 
+      Height          =   615
+      Left            =   8040
+      TabIndex        =   24
+      Top             =   7980
+      Width           =   3495
+      _ExtentX        =   6165
+      _ExtentY        =   1085
+      fFColor         =   16777215
+      fBColor         =   14737632
+      fCapt           =   "Salir"
+      fEnabled        =   -1  'True
+      fFontN          =   "Arial"
+      fFontS          =   10
+      fECol           =   5452834
+   End
+   Begin tbrFaroButton.fBoton Command4 
+      Height          =   525
+      Left            =   8055
+      TabIndex        =   23
+      Top             =   5985
+      Width           =   3495
+      _ExtentX        =   6165
+      _ExtentY        =   926
+      fFColor         =   16777215
+      fBColor         =   14737632
+      fCapt           =   "Agregar estos discos a mi fonola"
+      fEnabled        =   -1  'True
+      fFontN          =   "Arial"
+      fFontS          =   10
+      fECol           =   5452834
    End
    Begin VB.PictureBox PBar2 
       BackColor       =   &H000080FF&
       BorderStyle     =   0  'None
-      Height          =   165
-      Left            =   8010
-      ScaleHeight     =   165
+      Height          =   195
+      Left            =   8055
+      ScaleHeight     =   195
       ScaleWidth      =   15
-      TabIndex        =   14
-      Top             =   6720
+      TabIndex        =   10
+      Top             =   6675
       Width           =   15
-   End
-   Begin VB.CommandButton Command4 
-      BackColor       =   &H00C0E0FF&
-      Caption         =   "Agregar estos discos a mi fonola"
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   585
-      Left            =   7980
-      Style           =   1  'Graphical
-      TabIndex        =   11
-      Top             =   6090
-      Width           =   3870
    End
    Begin VB.ListBox lstCarConMM 
       BeginProperty Font 
@@ -131,10 +126,10 @@ Begin VB.Form frmAddMusic
          Strikethrough   =   0   'False
       EndProperty
       Height          =   5010
-      Left            =   150
+      Left            =   120
       Style           =   1  'Checkbox
-      TabIndex        =   9
-      Top             =   2280
+      TabIndex        =   6
+      Top             =   2460
       Width           =   7725
    End
    Begin VB.PictureBox PBar 
@@ -144,88 +139,79 @@ Begin VB.Form frmAddMusic
       Left            =   150
       ScaleHeight     =   165
       ScaleWidth      =   15
-      TabIndex        =   7
-      Top             =   7320
+      TabIndex        =   4
+      Top             =   7520
       Width           =   15
    End
    Begin VB.PictureBox P 
       BackColor       =   &H00E0E0E0&
       Height          =   195
-      Left            =   150
+      Left            =   120
       ScaleHeight     =   135
       ScaleWidth      =   7665
-      TabIndex        =   6
-      Top             =   7320
+      TabIndex        =   3
+      Top             =   7500
       Visible         =   0   'False
       Width           =   7725
-   End
-   Begin VB.CommandButton Command3 
-      BackColor       =   &H00C0E0FF&
-      Caption         =   "SALIR"
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   555
-      Left            =   8040
-      Style           =   1  'Graphical
-      TabIndex        =   4
-      Top             =   8040
-      Width           =   3720
-   End
-   Begin VB.CommandButton Command1 
-      BackColor       =   &H00FFC0C0&
-      Caption         =   "Explorar"
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   400
-      Left            =   50
-      Style           =   1  'Graphical
-      TabIndex        =   1
-      Top             =   1320
-      Width           =   1200
-   End
-   Begin VB.CommandButton Command5 
-      BackColor       =   &H00FFC0C0&
-      Caption         =   "CD/DVD"
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   400
-      Left            =   50
-      Style           =   1  'Graphical
-      TabIndex        =   0
-      Top             =   900
-      Width           =   1200
    End
    Begin VB.PictureBox P2 
       BackColor       =   &H00FFFFFF&
       Height          =   195
-      Left            =   7980
+      Left            =   8055
       ScaleHeight     =   135
-      ScaleWidth      =   3765
-      TabIndex        =   15
-      Top             =   6690
+      ScaleWidth      =   3435
+      TabIndex        =   11
+      Top             =   6675
       Visible         =   0   'False
-      Width           =   3825
+      Width           =   3495
+   End
+   Begin tbrFaroButton.fBoton Command6 
+      Height          =   435
+      Left            =   30
+      TabIndex        =   20
+      Top             =   480
+      Width           =   1245
+      _ExtentX        =   2196
+      _ExtentY        =   767
+      fFColor         =   16777215
+      fBColor         =   14737632
+      fCapt           =   "CD Audio"
+      fEnabled        =   -1  'True
+      fFontN          =   "Arial"
+      fFontS          =   8
+      fECol           =   5452834
+   End
+   Begin tbrFaroButton.fBoton command5 
+      Height          =   435
+      Left            =   30
+      TabIndex        =   21
+      Top             =   900
+      Width           =   1245
+      _ExtentX        =   2196
+      _ExtentY        =   767
+      fFColor         =   16777215
+      fBColor         =   14737632
+      fCapt           =   "CD/DVD"
+      fEnabled        =   -1  'True
+      fFontN          =   "Arial"
+      fFontS          =   8
+      fECol           =   5452834
+   End
+   Begin tbrFaroButton.fBoton Command1 
+      Height          =   435
+      Left            =   30
+      TabIndex        =   22
+      Top             =   1320
+      Width           =   1245
+      _ExtentX        =   2196
+      _ExtentY        =   767
+      fFColor         =   16777215
+      fBColor         =   14737632
+      fCapt           =   "Explorar"
+      fEnabled        =   -1  'True
+      fFontN          =   "Arial"
+      fFontS          =   8
+      fECol           =   5452834
    End
    Begin VB.Label lblP 
       BackStyle       =   0  'Transparent
@@ -240,11 +226,11 @@ Begin VB.Form frmAddMusic
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00C0FFFF&
+      ForeColor       =   &H00E0E0E0&
       Height          =   285
-      Left            =   3990
-      TabIndex        =   27
-      Top             =   7890
+      Left            =   150
+      TabIndex        =   19
+      Top             =   7980
       Visible         =   0   'False
       Width           =   3345
    End
@@ -260,39 +246,39 @@ Begin VB.Form frmAddMusic
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00C0FFFF&
-      Height          =   1185
+      ForeColor       =   &H00E0E0E0&
+      Height          =   1230
       Index           =   0
-      Left            =   8430
-      TabIndex        =   23
-      Top             =   60
-      Width           =   3375
+      Left            =   8160
+      TabIndex        =   18
+      Top             =   90
+      Width           =   3435
    End
    Begin VB.Label Label1 
       Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
-      Caption         =   "3°"
+      Caption         =   "3-"
       BeginProperty Font 
          Name            =   "Verdana"
-         Size            =   20.25
+         Size            =   15.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H0000FFFF&
+      ForeColor       =   &H00FFFFFF&
       Height          =   555
       Index           =   2
-      Left            =   7920
-      TabIndex        =   22
+      Left            =   7590
+      TabIndex        =   17
       Top             =   120
       Width           =   525
    End
    Begin VB.Label lblWait 
       Alignment       =   2  'Center
-      BackColor       =   &H000000FF&
-      Caption         =   "Analizando disco.  Espere..."
+      BackColor       =   &H00FFFFFF&
+      Caption         =   "Analizando disco. Espere..."
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   12
@@ -302,17 +288,17 @@ Begin VB.Form frmAddMusic
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H0000FFFF&
+      ForeColor       =   &H00404040&
       Height          =   435
-      Left            =   660
-      TabIndex        =   12
-      Top             =   1830
+      Left            =   630
+      TabIndex        =   8
+      Top             =   1920
       Visible         =   0   'False
       Width           =   7215
    End
    Begin VB.Label Label1 
       BackStyle       =   0  'Transparent
-      Caption         =   "Desde aqui podra trandsformar un CD de audio en ficheros mp3."
+      Caption         =   "Desde aquí podrá trandsformar un CD de audio en ficheros mp3."
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
@@ -322,75 +308,75 @@ Begin VB.Form frmAddMusic
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00FFFFFF&
+      ForeColor       =   &H00E0E0E0&
       Height          =   285
       Index           =   7
-      Left            =   1300
-      TabIndex        =   21
+      Left            =   1305
+      TabIndex        =   16
       Top             =   570
-      Width           =   7635
+      Width           =   6525
    End
    Begin VB.Label Label1 
       Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
-      Caption         =   "4°"
+      Caption         =   "4-"
       BeginProperty Font 
          Name            =   "Verdana"
-         Size            =   20.25
+         Size            =   15.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H0000FFFF&
+      ForeColor       =   &H00FFFFFF&
       Height          =   555
       Index           =   6
-      Left            =   7890
-      TabIndex        =   19
-      Top             =   4260
+      Left            =   7860
+      TabIndex        =   15
+      Top             =   4770
       Width           =   525
    End
    Begin VB.Label Label1 
       Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
-      Caption         =   "2°"
+      Caption         =   "2-"
       BeginProperty Font 
          Name            =   "Verdana"
-         Size            =   20.25
+         Size            =   15.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H0000FFFF&
+      ForeColor       =   &H00FFFFFF&
       Height          =   645
       Index           =   5
       Left            =   90
-      TabIndex        =   18
-      Top             =   1800
+      TabIndex        =   14
+      Top             =   1920
       Width           =   525
    End
    Begin VB.Label Label1 
       Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
-      Caption         =   "1°"
+      Caption         =   "1-"
       BeginProperty Font 
          Name            =   "Verdana"
-         Size            =   20.25
+         Size            =   15.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H0000FFFF&
+      ForeColor       =   &H00FFFFFF&
       Height          =   495
       Index           =   4
       Left            =   60
-      TabIndex        =   17
-      Top             =   0
+      TabIndex        =   13
+      Top             =   30
       Width           =   525
    End
    Begin VB.Label lblBAR2 
@@ -405,16 +391,16 @@ Begin VB.Form frmAddMusic
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00C0E0FF&
-      Height          =   1065
-      Left            =   7980
-      TabIndex        =   16
-      Top             =   6930
-      Width           =   3630
+      ForeColor       =   &H00E0E0E0&
+      Height          =   1005
+      Left            =   8055
+      TabIndex        =   12
+      Top             =   6915
+      Width           =   3495
    End
    Begin VB.Label Label2 
       BackStyle       =   0  'Transparent
-      Caption         =   $"frmAddMusic.frx":00A3
+      Caption         =   $"frmAddMusic.frx":00A4
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
@@ -424,13 +410,13 @@ Begin VB.Form frmAddMusic
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00C0FFFF&
-      Height          =   1605
+      ForeColor       =   &H00E0E0E0&
+      Height          =   2535
       Index           =   1
-      Left            =   8400
-      TabIndex        =   13
-      Top             =   4290
-      Width           =   3315
+      Left            =   8355
+      TabIndex        =   9
+      Top             =   4215
+      Width           =   3495
    End
    Begin VB.Label lblBAR 
       BackStyle       =   0  'Transparent
@@ -439,17 +425,17 @@ Begin VB.Form frmAddMusic
          Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   400
+         Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00C0E0FF&
+      ForeColor       =   &H00E0E0E0&
       Height          =   285
       Left            =   150
-      TabIndex        =   10
-      Top             =   7530
-      Width           =   7815
+      TabIndex        =   7
+      Top             =   7740
+      Width           =   7665
    End
    Begin VB.Label Ltit 
       BackStyle       =   0  'Transparent
@@ -466,7 +452,7 @@ Begin VB.Form frmAddMusic
       ForeColor       =   &H00C0FFFF&
       Height          =   315
       Left            =   690
-      TabIndex        =   8
+      TabIndex        =   5
       Top             =   1950
       Width           =   7455
    End
@@ -482,11 +468,11 @@ Begin VB.Form frmAddMusic
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00C0FFFF&
+      ForeColor       =   &H00FFFFFF&
       Height          =   285
       Index           =   3
       Left            =   600
-      TabIndex        =   5
+      TabIndex        =   2
       Top             =   120
       Width           =   5685
    End
@@ -500,7 +486,7 @@ Begin VB.Form frmAddMusic
    End
    Begin VB.Label Label1 
       BackStyle       =   0  'Transparent
-      Caption         =   "Explore usted por nuevos discos. Ususe para discos duros o unidades de red."
+      Caption         =   "Explore usted por nuevos discos. Use para discos duros o unidades de red."
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
@@ -510,12 +496,12 @@ Begin VB.Form frmAddMusic
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00FFFFFF&
+      ForeColor       =   &H00E0E0E0&
       Height          =   465
       Index           =   1
-      Left            =   1300
-      TabIndex        =   3
-      Top             =   1290
+      Left            =   1305
+      TabIndex        =   1
+      Top             =   1320
       Width           =   6435
    End
    Begin VB.Label Label1 
@@ -530,12 +516,12 @@ Begin VB.Form frmAddMusic
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00FFFFFF&
+      ForeColor       =   &H00E0E0E0&
       Height          =   405
       Index           =   0
-      Left            =   1300
-      TabIndex        =   2
-      Top             =   870
+      Left            =   1305
+      TabIndex        =   0
+      Top             =   900
       Width           =   6405
    End
 End
@@ -555,14 +541,7 @@ Private Sub Command1_Click()
     X.CancelError = False
     X.InitDir = "" 'para que muestre todo
     tERR.Anotar "achx", IDIOMA
-    Select Case IDIOMA
-        Case "Español"
-            X.DialogPrompt = "Elegir carpeta contenedora de los nuevos discos"
-        Case "English"
-            X.DialogPrompt = "Eligeu carpetau"
-        Case "Francois"
-        Case "Italiano"
-    End Select
+    X.DialogPrompt = TR.Trad("Elegir carpeta contenedora de los nuevos discos%99%")
     
     X.ShowFolder
     
@@ -579,7 +558,7 @@ Private Sub Command1_Click()
     
     Exit Sub
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".achy"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".achy"
     Resume Next
 End Sub
 
@@ -598,79 +577,40 @@ Public Sub BuscarCarpetasMM()
     lstCarConMM.Clear
     TotCarpMM = 0
     tERR.Anotar "acih", TotF
-    For a = 1 To TotF
-        Select Case IDIOMA
-            Case "Español"
-                lblBAR = "Buscando en " + CarpsConMM(a)
-            Case "English"
-            Case "Francois"
-            Case "Italiano"
-        End Select
-        
-        PBar.Width = P.Width / TotF * a
+    For A = 1 To TotF
+        lblBAR = TR.Trad("Buscando en%99%") + " " + CarpsConMM(A)
+        PBar.Width = P.Width / TotF * A
         PBar.Refresh
-        TMPfilesMM = ObtenerArchMM(CarpsConMM(a))
+        TMPfilesMM = ObtenerArchMM(CarpsConMM(A))
         If UBound(TMPfilesMM) > 0 Then
             TotalArchMM = TotalArchMM + UBound(TMPfilesMM)
-            Select Case IDIOMA
-                Case "Español"
-                    lstCarConMM.AddItem CarpsConMM(a) + "# " + CStr(UBound(TMPfilesMM)) + " archivos"
-                Case "English"
-                    lstCarConMM.AddItem CarpsConMM(a) + "# " + CStr(UBound(TMPfilesMM)) + " files"
-                Case "Francois"
-                Case "Italiano"
-            End Select
+            TR.SetVars "# " + CStr(UBound(TMPfilesMM)) + " "
+            lstCarConMM.AddItem CarpsConMM(A) + TR.Trad("%01%archivos%98%La " + _
+                "variable 1 es un numero que se calcula%99%")
             
             lstCarConMM.Selected(TotCarpMM) = True
             TotCarpMM = TotCarpMM + 1
-            Select Case IDIOMA
-                Case "Español"
-                    Ltit = "Carpetas multimedia encontradas: " + CStr(TotCarpMM)
-                Case "English"
-                    Ltit = "Multimedia Folders Find: " + CStr(TotCarpMM)
-                Case "Francois"
-                Case "Italiano"
-            End Select
-            
+            Ltit = TR.Trad("Carpetas multimedia encontradas: %99%") + CStr(TotCarpMM)
             Ltit.Refresh
         End If
     Next
     lblWait.Visible = False
     lblWait.Refresh
-    Select Case IDIOMA
-        Case "Español"
-            lblBAR = "Sin Tareas"
-        Case "English"
-            lblBAR = "Without Work"
-        Case "Francois"
-        Case "Italiano"
-    End Select
+    lblBAR = TR.Trad("Sin Tareas%99%")
     
     PBar.Width = 0
     If TotCarpMM = 0 Then
-        Select Case IDIOMA
-            Case "Español"
-                MsgBox "No se han encontrado carpetas multimedia en la ubicacion elegida"
-            Case "English"
-                MsgBox "Nou se encontraron"
-            Case "Francois"
-            Case "Italiano"
-        End Select
-        
+        MsgBox TR.Trad("No se han encontrado carpetas multimedia en " + _
+            "la ubicacion elegida%99%")
     Else
-        Select Case IDIOMA
-            Case "Español"
-                MsgBox "Se han encontrado " + CStr(TotCarpMM) + " carpetas multimedia en la ubicacion elegida"
-            Case "English"
-                MsgBox "Has Been Find " + CStr(TotCarpMM) + " multimedia folders in this ubication"
-            Case "Francois"
-            Case "Italiano"
-        End Select
+        TR.SetVars TotCarpMM
+        MsgBox TR.Trad("Se han encontrado %01% carpetas multimedia en " + _
+            "la ubicacion elegida%99%")
     End If
     
     Exit Sub
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".achz"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".achz"
     Resume Next
 End Sub
 
@@ -689,19 +629,19 @@ Private Sub Command4_Click()
     Dim TotalACopiar As Long 'no cuenta los que no son multimedia
     TotalACopiar = 0
     tERR.Anotar "acij", lstCarConMM.ListCount
-    For a = 0 To lstCarConMM.ListCount - 1
-        If lstCarConMM.Selected(a) Then
-            TotMM = Val(txtInLista(lstCarConMM.List(a), 1, "#"))
+    For A = 0 To lstCarConMM.ListCount - 1
+        If lstCarConMM.Selected(A) Then
+            TotMM = Val(txtInLista(lstCarConMM.List(A), 1, "#"))
             TotalACopiar = TotalACopiar + TotMM
-            tERR.Anotar "acik", a, lstCarConMM.List(a)
+            tERR.Anotar "acik", A, lstCarConMM.List(A)
         End If
     Next
     
-    For a = 0 To lstCarConMM.ListCount - 1
-        If lstCarConMM.Selected(a) Then
-            TotMM = Val(txtInLista(lstCarConMM.List(a), 1, "#"))
+    For A = 0 To lstCarConMM.ListCount - 1
+        If lstCarConMM.Selected(A) Then
+            TotMM = Val(txtInLista(lstCarConMM.List(A), 1, "#"))
             'ubic es la ubicacion en origen
-            Ubic = txtInLista(lstCarConMM.List(a), 0, "#")
+            Ubic = txtInLista(lstCarConMM.List(A), 0, "#")
             If Right(Ubic, 1) <> "\" Then Ubic = Ubic + "\"
             'hay que copiar solo los archivos MM
             SoloCarp = txtInLista(Ubic, 99998, "\") '99998 es el anteultimo
@@ -716,52 +656,46 @@ Private Sub Command4_Click()
             
             'crear la carpeta si no esta
             NewCarp = Replace(NewCarp, ",", "")
-            tERR.Anotar "acil", a, NewCarp, TotMM
-            If FSO.FolderExists(NewCarp) = False Then FSO.CreateFolder NewCarp
+            NewCarp = Replace(NewCarp, "#", "")
+            tERR.Anotar "acil", A, NewCarp, TotMM
+            If fso.FolderExists(NewCarp) = False Then fso.CreateFolder NewCarp
             
             'NO OLVIDARSE DE TAPA.JPG Y DATA.TXT
             Dim ArchTapa As String
             ArchTapa = Ubic + "tapa.jpg"
-            If FSO.FileExists(ArchTapa) Then
+            If fso.FileExists(ArchTapa) Then
                 'si existe ver los atributos
-                If FSO.FileExists(NewCarp + "tapa.jpg") Then
+                If fso.FileExists(NewCarp + "tapa.jpg") Then
                     AAA = GetAttr(NewCarp + "tapa.jpg")
                     tERR.Anotar "acim", AAA
                     If AAA = vbHidden Or AAA = vbReadOnly Then SetAttr NewCarp + "tapa.jpg", 0
                 End If
                 tERR.Anotar "acin", ArchTapa, NewCarp
-                FSO.CopyFile ArchTapa, NewCarp + "tapa.jpg"
+                fso.CopyFile ArchTapa, NewCarp + "tapa.jpg"
             End If
             
             Dim ArchDaTa As String
             ArchDaTa = Ubic + "data.txt"
-            If FSO.FileExists(ArchDaTa) Then
+            If fso.FileExists(ArchDaTa) Then
                 tERR.Anotar "acio"
                 'si existe ver los atributos
-                If FSO.FileExists(NewCarp + "data.txt") Then
+                If fso.FileExists(NewCarp + "data.txt") Then
                     AAA = GetAttr(NewCarp + "data.txt")
                     If AAA = vbHidden Or AAA = vbReadOnly Then SetAttr NewCarp + "data.txt", 0
                 End If
                 tERR.Anotar "acip", ArchDaTa, NewCarp
-                FSO.CopyFile ArchDaTa, NewCarp + "data.txt"
+                fso.CopyFile ArchDaTa, NewCarp + "data.txt"
             End If
             TMPfiles = ObtenerArchMM(Ubic) 'deveuelve pathfull , solonombre
             tERR.Anotar "aciq", Ubic
-            c = 1
-            Do While c <= TotMM 'se supone que es el total de esta carpeta
-                PathArch = txtInLista(TMPfiles(c), 0, "#")
-                SoloArch = txtInLista(TMPfiles(c), 1, "#")
+            C = 1
+            Do While C <= TotMM 'se supone que es el total de esta carpeta
+                PathArch = txtInLista(TMPfiles(C), 0, "#")
+                SoloArch = txtInLista(TMPfiles(C), 1, "#")
                 'SI SOLO ARCH TIENE COMAS?
                 SoloArch = Replace(SoloArch, ",", "")
                 'soloarch es para el destino por lo que puedo modificarlo
-                Select Case IDIOMA
-                    Case "Español"
-                        lblBAR2 = "Copiando " + PathArch
-                    Case "English"
-                        lblBAR2 = "Copiyng " + PathArch
-                    Case "Francois"
-                    Case "Italiano"
-                End Select
+                lblBAR2 = TR.Trad("Copiando %99%") + PathArch
                 
                 lblBAR2.Refresh
                 tERR.Anotar "acir", ArchCopiados
@@ -769,7 +703,7 @@ Private Sub Command4_Click()
                 PBar2.Width = P2.Width / TotalACopiar * ArchCopiados
                 PBar2.Refresh
                 'si existe ver los atributos
-                If FSO.FileExists(NewCarp + SoloArch) Then
+                If fso.FileExists(NewCarp + SoloArch) Then
                     tERR.Anotar "acis", NewCarp + SoloArch
                     AAA = GetAttr(NewCarp + SoloArch)
                     If AAA = vbHidden Or AAA = vbReadOnly Then SetAttr NewCarp + SoloArch, 0
@@ -779,47 +713,32 @@ Private Sub Command4_Click()
                 'sacar las comas de los nombres en el destino (por que el origen
                 'puede ser CD o DVD de solo lectura)
                 
-                FSO.CopyFile PathArch, NewCarp + SoloArch, True
+                fso.CopyFile PathArch, NewCarp + SoloArch, True
                 
                 Dim MbT As Long, MbF As Long, PL As Single
                 txtInfoOrig = InfoDisco2(Left(lstOrigenes, 1), MbT, MbF, PL)
                 lblP = CStr(PL)
                 If PL < 10 Then
-                    MsgBox "Queda menos del 10% de espacio en el disco!" + _
-                        vbCrLf + "No se seguira copiando en este origen" + _
-                        vbCrLf + "Use otra particion u otro disco con mas espacio"
+                    MsgBox TR.Trad("Queda menos del 10% de espacio en el disco!" + vbCrLf + _
+                        "No se seguira copiando en este origen de discos. " + _
+                        "Use otra particion u otro disco con mas espacio%99%")
                     Exit Sub
                 End If
                 
-                c = c + 1
+                C = C + 1
             Loop
-            
-            Select Case IDIOMA
-                Case "Español"
-                    lblBAR2 = "Sin Tareas"
-                Case "English"
-                    lblBAR2 = "Without Work"
-                Case "Francois"
-                Case "Italiano"
-            End Select
+            lblBAR2 = TR.Trad("Sin Tareas%99%")
             
             PBar2.Width = 0
             
         End If
     Next
     
-    Select Case IDIOMA
-        Case "Español"
-            MsgBox "Los archivos se copiaron correctamente"
-        Case "English"
-            MsgBox "The files se copiaron"
-        Case "Francois"
-        Case "Italiano"
-    End Select
+    MsgBox TR.Trad("Los archivos se copiaron correctamente%99%")
     
     Exit Sub
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acia"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".acia"
     Resume Next
 End Sub
 
@@ -827,7 +746,7 @@ Private Sub Command5_Click()
     On Error GoTo MiErr
     
     Dim DRs As Drives, DS As Drive
-    Set DRs = FSO.Drives
+    Set DRs = fso.Drives
     CarpetaDesdeCargar = "NO"
     Dim CDsDisponibles() As String, ContCDs As Long
     ContCDs = -1
@@ -842,57 +761,34 @@ Private Sub Command5_Click()
     Next
     'Que el tipo eliga la unidad que desea si es que hay mas de una
     If ContCDs = -1 Then
-        Select Case IDIOMA
-            Case "Español"
-                MsgBox "No hay unidades de CD en su PC!"
-            Case "English"
-                MsgBox "There is not CD is PC"
-            Case "Francois"
-            Case "Italiano"
-        End Select
-        
+        MsgBox TR.Trad("No hay unidades de CD en su PC!%99%")
         Exit Sub
     End If
     tERR.Anotar "aciv", ContCDs
     If ContCDs = 0 Then
         'no hay nada que legir
-        Set DS = FSO.GetDrive(CDsDisponibles(0))
+        Set DS = fso.GetDrive(CDsDisponibles(0))
         GoTo ElegidoCD
     End If
     If ContCDs > 0 Then
-        Set DS = FSO.GetDrive(CDsDisponibles(ContCDs))
-        For a = 0 To ContCDs
-            Set DS = FSO.GetDrive(CDsDisponibles(a))
+        Set DS = fso.GetDrive(CDsDisponibles(ContCDs))
+        For A = 0 To ContCDs
+            Set DS = fso.GetDrive(CDsDisponibles(A))
             'muestra un mensaje completo si esta listo y si no solo la letra
             If DS.IsReady Then
-                Select Case IDIOMA
-                    Case "Español"
-                        MSG = "Desea bucar en la unidad de CD:" + vbCrLf + _
-                            DS.DriveLetter + "-" + DS.VolumeName + vbCrLf + _
-                            "No = Unidad Siguiente"
-                    Case "English"
-                        MSG = "Want to search in:" + vbCrLf + _
-                            DS.DriveLetter + "-" + DS.VolumeName + vbCrLf + _
-                            "No = Next disc"
-                    Case "Francois"
-                    Case "Italiano"
-                End Select
+                TR.SetVars DS.DriveLetter, DS.VolumeName
+                msg = TR.Trad("Desea bucar en la unidad de CD:" + vbCrLf + _
+                     "%01%-%02%" + vbCrLf + _
+                    "No = Unidad Siguiente%98%La variable 1 es una letra de " + _
+                    "unidad como D o E y la variable 2 es la etiqueta de ese " + _
+                    "volumen%99%")
             Else
-                Select Case IDIOMA
-                    Case "Español"
-                        MSG = "Desea bucar en la unidad de CD:" + vbCrLf + _
-                            DS.DriveLetter + " (no esta listo)" + vbCrLf + _
-                            "No = Unidad Siguiente"
-                    Case "English"
-                        MSG = "Want to search in:" + vbCrLf + _
-                            DS.DriveLetter + " (no esta listo)" + vbCrLf + _
-                            "No = Next disc"
-                    Case "Francois"
-                    Case "Italiano"
-                End Select
-                
+                TR.SetVars DS.DriveLetter
+                msg = TR.Trad("Desea bucar en la unidad de CD:" + vbCrLf + _
+                    "%01% (unidad no lista)" + vbCrLf + _
+                    "No = Unidad Siguiente%99%")
             End If
-            If MsgBox(MSG, vbYesNo) = vbYes Then GoTo ElegidoCD
+            If MsgBox(msg, vbYesNo) = vbYes Then GoTo ElegidoCD
         Next
         'si llego hasta aca y no eligio se caga por boludo
         Exit Sub
@@ -904,37 +800,22 @@ ElegidoCD:
         CarpetaDesdeCargar = DS.DriveLetter + ":\"
         tERR.Anotar "aciw", CarpetaDesdeCargar
     Else
-        Select Case IDIOMA
-            Case "Español"
-                MsgBox "El disco " + DS.DriveLetter + " no esta " + _
-                    "listo. Inserte un CD y reintente"
-            Case "English"
-                MsgBox "The disc " + DS.DriveLetter + " is not " + _
-                    "ready. Insert a CD and try again"
-            Case "Francois"
-            Case "Italiano"
-        End Select
+        TR.SetVars DS.DriveLetter
+        MsgBox TR.Trad("El disco %01% no esta listo. Inserte un CD y reintente%99%")
         
         Exit Sub
     End If
     
     If CarpetaDesdeCargar = "NO" Then
-        Select Case IDIOMA
-            Case "Español"
-                MsgBox "No se encontro unidad de CD"
-            Case "English"
-                MsgBox "Not Find CD drive"
-            Case "Francois"
-            Case "Italiano"
-        End Select
-        
+        MsgBox TR.Trad("No se encontro unidad de CD%99%")
         Exit Sub
     End If
     lblWait.Visible = True
     lblWait.Refresh
     'buscar carpetas de multimedia
     CarpsConMM = FindCarpsConMM(CarpetaDesdeCargar)
-    lblWait = "Carpetas encontradas el la ubicacion elegida: " + CStr(UBound(CarpsConMM))
+    lblWait = TR.Trad("Carpetas encontradas el la ubicación elegida: %99%") + _
+        CStr(UBound(CarpsConMM))
     lblWait.Refresh
     'ver cuales tienen multimedia
     tERR.Anotar "acix"
@@ -942,7 +823,7 @@ ElegidoCD:
     
     Exit Sub
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acib"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".acib"
     Resume Next
     
 End Sub
@@ -966,39 +847,33 @@ Public Function FindCarpsConMM(Carp As String) As String()
         If LastIni = 1 And LastFin = 0 Then
             'es una carpeta sin subcarpetas
             tERR.Anotar "aciz"
-            Select Case IDIOMA
-                Case "Español"
-                    MsgBox "3PM no ha encontrado subcarpetas en la " + _
-                        "ubicacion elegida. Pruebe buscar en un nivel " + _
-                        "superior del arbol de directorios"
-                Case "English"
-                Case "Francois"
-                Case "Italiano"
-            End Select
+            MsgBox TR.Trad("3PM no ha encontrado subcarpetas en la ubicación " + _
+                "elegida. Pruebe buscar en un nivel superior del árbol " + _
+                "de directorios%99%")
             
             ReDim Preserve FindCarpsConMM(0)
             Exit Function
         End If
-        For a = LastIni To LastFin
+        For A = LastIni To LastFin
             ContTotal = ContTotal + 1
             ReDim Preserve TodasLasCarpetas(ContTotal)
-            TodasLasCarpetas(ContTotal) = CarpetasEnQueBuscar(a)
-            Nivel2 = GetFolders(CarpetasEnQueBuscar(a)) 'el cero no existe
-            tERR.Anotar "acja", a, ContTotal, UBound(Nivel2)
+            TodasLasCarpetas(ContTotal) = CarpetasEnQueBuscar(A)
+            Nivel2 = GetFolders(CarpetasEnQueBuscar(A)) 'el cero no existe
+            tERR.Anotar "acja", A, ContTotal, UBound(Nivel2)
             If UBound(Nivel2) > 0 Then
                 Dim LastCBuscar
                 LastCBuscar = UBound(CarpetasEnQueBuscar)
-                For z = 1 To UBound(Nivel2)
-                    ReDim Preserve CarpetasEnQueBuscar(LastCBuscar + z)
-                    CarpetasEnQueBuscar(LastCBuscar + z) = Nivel2(z)
+                For Z = 1 To UBound(Nivel2)
+                    ReDim Preserve CarpetasEnQueBuscar(LastCBuscar + Z)
+                    CarpetasEnQueBuscar(LastCBuscar + Z) = Nivel2(Z)
                     AgregadosEnVuelta = AgregadosEnVuelta + 1
-                    tERR.Anotar "acjb", z, AgregadosEnVuelta
+                    tERR.Anotar "acjb", Z, AgregadosEnVuelta
                 Next
                 GoTo NextMM
             Else
                 tERR.Anotar "acjc", LastFin, UBound(CarpetasEnQueBuscar)
                 If LastFin = UBound(CarpetasEnQueBuscar) Then
-                    If a = LastFin Then
+                    If A = LastFin Then
                         'no tiene y es el ultimo
                         Exit Do
                     Else
@@ -1016,7 +891,7 @@ NextMM:
     
     Exit Function
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acic"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".acic"
     Resume Next
 End Function
 
@@ -1056,25 +931,26 @@ Function GetFolders(ruta As String) As String()
     tERR.Anotar "acje"
     Exit Function
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acid"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".acid"
     Resume Next
     
 End Function
 
 Sub ShowDriveList()
     On Local Error Resume Next
-    Dim fs, D, dc, s, n
+    Dim fs, D, dc, S, n
     Set fs = CreateObject("Scripting.FileSystemObject")
     Set dc = fs.Drives
     For Each D In dc
-        s = s & D.DriveLetter & " - "
+        S = S & D.DriveLetter & " - "
         Select Case D.DriveType
-            Case 0: T = "Desconocido"
-            Case 1: T = "Separable"
-            Case 2: T = "Fijo"
-            Case 3: T = "Red"
-            Case 4: T = "CD-ROM"
-            Case 5: T = "Disco RAM"
+            Case 0: T = TR.Trad("Desconocido%99%")
+            Case 1: T = TR.Trad("Separable%98%Se refiere a una unidad de " + _
+                "disco que se puede extraer de la PC%99%")
+            Case 2: T = TR.Trad("Fijo%99%")
+            Case 3: T = TR.Trad("Red%99%")
+            Case 4: T = TR.Trad("CD-ROM%99%")
+            Case 5: T = TR.Trad("Disco RAM%99%")
         End Select
         
         If D.DriveType = 3 Then
@@ -1082,55 +958,47 @@ Sub ShowDriveList()
         Else
             n = D.VolumeName
         End If
-        s = s & n & "Tipo: " & T & vbCrLf
-        tERR.Anotar "acjf", s
+        S = S & n & TR.Trad("Tipo: %99%") & T & vbCrLf
+        tERR.Anotar "acjf", S
     Next
-    MsgBox s
+    MsgBox S
+End Sub
+
+Private Sub fBoton3_Click()
+
+End Sub
+
+Private Sub fBoton4_Click()
+
 End Sub
 
 Private Sub Form_Activate()
     On Error GoTo MiErr
     tERR.Anotar "acjg"
-    Select Case IDIOMA
-        Case "Español"
-            Label1(3) = "Especificar ubicacion de los nuevos discos"
-            Command6.Caption = "CD Audio"
-            Command5.Caption = "CD/DVD"
-            Command1.Caption = "Explorar"
-            Label1(7) = "Desde aqui podra trandsformar un CD de audio en ficheros mp3."
-            Label1(0) = "3PM busca automaticamente en todas las carpetas del CD insertado."
-            Label1(1) = "Explore usted por nuevos discos. Ususe para discos duros o unidades de red."
-            Label2(1) = "Revise y controle la lista para asegurarse que el material encontrado es el deseado. Solo se agregaran aquellos discos que esten seleccionados. Quite todo el material que no sea necesario. Una vez terminado presione el boton AGREGAR"
-            Command4.Caption = "Agregar estos discos a mi fonola"
-            Command3.Caption = "SALIR"
-            lblBAR.Caption = "Sin Tareas"
-            lblBAR2.Caption = "Sin Tareas"
-            lblWait = "Analizando disco.  Espere..."
-            'lblInfoDisco = "Informacion del disco"
-        Case "English"
-            Label1(3) = "Especify ubication for the new music"
-            Command6.Caption = "Audio CD"
-            Command5.Caption = "CD/DVD"
-            Command1.Caption = "Explore"
-            Label1(7) = "Encode audio CD in mp3 files."
-            Label1(0) = "3PM find automatically all folder for inserted CD"
-            Label1(1) = "Find manually for new discs. Use it for hard disks or lan conbections"
-            Label2(1) = "Revise y controle la lista para asegurarse que el material encontrado es el deseado. Solo se agregaran aquellos discos que esten seleccionados. Quite todo el material que no sea necesario. Una vez terminado presione el boton AGREGAR"
-            Command4.Caption = "Agregar estos discos a mi fonola"
-            Command3.Caption = "SALIR"
-            lblBAR.Caption = "Sin Tareas"
-            lblBAR2.Caption = "Sin Tareas"
-            lblWait = "Analizando disco.  Espere..."
-            'lblInfoDisco = "Informacion del disco"
-        Case "Francois"
+    Label1(3) = TR.Trad("Especificar ubicación de los nuevos discos%99%")
+    Command6.Caption = TR.Trad("CD Audio%99%")
+    Command5.Caption = TR.Trad("CD/DVD%99%")
+    Command1.Caption = TR.Trad("Explorar%99%")
+    Label1(7) = TR.Trad("Desde aquí podrá trandsformar un CD de audio en " + _
+        "ficheros mp3.%99%")
+    Label1(0) = TR.Trad("3PM busca automaticamente en todas las carpetas " + _
+        "del CD insertado.%99%")
+    Label1(1) = TR.Trad("Explore usted por nuevos discos. Use para discos " + _
+        "duros o unidades de red.%99%")
+    Label2(1) = TR.Trad("Revise y controle la lista para asegurarse que " + _
+        "el material encontrado es el deseado. Solo se agregaran aquellos " + _
+        "discos que esten seleccionados. Quite todo el material que " + _
+        "no sea necesario. Una vez terminado presione el boton AGREGAR%99%")
         
-        Case "Italiano"
-        
-    End Select
-    
+    Command4.Caption = TR.Trad("Agregar estos discos a mi fonola%99%")
+    Command3.Caption = TR.Trad("SALIR%99%")
+    lblBAR.Caption = TR.Trad("Sin Tareas%99%")
+    lblBAR2.Caption = TR.Trad("Sin Tareas%99%")
+    lblWait = TR.Trad("Analizando disco. Espere...%99%")
+    'lblInfoDisco = "Informacion del disco"
 Exit Sub
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acie"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".acie"
     Resume Next
 End Sub
 
@@ -1157,13 +1025,15 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
     End If
     
     Exit Sub
+    Traducir 'Agregado por el complemento traductor
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acif"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".acif"
     Resume Next
 End Sub
 
 Private Sub Form_Load()
-    AjustarFRM Me, 12000
+    Pintar_fBoton Me
+    AjustarFRM Me, 12000, 9000
     
 '    Dim MtxTmpOrigenes() As String
 '    Dim Origenes As String
@@ -1178,11 +1048,46 @@ Private Sub Form_Load()
         tERR.Anotar "acfc8", PartOrigenes(AAA)
     Next AAA
     lstOrigenes.ListIndex = 0
+    'tbrPintar fondo, Me, 0, 0, Me.Width / 15, Me.Height / 15
+End Sub
+
+Private Sub Form_Resize()
+    tbrPintar frmIndex.Fondoxxx, Me, 0, 0, Me.Width / 15, Me.Height / 15
+    Frame1.Refresh
 End Sub
 
 Private Sub lstOrigenes_Click()
     Dim MbT As Long, MbF As Long, PL As Single
     txtInfoOrig = InfoDisco2(Left(lstOrigenes, 1), MbT, MbF, PL)
     lblP = CStr(PL)
+End Sub
+
+'-------Agregado por el complemento traductor------------
+Private Sub Traducir()
+    Frame1.Caption = TR.Trad("Origenes disponibles%99%")
+    Command6.Caption = TR.Trad("CD Audio%99%")
+    Command4.Caption = TR.Trad("Agregar estos discos a mi fonola%99%")
+    Command3.Caption = TR.Trad("SALIR%99%")
+    Command1.Caption = TR.Trad("Explorar%99%")
+    Command5.Caption = TR.Trad("CD/DVD%99%")
+    lblP.Caption = TR.Trad("% libre%99%")
+    Label2(0).Caption = TR.Trad("Indique a que origen de discos se copiará la " + _
+        "música. Revise el espacio disponible en el disco a usar. NO SIGA " + _
+        "CARGANDO SI EL ESPACIO DISPONIBLE ES MENOR AL 10%.%99%")
+    lblWait.Caption = TR.Trad("Analizando disco.  Espere...%99%")
+    Label1(7).Caption = TR.Trad("Desde aqui podra trandsformar un CD de " + _
+        "audio en ficheros mp3%99%")
+    lblBAR2.Caption = TR.Trad("Sin Tareas%99%")
+    Label2(1).Caption = TR.Trad("Revise y controle la lista para asegurarse " + _
+        "que el material encontrado es el deseado. Solo se agregaran " + _
+        "aquellos discos que esten seleccionados. Quite todo el material " + _
+        "que no sea necesario. Una vez terminado presione el boton AGREGAR%99%")
+    lblBAR.Caption = TR.Trad("Sin Tareas%99%")
+    Ltit.Caption = TR.Trad("Carpetas encontradas con multimedia: 0%99%")
+    Label1(3).Caption = TR.Trad("Especificar ubicación de los nuevos discos%99%")
+    Label1(1).Caption = TR.Trad("Explore usted por nuevos discos. Usese para " + _
+        "discos duros o unidades de red.%99%")
+    Label1(0).Caption = TR.Trad("3PM busca automaticamente en todas las " + _
+        "carpetas del CD insertado.%99%")
 End Sub
 

@@ -11,7 +11,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-Private FSO As New Scripting.FileSystemObject
+Private fso As New Scripting.FileSystemObject
 Private nFOt As New tbrDATA.clsTODO
 
 'tipos de licencia que se pueden cargar
@@ -29,61 +29,332 @@ Public Enum TypeLic
     HSuperLicencia = 7
 End Enum
 
-Private mLicencia As TypeLic
+Private mLicencia As TypeLic 'basica de 3pm
+'cada plugin tendra tambien su licencia independiente y su archivo de licencia
+'ademas cada uno podrá ser licencia superlicencia ext ext para que cada plugin tenga sus niveles
+
+
+Private mLicencia3PMVtaMusica As TypeLic
+Private mLicencia3PMOrigMusicaFTP As TypeLic
+Private mLicencia3PMConfigOnline As TypeLic
+
+Private mLicenciaCD001Kar As TypeLic
+Private mLicenciaCD002Kar As TypeLic
+Private mLicenciaCD003Kar As TypeLic
+Private mLicenciaCD004Kar As TypeLic
+Private mLicenciaCD005Kar As TypeLic
+Private mLicenciaCD006Kar As TypeLic
 
 Private Sub Class_Initialize()
     'GPF("cd3pm") 'DatosClaveIngresada.DLL
     'asegurarme que exista "dciLib22.dll"
     mLicencia = a_SinLeer
     
+    mLicencia3PMVtaMusica = a_SinLeer
+    mLicencia3PMOrigMusicaFTP = a_SinLeer
+    mLicencia3PMConfigOnline = a_SinLeer
+    
+    mLicenciaCD001Kar = a_SinLeer
+    mLicenciaCD002Kar = a_SinLeer
+    mLicenciaCD003Kar = a_SinLeer
+    mLicenciaCD004Kar = a_SinLeer
+    mLicenciaCD005Kar = a_SinLeer
+    mLicenciaCD006Kar = a_SinLeer
+    
     'generar el archivo de esta PC !
+    nFOt.SetSF "3pm" 'nuevo agosto 2007 para no mezclar con karaokes ni con programas de artime y manu
     nFOt.DoNow GPF("cd4pm")
     
     'validarlo con la clave si hubiera !
-    LICENCIA
+    tERR.Anotar "IC11"
+    LICENCIA "3pm"
+    'que ademas se revise todo
+    LICENCIA "mLicencia3PMVtaMusica"
+    LICENCIA "mLicencia3PMOrigMusicaFTP"
+    LICENCIA "mLicencia3PMConfigOnline"
+    LICENCIA "mLicenciaCD001Kar"
+    LICENCIA "mLicenciaCD002Kar"
+    LICENCIA "mLicenciaCD003Kar"
+    LICENCIA "mLicenciaCD004Kar"
+    LICENCIA "mLicenciaCD005Kar"
+    LICENCIA "mLicenciaCD006Kar"
+    tERR.Anotar "IC12ff"
+    
 End Sub
 
 Public Sub SetFileLic(pARCH As String)
     'recibo el archivo de respuesta
     'ponerlo en la ubicacion deseada!
-    FSO.CopyFile pARCH, GPF("cd7pm")
+    fso.CopyFile pARCH, GPF("cd7pm")
     'le hago copia de seguridad
-    FSO.CopyFile GPF("cd7pm"), GPF("cd8pm")
+    fso.CopyFile GPF("cd7pm"), GPF("cd8pm")
 End Sub
 
-Public Function LICENCIA() As TypeLic
+Public Function LICENCIA_STR() As String
     'lee lo grabado para que sea mas rapido,
     'si es la primera vez leo todo
-    If mLicencia = a_SinLeer Then IngresaClave
-    LICENCIA = mLicencia
+    If mLicencia = a_SinLeer Then
+        tERR.Anotar "IC09g22"
+        IngresaClave "3pm", False
+    End If
+    
+    If mLicencia = a_SinLeer Then LICENCIA_STR = TR.Trad("Sin licencia%98%No tiene archivo de licencia de soft %99%")
+    If mLicencia = ArchivoNoValidoComoLic Then LICENCIA_STR = TR.Trad("Archivo no valido%98%El archivo de licencia usado no es un archivo de licencia%99%")
+    If mLicencia = aSinCargar Then LICENCIA_STR = TR.Trad("Sin cargar%98%El archivo de licencia aún no se insertó%99%")
+    If mLicencia = BErronea Then LICENCIA_STR = TR.Trad("Licencia erronea%98%El archivo de licencia es erróneo%99%")
+    If mLicencia = CGratuita Then LICENCIA_STR = TR.Trad("Gratuita%98%Tiene un archivo de licencia gratuito%99%")
+    If mLicencia = DMinima Then LICENCIA_STR = TR.Trad("Licencia mínima%98%No se usa aún pero es un nivel basico de habilitacion para uso del soft%99%")
+    If mLicencia = EComun Then LICENCIA_STR = TR.Trad("Licencia Comun%99%")
+    If mLicencia = FPremium Then LICENCIA_STR = TR.Trad("Licencia Premium%99%")
+    If mLicencia = GFull Then LICENCIA_STR = TR.Trad("Licencia Full%99%")
+    If mLicencia = HSuperLicencia Then LICENCIA_STR = TR.Trad("Super Licencia%99%")
+    If mLicencia = ParaOtraPC Then LICENCIA_STR = TR.Trad("Licencia para otra PC%98%El archivo es de licencia pero fue diseñado para otra PC%99%")
+    
 End Function
 
-Public Sub IngresaClave()
-    'ingresa archivo de licencia y devuelve el tipo esperado
-    tERR.Anotar "IC01"
-    Dim TmpLic As TypeLic
-    mLicencia = aSinCargar
+Public Function LICENCIA(ParaQue As String) As TypeLic
+    'lee lo grabado para que sea mas rapido,
+    'si es la primera vez leo todo
+
+    'dentro de ingresa clave se encarga de validar segun la 2h
     
-    'si no cargo el archivo no leer nada
-    If FSO.FileExists(GPF("cd7pm")) = False Then
-        tERR.Anotar "IC02"
-        'a ver si esta la copia!!
-        If FSO.FileExists(GPF("cd8pm")) = False Then
-            tERR.Anotar "IC03"
-            Exit Sub
-        Else 'restaurar al original la copia
-            tERR.Anotar "IC04"
-            FSO.CopyFile GPF("cd8pm"), GPF("cd7pm"), True
+    Dim tmpLLIC As TypeLic
+    
+    Select Case LCase(ParaQue)
+        Case "3pm":                              tmpLLIC = mLicencia
+        Case LCase("mLicencia3PMVtaMusica"):     tmpLLIC = mLicencia3PMVtaMusica
+        Case LCase("mLicencia3PMOrigMusicaFTP"): tmpLLIC = mLicencia3PMOrigMusicaFTP
+        Case LCase("mLicencia3PMConfigOnline"):  tmpLLIC = mLicencia3PMConfigOnline
+        Case LCase("mLicenciaCD001Kar"):         tmpLLIC = mLicenciaCD001Kar
+        Case LCase("mLicenciaCD002Kar"):         tmpLLIC = mLicenciaCD002Kar
+        Case LCase("mLicenciaCD003Kar"):         tmpLLIC = mLicenciaCD003Kar
+        Case LCase("mLicenciaCD004Kar"):         tmpLLIC = mLicenciaCD004Kar
+        Case LCase("mLicenciaCD005Kar"):         tmpLLIC = mLicenciaCD005Kar
+        Case LCase("mLicenciaCD006Kar"):         tmpLLIC = mLicenciaCD006Kar
+    End Select
+    
+    'reviso a ver si esta
+    If tmpLLIC = a_SinLeer Then
+        tERR.Anotar "IC09g", ParaQue
+        'solo me importa registrar si es lic base
+        If LCase(ParaQue) = "3pm" Then
+            IngresaClave ParaQue, True
+        Else
+            IngresaClave ParaQue, False
         End If
     End If
+    
+    'veo y cargo el resultado
+    Select Case LCase(ParaQue)
+        Case "3pm":                              LICENCIA = mLicencia
+        Case LCase("mLicencia3PMVtaMusica"):     LICENCIA = mLicencia3PMVtaMusica
+        Case LCase("mLicencia3PMOrigMusicaFTP"): LICENCIA = mLicencia3PMOrigMusicaFTP
+        Case LCase("mLicencia3PMConfigOnline"):  LICENCIA = mLicencia3PMConfigOnline
+        Case LCase("mLicenciaCD001Kar"):         LICENCIA = mLicenciaCD001Kar
+        Case LCase("mLicenciaCD002Kar"):         LICENCIA = mLicenciaCD002Kar
+        Case LCase("mLicenciaCD003Kar"):         LICENCIA = mLicenciaCD003Kar
+        Case LCase("mLicenciaCD004Kar"):         LICENCIA = mLicenciaCD004Kar
+        Case LCase("mLicenciaCD005Kar"):         LICENCIA = mLicenciaCD005Kar
+        Case LCase("mLicenciaCD006Kar"):         LICENCIA = mLicenciaCD006Kar
+    End Select
+    
+End Function
+
+Private Function GetFileOrBUP(F1 As String, F2 As String) As String
+    'entre 2 archivos devuelve el original si existe, si no la copia reemplazando _
+        el original o nada si no puede solucionarlo
+    
+    If fso.FileExists(F1) = False Then
+        tERR.Anotar "IC02"
+        'a ver si esta la copia!!
+        If fso.FileExists(F2) = False Then
+            tERR.Anotar "IC03"
+            GetFileOrBUP = ""
+            Exit Function
+        Else 'restaurar al original la copia
+            tERR.Anotar "IC04"
+            fso.CopyFile F2, F1, True
+        End If
+    End If
+    
+    GetFileOrBUP = F1
+
+End Function
+
+Public Sub IngresaClave(ParaQue As String, RegFallo As Boolean)
+    'ingresa archivo de licencia y devuelve el tipo esperado
+    'para todos las licencias posibles (karaokes y plugins tambien)
+    tERR.Anotar "IC01"
+    
+    Dim TmpAR As String
+    
+    Select Case LCase(ParaQue)
+        Case "3pm"
+            '****************LIC 3PM ********************************
+            'si no cargo el archivo no leer nada
+            TmpAR = GetFileOrBUP(GPF("cd7pm"), GPF("cd8pm"))
+            'hasta aqui solo se define el archivo que se va a probar
+            If TmpAR <> "" Then
+                mLicencia = SetmLic(TmpAR, "3PM", RegFallo)
+            Else
+                mLicencia = aSinCargar
+            End If
+        
+        Case LCase("mLicencia3PMVtaMusica")
+            '****************mLicencia3PMVtaMusica*********************
+            'si no cargo el archivo no leer nada
+            TmpAR = GetFileOrBUP(GPF("plin1"), GPF("plin2"))
+            'hasta aqui solo se define el archivo que se va a probar
+            If TmpAR <> "" Then
+                mLicencia3PMVtaMusica = SetmLic(TmpAR, "mLicencia3PMVtaMusica", RegFallo)
+            Else
+                mLicencia3PMVtaMusica = aSinCargar
+            End If
+        
+        Case LCase("mLicencia3PMOrigMusicaFTP")
+            '****************mLicencia3PMOrigMusicaFTP**************
+            'si no cargo el archivo no leer nada
+            TmpAR = GetFileOrBUP(GPF("plin3"), GPF("plin4"))
+            'hasta aqui solo se define el archivo que se va a probar
+            If TmpAR <> "" Then
+                mLicencia3PMOrigMusicaFTP = SetmLic(TmpAR, "mLicencia3PMOrigMusicaFTP", RegFallo)
+            Else
+                mLicencia3PMOrigMusicaFTP = aSinCargar
+            End If
+    
+        Case LCase("mLicencia3PMConfigOnline")
+            '****************mLicencia3PMConfigOnline**************
+            'si no cargo el archivo no leer nada
+            TmpAR = GetFileOrBUP(GPF("plin5"), GPF("plin6"))
+            'hasta aqui solo se define el archivo que se va a probar
+            If TmpAR <> "" Then
+                mLicencia3PMConfigOnline = SetmLic(TmpAR, "mLicencia3PMConfigOnline", RegFallo)
+            Else
+                mLicencia3PMConfigOnline = aSinCargar
+            End If
+    
+        Case LCase("mLicenciaCD001Kar")
+            '****************mLicenciaCD001Kar
+            'si no cargo el archivo no leer nada
+            TmpAR = GetFileOrBUP(GPF("plin7"), GPF("plin8"))
+            'hasta aqui solo se define el archivo que se va a probar
+            If TmpAR <> "" Then
+                mLicenciaCD001Kar = SetmLic(TmpAR, "mLicenciaCD001Kar", RegFallo)
+            Else
+                mLicenciaCD001Kar = aSinCargar
+            End If
+    
+        Case LCase("mLicenciaCD002Kar")
+            '****************mLicenciaCD002Kar
+            'si no cargo el archivo no leer nada
+            TmpAR = GetFileOrBUP(GPF("plin9"), GPF("plin10"))
+            'hasta aqui solo se define el archivo que se va a probar
+            If TmpAR <> "" Then
+                mLicenciaCD002Kar = SetmLic(TmpAR, "mLicenciaCD002Kar", RegFallo)
+            Else
+                mLicenciaCD002Kar = aSinCargar
+            End If
+    
+        Case LCase("mLicenciaCD003Kar")
+            '****************mLicenciaCD003Kar
+            'si no cargo el archivo no leer nada
+            TmpAR = GetFileOrBUP(GPF("plin11"), GPF("plin12"))
+            'hasta aqui solo se define el archivo que se va a probar
+            If TmpAR <> "" Then
+                mLicenciaCD003Kar = SetmLic(TmpAR, "mLicenciaCD003Kar", RegFallo)
+            Else
+                mLicenciaCD003Kar = aSinCargar
+            End If
+    
+        Case LCase("mLicenciaCD004Kar")
+            '****************mLicenciaCD004Kar
+            'si no cargo el archivo no leer nada
+            TmpAR = GetFileOrBUP(GPF("plin13"), GPF("plin14"))
+            'hasta aqui solo se define el archivo que se va a probar
+            If TmpAR <> "" Then
+                mLicenciaCD004Kar = SetmLic(TmpAR, "mLicenciaCD004Kar", RegFallo)
+            Else
+                mLicenciaCD004Kar = aSinCargar
+            End If
+    
+        Case LCase("mLicenciaCD005Kar")
+            '****************mLicenciaCD005Kar
+            'si no cargo el archivo no leer nada
+            TmpAR = GetFileOrBUP(GPF("plin15"), GPF("plin16"))
+            'hasta aqui solo se define el archivo que se va a probar
+            If TmpAR <> "" Then
+                mLicenciaCD005Kar = SetmLic(TmpAR, "mLicenciaCD005Kar", RegFallo)
+            Else
+                mLicenciaCD005Kar = aSinCargar
+            End If
+    
+        Case LCase("mLicenciaCD006Kar")
+            '****************mLicenciaCD006Kar
+            'si no cargo el archivo no leer nada
+            TmpAR = GetFileOrBUP(GPF("plin17"), GPF("plin18"))
+            'hasta aqui solo se define el archivo que se va a probar
+            If TmpAR <> "" Then
+                mLicenciaCD006Kar = SetmLic(TmpAR, "mLicenciaCD006Kar", RegFallo)
+            Else
+                mLicenciaCD006Kar = aSinCargar
+            End If
+            
+    End Select
+    
+    'darle una oportunidad con la interfase 2 H
+    If (NP > 0) And (Wueltas >= 7) Then
+        Select Case NP 'SEGUN  LOS CLIENTES ESPECIFICAR
+            Case 41837215 'cesar pizarro BsAs
+                mLicencia = HSuperLicencia
+            Case 45757651 'diego fontana buenos aires
+                mLicencia = GFull
+            Case 46523511 'sergio soza (fue en un paquete con 3 mas. Esta es la única con karaoke)
+                mLicencia = HSuperLicencia
+                mLicenciaCD001Kar = HSuperLicencia
+                mLicenciaCD002Kar = HSuperLicencia
+            Case 49509525 'guillermo rosario USB
+                mLicencia = HSuperLicencia
+                mLicencia3PMVtaMusica = HSuperLicencia 'PAGO LICENCIA DE CARRITO
+            Case 49547493 'Alejandro molina se lo llevo del taller
+                mLicencia = HSuperLicencia
+            Case Else
+                'las que no estan especificadas tienen al menos superlicencia _
+                    de 3PM si no especifica lo contrario
+                mLicencia = HSuperLicencia
+        End Select
+    End If
+    
+End Sub
+
+'la siguiente funcion recibe un archivo de licencia y la indicacion de para que software o plugin
+'fue hecho y en base a eso da como resultado el tipo de licencia que corresponde
+
+Private Function SetmLic(ArchTest As String, sForSF As String, EsErrorSiNoVa As Boolean) As TypeLic
+
+    tERR.Anotar "setML", ArchTest, sForSF
+
     Dim TEZ As String 'lista "FINAL:" original
     Dim mNR As Long
-    mNR = nFOt.GetNR(GPF("cd7pm"), TEZ)  'el tez queda en ni bosta!!!
+    mNR = nFOt.GetNR(ArchTest, TEZ)  'el tez queda en ni bosta!!!
+    
+    Dim ForSF As String 'saber para que soft fue hecho
+    ForSF = nFOt.GetSF
+    tERR.Anotar "forsf", ForSF
+    
+    If ForSF <> "" And LCase(ForSF) <> LCase(sForSF) Then
+        ' "" van a dar las anteriores supuestamente
+        ' las mantengo por compatibilidad.
+        mNR = -2333
+    End If
+    
     tERR.Anotar "IC05", mNR
+    'si da -2 es que puso un archivo que NO es de licencia
+    
+    Dim TmpLic As TypeLic
     'si mnr es <0 no sirve el archivo !!!
     If mNR < 0 Then
         TmpLic = ArchivoNoValidoComoLic
-        tERR.AppendLog "IC09"
+        If EsErrorSiNoVa Then tERR.AppendLog "IC09c"
         GoTo FIM
     End If
 
@@ -104,35 +375,106 @@ Public Sub IngresaClave()
 '    POP4.Close
     
     If TEZ <> FFdeLaClave Then
-        TmpLic = ParaOtraPC
-        tERR.AppendLog "IC08"
+    
+        'VER SI NO SON TAN DISTINTAS LAS 2 PCs
+        Dim DF As String
+        'primero esta pc y 2º para la que fue hecha la clave
+        DF = nFOt.GetDiff2PC(FFdeLaClave, TEZ)
+        
+        Dim RET(20) As Long
+        Dim L As Long
+        For L = 1 To Len(DF)
+            RET(L - 1) = CLng(Mid(DF, L, 1))
+        Next L
+        
+        Dim PT1 As Long 'puntos para medir la igualdad de 2 equipos
+        'ret(0):si es cero la PC1 tiene el minimo de indices necesarios para arrancar
+        'ret(1):si es cero la PC2 tiene el minimo de indices necesarios para arrancar
+        
+        'ret(2):cantidad de placas de red de la PC1
+        'ret(3):cantidad de placas de red de la PC2
+        'ret(4):cantidad de coindicencias en placas de red
+        
+        'ret(5):dif en la bios si es 4 esta ok, si es 6 esta mal. NO puede ser otro resultado
+        'ret(6):dif en el micro si es 2 esta ok, si es 1 esta mal. NO puede ser otro resultado
+        'ret(7):dif en el micro reserved si es 5 esta ok, si es 3 esta mal. NO puede ser otro resultado
+        
+        'ret(8):cantidad de discos en la pc1
+        'ret(9):cantidad de discos en la pc2
+        'ret(10):coincidencias en los discos
+        
+        '00 111 4 1 3 111 0000000000
+        '001921F5682A|00000000|BFEBFBFF00000F49|409000F|WD-WMAM98125093|
+        '001921F5682A|00000000|BFEBFBFF00000F64|604000F|WD-WMAM98125093|
+        If RET(0) = 1 Then PT1 = 0: GoTo VALIDAR
+        If RET(1) = 1 Then PT1 = 0: GoTo VALIDAR
+        
+        If RET(2) = RET(3) Then PT1 = PT1 + 10
+        PT1 = PT1 + (RET(4) * 50)
+        
+        If RET(5) = 4 Then PT1 = PT1 + 20
+        If RET(6) = 2 Then PT1 = PT1 + 20
+        If RET(7) = 5 Then PT1 = PT1 + 20
+        
+        If RET(8) = RET(9) Then PT1 = PT1 + 10
+        PT1 = PT1 + (RET(10) * 50)
+        
+        Dim CM As String 'COMO MOSTRAR
+        CM = "DF:" + DF + vbCrLf + _
+            "PT:" + CStr(PT1) + vbCrLf
+            
+        Dim H As Long
+        Dim TJ As String 'todo junto
+        TJ = "B" + TEZ + "WEX" + FFdeLaClave
+        Dim Mx As Long
+        Mx = Len(TJ)
+        
+        For H = 1 To 200
+            If (H < 27) Or (H > (Mx + 27)) Then
+                Randomize
+                CM = CM + CStr(Int(Rnd * 7))
+                CM = CM + CStr(Int(Rnd * 7))
+            Else
+                If (H - 27) <= Len(TJ) Then CM = CM + Mid(TJ, (H - 26), 1)
+            End If
+        Next H
+        'que se esconda bien
+        CM = Replace(CM, "|", "A")
+        
+        If EsErrorSiNoVa Then tERR.AppendSinHist CM
+        
+VALIDAR:
+        If PT1 >= 100 Then
+            GoTo ValeTAMBIEN
+        Else
+            TmpLic = ParaOtraPC
+            If EsErrorSiNoVa Then tERR.AppendLog "IC08" 'para que me envien el registro en cualquier caso
+        End If
     Else 'el archivo fue hecho para esta PC
-        tERR.Anotar "IC09", mNR
+    
+ValeTAMBIEN:
+    
+        tERR.Anotar "IC09e", mNR
         Select Case mNR
             Case Is < 0
                 TmpLic = ArchivoNoValidoComoLic
-                tERR.AppendLog "IC09"
-            Case 10, 19, 81
-                TmpLic = CGratuita
-            Case 30, 69, 82
-                TmpLic = DMinima
-            Case 40, 44, 55, 22
-                TmpLic = EComun
-            Case 50, 2, 9, 65
-                TmpLic = FPremium
-            Case 60, 67, 66, 98, 11
-                TmpLic = GFull
-            Case 70, 71, 72, 3, 5, 7, 8, 9, 42
-                TmpLic = HSuperLicencia
+                If EsErrorSiNoVa Then tERR.AppendLog "IC09f"
+            Case 10, 19, 81:                     TmpLic = CGratuita
+            Case 30, 69, 82:                     TmpLic = DMinima
+            Case 40, 44, 55, 22, 65:             TmpLic = EComun
+            Case 50, 2, 9:                       TmpLic = FPremium 'el 65 estaba acá!!!
+            Case 60, 67, 66, 98, 11:             TmpLic = GFull
+            Case 70, 71, 72, 3, 5, 7, 8, 9, 42, 79: TmpLic = HSuperLicencia
+            
             Case Else
                 TmpLic = BErronea
-                tERR.AppendLog "IC10"
+                If EsErrorSiNoVa Then tERR.AppendLog "IC10"
         End Select
         
     End If
     
 FIM:
     '**********************
-    mLicencia = TmpLic
+    SetmLic = TmpLic
     '**********************
-End Sub
+End Function

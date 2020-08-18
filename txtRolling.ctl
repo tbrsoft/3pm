@@ -120,13 +120,13 @@ End Sub
 
 Private Sub TimerMR_Timer()
     
-    Dim NewCOLOR As Long
+    Dim NewColor As Long
     
     If DirColor = 1 Then
         'acerco el color y veo si llegue
-        NewCOLOR = tRGB.AcercarColores(lblROLL1.ForeColor, UserControl.BackColor, mVarColor)
-        lblROLL1.ForeColor = NewCOLOR
-        If NewCOLOR = UserControl.BackColor Then
+        NewColor = tRGB.AcercarColores(lblROLL1.ForeColor, UserControl.BackColor, mVarColor)
+        lblROLL1.ForeColor = NewColor
+        If NewColor = UserControl.BackColor Then
             'llego a esconderse!
             lblROLL1.Caption = TextoQueSigue
             CalzarTexto 'acomodarlo para que se vea siempre centrado
@@ -134,9 +134,9 @@ Private Sub TimerMR_Timer()
         End If
     Else 'esta empezando a mostrar
         'acerco el color y veo si llegue
-        NewCOLOR = tRGB.AcercarColores(lblROLL1.ForeColor, mForeColor1(nTextoActual), mVarColor)
-        lblROLL1.ForeColor = NewCOLOR
-        If NewCOLOR = mForeColor1(nTextoActual) Then
+        NewColor = tRGB.AcercarColores(lblROLL1.ForeColor, mForeColor1(nTextoActual), mVarColor)
+        lblROLL1.ForeColor = NewColor
+        If NewColor = mForeColor1(nTextoActual) Then
             'llego a esconderse!
             DirColor = 1
         End If
@@ -184,8 +184,8 @@ Public Sub SetFont1(SF1 As StdFont)
     Set lblROLL1.Font = mFont
 End Sub
 
-Public Sub SetForeColor1(FC1 As OLE_COLOR, i As Long)
-    mForeColor1(i) = FC1
+Public Sub SetForeColor1(FC1 As OLE_COLOR, I As Long)
+    mForeColor1(I) = FC1
     'lblROLL1.ForeColor = mForeColor1
 End Sub
 
@@ -200,7 +200,7 @@ End Sub
 Private Sub UserControl_Initialize()
     'valores predeterminados
     mFont.Bold = True
-    mFont.Name = "Tahoma"
+    mFont.name = "Tahoma"
     mFont.Size = 8
     ReDim mForeColor1(0)
     mForeColor1(0) = vbYellow
@@ -225,42 +225,50 @@ Public Sub ClearTextos()
 End Sub
 
 'en casos de que la matriz es fija por que muestra especificamente X textos se puede hacer
-Public Sub ReplaceIndex(i As Long, newText As String)
+Public Sub ReplaceIndex(I As Long, newText As String)
 
     'ver que no sean renglones muy largos!
     newText = CortarTextos(newText)
 
-    If i > UBound(Textos) Then ReDim Preserve Textos(i)
-    Textos(i) = newText
+    If I > UBound(Textos) Then ReDim Preserve Textos(I)
+    Textos(I) = newText
 End Sub
 
 Private Function CortarTextos(T1 As String) As String
     'es encesario ver que todos los renglones tengan un maximo X de caracteres si fuera necesario
     'segun la ubicación del objeto
-    CortarTextos = T1
+    
+    If T1 = "" Then
+        CortarTextos = T1
+        Exit Function
+    End If
+    
+    Dim TMP As String
+    
+    TMP = T1
     'si es cero no queria nada
     If mMaxlargoRenglon = 0 Then Exit Function
     
-    Dim MatrizFinal() As String, c As Long
-    c = 0
+    Dim MatrizFinal() As String, C As Long
+    C = 0
     Dim SP() As String
     SP = Split(T1, vbCrLf)
-    Dim a As Long
-    For a = 0 To UBound(SP)
-        If Len(SP(a)) > mMaxlargoRenglon Then
+    Dim A As Long
+    For A = 0 To UBound(SP)
+        If Len(SP(A)) > mMaxlargoRenglon Then
             'buscar un espacio para cortar por palabras
             Dim B As Long
             For B = mMaxlargoRenglon To 1 Step -1
-                If Mid(SP(a), B, 1) = " " Then
+                If Mid(SP(A), B, 1) = " " Then
                                     
                     'el renglon esta ok
-                    ReDim Preserve MatrizFinal(c)
-                    MatrizFinal(c) = Mid(SP(a), 1, B)
-                    c = c + 1
+                    ReDim Preserve MatrizFinal(C)
+                    MatrizFinal(C) = Mid(SP(A), 1, B)
+                    C = C + 1
                     
-                    ReDim Preserve MatrizFinal(c)
-                    MatrizFinal(c) = Mid(SP(a), B + 1, Len(SP(a)) - B)
-                    c = c + 1
+                    ReDim Preserve MatrizFinal(C)
+                    MatrizFinal(C) = Mid(SP(A), B + 1, Len(SP(A)) - B)
+                    C = C + 1
                     Exit For
                     'ver que lo que queda no se pase!
                     'XXXX
@@ -268,16 +276,19 @@ Private Function CortarTextos(T1 As String) As String
             Next B
         Else
             'el renglon esta ok
-            ReDim Preserve MatrizFinal(c)
-            MatrizFinal(c) = SP(a)
-            c = c + 1
+            ReDim Preserve MatrizFinal(C)
+            MatrizFinal(C) = SP(A)
+            C = C + 1
         End If
-    Next a
-    CortarTextos = ""
-    For a = 0 To UBound(MatrizFinal)
-        CortarTextos = CortarTextos + MatrizFinal(a)
-        If a < UBound(MatrizFinal) Then CortarTextos = CortarTextos + vbCrLf
-    Next a
+    Next A
+    TMP = ""
+    For A = 0 To UBound(MatrizFinal)
+        TMP = TMP + MatrizFinal(A)
+        If A < UBound(MatrizFinal) Then TMP = TMP + vbCrLf
+    Next A
+    
+    CortarTextos = TMP
+    
 End Function
 
 Private Sub UserControl_Resize()

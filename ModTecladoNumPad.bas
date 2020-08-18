@@ -1,6 +1,6 @@
 Attribute VB_Name = "ModTecladoNumPad"
 Public Declare Function PeekMessage Lib "user32" Alias _
-  "PeekMessageA" (lpMsg As MSG, ByVal hwnd As Long, _
+  "PeekMessageA" (lpMsg As msg, ByVal HWND As Long, _
   ByVal wMsgFilterMin As Long, ByVal wMsgFilterMax As Long, _
   ByVal wRemoveMsg As Long) As Long
 
@@ -9,8 +9,8 @@ Public Type POINTAPI
    Y As Long
 End Type
 
-Public Type MSG
-   hwnd As Long
+Public Type msg
+   HWND As Long
    message As Long
    wParam As Long
    lParam As Long
@@ -23,9 +23,9 @@ Public Const WM_KEYDOWN = &H100 '256
 Public Const WM_KEYUP = &H101 '257
 Public Const VK_RETURN = &HD
 
-Public Function IsKeyPad(FRM As Form) As Boolean
+Public Function IsKeyPad(HWND) As Boolean
     
-    Dim MyMsg As MSG, RetVal As Long
+    Dim MyMsg As msg, RetVal As Long
     IsKeyPad = False
     
     'pass:
@@ -34,7 +34,7 @@ Public Function IsKeyPad(FRM As Form) As Boolean
     '  low and high filter of 0, 0 to trap all messages
     '  PM_NOREMOVE to leave the keystroke in the message queue
     '  use PM_REMOVE (1) to remove it
-    RetVal = PeekMessage(MyMsg, FRM.hwnd, 0, 0, PM_NOREMOVE)
+    RetVal = PeekMessage(MyMsg, HWND, 0, 0, PM_NOREMOVE)
     
     ' now, per Q77550, you should look for a MSG.wParam of VK_RETURN
     ' if this was the keystroke, then test bit 24 of the lparam - if ON,
