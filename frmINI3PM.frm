@@ -746,7 +746,7 @@ Private Sub Command1_Click()
     
     Exit Sub
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".acnu"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acnu"
     Resume Next
 End Sub
 
@@ -758,6 +758,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     Select Case KeyCode
         
         Case TeclaCerrarSistema
+            Unload Me
             YaCerrar3PM
     End Select
 End Sub
@@ -864,7 +865,7 @@ Private Sub Form_Load()
     
     Exit Sub
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".acnt2"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acnt2"
     Resume Next
 End Sub
 

@@ -173,15 +173,17 @@ Private Sub tbrTimer1_Timer()
     '0 *1* 00 *0* 000 = 64 dec es interrupcion para leer el puerto (botones comunes)
     '0 *1* 00 *1* 000 = 72 dec es interrupcion para leer el puerto (botones especiales)
     '*********************************************************************
-    If LS2 <> LastStatus Then SME "ChgSTAT: " + CStr(LS2)
+    If LS2 <> LastStatus Then
+        SME "ChgSTAT: " + CStr(LS2) + " * " + CStr(ptoConv) + " * " + CStr(SignalType)
+    End If
     
     LastStatus = LS2
     
     Select Case LastStatus
         Case 0 'modo standBy en espera ...
-            If ptoConv = 3 Then RecibiOK LastDato, 55  'tambien puede validar lo que le mande
-            If ptoConv = 37 Then RecibiOK LastDato, 56  'tambien puede validar lo que le mande
-            If ptoConv = 8 Then RecibiOK LastDato, 54  'tambien puede validar lo que le mande
+            If ptoConv = 3 Then RecibiOK LastDato, CByte(55)  'tambien puede validar lo que le mande
+            If ptoConv = 37 Then RecibiOK LastDato, CByte(56)  'tambien puede validar lo que le mande
+            If ptoConv = 8 Then RecibiOK LastDato, CByte(54)  'tambien puede validar lo que le mande
             
             'vuelve o queda al valor ok
             ptoConv = 7
@@ -289,7 +291,7 @@ Private Function GetDato(Optional bShowError As Boolean = True) As Byte
 '        If bShowError Then SME "GD  OK:" + CStr(GD)
 '    End If
     
-    SME "GD:" + CStr(GD)
+    If bShowError Then SME "GD:" + CStr(GD)
     GetDato = GD
     
     Exit Function
@@ -364,7 +366,7 @@ Public Function AddCont(nCont_0_to_3 As Long, Optional myTimeOut As Single = 1) 
     'lo reviso al hacer el ok
     SendDataLuis nCont_0_to_3 + 113, True
     'esperar la respuesta !!!
-    SME "*** AddCont: " + CStr(nCont_0_to_3)
+    SME "*** AddCont: " + CStr(nCont_0_to_3) + " * " + CStr(myTimeOut)
     tmpLastDato = -1 'apenas reciba un dato esto se cambia
     Dim J As Single
     J = Timer
@@ -403,7 +405,7 @@ Private Sub SendDataLuis(sData As Byte, Optional AsignarSType As Boolean = False
 
     On Local Error GoTo NoD
     
-    'para cuando pido cosas que no tiene que ver con botonres
+    'para cuando pido cosas que no tiene que ver con botones
     If AsignarSType Then SignalType = sData
     'se va solo a cero al recibir OK!!!!
 '    Else
@@ -470,19 +472,19 @@ Private Sub RecibiOK(sVal As Byte, sModo As Byte)
             If SignalType = 116 Then
                 Cont1 = Cont1 + 1
                 Mod64 Cont1
-                ValAcum1 = ValAcum1 + mV1(Cont1) + Cont4
+                ValAcum1 = ValAcum1 + CLng(mV1(Cont1)) + Cont4
             End If
             
             If SignalType = 115 Then
                 Cont2 = Cont2 + 1
                 Mod64 Cont2
-                ValAcum1 = ValAcum1 + mV2(Cont2) + Cont3
+                ValAcum1 = ValAcum1 + CLng(mV2(Cont2)) + Cont3
             End If
                 
             If SignalType = 114 Then
                 Cont3 = Cont3 + 1
                 Mod64 Cont3
-                ValAcum1 = ValAcum1 + mV3(Cont3) + Cont2
+                ValAcum1 = ValAcum1 + CLng(mV3(Cont3)) + Cont2
             End If
             
             If SignalType = 113 Then
@@ -613,6 +615,7 @@ Public Function GetnPlaca(fLista As String) As String
     
     Dim H As Long, TT As Single
     For H = 0 To 4
+        SME "gp" + CStr(H) + "vv"
         nPLACA(H) = -1 'la dejo vacia
         SendDataLuis 117 + H, True 'la pido
         TT = Timer
@@ -623,8 +626,8 @@ Public Function GetnPlaca(fLista As String) As String
         Loop
     Next H
     
-    
     For H = 0 To 4
+        SME "gp" + CStr(H) + "vv" + CStr(nPLACA(H))
         'ver si alguno no se leyo y lo consulto de nuevo
         If nPLACA(H) < 0 Then
             SendDataLuis 117 + H, True 'la pido
@@ -650,6 +653,8 @@ Public Function GetnPlaca(fLista As String) As String
                nPLACA(1) * 1000000 + _
                nPLACA(0) * 100000000
         
+        SME "gp231" + CStr(NumPLACA)
+        
         GetVal CStr(NumPLACA), fLista, mV1, mV2, mV3
         
         SME "NP:" + CStr(NumPLACA) + " " + CStr(mV1(0)) + CStr(mV2(0)) + CStr(mV3(0))
@@ -658,6 +663,15 @@ Public Function GetnPlaca(fLista As String) As String
 
     GetnPlaca = CStr(NumPLACA)
 
+End Function
+
+Public Function RvP(f As String, P As String) As String
+    'me dice si un numero de placa anda ok
+    GetVal P, f, mV1, mV2, mV3
+    
+    SME "NP:" + P + " " + CStr(mV1(0)) + "." + CStr(mV2(0)) + "." + CStr(mV3(0))
+    RvP = "NP:" + P + " " + CStr(mV1(0)) + "." + CStr(mV2(0)) + "." + CStr(mV3(0))
+    
 End Function
 
 Public Sub ToTimer2(Prender As Boolean)

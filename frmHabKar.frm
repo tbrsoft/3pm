@@ -170,6 +170,7 @@ Private Sub fBoton1_Click()
     'crear uno para
     Dim nFOt2 As New tbrDATA.clsTODO
     'asegurarse que vaya con el noombre que tiene que ir!!!
+    nFOt2.SetLog AP + "kc2.log"
     nFOt2.SetSF "mLicenciaCD00" + CStr(lstCDs.ListIndex + 1) + "Kar" 'nuevo agosto 2007 para no mezclar con karaokes ni con programas de artime y manu
     nFOt2.DoNow F2
     
@@ -214,7 +215,7 @@ Private Sub fBoton2_Click()
     
     'decir que paso
     sSel = lstCDs.ListIndex + 1
-    If K.LICENCIA("mLicenciaCD00" + CStr(sSel) + "Kar") >= GFull Then
+    If K.sabseee("mLicenciaCD00" + CStr(sSel) + "Kar") >= GFull Then
         MsgBox TR.Trad("Se cargo la licencia del cd solicitado sin problemas%99%")
     Else
         MsgBox TR.Trad("No se cargo la licencia contacte a tbrSoft%99%")
@@ -242,22 +243,28 @@ End Sub
 Private Sub refreshCD()
     lstCDs.Clear
     
-    If K.LICENCIA("mLicenciaCD001Kar") >= GFull Then
+    If K.sabseee("mLicenciaCD001Kar") >= GFull Then
         lstCDs.AddItem "CD001 * 110 " + TR.Trad("karaokes%99%") + " *    " + TR.Trad("INSTALADO%99%") + " * " + TR.Trad("(disponible)%99%")
     Else
         lstCDs.AddItem "CD001 * 110 " + TR.Trad("karaokes%99%") + " * " + TR.Trad("NO INSTALADO%99%") + " * " + TR.Trad("(disponible)%99%")
     End If
     
-    If K.LICENCIA("mLicenciaCD002kar") >= GFull Then
+    If K.sabseee("mLicenciaCD002kar") >= GFull Then
         lstCDs.AddItem "CD002 *  99 " + TR.Trad("karaokes%99%") + " *    " + TR.Trad("INSTALADO%99%") + " * " + TR.Trad("(disponible)%99%")
     Else
         lstCDs.AddItem "CD002 *  99 " + TR.Trad("karaokes%99%") + " * " + TR.Trad("NO INSTALADO%99%") + " * " + TR.Trad("(disponible)%99%")
     End If
     
+    If K.sabseee("mLicenciaCD003kar") >= GFull Then
+        lstCDs.AddItem "CD003 *  99 " + TR.Trad("karaokes%99%") + " *    " + TR.Trad("INSTALADO%99%") + " * " + TR.Trad("(disponible)%99%")
+    Else
+        lstCDs.AddItem "CD003 *  99 " + TR.Trad("karaokes%99%") + " * " + TR.Trad("NO INSTALADO%99%") + " * " + TR.Trad("(disponible)%99%")
+    End If
+    
     'todos los demas
     Dim J As Long
-    For J = 3 To 6
-        If K.LICENCIA("mLicenciaCD00" + CStr(J) + "Kar") >= GFull Then
+    For J = 4 To 6
+        If K.sabseee("mLicenciaCD00" + CStr(J) + "Kar") >= GFull Then
             lstCDs.AddItem "CD00" + CStr(J) + " *              *    " + TR.Trad("INSTALADO * (en desarrollo)%98%En desarrollo se refiere a CDs de karaokes que todava no fabricamos pero que pronto los vamos a terminar y dejar disponibles%99%")
         Else
             lstCDs.AddItem "CD00" + CStr(J) + " *              * " + TR.Trad("NO INSTALADO * (en desarrollo)%98%En desarrollo se refiere a CDs de karaokes que todava no fabricamos pero que pronto los vamos a terminar y dejar disponibles%99%")

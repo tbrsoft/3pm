@@ -45,16 +45,16 @@ Public Function GetGuidSL() As String
         Dim ArchUniqueAzar As String
         ArchUniqueAzar = GPF("rempres44")
         'ver si ya se genero el archivo para esta formateada
-        If FSO.FileExists(ArchUniqueAzar) = False Then
-            Dim a As Long
+        If fso.FileExists(ArchUniqueAzar) = False Then
+            Dim A As Long
             Randomize Timer
-            a = Int(Rnd * 10000)
-            a = 111000000 + a
+            A = Int(Rnd * 10000)
+            A = 111000000 + A
             
-            Set TE = FSO.CreateTextFile(ArchUniqueAzar, True)
-            TE.WriteLine CStr(a)
+            Set TE = fso.CreateTextFile(ArchUniqueAzar, True)
+            TE.WriteLine CStr(A)
             TE.Close
-            RSV = CStr(a)
+            RSV = CStr(A)
         End If
         'leer el archivo
         Dim UnicoAzar  As String
@@ -72,16 +72,16 @@ End Function
 
 Private Function GetBIOSDate() As String
   Dim P As Byte, MemAddr As Long, sBios As String
-  Dim i As Integer
+  Dim I As Integer
   'comienzo del serial de la BIOS &HFE0C0
   MemAddr = &HFE000
-  For i = 0 To 331
-      Call GetMem1(MemAddr + i, P)
+  For I = 0 To 331
+      Call GetMem1(MemAddr + I, P)
       'get printable characters
       If P > 31 And P <= 128 Then
       sBios = sBios & Chr$(P)
     End If
-  Next i
+  Next I
   GetBIOSDate = sBios
 End Function
 

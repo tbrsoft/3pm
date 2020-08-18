@@ -128,13 +128,13 @@ Private Sub Form_Load()
     '--------
     'cargar los previstos
     
-    tERR.Anotar "acmz", K.LICENCIA("3pm")
+    tERR.Anotar "acmz", K.sabseee("3pm")
     'ver si existe la personalizada
     ', la del skin es:
-    IMF = ExtraData.GetImagePath("iniciasys")
+    IMF = ExtraData.getDef.getImagePath("iniciasys")
     
     tERR.Anotar "acmz2", IMF
-    If K.LICENCIA("3pm") = HSuperLicencia Then
+    If K.sabseee("3pm") = Supsabseee Then
         If fso.FileExists(GPF("iisl67")) Then
             tERR.Anotar "acmz3"
             Image1.Picture = LoadPicture(GPF("iisl67"))
@@ -153,12 +153,12 @@ Private Sub Form_Load()
     Image1.Top = 300 'Me.Height / 2 - Image1.Height / 2
     'Frame1.Width = 5500
     Frame1.Left = Screen.Width / 2 - Frame1.Width / 2
-    tERR.Anotar "acmz5"
+    tERR.Anotar "acmz5", Screen.Height, Image1.Height, Image1.Top, Frame1.Left
     Frame1.Top = Image1.Top + Image1.Height + 300
     Frame1.Height = Screen.Height - Image1.Height - 1600
-    pBAR.Left = lblINI.Left
+    PBar.Left = lblINI.Left
     tERR.Anotar "acmz6"
-    XxBoton1.Left = pBAR.Left - 15
+    XxBoton1.Left = PBar.Left - 15
     XxBoton1.Width = lblINI.Width
     tERR.Anotar "acmz7"
     frmVIDEO.picBigImg.Top = frmVIDEO.Height / 2 - frmVIDEO.picBigImg.Height / 2
@@ -169,7 +169,7 @@ Private Sub Form_Load()
     tERR.Anotar "000A-00903"
     lblINI.Caption = TR.Trad("Inicializando 3PM...%98%Al arranque del sistema%99%")
     lblINI.Refresh
-    pBAR.Width = 0
+    PBar.Width = 0
     
     tERR.Anotar "acna"
     
@@ -182,6 +182,7 @@ Private Sub Form_Load()
     TeclaPagAd = Val(LeerConfig("TeclaPagAd", "77"))
     TeclaPagAt = Val(LeerConfig("TeclaPagAt", "78"))
     TeclaOK = Val(LeerConfig("TeclaOK", "13"))
+    TeclaCancionVIP = Val(LeerConfig("TeclaCancionVIP", "89"))
     TeclaCarrito = Val(LeerConfig("TeclaCarrito", "79"))
     TeclaESC = Val(LeerConfig("TeclaESC", "27"))
     TeclaNewFicha = Val(LeerConfig("TeclaNuevaFicha", "81"))
@@ -197,12 +198,13 @@ Private Sub Form_Load()
     TeclaNextMusic = Val(LeerConfig("TeclaNextMusic", "66")) 'B
     lblINI.Caption = TR.Trad("Inicializando 3PM...%99%") + "01"
     lblINI.Refresh
-    pBAR.Width = lblINI.Width * 0.15
+    PBar.Width = lblINI.Width * 0.15
     TeclaDERx2 = Val(LeerConfig("TeclaDerechax2", "2"))
     TeclaIZQx2 = Val(LeerConfig("TeclaIzquierdax2", "1"))
     TeclaPagAdx2 = Val(LeerConfig("TeclaPagAdx2", "3"))
     TeclaPagAtx2 = Val(LeerConfig("TeclaPagAtx2", "4"))
     TeclaOKx2 = Val(LeerConfig("TeclaOKx2", "5"))
+    TeclaCancionVIPx2 = Val(LeerConfig("TeclaCancionVIPx2", "17"))
     TeclaCarritox2 = Val(LeerConfig("TeclaCarritox2", "16"))
     TeclaESCx2 = Val(LeerConfig("TeclaESCx2", "7"))
     TeclaNewFichax2 = Val(LeerConfig("TeclaNuevaFichax2", "22"))
@@ -224,7 +226,7 @@ Private Sub Form_Load()
     
     lblINI.Caption = TR.Trad("Inicializando 3PM...%99%") + "02"
     lblINI.Refresh
-    pBAR.Width = lblINI.Width * 0.45
+    PBar.Width = lblINI.Width * 0.45
     
     MaximoFichas = Val(LeerConfig("MaximoFichas", "40"))
     EsperaMinutos = Val(LeerConfig("EsperaMinutos", "900"))
@@ -267,7 +269,7 @@ Private Sub Form_Load()
     
     lblINI.Caption = TR.Trad("Inicializando 3PM...%99%") + "03"
     lblINI.Refresh
-    pBAR.Width = lblINI.Width * 0.67
+    PBar.Width = lblINI.Width * 0.67
     
     CargarDuracionTemas = LeerConfig("CargarDuracionTemas", "0")
     MostrarRotulos = LeerConfig("MostrarRotulos", "1")
@@ -283,6 +285,9 @@ Private Sub Form_Load()
     CreditosCuestaTema(0) = LeerConfig("CreditosCuestaTema", "1")
     CreditosCuestaTema(1) = LeerConfig("CreditosCuestaTema2", "2")
     CreditosCuestaTema(2) = LeerConfig("CreditosCuestaTema3", "3")
+    'upManu
+    CreditosXaVipMusica = LeerConfig("CreditosXaVipMusica", "0") 'predeterminado desactivado
+    PrecNowVIP = CreditosXaVipMusica
     
     CreditosCuestaTemaVIDEO(0) = LeerConfig("CreditosCuestaTemaVIDEO", "2")
     CreditosCuestaTemaVIDEO(1) = LeerConfig("CreditosCuestaTemaVIDEO2", "3")
@@ -306,7 +311,7 @@ Private Sub Form_Load()
     
     lblINI.Caption = TR.Trad("Inicializando 3PM...%99%") + "04"
     lblINI.Refresh
-    pBAR.Width = lblINI.Width * 0.78
+    PBar.Width = lblINI.Width * 0.78
     
     tERR.Anotar "acnf"
     'publicidad
@@ -339,7 +344,7 @@ Private Sub Form_Load()
     
     lblINI.Caption = TR.Trad("Inicializando 3PM...%99%") + "05"
     lblINI.Refresh
-    pBAR.Width = lblINI.Width * 0.84
+    PBar.Width = lblINI.Width * 0.84
     
     tERR.Anotar "acni"
     'ver si ya estaba cargado
@@ -358,14 +363,14 @@ Private Sub Form_Load()
     tERR.Anotar "acnj"
     
     'ver si es superlicencia y usa otra tapa predeterminada
-    If K.LICENCIA("3pm") = HSuperLicencia Then
+    If K.sabseee("3pm") = Supsabseee Then
         If fso.FileExists(GPF("tddp322")) Then
             IMF = GPF("tddp322")
         Else
-            IMF = ExtraData.GetImagePath("tapapredeterminada")
+            IMF = ExtraData.getDef.getImagePath("tapapredeterminada")
         End If
     Else
-        IMF = ExtraData.GetImagePath("tapapredeterminada")
+        IMF = ExtraData.getDef.getImagePath("tapapredeterminada")
     End If
     
     If fso.FileExists(IMF) = False Then
@@ -388,7 +393,7 @@ Private Sub Form_Load()
     
     lblINI.Caption = TR.Trad("Inicializando 3PM...%99%") + "06"
     lblINI.Refresh
-    pBAR.Width = lblINI.Width * 0.95
+    PBar.Width = lblINI.Width * 0.95
     
     tERR.Anotar "000A-00901"
     'ver si existe ranking.tbr
@@ -425,7 +430,7 @@ Private Sub Form_Load()
         If TT <> "" Then
             tERR.Anotar "acno", Z
             Z = Z + 1
-            pBAR.Width = (Z * 10) Mod (XxBoton1.Width / 2)
+            PBar.Width = (Z * 10) Mod (XxBoton1.Width / 2)
             lblINI.Caption = ThisArch
             lblINI.Refresh
             ThisPTS = Val(txtInLista(TT, 0, ","))
@@ -450,11 +455,11 @@ Private Sub Form_Load()
     C = 0 'cantidad de minimos encontrados
     Dim Ordenados() As Long 'matriz con los indices ordenados
     
-    pBAR.Width = 0
+    PBar.Width = 0
     lblINI.Caption = "rank 1" '+ String((c Mod 70), ".") 'mtxTOP10(mtx)
     lblINI.Refresh
     Do
-        pBAR.Width = (C * 60) Mod lblINI.Width
+        PBar.Width = (C * 60) Mod lblINI.Width
         Frame1.Refresh
         For mtx = 1 To UBound(mtxTOP10)
             tERR.Anotar "acnp", C, mtx, mtxTOP10(mtx)
@@ -476,7 +481,7 @@ Private Sub Form_Load()
         MaxPT = 0
     Loop
     'cargar todos y sacar la primera columna de las zetas
-    pBAR.Width = 0
+    PBar.Width = 0
 
     Dim MTXsort() As String
     'cambie opentextfile por createtextfile por un error que suele dar
@@ -490,7 +495,7 @@ Private Sub Form_Load()
     lblINI.Refresh
     For mtx = 1 To UBound(mtxTOP10)
         
-        pBAR.Width = (mtx * 60) Mod lblINI.Width
+        PBar.Width = (mtx * 60) Mod lblINI.Width
         Frame1.Refresh
         tERR.Anotar "acnq", mtx
         ReDim Preserve MTXsort(mtx)
@@ -539,14 +544,14 @@ FinOrden:
         'ver los discos del origene elegido
         lblINI.Caption = TR.Trad("ESPERE. Buscando...%99%") + PartOrigenes(H)
         lblINI.Refresh
-        pBAR.Width = (lblINI.Width * H / 100) Mod lblINI.Width
+        PBar.Width = (lblINI.Width * H / 100) Mod lblINI.Width
         
         MtxTmpOrigenes() = ObtenerDir(PartOrigenes(H))
         
         'ver los discos del origene elegido
         lblINI.Caption = TR.Trad("Ordenando...%99%") + PartOrigenes(H)
         lblINI.Refresh
-        pBAR.Width = (lblINI.Width * H / 100) Mod lblINI.Width
+        PBar.Width = (lblINI.Width * H / 100) Mod lblINI.Width
         
         'acumular a la matriz general
         SumarMatriz MATRIZ_DISCOS, MtxTmpOrigenes
@@ -579,14 +584,14 @@ FinOrden:
     '1: Tapa de ranking predeterminada (si es SL puede ser una personal)
 
     F6 = "tddp323"
-    If K.LICENCIA("3pm") = HSuperLicencia Then
+    If K.sabseee("3pm") = Supsabseee Then
         If fso.FileExists(GPF(F6)) Then
             IMF = GPF(F6)
         Else
-            IMF = ExtraData.GetImagePath("taparanking")
+            IMF = ExtraData.getDef.getImagePath("taparanking")
         End If
     Else
-        IMF = ExtraData.GetImagePath("taparanking")
+        IMF = ExtraData.getDef.getImagePath("taparanking")
     End If
     
     LOP.AddImage IMF, True 'si o si se carga
@@ -595,14 +600,14 @@ FinOrden:
     '*******************************************************************
     '2: Tapa de DISCOS predeterminada (si es SL puede ser una personal)
     F6 = "tddp322"
-    If K.LICENCIA("3pm") = HSuperLicencia Then
+    If K.sabseee("3pm") = Supsabseee Then
         If fso.FileExists(GPF(F6)) Then
             IMF = GPF(F6)
         Else
-            IMF = ExtraData.GetImagePath("tapapredeterminada")
+            IMF = ExtraData.getDef.getImagePath("tapapredeterminada")
         End If
     Else
-        IMF = ExtraData.GetImagePath("tapapredeterminada")
+        IMF = ExtraData.getDef.getImagePath("tapapredeterminada")
     End If
     
     LOP.AddImage IMF, True 'si o si se carga
@@ -617,7 +622,7 @@ FinOrden:
         
         lblINI.Caption = TR.Trad("Buscando...%99%") + ArchTapa
         lblINI.Refresh
-        pBAR.Width = (lblINI.Width * H / 100) Mod lblINI.Width
+        PBar.Width = (lblINI.Width * H / 100) Mod lblINI.Width
         
         'solo la cargo si existe y ademas tiene el tamaño que tiene que tener
         If fso.FileExists(ArchTapa) Then
@@ -630,7 +635,7 @@ FinOrden:
         End If
     Next H
     
-    pBAR.Visible = False
+    PBar.Visible = False
     XxBoton1.Visible = False
     
     my_MEM.SetMomento "Pide INDEX"
@@ -643,7 +648,7 @@ FinOrden:
     
     Exit Sub
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".acnt"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acnt"
     Resume Next
 End Sub
 '-------Agregado por el complemento traductor------------

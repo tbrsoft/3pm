@@ -181,7 +181,7 @@ Private Function ShowElem(I As Long)
     Else
 TapaDef3:
         'ver si tiene programado una imagen de SL
-        If K.LICENCIA("3pm") = HSuperLicencia Then
+        If K.sabseee("3pm") = Supsabseee Then
             If fso.FileExists(GPF("tddp322")) Then
                 IMF = GPF("tddp322")
                 tERR.Anotar "daas", IMF

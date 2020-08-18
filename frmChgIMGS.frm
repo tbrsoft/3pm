@@ -297,7 +297,7 @@ End Function
 Private Sub Form_Load()
     Pintar_fBoton Me
     Traducir 'Agregado por el complemento traductor
-    XxBoton4.Enabled = (K.LICENCIA("3pm") = HSuperLicencia)
+    XxBoton4.Enabled = (K.sabseee("3pm") = Supsabseee)
     Command22.Enabled = XxBoton4.Enabled
     
     XxBoton5.Enabled = XxBoton4.Enabled
@@ -313,25 +313,25 @@ Private Sub Form_Load()
     If fso.FileExists(GPF("iischu")) Then
         IMG1.Picture = LoadPicture(GPF("iischu"))
     Else
-        IMG1.Picture = LoadPicture(ExtraData.GetImagePath("FondoDeLasTapas"))
+        IMG1.Picture = LoadPicture(ExtraData.getDef.getImagePath("FondoDeLasTapas"))
     End If
     
     If fso.FileExists(GPF("iisl67")) Then
         IMG2.Picture = LoadPicture(GPF("iisl67"))
     Else
-        IMG2.Picture = LoadPicture(ExtraData.GetImagePath("iniciasys"))
+        IMG2.Picture = LoadPicture(ExtraData.getDef.getImagePath("iniciasys"))
     End If
     
     If fso.FileExists(GPF("tddp322")) Then
         IMG3.Picture = LoadPicture(GPF("tddp322"))
     Else
-        IMG3.Picture = LoadPicture(ExtraData.GetImagePath("tapapredeterminada"))
+        IMG3.Picture = LoadPicture(ExtraData.getDef.getImagePath("tapapredeterminada"))
     End If
     
     If fso.FileExists(GPF("tddp323")) Then
         IMG4.Picture = LoadPicture(GPF("tddp323"))
     Else
-        IMG4.Picture = LoadPicture(ExtraData.GetImagePath("taparanking"))
+        IMG4.Picture = LoadPicture(ExtraData.getDef.getImagePath("taparanking"))
     End If
     
 End Sub
@@ -359,7 +359,7 @@ End Sub
 Private Sub XxBoton4_Click()
     fso.DeleteFile GPF("iischu"), True
     'vuelve a la del skin original que si o si existe
-    IMG1.Picture = LoadPicture(ExtraData.GetImagePath("FondoDeLasTapas"))
+    IMG1.Picture = LoadPicture(ExtraData.getDef.getImagePath("FondoDeLasTapas"))
 End Sub
 
 Private Sub Command23_Click()
@@ -374,7 +374,7 @@ End Sub
 Private Sub XxBoton5_Click()
     fso.DeleteFile GPF("iisl67"), True
     'vuelve a la del skin original que si o si existe
-    IMG2.Picture = LoadPicture(ExtraData.GetImagePath("iniciasys"))
+    IMG2.Picture = LoadPicture(ExtraData.getDef.getImagePath("iniciasys"))
 End Sub
 
 Private Sub Command24_Click()
@@ -388,7 +388,7 @@ End Sub
 Private Sub XxBoton6_Click()
     fso.DeleteFile GPF("tddp322"), True
     'vuelve a la del skin original que si o si existe
-    IMG3.Picture = LoadPicture(ExtraData.GetImagePath("tapapredeterminada"))
+    IMG3.Picture = LoadPicture(ExtraData.getDef.getImagePath("tapapredeterminada"))
 End Sub
 
 Private Sub Command25_Click()
@@ -403,7 +403,7 @@ End Sub
 Private Sub XxBoton7_Click()
     fso.DeleteFile GPF("tddp323"), True
     'vuelve a la del skin original que si o si existe
-    IMG4.Picture = LoadPicture(ExtraData.GetImagePath("taparanking"))
+    IMG4.Picture = LoadPicture(ExtraData.getDef.getImagePath("taparanking"))
 End Sub
 
 

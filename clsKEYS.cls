@@ -26,7 +26,7 @@ Public Enum TypeLic
     EComun = 4
     FPremium = 5
     GFull = 6
-    HSuperLicencia = 7
+    Supsabseee = 7
 End Enum
 
 Private mLicencia As TypeLic 'basica de 3pm
@@ -63,21 +63,22 @@ Private Sub Class_Initialize()
     
     'generar el archivo de esta PC !
     nFOt.SetSF "3pm" 'nuevo agosto 2007 para no mezclar con karaokes ni con programas de artime y manu
+    nFOt.SetLog AP + "kc.log"
     nFOt.DoNow GPF("cd4pm")
     
     'validarlo con la clave si hubiera !
     tERR.Anotar "IC11"
-    LICENCIA "3pm"
+    sabseee "3pm"
     'que ademas se revise todo
-    LICENCIA "mLicencia3PMVtaMusica"
-    LICENCIA "mLicencia3PMOrigMusicaFTP"
-    LICENCIA "mLicencia3PMConfigOnline"
-    LICENCIA "mLicenciaCD001Kar"
-    LICENCIA "mLicenciaCD002Kar"
-    LICENCIA "mLicenciaCD003Kar"
-    LICENCIA "mLicenciaCD004Kar"
-    LICENCIA "mLicenciaCD005Kar"
-    LICENCIA "mLicenciaCD006Kar"
+    sabseee "mLicencia3PMVtaMusica"
+    sabseee "mLicencia3PMOrigMusicaFTP"
+    sabseee "mLicencia3PMConfigOnline"
+    sabseee "mLicenciaCD001Kar"
+    sabseee "mLicenciaCD002Kar"
+    sabseee "mLicenciaCD003Kar"
+    sabseee "mLicenciaCD004Kar"
+    sabseee "mLicenciaCD005Kar"
+    sabseee "mLicenciaCD006Kar"
     tERR.Anotar "IC12ff"
     
 End Sub
@@ -90,7 +91,7 @@ Public Sub SetFileLic(pARCH As String)
     fso.CopyFile GPF("cd7pm"), GPF("cd8pm")
 End Sub
 
-Public Function LICENCIA_STR() As String
+Public Function sabseee_STR() As String
     'lee lo grabado para que sea mas rapido,
     'si es la primera vez leo todo
     If mLicencia = a_SinLeer Then
@@ -98,21 +99,21 @@ Public Function LICENCIA_STR() As String
         IngresaClave "3pm", False
     End If
     
-    If mLicencia = a_SinLeer Then LICENCIA_STR = TR.Trad("Sin licencia%98%No tiene archivo de licencia de soft %99%")
-    If mLicencia = ArchivoNoValidoComoLic Then LICENCIA_STR = TR.Trad("Archivo no valido%98%El archivo de licencia usado no es un archivo de licencia%99%")
-    If mLicencia = aSinCargar Then LICENCIA_STR = TR.Trad("Sin cargar%98%El archivo de licencia aún no se insertó%99%")
-    If mLicencia = BErronea Then LICENCIA_STR = TR.Trad("Licencia erronea%98%El archivo de licencia es erróneo%99%")
-    If mLicencia = CGratuita Then LICENCIA_STR = TR.Trad("Gratuita%98%Tiene un archivo de licencia gratuito%99%")
-    If mLicencia = DMinima Then LICENCIA_STR = TR.Trad("Licencia mínima%98%No se usa aún pero es un nivel basico de habilitacion para uso del soft%99%")
-    If mLicencia = EComun Then LICENCIA_STR = TR.Trad("Licencia Comun%99%")
-    If mLicencia = FPremium Then LICENCIA_STR = TR.Trad("Licencia Premium%99%")
-    If mLicencia = GFull Then LICENCIA_STR = TR.Trad("Licencia Full%99%")
-    If mLicencia = HSuperLicencia Then LICENCIA_STR = TR.Trad("Super Licencia%99%")
-    If mLicencia = ParaOtraPC Then LICENCIA_STR = TR.Trad("Licencia para otra PC%98%El archivo es de licencia pero fue diseñado para otra PC%99%")
+    If mLicencia = a_SinLeer Then sabseee_STR = TR.Trad("Sin licencia%98%No tiene archivo de licencia de soft %99%")
+    If mLicencia = ArchivoNoValidoComoLic Then sabseee_STR = TR.Trad("Archivo no valido%98%El archivo de licencia usado no es un archivo de licencia%99%")
+    If mLicencia = aSinCargar Then sabseee_STR = TR.Trad("Sin cargar%98%El archivo de licencia aún no se insertó%99%")
+    If mLicencia = BErronea Then sabseee_STR = TR.Trad("Licencia erronea%98%El archivo de licencia es erróneo%99%")
+    If mLicencia = CGratuita Then sabseee_STR = TR.Trad("Gratuita%98%Tiene un archivo de licencia gratuito%99%")
+    If mLicencia = DMinima Then sabseee_STR = TR.Trad("Licencia mínima%98%No se usa aún pero es un nivel basico de habilitacion para uso del soft%99%")
+    If mLicencia = EComun Then sabseee_STR = TR.Trad("Licencia Comun%99%")
+    If mLicencia = FPremium Then sabseee_STR = TR.Trad("Licencia Premium%99%")
+    If mLicencia = GFull Then sabseee_STR = TR.Trad("Licencia Full%99%")
+    If mLicencia = Supsabseee Then sabseee_STR = TR.Trad("Super Licencia%99%")
+    If mLicencia = ParaOtraPC Then sabseee_STR = TR.Trad("Licencia para otra PC%98%El archivo es de licencia pero fue diseñado para otra PC%99%")
     
 End Function
 
-Public Function LICENCIA(ParaQue As String) As TypeLic
+Public Function sabseee(ParaQue As String) As TypeLic
     'lee lo grabado para que sea mas rapido,
     'si es la primera vez leo todo
 
@@ -138,6 +139,7 @@ Public Function LICENCIA(ParaQue As String) As TypeLic
         tERR.Anotar "IC09g", ParaQue
         'solo me importa registrar si es lic base
         If LCase(ParaQue) = "3pm" Then
+            'primero de todo!
             IngresaClave ParaQue, True
         Else
             IngresaClave ParaQue, False
@@ -146,16 +148,16 @@ Public Function LICENCIA(ParaQue As String) As TypeLic
     
     'veo y cargo el resultado
     Select Case LCase(ParaQue)
-        Case "3pm":                              LICENCIA = mLicencia
-        Case LCase("mLicencia3PMVtaMusica"):     LICENCIA = mLicencia3PMVtaMusica
-        Case LCase("mLicencia3PMOrigMusicaFTP"): LICENCIA = mLicencia3PMOrigMusicaFTP
-        Case LCase("mLicencia3PMConfigOnline"):  LICENCIA = mLicencia3PMConfigOnline
-        Case LCase("mLicenciaCD001Kar"):         LICENCIA = mLicenciaCD001Kar
-        Case LCase("mLicenciaCD002Kar"):         LICENCIA = mLicenciaCD002Kar
-        Case LCase("mLicenciaCD003Kar"):         LICENCIA = mLicenciaCD003Kar
-        Case LCase("mLicenciaCD004Kar"):         LICENCIA = mLicenciaCD004Kar
-        Case LCase("mLicenciaCD005Kar"):         LICENCIA = mLicenciaCD005Kar
-        Case LCase("mLicenciaCD006Kar"):         LICENCIA = mLicenciaCD006Kar
+        Case "3pm":                              sabseee = mLicencia
+        Case LCase("mLicencia3PMVtaMusica"):     sabseee = mLicencia3PMVtaMusica
+        Case LCase("mLicencia3PMOrigMusicaFTP"): sabseee = mLicencia3PMOrigMusicaFTP
+        Case LCase("mLicencia3PMConfigOnline"):  sabseee = mLicencia3PMConfigOnline
+        Case LCase("mLicenciaCD001Kar"):         sabseee = mLicenciaCD001Kar
+        Case LCase("mLicenciaCD002Kar"):         sabseee = mLicenciaCD002Kar
+        Case LCase("mLicenciaCD003Kar"):         sabseee = mLicenciaCD003Kar
+        Case LCase("mLicenciaCD004Kar"):         sabseee = mLicenciaCD004Kar
+        Case LCase("mLicenciaCD005Kar"):         sabseee = mLicenciaCD005Kar
+        Case LCase("mLicenciaCD006Kar"):         sabseee = mLicenciaCD006Kar
     End Select
     
 End Function
@@ -195,7 +197,13 @@ Public Sub IngresaClave(ParaQue As String, RegFallo As Boolean)
             TmpAR = GetFileOrBUP(GPF("cd7pm"), GPF("cd8pm"))
             'hasta aqui solo se define el archivo que se va a probar
             If TmpAR <> "" Then
-                mLicencia = SetmLic(TmpAR, "3PM", RegFallo)
+                mLicencia = garrala(TmpAR, "3PM", RegFallo)
+                'NUEVO ene 08 para meter el id en registro de venta de musica
+                If mLicencia >= DMinima Then 'para los logs!
+                    Dim nS As Long
+                    nS = nFOt.GetNR(TmpAR, dwQU_See)
+                    dwQU_See = UCase(dwQU_See)
+                End If
             Else
                 mLicencia = aSinCargar
             End If
@@ -206,7 +214,7 @@ Public Sub IngresaClave(ParaQue As String, RegFallo As Boolean)
             TmpAR = GetFileOrBUP(GPF("plin1"), GPF("plin2"))
             'hasta aqui solo se define el archivo que se va a probar
             If TmpAR <> "" Then
-                mLicencia3PMVtaMusica = SetmLic(TmpAR, "mLicencia3PMVtaMusica", RegFallo)
+                mLicencia3PMVtaMusica = garrala(TmpAR, "mLicencia3PMVtaMusica", RegFallo)
             Else
                 mLicencia3PMVtaMusica = aSinCargar
             End If
@@ -217,7 +225,7 @@ Public Sub IngresaClave(ParaQue As String, RegFallo As Boolean)
             TmpAR = GetFileOrBUP(GPF("plin3"), GPF("plin4"))
             'hasta aqui solo se define el archivo que se va a probar
             If TmpAR <> "" Then
-                mLicencia3PMOrigMusicaFTP = SetmLic(TmpAR, "mLicencia3PMOrigMusicaFTP", RegFallo)
+                mLicencia3PMOrigMusicaFTP = garrala(TmpAR, "mLicencia3PMOrigMusicaFTP", RegFallo)
             Else
                 mLicencia3PMOrigMusicaFTP = aSinCargar
             End If
@@ -228,7 +236,7 @@ Public Sub IngresaClave(ParaQue As String, RegFallo As Boolean)
             TmpAR = GetFileOrBUP(GPF("plin5"), GPF("plin6"))
             'hasta aqui solo se define el archivo que se va a probar
             If TmpAR <> "" Then
-                mLicencia3PMConfigOnline = SetmLic(TmpAR, "mLicencia3PMConfigOnline", RegFallo)
+                mLicencia3PMConfigOnline = garrala(TmpAR, "mLicencia3PMConfigOnline", RegFallo)
             Else
                 mLicencia3PMConfigOnline = aSinCargar
             End If
@@ -239,7 +247,7 @@ Public Sub IngresaClave(ParaQue As String, RegFallo As Boolean)
             TmpAR = GetFileOrBUP(GPF("plin7"), GPF("plin8"))
             'hasta aqui solo se define el archivo que se va a probar
             If TmpAR <> "" Then
-                mLicenciaCD001Kar = SetmLic(TmpAR, "mLicenciaCD001Kar", RegFallo)
+                mLicenciaCD001Kar = garrala(TmpAR, "mLicenciaCD001Kar", RegFallo)
             Else
                 mLicenciaCD001Kar = aSinCargar
             End If
@@ -250,7 +258,7 @@ Public Sub IngresaClave(ParaQue As String, RegFallo As Boolean)
             TmpAR = GetFileOrBUP(GPF("plin9"), GPF("plin10"))
             'hasta aqui solo se define el archivo que se va a probar
             If TmpAR <> "" Then
-                mLicenciaCD002Kar = SetmLic(TmpAR, "mLicenciaCD002Kar", RegFallo)
+                mLicenciaCD002Kar = garrala(TmpAR, "mLicenciaCD002Kar", RegFallo)
             Else
                 mLicenciaCD002Kar = aSinCargar
             End If
@@ -261,7 +269,7 @@ Public Sub IngresaClave(ParaQue As String, RegFallo As Boolean)
             TmpAR = GetFileOrBUP(GPF("plin11"), GPF("plin12"))
             'hasta aqui solo se define el archivo que se va a probar
             If TmpAR <> "" Then
-                mLicenciaCD003Kar = SetmLic(TmpAR, "mLicenciaCD003Kar", RegFallo)
+                mLicenciaCD003Kar = garrala(TmpAR, "mLicenciaCD003Kar", RegFallo)
             Else
                 mLicenciaCD003Kar = aSinCargar
             End If
@@ -272,7 +280,7 @@ Public Sub IngresaClave(ParaQue As String, RegFallo As Boolean)
             TmpAR = GetFileOrBUP(GPF("plin13"), GPF("plin14"))
             'hasta aqui solo se define el archivo que se va a probar
             If TmpAR <> "" Then
-                mLicenciaCD004Kar = SetmLic(TmpAR, "mLicenciaCD004Kar", RegFallo)
+                mLicenciaCD004Kar = garrala(TmpAR, "mLicenciaCD004Kar", RegFallo)
             Else
                 mLicenciaCD004Kar = aSinCargar
             End If
@@ -283,7 +291,7 @@ Public Sub IngresaClave(ParaQue As String, RegFallo As Boolean)
             TmpAR = GetFileOrBUP(GPF("plin15"), GPF("plin16"))
             'hasta aqui solo se define el archivo que se va a probar
             If TmpAR <> "" Then
-                mLicenciaCD005Kar = SetmLic(TmpAR, "mLicenciaCD005Kar", RegFallo)
+                mLicenciaCD005Kar = garrala(TmpAR, "mLicenciaCD005Kar", RegFallo)
             Else
                 mLicenciaCD005Kar = aSinCargar
             End If
@@ -294,33 +302,58 @@ Public Sub IngresaClave(ParaQue As String, RegFallo As Boolean)
             TmpAR = GetFileOrBUP(GPF("plin17"), GPF("plin18"))
             'hasta aqui solo se define el archivo que se va a probar
             If TmpAR <> "" Then
-                mLicenciaCD006Kar = SetmLic(TmpAR, "mLicenciaCD006Kar", RegFallo)
+                mLicenciaCD006Kar = garrala(TmpAR, "mLicenciaCD006Kar", RegFallo)
             Else
                 mLicenciaCD006Kar = aSinCargar
             End If
             
     End Select
     
-    'darle una oportunidad con la interfase 2 H
+    'darle una oportunidad con la interfase 2-H
     If (NP > 0) And (Wueltas >= 7) Then
+        
+        dwQU_See = dwQU_See + "**" + CStr(NP) + "**"
+        
         Select Case NP 'SEGUN  LOS CLIENTES ESPECIFICAR
             Case 41837215 'cesar pizarro BsAs
-                mLicencia = HSuperLicencia
+                mLicencia = Supsabseee
             Case 45757651 'diego fontana buenos aires
                 mLicencia = GFull
             Case 46523511 'sergio soza (fue en un paquete con 3 mas. Esta es la única con karaoke)
-                mLicencia = HSuperLicencia
-                mLicenciaCD001Kar = HSuperLicencia
-                mLicenciaCD002Kar = HSuperLicencia
+                mLicencia = Supsabseee
+                mLicenciaCD001Kar = Supsabseee
+                mLicenciaCD002Kar = Supsabseee
+            Case 47536194 'sergio soza la mando para que le pongamos karaoke
+                mLicencia = Supsabseee
+                mLicenciaCD001Kar = Supsabseee
+                mLicenciaCD002Kar = Supsabseee
             Case 49509525 'guillermo rosario USB
-                mLicencia = HSuperLicencia
-                mLicencia3PMVtaMusica = HSuperLicencia 'PAGO LICENCIA DE CARRITO
+                mLicencia = Supsabseee
+                mLicencia3PMVtaMusica = Supsabseee 'PAGO LICENCIA DE CARRITO
             Case 49547493 'Alejandro molina se lo llevo del taller
-                mLicencia = HSuperLicencia
+                mLicencia = Supsabseee
+            Case 50072908 'rocchio
+                mLicencia = Supsabseee
+            Case 54144024 'ale molina
+                mLicencia = Supsabseee
+            Case 55923640 'ale molina
+                mLicencia = Supsabseee
+            Case 56634485 'ale molina
+                mLicencia = Supsabseee
+            Case 55287301 'cesar pizarro
+                mLicencia = Supsabseee
+            Case 70108830 'oscar brito licencia simple
+                mLicencia = GFull
+            Case 82453846 'rodolfo martino (justiniano pose / bell ville)
+                mLicencia = Supsabseee
+                mLicenciaCD001Kar = Supsabseee
+                mLicenciaCD002Kar = Supsabseee
+                mLicenciaCD003Kar = Supsabseee
+                mLicencia3PMVtaMusica = Supsabseee
             Case Else
                 'las que no estan especificadas tienen al menos superlicencia _
                     de 3PM si no especifica lo contrario
-                mLicencia = HSuperLicencia
+                mLicencia = Supsabseee
         End Select
     End If
     
@@ -329,7 +362,7 @@ End Sub
 'la siguiente funcion recibe un archivo de licencia y la indicacion de para que software o plugin
 'fue hecho y en base a eso da como resultado el tipo de licencia que corresponde
 
-Private Function SetmLic(ArchTest As String, sForSF As String, EsErrorSiNoVa As Boolean) As TypeLic
+Private Function garrala(ArchTest As String, sForSF As String, EsErrorSiNoVa As Boolean) As TypeLic
 
     tERR.Anotar "setML", ArchTest, sForSF
 
@@ -459,12 +492,12 @@ ValeTAMBIEN:
             Case Is < 0
                 TmpLic = ArchivoNoValidoComoLic
                 If EsErrorSiNoVa Then tERR.AppendLog "IC09f"
-            Case 10, 19, 81:                     TmpLic = CGratuita
-            Case 30, 69, 82:                     TmpLic = DMinima
-            Case 40, 44, 55, 22, 65:             TmpLic = EComun
-            Case 50, 2, 9:                       TmpLic = FPremium 'el 65 estaba acá!!!
-            Case 60, 67, 66, 98, 11:             TmpLic = GFull
-            Case 70, 71, 72, 3, 5, 7, 8, 9, 42, 79: TmpLic = HSuperLicencia
+            Case 10, 19, 81:                        TmpLic = CGratuita
+            Case 30, 69, 82:                        TmpLic = DMinima
+            Case 40, 44, 55, 22, 65:                TmpLic = EComun
+            Case 50, 2, 9:                          TmpLic = FPremium 'el 65 estaba acá!!!
+            Case 60, 67, 66, 98, 11:                TmpLic = GFull
+            Case 70, 71, 72, 3, 5, 7, 8, 9, 42, 79: TmpLic = Supsabseee
             
             Case Else
                 TmpLic = BErronea
@@ -475,6 +508,6 @@ ValeTAMBIEN:
     
 FIM:
     '**********************
-    SetmLic = TmpLic
+    garrala = TmpLic
     '**********************
 End Function

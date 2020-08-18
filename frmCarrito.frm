@@ -19,7 +19,6 @@ Begin VB.Form frmCarrito
       Strikethrough   =   0   'False
    EndProperty
    ForeColor       =   &H00000000&
-   KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
@@ -30,31 +29,31 @@ Begin VB.Form frmCarrito
    WindowState     =   2  'Maximized
    Begin VB.TextBox tBT 
       Height          =   435
-      Left            =   4890
+      Left            =   660
       TabIndex        =   15
       Text            =   "Text1"
-      Top             =   6600
+      Top             =   8520
       Visible         =   0   'False
       Width           =   1155
    End
    Begin VB.Timer Timer1 
-      Left            =   8160
-      Top             =   6780
+      Left            =   3000
+      Top             =   8550
    End
    Begin VB.TextBox tNADA 
       Height          =   435
-      Left            =   2040
+      Left            =   1830
       TabIndex        =   14
       Text            =   "Text1"
-      Top             =   4200
+      Top             =   8520
       Visible         =   0   'False
       Width           =   1155
    End
    Begin tbr3pm.tbrFullProc SW 
       Height          =   435
-      Left            =   6990
+      Left            =   60
       TabIndex        =   12
-      Top             =   4920
+      Top             =   8520
       Visible         =   0   'False
       Width           =   585
       _ExtentX        =   1032
@@ -62,11 +61,11 @@ Begin VB.Form frmCarrito
    End
    Begin tbrFaroButton.fBoton btANULA 
       Height          =   705
-      Left            =   180
+      Left            =   7980
       TabIndex        =   2
-      Top             =   2430
-      Width           =   3645
-      _ExtentX        =   6429
+      Top             =   6270
+      Width           =   4005
+      _ExtentX        =   7064
       _ExtentY        =   1244
       fFColor         =   16777215
       fBColor         =   16777215
@@ -77,29 +76,29 @@ Begin VB.Form frmCarrito
       fECol           =   5452834
    End
    Begin tbrFaroButton.fBoton btBUY 
-      Height          =   885
+      Height          =   765
       Index           =   0
-      Left            =   180
-      TabIndex        =   1
-      Top             =   1530
+      Left            =   4200
+      TabIndex        =   0
+      Top             =   990
       Width           =   3645
       _ExtentX        =   6429
-      _ExtentY        =   1561
+      _ExtentY        =   1349
       fFColor         =   16777215
       fBColor         =   14737632
-      fCapt           =   "NO HAY DISPOSITIVOS CONECTADOS"
+      fCapt           =   "Buscar dispositivos bluetooth Buscar dispositivos bluetooth Buscar dispositivos bluetooth"
       fEnabled        =   -1  'True
       fFontN          =   "Verdana"
-      fFontS          =   10
+      fFontS          =   9
       fECol           =   5452834
    End
    Begin tbrFaroButton.fBoton btSalir 
       Height          =   705
-      Left            =   180
-      TabIndex        =   0
-      Top             =   810
-      Width           =   3645
-      _ExtentX        =   6429
+      Left            =   7980
+      TabIndex        =   1
+      Top             =   5550
+      Width           =   4005
+      _ExtentX        =   7064
       _ExtentY        =   1244
       fFColor         =   16777215
       fBColor         =   12632256
@@ -111,11 +110,11 @@ Begin VB.Form frmCarrito
    End
    Begin tbrFaroButton.fBoton btReview 
       Height          =   705
-      Left            =   180
+      Left            =   7980
       TabIndex        =   3
-      Top             =   3150
-      Width           =   3645
-      _ExtentX        =   6429
+      Top             =   6990
+      Width           =   4005
+      _ExtentX        =   7064
       _ExtentY        =   1244
       fFColor         =   16777215
       fBColor         =   16777215
@@ -125,10 +124,100 @@ Begin VB.Form frmCarrito
       fFontS          =   10
       fECol           =   5452834
    End
+   Begin tbrFaroButton.fBoton btOKPachaCart 
+      Height          =   840
+      Left            =   5220
+      TabIndex        =   18
+      TabStop         =   0   'False
+      Top             =   8070
+      Visible         =   0   'False
+      Width           =   1665
+      _ExtentX        =   2937
+      _ExtentY        =   1482
+      fFColor         =   16777215
+      fBColor         =   14737632
+      fCapt           =   "Escuchar cancion"
+      fEnabled        =   -1  'True
+      fFontN          =   "Verdana"
+      fFontS          =   10
+      fECol           =   5452834
+   End
+   Begin VB.Image tDown 
+      BorderStyle     =   1  'Fixed Single
+      Height          =   585
+      Left            =   4380
+      Top             =   8310
+      Visible         =   0   'False
+      Width           =   795
+   End
+   Begin VB.Image tUP 
+      BorderStyle     =   1  'Fixed Single
+      Height          =   585
+      Left            =   6930
+      Top             =   8310
+      Visible         =   0   'False
+      Width           =   795
+   End
+   Begin VB.Line Line2 
+      BorderColor     =   &H00808080&
+      X1              =   7860
+      X2              =   7860
+      Y1              =   750
+      Y2              =   8940
+   End
+   Begin VB.Line Line1 
+      BorderColor     =   &H00808080&
+      X1              =   4140
+      X2              =   4140
+      Y1              =   750
+      Y2              =   8940
+   End
+   Begin VB.Label Label10 
+      Alignment       =   2  'Center
+      BackStyle       =   0  'Transparent
+      Caption         =   "Otras Opciones"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   11.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00A9C8C9&
+      Height          =   345
+      Left            =   7980
+      TabIndex        =   17
+      Top             =   5220
+      Width           =   3975
+   End
+   Begin VB.Label Label9 
+      Alignment       =   2  'Center
+      BackStyle       =   0  'Transparent
+      Caption         =   "Dispositivos disponibles"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   11.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00C0FFFF&
+      Height          =   315
+      Index           =   0
+      Left            =   4170
+      TabIndex        =   16
+      Top             =   630
+      Width           =   3615
+   End
    Begin VB.Label Label8 
+      Alignment       =   1  'Right Justify
       BackColor       =   &H00000000&
       BackStyle       =   0  'Transparent
-      Caption         =   "MB libres en dispositivo"
+      Caption         =   "Precios"
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
@@ -139,19 +228,20 @@ Begin VB.Form frmCarrito
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   300
-      Left            =   180
+      Height          =   420
+      Left            =   8340
       TabIndex        =   13
-      Top             =   6870
-      Width           =   4095
+      Top             =   3660
+      Width           =   3615
    End
    Begin VB.Label Label7 
+      Alignment       =   1  'Right Justify
       BackColor       =   &H00000000&
       BackStyle       =   0  'Transparent
       Caption         =   "Canciones totales:"
       BeginProperty Font 
          Name            =   "Verdana"
-         Size            =   11.25
+         Size            =   9.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -160,18 +250,19 @@ Begin VB.Form frmCarrito
       EndProperty
       ForeColor       =   &H00E0E0E0&
       Height          =   300
-      Left            =   180
+      Left            =   7890
       TabIndex        =   11
-      Top             =   5460
+      Top             =   1860
       Width           =   4095
    End
    Begin VB.Label Label6 
+      Alignment       =   1  'Right Justify
       BackColor       =   &H00000000&
       BackStyle       =   0  'Transparent
       Caption         =   "MB libres en dispositivo"
       BeginProperty Font 
          Name            =   "Verdana"
-         Size            =   11.25
+         Size            =   9.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -180,18 +271,19 @@ Begin VB.Form frmCarrito
       EndProperty
       ForeColor       =   &H00E0E0E0&
       Height          =   300
-      Left            =   180
+      Left            =   7890
       TabIndex        =   10
-      Top             =   6570
+      Top             =   2970
       Width           =   4095
    End
    Begin VB.Label Label5 
+      Alignment       =   1  'Right Justify
       BackColor       =   &H00000000&
       BackStyle       =   0  'Transparent
       Caption         =   "Costo carrito"
       BeginProperty Font 
          Name            =   "Verdana"
-         Size            =   11.25
+         Size            =   9.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -200,18 +292,19 @@ Begin VB.Form frmCarrito
       EndProperty
       ForeColor       =   &H00E0E0E0&
       Height          =   300
-      Left            =   180
+      Left            =   7890
       TabIndex        =   9
-      Top             =   6300
+      Top             =   2700
       Width           =   4095
    End
    Begin VB.Label Label4 
+      Alignment       =   1  'Right Justify
       BackColor       =   &H00000000&
       BackStyle       =   0  'Transparent
       Caption         =   "Credito:"
       BeginProperty Font 
          Name            =   "Verdana"
-         Size            =   11.25
+         Size            =   9.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -220,43 +313,42 @@ Begin VB.Form frmCarrito
       EndProperty
       ForeColor       =   &H00E0E0E0&
       Height          =   300
-      Left            =   180
+      Left            =   7920
       TabIndex        =   8
-      Top             =   6030
+      Top             =   2430
       Width           =   4095
    End
    Begin VB.Label teX1 
-      Alignment       =   2  'Center
+      Alignment       =   1  'Right Justify
       BackColor       =   &H00000000&
       BackStyle       =   0  'Transparent
       Caption         =   "Canciones elegidas para comprar: 99. Costo total $350.000. Credito disponible $ 380.000"
       BeginProperty Font 
-         Name            =   "Verdana"
+         Name            =   "Arial"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00E0E0E0&
-      Height          =   615
+      Height          =   465
       Index           =   0
-      Left            =   4290
+      Left            =   30
       TabIndex        =   7
-      Top             =   3390
+      Top             =   1320
       Visible         =   0   'False
-      Width           =   2445
+      Width           =   3465
    End
    Begin VB.Image CD1 
-      BorderStyle     =   1  'Fixed Single
-      Height          =   1425
+      Height          =   1065
       Index           =   0
-      Left            =   4290
+      Left            =   2730
       Stretch         =   -1  'True
-      Top             =   1950
+      Top             =   1320
       Visible         =   0   'False
-      Width           =   2445
+      Width           =   1365
    End
    Begin VB.Label Label3 
       Alignment       =   2  'Center
@@ -264,27 +356,28 @@ Begin VB.Form frmCarrito
       Caption         =   "-Contenido de la compra-"
       BeginProperty Font 
          Name            =   "Verdana"
-         Size            =   15.75
+         Size            =   11.25
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00E0E0E0&
-      Height          =   435
-      Left            =   4140
+      ForeColor       =   &H00C0FFFF&
+      Height          =   345
+      Left            =   30
       TabIndex        =   6
-      Top             =   1440
-      Width           =   5415
+      Top             =   930
+      Width           =   4065
    End
    Begin VB.Label Label1 
+      Alignment       =   1  'Right Justify
       BackColor       =   &H00000000&
       BackStyle       =   0  'Transparent
       Caption         =   "Selecciones:"
       BeginProperty Font 
          Name            =   "Verdana"
-         Size            =   11.25
+         Size            =   9.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -293,37 +386,35 @@ Begin VB.Form frmCarrito
       EndProperty
       ForeColor       =   &H00E0E0E0&
       Height          =   300
-      Left            =   180
+      Left            =   7890
       TabIndex        =   5
-      Top             =   5760
+      Top             =   2160
       Width           =   4095
    End
    Begin VB.Label Label2 
-      Alignment       =   2  'Center
       BackColor       =   &H00000000&
-      BorderStyle     =   1  'Fixed Single
       Caption         =   "Utilize los botones de desplazamiento para elegir las opciones. Confirme con el mismo boton de seleccion de discos y canciones"
       BeginProperty Font 
          Name            =   "Verdana"
-         Size            =   12
+         Size            =   9.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00E0E0E0&
-      Height          =   645
+      ForeColor       =   &H0000FFFF&
+      Height          =   495
       Left            =   60
       TabIndex        =   4
-      Top             =   60
+      Top             =   30
       Width           =   9600
    End
    Begin VB.Image Image1 
       Height          =   1815
-      Left            =   9720
+      Left            =   9780
       Picture         =   "frmCarrito.frx":0000
-      Top             =   60
+      Top             =   30
       Width           =   2205
    End
 End
@@ -332,7 +423,12 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
- 
+Private TecladoAnda As Boolean 'indica falso si esta comprando o en proceso de algo
+Dim AnchoCol As Long
+Dim TeclasApret As Long 'cuenta cuantas teclas se apretaron para
+Dim BusqBT As Long 'cantidad de veces que se busco por bluetooth
+
+
 Private Sub btANULA_Click()
     tERR.Anotar "daaa"
     Carrito.ClearCart
@@ -354,11 +450,10 @@ Private Sub ComprarCC(Index As Long)
         
     On Local Error GoTo MER
     
-    If TengoBluetooth And Index = 0 Then
-    
+    If btBuy(Index).Tag = "BT DETECT" Then
         'quiere buscar bluetooth
         tERR.Anotar "BT_INQ_222"
-        BTM.inquiereDev
+        BTM.inquiryDev
         tERR.Anotar "casa"
         Dim SecPas2 As Long, lastSP2 As Long
         KK2 = Timer
@@ -369,11 +464,12 @@ Private Sub ComprarCC(Index As Long)
             DoEvents 'SIN ESTO NO ANDA!!!!
             
             SecPas2 = CLng(CSng(Timer - KK2))
+            
             If lastSP2 <> SecPas2 Then
                 tERR.Anotar "casb", SecPas2
                 Dim MT As Long
                 Randomize
-                MT = Int(Rnd * 3) + 1
+                MT = Int(Rnd * 12) + 1
                 AcumAzar = AcumAzar + (MT)
                 SW.ShowWait "Buscando dispositivos Bluetooth", , (AcumAzar Mod 100)
                     
@@ -408,7 +504,6 @@ Private Sub ComprarCC(Index As Long)
                 Exit Sub
             End If
         Loop
-        
     End If
     
     tERR.Anotar "daab", Carrito.CalculateTotalPrice, CREDITOS
@@ -424,32 +519,35 @@ Private Sub ComprarCC(Index As Long)
     If TengoBluetooth Then
         tERR.Anotar "daab2", BTM.Count, UB.GetCantidadUSB
         'ver si hay dispositivos
-        If (Index = 0) Or (UB.GetCantidadUSB = 0 And BTM.Count = 0) Then
-            tERR.Anotar "daac2"
+        If (UB.GetCantidadUSB = 0 And BTM.Count = 0) Then
+            tERR.Anotar "daac40"
             SW.ShowWait "No hay dispositivos conectados!", 2500
             Exit Sub
         End If
     Else
         tERR.Anotar "daab2", UB.GetCantidadUSB
         'ver si hay dispositivos
-        If (Index = 0) Or (UB.GetCantidadUSB = 0) Then
-            tERR.Anotar "daac3"
+        If (UB.GetCantidadUSB = 0) Then
+            tERR.Anotar "daac30"
             SW.ShowWait "No hay dispositivos conectados!", 2500
             Exit Sub
         End If
     End If
-          
-    UB.DevSel = Index 'hay solo uno, lo elijo
-
+    
     'VER SI ALCANZA EL ESPACIO LIBRE
     tERR.Anotar "daae", btBuy(Index).Tag
     Dim JP() As String
     JP = Split(btBuy(Index).Tag)
     
-    tERR.Anotar "daac2"
+    tERR.Anotar "daac20"
     
     '***************************************************************************************
     If JP(0) = "USB" Then
+        
+        Dim IndexInUB As Long
+        IndexInUB = CLng(JP(1))
+    
+        UB.DevSel = IndexInUB 'hay solo uno, lo elijo
     
         If UB.CanSave(Carrito.GetTotalMB, -1) = False Then
             tERR.Anotar "daaf"
@@ -479,6 +577,7 @@ Private Sub ComprarCC(Index As Long)
             GoTo FIN
         End If
     End If
+    
     '***************************************************************************************
     'medir la velocidad
     Dim Copiado As Single 'cantidad copiada
@@ -488,7 +587,7 @@ Private Sub ComprarCC(Index As Long)
     Dim MBxSec As Single
     Dim Falta As Single 'segundos que faltan
     
-    Dim totCart As Long
+    Dim totCart As Single
     
     If JP(0) = "BT" And TengoBluetooth Then
         'xxxxxxxxxxxxxxx
@@ -503,7 +602,7 @@ Private Sub ComprarCC(Index As Long)
         mxGra = Int(Rnd * 2) + 2
         If Carrito.GetFileCantFull > mxGra Then
             Dim RDS As TypeLic
-            RDS = K.LICENCIA("mLicencia3PMVtaMusica")
+            RDS = K.sabseee("mLicencia3PMVtaMusica")
             If RDS < DMinima Then
                 SW.ShowWait TR.Trad("Sin Licencia de carro de compras!%99%"), 3500
                 SW.ShowWait ""
@@ -517,37 +616,91 @@ Private Sub ComprarCC(Index As Long)
         totCart = Carrito.GetTotalMB
         
         Dim H As Long
+        
+        Dim BD As tbrBtActivex.TbrBtDevice
+        Set BD = BTM.itemByAddress(JP(1))
+        
         For H = 1 To Carrito.GetFileCantFull
             InFolder = fso.GetBaseName(fso.GetParentFolderName(Carrito.GetElementFull(H)))
             tERR.Anotar "dabx2", InFolder
-            'EN LOS CELULARES O PENDRIVES PUEDE APARECER EL ERROR
-            '-2147024784
             
             If InFolder = "" Then GoTo SIG444
             
             'poner en cero la espera
-            tERR.Anotar "daby2-BT", Carrito.GetElementFull(H)
+            tERR.Anotar "daby2-BT", Carrito.GetElementFull(H), H
             
-            BTM.SendFileBT Carrito.GetElementFull(H), JP(1)
+            'PARA QUE SE PONGA EN CERO!
+            Dim Aw As Long
+            Aw = BD.GetDataSent
+            
+            BD.push Carrito.GetElementFull(H)
             
             Dim KK As Single
             Dim SecPas As Long, lastSP As Long
             KK = Timer
             lastSP = 99
             Do
+                tERR.Anotar "daby7-BT", BTM.PushStatus
                 DoEvents 'SIN ESTO NO ANDA el cancelar!!!!
                 SecPas = CLng(CSng(Timer - KK))
                 If lastSP <> SecPas Then
+                    tERR.Anotar "daby3-BT", SecPas, H
+                    'esto pasa cada 1 segundo
+                    
+                    Dim bt_Porc As Single
+                    Dim ExtraInfoBt As String
+                    'veo si esta bueno el de bt
+                    If BD.GetDataSentPorc > -1 Then
+                        'el pocentaje viene en 99 muchas veces
+                        'bt_Porc = CSng(BD.GetDataSentPorc)
+                        Dim Ta0 As Single, Ta1 As Single, Ta2 As Single
+                        Ta0 = CSng(BD.GetDataSent / 1048576) 'Total Full copiado (a veces es acumulativo el bluetooth ??)
+                        Ta1 = Ta0 + Copiado 'Total Full copiado NO ACUMULATIVO
+                        Ta2 = CSng(totCart)
+                        
+                        'saber si es acumulativo o no!!!
+                        'en mi PC con mi celular me da que si
+                        Dim IsAcumul As Boolean
+                        'xxxx
+                        'asegurarse que pueda detectar cuando es o no acumulativo
+                        If (Ta0 > Copiado) And (Copiado > 0) Then
+                            'puede ser que sea la segunda canción con tamaño _
+                                mas grande que la primera ...
+                            IsAcumul = True
+                        Else
+                            IsAcumul = False
+                        End If
+                        
+                        If IsAcumul Then
+                            bt_Porc = Round(Ta0 / Ta2, 2) * 100
+                            ExtraInfoBt = CStr(Round(Ta0, 2)) + " MB de " + _
+                                CStr(Round(Ta2, 2)) + " MB"
+                        Else
+                            bt_Porc = Round(Ta1 / Ta2, 2) * 100
+                            ExtraInfoBt = CStr(Round(Ta1, 2)) + " MB de " + _
+                                CStr(Round(Ta2, 2)) + " MB"
+                        End If
+                        
+                        If bt_Porc > 100 Then bt_Porc = 99
+                        
+                    Else
+                        ExtraInfoBt = "Copiando por bluetooth ..."
+                        bt_Porc = CLng(SecPas Mod 100)
+                    End If
+                    
                     If H <= 1 Then
                         SW.ShowWait "Enviando por Bluetooth " + vbCrLf + _
                             "(recuerde ACEPTAR el envio en su celular)" + vbCrLf + _
-                            fso.GetBaseName(Carrito.GetElementFull(H)), , (SecPas Mod 100)
+                            fso.GetBaseName(Carrito.GetElementFull(H)), , bt_Porc, ExtraInfoBt
                     Else
+                        
+                        tERR.Anotar "daby4-BT", bt_Porc
+                        
                         SW.ShowWait "Enviando por Bluetooth " + vbCrLf + _
                             "(recuerde ACEPTAR el envio en su celular)" + vbCrLf + _
                             fso.GetBaseName(Carrito.GetElementFull(H)) + vbCrLf + _
                             "(" + CStr(Round(MBxSec, 3)) + _
-                            " MB/S falta aproximado: " + FaltaTXT(Falta - SecPas) + ")", , (SecPas Mod 100)
+                            " MB/S falta aproximado: " + FaltaTXT(Falta - SecPas) + ")", , bt_Porc, ExtraInfoBt
                     End If
                         
                     lastSP = SecPas
@@ -558,12 +711,17 @@ Private Sub ComprarCC(Index As Long)
                     BTM.PushStatus = 0 'lo dejo en cero
                     Exit Do
                 End If
+                
                 'estar atento a si cancela el usuario
                 If BTM.PushStatus = 3 Then
                     tERR.Anotar "dadb", SecPas, Round(MBxSec, 2)
-                    SW.ShowWait "Usuario no acepto o fallo la conexion", 3
+                    SW.ShowWait "Usuario no aceptó o falló la conexión", 3000
+                    'LO DEJO EN CERO
+                    'si no todos los demas quedan como cancelados
+                    BTM.PushStatus = 0
                     Exit Do
                 End If
+                
                 ''NO SE PUEDE CANCELAR!
 '                If BTM.PushStatus = 4 Then
 '                    tERR.Anotar "dadc", SecPas, Round(MBxSec, 2)
@@ -572,6 +730,8 @@ Private Sub ComprarCC(Index As Long)
 '                End If
                 
             Loop
+            
+            tERR.Anotar "daby5-BT"
             SW.ShowWait ""
                         
             Copiado = Copiado + (FileLen(Carrito.GetElementFull(H)) / 1048576)
@@ -586,14 +746,28 @@ Private Sub ComprarCC(Index As Long)
             'para nmo hacer lio saco todo lo que hay que sacar si se copio el primero ok
             
             'no lo saco al final por que si no se van a avivar y sacar el pendrive antes de
-            'terminar y les va a costar cero!
+            'terminar y les va a costar cero! (o les va a costar el precio de la promocion por
+            'cantidad que hayan elegido)
             If H = 1 Then
+                tERR.Anotar "daby6-BT"
                 VarCreditos -Carrito.CalculateTotalPrice
                 'sumo al contador de creditos de carrito lo que se gasto
-                SumarContadorCreditos Carrito.CalculateTotalPrice
+                SumarContadorCarrito Carrito.CalculateTotalPrice
+                'indicar cuanta plata entro en esta fonola en concepto de compra de música
+                Dim YU As Long, DTaa As String
+                DTaa = CStr(Year(Date)) + STRceros(Month(Date), 2) + STRceros(Day(Date), 2) + STRceros(Hour(time), 2) + STRceros(Minute(time), 2)
+                
+                'grabar un registro de todo lo que se compro para control.
+                Dim PrecioCU As Single 'precio de cada cancion
+                PrecioCU = (Carrito.CalculateTotalPrice * (PrecioBase / TemasPorCredito))
+                PrecioCU = Round(PrecioCU / Carrito.GetFileCantFull, 2)
+                For YU = 1 To Carrito.GetFileCantFull
+                    'tERR.Anotar "A198|B" + Carrito.GetElementFull(YU)
+                    'grabar en un registro de aca
+                    dwqu "B" + Carrito.GetElementFull(YU) + "*" + CStr(PrecioCU), dwQU_See, DTaa
+                Next
             End If
-            
-            
+        
             Carrito.CleanFileSoloMarca H  'por las dudas que se corte por falla y no copie ni
             'descuente de nuevo
             
@@ -606,7 +780,7 @@ SIG444:
         'vaciarlo!
         tERR.Anotar "taca3"
         Carrito.ClearCart
-        SW.ShowWait "Proceso terminado con exito", 3300
+        SW.ShowWait "Proceso terminado", 3300
         
         GoTo FIN
 
@@ -650,12 +824,27 @@ Private Function FaltaTXT(ByVal S As Long) As String
     End If
 End Function
 
-Private Sub btBUY_Click(Index As Integer)
+Private Sub btBuy_Click(Index As Integer)
+    'la tecla enter funciona mas alla de mi Key_Up o down
+    'entonces le saco el foco a este foton
+    
+    If btBuy(Index).Tag = "USB DETECT" Then Exit Sub
+    If btBuy(Index).Tag = "BT DETECT" Then
+        BTM.PushStatus = 0
+        BusqBT = BusqBT + 1
+    End If
+    
+    If TecladoAnda = False Then Exit Sub
+    
+    TecladoAnda = False
+    
     ComprarCC CLng(Index)
+    TecladoAnda = True
 End Sub
 
 Private Sub btBuy_GotFocus(Index As Integer)
     SelBT btBuy(Index), True
+    UpdateData False, CLng(Index)
 End Sub
 
 Private Sub btBuy_LostFocus(Index As Integer)
@@ -689,24 +878,47 @@ End Sub
 
 Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
     
-    tERR.Anotar "daam", Chr(KeyCode), KeyCode
+    tERR.Anotar "daam", Chr(KeyCode), KeyCode, TecladoAnda, TeclasApret
+    
+    TeclasApret = TeclasApret + 1
+    If TeclasApret = 1 Then Exit Sub
+    
+    If TecladoAnda = False Then Exit Sub
+    
+    'los botones de la der para pacha mode son
+    'N
+    'M
+    'ESC
+    'en ese orden de arriba a abajo
     
     Select Case KeyCode
+        'la tecla ok es casi siempre el enter por lo tanto no duplico aqui
+        'pero por ejemplo el pacha puso la F y se jodio
+        'entonces si no es el enter lo simulo
+        Case TeclaOK
+            If TeclaOK <> 13 And TeclaOK <> 108 Then
+                SendKeys "{ENTER}"
+            End If
+            
         Case TeclaDER: SendKeys "{TAB}"
         Case TeclaIZQ: SendKeys "+{TAB}"
-        Case TeclaPagAd: SendKeys "{TAB}"
-        Case TeclaPagAt: SendKeys "+{TAB}"
+        
+        Case TeclaPagAd
+            If PachaMode = 10000 Then SendKeys "{TAB}"
+            If PachaMode = 11000 Then btANULA_Click
+            
+        Case TeclaPagAt
+            If PachaMode = 10000 Then SendKeys "+{TAB}"
+            If PachaMode = 11000 Then btSalir_Click
+            
         Case TeclaESC
-            'ver si esta cancelando un bluetooth
-            If BTM.PushStatus > 0 Then
-                'NO SE PUEDE CANCELAR!
-                'BTM.PushStatus = 4
-            Else
-                Unload Me
-            End If
+            If PachaMode = 10000 Then Unload Me
+            If PachaMode = 11000 Then btReview_Click
+            
         Case TeclaCarrito: SendKeys "{ENTER}"
         Case TeclaCerrarSistema
             tERR.Anotar "YCS_FrmCart"
+            Unload Me
             YaCerrar3PM
         
         Case TeclaShowContador 'para uso mio!!!
@@ -736,7 +948,7 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
     
 End Sub
 
-Private Sub UpdateData(SoloCredit As Boolean)
+Private Sub UpdateData(SoloCredit As Boolean, Optional InfoMBofBTIndex As Long = -1)
 
     tERR.Anotar "daao", ShowCreditsMode, CREDITOS
     Select Case ShowCreditsMode
@@ -771,16 +983,61 @@ Private Sub UpdateData(SoloCredit As Boolean)
     Label7.Caption = "Se necesita: " + CStr(Carrito.GetTotalMB) + " MB"
     Dim LeEntra As Boolean
     LeEntra = False
-    If UB.GetCantidadUSB > 0 Then
-        Dim H As Long
-        For H = 1 To UB.GetCantidadUSB
-            Label7.Caption = Label7.Caption + vbCrLf + "Espacio libre " + CStr(H) + ": " + CStr(UB.GetFreeMB(H)) + " MB"
-            If (UB.GetFreeMB(H)) >= (Carrito.GetTotalMB) Then LeEntra = True
-        Next H
+    
+    'antes mostrarba el dispositivo con mas tamaño ...
+'    If UB.GetCantidadUSB > 0 Then
+'        Dim H As Long
+'        For H = 1 To UB.GetCantidadUSB
+'            Label7.Caption = Label7.Caption + vbCrLf + "Espacio libre " + CStr(H) + ": " + CStr(UB.GetFreeMB(H)) + " MB"
+'            If (UB.GetFreeMB(H)) >= (Carrito.GetTotalMB) Then LeEntra = True
+'        Next H
+'    Else
+'        Label7.Caption = Label7.Caption + vbCrLf + "NO HAY DISPOSITIVOS"
+'        LeEntra = False
+'    End If
+
+'   ahora es individual segun en cual me posiciono ...
+    'ver en cual estoy parado
+    If InfoMBofBTIndex > -1 Then
+        Dim SP44() As String
+        'no deberia pasar pero paso!
+        If btBuy(InfoMBofBTIndex).Tag = "" Then
+            ReDim SP44(0)
+            SP44(0) = ""
+        Else
+            SP44 = Split(btBuy(InfoMBofBTIndex).Tag)
+        End If
+        
+        If SP44(0) = "USB" Then
+            If IsNumeric(SP44(1)) Then
+                btOKPachaCart.Caption = "Comprar en USB elegido"
+                btOKPachaCart.Visible = (PachaMode = 11000)
+                Dim IndexInUB As Long
+                IndexInUB = CLng(SP44(1))
+                If (UB.GetFreeMB(IndexInUB)) >= (Carrito.GetTotalMB) Then LeEntra = True
+                Label7.Caption = Label7.Caption + vbCrLf + "Espacio libre: " + CStr(UB.GetFreeMB(IndexInUB)) + " MB"
+            Else
+                LeEntra = True
+                Label7.Caption = Label7.Caption + vbCrLf + "Asegúrese de tener espacio libre"
+                btOKPachaCart.Visible = False
+            End If
+        End If
+        
+        If SP44(0) = "BT" Then
+            If SP44(1) = "DETECT" Then
+                btOKPachaCart.Caption = "Comenzar búsqueda"
+                btOKPachaCart.Visible = (PachaMode = 11000)
+            Else
+                btOKPachaCart.Caption = "Comprar en BLUETOOTH elegido"
+                btOKPachaCart.Visible = (PachaMode = 11000)
+                Label7.Caption = Label7.Caption + vbCrLf + "Asegúrese de tener espacio libre"
+            End If
+            LeEntra = True
+        End If
     Else
-        Label7.Caption = Label7.Caption + vbCrLf + "NO HAY DISPOSITIVOS"
-        LeEntra = False
+        LeEntra = True
     End If
+        
     If LeEntra Then
         Label7.ForeColor = vbGreen
     Else
@@ -831,13 +1088,49 @@ End Function
 
 '-------Agregado por el complemento traductor------------
 Private Sub Form_Load()
+    tERR.Anotar "eaac", TengoBluetooth, PachaMode
+    KeyPress = 0
+    TecladoAnda = False
+    TeclasApret = 0  'por las teclas que vienen de frmindex
+    BusqBT = 0
+    
+    tUP.BorderStyle = 0
+    tDown.BorderStyle = 0
     
     If TengoBluetooth Then
+        tERR.Anotar "eaad", tBT.HWND
         BTM.UseEventMSG tBT.HWND
+    End If
+    
+    If PachaMode = 11000 Then
+        Label2.Caption = "Utilize los botones de desplazamiento para elegir DISPOSITIVOS. Confirme con el mismo boton de seleccion de discos y canciones"
     End If
     
     Pintar_fBoton Me
     Me.AutoRedraw = True
+    
+    'si esta en modo pacha las opciones del costado no entran en tabstop
+    If PachaMode = 11000 Then
+        btSalir.TabStop = False
+        btANULA.TabStop = False
+        btReview.TabStop = False
+        
+        Dim IMF As String
+        IMF = ExtraData.getDef.getImagePath("tocuharribacomun")
+        tUP.Picture = LoadPicture(IMF)
+    
+        IMF = ExtraData.getDef.getImagePath("touchabajocomun")
+        tDown.Picture = LoadPicture(IMF)
+    Else
+        btSalir.TabStop = True
+        btSalir.TabIndex = 1 'el 0 (primero) es siempre el primer dispositivo
+        btANULA.TabStop = True
+        btANULA.TabIndex = 2
+        btReview.TabStop = True
+        btReview.TabIndex = 3
+    End If
+    
+    tERR.Anotar "eaae", tBT.HWND
     
     CD1(0).Top = Label3.Top + Label3.Height + 60
     teX1(0).Top = CD1(0).Top + CD1(0).Height
@@ -847,17 +1140,18 @@ Private Sub Form_Load()
     
     UB.UseEventMSG tNADA.HWND
     
-    UpdateData False
-    
-    UpdateDrives
+    tERR.Anotar "eaaf", tNADA.HWND
+    TecladoAnda = True
     
     'CUANDO HAY ALGUN LECTOR DE MEMORIA YA SE CARGA COMO USB
     'ENTONCES APARECE COMO DISPOSITIVO DE CERO MB Y AL CONECTARLE ALGO
     'NO LANZA EVENTO YA QUE EL DISPOSITIVO YA EXISTIA, SOLO CAMBIA SU TAMAÑO EN MB
     Timer1.Interval = 1000
+    Me.KeyPreview = True
     
+    tERR.Anotar "eaag"
 '    Dim RDS As TypeLic
-'    RDS = K.LICENCIA("mLicencia3PMVtaMusica")
+'    RDS = K.sabseee("mLicencia3PMVtaMusica")
 '    If RDS < DMinima Then
 '        btSalir.Enabled = False
 '        btBUY.Enabled = False'
@@ -867,89 +1161,51 @@ Private Sub Form_Load()
 End Sub
 
 Private Sub UpdateDrives()
+
+    'si tiene activado el bluetooth entonces hay un boton fijo para buscar por bluetooth
+    'la cantidad y el orden del los botones es el siguiente
+    '1- dispositivos bluetooth y un boton para detectarlos (solo si esta configurado asi)
+    '2- dispositivos usb o un boton que pida que inserte
+    
     tERR.Anotar "xsaa"
     UnloadBtBuy
     
-    tERR.Anotar "xsab", UB.GetCantidadUSB
-    If UB.GetCantidadUSB > 0 Then
-        btBuy(0).Visible = False
-        
-        'SI SOLO HAY UN DISPOSITIVO ALCANZA CON QUE DIGA COMPRAR
-        If UB.GetCantidadUSB = 1 Then
-            tERR.Anotar "xsac", UB.GetFreeMB(1)
-            UB.RefreshValues 1
-            Load btBuy(1)
-            btBuy(1).Top = btBuy(0).Top
-            btBuy(1).Caption = "Comprar ahora" + vbCrLf + CStr(UB.GetFreeMB(1)) + " MB libres en dispositivo"
-            btBuy(1).Visible = True
-            btBuy(1).Tag = "USB"
-            btBuy(1).TabIndex = btBuy(0).TabIndex + 1
-            'que se cargue despintado!!
-            SelBT btBuy(1), False
-        End If
-        
-        'SI HAY MAS DE UNO QUE SEPA QUIEN ES QUIEN
-        tERR.Anotar "xsad", UB.GetCantidadUSB
-        If UB.GetCantidadUSB > 1 Then
-            Dim H As Long
-            For H = 1 To UB.GetCantidadUSB
-                Load btBuy(H)
-                'xxxxxxxxxxxxxxxxxxxx error 68 disp no disponible
-                UB.RefreshValues H
-                If H = 1 Then
-                    btBuy(H).Top = btBuy(H - 1).Top
-                Else
-                    btBuy(H).Top = btBuy(H - 1).Top + btBuy(H - 1).Height
-                End If
-                tERR.Anotar "xsae", UB.GetNameUSB(H)
-                
-                btBuy(H).Caption = "Comprar por USB: " + vbCrLf + _
-                    UB.GetNameUSB(H) + " (" + UB.GetLetterUSB(H) + ":\)" + vbCrLf + _
-                    "Tiene " + CStr(UB.GetFreeMB(H)) + " MB libres"
-                
-                btBuy(H).Tag = "USB"
-                
-                btBuy(H).Visible = True
-                btBuy(H).TabIndex = btBuy(H - 1).TabIndex + 1
-                
-                'que se cargue despintado!!
-                SelBT btBuy(H), False
-            Next H
-        End If
-        
-        
-    End If
+    Dim UltTitUsado As Long 'un titulo por cada tipo de dispositivo
     
     tERR.Anotar "xsaf", TengoBluetooth
     If TengoBluetooth Then
+        Label9(0).Caption = "BLUETOOTH"
         tERR.Anotar "xsag", BTM.Count
-        If BTM.Count > 0 Then
+        'si o si el boton de detectar
+        If BusqBT = 0 Then
+            btBuy(0).Caption = "Buscar dispositivos bluetooth"
+        Else
+            btBuy(0).Caption = "Buscar nuevamente dispositivos bluetooth"
+        End If
         
-            btBuy(0).Visible = False
-            
+        btBuy(0).Top = Label9(0).Top + Label9(0).Height
+        btBuy(0).Tag = "BT DETECT"
+        
+        If BTM.Count > 0 Then
             H = btBuy.Count
             tERR.Anotar "xsah", H
             
-            Dim CBT As TbrBtDevice
+            Dim CBT As tbrBtActivex.TbrBtDevice
             tERR.Anotar "xsah2"
             
             For Each CBT In BTM
                 tERR.Anotar "xsah3", H
                 
                 Load btBuy(H)
-                
-                If H = 1 Then
-                    btBuy(H).Top = btBuy(H - 1).Top
-                Else
-                    btBuy(H).Top = btBuy(H - 1).Top + btBuy(H - 1).Height
-                End If
+                btBuy(H).Top = btBuy(H - 1).Top + btBuy(H - 1).Height + 60
+                btBuy(H).Left = btBuy(H - 1).Left
                 tERR.Anotar "xsah4", btBuy(H).Top
                 
-                tERR.Anotar "xsai", CBT.name, CBT.getAddress
+                tERR.Anotar "xsai", CBT.Name, CBT.getAddress
                 btBuy(H).Caption = "Comprar en Bluetooth: " + vbCrLf + _
-                    CBT.name + " (" + CBT.getAddress + ")"
+                    CBT.Name + vbCrLf + " (" + CBT.getAddress + ")"
                     
-                btBuy(H).Tag = "BT " + CBT.getAddress 'PARA PODER USARLO
+                btBuy(H).Tag = "BT " + CBT.getAddress  'PARA PODER USARLO
                 
                 btBuy(H).Visible = True
                 btBuy(H).TabIndex = btBuy(H - 1).TabIndex + 1
@@ -960,18 +1216,88 @@ Private Sub UpdateDrives()
             Next
             tERR.Anotar "xsaj"
         End If
+        
+        Load Label9(1)
+        Label9(1).Caption = "USB"
+        Label9(1).Top = btBuy(btBuy.Count - 1).Top + btBuy(btBuy.Count - 1).Height + 420
+        Label9(1).Visible = True
+        UltTitUsado = 1
+    Else
+        Label9(0).Caption = "USB"
+        UltTitUsado = 0
+    End If
+    
+    tERR.Anotar "xsab", UB.GetCantidadUSB
+    
+    'al menos habra uno diciendo que se conecte al usb
+    If TengoBluetooth Then
+        H = btBuy.Count
+    Else
+        H = 0 'no hay otros medios por el momento
+    End If
+    
+    If UB.GetCantidadUSB = 0 Then
+        If H > 0 Then Load btBuy(H) 'es cero cuando no esta activado el bluetooth
+        btBuy(H).Caption = "Inserte dispositivo USB" + vbCrLf + "Se detectan instantáneamente"
+        btBuy(H).Tag = "USB DETECT" 'se ignora no hay busqueda es automático
+        btBuy(H).Top = Label9(UltTitUsado).Top + Label9(UltTitUsado).Height  'btBUY(H - 1).Top + btBUY(H - 1).Height + 60
+        If H > 0 Then btBuy(H).Left = btBuy(H - 1).Left
+        btBuy(H).Visible = True
+        If H > 0 Then
+            btBuy(H).TabIndex = btBuy(H - 1).TabIndex + 1
+            'que se cargue despintado!!
+            SelBT btBuy(H), False
+        Else
+            btBuy(0).TabIndex = 0
+            'no hay nada mas por eso el setfocus
+            'ya se pinta alli
+            btBuy_GotFocus 0
+            'si lanzo el evento setfocus no funciona!
+        End If
+        
+    Else
+        'SI HAY MAS DE UNO QUE SEPA QUIEN ES QUIEN
+        tERR.Anotar "xsad", UB.GetCantidadUSB
+        
+        Dim H2 As Long
+        For H2 = H To UB.GetCantidadUSB + H - 1
+            If H2 > 0 Then Load btBuy(H2)
+            'xxxxxxxxxxxxxxxxxxxx error 68 disp no disponible
+            UB.RefreshValues H2 - H + 1
+            If H2 > H Then
+                btBuy(H2).Top = btBuy(H2 - 1).Top + btBuy(H2 - 1).Height + 60
+            Else
+                btBuy(H2).Top = Label9(UltTitUsado).Top + Label9(UltTitUsado).Height
+            End If
+            
+            If H2 > 0 Then btBuy(H2).Left = btBuy(H2 - 1).Left
+            tERR.Anotar "xsae", UB.GetNameUSB(H2 - H + 1)
+            
+            btBuy(H2).Caption = "Comprar por USB: " + vbCrLf + _
+                UB.GetNameUSB(H2 - H + 1) + " (" + UB.GetLetterUSB(H2 - H + 1) + ":\)" + vbCrLf + _
+                "Tiene " + CStr(UB.GetFreeMB(H2 - H + 1)) + " MB libres"
+            
+            btBuy(H2).Tag = "USB " + CStr(H2 - H + 1) 'el segundo es el indice en "UB"
+            
+            btBuy(H2).Visible = True
+            If H2 > 0 Then
+                btBuy(H2).TabIndex = btBuy(H2 - 1).TabIndex + 1
+                'que se cargue despintado!!
+                SelBT btBuy(H2), False
+            Else
+                'no hay nada mas por eso el setfocus
+                btBuy(0).TabIndex = 0
+                'no hay nada mas por eso el setfocus
+                'ya se pinta alli
+                btBuy_GotFocus 0
+                'si lanzo el evento setfocus no funciona!
+            End If
+            
+            
+        Next H2
     End If
     
     tERR.Anotar "xsak"
-    
-    If UB.GetCantidadUSB = 0 And BTM.Count = 0 Then
-        If TengoBluetooth Then
-            btBuy(0).Caption = "NO HAY DISPOSITIVOS" + vbCrLf + "Inserte USB o presione aqui para buscar por bluetooth"
-        Else
-            btBuy(0).Caption = "NO HAY DISPOSITIVOS" + vbCrLf + "Inserte USB ahora"
-        End If
-        btBuy(0).Visible = True
-    End If
     
     AcomodarIndicadores
 End Sub
@@ -980,6 +1306,10 @@ Private Sub UnloadBtBuy()
     Dim H As Long
     For H = 1 To btBuy.Count - 1
         Unload btBuy(H)
+    Next H
+    
+    For H = 1 To Label9.Count - 1
+        Unload Label9(H)
     Next H
 End Sub
 
@@ -993,7 +1323,7 @@ Private Function LoadLista()
     If Carrito.GetFileCant > 0 Then
         Dim H As Long
         For H = 1 To Carrito.GetFileCant
-            ShowElem H
+            ShowElem2 H, Carrito.GetFileCant
         Next H
     Else
         
@@ -1017,7 +1347,7 @@ Private Function ShowElem(I As Long)
     Else
 TapaDef3:
         'ver si tiene programado una imagen de SL
-        If K.LICENCIA("3pm") = HSuperLicencia Then
+        If K.sabseee("3pm") = Supsabseee Then
             If fso.FileExists(GPF("tddp322")) Then
                 IMF = GPF("tddp322")
                 tERR.Anotar "daas", IMF
@@ -1068,76 +1398,247 @@ MER:
     Resume Next
 End Function
 
+Private Function ShowElem2(I As Long, TotShow As Long) 'este es mas chico y de arriba hacia abajo
+    On Local Error GoTo MER
+    
+    'segun la cantidad de elementos a mostrar se muestras mas grandes o mas chicos
+    Dim TotH As Long
+    TotH = Me.Height - (Label3.Top + Label3.Height) - tDown.Height
+    
+    If TotShow <= 9 Then
+        CD1(0).Height = 1000
+        CD1(0).Width = 1200
+        CD1(0).Left = AnchoCol - CD1(0).Width - 15
+        teX1(0).Font.Size = 12
+        teX1(0).Font.Bold = True
+    End If
+    
+    If TotShow >= 10 And TotShow <= 19 Then
+        CD1(0).Height = TotH / (TotShow + 1)
+        CD1(0).Width = CD1(0).Height * 1.2
+        CD1(0).Left = AnchoCol - CD1(0).Width - 15
+        teX1(0).Font.Size = 10
+        teX1(0).Font.Bold = True
+    End If
+    
+    If TotShow >= 20 Then
+        CD1(0).Height = TotH / (TotShow + 5)
+        CD1(0).Width = CD1(0).Height * 1.2
+        CD1(0).Left = AnchoCol - CD1(0).Width - 15
+        teX1(0).Font.Size = 8
+        teX1(0).Font.Bold = True
+    End If
+    
+    teX1(0).Height = CD1(0).Height
+    teX1(0).Width = AnchoCol - CD1(0).Width - 90
+    
+    Load CD1(I)
+    Load teX1(I)
+    
+    Dim IMG As String
+    IMG = Carrito.GetElementPath(I) + "tapa.jpg"
+    If fso.FileExists(IMG) Then
+        If FileLen(IMG) > TamanoTapaPermitido * 1024 Then
+            GoTo TapaDef3
+        End If
+        tERR.Anotar "daar", IMG
+        CD1(I).Picture = LoadPicture(IMG)
+    Else
+TapaDef3:
+        'ver si tiene programado una imagen de SL
+        If K.sabseee("3pm") = Supsabseee Then
+            If fso.FileExists(GPF("tddp322")) Then
+                IMF = GPF("tddp322")
+                tERR.Anotar "daas", IMF
+                CD1(I).Picture = LoadPicture(IMF)
+            Else
+                tERR.Anotar "daat"
+                CD1(I).Picture = frmIndex.imgTapaDefBUP.Picture
+            End If
+        Else
+            tERR.Anotar "daau"
+            CD1(I).Picture = frmIndex.imgTapaDefBUP.Picture
+        End If
+    End If
+    
+    teX1(I).Caption = Carrito.GetElementName(I)
+    
+    If I = 1 Then 'si es el primero dar la primera referencia
+        CD1(I).Top = CD1(0).Top
+        teX1(I).Top = teX1(0).Top
+        
+        CD1(I).Left = CD1(0).Left
+        teX1(I).Left = teX1(0).Left
+    Else
+        CD1(I).Top = CD1(I - 1).Top + CD1(I - 1).Height + 15
+        teX1(I).Top = teX1(I - 1).Top + teX1(I - 1).Height + 15
+        
+        CD1(I).Left = CD1(I - 1).Left
+        teX1(I).Left = teX1(I - 1).Left
+    End If
+    
+    CD1(I).Visible = True
+    teX1(I).Visible = True
+    
+    tERR.Anotar "daav"
+    
+    Exit Function
+MER:
+    tERR.AppendLog tERR.ErrToTXT(Err), "cpCC4"
+    Resume Next
+End Function
+
 Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
     UnloadBtBuy
     'aviso que no hay mas dispositivos
-    BTM.ReiniciarColeccion
+    
+    If TengoBluetooth Then
+        'revisar si jode xxxxxxxxxxxxx
+        BTM.ReiniciarColeccion
+    End If
+    
     Timer1.Interval = 0
 End Sub
 
 Private Sub Form_Resize()
-    
+    tERR.Anotar "eaah"
     'Me.PaintPicture frmIndex.picFondoDisco.Image, 0, 0, Me.Width, Me.Height
     tbrPintar frmIndex.Fondoxxx, Me, 0, 0, Me.Width / 15, Me.Height / 15
-    
+        
     Image1.Left = Me.Width - Image1.Width - 60
     Image1.Top = 30
-    Label3.Left = btSalir.Left + btSalir.Width + 30
-    Label3.Width = Me.Width - Label3.Left - 60 - Image1.Width
+    
+    Label2.Top = 30
+    Label2.Left = 30
     Label2.Width = Me.Width - Label2.Left - 60 - Image1.Width
-    'Line1.Y2 = Me.Height
+    
+    AnchoCol = Me.Width / 3
+    tERR.Anotar "eaai", AnchoCol
+    
+    Line1.Y1 = Label2.Top + Label2.Height + 130
+    Line1.Y2 = Me.Height
+    Line2.Y1 = Line1.Y1
+    Line2.Y2 = Line1.Y2
+    
+    Line1.X1 = AnchoCol
+    Line2.X1 = AnchoCol * 2
+    Line1.X2 = AnchoCol
+    Line2.X2 = AnchoCol * 2
+    
+    '- cont compra -
+    Label3.Top = Label2.Top + Label2.Height + 130
+    Label3.Left = (AnchoCol / 2 - Label9(0).Width / 2)
+    
+    CD1(0).Top = Label3.Top + Label3.Height + 30
+    teX1(0).Top = CD1(0).Top
+    CD1(0).Left = AnchoCol - CD1(0).Width - 30
+    teX1(0).Left = 30
+    teX1(0).Width = AnchoCol - CD1(0).Width - 90
+    
+    tERR.Anotar "eaaj", PachaMode
+    '- dispos -
+    Label9(0).Top = Label3.Top
+    Label9(0).Left = AnchoCol + (AnchoCol / 2 - Label9(0).Width / 2)
+    
+    btBuy(0).Top = Label9(0).Top + Label9(0).Height + 90
+    btBuy(0).Left = AnchoCol + (AnchoCol / 2 - btBuy(0).Width / 2)
+    
+    If PachaMode = 11000 Then
+        'que quede igual!
+        tDown.Top = frmIndex.picFondoPacha.Top + frmIndex.t1.Top
+        tDown.Left = frmIndex.picFondoPacha.Left + frmIndex.t1.Left
+        
+        tUP.Top = frmIndex.picFondoPacha.Top + frmIndex.t3.Top
+        tUP.Left = frmIndex.picFondoPacha.Left + frmIndex.t3.Left
+        'este boton es más grande!
+        'btOKPachaCart.Top = frmIndex.picFondoPacha.Top + frmIndex.btOKPacha.Top
+        btOKPachaCart.Top = Me.Height - btOKPachaCart.Height + 60
+        btOKPachaCart.Left = frmIndex.picFondoPacha.Left + frmIndex.btOKPacha.Left
+        btOKPachaCart.Width = frmIndex.btOKPacha.Width
+        'aqui tengo mas lugar y necesito más texto
+        'btOKPachaCart.Height = frmIndex.btOKPacha.Height
+        btOKPachaCart.Caption = "COMPRAR"
+        
+        tDown.Visible = True
+        tUP.Visible = True
+        btOKPachaCart.Visible = True
+    End If
     
     'acomodar indicadores
-    AcomodarIndicadores
+    tERR.Anotar "eaak"
+    UpdateData False
     
+    tERR.Anotar "eaal"
+    UpdateDrives
+    
+    tERR.Anotar "eaam"
+    AcomodarIndicadores
+    tERR.Anotar "eaan"
     LoadLista
-
+    tERR.Anotar "eaao"
 End Sub
 
 Private Sub AcomodarIndicadores()
     
     tERR.Anotar "xsal", btBuy.Count - 1
     
-    btANULA.Top = btBuy(btBuy.Count - 1).Top + btBuy(btBuy.Count - 1).Height
-    btReview.Top = btANULA.Top + btANULA.Height
-    Label1.Top = btReview.Top + btReview.Height + 60
+    'el alto de los botones es 705
+    'los botones aqui tienen ese alto tambien
+    Dim BT1_Top As Long
+    BT1_Top = frmIndex.frDiscos.Top + _
+              frmIndex.picFondoDisco.Top + _
+              frmIndex.picFondoDisco.Height - _
+              ((3 * btANULA.Height) + _
+              (2 * SeparacionTocuhDerecho))
+    'no lo vinculo a los otros botones de frmindex por que no necesariamente están al costado
+    'cuando no es modo pacha
+    Label10.Top = BT1_Top - Label10.Height - 30
+    btSalir.Top = BT1_Top
+    btANULA.Top = btSalir.Top + btSalir.Height + SeparacionTocuhDerecho
+    btReview.Top = btANULA.Top + btANULA.Height + SeparacionTocuhDerecho
+    
+    btSalir.Left = Me.Width - btSalir.Width + 90
+    btANULA.Left = btSalir.Left
+    btReview.Left = btSalir.Left
+    Label10.Left = btSalir.Left
+    
+    Label1.Top = Image1.Top + Image1.Height + 30
+    Label1.Width = 3900  'el ancho de una columna es 4000
     
     Dim TotIndic As Long 'total de indicadores
     TotIndic = 9
     'arrimar
-    Label1.Left = 0
+    Label1.Left = Me.Width - Label1.Width
     Label4.Left = Label1.Left
     Label5.Left = Label1.Left
     Label6.Left = Label1.Left
     Label7.Left = Label1.Left
-    Label8.Left = Label1.Left
+    Label8.Left = Label1.Left 'AnchoCol
     
     tERR.Anotar "xsam"
     
-    'Label1.Width = Line1.X1 - 30
     Label4.Width = Label1.Width
     Label5.Width = Label1.Width
     Label6.Width = Label1.Width
     Label7.Width = Label1.Width
     Label8.Width = Label1.Width
     
-    'Label1.Height = (Me.Height - Line2.Y1) / TotIndic
     Label4.Height = Label1.Height
     Label5.Height = Label1.Height
     Label6.Height = Label1.Height
     Label7.Height = Label1.Height
-    Label8.Height = Me.Height - Label1.Top
-    
-    
+    Label8.Height = Me.Height - Label10.Top  'solo hasta la seccion de otras opciones
+        
     Label4.Top = Label1.Top + Label1.Height - 15
-    Label5.Top = Label4.Top + Label1.Height + 490
+    Label5.Top = Label4.Top + Label1.Height + 190
     
     Label6.Top = Label5.Top + Label1.Height - 15
     
     Label7.AutoSize = True
-    Label7.Top = Label6.Top + Label6.Height + 490
+    Label7.Top = Label6.Top + Label6.Height + 190
     
-    Label8.Top = Label7.Top + Label7.Height + 490
+    Label8.Top = Label7.Top + Label7.Height + 480
+    
     tERR.Anotar "xsan"
 End Sub
 
@@ -1146,6 +1647,12 @@ Private Sub tBT_Change()
     If tBT.Text = "" Then Exit Sub
     
     tERR.Anotar "BT=" + tBT.Text
+    If ActivarERR Then tERR.AppendSinHist "BbbTtt:::" + tBT.Text
+    
+    'SE QUEDO SIN LUGAR EL DISPOSITIVO
+    'IMAGINO QUE PUEDE REPRESENTAR OTRAS COSAS TAMBIEN
+    '33722,67:BT=4|Fallo Al comprobar el servicio
+    '33722,67:BT=4|Fallo General
     
     Dim SP() As String
     SP = Split(tBT.Text, "|")
@@ -1174,7 +1681,7 @@ Private Sub tBT_Change()
         Case "4"
             'llego mal el archivo
             tERR.Anotar "BTM_SND_BAD"
-            
+            tERR.AppendLog "FEBT-bt" 'falla en envio bluetooth
             'SE RECLAVA SI DESCONECTO BLUETOOTH DE PECHO
 '            BT=4|General failed
 '            BTM_SND_BAD

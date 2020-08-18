@@ -280,8 +280,8 @@ Public Sub CargarPUBs()
     Dim MinSTR As String 'comparacion de cadenas. Empiezo con el máximo
     Dim ubicMIN As Long 'indice en la matriz del menor encontrado cada vuelta
     MinSTR = "zzzzzzzzzzzzzzzz"
-    Dim c As Long, mtx As Long, ValComp As String
-    c = 0 'cantidad de minimos encontrados
+    Dim C As Long, mtx As Long, ValComp As String
+    C = 0 'cantidad de minimos encontrados
     Dim Ordenados() As Long 'matriz con los indices ordenados
     Do
         For mtx = 0 To UBound(mPubs)
@@ -293,10 +293,10 @@ Public Sub CargarPUBs()
         Next
         'lo mando al ultimo para que no vuelva a salir como primero
         mPubs(ubicMIN) = "ZZZ" + mPubs(ubicMIN)
-        ReDim Preserve Ordenados(c)
-        Ordenados(c) = ubicMIN
-        c = c + 1
-        If c > UBound(mPubs) Then Exit Do
+        ReDim Preserve Ordenados(C)
+        Ordenados(C) = ubicMIN
+        C = C + 1
+        If C > UBound(mPubs) Then Exit Do
         MinSTR = "zzzzzzzzzz"
     Loop
     'cargar todos y sacar las primera 3 zetas
@@ -312,7 +312,7 @@ Public Sub CargarPUBs()
     'Dim ubicMIN As Long 'indice en la matriz del menor encontrado cada vuelta
     MinSTR = "zzzzzzzzzzzzzzzz"
     'Dim c As Long, mtx As Long, ValComp As String
-    c = 0 'cantidad de minimos encontrados
+    C = 0 'cantidad de minimos encontrados
     ReDim Preserve Ordenados(0) 'Dim Ordenados() As Long 'matriz con los indices ordenados
     Do
         For mtx = 0 To UBound(mPubsIMG)
@@ -324,10 +324,10 @@ Public Sub CargarPUBs()
         Next
         'lo mando al ultimo para que no vuelva a salir como primero
         mPubsIMG(ubicMIN) = "ZZZ" + mPubsIMG(ubicMIN)
-        ReDim Preserve Ordenados(c)
-        Ordenados(c) = ubicMIN
-        c = c + 1
-        If c > UBound(mPubsIMG) Then Exit Do
+        ReDim Preserve Ordenados(C)
+        Ordenados(C) = ubicMIN
+        C = C + 1
+        If C > UBound(mPubsIMG) Then Exit Do
         MinSTR = "zzzzzzzzzz"
     Loop
     'cargar todos y sacar las primera 3 zetas
@@ -343,7 +343,7 @@ Public Sub CargarPUBs()
     'Dim ubicMIN As Long 'indice en la matriz del menor encontrado cada vuelta
     MinSTR = "zzzzzzzzzzzzzzzz"
     'Dim c As Long, mtx As Long, ValComp As String
-    c = 0 'cantidad de minimos encontrados
+    C = 0 'cantidad de minimos encontrados
     ReDim Preserve Ordenados(0) 'Dim Ordenados() As Long 'matriz con los indices ordenados
     Do
         For mtx = 0 To UBound(mPubsMute)
@@ -355,10 +355,10 @@ Public Sub CargarPUBs()
         Next
         'lo mando al ultimo para que no vuelva a salir como primero
         mPubsMute(ubicMIN) = "ZZZ" + mPubsMute(ubicMIN)
-        ReDim Preserve Ordenados(c)
-        Ordenados(c) = ubicMIN
-        c = c + 1
-        If c > UBound(mPubsMute) Then Exit Do
+        ReDim Preserve Ordenados(C)
+        Ordenados(C) = ubicMIN
+        C = C + 1
+        If C > UBound(mPubsMute) Then Exit Do
         MinSTR = "zzzzzzzzzz"
     Loop
     'cargar todos y sacar las primera 3 zetas
@@ -375,7 +375,7 @@ Public Sub CargarPUBs()
     'Dim ubicMIN As Long 'indice en la matriz del menor encontrado cada vuelta
     MinSTR = "zzzzzzzzzzzzzzzz"
     'Dim c As Long, mtx As Long, ValComp As String
-    c = 0 'cantidad de minimos encontrados
+    C = 0 'cantidad de minimos encontrados
     ReDim Preserve Ordenados(0) 'Dim Ordenados() As Long 'matriz con los indices ordenados
     Do
         For mtx = 0 To UBound(mPubsTXT)
@@ -387,10 +387,10 @@ Public Sub CargarPUBs()
         Next
         'lo mando al ultimo para que no vuelva a salir como primero
         mPubsTXT(ubicMIN) = "ZZZ" + mPubsTXT(ubicMIN)
-        ReDim Preserve Ordenados(c)
-        Ordenados(c) = ubicMIN
-        c = c + 1
-        If c > UBound(mPubsTXT) Then Exit Do
+        ReDim Preserve Ordenados(C)
+        Ordenados(C) = ubicMIN
+        C = C + 1
+        If C > UBound(mPubsTXT) Then Exit Do
         MinSTR = "zzzzzzzzzz"
     Loop
     'cargar todos y sacar las primera 3 zetas
@@ -406,7 +406,7 @@ Public Sub CargarPUBs()
     'Dim ubicMIN As Long 'indice en la matriz del menor encontrado cada vuelta
     MinSTR = "zzzzzzzzzzzzzzzz"
     'Dim c As Long, mtx As Long, ValComp As String
-    c = 0 'cantidad de minimos encontrados
+    C = 0 'cantidad de minimos encontrados
     ReDim Preserve Ordenados(0) 'Dim Ordenados() As Long 'matriz con los indices ordenados
     Do
         For mtx = 0 To UBound(mPubsBigIMG)
@@ -418,10 +418,10 @@ Public Sub CargarPUBs()
         Next
         'lo mando al ultimo para que no vuelva a salir como primero
         mPubsBigIMG(ubicMIN) = "ZZZ" + mPubsBigIMG(ubicMIN)
-        ReDim Preserve Ordenados(c)
-        Ordenados(c) = ubicMIN
-        c = c + 1
-        If c > UBound(mPubsBigIMG) Then Exit Do
+        ReDim Preserve Ordenados(C)
+        Ordenados(C) = ubicMIN
+        C = C + 1
+        If C > UBound(mPubsBigIMG) Then Exit Do
         MinSTR = "zzzzzzzzzz"
     Loop
     'cargar todos y sacar las primera 3 zetas

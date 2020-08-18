@@ -19,44 +19,282 @@ Begin VB.Form frmIndex
    ShowInTaskbar   =   0   'False
    StartUpPosition =   3  'Windows Default
    WindowState     =   2  'Maximized
+   Begin VB.PictureBox picVideo 
+      BackColor       =   &H00000000&
+      Height          =   315
+      Index           =   2
+      Left            =   9000
+      ScaleHeight     =   255
+      ScaleWidth      =   210
+      TabIndex        =   59
+      Top             =   3900
+      Visible         =   0   'False
+      Width           =   270
+   End
+   Begin VB.PictureBox picFondo 
+      AutoRedraw      =   -1  'True
+      BackColor       =   &H00000000&
+      BorderStyle     =   0  'None
+      Height          =   1620
+      Left            =   90
+      ScaleHeight     =   1620
+      ScaleWidth      =   6600
+      TabIndex        =   3
+      Top             =   7350
+      Width           =   6600
+      Begin tbr3pm.txtRolling RollCRED 
+         Height          =   1335
+         Left            =   210
+         TabIndex        =   14
+         Top             =   210
+         Width           =   2295
+         _ExtentX        =   4048
+         _ExtentY        =   2355
+      End
+      Begin tbr3pm.txtRolling RollSONG 
+         Height          =   1155
+         Left            =   4740
+         TabIndex        =   15
+         Top             =   360
+         Width           =   1725
+         _ExtentX        =   3043
+         _ExtentY        =   2037
+      End
+      Begin tbr3pm.tbrPassImg tbrPassImg1 
+         Height          =   1260
+         Left            =   2580
+         TabIndex        =   7
+         Top             =   330
+         Width           =   2115
+         _ExtentX        =   3731
+         _ExtentY        =   2223
+         Begin VB.Label Label1 
+            Alignment       =   2  'Center
+            BackColor       =   &H00000080&
+            BorderStyle     =   1  'Fixed Single
+            Caption         =   "VERSION DEMOSTRATIVA. tbrSoft Argentina. www.tbrsoft.com"
+            BeginProperty Font 
+               Name            =   "Verdana"
+               Size            =   8.25
+               Charset         =   0
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            ForeColor       =   &H0000FFFF&
+            Height          =   885
+            Left            =   120
+            TabIndex        =   8
+            Top             =   150
+            Visible         =   0   'False
+            Width           =   1845
+         End
+      End
+      Begin VB.Label lblCreditos 
+         Alignment       =   2  'Center
+         Appearance      =   0  'Flat
+         AutoSize        =   -1  'True
+         BackColor       =   &H00800000&
+         BackStyle       =   0  'Transparent
+         Caption         =   "Credito $ 15000,00"
+         BeginProperty Font 
+            Name            =   "Tahoma"
+            Size            =   11.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   270
+         Left            =   2580
+         TabIndex        =   5
+         Top             =   60
+         Width           =   2235
+      End
+      Begin VB.Label lblV 
+         Alignment       =   1  'Right Justify
+         BackColor       =   &H000040C0&
+         BackStyle       =   0  'Transparent
+         Caption         =   "version 8.88.888"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H0000FFFF&
+         Height          =   285
+         Left            =   10230
+         TabIndex        =   6
+         Top             =   2940
+         Visible         =   0   'False
+         Width           =   1335
+      End
+      Begin VB.Label lblValidar 
+         Alignment       =   2  'Center
+         BackColor       =   &H00000000&
+         Caption         =   "Validar"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00E0E0E0&
+         Height          =   195
+         Left            =   7080
+         TabIndex        =   4
+         Top             =   2700
+         Visible         =   0   'False
+         Width           =   3255
+      End
+      Begin VB.Label Label2 
+         Alignment       =   2  'Center
+         Appearance      =   0  'Flat
+         AutoSize        =   -1  'True
+         BackColor       =   &H00800000&
+         BackStyle       =   0  'Transparent
+         Caption         =   "Credito $ 15000,00"
+         BeginProperty Font 
+            Name            =   "Tahoma"
+            Size            =   11.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00808080&
+         Height          =   270
+         Left            =   3270
+         TabIndex        =   16
+         Top             =   30
+         Width           =   2235
+      End
+   End
+   Begin VB.PictureBox picFondoPacha 
+      BackColor       =   &H00000000&
+      BorderStyle     =   0  'None
+      Height          =   555
+      Left            =   150
+      ScaleHeight     =   555
+      ScaleWidth      =   5025
+      TabIndex        =   56
+      Top             =   6720
+      Visible         =   0   'False
+      Width           =   5025
+      Begin tbrFaroButton.fBoton btOKPacha 
+         Height          =   600
+         Left            =   1020
+         TabIndex        =   57
+         Top             =   0
+         Visible         =   0   'False
+         Width           =   1665
+         _ExtentX        =   2937
+         _ExtentY        =   1058
+         fFColor         =   16777215
+         fBColor         =   14737632
+         fCapt           =   "Escuchar cancion"
+         fEnabled        =   -1  'True
+         fFontN          =   "Verdana"
+         fFontS          =   10
+         fECol           =   5452834
+      End
+      Begin VB.Label lCredPacha 
+         Alignment       =   2  'Center
+         Appearance      =   0  'Flat
+         AutoSize        =   -1  'True
+         BackColor       =   &H00800000&
+         BackStyle       =   0  'Transparent
+         Caption         =   "Credito $ 15000,00"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   15.75
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   360
+         Left            =   405
+         TabIndex        =   58
+         Top             =   60
+         Width           =   2835
+      End
+      Begin VB.Image t3 
+         BorderStyle     =   1  'Fixed Single
+         Height          =   495
+         Left            =   4110
+         Top             =   60
+         Visible         =   0   'False
+         Width           =   795
+      End
+      Begin VB.Image t1 
+         BorderStyle     =   1  'Fixed Single
+         Height          =   495
+         Left            =   60
+         Top             =   30
+         Visible         =   0   'False
+         Width           =   795
+      End
+   End
+   Begin VB.TextBox tUltra 
+      Height          =   285
+      Left            =   10950
+      TabIndex        =   55
+      Top             =   2670
+      Visible         =   0   'False
+      Width           =   555
+   End
    Begin VB.TextBox tBT 
       Height          =   285
-      Left            =   7530
+      Left            =   10530
       TabIndex        =   40
-      Top             =   6180
+      Top             =   2670
       Visible         =   0   'False
-      Width           =   1365
+      Width           =   405
    End
    Begin VB.TextBox TUsb 
       Height          =   285
-      Left            =   7380
+      Left            =   11550
       TabIndex        =   39
-      Top             =   6480
+      Top             =   2670
       Visible         =   0   'False
-      Width           =   1365
+      Width           =   405
    End
    Begin VB.PictureBox Fondoxxx 
       AutoRedraw      =   -1  'True
       BorderStyle     =   0  'None
-      Height          =   6735
-      Left            =   10380
+      Height          =   1005
+      Left            =   90
       Picture         =   "frmINDEX.frx":08CA
-      ScaleHeight     =   6735
-      ScaleWidth      =   7065
+      ScaleHeight     =   1005
+      ScaleWidth      =   1455
       TabIndex        =   38
-      Top             =   5580
+      Top             =   4350
       Visible         =   0   'False
-      Width           =   7065
+      Width           =   1455
    End
    Begin VB.PictureBox picKAR 
       BackColor       =   &H00000000&
       BorderStyle     =   0  'None
       Height          =   1905
-      Left            =   10440
+      Left            =   10140
       ScaleHeight     =   1905
       ScaleWidth      =   1815
       TabIndex        =   28
-      Top             =   1890
+      Top             =   720
       Visible         =   0   'False
       Width           =   1815
       Begin VB.Label lblWAIT 
@@ -84,11 +322,11 @@ Begin VB.Form frmIndex
          BackColor       =   &H0080FFFF&
          BackStyle       =   1  'Opaque
          BorderColor     =   &H0000C0C0&
-         Height          =   250
-         Left            =   690
+         Height          =   255
+         Left            =   720
          Shape           =   3  'Circle
          Top             =   1350
-         Width           =   250
+         Width           =   255
       End
       Begin VB.Label LF1 
          BackStyle       =   0  'Transparent
@@ -104,7 +342,7 @@ Begin VB.Form frmIndex
          EndProperty
          ForeColor       =   &H00FFFFFF&
          Height          =   600
-         Left            =   30
+         Left            =   60
          TabIndex        =   30
          Top             =   1350
          Width           =   915
@@ -172,11 +410,11 @@ Begin VB.Form frmIndex
       BackColor       =   &H00000000&
       BorderStyle     =   0  'None
       Height          =   600
-      Left            =   7050
+      Left            =   6990
       ScaleHeight     =   600
       ScaleWidth      =   300
       TabIndex        =   27
-      Top             =   360
+      Top             =   330
       Visible         =   0   'False
       Width           =   300
    End
@@ -185,11 +423,11 @@ Begin VB.Form frmIndex
       BackColor       =   &H00000000&
       BorderStyle     =   0  'None
       Height          =   825
-      Left            =   6540
+      Left            =   6480
       ScaleHeight     =   825
       ScaleWidth      =   480
       TabIndex        =   26
-      Top             =   120
+      Top             =   90
       Visible         =   0   'False
       Width           =   480
    End
@@ -198,11 +436,11 @@ Begin VB.Form frmIndex
       BackColor       =   &H00000000&
       BorderStyle     =   0  'None
       Height          =   600
-      Left            =   7710
+      Left            =   7650
       ScaleHeight     =   600
       ScaleWidth      =   300
       TabIndex        =   25
-      Top             =   330
+      Top             =   300
       Visible         =   0   'False
       Width           =   300
    End
@@ -210,28 +448,28 @@ Begin VB.Form frmIndex
       AutoRedraw      =   -1  'True
       BackColor       =   &H00000000&
       BorderStyle     =   0  'None
-      Height          =   825
-      Left            =   240
-      ScaleHeight     =   825
-      ScaleWidth      =   6270
+      Height          =   525
+      Left            =   10110
+      ScaleHeight     =   525
+      ScaleWidth      =   1890
       TabIndex        =   18
-      Top             =   120
-      Width           =   6270
+      Top             =   90
+      Width           =   1890
       Begin VB.Line LineRitmo 
          BorderColor     =   &H0000FFFF&
          BorderWidth     =   5
-         X1              =   4170
-         X2              =   4740
-         Y1              =   120
-         Y2              =   120
+         X1              =   1350
+         X2              =   1920
+         Y1              =   240
+         Y2              =   240
       End
       Begin VB.Line LineLETRA 
          BorderColor     =   &H000000FF&
          BorderWidth     =   3
-         X1              =   5580
-         X2              =   6150
-         Y1              =   300
-         Y2              =   300
+         X1              =   1080
+         X2              =   1650
+         Y1              =   360
+         Y2              =   360
       End
       Begin VB.Label lLETRAS 
          AutoSize        =   -1  'True
@@ -239,7 +477,7 @@ Begin VB.Form frmIndex
          Caption         =   "A"
          BeginProperty Font 
             Name            =   "Tahoma"
-            Size            =   20.25
+            Size            =   12
             Charset         =   0
             Weight          =   700
             Underline       =   0   'False
@@ -247,13 +485,13 @@ Begin VB.Form frmIndex
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00FFFFFF&
-         Height          =   495
+         Height          =   285
          Index           =   0
-         Left            =   30
+         Left            =   90
          TabIndex        =   22
-         Top             =   390
+         Top             =   240
          UseMnemonic     =   0   'False
-         Width           =   270
+         Width           =   180
       End
       Begin VB.Label lRITMO 
          AutoSize        =   -1  'True
@@ -261,7 +499,7 @@ Begin VB.Form frmIndex
          Caption         =   "lRitmo"
          BeginProperty Font 
             Name            =   "Tahoma"
-            Size            =   15.75
+            Size            =   11.25
             Charset         =   0
             Weight          =   700
             Underline       =   0   'False
@@ -269,13 +507,13 @@ Begin VB.Form frmIndex
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00FFFFFF&
-         Height          =   375
+         Height          =   270
          Index           =   0
          Left            =   0
          TabIndex        =   21
          Top             =   0
          UseMnemonic     =   0   'False
-         Width           =   1035
+         Width           =   735
       End
       Begin VB.Label Label6 
          Alignment       =   2  'Center
@@ -326,7 +564,7 @@ Begin VB.Form frmIndex
          Caption         =   "lRitmo"
          BeginProperty Font 
             Name            =   "Tahoma"
-            Size            =   15.75
+            Size            =   11.25
             Charset         =   0
             Weight          =   700
             Underline       =   0   'False
@@ -334,13 +572,13 @@ Begin VB.Form frmIndex
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00808080&
-         Height          =   375
+         Height          =   270
          Index           =   0
          Left            =   180
          TabIndex        =   23
          Top             =   30
          UseMnemonic     =   0   'False
-         Width           =   1035
+         Width           =   735
       End
       Begin VB.Label lLETRAS2 
          AutoSize        =   -1  'True
@@ -348,7 +586,7 @@ Begin VB.Form frmIndex
          Caption         =   "A"
          BeginProperty Font 
             Name            =   "Tahoma"
-            Size            =   20.25
+            Size            =   12
             Charset         =   0
             Weight          =   700
             Underline       =   0   'False
@@ -356,34 +594,34 @@ Begin VB.Form frmIndex
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00808080&
-         Height          =   495
+         Height          =   285
          Index           =   0
-         Left            =   360
+         Left            =   420
          TabIndex        =   24
-         Top             =   390
+         Top             =   240
          UseMnemonic     =   0   'False
-         Width           =   270
+         Width           =   180
       End
    End
    Begin VB.Timer Timer3 
       Interval        =   10000
-      Left            =   10350
-      Top             =   4560
+      Left            =   11370
+      Top             =   3270
    End
    Begin VB.Timer Timer1 
-      Left            =   10350
-      Top             =   5010
+      Left            =   11370
+      Top             =   3720
    End
    Begin VB.PictureBox frDiscos 
       AutoRedraw      =   -1  'True
       BackColor       =   &H00404040&
       BorderStyle     =   0  'None
       Height          =   4185
-      Left            =   390
+      Left            =   60
       ScaleHeight     =   4185
       ScaleWidth      =   6225
       TabIndex        =   17
-      Top             =   1050
+      Top             =   60
       Width           =   6225
       Begin VB.PictureBox picFondoDisco 
          AutoRedraw      =   -1  'True
@@ -398,9 +636,9 @@ Begin VB.Form frmIndex
          Width           =   6075
          Begin tbrFaroButton.fBoton btBUYDisco 
             Height          =   705
-            Left            =   30
+            Left            =   360
             TabIndex        =   42
-            Top             =   450
+            Top             =   300
             Visible         =   0   'False
             Width           =   2505
             _ExtentX        =   4419
@@ -417,7 +655,7 @@ Begin VB.Form frmIndex
             Height          =   705
             Left            =   60
             TabIndex        =   43
-            Top             =   810
+            Top             =   900
             Visible         =   0   'False
             Width           =   2505
             _ExtentX        =   4419
@@ -432,9 +670,9 @@ Begin VB.Form frmIndex
          End
          Begin tbrFaroButton.fBoton btSalir 
             Height          =   705
-            Left            =   30
+            Left            =   60
             TabIndex        =   54
-            Top             =   1350
+            Top             =   1680
             Visible         =   0   'False
             Width           =   2505
             _ExtentX        =   4419
@@ -446,6 +684,13 @@ Begin VB.Form frmIndex
             fFontN          =   "Verdana"
             fFontS          =   10
             fECol           =   5452834
+         End
+         Begin VB.Image ImgSelecVIP 
+            Height          =   375
+            Left            =   2880
+            Top             =   2250
+            Visible         =   0   'False
+            Width           =   375
          End
          Begin VB.Label lblCanciones2 
             Alignment       =   2  'Center
@@ -465,9 +710,9 @@ Begin VB.Form frmIndex
             ForeColor       =   &H00808080&
             Height          =   345
             Index           =   0
-            Left            =   2685
+            Left            =   2760
             TabIndex        =   53
-            Top             =   900
+            Top             =   780
             UseMnemonic     =   0   'False
             Visible         =   0   'False
             Width           =   2160
@@ -620,7 +865,7 @@ Begin VB.Form frmIndex
             ForeColor       =   &H00FFFFFF&
             Height          =   345
             Index           =   0
-            Left            =   2715
+            Left            =   2730
             TabIndex        =   48
             Top             =   750
             UseMnemonic     =   0   'False
@@ -713,7 +958,7 @@ Begin VB.Form frmIndex
          End
          Begin VB.Image imgSELEC 
             Height          =   375
-            Left            =   2190
+            Left            =   2220
             Top             =   2250
             Visible         =   0   'False
             Width           =   375
@@ -721,7 +966,7 @@ Begin VB.Form frmIndex
          Begin VB.Image imgSALIR 
             Height          =   375
             Left            =   4080
-            Top             =   2220
+            Top             =   2250
             Visible         =   0   'False
             Width           =   375
          End
@@ -750,156 +995,6 @@ Begin VB.Form frmIndex
          End
       End
    End
-   Begin VB.PictureBox picFondo 
-      AutoRedraw      =   -1  'True
-      BackColor       =   &H00000000&
-      BorderStyle     =   0  'None
-      Height          =   1590
-      Left            =   180
-      ScaleHeight     =   1590
-      ScaleWidth      =   8790
-      TabIndex        =   3
-      Top             =   7230
-      Width           =   8790
-      Begin tbr3pm.txtRolling RollCRED 
-         Height          =   1335
-         Left            =   180
-         TabIndex        =   14
-         Top             =   150
-         Width           =   2835
-         _ExtentX        =   5001
-         _ExtentY        =   2355
-      End
-      Begin tbr3pm.txtRolling RollSONG 
-         Height          =   1155
-         Left            =   5790
-         TabIndex        =   15
-         Top             =   300
-         Width           =   2835
-         _ExtentX        =   5001
-         _ExtentY        =   2037
-      End
-      Begin tbr3pm.tbrPassImg tbrPassImg1 
-         Height          =   1260
-         Left            =   3300
-         TabIndex        =   7
-         Top             =   300
-         Width           =   2115
-         _extentx        =   3731
-         _extenty        =   2223
-         Begin VB.Label Label1 
-            Alignment       =   2  'Center
-            BackColor       =   &H00000080&
-            BorderStyle     =   1  'Fixed Single
-            Caption         =   "VERSION DEMOSTRATIVA. tbrSoft Argentina. www.tbrsoft.com"
-            BeginProperty Font 
-               Name            =   "Verdana"
-               Size            =   8.25
-               Charset         =   0
-               Weight          =   700
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            ForeColor       =   &H0000FFFF&
-            Height          =   885
-            Left            =   120
-            TabIndex        =   8
-            Top             =   150
-            Visible         =   0   'False
-            Width           =   1845
-         End
-      End
-      Begin VB.Label lblCreditos 
-         Alignment       =   2  'Center
-         Appearance      =   0  'Flat
-         AutoSize        =   -1  'True
-         BackColor       =   &H00800000&
-         BackStyle       =   0  'Transparent
-         Caption         =   "Credito $ 15000,00"
-         BeginProperty Font 
-            Name            =   "Tahoma"
-            Size            =   11.25
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00FFFFFF&
-         Height          =   270
-         Left            =   3210
-         TabIndex        =   5
-         Top             =   30
-         Width           =   2235
-      End
-      Begin VB.Label lblV 
-         Alignment       =   1  'Right Justify
-         BackColor       =   &H000040C0&
-         BackStyle       =   0  'Transparent
-         Caption         =   "version 8.88.888"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H0000FFFF&
-         Height          =   285
-         Left            =   10230
-         TabIndex        =   6
-         Top             =   2940
-         Visible         =   0   'False
-         Width           =   1335
-      End
-      Begin VB.Label lblValidar 
-         Alignment       =   2  'Center
-         BackColor       =   &H00000000&
-         Caption         =   "Validar"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00E0E0E0&
-         Height          =   195
-         Left            =   7080
-         TabIndex        =   4
-         Top             =   2700
-         Visible         =   0   'False
-         Width           =   3255
-      End
-      Begin VB.Label Label2 
-         Alignment       =   2  'Center
-         Appearance      =   0  'Flat
-         AutoSize        =   -1  'True
-         BackColor       =   &H00800000&
-         BackStyle       =   0  'Transparent
-         Caption         =   "Credito $ 15000,00"
-         BeginProperty Font 
-            Name            =   "Tahoma"
-            Size            =   11.25
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00808080&
-         Height          =   270
-         Left            =   3270
-         TabIndex        =   16
-         Top             =   30
-         Width           =   2235
-      End
-   End
    Begin VB.TextBox txtS3 
       Alignment       =   1  'Right Justify
       BackColor       =   &H0000C0C0&
@@ -913,9 +1008,9 @@ Begin VB.Form frmIndex
          Strikethrough   =   0   'False
       EndProperty
       Height          =   525
-      Left            =   8460
+      Left            =   9480
       TabIndex        =   13
-      Top             =   4710
+      Top             =   3420
       Visible         =   0   'False
       Width           =   1245
    End
@@ -924,7 +1019,7 @@ Begin VB.Form frmIndex
       BackColor       =   &H00000000&
       BorderStyle     =   0  'None
       Height          =   600
-      Left            =   7380
+      Left            =   7320
       ScaleHeight     =   600
       ScaleWidth      =   300
       TabIndex        =   12
@@ -936,18 +1031,18 @@ Begin VB.Form frmIndex
       BackColor       =   &H00000000&
       Height          =   315
       Index           =   1
-      Left            =   8010
+      Left            =   8700
       ScaleHeight     =   255
       ScaleWidth      =   240
       TabIndex        =   11
-      Top             =   5430
+      Top             =   3900
       Visible         =   0   'False
       Width           =   300
    End
    Begin VB.ListBox List1 
       BeginProperty Font 
          Name            =   "Terminal"
-         Size            =   9
+         Size            =   6
          Charset         =   255
          Weight          =   700
          Underline       =   0   'False
@@ -957,22 +1052,22 @@ Begin VB.Form frmIndex
       Height          =   4290
       IntegralHeight  =   0   'False
       ItemData        =   "frmINDEX.frx":10B7C
-      Left            =   1890
+      Left            =   6960
       List            =   "frmINDEX.frx":10BBF
       TabIndex        =   10
-      Top             =   2490
+      Top             =   4560
       Visible         =   0   'False
-      Width           =   3735
+      Width           =   5055
    End
    Begin VB.PictureBox picVideo 
       BackColor       =   &H00000000&
       Height          =   315
       Index           =   0
-      Left            =   7680
+      Left            =   8430
       ScaleHeight     =   255
       ScaleWidth      =   210
       TabIndex        =   9
-      Top             =   5430
+      Top             =   3900
       Visible         =   0   'False
       Width           =   270
    End
@@ -983,7 +1078,7 @@ Begin VB.Form frmIndex
       BorderStyle     =   0  'None
       ForeColor       =   &H80000008&
       Height          =   285
-      Left            =   6180
+      Left            =   6270
       ScaleHeight     =   285
       ScaleWidth      =   2895
       TabIndex        =   36
@@ -1019,7 +1114,7 @@ Begin VB.Form frmIndex
       BorderStyle     =   0  'None
       ForeColor       =   &H80000008&
       Height          =   1125
-      Left            =   6210
+      Left            =   6300
       ScaleHeight     =   1125
       ScaleWidth      =   2895
       TabIndex        =   34
@@ -1050,67 +1145,67 @@ Begin VB.Form frmIndex
    End
    Begin VB.Image imgTapaRankBUP 
       Height          =   660
-      Left            =   9390
+      Left            =   9240
       Stretch         =   -1  'True
-      Top             =   2910
+      Top             =   2370
       Visible         =   0   'False
       Width           =   900
    End
    Begin VB.Image imgTapaDefBUP 
       Height          =   660
-      Left            =   9360
+      Left            =   9210
       Stretch         =   -1  'True
-      Top             =   2160
+      Top             =   1620
       Visible         =   0   'False
       Width           =   900
    End
    Begin VB.Image imgUNSELBUP 
       Height          =   660
-      Left            =   9360
+      Left            =   9240
       Stretch         =   -1  'True
-      Top             =   1410
+      Top             =   870
       Visible         =   0   'False
       Width           =   900
    End
    Begin VB.Image imgSELBUP 
       Height          =   660
-      Left            =   9300
+      Left            =   9150
       Stretch         =   -1  'True
-      Top             =   690
+      Top             =   120
       Visible         =   0   'False
       Width           =   900
    End
    Begin VB.Image cmdTouchAbajo2 
       Height          =   375
-      Left            =   6750
-      Top             =   5370
+      Left            =   7860
+      Top             =   3720
       Visible         =   0   'False
       Width           =   375
    End
    Begin VB.Image cmdTouchArriba2 
       Height          =   375
-      Left            =   6270
-      Top             =   5370
+      Left            =   7380
+      Top             =   3720
       Visible         =   0   'False
       Width           =   375
    End
    Begin VB.Image imgSelec2 
       Height          =   375
-      Left            =   5820
-      Top             =   5340
+      Left            =   6900
+      Top             =   3690
       Visible         =   0   'False
       Width           =   375
    End
    Begin VB.Image cmdPagAt 
       Height          =   615
-      Left            =   6690
-      Top             =   4350
+      Left            =   7710
+      Top             =   3060
       Width           =   735
    End
    Begin VB.Image cmdPagAd 
       Height          =   615
-      Left            =   7560
-      Top             =   4350
+      Left            =   8640
+      Top             =   3120
       Width           =   855
    End
    Begin VB.Label lblTECLAS 
@@ -1128,7 +1223,7 @@ Begin VB.Form frmIndex
       EndProperty
       ForeColor       =   &H0080FFFF&
       Height          =   195
-      Left            =   9360
+      Left            =   7050
       TabIndex        =   2
       Top             =   90
       Visible         =   0   'False
@@ -1149,7 +1244,7 @@ Begin VB.Form frmIndex
       EndProperty
       ForeColor       =   &H00FFFFFF&
       Height          =   225
-      Left            =   6195
+      Left            =   6285
       TabIndex        =   1
       Top             =   2460
       Visible         =   0   'False
@@ -1170,7 +1265,7 @@ Begin VB.Form frmIndex
       EndProperty
       ForeColor       =   &H00FFFFFF&
       Height          =   225
-      Left            =   6210
+      Left            =   6300
       TabIndex        =   0
       Top             =   990
       Visible         =   0   'False
@@ -1213,7 +1308,13 @@ Dim IenPlenaCancion(3) As Long 'cada uno de los hilos de ejecucion
 
 Dim WithEvents GK As tbrGetKeys
 Attribute GK.VB_VarHelpID = -1
+
+'upManu
 Private EstoyEnDisco As Long 'me dice si estoy dentro de un disco en el modo nuevo
+'=0 es en portadas
+'=1 es en lista de canciones
+'=2 estoy pasando de mun lado a otro
+
 Public OkInState1 As Long 'presiones de la tecla ok en el modo SuperSel
 'esto para ignorar la primera siempre
 Private VengoDeCarrito As Boolean
@@ -1221,7 +1322,9 @@ Private VengoDeCarrito As Boolean
 '    TF.PonerFoco
 'End Function
 
+'cuenta el tiempo que esta apertada la tecla del carrito antes de hacer el keyUp
 Private TimePressTeclaCart As Single
+Private TimePressTeclaOK As Single
 
 Private Function EnQueFilaEstoy() As Long
     'es la fila uno si es la primera
@@ -1231,44 +1334,46 @@ Private Function EnQueFilaEstoy() As Long
 End Function
 
 Private Sub btBuyCancion_Click()
-    If PachaMode = 10000 Then
+'    If PachaMode = 10000 Then
+        tERR.Anotar "eaaa"
         Carrito.AddFile lblCanciones(selDiscoI(-3)).Tag
         
         Timer3.Enabled = False
         VengoDeCarrito = True
         frmCarrito.Show 1
+        tERR.Anotar "eaab"
         Timer3.Enabled = True
-    End If
-    
-    If PachaMode = 11000 Then
-        Carrito.AddFile lblCanciones(selDiscoI(-3)).Tag
-        
-        Timer3.Enabled = False
-        VengoDeCarrito = True
-        frmCarritoPacha.Show 1
-        Timer3.Enabled = True
-    End If
+'    End If
+'
+'    If PachaMode = 11000 Then
+'        Carrito.AddFile lblCanciones(selDiscoI(-3)).Tag
+'
+'        Timer3.Enabled = False
+'        VengoDeCarrito = True
+'        frmCarritoPacha.Show 1
+'        Timer3.Enabled = True
+'    End If
 End Sub
 
 Private Sub btBUYDisco_Click()
-    If PachaMode = 10000 Then
+'    If PachaMode = 10000 Then
         Carrito.AddFolder txtInLista(MATRIZ_DISCOS(nDiscoGral), 0, ",")
         
         Timer3.Enabled = False
         VengoDeCarrito = True
         frmCarrito.Show 1
         Timer3.Enabled = True
-    End If
-    
-    If PachaMode = 11000 Then
-        Carrito.AddFile lblCanciones(selDiscoI(-3)).Tag
-        
-        Timer3.Enabled = False
-        VengoDeCarrito = True
-        frmCarritoPacha.Show 1
-        Timer3.Enabled = True
-    End If
-    
+'    End If
+'
+'    If PachaMode = 11000 Then
+'        Carrito.AddFile lblCanciones(selDiscoI(-3)).Tag
+'
+'        Timer3.Enabled = False
+'        VengoDeCarrito = True
+'        frmCarritoPacha.Show 1
+'        Timer3.Enabled = True
+'    End If
+'
 End Sub
 
 Private Sub btSalir_Click()
@@ -1288,16 +1393,23 @@ End Sub
 Private Sub cmdPagAd_Click()
     If MostrarTouch Then
         tERR.Anotar "acam", EstoyEnDisco
-        If EsVideo And Salida2 = False Then
+        If EsVideo And Salida2 = False Then 'si estoy pasando un video en el monitor
             Form_KeyDown TeclaDER, 0
         Else
-            Form_KeyDown TeclaPagAd, 0
+            'si estoy en modo 5 teclas y tengo habilitado el touch screen
+            'los botones de los costados deberían pasar página
+            EsModo5PeroLabura46 = (EsVideo And (Salida2 = False) And (IsMod46Teclas = 5))
+            If IsMod46Teclas = 5 And EsModo5PeroLabura46 = False Then
+                PasarPaginaAdelante
+            Else
+                Form_KeyDown TeclaPagAd, 0
+            End If
         End If
     End If
 End Sub
 
 Private Sub cmdPagAd_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    IMF = ExtraData.GetImagePath("touchderechaapretado")
+    IMF = ExtraData.getDef.getImagePath("touchderechaapretado")
     cmdPagAd.Picture = LoadPicture(IMF)
 End Sub
 
@@ -1307,7 +1419,7 @@ End Sub
 'End Sub
 
 Private Sub cmdPagAd_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    IMF = ExtraData.GetImagePath("touchderechanormal")
+    IMF = ExtraData.getDef.getImagePath("touchderechanormal")
     cmdPagAd.Picture = LoadPicture(IMF)
 End Sub
 
@@ -1318,7 +1430,14 @@ Private Sub cmdPagAt_Click()
         If EsVideo And Salida2 = False Then
             Form_KeyDown TeclaIZQ, 0
         Else
-            Form_KeyDown TeclaPagAt, 0
+            'si estoy en modo 5 teclas y tengo habilitado el touch screen
+            'los botones de los costados deberían pasar página
+            EsModo5PeroLabura46 = (EsVideo And (Salida2 = False) And (IsMod46Teclas = 5))
+            If IsMod46Teclas = 5 And EsModo5PeroLabura46 = False Then
+                PasarPaginaAtras
+            Else
+                Form_KeyDown TeclaPagAt, 0
+            End If
         End If
     End If
 End Sub
@@ -1329,12 +1448,12 @@ End Sub
 'End Sub
 
 Private Sub cmdPagAt_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    IMF = ExtraData.GetImagePath("touchizqapretado")
+    IMF = ExtraData.getDef.getImagePath("touchizqapretado")
     cmdPagAt.Picture = LoadPicture(IMF)
 End Sub
 
 Private Sub cmdPagAt_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    IMF = ExtraData.GetImagePath("touchizqnormal")
+    IMF = ExtraData.getDef.getImagePath("touchizqnormal")
     cmdPagAt.Picture = LoadPicture(IMF)
 End Sub
 
@@ -1351,22 +1470,22 @@ Private Sub cmdTouchArriba_Click()
 End Sub
 
 Private Sub cmdTouchArriba_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    IMF = ExtraData.GetImagePath("tocuharribaelegido")
+    IMF = ExtraData.getDef.getImagePath("tocuharribaelegido")
     cmdTouchArriba.Picture = LoadPicture(IMF)
 End Sub
 
 Private Sub cmdTouchArriba_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    IMF = ExtraData.GetImagePath("tocuharribacomun")
+    IMF = ExtraData.getDef.getImagePath("tocuharribacomun")
     cmdTouchArriba.Picture = LoadPicture(IMF)
 End Sub
 
 Private Sub cmdTouchAbajo_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    IMF = ExtraData.GetImagePath("touchabajoelegido")
+    IMF = ExtraData.getDef.getImagePath("touchabajoelegido")
     cmdTouchAbajo.Picture = LoadPicture(IMF)
 End Sub
 
 Private Sub cmdTouchAbajo_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    IMF = ExtraData.GetImagePath("touchabajocomun")
+    IMF = ExtraData.getDef.getImagePath("touchabajocomun")
     cmdTouchAbajo.Picture = LoadPicture(IMF)
 End Sub
 
@@ -1375,22 +1494,22 @@ Private Sub cmdTouchArriba2_Click()
 End Sub
 
 Private Sub cmdTouchArriba2_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    IMF = ExtraData.GetImagePath("tocuharribaelegido")
+    IMF = ExtraData.getDef.getImagePath("tocuharribaelegido")
     cmdTouchArriba2.Picture = LoadPicture(IMF)
 End Sub
 
 Private Sub cmdTouchArriba2_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    IMF = ExtraData.GetImagePath("tocuharribacomun")
+    IMF = ExtraData.getDef.getImagePath("tocuharribacomun")
     cmdTouchArriba2.Picture = LoadPicture(IMF)
 End Sub
 
 Private Sub cmdTouchAbajo2_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    IMF = ExtraData.GetImagePath("touchabajoelegido")
+    IMF = ExtraData.getDef.getImagePath("touchabajoelegido")
     cmdTouchAbajo2.Picture = LoadPicture(IMF)
 End Sub
 
 Private Sub cmdTouchAbajo2_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    IMF = ExtraData.GetImagePath("touchabajocomun")
+    IMF = ExtraData.getDef.getImagePath("touchabajocomun")
     cmdTouchAbajo2.Picture = LoadPicture(IMF)
 End Sub
 
@@ -1398,7 +1517,9 @@ End Sub
 Private Sub Form_Activate()
     On Error GoTo regERR
     
-    If TengoBluetooth Then BTM.UseEventMSG tBT.HWND
+    If TengoBluetooth Then
+        BTM.UseEventMSG tBT.HWND
+    End If
     
     tERR.Anotar "acan"
     MostrarCursor False
@@ -1423,7 +1544,7 @@ regERR:
         tERR.AppendSinHist "SetFOC"
     Else
         tERR.Anotar "errACAP"
-        tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".acap"
+        tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acap"
     End If
 End Sub
 
@@ -1456,8 +1577,8 @@ Public Sub StartVu(sModo As String) 'empezar a medir sonido
             'AnchoBarra = pVU1.Width
             VU.ModoVumetro = UnaImagenSobreOtra 'imagenes prendido apagado
             pVU1.Left = 0
-            pVU1.Top = 0 'frDiscos.Top
-            
+            pVU1.Top = frDiscos.Top
+            pVU1.Height = frDiscos.Height
             If EstoyEnModoVideoMiniSelDisco Then
                 pVU3.Left = frModoVideo.Left - pVU3.Width
             Else
@@ -1465,15 +1586,21 @@ Public Sub StartVu(sModo As String) 'empezar a medir sonido
             End If
             'pVU2.Width = AnchoBarra
             pVU3.Top = pVU1.Top
-            'pVU2.Height = pVU1.Height
+            
             pVU2.Top = pVU1.Top
             pVU2.Left = pVU1.Left
             
             pVU4.Top = pVU3.Top
             pVU4.Left = pVU3.Left
             
+            pVU2.Height = pVU1.Height
+            pVU3.Height = pVU1.Height
+            pVU4.Height = pVU1.Height
+            
             pVU3.Visible = True
             pVU4.Visible = True
+            
+            
     End Select
     
     'pVU1.BackColor = vbBlack
@@ -1509,7 +1636,7 @@ Public Sub StartVu(sModo As String) 'empezar a medir sonido
             End If
         End If
     End If
-    
+    picFondo.ZOrder 'para que tape el vumetro en casos especiales
     If HabilitarVUMetro Then VU.NotifyResizeVUM
     
 End Sub
@@ -1519,7 +1646,14 @@ Private Sub ProcessKeyCoin(Tecla As Integer, isDown As Long)
     '0 es up
     '1 es down
     '2 viene de la api que no sabe
-    lblNOCREDIT.Visible = False
+    
+    'este dentro o fuera de un disco no se debe mostrar
+    'si estoy en la lista de discos le aviso si hay musica vip
+    If EstoyEnDisco = 1 Then
+        lblNOCREDIT.Caption = getStrMusicaVIP 'deja vacio si no esta activado el vip o pone lo que va
+    Else
+        lblNOCREDIT.Caption = ""
+    End If
     '***********************************************************
     'si es 0 o 1 y yo uso los 2 ignorar para que no duplique!!!!
     If GK.IsLisen Then
@@ -1586,6 +1720,8 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         Case TeclaDER: TECLAS_PRES = TECLAS_PRES + "2"
         Case TeclaOK
             TECLAS_PRES = TECLAS_PRES + "3"
+            'cuento cuanto tiempo se aprieta para entrar al tema VIP
+            If TimePressTeclaOK = -1 Then TimePressTeclaOK = Timer
         Case TeclaESC: TECLAS_PRES = TECLAS_PRES + "4"
         Case TeclaPagAd: TECLAS_PRES = TECLAS_PRES + "5"
         Case TeclaPagAt: TECLAS_PRES = TECLAS_PRES + "6"
@@ -1598,6 +1734,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     VerClaves TECLAS_PRES
     '*******************************************************
     
+    '*******************************************************
     'y si no es una ficha la que se esta cargando
     'aqui se regsitran las presiones de las teclas elegidas
     Dim PagNum As Long
@@ -1612,6 +1749,10 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         RealKeyCode = KeyCode
         If KeyCode = 13 Then
             RealKeyCode = 108
+            'tambien controlo el tiempo si el tipo configuro la tecla enter del teclado numerico
+            If TeclaOK = 108 Then
+                If TimePressTeclaOK = -1 Then TimePressTeclaOK = Timer
+            End If
         End If
         'ademas si esta apretado el BLOQ NUM
     Else
@@ -1620,15 +1761,14 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         RealKeyCode = KeyCode
     End If
     tERR.Anotar "acat", KeyCode, RealKeyCode, Shift
+    
     '----------------------------------------
     'esta tecla es IZQ en el modo 46 pasandpo de arriba aa abjo y _
         siguiendo a la pag ant en el modo 5
     'para el modo video y en modo46=5 se pasan como páginas!
     '----------------------------------------
         
-    EsModo5PeroLabura46 = (EsVideo And _
-        Salida2 = False And _
-        IsMod46Teclas = 5)
+    EsModo5PeroLabura46 = (EsVideo And (Salida2 = False) And (IsMod46Teclas = 5))
     
     tERR.Anotar "acau", EsModo5PeroLabura46, EsVideo, Salida2, IsMod46Teclas
     '----------------------------------------
@@ -1727,26 +1867,9 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
                     tERR.Anotar "acax"
                     Form_KeyDown TeclaDER, 0
                 End If
+                
                 If IsMod46Teclas = 46 Then 'EN ESTE CASO NO ES LO MISMO 'Or EsModo5PeroLabura46 Then
-                    'esta tecla es pagina adelante en el modo 46 y abajo en el modo 5
-                    tERR.Anotar "acay", nDiscoGral, TapasMostradasH, TapasMostradasV
-                    PagNum = nDiscoGral \ (TapasMostradasH * TapasMostradasV)
-                    
-                    Dim PrimeroDeLaPaginaQueSigue As Long
-                    PrimeroDeLaPaginaQueSigue = (PagNum + 1) * (TapasMostradasH * TapasMostradasV)
-                    tERR.Anotar "acaz", PrimeroDeLaPaginaQueSigue, TOTAL_DISCOS
-                    'NUEVO DE 6.5, pasa a la primer página
-                    'ACA LE PUSE >= esra solo=!!!!
-                    If PrimeroDeLaPaginaQueSigue >= TOTAL_DISCOS Then
-                        PrimeroDeLaPaginaQueSigue = 0
-                    End If
-                    'supongo que lo puse para que no desseleccione el mismo _
-                        que va a seleccionar???
-                    If nDiscoSEL <> 0 Then UnSelDisco nDiscoSEL
-                    tERR.Anotar "acba", nDiscoSEL
-                    DiscosEnPagina = CargarDiscos(PrimeroDeLaPaginaQueSigue, True, 1)
-                    'lblTOTdiscos = "Disco " + CStr(PrimeroDeLaPaginaQueSigue + 1) + " de " + CStr(TOTAL_DISCOS)
-                    nDiscoSEL = 0
+                    PasarPaginaAdelante
                 End If
                 'si esta eligiendo discos en modo video min es
                 'totalmente desitinto, solo va al que sigue
@@ -1778,42 +1901,20 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         
         Case TeclaCarrito
             'cuanto cuanto lo tiene apretado para ver si entro cargando lo elegido al carrito o no
+            'aqui empiezo a contar el tiempo
             If TimePressTeclaCart = -1 Then TimePressTeclaCart = Timer
         Case TeclaPagAt
-            
             If EstoyEnDisco = 0 Then
-            
                 If EsModo5PeroLabura46 Then
                     tERR.Anotar "acbd"
                     'esto confirma que es modo 5
                     Form_KeyDown TeclaIZQ, 0
                 End If
                 If IsMod46Teclas = 46 Then 'EN ESTE CASO NO ES LO MISMO 'Or EsModo5PeroLabura46 Then
-                    'esta tecla es pagina atras en el modo 46 y arriba en el modo 5
-                    PagNum = nDiscoGral \ (TapasMostradasH * TapasMostradasV)
-                    tERR.Anotar "acbe", nDiscoGral, TapasMostradasH, TapasMostradasV, PagNum
-                    Dim PrimeroDeLaPaginaQueAnterior As Long
-                    'NUEVO DE 6.5, se va a la ultima pagina
-                    If PagNum > 0 Then
-                        PrimeroDeLaPaginaQueAnterior = (PagNum - 1) * (TapasMostradasH * TapasMostradasV)
-                    Else
-                        Dim tmpUbic2 As Long
-                        'primero ver cuantas pags ENTERAS hay!
-                        tmpUbic2 = (TOTAL_DISCOS - 1) \ (TapasMostradasH * TapasMostradasV)
-                        'despues saber cuantos discos sobran la ultima pagina
-                        tmpUbic2 = TOTAL_DISCOS - ((TapasMostradasH * TapasMostradasV) * tmpUbic2)
-                        'ahora saber que posicion ocupa el primero de los que sobran el ultima pàgina
-                        tmpUbic2 = TOTAL_DISCOS - tmpUbic2
-                        PrimeroDeLaPaginaQueAnterior = tmpUbic2
-                    End If
-                    tERR.Anotar "acbf", PrimeroDeLaPaginaQueAnterior, nDiscoSEL
-                    If nDiscoSEL <> 0 Then UnSelDisco nDiscoSEL
-                    DiscosEnPagina = CargarDiscos(PrimeroDeLaPaginaQueAnterior, False, TapasMostradasV)
-                    tERR.Anotar "acbg", PrimeroDeLaPaginaQueAnterior, nDiscoSEL
-                    'lblTOTdiscos = "Disco " + CStr(nDiscoGral + 1) + " de " + CStr(TOTAL_DISCOS)
+                    PasarPaginaAtras
                 End If
                 If IsMod46Teclas = 5 And EsModo5PeroLabura46 = False Then
-                    
+                        
                     'ver que no se vaya a la mierda!!!
                     Dim DiskToGo2 As Long
                     DiskToGo2 = nDiscoSEL - TapasMostradasH
@@ -2112,16 +2213,21 @@ Mod46:
             YaCerrar3PM
         Case TeclaESC
             tERR.Anotar "acdo"
+            'si estoy fuera de los discos solo me importa si estoy en modo video dentro de un disco
             If EstoyEnDisco = 0 Then
-            
                 If ModoVideoSelTema Then 'esta eligiendo canciones dentro del disco
                     AcomodarModoTexto 1
                     ModoVideoSelTema = False 'ya no esta mas!!
+                Else
+                    'en cualquier otro caso el escape pasa de un ritmo a otro
+                    goNextRitmo
                 End If
             End If
             
-            'solo dejar todo como estaba!
-            If EstoyEnDisco = 1 Then UnSuperSel
+            'si estoy dentro de un disco salgo
+            If EstoyEnDisco = 1 Then
+                UnSuperSel
+            End If
                 
         Case vbKeyF12
             MostrarCursor True
@@ -2134,9 +2240,56 @@ FinKD:
     Exit Sub
     
 FallaKD:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".acas"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acas"
     Resume Next
 
+End Sub
+
+Private Sub PasarPaginaAtras()
+    'esta tecla es pagina atras en el modo 46 y arriba en el modo 5
+    PagNum = nDiscoGral \ (TapasMostradasH * TapasMostradasV)
+    tERR.Anotar "acbe", nDiscoGral, TapasMostradasH, TapasMostradasV, PagNum
+    Dim PrimeroDeLaPaginaQueAnterior As Long
+    'NUEVO DE 6.5, se va a la ultima pagina
+    If PagNum > 0 Then
+        PrimeroDeLaPaginaQueAnterior = (PagNum - 1) * (TapasMostradasH * TapasMostradasV)
+    Else
+        Dim tmpUbic2 As Long
+        'primero ver cuantas pags ENTERAS hay!
+        tmpUbic2 = (TOTAL_DISCOS - 1) \ (TapasMostradasH * TapasMostradasV)
+        'despues saber cuantos discos sobran la ultima pagina
+        tmpUbic2 = TOTAL_DISCOS - ((TapasMostradasH * TapasMostradasV) * tmpUbic2)
+        'ahora saber que posicion ocupa el primero de los que sobran el ultima pàgina
+        tmpUbic2 = TOTAL_DISCOS - tmpUbic2
+        PrimeroDeLaPaginaQueAnterior = tmpUbic2
+    End If
+    tERR.Anotar "acbf", PrimeroDeLaPaginaQueAnterior, nDiscoSEL
+    If nDiscoSEL <> 0 Then UnSelDisco nDiscoSEL
+    DiscosEnPagina = CargarDiscos(PrimeroDeLaPaginaQueAnterior, False, TapasMostradasV)
+    tERR.Anotar "acbg", PrimeroDeLaPaginaQueAnterior, nDiscoSEL
+    'lblTOTdiscos = "Disco " + CStr(nDiscoGral + 1) + " de " + CStr(TOTAL_DISCOS)
+End Sub
+
+Private Sub PasarPaginaAdelante()
+    'esta tecla es pagina adelante en el modo 46 y abajo en el modo 5
+    tERR.Anotar "acay", nDiscoGral, TapasMostradasH, TapasMostradasV
+    PagNum = nDiscoGral \ (TapasMostradasH * TapasMostradasV)
+    
+    Dim PrimeroDeLaPaginaQueSigue As Long
+    PrimeroDeLaPaginaQueSigue = (PagNum + 1) * (TapasMostradasH * TapasMostradasV)
+    tERR.Anotar "acaz", PrimeroDeLaPaginaQueSigue, TOTAL_DISCOS
+    'NUEVO DE 6.5, pasa a la primer página
+    'ACA LE PUSE >= esra solo=!!!!
+    If PrimeroDeLaPaginaQueSigue >= TOTAL_DISCOS Then
+        PrimeroDeLaPaginaQueSigue = 0
+    End If
+    'supongo que lo puse para que no desseleccione el mismo _
+        que va a seleccionar???
+    If nDiscoSEL <> 0 Then UnSelDisco nDiscoSEL
+    tERR.Anotar "acba", nDiscoSEL
+    DiscosEnPagina = CargarDiscos(PrimeroDeLaPaginaQueSigue, True, 1)
+    'lblTOTdiscos = "Disco " + CStr(PrimeroDeLaPaginaQueSigue + 1) + " de " + CStr(TOTAL_DISCOS)
+    nDiscoSEL = 0
 End Sub
 
 Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
@@ -2186,11 +2339,14 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
     If EsVideo And (Salida2 = False) And vidFullScreen Then
         'ni bosta de carrito!
         TimePressTeclaCart = 0
+        'no puede elegir canciones VIP
+        TimePressTeclaOK = 0
     Else
         If RealKeyCode = TeclaCarrito Then
             TimePressTeclaCart = Timer - TimePressTeclaCart
-            'puede entrar agregando o no al carrito
             
+            'puede entrar agregando o no al carrito
+            'si deja apretado 2 segundos la tecla de carrito entra sin agregar!
             If TimePressTeclaCart <= 1.5 Then
                 'ver si esta en la lista de discos o en las carpetas
                 If EstoyEnDisco = 1 Then
@@ -2199,7 +2355,7 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
                     Carrito.AddFolder txtInLista(MATRIZ_DISCOS(nDiscoGral), 0, ",")
                 End If
             End If
-            
+            'entro al carrito haya agregado o no
             'mostrar para que vea, corrija, revise y copie o siga
             frmIndex.Timer3.Enabled = False
             VengoDeCarrito = True
@@ -2216,6 +2372,11 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
         GoTo FinUP
     End If
     
+    If RealKeyCode = TeclaCancionVIP Then
+        RealKeyCode = TeclaOK
+        TimePressTeclaOK = 99 'hago como que esta apretado hace mucho
+    End If
+    
     If (RealKeyCode = TeclaOK) Or (TeclaOK = 108 And RealKeyCode = 13) Then
         'al salir del carrito quiere entrar al disco
         If VengoDeCarrito Then
@@ -2227,7 +2388,7 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             'si estoy en video
             'saber si estoy eligiendo tema. Si no estoy en disco
             tERR.Anotar "accv", nDiscoGral, nDiscoSEL, ModoVideoSelTema
-            If ModoVideoSelTema Then
+            If ModoVideoSelTema Then 'estoy con las canciones desplegadas en modo texto de algun disco
                 'si esta en fullscreen NO EJECUTAR!!!
                 'solo si no sale por la segunda salida!!!
                 If EsVideo And vidFullScreen And Salida2 = False Then GoTo FinUP 'fin keydown
@@ -2248,8 +2409,15 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
                     temaElegido = txtInLista(MATRIZ_TEMAS(TemaElegidoModoVideo), 0, "#")
                     tERR.Anotar "accx", temaElegido, CREDITOS
                     
+                    'ver si se apreto 2 o mas segundos (o si apreto la tecla de vip directo (99))
+                    If TimePressTeclaOK <> 99 Then
+                        TimePressTeclaOK = Timer - TimePressTeclaOK
+                    End If
+                    Dim isVip As Boolean 'ver si lo dejo mucho apretado es un VIP
+                    isVip = (TimePressTeclaOK > 1.5) And PrecNowVIP > 0
+                    TimePressTeclaOK = -1 'listo ya lo use
                     Dim S36 As Long
-                    S36 = TrataEjecutarTema(temaElegido)
+                    S36 = TrataEjecutarTema(temaElegido, isVip)
                     tERR.Anotar "accx", S36
                     If S36 = 2 Then 'ya esta ejecutando otra cosa!
                         'volver a elegir discos
@@ -2259,7 +2427,9 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
                 End If
             
             Else 'ELSE DEL MODOVIDEO SEL TEMA
-            
+                
+                TimePressTeclaOK = -1 'no se usa aca
+                
                 'ver si hay que mostrar el frm
                 'o estamos en MODO VIDEO
                 tERR.Anotar "acdd"
@@ -2268,7 +2438,7 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
                 'pero si estoy viendo el video en salida2 es video sera verdadero
                 'pero de todas formas no veo als lista de texto y sigo igual
                 'solo si esvideo y necesito el modo texto del video!!!!
-                If EsVideo And Salida2 = False Then
+                If EsVideo And (Salida2 = False) Then
                     AcomodarModoTexto 2
                     'cargar los temas multimedia en t()
                     'es una matriz global
@@ -2292,7 +2462,7 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
                     '----------------------------
                     'a daniel cruz le da un error como si se volviera a cargar algo que esta cargado
                     'por lo tanto tengo que poner un manejador de error aqui, unico lugar en que se carga esto
-                    For Each LLL In frmIndex.T
+                    For Each LLL In frmIndex.T 't(x) son los labels con las canciones en modo video
                         If LLL.Index > 0 Then Unload LLL
                     Next
                     '----------------------------
@@ -2322,9 +2492,16 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
             End If
         End If
         
-        If EstoyEnDisco = 1 Then
+        If EstoyEnDisco = 1 Then 'estoy dentro de un disco
+            If TimePressTeclaOK <> 99 Then
+                TimePressTeclaOK = Timer - TimePressTeclaOK
+            End If
+            Dim isVip2 As Boolean 'ver si lo dejo mucho apretado es un VIP
+            isVip2 = (TimePressTeclaOK > 1.5) And PrecNowVIP > 0
+            TimePressTeclaOK = -1 'listo ya lo use
+            
             OkInState1 = OkInState1 + 1 'la primera no va!
-            If OkInState1 > 1 Then EjecutarDeTouch
+            If OkInState1 > 1 Then EjecutarDeTouch isVip2
         End If
     End If
     
@@ -2335,7 +2512,7 @@ FinUP:
     Exit Sub
 
 FallaKD:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".acdr"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acdr"
     Resume Next
 
 End Sub
@@ -2349,16 +2526,9 @@ Private Sub AcomodarModoTexto(lModo As Long)
     'cada uno tendra variaciones segun si esta en modo touch o no
     '*********************************
     tERR.Anotar "acdp", nDiscoSEL, nDiscoGral
-    
     '*********************************
     'hay cosas universales (la parte de arriba)
-    If MostrarTouch Then
-        
-    Else
-        
-    End If
-
-    ' ... y otras que dependen de lo que se muestra
+    'y otras que dependen de lo que se muestra
     
     If lModo = 1 Then
         If MostrarTouch Then
@@ -2377,7 +2547,7 @@ Private Sub AcomodarModoTexto(lModo As Long)
         
         frModoVideo.Top = lblModoVideo.Top + lblModoVideo.Height
         
-        frModoVideo.Height = Me.Height - (lblModoVideo.Top + lblModoVideo.Height + _
+        frModoVideo.Height = frDiscos.Height - lblModoVideo.Height - 150 ' Me.Height - (lblModoVideo.Top + lblModoVideo.Height + _
                                           picFondo.Height + picFondo2.Height) - 333
                                           
         'frModoVideo.Height = frDiscos.Height - 200 - _
@@ -2443,8 +2613,9 @@ Private Sub AcomodarModoTexto(lModo As Long)
 End Sub
 
 
-Private Sub EjecutarDeTouch()
-
+Private Sub EjecutarDeTouch(Optional ToVIP As Boolean = False)
+    'opcionalmente puedo avisar si es un tema VIP
+    
     On Local Error GoTo errDTouch
     tERR.Anotar "caaa"
     
@@ -2462,10 +2633,10 @@ Private Sub EjecutarDeTouch()
     End If
     
     Dim S37 As Long
-    S37 = TrataEjecutarTema(lblCanciones(Fg).Tag)
+    S37 = TrataEjecutarTema(lblCanciones(Fg).Tag, ToVIP)
     tERR.Anotar "caac", S37
     If S37 = 1 Then 'si no alcanza el credito avisar!
-        lblNOCREDIT.Visible = True
+        lblNOCREDIT.Caption = TR.Trad("CREDITO INSUFICIENTE%99%")
         Exit Sub
     End If
     
@@ -2490,7 +2661,7 @@ Private Sub EjecutarDeTouch()
     Exit Sub
     
 errDTouch:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".acdu5"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acdu5"
     Resume Next
 End Sub
 
@@ -2515,11 +2686,22 @@ Private Sub Form_Load()
     
     Traducir 'Agregado por el complemento traductor
     
+    'escribir el hwnd que escucho lo que me dice desde otros exes
+    'EscribirArch1Linea2 AP + "hd.wan", getWAN(tUltra.HWND)
+    
+    'si no se cierra bien se empiezan a acumular
+'    'lanzar el asistant si existe!
+'    If fso.FileExists(AP + "tius.exe") Then
+'        Shell AP + "tius.exe", vbNormalFocus
+'    End If
+    
+    tERR.Anotar "some" 'que empieze a registrar
+    
     Degrade frTEMAS, 1
     Degrade frModoVideo, 1
     
     'no puedo hacer referencia a ningun objeto de frmIndex por que lo cargaria antes de tiempo
-    IMF = ExtraData.GetImagePath("vumetroprendido")
+    IMF = ExtraData.getDef.getImagePath("vumetroprendido")
     'temporalmente uso pVu1 pero puede ser cualquiera es solo por que no se cuanto tiene de ancho la imagen segun el skin
     pVU1.AutoSize = True
     pVU1.Picture = LoadPicture(IMF)
@@ -2527,30 +2709,41 @@ Private Sub Form_Load()
     pVU1.Picture = LoadPicture
     pVU1.AutoSize = False
     
+    lblNOCREDIT.Caption = ""
+    lblNOCREDIT.Visible = True
+    
     tERR.Anotar "sVU01"
     Me.BackColor = vbBlack
     'dejo todo definido en el vumetro
-    
+    Dim LCs3 As String
+    LCs3 = LeerConfig("UsarS3", "0")
+    tERR.Anotar "sVU01-s3", LCs3
     'no se activa escuchar por el puerto si no esta configurado
-    If LeerConfig("UsarS3", "0") = "1" Then
+    If LCs3 = "1" Then
+        tERR.Anotar "faaa"
         Set s3 = New tbrSKS3.clsTbrSKS3
         '*************************
         s3.HwndMsg = txtS3.HWND
+        
+        'tERR.AppendLog "S3_1:" + CStr(txtS3.HWND)
+        
         s3.ReIniCounters 'son los mios
+        tERR.Anotar "faab"
         s3.Prender
         s3.SetInterval CLng(LeerConfig("FrecTecladoTBR", "50"))
         
+        tERR.Anotar "faac"
         s3.Prender
         
         esperar 1
         
         s3.ReIniContLuis
-        
+        tERR.Anotar "faad"
         esperar 1
         
         'obtener el numero de placa
         NP = CLng(s3.GetnPlaca(SYSfolder + "prec.dll"))
-        
+        tERR.Anotar "faae" + CStr(NP)
         If NP = -1 Then
             'mLog "No se podido comenzar la prueba. Quizas la interfase no este conectada o sea una versión solo botones"
             'Exit Sub
@@ -2563,8 +2756,9 @@ Private Sub Form_Load()
         Dim J As Long, RET As Long, cRet As Long
         cRet = 0
         For J = 1 To 10
-            RET = s3.AddCont(J Mod 4, TimOut)
             
+            RET = s3.AddCont(J Mod 4, TimOut)
+            tERR.Anotar "faaf", J, RET
             If RET = 2 Then 'time out
                 tERR.Anotar "***** TIME OUT - CONT:" + CStr(J) + " (timeout!) " + s3.GetResLicSTR
             End If
@@ -2586,35 +2780,52 @@ Private Sub Form_Load()
                 Exit For
             End If
         Next J
+        tERR.Anotar "faag", cRet
         '*************************
         Wueltas = cRet
         If Wueltas < 8 Then
             tERR.AppendLog "Fin i2H" + CStr(Wueltas) + "." + CStr(J)
         Else
+            s3.ToTimer2 True
             'cambio el ADN
             tERR.Set_ADN CStr(App.Major * 100000 + App.Minor * 1000 + App.Revision) + " " + CStr(NP) + " " + CStr(Wueltas) + " wv:" + WVER
             tERR.AppendSinHist CStr(Wueltas) + "_2100_H_" + CStr(NP)
             
             K.IngresaClave "3pm", False
         End If
+        
+        
+        
+        
     End If
+    tERR.Anotar "eaap"
     
     UB.SoloDispositivosUSB = True
     UB.Iniciar Me
     
     TengoBluetooth = CBool(CLng(LeerConfig("TengoBluetooth", "0")))
     
+    Me.Caption = "QTIO232087402198347"
+    tERR.Anotar "eaaq", TengoBluetooth
+    
     If TengoBluetooth Then
-        UsarBluetooth 'indica en el modulo que se usa la referencia al objeto BTManager
-        Set BTM = BtManager
-        BTM.initialize
-        BTM.RegisterCallBack
+        'indica en el modulo que se usa la referencia al objeto BTManager
+        'tbrBtActivex.UsarBluetooth
+        tERR.Anotar "eaar"
+        Set BTM = tbrBtActivex.btManager
+        
+        tbrBtActivex.SetWindowMsg Me.HWND
+        
+        BTM.Initialize
     End If
+    
+    tERR.Anotar "eaas"
     
     Set VU = New tbrSoftVumetro.tbrDrawVUM
     Dim UAT As String
     
     UAT = LeerConfig("UseAPITecla", "0")
+    tERR.Anotar "eaat", UAT
     'la declaro para que pueda saberse el Islisen que es necesario !!!!
     Set GK = New tbrGetKeys
     If UAT <> "0" Then
@@ -2623,6 +2834,8 @@ Private Sub Form_Load()
         TMP44 = CStr(TeclaNewFicha) + " " + CStr(TeclaNewFicha2)
         GK.Startlisen TMP44
     End If
+    
+    tERR.Anotar "eaau", HabilitarVUMetro
     
     EstoyEnDisco = 0
     
@@ -2638,10 +2851,10 @@ Private Sub Form_Load()
             VU.DefinePictureBox3 pVU3
             VU.DefinePictureBox4 pVU4
             
-            IMF = ExtraData.GetImagePath("vumetroprendido")
+            IMF = ExtraData.getDef.getImagePath("vumetroprendido")
             VU.DefineImage 1, IMF, True
             VU.DefineImage 3, IMF, True
-            IMF = ExtraData.GetImagePath("vumetroapagado")
+            IMF = ExtraData.getDef.getImagePath("vumetroapagado")
             VU.DefineImage 2, IMF, True
             VU.DefineImage 4, IMF, True
             
@@ -2654,6 +2867,8 @@ Private Sub Form_Load()
             VU.ColorBase = vbRed
         End If
     End If
+    
+    picFondo.ZOrder 'para que tape el vumetro en casos especiales
     
     tERR.Anotar "cMM"
     Set MP3 = New tbrPlayer02.MainPlayer
@@ -2693,34 +2908,38 @@ Private Sub Form_Load()
             
     If MostrarTouch Then
         'imagenes del touch screen
-        IMF = ExtraData.GetImagePath("touchizqnormal")
+        IMF = ExtraData.getDef.getImagePath("touchizqnormal")
         cmdPagAt.Picture = LoadPicture(IMF)
-        IMF = ExtraData.GetImagePath("touchderechanormal")
+        IMF = ExtraData.getDef.getImagePath("touchderechanormal")
         cmdPagAd.Picture = LoadPicture(IMF)
-        IMF = ExtraData.GetImagePath("botonokcomun")
+        IMF = ExtraData.getDef.getImagePath("botonokcomun")
         imgSELEC.Picture = LoadPicture(IMF)
+        IMF = ExtraData.getDef.getImagePath("botonokcomunvip")
+        Dim j33 As Boolean
+        j33 = fso.FileExists(IMF)
+        ImgSelecVIP.Picture = LoadPicture(IMF)
         
-        IMF = ExtraData.GetImagePath("botonsalirnormal")
+        IMF = ExtraData.getDef.getImagePath("botonsalirnormal")
         imgSALIR.Picture = LoadPicture(IMF)
         
         imgSelec2.Picture = imgSELEC.Picture
-        IMF = ExtraData.GetImagePath("tocuharribacomun")
+        IMF = ExtraData.getDef.getImagePath("tocuharribacomun")
         cmdTouchArriba.Picture = LoadPicture(IMF)
-        IMF = ExtraData.GetImagePath("touchabajocomun")
+        IMF = ExtraData.getDef.getImagePath("touchabajocomun")
         cmdTouchAbajo.Picture = LoadPicture(IMF)
         cmdTouchArriba2.Picture = cmdTouchArriba.Picture
         cmdTouchAbajo2.Picture = cmdTouchAbajo.Picture
     End If
     
     'ver si es superlicencia y usa otra tapa predeterminada
-    If K.LICENCIA("3pm") = HSuperLicencia Then
+    If K.sabseee("3pm") = Supsabseee Then
         If fso.FileExists(GPF("tddp322")) Then
             IMF = GPF("tddp322")
         Else
-            IMF = ExtraData.GetImagePath("tapapredeterminada")
+            IMF = ExtraData.getDef.getImagePath("tapapredeterminada")
         End If
     Else
-        IMF = ExtraData.GetImagePath("tapapredeterminada")
+        IMF = ExtraData.getDef.getImagePath("tapapredeterminada")
     End If
     
     tbrPassImg1.Picture IMF
@@ -2737,8 +2956,8 @@ Private Sub Form_Load()
     '*****************************
     
     'imagenes no cargadas, ver si hay algo configurado para el fondo
-    IMF = ExtraData.GetImagePath("FondoDeLasTapas")
-    If K.LICENCIA("3pm") = HSuperLicencia Then
+    IMF = ExtraData.getDef.getImagePath("FondoDeLasTapas")
+    If K.sabseee("3pm") = Supsabseee Then
         If fso.FileExists(GPF("iischu")) Then
             picFondoDisco.PaintPicture LoadPicture(GPF("iischu")), 0, 0, picFondoDisco.Width, picFondoDisco.Height
         Else
@@ -2785,23 +3004,23 @@ Private Sub Form_Load()
     Dim IND As Long
     'cargar imagenes para no cargar tantas veces cada vez que se mueve
     
-    IMF = ExtraData.GetImagePath("marcodiscocomun")
+    IMF = ExtraData.getDef.getImagePath("marcodiscocomun")
     imgUNSELBUP.Picture = LoadPicture(IMF)
     
-    IND = ExtraData.GetIndexImage("marcodiscocomun")
-    MargSup = ExtraData.GetFinalMargenSuperiorTra(IND) * AltoTapaDisco / 100
-    MargInf = ExtraData.GetFinalMargenInferiorTra(IND) * AltoTapaDisco / 100
-    MargDer = ExtraData.GetFinalMargenDerechoTra(IND) * AnchoTapaDisco / 100
-    MargIzq = ExtraData.GetFinalMargenIzquierdoTra(IND) * AnchoTapaDisco / 100
+    IND = ExtraData.getDef.GetIndexImage("marcodiscocomun")
+    MargSup = ExtraData.getDef.GetFinalMargenSuperiorTra(IND) * AltoTapaDisco / 100
+    MargInf = ExtraData.getDef.GetFinalMargenInferiorTra(IND) * AltoTapaDisco / 100
+    MargDer = ExtraData.getDef.GetFinalMargenDerechoTra(IND) * AnchoTapaDisco / 100
+    MargIzq = ExtraData.getDef.GetFinalMargenIzquierdoTra(IND) * AnchoTapaDisco / 100
     
-    IMF = ExtraData.GetImagePath("marcodiscoelegido")
+    IMF = ExtraData.getDef.getImagePath("marcodiscoelegido")
     imgSELBUP.Picture = LoadPicture(IMF)
     
     
-    IMF = ExtraData.GetImagePath("taparanking")
+    IMF = ExtraData.getDef.getImagePath("taparanking")
     imgTapaRankBUP.Picture = LoadPicture(IMF)
     
-    IMF = ExtraData.GetImagePath("tapapredeterminada")
+    IMF = ExtraData.getDef.getImagePath("tapapredeterminada")
     imgTapaDefBUP.Picture = LoadPicture(IMF)
     
     tERR.Anotar "acew", MostrarRotulos
@@ -2810,10 +3029,10 @@ Private Sub Form_Load()
     TapaCD(0).Height = AltoTapaDisco - (MargSup + MargInf + MargInf)
     
     If MostrarRotulos Then
-        lblDisco(0).Height = MargInf 'AltoTapaDisco * 0.19 '80%disco, 20% lbldisco
-        lblDisco(0).Width = AnchoTapaDisco - MargDer - MargIzq 'XXXX habria que ver si hay que sacar los margenes laterales
+        lblDISCO(0).Height = MargInf 'AltoTapaDisco * 0.19 '80%disco, 20% lbldisco
+        lblDISCO(0).Width = AnchoTapaDisco - MargDer - MargIzq 'XXXX habria que ver si hay que sacar los margenes laterales
     Else
-        lblDisco(0).Visible = False
+        lblDISCO(0).Visible = False
         lblDisco2(0).Visible = False
     End If
     'centrar!!
@@ -2821,21 +3040,21 @@ Private Sub Form_Load()
     IniCentrarH = EspacioEntreDiscosH
     Dim IniCentrarV As Long
     IniCentrarV = EspacioEntreDiscosV
-    lblDisco(0).Left = IniCentrarH + MargDer
+    lblDISCO(0).Left = IniCentrarH + MargDer
     TapaCD(0).Left = IniCentrarH + MargDer
     'ver si los rotulos van arriba o abajo
     tERR.Anotar "acex", RotulosArriba
     If RotulosArriba Then
-        lblDisco(0).Top = IniCentrarV
+        lblDISCO(0).Top = IniCentrarV
         TapaCD(0).Top = IniCentrarV + MargSup
     Else
         tERR.Anotar "000-0269"
         TapaCD(0).Top = IniCentrarV + MargSup
-        lblDisco(0).Top = IniCentrarV + AltoTapaDisco - (2 * MargInf) 'TapaCD(0).Top + TapaCD(0).Height - MargInf '+ 150
+        lblDISCO(0).Top = IniCentrarV + AltoTapaDisco - (2 * MargInf) 'TapaCD(0).Top + TapaCD(0).Height - MargInf '+ 150
     End If
     
     tERR.Anotar "TCD(0).TOP", TapaCD(C).Top
-    tERR.Anotar "LBL(0).TOP", lblDisco(C).Top
+    tERR.Anotar "LBL(0).TOP", lblDISCO(C).Top
     
     imageFONDO(0).Picture = imgUNSELBUP.Picture
     imageFONDO(0).Visible = True
@@ -2847,7 +3066,7 @@ Private Sub Form_Load()
     TapaCD(0).ZOrder
     imageFONDO(0).ZOrder
     lblDisco2(0).ZOrder
-    lblDisco(0).ZOrder
+    lblDISCO(0).ZOrder
  
     Dim CantDiscos As Long
     CantDiscos = TapasMostradasH * TapasMostradasV
@@ -2858,7 +3077,7 @@ Private Sub Form_Load()
         tERR.Anotar "acez", C
         C = C + 1
         Load TapaCD(C)
-        Load lblDisco(C)
+        Load lblDISCO(C)
         Load lblDisco2(C)
         Load imageFONDO(C)
         'ya toman el tamaño del original
@@ -2875,18 +3094,18 @@ Private Sub Form_Load()
         tERR.Anotar "LTA(" + CStr(C) + ")", LineaTopActual
         If C / TapasMostradasH = C \ TapasMostradasH Then
             'es una tapa al principio de linea!!!!
-            lblDisco(C).Left = IniCentrarH + MargDer
+            lblDISCO(C).Left = IniCentrarH + MargDer
             TapaCD(C).Left = TapaCD(0).Left
             TapaCD(C).Top = LineaTopActual + MargSup
             tERR.Anotar "TCD(" + CStr(C) + ").TOP", TapaCD(C).Top
             If RotulosArriba Then
-                lblDisco(C).Top = LineaTopActual
-                tERR.Anotar "LBL(" + CStr(C) + ").TOP", lblDisco(C).Top
+                lblDISCO(C).Top = LineaTopActual
+                tERR.Anotar "LBL(" + CStr(C) + ").TOP", lblDISCO(C).Top
                 TapaCD(C).Visible = True
                 imageFONDO(C).Visible = True
                 If MostrarRotulos Then
 '                   TapaCD(c).Top =lblDISCO(c).Top + lblDISCO(c).Height + 50
-                    lblDisco(C).Visible = True
+                    lblDISCO(C).Visible = True
                     lblDisco2(C).Visible = True
                 Else
 '                   TapaCD(c).Top = TapaCD(c - TapasMostradasH).Top + TapaCD(c - TapasMostradasH).Height + 50
@@ -2897,22 +3116,22 @@ Private Sub Form_Load()
 '                Else
 '                    TapaCD(c).Top = TapaCD(c - TapasMostradasH).Top + TapaCD(c - TapasMostradasH).Height + EspacioEntreDiscosV
 '                End If
-                lblDisco(C).Top = LineaTopActual + AltoTapaDisco - (2 * MargInf) 'TapaCD(c).Top + TapaCD(c).Height - MargInf '+ 150
-                tERR.Anotar "LBL(" + CStr(C) + ").TOP", lblDisco(C).Top
+                lblDISCO(C).Top = LineaTopActual + AltoTapaDisco - (2 * MargInf) 'TapaCD(c).Top + TapaCD(c).Height - MargInf '+ 150
+                tERR.Anotar "LBL(" + CStr(C) + ").TOP", lblDISCO(C).Top
                 TapaCD(C).Visible = True
                 imageFONDO(C).Visible = True
                 If MostrarRotulos Then
-                    lblDisco(C).Visible = True
+                    lblDISCO(C).Visible = True
                     lblDisco2(C).Visible = True
                 End If
             End If
         Else 'el c-1 tiene el mismo top, es cualquiera de una linea que no sea el pri de la izq
             'una tapa comun que se acomoda a la derecha de la anterior
             If RotulosArriba Then
-                lblDisco(C).Left = lblDisco(C - 1).Left + AnchoTapaDisco + EspacioEntreDiscosH + MargDer
-                lblDisco(C).Top = lblDisco(C - 1).Top
-                tERR.Anotar "LBL(" + CStr(C) + ").TOP", lblDisco(C).Top
-                TapaCD(C).Left = lblDisco(C).Left
+                lblDISCO(C).Left = lblDISCO(C - 1).Left + AnchoTapaDisco + EspacioEntreDiscosH + MargDer
+                lblDISCO(C).Top = lblDISCO(C - 1).Top
+                tERR.Anotar "LBL(" + CStr(C) + ").TOP", lblDISCO(C).Top
+                TapaCD(C).Left = lblDISCO(C).Left
                 TapaCD(C).Top = TapaCD(C - 1).Top
                 tERR.Anotar "TCD(" + CStr(C) + ").TOP", TapaCD(C).Top
                 TapaCD(C).Visible = True
@@ -2922,14 +3141,14 @@ Private Sub Form_Load()
                 TapaCD(C).Top = TapaCD(C - 1).Top
                 
                 tERR.Anotar "TCD(" + CStr(C) + ").TOP", TapaCD(C).Top
-                lblDisco(C).Left = TapaCD(C).Left
-                lblDisco(C).Top = lblDisco(C - 1).Top
-                tERR.Anotar "LBL(" + CStr(C) + ").TOP", lblDisco(C).Top
+                lblDISCO(C).Left = TapaCD(C).Left
+                lblDISCO(C).Top = lblDISCO(C - 1).Top
+                tERR.Anotar "LBL(" + CStr(C) + ").TOP", lblDISCO(C).Top
                 TapaCD(C).Visible = True
                 imageFONDO(C).Visible = True
             End If
             If MostrarRotulos Then
-                lblDisco(C).Visible = True
+                lblDISCO(C).Visible = True
                 lblDisco2(C).Visible = True
             End If
         End If
@@ -2943,7 +3162,7 @@ Private Sub Form_Load()
         TapaCD(C).ZOrder
         imageFONDO(C).ZOrder
         lblDisco2(C).ZOrder
-        lblDisco(C).ZOrder
+        lblDISCO(C).ZOrder
     Loop
     'tERR.AppendLog "LISTO TAPAS"
     tERR.Anotar "acfa"
@@ -3035,7 +3254,7 @@ Private Sub Form_Load()
     MD = CLng(Rnd * 49)
     
     tERR.Anotar "001-0063"
-    If K.LICENCIA("3pm") <= CGratuita And UBound(MATRIZ_DISCOS) > MD Then
+    If K.sabseee("3pm") <= CGratuita And UBound(MATRIZ_DISCOS) > MD Then
         'limite de discos
         tERR.Anotar "001-0064"
         MsgBox TR.Trad("Esta es una version demo y no se pueden " + _
@@ -3169,14 +3388,24 @@ Private Sub Form_Load()
             If fso.FileExists(GPF("casc1001")) Then fso.DeleteFile GPF("casc1001"), True
             Timer1.Interval = 10000
     End Select
-    
+    'quito contadores de tiempo
     TimePressTeclaCart = -1
+    TimePressTeclaOK = -1
     VerSiTocaVMute
     
     Exit Sub
 NoLoadIndex:
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".acdu"
+
+    Select Case LCase(tERR.GetLastLog)
+        Case "eaar"
+            'no se pudo inicializar el bluetooth correctamente
+            MsgBox "No se puede inicializar el bluetooth, se eliminara esta configuración"
+            ChangeConfig "TengoBluetooth", "0"
+            Resume Next
+    End Select
+
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acdu"
     Resume Next
 End Sub
 
@@ -3185,24 +3414,24 @@ Private Sub BeginRoll()
     RollCRED.SetInterval 60
     RollCRED.SetVarColor 7
     RollCRED.MaxlargoRenglon = 30
-    RollCRED.TextoACola TR.Trad("disfrute su música%99%"), vbYellow   '0 es
-    RollCRED.TextoACola TR.Trad("desafios digitales%99%"), vbGreen '1 es lista de precios
-    RollCRED.TextoACola "tbrSoft", vbRed              '2 es texto de SL al publico
-    RollCRED.TextoACola "tbrSoft", vbBlue             '3 es texto gratis al publico
+    RollCRED.TextoACola TR.Trad("disfrute su música%99%"), &HA9C8C9       '0 es
+    RollCRED.TextoACola TR.Trad("desafios digitales%99%"), &HA9C8C9     '1 es lista de precios
+    RollCRED.TextoACola "tbrSoft", &HA9C8C9              '2 es texto de SL al publico
+    RollCRED.TextoACola "tbrSoft", &HA9C8C9             '3 es texto gratis al publico
     If TOTAL_DISCOS < 2 Then
         RollCRED.TextoACola TR.Trad("NO HAY DISCOS" + vbCrLf + _
                             "Presione 'C' para ingresar" + vbCrLf + _
                             "a la configuración y utilice" + vbCrLf + _
                             "el asistente para cargar" + vbCrLf + _
                             "multimedia al sistema.%98%" + _
-                            "Arranco la fonola y no encontro musica%99%"), vbBlue
+                            "Arranco la fonola y no encontro musica%99%"), &HA9C8C9
     End If
     
-    If K.LICENCIA("3pm") <= CGratuita Then
+    If K.sabseee("3pm") <= CGratuita Then
         RollCRED.TextoACola TR.Trad("PRESIONE F3" + vbCrLf + _
             "PARA USAR EL SOFTWARE" + vbCrLf + _
             "SIN RESTRICCIONES%98%Con F3 se abre el menu de " + _
-            "licencia para comprar el programa%%99%"), vbGreen
+            "licencia para comprar el programa%%99%"), &HA9C8C9
     End If
     
     RollCRED.INI
@@ -3210,27 +3439,27 @@ Private Sub BeginRoll()
     RollSONG.SetInterval 70
     RollSONG.SetVarColor 5
     RollSONG.MaxlargoRenglon = 30
-    RollSONG.TextoACola TR.Trad("Sin reproducción%99%"), vbGreen 'cancion que se esta reproduciendo + rank
-    RollSONG.TextoACola TR.Trad("no hay proximas canciones%99%"), vbBlue 'la proxima cancion
-    RollSONG.TextoACola TR.Trad("no hay proximas canciones%99%"), vbRed 'algun elemento del ranking
+    RollSONG.TextoACola TR.Trad("Sin reproducción%99%"), &HA9C8C9 'cancion que se esta reproduciendo + rank
+    RollSONG.TextoACola TR.Trad("no hay proximas canciones%99%"), &HA9C8C9 'la proxima cancion
+    RollSONG.TextoACola TR.Trad("no hay proximas canciones%99%"), &HA9C8C9 'algun elemento del ranking
     If TOTAL_DISCOS < 2 Then
         RollSONG.TextoACola TR.Trad("NO HAY DISCOS" + vbCrLf + _
                             "Presione 'C' para ingresar" + vbCrLf + _
                             "a la configuración y utilice" + vbCrLf + _
                             "el asistente para cargar" + vbCrLf + _
                             "multimedia al sistema.%98%" + _
-                            "Arranco la fonola y no encontro musica%99%"), vbBlue
+                            "Arranco la fonola y no encontro musica%99%"), &HA9C8C9
     End If
-    If K.LICENCIA("3pm") <= CGratuita Then
+    If K.sabseee("3pm") <= CGratuita Then
         RollSONG.TextoACola TR.Trad("PRESIONE F3" + vbCrLf + _
             "PARA USAR EL SOFTWARE" + vbCrLf + _
             "SIN RESTRICCIONES%98%Con F3 se abre el menu de " + _
-            "licencia para comprar el programa%%99%"), vbGreen
+            "licencia para comprar el programa%%99%"), &HA9C8C9
     End If
     RollSONG.INI
     
-    tERR.Anotar "acep", K.LICENCIA("3pm")
-    If K.LICENCIA("3pm") <= aSinCargar Then
+    tERR.Anotar "acep", K.sabseee("3pm")
+    If K.sabseee("3pm") <= aSinCargar Then
         RollCRED.ReplaceIndex 3, TR.Trad("Este espacio sera suyo" + vbCrLf + _
                                  "cuando adquiera la" + vbCrLf + _
                                  "version full de 3PM" + _
@@ -3245,7 +3474,7 @@ Private Sub BeginRoll()
     'SE CARGAN EN ini YA ES configurable
     'TapasMostradasH = 4: TapasMostradasV = 3
     '-----------------
-    If K.LICENCIA("3pm") = HSuperLicencia Then
+    If K.sabseee("3pm") = Supsabseee Then
         If fso.FileExists(GPF("tslpri112")) Then
             tERR.Anotar "aceq"
             Set TE = fso.OpenTextFile(GPF("tslpri112"), ForReading, False)
@@ -3334,7 +3563,7 @@ Public Sub SelDisco(nDisco As Long)
         lLETRAS2(AAA - 65).Left = lLETRAS(AAA - 65).Left + 15
         lLETRAS2(AAA - 65).Top = lLETRAS(AAA - 65).Top + 15
         
-        If UCase(Left(lblDisco(nDisco), 1)) = UCase(lLETRAS(AAA - 65).Caption) Then
+        If UCase(Left(lblDISCO(nDisco), 1)) = UCase(lLETRAS(AAA - 65).Caption) Then
             lLETRAS(AAA - 65).ForeColor = vbRed
             LineLETRA.X1 = lLETRAS(AAA - 65).Left
             LineLETRA.X2 = lLETRAS(AAA - 65).Left + lLETRAS(AAA - 65).Width
@@ -3358,7 +3587,7 @@ Public Sub SelDisco(nDisco As Long)
     
     Exit Sub
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".acdv"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acdv"
     Resume Next
     
 End Sub
@@ -3387,7 +3616,7 @@ Public Sub UnSelDisco(nDisco As Long)
     End If
     Exit Sub
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".acdw"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acdw"
     Resume Next
 
 End Sub
@@ -3448,7 +3677,7 @@ Public Function CargarDiscos(numDiscoIniciar As Long, SelPrimero As Boolean, DeQ
     tERR.Anotar "acgb", NDR, TapasMostradasH, TapasMostradasV
     Do While NDR < ((TapasMostradasH * TapasMostradasV))
         TapaCD(NDR).Visible = False
-        lblDisco(NDR).Visible = False
+        lblDISCO(NDR).Visible = False
         lblDisco2(NDR).Visible = False
         imageFONDO(NDR).Visible = False
         NDR = NDR + 1
@@ -3483,9 +3712,9 @@ Public Function CargarDiscos(numDiscoIniciar As Long, SelPrimero As Boolean, DeQ
 
             'poner nombre al disco
             'antes en la 6.3 era NDI+1 !!
-            lblDisco(NDR) = txtInLista(MATRIZ_DISCOS(NDI), 1, ",")
+            lblDISCO(NDR) = txtInLista(MATRIZ_DISCOS(NDI), 1, ",")
             If MostrarRotulos Then
-                lblDisco(NDR).Visible = True
+                lblDISCO(NDR).Visible = True
                 lblDisco2(NDR).Visible = True
             End If
         End If
@@ -3585,7 +3814,7 @@ Public Function CargarDiscos(numDiscoIniciar As Long, SelPrimero As Boolean, DeQ
     Exit Function
     
 NoCRG:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".acdx"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acdx"
     Resume Next
 
 End Function
@@ -3664,7 +3893,7 @@ Private Sub imageFONDO_Click(Index As Integer)
     Exit Sub
 
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".acea"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acea"
     Resume Next
 '*************************'*************************'*************************
 
@@ -3692,7 +3921,7 @@ Private Sub SuperSel2(ByVal Index As Integer)
         'lo uso solo en tapa cd, cuando esta no esta mostrada ni su label ni su fondo lo estan
         TapaCD(M).Visible = False
         imageFONDO(M).Visible = False
-        lblDisco(M).Visible = False
+        lblDISCO(M).Visible = False
         lblDisco2(M).Visible = False
     Next M
 
@@ -3709,8 +3938,8 @@ Private Sub SuperSel2(ByVal Index As Integer)
     lblDiscoSEL.Visible = False
     lblDiscoSEL2.Visible = False
     
-    lblDiscoSEL.Caption = lblDisco(Index).Caption
-    lblDiscoSEL.Font.Size = lblDisco(Index).Font.Size
+    lblDiscoSEL.Caption = lblDISCO(Index).Caption
+    lblDiscoSEL.Font.Size = lblDISCO(Index).Font.Size
     lblDiscoSEL.Top = imgDiscoSEL.Top + imgDiscoSEL.Height
     lblDiscoSEL.Left = imgDiscoSEL.Left
     lblDiscoSEL.Width = imgDiscoSEL.Width - 200
@@ -3743,15 +3972,15 @@ Private Sub SuperSel2(ByVal Index As Integer)
     imgListaSong.Visible = False
     imgListaSong.Stretch = True
     
-    IMF = ExtraData.GetImagePath("MarcoFondodelosdiscos")
+    IMF = ExtraData.getDef.getImagePath("MarcoFondodelosdiscos")
     imgListaSong.Picture = LoadPicture(IMF)
     Dim IND As Long
-    IND = ExtraData.GetIndexImage("MarcoChicoIndicadores")
+    IND = ExtraData.getDef.GetIndexImage("MarcoChicoIndicadores")
     Dim MargDer As Long, MargIzq As Long, MargSup As Long, MargInf As Long
-    MargSup = imgListaSong.Height * ExtraData.GetFinalMargenSuperiorTra(IND) / 100
-    MargInf = imgListaSong.Height * ExtraData.GetFinalMargenInferiorTra(IND) / 100
-    MargDer = imgListaSong.Width * ExtraData.GetFinalMargenDerechoTra(IND) / 100
-    MargIzq = imgListaSong.Width * ExtraData.GetFinalMargenIzquierdoTra(IND) / 100
+    MargSup = imgListaSong.Height * ExtraData.getDef.GetFinalMargenSuperiorTra(IND) / 100
+    MargInf = imgListaSong.Height * ExtraData.getDef.GetFinalMargenInferiorTra(IND) / 100
+    MargDer = imgListaSong.Width * ExtraData.getDef.GetFinalMargenDerechoTra(IND) / 100
+    MargIzq = imgListaSong.Width * ExtraData.getDef.GetFinalMargenIzquierdoTra(IND) / 100
     
     
     imgListaSong.Top = 150
@@ -3885,6 +4114,7 @@ Private Sub SuperSel2(ByVal Index As Integer)
     'en adelante se usa como referencia el ubound asi que lo corto directamente asi!
     'ReDim Preserve MATRIZ_TEMAS(TotalSong)
     'no se corta mas porque se muestra todo
+    tERR.Anotar "caaj20", CargarDuracionTemas
     
     If CargarDuracionTemas Then
         'ahora cargar las duaciones
@@ -3902,6 +4132,7 @@ Private Sub SuperSel2(ByVal Index As Integer)
             Else
                 'en caso de que sea video el clsMp3 no anda!!
                 'mostrar duracion VIEJO FORMATO
+                tERR.Anotar "caaj21", pathTema
                 DuracionTema = frmIndex.MP3.QuickLargoDeTema(pathTema)
                 If DuracionTema = "N/S" Then
                     NoCargoDuracion = NoCargoDuracion + 1
@@ -3995,6 +4226,9 @@ Private Sub SuperSel2(ByVal Index As Integer)
         imgSELEC.Left = imgListaSong.Left + (imgListaSong.Width / 3 - imgSELEC.Width)
         imgSELEC.Top = imgListaSong.Top + imgListaSong.Height + 60
         
+        ImgSelecVIP.Left = imgSELEC.Left + imgSELEC.Width + 60
+        ImgSelecVIP.Top = imgSELEC.Top
+        
         imgSALIR.Left = imgListaSong.Left + (imgListaSong.Width / 1.5)
         imgSALIR.Top = imgListaSong.Top + imgListaSong.Height + 60
         
@@ -4002,6 +4236,7 @@ Private Sub SuperSel2(ByVal Index As Integer)
         
         imgSELEC.Visible = True
         imgSALIR.Visible = True
+        ImgSelecVIP.Visible = (CreditosXaVipMusica > 0)
     Else
         lblNOCREDIT.Top = imgListaSong.Height + imgListaSong.Top - lblNOCREDIT.Height - 120
         btBuyCancion.Visible = False
@@ -4027,7 +4262,12 @@ Private Function selDiscoI(I As Integer) As Long
     'como aqui pueden venir con el mouse (que aun no pone en cero el contador de los botones)
     SecSinTecla = 0
     
-    lblNOCREDIT.Visible = False
+    If EstoyEnDisco = 1 Then
+        lblNOCREDIT.Caption = getStrMusicaVIP 'deja vacio si no esta activado el vip o pone lo que va
+    Else
+        lblNOCREDIT.Caption = ""
+    End If
+    
     tERR.Anotar "sdi", I
     Dim TMPi As Long 'para saber siempre que se eligio originalmente
     TMPi = I
@@ -4096,7 +4336,7 @@ Private Function selDiscoI(I As Integer) As Long
         If C = I Then
             lblCanciones(C).BackStyle = 1
             lblCanciones2(C).BackStyle = 1
-            
+            lblCanciones(C).BorderStyle = 1
             'revisar además que este visible el elegido si la lista fuera mas larga de lo que corresponde
             If lblCanciones2(C).Tag = "OUT DOWN" Then
                 'corro todos para arriba....
@@ -4118,6 +4358,7 @@ Private Function selDiscoI(I As Integer) As Long
         Else
             lblCanciones(C).BackStyle = 0
             lblCanciones2(C).BackStyle = 0
+            lblCanciones(C).BorderStyle = 0
         End If
     Next C
     
@@ -4190,10 +4431,21 @@ End Sub
 
 Private Sub UnSuperSel()
     tERR.Anotar "sdi6"
+    
     EstoyEnDisco = 1
-    lblNOCREDIT.Visible = False
+    
+    btOKPacha.Caption = "Ingresar a disco"
+    Dim IMF As String
+    IMF = ExtraData.getDef.getImagePath("touchizqnormal")
+    t1.Picture = LoadPicture(IMF)
+    
+    IMF = ExtraData.getDef.getImagePath("touchderechanormal")
+    t3.Picture = LoadPicture(IMF)
+    
+    lblNOCREDIT.Caption = ""
     imgSELEC.Visible = False
     imgSALIR.Visible = False
+    ImgSelecVIP.Visible = False
     Dim M As Long
     On Local Error Resume Next
     For M = 0 To (TapasMostradasH * TapasMostradasV) - 1
@@ -4201,7 +4453,7 @@ Private Sub UnSuperSel()
             tERR.Anotar "sdi7", M
             TapaCD(M).Visible = True
             imageFONDO(M).Visible = True
-            lblDisco(M).Visible = True
+            lblDISCO(M).Visible = True
             lblDisco2(M).Visible = True
         End If
     Next M
@@ -4237,35 +4489,54 @@ Private Sub UnSuperSel()
 
 End Sub
 
+Private Sub ImgSelecVIP_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    IMF = ExtraData.getDef.getImagePath("botonokelegidovip")
+    ImgSelecVIP.Picture = LoadPicture(IMF)
+End Sub
+
+Private Sub ImgSelecVIP_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    IMF = ExtraData.getDef.getImagePath("botonokcomunvip")
+    ImgSelecVIP.Picture = LoadPicture(IMF)
+    EjecutarDeTouch True 'si o si es vip
+End Sub
+
 Private Sub imgSELEC_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    IMF = ExtraData.GetImagePath("botonokelegido")
+    IMF = ExtraData.getDef.getImagePath("botonokelegido")
     imgSELEC.Picture = LoadPicture(IMF)
+    'XXXX aqui tambien contar el tiempo para temas VIP !!!!
+    TimePressTeclaOK = Timer
 End Sub
 
 Private Sub imgSELEC_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    IMF = ExtraData.GetImagePath("botonokcomun")
+    IMF = ExtraData.getDef.getImagePath("botonokcomun")
     imgSELEC.Picture = LoadPicture(IMF)
-    EjecutarDeTouch
+    
+    TimePressTeclaOK = Timer - TimePressTeclaOK
+    Dim isVip As Boolean 'ver si lo dejo mucho apretado es un VIP
+    isVip = (TimePressTeclaOK > 1.5) And PrecNowVIP > 0
+    TimePressTeclaOK = -1 'listo ya lo use
+    
+    EjecutarDeTouch isVip
 End Sub
 
 Private Sub imgSalir_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    IMF = ExtraData.GetImagePath("botonsalirapretado")
+    IMF = ExtraData.getDef.getImagePath("botonsalirapretado")
     imgSALIR.Picture = LoadPicture(IMF)
 End Sub
 
 Private Sub imgSalir_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    IMF = ExtraData.GetImagePath("botonsalirnormal")
+    IMF = ExtraData.getDef.getImagePath("botonsalirnormal")
     imgSALIR.Picture = LoadPicture(IMF)
     UnSuperSel
 End Sub
 
 Private Sub imgSELEC2_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    IMF = ExtraData.GetImagePath("botonokelegido")
+    IMF = ExtraData.getDef.getImagePath("botonokelegido")
     imgSelec2.Picture = LoadPicture(IMF)
 End Sub
 
 Private Sub imgSELEC2_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    IMF = ExtraData.GetImagePath("botonokcomun")
+    IMF = ExtraData.getDef.getImagePath("botonokcomun")
     imgSelec2.Picture = LoadPicture(IMF)
     Form_KeyUp TeclaOK, 0
 End Sub
@@ -4285,6 +4556,8 @@ Private Sub lblCreditos_Change()
     Label2.Top = lblCreditos.Top + 15
     Label2.Left = lblCreditos.Left + 15
     Label2.ZOrder 1
+    
+    lCredPacha.Caption = lblCreditos.Caption
 End Sub
 
 Private Sub lblCreditos_DblClick()
@@ -4293,11 +4566,17 @@ Private Sub lblCreditos_DblClick()
 End Sub
 
 Private Sub lblDisco_Change(Index As Integer)
-    lblDisco2(Index).Caption = lblDisco(Index).Caption
-    lblDisco2(Index).Left = lblDisco(Index).Left + 15
-    lblDisco2(Index).Top = lblDisco(Index).Top + 15
-    lblDisco2(Index).Width = lblDisco(Index).Width
-    lblDisco2(Index).Height = lblDisco(Index).Height
+    lblDisco2(Index).Caption = lblDISCO(Index).Caption
+    lblDisco2(Index).Left = lblDISCO(Index).Left + 15
+    lblDisco2(Index).Top = lblDISCO(Index).Top + 15
+    lblDisco2(Index).Width = lblDISCO(Index).Width
+    lblDisco2(Index).Height = lblDISCO(Index).Height
+End Sub
+
+Private Sub lblNOCREDIT_Change()
+    'CENTRARSE BIEN YA QUE TIENE AUTOSIZE
+    ' Y SE USA DOS TEXTO "CREDITO INSUFICIENTE"   Y   "Credito VIP x $ x.xx"
+    lblNOCREDIT.Left = imgListaSong.Left + (imgListaSong.Width / 2 - lblNOCREDIT.Width / 2)
 End Sub
 
 Private Sub lLETRAS_Click(Index As Integer)
@@ -4343,7 +4622,7 @@ Private Sub MP3_BeginPlay(iAlias As Long)
 Exit Sub
     
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".acdy"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acdy"
     Resume Next
     
 End Sub
@@ -4433,7 +4712,7 @@ Private Sub MP3_EndPlay(iAlias As Long)
 Exit Sub
     
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".acdz2"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acdz2"
     Resume Next
 End Sub
 
@@ -4469,7 +4748,7 @@ Private Sub ShowPaso(Inis33 As String, iAlias As Long, SP As Long)
             ":" + CStr(TotalTema(iAlias)) + "(" + _
             CStr(MP3.HastaTema(iAlias)) + "):" + CStr(MP3.Volumen(iAlias)) + _
             " CUT:" + CStr(CORTAR_TEMA(iAlias)) + _
-            " ToySal:" + CStr(YaEsoySaliendoGrat_Cortar(iAlias))
+            " ToySal:" + CStr(YaEsoySaliendoGrat_Cortar(iAlias)) + " video/k:" + CStr(EsVideo) + "-" + CStr(EsKar)
 End Sub
 
 Private Sub MP3_Played(SecondsPlayed As Long, iAlias As Long, MS As Long)
@@ -4626,8 +4905,6 @@ Private Sub MP3_Played(SecondsPlayed As Long, iAlias As Long, MS As Long)
             List1.List(6) = "OPNEXT:" + CStr(iAlias)
             'aqui lo que estaba en el end play para desacomodarlo!
             
-            
-            
             Dim lRet As Long
             lRet = EMPEZAR_SIGUIENTE(1)
             
@@ -4646,7 +4923,12 @@ Private Sub MP3_Played(SecondsPlayed As Long, iAlias As Long, MS As Long)
                 End If
             End If
             
-            GoTo SIGUE55
+            'si es un tema gratuito corre el riesgo de cortarse de nuevo un poco mas abajo
+            If MP3.EsGratis(iAlias) Then
+                YaEsoySaliendoGrat_Cortar(iAlias) = True
+            Else
+                GoTo SIGUE55
+            End If
         End If
         'ver si el tema se acorto para pasar al siguiente con la "B"!!!!!!
         
@@ -4685,7 +4967,7 @@ SIGUE55:
         End If
     Else
         '===== sin licecnia ==================
-        If K.LICENCIA("3pm") <= CGratuita Then
+        If K.sabseee("3pm") <= CGratuita Then
             If SecondsPlayed > 46 Then
                 If YaEsoySaliendoGrat_Cortar(iAlias) = False Then
                     YaEsoySaliendoGrat_Cortar(iAlias) = True
@@ -4699,8 +4981,12 @@ SIGUE55:
     Exit Sub
     
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".acdz"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acdz"
     Resume Next
+End Sub
+
+Private Sub picFondo_DblClick()
+    'YaCerrar3PM False, True
 End Sub
 
 Private Sub picVideo_Resize(Index As Integer)
@@ -4738,7 +5024,7 @@ Private Sub tbrPassImg1_ChangeImg()
     Exit Sub
     
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".aceb"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".aceb"
     Resume Next
 
 End Sub
@@ -4800,6 +5086,7 @@ Private Sub Timer1_Timer()
                 'en el ranking, me da un error por que el archivo no existe
                 If fso.FileExists(TemaAzar) Then
                     tERR.Anotar "achg", TemaAzar
+                    MP3.EsGratis(IAANext) = True
                     CORTAR_TEMA(IAANext) = True 'este tema se eligio al azar no va entero
                     SecSinUso = 0
                     TE.Close
@@ -4826,7 +5113,7 @@ MataReloj:
     Exit Sub
 
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".acec"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acec"
     Resume Next
     
 End Sub
@@ -4845,7 +5132,6 @@ Private Sub Timer3_Timer()
     'If TF.GetState <> 1 Then TF.PonerFoco
     '*****************************************************
     
-    
     If Protector = 0 Then Exit Sub 'SE QUEDA PARA SALIR DE LOS DISCOS'Timer3.Interval = 0
     'para el reloj del protector. Lo ha inhabilitado
     'controla el tiempo sin uso (sin tocar teclas)
@@ -4858,12 +5144,16 @@ Private Sub Timer3_Timer()
     End If
     tERR.Anotar "achn", SecSinTecla, EsperaTecla
     ' a los 7 segundos sale del disco!
-    If SecSinTecla > 7 And EsVideo = False Then UnSuperSel
+    If SecSinTecla > 7 And EsVideo = False Then
+        If EstoyEnDisco = 1 Then 'corregido con el manu
+            UnSuperSel
+        End If
+    End If
     If SecSinTecla > EsperaTecla And EsVideo = False Then frmProtect.Show 1
     
     Exit Sub
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".aced"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".aced"
     Resume Next
 
 End Sub
@@ -4910,7 +5200,7 @@ Public Function TemasEnRank(MasDeXVotos) As Long
     
     Exit Function
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".acef"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acef"
     Resume Next
 End Function
 
@@ -4953,7 +5243,7 @@ Public Sub OrdenarListaModoVideo()
     
 Exit Sub
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".aceg"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".aceg"
     Resume Next
 End Sub
 
@@ -5010,7 +5300,7 @@ Public Sub OrdenarListaTemaVideo()
     
 Exit Sub
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".aceh"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".aceh"
     Resume Next
     
 End Sub
@@ -5026,17 +5316,61 @@ Public Sub BaseVista()
     'barra inferior
     picFondo.Top = Screen.Height - picFondo.Height
     
+    picFondoPacha.Top = Screen.Height - picFondoPacha.Height
+    picFondoPacha.Width = Me.Width
+    picFondoPacha.Left = 0
+    
     'barra superior
     picFondo2.Top = 0
     
     'contenedor de los discos
     frDiscos.Top = picFondo2.Height
     frDiscos.Height = picFondo.Top - picFondo2.Height
-    
+    If PachaMode = 11000 Then
+        picFondo.Visible = False
+        frDiscos.Height = picFondoPacha.Top - picFondo2.Height
+        'mostrar los botones horizontales
+        Dim IMF As String
+        
+        lCredPacha.Left = 60
+        lCredPacha.Top = picFondoPacha.Height / 2 - lCredPacha.Height / 2
+        t1.BorderStyle = 0
+        btOKPacha.Caption = "Ingresar a disco"
+        t3.BorderStyle = 0
+        
+'        IMF = ExtraData.getDef.GetImagePath("botonokcomun")
+'        t2.Picture = LoadPicture(IMF)
+        
+        IMF = ExtraData.getDef.getImagePath("touchizqnormal")
+        t1.Picture = LoadPicture(IMF)
+        
+        IMF = ExtraData.getDef.getImagePath("touchderechanormal")
+        t3.Picture = LoadPicture(IMF)
+        
+        btOKPacha.Width = 1500
+        btOKPacha.Height = picFondoPacha.Height + 60  'los 60 se unde por abajo
+        
+        btOKPacha.Left = picFondoPacha.Width / 2 - btOKPacha.Width / 2
+        btOKPacha.Top = picFondoPacha.Height - btOKPacha.Height + 60
+        
+        t1.Left = btOKPacha.Left - t1.Width - 320
+        t1.Top = picFondoPacha.Height / 2 - t1.Height / 2
+        
+        t3.Left = btOKPacha.Left + btOKPacha.Width + 320
+        t3.Top = picFondoPacha.Height / 2 - t3.Height / 2
+        
+        t1.Visible = True
+        btOKPacha.Visible = True
+        t3.Visible = True
+        If PachaMode = 11000 Then
+            picFondoPacha.Visible = True
+            picFondoPacha.ZOrder
+        End If
+    End If
 End Sub
 
 Public Sub UpdateVista()
-    frDiscos.Visible = False
+    'frDiscos.Visible = False
     'hay una serie de variables que informan sobre como se debe ver
     
     'esVideo: se esta reproduciendo un video
@@ -5070,7 +5404,7 @@ Public Sub UpdateVista()
         frDiscos.Width = frDiscos.Width - frModoVideo.Width
     End If
     
-    IMF = ExtraData.GetImagePath("MarcoFondodelosdiscos")
+    IMF = ExtraData.getDef.getImagePath("MarcoFondodelosdiscos")
     frDiscos.PaintPicture LoadPicture(IMF), 0, 0, frDiscos.Width, frDiscos.Height
     
     'listo frDiscos, ahora si lo tomo como referencia
@@ -5114,7 +5448,7 @@ Public Sub UpdateVista()
         cmdPagAd.Visible = MostrarTouch
     End If
     
-    IMF = ExtraData.GetImagePath("MarcoChicoIndicadores")
+    IMF = ExtraData.getDef.getImagePath("MarcoChicoIndicadores")
     tERR.Anotar "aceu2", IMF
     'picFondo.Picture = LoadPicture(imF)
     picFondo.PaintPicture LoadPicture(IMF), 0, 0, picFondo.Width, picFondo.Height
@@ -5129,12 +5463,12 @@ Public Sub UpdateVista()
     'usar los datos del skin para saber como colocarlos
     Dim MargDer As Long, MargIzq As Long, MargSup As Long, MargInf As Long
     Dim IND As Long
-    IND = ExtraData.GetIndexImage("MarcoChicoIndicadores")
+    IND = ExtraData.getDef.GetIndexImage("MarcoChicoIndicadores")
     tERR.Anotar "aceu3", IND
-    MargSup = picFondo.Height * ExtraData.GetFinalMargenSuperiorTra(IND) / 100
-    MargInf = picFondo.Height * ExtraData.GetFinalMargenInferiorTra(IND) / 100
-    MargDer = picFondo.Width * ExtraData.GetFinalMargenDerechoTra(IND) / 100
-    MargIzq = picFondo.Width * ExtraData.GetFinalMargenIzquierdoTra(IND) / 100
+    MargSup = picFondo.Height * ExtraData.getDef.GetFinalMargenSuperiorTra(IND) / 100
+    MargInf = picFondo.Height * ExtraData.getDef.GetFinalMargenInferiorTra(IND) / 100
+    MargDer = picFondo.Width * ExtraData.getDef.GetFinalMargenDerechoTra(IND) / 100
+    MargIzq = picFondo.Width * ExtraData.getDef.GetFinalMargenIzquierdoTra(IND) / 100
     
     If MargSup = 0 Then MargSup = 60
     If MargInf = 0 Then MargInf = 60
@@ -5153,12 +5487,12 @@ Public Sub UpdateVista()
     'al momento de definir el skin se define un porcentaje que ocuapa cada uno de los 4 margenes
     
     
-    IND = ExtraData.GetIndexImage("MarcoFondoDeLosDiscos")
+    IND = ExtraData.getDef.GetIndexImage("MarcoFondoDeLosDiscos")
     tERR.Anotar "aceu4", IMF
-    MargSup = frDiscos.Height * ExtraData.GetFinalMargenSuperiorTra(IND) / 100
-    MargInf = frDiscos.Height * ExtraData.GetFinalMargenInferiorTra(IND) / 100
-    MargDer = frDiscos.Width * ExtraData.GetFinalMargenDerechoTra(IND) / 100
-    MargIzq = frDiscos.Width * ExtraData.GetFinalMargenIzquierdoTra(IND) / 100
+    MargSup = frDiscos.Height * ExtraData.getDef.GetFinalMargenSuperiorTra(IND) / 100
+    MargInf = frDiscos.Height * ExtraData.getDef.GetFinalMargenInferiorTra(IND) / 100
+    MargDer = frDiscos.Width * ExtraData.getDef.GetFinalMargenDerechoTra(IND) / 100
+    MargIzq = frDiscos.Width * ExtraData.getDef.GetFinalMargenIzquierdoTra(IND) / 100
     
     picFondoDisco.Top = MargSup
     picFondoDisco.Left = MargDer
@@ -5167,7 +5501,7 @@ Public Sub UpdateVista()
     
     tERR.Anotar "aceu5", Salida2
     
-    picFondo.Visible = True 'imagen de fondo de los indicadores en modo simple
+    picFondo.Visible = (PachaMode <> 11000) 'imagen de fondo de los indicadores en modo simple
     'dejarlo porque se esconde en modo de video con vumetro en monitor
     If Salida2 = False Then
         If vidFullScreen Then
@@ -5218,7 +5552,31 @@ Public Sub UpdateVista()
         frmVIDEO.picKAR_V.Visible = False
     End If
     
-    frDiscos.Visible = True
+    'frDiscos.Visible = True
+    
+    
+End Sub
+
+Private Sub tUltra_Change()
+    'me esta hablando el control
+    
+    If tUltra.Text = "" Then Exit Sub
+    tERR.Anotar tUltra.Text
+    Dim SP() As String
+    SP = Split(tUltra.Text, "|")
+    
+    Select Case CLng(SP(0)) 'lista de solicitudes
+        Case 10000 'setear un hwnd para recibnir los errores
+            tERR.AppendSinHist "go-tius:" + CStr(SP(1))
+            tERR.Set_Hwn CLng(SP(1))
+        Case 11000
+            YaCerrar3PM
+        Case 12000
+            frDiscos.Visible = Not frDiscos.Visible
+    End Select
+    
+    'para que cualquier cosa sea un cambio real
+    tUltra.Text = ""
 End Sub
 
 Private Sub TUsb_Change()
@@ -5230,8 +5588,8 @@ Private Sub TUsb_Change()
     Select Case SP(0)
         Case "0" 'entro drive
             'ver si esta el archivo de validación de este equipo
-            
             'ademas grabar el registro de todo en el PC para saber que se grabo
+            Ucdate SP(1)
             
         Case "1" 'sale drive
             
@@ -5241,22 +5599,25 @@ Private Sub TUsb_Change()
 End Sub
 
 Private Sub txtS3_Change()
-    If txtS3 = "" Then Exit Sub
+    
+    If txtS3.Text = "" Then Exit Sub
     
     Dim P As String
-    P = txtS3
-    tERR.Anotar P
+    P = txtS3.Text
+    tERR.Anotar "acei88:" + P
     
     Dim SP() As String
     SP = Split(P, ":")
     
-    If SP(0) = "sD" Then
+    If InStr(SP(0), "sD") Then
+        tERR.Anotar "acei89:" + SP(1)
         Select Case CLng(SP(1))
             Case TeclaIZQx2: SendKeys Chr(TeclaIZQ)
             Case TeclaDERx2: SendKeys Chr(TeclaDER)
             Case TeclaPagAdx2: SendKeys Chr(TeclaPagAd)
             Case TeclaPagAtx2: SendKeys Chr(TeclaPagAt)
             Case TeclaOKx2: SendKeys Chr(TeclaOK)
+            Case TeclaCancionVIPx2: SendKeys Chr(TeclaCancionVIP)
             Case TeclaCarritox2: SendKeys Chr(TeclaCarrito)
             Case TeclaESCx2: SendKeys Chr(TeclaESC)
             Case TeclaConfigx2: SendKeys Chr(TeclaConfig)
@@ -5267,8 +5628,15 @@ Private Sub txtS3_Change()
             Case TeclaBajaVolumenx2: SendKeys Chr(TeclaBajaVolumen)
             Case TeclaSubeVolumenx2: SendKeys Chr(TeclaSubeVolumen)
             Case TeclaNextMusicx2: SendKeys Chr(TeclaNextMusic)
-            Case TeclaNewFichax2:  Form_KeyUp TeclaNewFicha, 0  'especial directo 'SendKeys Chr(TeclaNewFicha)
-            Case TeclaNewFicha2x2: Form_KeyUp TeclaNewFicha2, 0 'SendKeys Chr(TeclaNewFicha2)
+            Case TeclaNewFichax2
+                siganlIn = siganlIn + 1
+                tERR.Anotar "acei90:" + CStr(siganlIn)
+                Form_KeyUp TeclaNewFicha, 0  'especial directo 'SendKeys Chr(TeclaNewFicha)
+                
+            Case TeclaNewFicha2x2:
+                siganlIn = siganlIn + 1
+                tERR.Anotar "acei91:" + CStr(siganlIn)
+                Form_KeyUp TeclaNewFicha2, 0 'SendKeys Chr(TeclaNewFicha2)
         End Select
     End If
     
@@ -5309,14 +5677,14 @@ Public Function WaitOk(sCancion As String) As Long
         picVideo(1).Visible = False
     Else
         picKAR.AutoRedraw = True
-        lblWAIT.Width = picKAR.Width / 2
-        lblWAIT.Left = picKAR.Width / 2 - lblWAIT.Width / 2
-        lblWAIT.Height = 8000
-        lblWAIT.Top = 800
+        lblWait.Width = picKAR.Width / 2
+        lblWait.Left = picKAR.Width / 2 - lblWait.Width / 2
+        lblWait.Height = 8000
+        lblWait.Top = 800
         picKAR.Visible = True
         picKAR.ZOrder
-        lblWAIT.Caption = EspCancion
-        lblWAIT.Visible = True
+        lblWait.Caption = EspCancion
+        lblWait.Visible = True
         LF1.Visible = True
         LF2.Visible = True
         LF1.ZOrder
@@ -5329,7 +5697,7 @@ Public Function WaitOk(sCancion As String) As Long
     Do
         DoEvents
         If LastTecla = TeclaDER Then
-            lblWAIT.Visible = False
+            lblWait.Visible = False
             frmVIDEO.lblWAIT_V.Visible = False
             Exit Do
         End If
@@ -5362,11 +5730,10 @@ Public Function WaitOk(sCancion As String) As Long
         
     Loop
     
-    lblWAIT.Visible = False
+    lblWait.Visible = False
     frmVIDEO.lblWAIT_V.Visible = False
     
     Dim sCancion2 As String
-    
     sCancion2 = SYSfolder + "nowpl.mas"
     tERR.Anotar "DD11", sCancion2, Salida2
     'VER SI ESTA ENCRIPTADO O NO!
@@ -5392,8 +5759,8 @@ Public Function WaitOk(sCancion As String) As Long
                 frmVIDEO.lblWAIT_V.Visible = True
                 frmVIDEO.lblWAIT_V.Caption = NOP
             Else
-                lblWAIT.Visible = True
-                lblWAIT.Caption = NOP
+                lblWait.Visible = True
+                lblWait.Caption = NOP
             End If
 
             RR = Timer
@@ -5427,8 +5794,8 @@ Public Function WaitOk(sCancion As String) As Long
                 frmVIDEO.lblWAIT_V.Visible = True
                 frmVIDEO.lblWAIT_V.Caption = NOP
             Else
-                lblWAIT.Visible = True
-                lblWAIT.Caption = NOP
+                lblWait.Visible = True
+                lblWait.Caption = NOP
             End If
             
             RR = Timer
@@ -5508,7 +5875,7 @@ Private Function GetH(AR As String, PX As String) As String
         If resPX = CDK_prefix(J) Then
             'encontre a que cd pertenece!!!
             'VER SI TIENE LICENCIA PARA EL CD1
-            If K.LICENCIA(CDK_forLic(J)) >= EComun Then
+            If K.sabseee(CDK_forLic(J)) >= EComun Then
                 'si tiene la licencia
                 KKY = CDK_qey(J)
                 PX = CDK_prefix(J)
@@ -5528,10 +5895,10 @@ End Function
 Private Sub Traducir()
     lblNOCREDIT.Caption = TR.Trad("CREDITO INSUFICIENTE%99%")
     lblCanciones(0).Caption = TR.Trad("Lista de canciones%99%")
-    lblDisco(0).Caption = TR.Trad("Complete al menos la primera hoja de discos cargados%98%Hoja se refiere a una pagina completa con discos%99%")
-    lblDisco2(0).Caption = lblDisco(0).Caption
-    lblDiscoSEL.Caption = lblDisco(0).Caption
-    lblDiscoSEL2.Caption = lblDisco(0).Caption
+    lblDISCO(0).Caption = TR.Trad("Complete al menos la primera hoja de discos cargados%98%Hoja se refiere a una pagina completa con discos%99%")
+    lblDisco2(0).Caption = lblDISCO(0).Caption
+    lblDiscoSEL.Caption = lblDISCO(0).Caption
+    lblDiscoSEL2.Caption = lblDISCO(0).Caption
     lblCanciones2(0).Caption = TR.Trad("Lista de canciones%99%")
     Label1.Caption = TR.Trad("VERSION DEMOSTRATIVA%99%" + _
         " tbrSoft Argentina. www.tbrsoft.com")
@@ -5583,6 +5950,15 @@ Private Sub SuperSel3(ByVal Index As Integer)
     'elegir el disco normalmente
     SelDisco CLng(Index)
     
+    Dim IMF As String
+    IMF = ExtraData.getDef.getImagePath("tocuharribacomun")
+    t1.Picture = LoadPicture(IMF)
+
+    IMF = ExtraData.getDef.getImagePath("touchabajocomun")
+    t3.Picture = LoadPicture(IMF)
+    
+    btOKPacha.Caption = "Escuchar canción"
+    
     EstoyEnDisco = 2 'no estoy en ningun lado!
     Dim M As Long
     
@@ -5598,22 +5974,22 @@ Private Sub SuperSel3(ByVal Index As Integer)
         'lo uso solo en tapa cd, cuando esta no esta mostrada ni su label ni su fondo lo estan
         TapaCD(M).Visible = False
         imageFONDO(M).Visible = False
-        lblDisco(M).Visible = False
+        lblDISCO(M).Visible = False
         lblDisco2(M).Visible = False
     Next M
     
     imgListaSong.Visible = False
     imgListaSong.Stretch = True
     
-    IMF = ExtraData.GetImagePath("MarcoFondodelosdiscos")
+    IMF = ExtraData.getDef.getImagePath("MarcoFondodelosdiscos")
     imgListaSong.Picture = LoadPicture(IMF)
     Dim IND As Long
-    IND = ExtraData.GetIndexImage("MarcoChicoIndicadores")
+    IND = ExtraData.getDef.GetIndexImage("MarcoChicoIndicadores")
     Dim MargDer As Long, MargIzq As Long, MargSup As Long, MargInf As Long
-    MargSup = imgListaSong.Height * ExtraData.GetFinalMargenSuperiorTra(IND) / 100
-    MargInf = imgListaSong.Height * ExtraData.GetFinalMargenInferiorTra(IND) / 100
-    MargDer = imgListaSong.Width * ExtraData.GetFinalMargenDerechoTra(IND) / 100
-    MargIzq = imgListaSong.Width * ExtraData.GetFinalMargenIzquierdoTra(IND) / 100
+    MargSup = imgListaSong.Height * ExtraData.getDef.GetFinalMargenSuperiorTra(IND) / 100
+    MargInf = imgListaSong.Height * ExtraData.getDef.GetFinalMargenInferiorTra(IND) / 100
+    MargDer = imgListaSong.Width * ExtraData.getDef.GetFinalMargenDerechoTra(IND) / 100
+    MargIzq = imgListaSong.Width * ExtraData.getDef.GetFinalMargenIzquierdoTra(IND) / 100
     
     imgListaSong.Top = 150
     If MostrarTouch Then
@@ -5638,8 +6014,8 @@ Private Sub SuperSel3(ByVal Index As Integer)
     lblDiscoSEL.Visible = False
     lblDiscoSEL2.Visible = False
     
-    lblDiscoSEL.Caption = lblDisco(Index).Caption
-    lblDiscoSEL.Font.Size = lblDisco(Index).Font.Size
+    lblDiscoSEL.Caption = lblDISCO(Index).Caption
+    lblDiscoSEL.Font.Size = lblDISCO(Index).Font.Size
     lblDiscoSEL.Top = imgDiscoSEL.Top + imgDiscoSEL.Height
     lblDiscoSEL.Left = imgDiscoSEL.Left
     lblDiscoSEL.Width = imgDiscoSEL.Width - 200
@@ -5880,15 +6256,19 @@ Private Sub SuperSel3(ByVal Index As Integer)
     btSalir.Width = imgDiscoSEL.Width
     btBuyCancion.Width = btSalir.Width
     btBUYDisco.Width = btSalir.Width
+    'ES DEFORMADO POR LA FUNCION DE ACOMODAR LOS FORMULARIOS !!!!!!!!!!!!!!!!!!!!!!!!!!
+    btSalir.Height = 705
+    btBuyCancion.Height = 705
+    btBUYDisco.Height = 705
     
-    btSalir.Left = picFondoDisco.Width - btSalir.Width
-    btSalir.Top = picFondoDisco.Height - btSalir.Height - 200
+    btSalir.Left = picFondoDisco.Width - btSalir.Width + 90
+    btSalir.Top = picFondoDisco.Height - btSalir.Height
         
-    btBuyCancion.Top = btSalir.Top - btBuyCancion.Height - 60
-    btBUYDisco.Top = btBuyCancion.Top - btBUYDisco.Height - 60
+    btBuyCancion.Top = btSalir.Top - btBuyCancion.Height - SeparacionTocuhDerecho
+    btBUYDisco.Top = btBuyCancion.Top - btBUYDisco.Height - SeparacionTocuhDerecho
     
-    btBUYDisco.Left = picFondoDisco.Width - btBUYDisco.Width
-    btBuyCancion.Left = picFondoDisco.Width - btBuyCancion.Width
+    btBUYDisco.Left = picFondoDisco.Width - btBUYDisco.Width + 90
+    btBuyCancion.Left = picFondoDisco.Width - btBuyCancion.Width + 90
     
     btBuyCancion.Visible = True
     btBUYDisco.Visible = True
@@ -5923,6 +6303,9 @@ Private Sub SuperSel3(ByVal Index As Integer)
         imgSELEC.Left = imgListaSong.Left + (imgListaSong.Width / 3 - imgSELEC.Width)
         imgSELEC.Top = imgListaSong.Top + imgListaSong.Height + 60
         
+        ImgSelecVIP.Left = imgSELEC.Left + imgSELEC.Width + 60
+        ImgSelecVIP.Top = imgSELEC.Top
+        
         imgSALIR.Left = imgListaSong.Left + (imgListaSong.Width / 1.5)
         imgSALIR.Top = imgListaSong.Top + imgListaSong.Height + 60
         
@@ -5930,6 +6313,8 @@ Private Sub SuperSel3(ByVal Index As Integer)
         
         imgSELEC.Visible = True
         imgSALIR.Visible = True
+        'si esta activado lo uso
+        ImgSelecVIP.Visible = (CreditosXaVipMusica > 0)
     Else
 '        lblNOCREDIT.Top = imgListaSong.Height + imgListaSong.Top - lblNOCREDIT.Height - 120
 '        btBuyCancion.Visible = False

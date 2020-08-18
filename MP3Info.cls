@@ -105,21 +105,21 @@ Dim File As Integer
     File = FreeFile
     Open strFileName For Binary Access Read As File
         MP3.FileLen = FileLen(MP3.FileName)
-        For i = 1 To MP3.FileLen
-        Get File, i, TempVar
+        For I = 1 To MP3.FileLen
+        Get File, I, TempVar
         If TempVar = 255 Then
-            Get File, i + 1, TempVar
+            Get File, I + 1, TempVar
             If TempVar > 242 And TempVar < 252 Then
-                Header = i
+                Header = I
                 MP3.Header = Header
                 Exit For
             End If
         End If
-        Next i
+        Next I
 
-        For i = 1 To 4
-            Get File, Header + i - 1, ByteArray(i)
-        Next i
+        For I = 1 To 4
+            Get File, Header + I - 1, ByteArray(I)
+        Next I
     Close File
     BitString = ByteToBit(ByteArray)
     MP3.BitString = BitString
@@ -184,29 +184,29 @@ FileDoesNotExist:
 End Function
 'This function converts 4*1 byte array to 4*8 bits
 Private Function ByteToBit(ByteArray) As String
-Dim z As Integer, i As Integer
+Dim Z As Integer, I As Integer
   ByteToBit = ""
-  For z = 1 To 4
-    For i = 7 To 0 Step -1
-      If Int(ByteArray(z) / (2 ^ i)) = 1 Then
+  For Z = 1 To 4
+    For I = 7 To 0 Step -1
+      If Int(ByteArray(Z) / (2 ^ I)) = 1 Then
         ByteToBit = ByteToBit & "1"
-        ByteArray(z) = ByteArray(z) - (2 ^ i)
+        ByteArray(Z) = ByteArray(Z) - (2 ^ I)
       Else
         If ByteToBit <> "" Then
           ByteToBit = ByteToBit & "0"
         End If
       End If
-    Next i
-  Next z
+    Next I
+  Next Z
 End Function
 'This function converts Binary string to decimal integer
 Private Function BinToDec(BinValue As String) As Long
-Dim i As Integer
+Dim I As Integer
   BinToDec = 0
-  For i = 1 To Len(BinValue)
-    If Mid(BinValue, i, 1) = 1 Then
-      BinToDec = BinToDec + 2 ^ (Len(BinValue) - i)
+  For I = 1 To Len(BinValue)
+    If Mid(BinValue, I, 1) = 1 Then
+      BinToDec = BinToDec + 2 ^ (Len(BinValue) - I)
     End If
-  Next i
+  Next I
 End Function
 

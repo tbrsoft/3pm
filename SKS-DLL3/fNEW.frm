@@ -361,7 +361,7 @@ Private Sub Text1_Change()
         
         'solo el contador que escuche
         GC = S3.GetCounter(I)
-        
+        If I = 0 Then Exit Sub 'solucionado abril 2008 "I" NO PUEDE SER CERO!!
         If GC < 22 Then
             XxBoton1(I - 1).Caption = "Boton " + String(2 - Len(CStr(I)), "0") + CStr(I) + ": " + _
                 String(4 - Len(CStr(GC)), "0") + CStr(GC)

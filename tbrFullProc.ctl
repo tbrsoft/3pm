@@ -8,6 +8,22 @@ Begin VB.UserControl tbrFullProc
    ClientWidth     =   4800
    ScaleHeight     =   3600
    ScaleWidth      =   4800
+   Begin tbrFaroButton.fBoton fBoton4 
+      Height          =   255
+      Left            =   720
+      TabIndex        =   3
+      Top             =   3300
+      Width           =   3195
+      _ExtentX        =   5636
+      _ExtentY        =   450
+      fFColor         =   16777215
+      fBColor         =   12632256
+      fCapt           =   "Boton"
+      fEnabled        =   -1  'True
+      fFontN          =   ""
+      fFontS          =   0
+      fECol           =   5452834
+   End
    Begin tbrFaroButton.fBoton fBoton3 
       Height          =   285
       Left            =   720
@@ -17,12 +33,12 @@ Begin VB.UserControl tbrFullProc
       Width           =   675
       _ExtentX        =   1191
       _ExtentY        =   503
-      fFColor         =   6553600
+      fFColor         =   16777215
       fBColor         =   16777215
       fCapt           =   ""
       fEnabled        =   -1  'True
-      fFontN          =   ""
-      fFontS          =   0
+      fFontN          =   "Verdana"
+      fFontS          =   8
       fECol           =   0
    End
    Begin tbrFaroButton.fBoton fBoton2 
@@ -34,12 +50,12 @@ Begin VB.UserControl tbrFullProc
       Width           =   3165
       _ExtentX        =   5583
       _ExtentY        =   503
-      fFColor         =   6553600
+      fFColor         =   16777215
       fBColor         =   12632256
       fCapt           =   ""
       fEnabled        =   -1  'True
-      fFontN          =   ""
-      fFontS          =   0
+      fFontN          =   "Verdana"
+      fFontS          =   8
       fECol           =   5452834
    End
    Begin tbrFaroButton.fBoton fBoton1 
@@ -68,7 +84,8 @@ Attribute VB_Exposed = False
 
 Public Sub ShowWait(T As String, _
     Optional xMiliSegSalir As Long = 0, _
-    Optional sPorc As Single = 0)
+    Optional sPorc As Single = 0, _
+    Optional Info2 As String)
     'ver que el credito alcance y que el tamaño disponible tambien
     
     'si le pone "" es para sacarlo. Para casos que no es por tiempo si no para esperar otro proceso
@@ -96,6 +113,12 @@ Public Sub ShowWait(T As String, _
     fBoton2.Top = fBoton1.Top + fBoton1.Height - (4 * fBoton2.Height)
     fBoton2.Visible = True
     fBoton2.ZOrder
+    
+    fBoton4.Width = fBoton2.Width
+    fBoton4.Left = fBoton2.Left
+    fBoton4.Top = fBoton2.Top + fBoton2.Height + 30
+    fBoton4.Caption = Info2
+    fBoton4.Visible = (Info2 <> "")
     
     Extender.Visible = True
     Extender.ZOrder
@@ -148,3 +171,4 @@ Private Sub ShPorc(X As Single)
     'Extender.Refresh
     UserControl.Refresh
 End Sub
+

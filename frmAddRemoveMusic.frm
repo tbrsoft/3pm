@@ -331,7 +331,7 @@ Begin VB.Form frmAddRemoveMusic
       ForeColor       =   &H00404040&
       Height          =   270
       IntegralHeight  =   0   'False
-      Left            =   60
+      Left            =   90
       MultiSelect     =   2  'Extended
       TabIndex        =   0
       Top             =   8400
@@ -641,9 +641,9 @@ Private Sub cmdKillArch_Click()
         Exit Sub
     End If
     
-    MSG = TR.Trad("Esta seguro que desea eliminar los archivos elegidos?%99%")
+    msg = TR.Trad("Esta seguro que desea eliminar los archivos elegidos?%99%")
         
-    If MsgBox(MSG, vbQuestion + vbYesNo) = vbYes Then
+    If MsgBox(msg, vbQuestion + vbYesNo) = vbYes Then
         On Error GoTo NOBORRA
         Dim TotSel As Long, FileSel As String
         TotSel = lstTEMAS.SelCount
@@ -677,21 +677,21 @@ End Sub
 
 Private Sub cmdKillTapa_Click()
     On Error GoTo MiErr
-    MSG = TR.Trad("¿Esta seguro que desea eliminar la imagen elegida?%99%")
+    msg = TR.Trad("¿Esta seguro que desea eliminar la imagen elegida?%99%")
 
-    If MsgBox(MSG, vbYesNo + vbCritical) = vbNo Then Exit Sub
+    If MsgBox(msg, vbYesNo + vbCritical) = vbNo Then Exit Sub
     fso.DeleteFile lstCarpetas + "\tapa.jpg", True
     tERR.Anotar "ackc", lstCarpetas
     'refrescar la imagen
     'ver si es superlicencia y usa otra tapa predeterminada
-    If K.LICENCIA("3pm") = HSuperLicencia Then
+    If K.sabseee("3pm") = Supsabseee Then
         If fso.FileExists(GPF("tddp322")) Then
             IMF = GPF("tddp322")
         Else
-            IMF = ExtraData.GetImagePath("tapapredeterminada")
+            IMF = ExtraData.getDef.getImagePath("tapapredeterminada")
         End If
     Else
-        IMF = ExtraData.GetImagePath("tapapredeterminada")
+        IMF = ExtraData.getDef.getImagePath("tapapredeterminada")
     End If
     
     TapaCD.Picture = LoadPicture(IMF)
@@ -705,9 +705,9 @@ End Sub
 
 Private Sub cmdKillTXT_Click()
     On Error GoTo MiErr
-    MSG = TR.Trad("¿Esta seguro que desea eliminar el texto elegido?%99%")
+    msg = TR.Trad("¿Esta seguro que desea eliminar el texto elegido?%99%")
     
-    If MsgBox(MSG, vbYesNo + vbCritical) = vbNo Then Exit Sub
+    If MsgBox(msg, vbYesNo + vbCritical) = vbNo Then Exit Sub
     tERR.Anotar "ackd", lstCarpetas
     fso.DeleteFile lstCarpetas + "\data.txt", True
     cmdKillTXT.Enabled = False
@@ -725,10 +725,10 @@ Private Sub Command1_Click()
     'si borro una vez esta todo OK
     ' si entro por segunda vez ya matriz_discos tiene distintos indices
     'con respecto a las listas!!!!!!!!!!!!
-    MSG = TR.Trad("Esta seguro que desea eliminar las carpetas elegidas?%99%")
+    msg = TR.Trad("Esta seguro que desea eliminar las carpetas elegidas?%99%")
     
     tERR.Anotar "acke"
-    If MsgBox(MSG, vbQuestion + vbYesNo) = vbYes Then
+    If MsgBox(msg, vbQuestion + vbYesNo) = vbYes Then
         tERR.Anotar "ackf"
         On Local Error GoTo NOBORRA
         Dim TotSel As Long, CarpSel As String
@@ -772,6 +772,7 @@ End Sub
 Public Sub CargarCarpetas()
     On Error GoTo MiErr
     lstCarpetas.Clear 'si no se duplican todos
+    lstCarpetasShow.Clear
     For A = 0 To UBound(MATRIZ_DISCOS)
         Dim ThisFolder As String, TamTapa As Double
         ThisFolder = txtInLista(MATRIZ_DISCOS(A), 0, ",")
@@ -955,27 +956,27 @@ Private Sub Command4_Click()
     tERR.Anotar "ackl", TamTapa
     If TamTapa > TamanoTapaPermitido Then
         TR.SetVars CStr(TamTapa)
-        MSG = TR.Trad("tbrSoft recomienda imagenes no mayores a 20 KB." + vbCrLf + _
+        msg = TR.Trad("tbrSoft recomienda imagenes no mayores a 20 KB." + vbCrLf + _
         "Esta imagen tine %01% KB. ¿Esta seguro que desea usarla?" + vbCrLf + _
             " Puede afectar el rendimiento del equipo!%99%")
     
-        If MsgBox(MSG, vbYesNo + vbCritical) = vbNo Then Exit Sub
+        If MsgBox(msg, vbYesNo + vbCritical) = vbNo Then Exit Sub
     End If
     
     If TamTapa > 200 Then
-        MSG = TR.Trad("Imagen demasiado pesada. Despues de la advertencia, " + _
+        msg = TR.Trad("Imagen demasiado pesada. Despues de la advertencia, " + _
             "¿aun desea usarla?" + vbCrLf + _
             " Puede afectar el rendimiento del equipo!%99%")
     
-        If MsgBox(MSG, vbYesNo + vbCritical) = vbNo Then Exit Sub
+        If MsgBox(msg, vbYesNo + vbCritical) = vbNo Then Exit Sub
     End If
     
     'RRRRRRRRRRRRRRR
     
     If cmdKillTapa.Enabled Then
-        MSG = TR.Trad("¿Esta seguro que desea reemplazar la imagen existente?%99%")
+        msg = TR.Trad("¿Esta seguro que desea reemplazar la imagen existente?%99%")
         
-        If MsgBox(MSG, vbYesNo + vbCritical) = vbNo Then Exit Sub
+        If MsgBox(msg, vbYesNo + vbCritical) = vbNo Then Exit Sub
         tERR.Anotar "ackm", lstCarpetas
         fso.DeleteFile lstCarpetas + "\tapa.jpg", True
     End If
@@ -994,9 +995,9 @@ Private Sub Command5_Click()
     'ojo ARTIME que aqui el programa se guia por lo que esta escrito en el boton
     'o sea fijate en mayusculas y minusculas!!!
     
-    MSG = TR.Trad("Confirmar%99%")
+    msg = TR.Trad("Confirmar%99%")
     
-    If Command5.Caption = MSG Then
+    If Command5.Caption = msg Then
         txtDataTXT.BackColor = &HE0E0E0   'color original
         txtDataTXT.Locked = True
         
@@ -1027,10 +1028,10 @@ Private Sub Command6_Click()
     On Error GoTo MiErr
     'ojo ARTIME que aqui el programa se guia por lo que esta escrito en el boton
     'o sea fijate en mayusculas y minusculas!!!
-    MSG = TR.Trad("Generar estadistica de discos%98%Inicia " + _
+    msg = TR.Trad("Generar estadistica de discos%98%Inicia " + _
         "calculos y genera un archivo de texto con estadísticas%99%")
         
-    If Command6.Caption = MSG Then
+    If Command6.Caption = msg Then
         lstTODO.Clear
         
         lstTODO.AddItem TR.Trad(" RANK DISCOS (primero los menos escuhados)%99%")
@@ -1210,6 +1211,7 @@ End Sub
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     Select Case KeyCode
         Case TeclaCerrarSistema
+            Unload Me
             YaCerrar3PM
         Case vbKeyF5
             Command3_Click
@@ -1261,7 +1263,7 @@ Private Sub Form_Load()
     lstOrigenes.ListIndex = 0
     
     'si no es SL taparlo JAJAJAJA!!!
-    If K.LICENCIA("3pm") <> HSuperLicencia Then
+    If K.sabseee("3pm") <> Supsabseee Then
         lstOrigenes.Enabled = False
         Command9.Enabled = False 'boton agregar
         Command10.Enabled = False 'boton quitar
@@ -1332,14 +1334,14 @@ Private Sub lstCarpetas_Click()
     Else
         tERR.Anotar "aclf"
         'ver si es superlicencia y usa otra tapa predeterminada
-        If K.LICENCIA("3pm") = HSuperLicencia Then
+        If K.sabseee("3pm") = Supsabseee Then
             If fso.FileExists(GPF("tddp322")) Then
                 IMF = GPF("tddp322")
             Else
-                IMF = ExtraData.GetImagePath("tapapredeterminada")
+                IMF = ExtraData.getDef.getImagePath("tapapredeterminada")
             End If
         Else
-            IMF = ExtraData.GetImagePath("tapapredeterminada")
+            IMF = ExtraData.getDef.getImagePath("tapapredeterminada")
         End If
                 
         TapaCD.Picture = LoadPicture(IMF)

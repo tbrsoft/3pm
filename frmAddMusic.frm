@@ -535,7 +535,6 @@ Dim CarpsConMM() As String
 Dim X As New CommonDialog
 Dim CarpetaDesdeCargar As String
 
-
 Private Sub Command1_Click()
     On Error GoTo MiErr
     X.CancelError = False
@@ -558,7 +557,7 @@ Private Sub Command1_Click()
     
     Exit Sub
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".achy"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".achy"
     Resume Next
 End Sub
 
@@ -610,7 +609,7 @@ Public Sub BuscarCarpetasMM()
     
     Exit Sub
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".achz"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".achz"
     Resume Next
 End Sub
 
@@ -738,7 +737,7 @@ Private Sub Command4_Click()
     
     Exit Sub
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".acia"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acia"
     Resume Next
 End Sub
 
@@ -823,7 +822,7 @@ ElegidoCD:
     
     Exit Sub
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".acib"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acib"
     Resume Next
     
 End Sub
@@ -891,7 +890,7 @@ NextMM:
     
     Exit Function
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".acic"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acic"
     Resume Next
 End Function
 
@@ -931,7 +930,7 @@ Function GetFolders(ruta As String) As String()
     tERR.Anotar "acje"
     Exit Function
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".acid"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acid"
     Resume Next
     
 End Function
@@ -998,13 +997,14 @@ Private Sub Form_Activate()
     'lblInfoDisco = "Informacion del disco"
 Exit Sub
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".acie"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acie"
     Resume Next
 End Sub
 
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     Select Case KeyCode
         Case TeclaCerrarSistema
+            Unload Me
             YaCerrar3PM
     End Select
 End Sub
@@ -1027,7 +1027,7 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
     Exit Sub
     Traducir 'Agregado por el complemento traductor
 MiErr:
-    tERR.AppendLog tERR.ErrToTXT(Err), Me.name + ".acif"
+    tERR.AppendLog tERR.ErrToTXT(Err), Me.Name + ".acif"
     Resume Next
 End Sub
 

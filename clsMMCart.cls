@@ -170,19 +170,19 @@ Public Function CalculateTotalPrice() As Single
     CalculateTotalPrice = PrAu + PrVi 'esta expresado en creditos
 End Function
 
-Public Function CleanFile(i As Long) As Long
+Public Function CleanFile(I As Long) As Long
     'borrar un archivo ni bien se grabo
-    If (i > UBound(mListaMMFull)) Or (i = 0) Then
+    If (I > UBound(mListaMMFull)) Or (I = 0) Then
         Exit Function
     End If
     
     Dim H As Long
-    mListaMMFull(i) = ""
+    mListaMMFull(I) = ""
     'si es el ultimo es una cosa
-    If i = UBound(mListaMMFull) Then
-        ReDim Preserve mListaMMFull(i - 1)
+    If I = UBound(mListaMMFull) Then
+        ReDim Preserve mListaMMFull(I - 1)
     Else 'si no corro todo para abajo
-        For H = i To UBound(mListaMMFull) - 1
+        For H = I To UBound(mListaMMFull) - 1
             mListaMMFull(H) = mListaMMFull(H + 1)
         Next H
         
@@ -272,15 +272,15 @@ Public Function CleanSelSoloMarcados() As Long
     
 End Function
 
-Public Function CleanFileSoloMarca(i As Long) As Long
+Public Function CleanFileSoloMarca(I As Long) As Long
     'marcar para eliminar
-    If (i > UBound(mListaMMFull)) Or (i = 0) Then
+    If (I > UBound(mListaMMFull)) Or (I = 0) Then
         Exit Function
     End If
     
     CarritoChange = True
     
-    mListaMMFull(i) = ""
+    mListaMMFull(I) = ""
     
 End Function
 
@@ -303,22 +303,22 @@ Public Function CleanMarcados() As Long
     
 End Function
 
-Public Function CleanSel(i As Long) As Long
+Public Function CleanSel(I As Long) As Long
     'borrar de lista de selecciones
     'opcionalmente eliminar en cascada
     
-    If (i > UBound(mListaMM)) Or (i = 0) Then
+    If (I > UBound(mListaMM)) Or (I = 0) Then
         Exit Function
     End If
     
     Dim T As String, H As Long
-    T = mListaMM(i)
+    T = mListaMM(I)
     If Right(T, 1) = "\" Then
         'eliminar sus dependencias
         Dim EP As String
         For H = 1 To UBound(mListaMMFull)
             EP = fso.GetParentFolderName(GetElementFull(H)) + "\"
-            If EP = mListaMM(i) Then
+            If EP = mListaMM(I) Then
                 'marco para eliminar despues por que se cambian los indices y es un lio 'CleanFile i
                 mListaMMFull(H) = ""
             End If
@@ -330,7 +330,7 @@ Public Function CleanSel(i As Long) As Long
         'ver que numero tiene en la matriz full para usar CleanFile
         Dim Y As Long
         For Y = 1 To UBound(mListaMMFull)
-            If mListaMMFull(Y) = mListaMM(i) Then
+            If mListaMMFull(Y) = mListaMM(I) Then
                 CleanFile Y
                 
                 'borrar de la lista de selecciones para que no se muestre
@@ -350,9 +350,9 @@ Public Function CleanSel(i As Long) As Long
     CleanSel = 0
 End Function
 
-Public Function GetDependent(i As Long) As Long
+Public Function GetDependent(I As Long) As Long
     'saber cuantos archivos estan enganchados a una carpeta
-    If (i > UBound(mListaMM)) Or (i = 0) Then
+    If (I > UBound(mListaMM)) Or (I = 0) Then
         Exit Function
     End If
     
@@ -360,7 +360,7 @@ Public Function GetDependent(i As Long) As Long
     D = 0 'contador temporal
     'ver si es una cancion o una carpeta
     Dim T As String
-    T = mListaMM(i)
+    T = mListaMM(I)
     If Right(T, 1) = "\" Then
         'ver cuantas canciones tiene asignadas
         Dim J As Long
@@ -497,43 +497,43 @@ ER:
      
 End Function
 
-Public Function GetElement(i As Long) As String
-    If (i > UBound(mListaMM)) Or (i = 0) Then
+Public Function GetElement(I As Long) As String
+    If (I > UBound(mListaMM)) Or (I = 0) Then
         GetElement = ""
         Exit Function
     End If
     
-    GetElement = mListaMM(i)
+    GetElement = mListaMM(I)
 End Function
 
-Public Function GetPricesAudioBase(i As Long) As Long
-    If (i > UBound(mPricesAudio)) Or (i = 0) Then
+Public Function GetPricesAudioBase(I As Long) As Long
+    If (I > UBound(mPricesAudio)) Or (I = 0) Then
         GetPricesAudioBase = 0
         Exit Function
     End If
     
-    GetPricesAudioBase = mPricesAudio(i)
+    GetPricesAudioBase = mPricesAudio(I)
 End Function
 
-Public Function KillPricesAudioBase(i As Long) As Long
-    If (i > UBound(mPricesAudio)) Or (i = 0) Then
+Public Function KillPricesAudioBase(I As Long) As Long
+    If (I > UBound(mPricesAudio)) Or (I = 0) Then
         KillPricesAudioBase = -1
         Exit Function
     End If
     
-    mPricesAudio(i) = 0
+    mPricesAudio(I) = 0
     KillPricesAudioBase = 0
     
     CarritoChange = True
 End Function
 
-Public Function KillPricesVideoBase(i As Long) As Long
-    If (i > UBound(mPricesVideo)) Or (i = 0) Then
+Public Function KillPricesVideoBase(I As Long) As Long
+    If (I > UBound(mPricesVideo)) Or (I = 0) Then
         KillPricesVideoBase = -1
         Exit Function
     End If
     
-    mPricesVideo(i) = 0
+    mPricesVideo(I) = 0
     KillPricesVideoBase = 0
     
     CarritoChange = True
@@ -541,13 +541,13 @@ End Function
 
 
 
-Public Function GetPricesVideoBase(i As Long) As Long
-    If (i > UBound(mPricesVideo)) Or (i = 0) Then
+Public Function GetPricesVideoBase(I As Long) As Long
+    If (I > UBound(mPricesVideo)) Or (I = 0) Then
         GetPricesVideoBase = 0
         Exit Function
     End If
     
-    GetPricesVideoBase = mPricesVideo(i)
+    GetPricesVideoBase = mPricesVideo(I)
 End Function
 
 Public Function GetTotalPricesAudio() As Long
@@ -558,28 +558,28 @@ Public Function GetTotalPricesVideo() As Long
     GetTotalPricesVideo = UBound(mPricesVideo)
 End Function
 
-Public Function GetElementFull(i As Long) As String
-    If (i > UBound(mListaMMFull)) Or (i = 0) Then
+Public Function GetElementFull(I As Long) As String
+    If (I > UBound(mListaMMFull)) Or (I = 0) Then
         GetElementFull = ""
         Exit Function
     End If
     
-    GetElementFull = mListaMMFull(i)
+    GetElementFull = mListaMMFull(I)
 End Function
 
 
-Public Function GetElementPath(i As Long) As String
-    If (i > UBound(mListaMM)) Or (i = 0) Then
+Public Function GetElementPath(I As Long) As String
+    If (I > UBound(mListaMM)) Or (I = 0) Then
         GetElementPath = ""
         Exit Function
     End If
     
     'ver si es una cancion o una carpeta
     Dim T As String
-    If Right(mListaMM(i), 1) = "\" Then
-        T = mListaMM(i)
+    If Right(mListaMM(I), 1) = "\" Then
+        T = mListaMM(I)
     Else
-        T = fso.GetParentFolderName(mListaMM(i))
+        T = fso.GetParentFolderName(mListaMM(I))
     End If
     
     If Right(T, 1) <> "\" Then T = T + "\"
@@ -587,14 +587,14 @@ Public Function GetElementPath(i As Long) As String
     GetElementPath = T
 End Function
 
-Public Function GetElementFullListPath(i As Long) As String
-    If (i > UBound(mListaMMFull)) Or (i = 0) Then
+Public Function GetElementFullListPath(I As Long) As String
+    If (I > UBound(mListaMMFull)) Or (I = 0) Then
         GetElementFullListPath = ""
         Exit Function
     End If
     
     'es una cancion si o si
-    T = fso.GetParentFolderName(mListaMMFull(i))
+    T = fso.GetParentFolderName(mListaMMFull(I))
     
     If Right(T, 1) <> "\" Then T = T + "\"
     
@@ -622,8 +622,8 @@ Public Function GetTotalMB() As Single
     End If
 End Function
 
-Public Function GetElementName(i As Long) As String
-    If (i > UBound(mListaMM)) Or (i = 0) Then
+Public Function GetElementName(I As Long) As String
+    If (I > UBound(mListaMM)) Or (I = 0) Then
         GetElementName = ""
         Exit Function
     End If
@@ -631,13 +631,13 @@ Public Function GetElementName(i As Long) As String
     Dim T As String, T2 As String
     
     'ver si es una cancion o una carpeta
-    If Right(mListaMM(i), 1) = "\" Then
+    If Right(mListaMM(I), 1) = "\" Then
         'rrrrrrrr nueva traducion
-        T = TR.Trad("Disco completo:%99%") + " " + fso.GetBaseName(mListaMM(i))
+        T = TR.Trad("Disco completo:%99%") + " " + fso.GetBaseName(mListaMM(I))
         GetElementName = T
     Else
-        T = fso.GetBaseName(fso.GetParentFolderName(mListaMM(i)))
-        T2 = fso.GetBaseName(mListaMM(i))
+        T = fso.GetBaseName(fso.GetParentFolderName(mListaMM(I)))
+        T2 = fso.GetBaseName(mListaMM(I))
         GetElementName = T2 + " / " + T
     End If
 End Function

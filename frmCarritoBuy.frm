@@ -273,6 +273,10 @@ End Sub
 Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
     tERR.Anotar "daaz", KeyCode, Chr(KeyCode)
     Select Case KeyCode
+        Case TeclaOK
+            If TeclaOK <> 13 And TeclaOK <> 108 Then
+                SendKeys "{ENTER}"
+            End If
         Case TeclaDER: SendKeys "{TAB}"
         Case TeclaIZQ: SendKeys "+{TAB}"
         Case TeclaPagAd: SendKeys "{TAB}"

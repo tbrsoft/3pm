@@ -329,56 +329,56 @@ Private Sub cmbSK_Click()
         Exit Sub
     End If
     'mostrar cada una de las imagenes donde corresponde!
-    IMF = ExtraData.GetImagePath("vumetroapagado")
+    IMF = ExtraData.getDef.getImagePath("vumetroapagado")
     imgVUMSel.Picture = LoadPicture(IMF)
     imgVumSel2.Picture = LoadPicture(IMF)
     
-    IMF = ExtraData.GetImagePath("MarcoFondodelosdiscos")
+    IMF = ExtraData.getDef.getImagePath("MarcoFondodelosdiscos")
     imgMarco.PaintPicture LoadPicture(IMF), 0, 0, imgMarco.Width, imgMarco.Height
     
-    IMF = ExtraData.GetImagePath("FondoDeLasTapas")
+    IMF = ExtraData.getDef.getImagePath("FondoDeLasTapas")
     imgFONDO.PaintPicture LoadPicture(IMF), 0, 0, imgFONDO.Width, imgFONDO.Height
     
-    IMF = ExtraData.GetImagePath("marcodiscocomun")
+    IMF = ExtraData.getDef.getImagePath("marcodiscocomun")
     imgTapaSel.Picture = LoadPicture(IMF)
     ii3.Picture = imgTapaSel.Picture
     ii4.Picture = imgTapaSel.Picture
     ii5.Picture = imgTapaSel.Picture
     ii6.Picture = imgTapaSel.Picture
     
-    IMF = ExtraData.GetImagePath("marcodiscoelegido")
+    IMF = ExtraData.getDef.getImagePath("marcodiscoelegido")
     imgTapaSel2.Picture = LoadPicture(IMF)
     
-    IMF = ExtraData.GetImagePath("touchizqnormal")
-    'imF = ExtraData.GetImagePath("touchiapretado")
+    IMF = ExtraData.getDef.getImagePath("touchizqnormal")
+    'imF = ExtraData.getDef.GetImagePath("touchiapretado")
     imgTouchSel.Picture = LoadPicture(IMF)
     
-    IMF = ExtraData.GetImagePath("touchderechanormal")
-    'imF = ExtraData.GetImagePath("touchderechaapretado")
+    IMF = ExtraData.getDef.getImagePath("touchderechanormal")
+    'imF = ExtraData.getDef.GetImagePath("touchderechaapretado")
     imgTouchSel2.Picture = LoadPicture(IMF)
     
     'ver si es superlicencia y usa otra tapa predeterminada
-    If K.LICENCIA("3pm") = HSuperLicencia Then
+    If K.sabseee("3pm") = Supsabseee Then
         If fso.FileExists(GPF("tddp323")) Then
             IMF = GPF("tddp323")
         Else
-            IMF = ExtraData.GetImagePath("taparanking")
+            IMF = ExtraData.getDef.getImagePath("taparanking")
         End If
     Else
-        IMF = ExtraData.GetImagePath("taparanking")
+        IMF = ExtraData.getDef.getImagePath("taparanking")
     End If
     
     imgDISC(0).Picture = LoadPicture(IMF)
     
     'ver si es superlicencia y usa otra tapa predeterminada
-    If K.LICENCIA("3pm") = HSuperLicencia Then
+    If K.sabseee("3pm") = Supsabseee Then
         If fso.FileExists(GPF("tddp322")) Then
             IMF = GPF("tddp322")
         Else
-            IMF = ExtraData.GetImagePath("tapapredeterminada")
+            IMF = ExtraData.getDef.getImagePath("tapapredeterminada")
         End If
     Else
-        IMF = ExtraData.GetImagePath("tapapredeterminada")
+        IMF = ExtraData.getDef.getImagePath("tapapredeterminada")
     End If
     
     imgDISC(1).Picture = LoadPicture(IMF)
@@ -649,65 +649,65 @@ Private Sub Timer1_Timer()
     Select Case F2
         Case 0
             'mostrar cada una de las imagenes donde corresponde!
-            IMF = ExtraData.GetImagePath("vumetroapagado")
+            IMF = ExtraData.getDef.getImagePath("vumetroapagado")
             imgVUMSel.Picture = LoadPicture(IMF)
             imgVumSel2.Picture = LoadPicture(IMF)
             
-            IMF = ExtraData.GetImagePath("touchizqnormal")
+            IMF = ExtraData.getDef.getImagePath("touchizqnormal")
             imgTouchSel.Picture = LoadPicture(IMF)
             
-            IMF = ExtraData.GetImagePath("touchderechanormal")
+            IMF = ExtraData.getDef.getImagePath("touchderechanormal")
             imgTouchSel2.Picture = LoadPicture(IMF)
         Case 1
             'mostrar cada una de las imagenes donde corresponde!
-            IMF = ExtraData.GetImagePath("vumetroprendido")
+            IMF = ExtraData.getDef.getImagePath("vumetroprendido")
             imgVUMSel.Picture = LoadPicture(IMF)
             imgVumSel2.Picture = LoadPicture(IMF)
             
-            IMF = ExtraData.GetImagePath("touchizqapretado")
+            IMF = ExtraData.getDef.getImagePath("touchizqapretado")
             imgTouchSel.Picture = LoadPicture(IMF)
             
-            IMF = ExtraData.GetImagePath("touchderechaapretado")
+            IMF = ExtraData.getDef.getImagePath("touchderechaapretado")
             imgTouchSel2.Picture = LoadPicture(IMF)
         Case 2
             'mostrar cada una de las imagenes donde corresponde!
-            IMF = ExtraData.GetImagePath("vumetroapagado")
+            IMF = ExtraData.getDef.getImagePath("vumetroapagado")
             imgVUMSel.Picture = LoadPicture(IMF)
             imgVumSel2.Picture = LoadPicture(IMF)
             
-            IMF = ExtraData.GetImagePath("touchizqapretado")
+            IMF = ExtraData.getDef.getImagePath("touchizqapretado")
             imgTouchSel.Picture = LoadPicture(IMF)
             
-            IMF = ExtraData.GetImagePath("touchderechaapretado")
+            IMF = ExtraData.getDef.getImagePath("touchderechaapretado")
             imgTouchSel2.Picture = LoadPicture(IMF)
         Case 3
             'mostrar cada una de las imagenes donde corresponde!
-            IMF = ExtraData.GetImagePath("vumetroprendido")
+            IMF = ExtraData.getDef.getImagePath("vumetroprendido")
             imgVUMSel.Picture = LoadPicture(IMF)
             imgVumSel2.Picture = LoadPicture(IMF)
             
-            IMF = ExtraData.GetImagePath("touchizqapretado")
+            IMF = ExtraData.getDef.getImagePath("touchizqapretado")
             imgTouchSel.Picture = LoadPicture(IMF)
             
-            IMF = ExtraData.GetImagePath("touchderechanormal")
+            IMF = ExtraData.getDef.getImagePath("touchderechanormal")
             imgTouchSel2.Picture = LoadPicture(IMF)
         Case 4
-            IMF = ExtraData.GetImagePath("touchizqnormal")
+            IMF = ExtraData.getDef.getImagePath("touchizqnormal")
             imgTouchSel.Picture = LoadPicture(IMF)
             
-            IMF = ExtraData.GetImagePath("touchderechaapretado")
+            IMF = ExtraData.getDef.getImagePath("touchderechaapretado")
             imgTouchSel2.Picture = LoadPicture(IMF)
             
         Case 5
-            IMF = ExtraData.GetImagePath("touchderechanormal")
+            IMF = ExtraData.getDef.getImagePath("touchderechanormal")
             imgTouchSel2.Picture = LoadPicture(IMF)
             
-            IMF = ExtraData.GetImagePath("touchizqapretado")
+            IMF = ExtraData.getDef.getImagePath("touchizqapretado")
             imgTouchSel.Picture = LoadPicture(IMF)
             
     End Select
     
-'    imF = ExtraData.GetImagePath("marcodiscocomun")
+'    imF = ExtraData.getDef.GetImagePath("marcodiscocomun")
 '    imgTapaSel.Picture = LoadPicture(imF)
 '    ii3.Picture = imgTapaSel.Picture
 '    ii4.Picture = imgTapaSel.Picture
@@ -715,7 +715,7 @@ Private Sub Timer1_Timer()
 '    ii6.Picture = imgTapaSel.Picture
 '    imgTapaSel2.Picture = LoadPicture(imF)
 '
-'    imF = ExtraData.GetImagePath("marcodiscoelegido")
+'    imF = ExtraData.getDef.GetImagePath("marcodiscoelegido")
 '    If F2 = 0 Then imgTapaSel2.Picture = LoadPicture(imF)
 '    If F2 = 1 Then imgTapaSel.Picture = LoadPicture(imF)
 '    If F2 = 2 Then ii3.Picture = LoadPicture(imF)

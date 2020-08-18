@@ -389,18 +389,18 @@ Private Sub Form_Load()
                         "www.%01%.com/sw/3pm" + vbCrLf + _
                         "Email: info@%01%.com" + vbCrLf + _
                         " MSN: %01%@hotmail.com%99%")
-    'Label1(6).Caption = K.LICENCIA_STR + vbCrLf + "|"
+    'Label1(6).Caption = K.sabseee_STR + vbCrLf + "|"
     Label1(6).Caption = "|" + _
-        CStr(K.LICENCIA("3pm")) + "|" + _
-        CStr(K.LICENCIA("mLicencia3PMVtaMusica")) + "|" + _
-        CStr(K.LICENCIA("mLicencia3PMOrigMusicaFTP")) + "|" + _
-        CStr(K.LICENCIA("mLicencia3PMConfigOnline")) + "|" + _
-        CStr(K.LICENCIA("mLicenciaCD001Kar")) + "|" + _
-        CStr(K.LICENCIA("mLicenciaCD002Kar")) + "|" + _
-        CStr(K.LICENCIA("mLicenciaCD003Kar")) + "|" + _
-        CStr(K.LICENCIA("mLicenciaCD004Kar")) + "|" + _
-        CStr(K.LICENCIA("mLicenciaCD005Kar")) + "|" + _
-        CStr(K.LICENCIA("mLicenciaCD006Kar")) + "|"
+        CStr(K.sabseee("3pm")) + "|" + _
+        CStr(K.sabseee("mLicencia3PMVtaMusica")) + "|" + _
+        CStr(K.sabseee("mLicencia3PMOrigMusicaFTP")) + "|" + _
+        CStr(K.sabseee("mLicencia3PMConfigOnline")) + "|" + _
+        CStr(K.sabseee("mLicenciaCD001Kar")) + "|" + _
+        CStr(K.sabseee("mLicenciaCD002Kar")) + "|" + _
+        CStr(K.sabseee("mLicenciaCD003Kar")) + "|" + _
+        CStr(K.sabseee("mLicenciaCD004Kar")) + "|" + _
+        CStr(K.sabseee("mLicenciaCD005Kar")) + "|" + _
+        CStr(K.sabseee("mLicenciaCD006Kar")) + "|"
         
     lblNP.Visible = (NP > 0)
     If NP > 0 Then lblNP.Caption = CStr(NP)
@@ -473,7 +473,7 @@ Private Sub XxBoton1_Click()
     TR.SetVars F2, "tbrSoft"
     MsgBox TR.Trad("El archivo para pedir su licencia se copio en" + vbCrLf + _
         "%01%" + vbCrLf + _
-        "Envíelo por email a info@%01%.com o utilice el software especial " + _
+        "Envíelo por email a info@%02%.com o utilice el software especial " + _
         "de envio%98%La variable 1 es un path a un archivo%99%")
     
 End Sub
@@ -501,12 +501,12 @@ Private Sub XxBoton2_Click()
     tERR.Anotar "IC10"
     K.IngresaClave "3pm", True
     
-    If K.LICENCIA("3pm") = BErronea Then
+    If K.sabseee("3pm") = BErronea Then
         MsgBox TR.Trad("La licencia no es correcta%99%")
         Exit Sub
     End If
     
-    If K.LICENCIA("3pm") = ParaOtraPC Then
+    If K.sabseee("3pm") = ParaOtraPC Then
         MsgBox TR.Trad("El archivo es una licencia pero ha sido desarrollada para " + _
             "otro equipo." + vbCrLf + _
             "Es posible tambien que esto suceda por cambios que haya realizado " + _
@@ -517,27 +517,27 @@ Private Sub XxBoton2_Click()
         Exit Sub
     End If
     
-    If K.LICENCIA("3pm") = CGratuita Then
+    If K.sabseee("3pm") = CGratuita Then
         MsgBox TR.Trad("El archivo es una licencia gratuita%99%")
     End If
         
-    If K.LICENCIA("3pm") = DMinima Then
+    If K.sabseee("3pm") = DMinima Then
         MsgBox TR.Trad("El archivo es una licencia minima%99%")
     End If
     
-    If K.LICENCIA("3pm") = EComun Then
+    If K.sabseee("3pm") = EComun Then
         MsgBox TR.Trad("El archivo es una licencia simple%99%")
     End If
     
-    If K.LICENCIA("3pm") = FPremium Then
+    If K.sabseee("3pm") = FPremium Then
         MsgBox TR.Trad("El archivo es una licencia premium%99%")
     End If
     
-    If K.LICENCIA("3pm") = GFull Then
+    If K.sabseee("3pm") = GFull Then
         MsgBox TR.Trad("El archivo es una licencia full%99%")
     End If
     
-    If K.LICENCIA("3pm") = HSuperLicencia Then
+    If K.sabseee("3pm") = Supsabseee Then
         MsgBox TR.Trad("El archivo es una SuperLicencia%99%")
     End If
     
@@ -545,7 +545,6 @@ Private Sub XxBoton2_Click()
         "usará su archivo de licencia%99%")
     
     Unload Me
-    
     YaCerrar3PM True
     
 End Sub

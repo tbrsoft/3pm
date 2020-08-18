@@ -22,6 +22,8 @@ Public Function GPF(TXT As String) As String 'GetPathFile
     Dim TMP As String
     Select Case LCase(TXT)
         Case "origs": TMP = "pindo.nga" 'lista de origenes de discos 'EX: sf+ "oddtb.jut"
+        'upmanu
+        'posibilidad de limpiarlos NO TERMINADO!!!
         Case "creditosactuales": TMP = "kund.era" 'Creditos actuales para usar 'EX: AP + "creditos.tbr"
         Case "config": TMP = "marad.ona" 'sf + "3pmcfg.tbr"
         Case "clavevalid": TMP = "cpd.dor" 'Archivo con la clave de validacion sf +"codped.cfg"
@@ -108,6 +110,13 @@ Public Function GPF(TXT As String) As String 'GetPathFile
         Case "dalivmp2": TMP = "daliv.mp2" 'archivo con las claves para validar
         Case "cart987": TMP = "cart.987"
         Case "promocart": TMP = "pcraor.mto"
+        
+        Case "acumsg0": TMP = "jumal.los" 'venta de musica
+        Case "acumsg1": TMP = "guen.w" 'venta de musica
+        Case "acumsg2": TMP = "japi.lon" 'venta de musica
+        Case "acumsg3": TMP = "buca.rest" 'venta de musica
+        Case "acumsg4": TMP = "buda.pest" 'venta de musica
+        
         Case Else: MsgBox "NO SE ENCUENTRA EL ARCHIVO:" + TXT
     End Select
     
@@ -340,25 +349,7 @@ Public Sub MostrarCursor(Mostrar As Boolean)
     
     'si estoy en el IDE NOLO HAGO!
     'necesito el mouse para depurar!
-    If LCase(AP) = "d:\dev\3pm\" Then Exit Sub
-    If LCase(AP) = "d:\dev\3pmkun~1\" Then Exit Sub
-    If LCase(AP) = "d:\dev\3pmkun~2\" Then Exit Sub
-    If LCase(AP) = "d:\dev\3pm kundera 68300\" Then Exit Sub
-    If LCase(AP) = "d:\dev\3pm kundera 69000\" Then Exit Sub
-    If LCase(AP) = "d:\dev\3pm kundera 69000\dlllistarep\" Then Exit Sub
-    If LCase(AP) = "d:\dev\3pm kundera 70000\dlllistarep\" Then Exit Sub
-    If LCase(AP) = "d:\dev\3pm kundera 70000\" Then Exit Sub
-    If LCase(AP) = "d:\dev\3pm kundera 71000\" Then Exit Sub
-    If LCase(AP) = "d:\dev\3pm kundera 71500\" Then Exit Sub
-    If LCase(AP) = "d:\dev\3pm kundera 716226\" Then Exit Sub
-    If LCase(AP) = "d:\dev\3pm kundera 718047\" Then Exit Sub
-    If LCase(AP) = "d:\dev\3pmkun~3\" Then Exit Sub
-    If LCase(AP) = "d:\dev\3pmkun~4\" Then Exit Sub
-    If LCase(AP) = "d:\dev\3pmkun~5\" Then Exit Sub
-    If LCase(AP) = "d:\dev\3pmkun~6\" Then Exit Sub
-    If LCase(AP) = "c:\windows\system32\" Then Exit Sub
-    If LCase(AP) = "D:\BUP MANUEL\3PM kundera 71500 ale\" Then Exit Sub
-    
+    If Left(LCase(AP), 10) = "d:\dev\3pm" Then Exit Sub
     
     tERR.Anotar "001-0002"
     Dim A As Long, CONT As Long 'para que no de muchas vueltas !!!
@@ -558,7 +549,7 @@ Function ObtenerDir(ruta As String) As String()
             
             frmINI.lblINI.Caption = ParaMatriz
             frmINI.lblINI.Refresh
-            frmINI.pBAR.Width = (frmINI.lblINI.Width * ContadorArch / 100) Mod frmINI.lblINI.Width
+            frmINI.PBar.Width = (frmINI.lblINI.Width * ContadorArch / 100) Mod frmINI.lblINI.Width
 NextCarp:
             
         End If
@@ -601,7 +592,7 @@ solo12: 'solo los 12 primeros
         
         frmINI.lblINI.Caption = CStr(C)
         frmINI.lblINI.Refresh
-        frmINI.pBAR.Width = (frmINI.lblINI.Width * mtx / 100) Mod frmINI.lblINI.Width
+        frmINI.PBar.Width = (frmINI.lblINI.Width * mtx / 100) Mod frmINI.lblINI.Width
         
         tERR.Anotar "001-0079"
         Resultado(ubicMIN) = "zzzzzzzzzz," + Resultado(ubicMIN)
@@ -956,7 +947,7 @@ Private Sub DuplicarDirArbolSub(origen As folder, destino As folder)
     For Each CarpOrigen In origen.SubFolders
         ' copiar esta subcarpeta en la carpeta destino
         tERR.Anotar "001-0184"
-            Set CarpDest = destino.SubFolders.add(CarpOrigen.name)
+            Set CarpDest = destino.SubFolders.Add(CarpOrigen.Name)
         ' repetir el proceso recursivamente para todas las
         ' subcarpetas de la carpeta considerada
         tERR.Anotar "001-0185"
@@ -1068,11 +1059,20 @@ End Function
 Public Sub EscribirArch1Linea(Arch As String, TXT As String)
     tERR.Anotar "001-0211"
     Set TE = fso.CreateTextFile(Arch, True)
-    tERR.Anotar "001-0212"
-    TE.WriteLine TXT
-    tERR.Anotar "001-0213"
+        tERR.Anotar "001-0212"
+        TE.WriteLine TXT
+        tERR.Anotar "001-0213"
     TE.Close
 End Sub
+
+Public Sub EscribirArch1Linea2(Arch As String, TXT As String)
+    tERR.Anotar "001-0211v", Arch
+    Set TE = fso.CreateTextFile(Arch, True)
+        TE.Write TXT
+    TE.Close
+    tERR.Anotar "001-0213v"
+End Sub
+
 
 Public Function ObtenerRankComoMM(Optional MaxTop As Long = 15) As String()
 

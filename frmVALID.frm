@@ -518,7 +518,7 @@ Private Sub XxBoton1_Click()
         Exit Sub
     End If
     
-    Dim T1 As Long, T2 As Long
+    Dim t1 As Long, T2 As Long
     
     Dim Te444 As TextStream
     'Dim TeTest As TextStream

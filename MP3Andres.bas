@@ -9,12 +9,14 @@ Public CONTADOR2_Cart As Long
 Public EsVideo As Boolean 'saber si el tema en ejecucion es video
 Public EsKar As Boolean
 
-Public Function TrataEjecutarTema(TEMA As String) As Long
+Public Function TrataEjecutarTema(TEMA As String, Optional ToVIP As Boolean = False) As Long
     
     'devuelve 0 si todo ok
-    '1 no alcanza el credito
+    ' 1 no alcanza el credito (puede ser tambien para VIP)
     '-1 no llega por error!
-    '2 ya esta ejecutando
+    ' 2 ya esta ejecutando
+    ' 3 si sigue un video
+    
     
     On Local Error GoTo ErrTrata
     
@@ -41,46 +43,121 @@ Public Function TrataEjecutarTema(TEMA As String) As Long
         End If
     End If
     '--------------------------------------------------------------
+    
+    If ToVIP And (CREDITOS < PrecNowVIP) Then
+        TrataEjecutarTema = 1 'no alcanza el credito para tema VIP
+        VerSiTocaPUB
+        Exit Function
+    End If
+    
     If (PideVideo = False And CREDITOS < PrecNowAudio) Or _
         (PideVideo And CREDITOS < PrecNowVideo) Then
         
         TrataEjecutarTema = 1 'no alcanza el credito
-    Else
+        
+        VerSiTocaPUB
+        
+        Exit Function
+    End If
     '--------------------------------------------------------------
-        'siempre que se ejecute un credito estaremos por debajo de maximo
-        SetKeyState vbKeyScrollLock, True
-        
-        'restar lo que corresponde!!!
-        If PideVideo Then
-            VarCreditos -PrecNowVideo
+    'siempre que se ejecute un credito estaremos por debajo de maximo
+    SetKeyState vbKeyScrollLock, True
+    
+    'registrar gasto de plata del usuario!
+    Dim YU As Long, DTaa As String
+    DTaa = CStr(Year(Date)) + STRceros(Month(Date), 2) + STRceros(Day(Date), 2) + STRceros(Hour(time), 2) + STRceros(Minute(time), 2)
+    
+    
+    'restar lo que corresponde!!!
+    'tener en cuenta lo vip !!!
+    
+    If PideVideo Then
+        If ToVIP Then
+            VarCreditos -PrecNowVIP
+            dwqu _
+                "E" + TEMA + "*" + CStr(Round(PrecNowVIP * (PrecioBase / TemasPorCredito), 2)), _
+                dwQU_See, _
+                DTaa
+            
+            
         Else
-            VarCreditos -PrecNowAudio
+            VarCreditos -PrecNowVideo
+            dwqu _
+                "E" + TEMA + "*" + CStr(Round(PrecNowVideo * (PrecioBase / TemasPorCredito), 2)), _
+                dwQU_See, _
+                DTaa
         End If
-        
-        tERR.Anotar "accy"
-        'si esta ejecutando pasa a la lista de reproducción
+    Else
+        If ToVIP Then
+            VarCreditos -PrecNowVIP
+            dwqu _
+                "E" + TEMA + "*" + CStr(Round(PrecNowVIP * (PrecioBase / TemasPorCredito), 2)), _
+                dwQU_See, _
+                DTaa
+            
+            
+        Else
+    
+            VarCreditos -PrecNowAudio
+            dwqu _
+                "E" + TEMA + "*" + CStr(Round(PrecNowAudio * (PrecioBase / TemasPorCredito), 2)), _
+                dwQU_See, _
+                DTaa
+        End If
+    End If
+
+    tERR.Anotar "accy"
+    'si esta ejecutando pasa a la lista de reproducción
 Parte444:
-        If frmIndex.MP3.IsPlaying(0) Or frmIndex.MP3.IsPlaying(1) Or frmIndex.MP3.IsPlaying(2) Then
+    'ver si es una cancion gratuita
+    With frmIndex.MP3
+        Dim Usado As Long, hh As Long
+        Usado = -1
+        For hh = 0 To 2
+            If .IsPlaying(hh) Then Usado = hh
+        Next hh
+        
+        If Usado <> -1 Then 'quiere decir que algo se esta ejecutando
             TrataEjecutarTema = 2
             'pasar a la lista de reproducción
-            tLST.ListaAdd TEMA
+            'el segundo parametro es un tag por ejemplo "PUB" pero en genral para temas comunes es ""
+            'el tercer parametro es -1 predeterminado al ultimo de la lista
+            ' o puede ser cero para que se ejecute iaaa (NO FUNCIONA AUN VER DLLListaRep
+            ' o 1 para proximo, 2 para segundo, 3 para tercero, etc, etc
+            If ToVIP Then
+                tLST.ListaAdd TEMA, "", 1
+            Else
+                tLST.ListaAdd TEMA
+            End If
+            
             tERR.Anotar "accz", TEMA, tLST.GetLastIndex
             CargarProximosTemas
             'graba en reini.tbr los datos que correspondan por si se corta la luz
             CargarArchReini UCase(ReINI) 'POR LAS DUDAS que no este en mayusculas
+            'si esta en uno gratis tengo que sacarlo y seguir
+            If .EsGratis(Usado) Then
+                If PideVideo Then TrataEjecutarTema = 3 'especial por si es un video
+                EMPEZAR_SIGUIENTE 2
+            End If
+            
         Else
             TrataEjecutarTema = 0 'se larga ya
             If PideVideo Then TrataEjecutarTema = 3 'especial por si es un video
             'NUNCA ENTRARA AQUI si esta en modo de video para los otros si sirve!
             tERR.Anotar "acdc", TEMA
+            frmIndex.MP3.EsGratis(IAANext) = False
             CORTAR_TEMA(IAANext) = False 'este tema va entero ya que lo eligio el usuario
             EjecutarTema TEMA, True
         End If
-    End If
+    
+    End With
     
 FIN443:
     'dejar programada un publicidad si corresponde!
     VerSiTocaPUB
+
+    'estaria bueno que avise que salio como VIP
+    'If ToVIP Then frmIndex.lblNOCREDIT.Caption = "Cancion VIP elegida !"
 
     Exit Function
 
@@ -152,7 +229,7 @@ Public Sub EjecutarTema(TEMA As String, ByRef SumaRanking As Boolean)
     If fso.FileExists(PL) Then
         TR.SetVars _
             fso.GetBaseName(p1), _
-            fso.GetFolder(fso.GetParentFolderName(p1)).name
+            fso.GetFolder(fso.GetParentFolderName(p1)).Name
             
         frmIndex.RollSONG.ReplaceIndex 2, TR.Trad("el mas escuchado" + vbCrLf + _
                                       "%01%" + vbCrLf + _
@@ -227,8 +304,13 @@ Public Sub EjecutarTema(TEMA As String, ByRef SumaRanking As Boolean)
         'acomodar los controles en modo normal
         frmIndex.UpdateVista 'empieza una cancion comun
         
+        'los karaokes son indice de reproductor 2
+        'esto esta mal !
+        'por las dudas agrego otro picVideo y listo!
+        
         frmIndex.picVideo(IAANext).Visible = False
         frmIndex.picVideo(IAA).Visible = False
+        
         frmIndex.picKAR.Visible = False
         frmVIDEO.picKAR_V.Visible = False
         tERR.Anotar "003-0036"
@@ -534,6 +616,7 @@ Public Function EMPEZAR_SIGUIENTE(DesdeDonde As Long) As Long
             End If
             
             tERR.Anotar "003-0063"
+            frmIndex.MP3.EsGratis(IAANext) = False
             CORTAR_TEMA(IAANext) = False 'este tema va entero ya que lo eligio el usuario
             tERR.Anotar "003-0064"
             '*******************************

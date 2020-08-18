@@ -196,7 +196,7 @@ Public Sub Save(I As Long)
     mxGra = Int(Rnd * 5) + 5
     If Carrito.GetFileCantFull > mxGra Then
         Dim RDS As TypeLic
-        RDS = K.LICENCIA("mLicencia3PMVtaMusica")
+        RDS = K.sabseee("mLicencia3PMVtaMusica")
         If RDS < DMinima Then
             SW.ShowWait TR.Trad("Sin Licencia de carro de compras!%99%"), 3500
             SW.ShowWait ""
@@ -247,7 +247,21 @@ Public Sub Save(I As Long)
         If H = 1 Then
             VarCreditos -Carrito.CalculateTotalPrice
             'sumo al contador de creditos de carrito lo que se gasto
-            SumarContadorCreditos Carrito.CalculateTotalPrice
+            SumarContadorCarrito Carrito.CalculateTotalPrice
+            'indicar cuanta plata entro en esta fonola en concepto de compra de música
+            Dim YU As Long, DTaa As String
+            DTaa = CStr(Year(Date)) + STRceros(Month(Date), 2) + STRceros(Day(Date), 2) + STRceros(Hour(time), 2) + STRceros(Minute(time), 2)
+            
+            'grabar un registro de todo lo que se compro para control.
+            Dim PrecioCU As Single 'precio de cada cancion
+            PrecioCU = (Carrito.CalculateTotalPrice * (PrecioBase / TemasPorCredito))
+            PrecioCU = Round(PrecioCU / Carrito.GetFileCantFull, 2)
+            For YU = 1 To Carrito.GetFileCantFull
+                'tERR.Anotar "A198|B" + Carrito.GetElementFull(YU)
+                'grabar en un registro de aca
+                dwqu "U" + Carrito.GetElementFull(YU) + "*" + CStr(PrecioCU), dwQU_See, DTaa
+            Next
+            
         End If
         
         MBxSec = Round(Copiado / sTimeCopy, 6)

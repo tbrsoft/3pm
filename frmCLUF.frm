@@ -71,6 +71,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     Select Case KeyCode
         
         Case TeclaCerrarSistema
+            Unload Me
             YaCerrar3PM
     End Select
 End Sub

@@ -21,11 +21,11 @@ Begin VB.UserControl txtRolling
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H0000FFFF&
+      ForeColor       =   &H00A9C8C9&
       Height          =   630
       Left            =   930
       TabIndex        =   0
-      Top             =   540
+      Top             =   510
       Width           =   2865
    End
 End
@@ -68,14 +68,15 @@ Public Sub TextoACola(sTXT As String, lColor As OLE_COLOR)
     sTXT = CortarTextos(sTXT)
 
     'ver si el el primero de los primeros
-    Dim UB As Long
-    UB = UBound(Textos) + 1
-    If UB = 1 And Textos(0) = "" Then
+    Dim mUB As Long
+    mUB = UBound(Textos) + 1
+    If mUB = 1 And Textos(0) = "" Then
         'voy a escribir en el primero!
         Textos(0) = sTXT
     Else
-        ReDim Preserve Textos(UB): Textos(UB) = sTXT
-        ReDim Preserve mForeColor1(UB): mForeColor1(UB) = lColor
+        ReDim Preserve Textos(mUB): Textos(mUB) = sTXT
+        'meto color de pecho
+        ReDim Preserve mForeColor1(mUB): mForeColor1(mUB) = lColor
     End If
 End Sub
 
@@ -200,10 +201,10 @@ End Sub
 Private Sub UserControl_Initialize()
     'valores predeterminados
     mFont.Bold = True
-    mFont.name = "Tahoma"
+    mFont.Name = "Tahoma"
     mFont.Size = 8
     ReDim mForeColor1(0)
-    mForeColor1(0) = vbYellow
+    mForeColor1(0) = &HA9C8C9
     mVarColor = 10
     mInterval = 70
     Set TimerMR = New tbrTimer.clsTimer
@@ -234,25 +235,25 @@ Public Sub ReplaceIndex(I As Long, newText As String)
     Textos(I) = newText
 End Sub
 
-Private Function CortarTextos(T1 As String) As String
+Private Function CortarTextos(t1 As String) As String
     'es encesario ver que todos los renglones tengan un maximo X de caracteres si fuera necesario
     'segun la ubicación del objeto
     
-    If T1 = "" Then
-        CortarTextos = T1
+    If t1 = "" Then
+        CortarTextos = t1
         Exit Function
     End If
     
     Dim TMP As String
     
-    TMP = T1
+    TMP = t1
     'si es cero no queria nada
     If mMaxlargoRenglon = 0 Then Exit Function
     
     Dim MatrizFinal() As String, C As Long
     C = 0
     Dim SP() As String
-    SP = Split(T1, vbCrLf)
+    SP = Split(t1, vbCrLf)
     Dim A As Long
     For A = 0 To UBound(SP)
         If Len(SP(A)) > mMaxlargoRenglon Then

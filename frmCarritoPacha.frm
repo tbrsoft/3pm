@@ -172,7 +172,7 @@ Private Sub btBuy_Click(Index As Integer)
     
         'quiere buscar bluetooth
         tERR.Anotar "BT_INQ_222"
-        BTM.inquiereDev
+        BTM.inquiryDev
         tERR.Anotar "casa"
         Dim SecPas2 As Long, lastSP2 As Long
         KK2 = Timer
@@ -187,7 +187,7 @@ Private Sub btBuy_Click(Index As Integer)
                 tERR.Anotar "casb", SecPas2
                 Dim MT As Long
                 Randomize
-                MT = Int(Rnd * 3) + 1
+                MT = Int(Rnd * 6) + 1
                 AcumAzar = AcumAzar + (MT)
                 SW.ShowWait "Buscando dispositivos Bluetooth", , (AcumAzar Mod 100)
                     
@@ -266,6 +266,10 @@ End Sub
 Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
     tERR.Anotar "daaz", KeyCode, Chr(KeyCode)
     Select Case KeyCode
+        Case TeclaOK
+            If TeclaOK <> 13 And TeclaOK <> 108 Then
+                SendKeys "{ENTER}"
+            End If
         Case TeclaDER: SendKeys "{TAB}"
         Case TeclaIZQ: SendKeys "+{TAB}"
         Case TeclaPagAd: SendKeys "{TAB}"
@@ -383,7 +387,7 @@ Private Sub UpdateDrives()
                     "Tiene " + CStr(UB.GetFreeMB(H)) + " MB libres"
                 
                 btBuy(H).Tag = "USB"
-                
+     
                 btBuy(H).Visible = True
                 btBuy(H).TabIndex = btBuy(H - 1).TabIndex + 1
                 
@@ -420,9 +424,9 @@ Private Sub UpdateDrives()
                 End If
                 tERR.Anotar "xsah4", btBuy(H).Top
                 
-                tERR.Anotar "xsai", CBT.name, CBT.getAddress
+                tERR.Anotar "xsai", CBT.Name, CBT.getAddress
                 btBuy(H).Caption = "Comprar en Bluetooth: " + vbCrLf + _
-                    CBT.name + " (" + CBT.getAddress + ")"
+                    CBT.Name + " (" + CBT.getAddress + ")"
                     
                 btBuy(H).Tag = "BT " + CBT.getAddress 'PARA PODER USARLO
                 
@@ -449,6 +453,8 @@ Private Sub UpdateDrives()
         End If
         btBuy(0).Visible = True
     End If
+    
+    Acomodar
 End Sub
 
 Private Sub UnloadBtBuy()

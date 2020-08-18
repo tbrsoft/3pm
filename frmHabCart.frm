@@ -148,6 +148,7 @@ Private Sub fBoton1_Click()
     'crear uno para
     Dim nFOt2 As New tbrDATA.clsTODO
     'asegurarse que vaya con el noombre que tiene que ir!!!
+    nFOt2.SetLog AP + "kc3.log"
     nFOt2.SetSF "mLicencia3PMVtaMusica" 'nuevo agosto 2007 para no mezclar con karaokes ni con programas de artime y manu
     nFOt2.DoNow F2
     
@@ -180,7 +181,7 @@ Private Sub fBoton2_Click()
     tERR.Anotar "IC10kar2"
     K.IngresaClave PARA, True
     
-    If K.LICENCIA("mLicencia3PMVtaMusica") >= GFull Then
+    If K.sabseee("mLicencia3PMVtaMusica") >= GFull Then
         MsgBox TR.Trad("Se cargo la licencia del carro de ventas sin problemas%99%")
     Else
         MsgBox TR.Trad("No se cargo la licencia contacte a tbrSoft%99%")
@@ -195,12 +196,12 @@ Private Sub Form_Load()
     Pintar_fBoton Me
     
     Dim RDS As TypeLic
-    RDS = K.LICENCIA("mLicencia3PMVtaMusica")
+    RDS = K.sabseee("mLicencia3PMVtaMusica")
     If RDS <= aSinCargar Then Label1.Caption = "Sin licencia para venta de música cargada"
     If RDS = BErronea Then Label1.Caption = "Licencia para venta de música errónea o no válida"
     If RDS = CGratuita Then Label1.Caption = "Licencia gratuita para venta de música cargada"
-    If RDS > CGratuita And RDS < HSuperLicencia Then Label1.Caption = "Licencia simple para venta de música cargada"
-    If RDS = HSuperLicencia Then Label1.Caption = "SuperLicencia para venta de música cargada"
+    If RDS > CGratuita And RDS < Supsabseee Then Label1.Caption = "Licencia simple para venta de música cargada"
+    If RDS = Supsabseee Then Label1.Caption = "SuperLicencia para venta de música cargada"
     
 End Sub
 

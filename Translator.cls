@@ -40,9 +40,9 @@ Public Property Get Languages() As String()
     
     Set fso = CreateObject("scripting.filesystemobject")
     Set folder = fso.GetFolder(App.path + "\idiomas")
-    Dim f
-    For Each f In folder.Files
-        aux = aux + Left(f.Name, Len(f.Name) - 4) + "*"
+    Dim F
+    For Each F In folder.Files
+        aux = aux + Left(F.Name, Len(F.Name) - 4) + "*"
     Next
     Languages = Split(Left(aux, Len(aux) - 1), "*")
 End Property
@@ -78,7 +78,7 @@ Attribute Trad.VB_MemberFlags = "200"
     tERR.Anotar "ACNC20", pSPA
     If pSPA <> "" Then
         Dim RealText As String, Ayuda As String
-        Dim TMP() As String, B As Long, c As Long
+        Dim TMP() As String, B As Long, C As Long
         Dim par() As String
 '        If InStr(pSPA, "1 can") <> 0 Then
 '            C = 1
@@ -141,9 +141,9 @@ Private Function LoadDictionary(pLanguage As String) As Long
     
     aux = Split(S, Chr$(30))
     vDictionary.RemoveAll
-    For i = 0 To UBound(aux)
-        If aux(i) <> "" Then
-            par = Split(aux(i), Chr$(31))
+    For I = 0 To UBound(aux)
+        If aux(I) <> "" Then
+            par = Split(aux(I), Chr$(31))
             If vDictionary.Exists(par(0)) = False Then vDictionary.Add par(0), par(1)
         End If
     Next
@@ -158,16 +158,16 @@ End Function
 
 Private Function LeerArchivo(path As String) As String
     Dim fso 'As FileSystemObject
-    Dim f
+    Dim F
         
     Dim S As String
     Set fso = CreateObject("Scripting.FileSystemObject")
     If path = "" Then
         LeerArchivo = ""
     Else
-        Set f = fso.GetFile(path)
+        Set F = fso.GetFile(path)
     End If
-    Set ts = f.OpenAsTextStream(1)
+    Set ts = F.OpenAsTextStream(1)
     
     S = ts.ReadAll
     
